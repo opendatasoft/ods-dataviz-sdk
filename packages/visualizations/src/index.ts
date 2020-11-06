@@ -5,3 +5,9 @@ function log(message: string) {
 }
 
 log('Hello');
+
+export default {
+    blocks: {
+        Test
+    }
+}

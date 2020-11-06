@@ -3,3 +3,7 @@ function log(message: string) {
 }
 
 log('Hello');
+
+export default () => {
+    return 'from sdk!';
+}

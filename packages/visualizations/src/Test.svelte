@@ -1,4 +1,6 @@
 <script lang="ts">
+    import sdk from 'ods-api-client';
+
     const world = 'world';
 
     const upperWorld = (world:string): string => {
@@ -7,5 +9,5 @@
 </script>
 
 <div>
-    Hello {upperWorld(world)}
+    Hello {upperWorld(world)}! sdk? {sdk()}
 </div>
