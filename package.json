@@ -5,12 +5,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "watch": "lerna run watch --parallel",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "ods-api-client": "file:packages/api-client",
-    "visualizations": "file:packages/visualizations"
+  "devDependencies": {
+    "lerna": "^3.22.1"
   }
 }

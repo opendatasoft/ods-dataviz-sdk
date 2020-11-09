@@ -1,5 +1,5 @@
 <script lang="ts">
-    import sdk from 'ods-api-client';
+    import sdk from '@opendatasoft/api-client';
 
     const world = 'world';
 

@@ -7,18 +7,15 @@ This project is a development root for two packages:
 It contains setup instructions, tools and scripts that can be useful if you need to work on both packages at the same time.
 
 ### Setup
-Install both sub packages, linking locally beforehand if necessary
+Install the necessary tools for this monorepo:
 ```
-cd packages/api-client
-npm install
-
-cd ../visualizations
-npm install ../api-client --no-save
 npm install
 ```
 
-Then install the root package:
+Then bootstrap all the packages:
 ```
-cd ../..
-npm install
+npm run bootstrap
 ```
+
+### Developer
+To watch and rebuild all packages:
