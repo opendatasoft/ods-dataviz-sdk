@@ -19,3 +19,6 @@ npm run bootstrap
 
 ### Developer
 To watch and rebuild all packages:
+```
+npm run watch
+```
