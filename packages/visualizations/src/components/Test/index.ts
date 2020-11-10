@@ -1,7 +1,7 @@
 import TestImpl from './Test.svelte';
 
 class Test {
-    constructor(container, properties) {
+    constructor(container, dataProvider, properties) {
         new TestImpl({
             target: container,
             props: {}
