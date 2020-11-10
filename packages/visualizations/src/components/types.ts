@@ -1,11 +1,11 @@
 import type DataProvider from '../dataprovider';
 
-export interface ComponentProperties {
-    // TODO: Base properties
+export interface ComponentParameters {
+    // TODO: Base parameters
 }
 
 export abstract class BaseComponent {
-    constructor(protected container: any, protected dataProvider: DataProvider, properties: ComponentProperties) {}
+    constructor(protected container: any, protected dataProvider: DataProvider, parameters: ComponentParameters) {}
 
-    abstract updateProperties(newProperties: ComponentProperties): void;
+    abstract updateParameters(newParameters: ComponentParameters): void;
 }
