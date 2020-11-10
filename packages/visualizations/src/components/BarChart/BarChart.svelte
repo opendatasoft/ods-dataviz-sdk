@@ -12,7 +12,7 @@
         // Fetch
         //this.dataProvider.client
         const queryString = `select=${parameters.yAxis} as y&group_by=${parameters.xAxis} as x`;
-        const response = fetch(`/api/v2/catalog/datasets/${dataProvider.datasetId}/aggregates?${queryString}`).then(response => {
+        const response = fetch(`${dataProvider.domainId}/api/v2/catalog/datasets/${dataProvider.datasetId}/aggregates?${queryString}`).then(response => {
             response.json().then(data => {
                 console.log(data.aggregations);
                 drawChart(data.aggregations);
