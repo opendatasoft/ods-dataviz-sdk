@@ -1,4 +1,5 @@
-import Test from './Test.svelte';
+import Test from './components/Test';
+import BarChart from './components/BarChart';
 
 function log(message: string) {
     console.log(message, typeof(Test));
@@ -7,7 +8,6 @@ function log(message: string) {
 log('Hello');
 
 export default {
-    blocks: {
-        Test
-    }
+    Test,
+    BarChart,
 }
