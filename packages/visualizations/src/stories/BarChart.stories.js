@@ -8,19 +8,20 @@ export default {
 
 const Template = (args) => ({
     Component: BarChart,
-    props: args,
+    props: {
+        parameters: args,
+        dataProvider: args.dataProvider
+    }
 });
 
 const dataProvider = new DataProvider('http://builder.ods.localhost:8000', 'villes');
 
 export const Villes = Template.bind({});
-console.log('dataProvider', dataProvider)
+
 Villes.args = {
     dataProvider: dataProvider,
-    parameters: {
-        "xAxis": "departement",
-        "yAxis": "SUM(nb_habitants)"
-    }
+    xAxis: "departement",
+    yAxis: "SUM(nb_habitants)"
 }
 
 
