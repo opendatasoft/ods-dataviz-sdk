@@ -3,8 +3,8 @@
 
     Chart.register(BarController, CategoryScale, LinearScale, BarElement, Tooltip);
 
-    export let dataProvider;
-    export let parameters;
+    export let dataProvider = null;
+    export let parameters = null;
 
     let canvas;
 
@@ -47,7 +47,9 @@
         });
     }
 
-    render();
+    if (dataProvider && parameters) {
+        render();
+    }
 </script>
 
 <div>

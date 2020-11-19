@@ -11,11 +11,8 @@ const Template = (args) => ({
     props: args,
 });
 
-
 const dataProvider = new DataProvider('http://builder.ods.localhost:8000', 'villes');
-// FIXME: Why doesn't it take the properties directly?
-dataProvider.domainId = 'http://builder.ods.localhost:8000';
-dataProvider.datasetId = 'villes';
+
 export const Villes = Template.bind({});
 console.log('dataProvider', dataProvider)
 Villes.args = {
