@@ -1,7 +1,11 @@
 <script lang="ts">
     import { Chart, BarController, CategoryScale, LinearScale, BarElement, Tooltip } from 'chart.js';
     import { ColorConfigurationTypes } from './index';
-    // We need https://github.com/storybookjs/storybook/issues/12754 first
+    /* 
+    TypeScript isn't properly supported by Storybook/Svelte yet:
+    We need https://github.com/storybookjs/storybook/issues/12754 first
+    Or https://github.com/alexprey/sveltedoc-parser/issues/34 and the current workaround in .storybook/main.js
+    */
     //import type { BarChartParameters } from './index';
 
     Chart.register(BarController, CategoryScale, LinearScale, BarElement, Tooltip);
