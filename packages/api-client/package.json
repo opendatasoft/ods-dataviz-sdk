@@ -17,6 +17,7 @@
     "build": "tsdx build",
     "test": "tsdx test",
     "lint": "tsdx lint src test",
+    "lint:fix": "tsdx lint src test --fix",
     "prepare": "tsdx build",
     "size": "size-limit",
     "analyze": "size-limit --why",
@@ -26,7 +27,7 @@
   "peerDependencies": {},
   "husky": {
     "hooks": {
-      "pre-commit": "tsdx lint"
+      "pre-commit": "npm run lint"
     }
   },
   "prettier": {
@@ -52,5 +53,8 @@
     "tsdx": "^0.14.1",
     "tslib": "^2.0.3",
     "typescript": "^4.1.2"
+  },
+  "dependencies": {
+    "immutability-helper": "^3.1.1"
   }
 }
