@@ -1,5 +1,6 @@
 import Test from './components/Test';
 import BarChart from './components/BarChart';
+import Text from './components/Text';
 import DataProvider from './dataprovider';
 
 function log(message: string) {
@@ -11,5 +12,6 @@ log('Hello');
 export default {
     DataProvider,
     Test,
+    Text,
     BarChart,
 }
