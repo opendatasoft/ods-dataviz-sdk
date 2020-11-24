@@ -1,10 +1,10 @@
 {
   "name": "@opendatasoft/api-client",
-  "module": "dist/api-client.esm.js",
   "version": "0.1.0",
-  "license": "MIT",
+  "license": "ISC",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "module": "dist/api-client.esm.js",
   "files": [
     "dist",
     "src"
