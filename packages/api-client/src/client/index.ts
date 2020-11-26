@@ -42,7 +42,7 @@ export class ApiClient {
     }
 
     this.defaultConfig = buildConfig(options, {
-      baseUrl: '',
+      baseUrl: computeBaseUrl(''),
       fetch,
     });
   }
@@ -120,8 +120,10 @@ function computeBaseUrl(domain: string): string {
   let baseUrl;
   if (domain.startsWith('http://') || domain.startsWith('https://')) {
     baseUrl = domain;
-  } else {
+  } else if (domain.length > 0) {
     baseUrl = `https://${domain}.opendatasoft.com`;
+  } else {
+    baseUrl = domain;
   }
   if (!baseUrl.endsWith('/')) {
     baseUrl += '/';
