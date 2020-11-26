@@ -1,5 +1,10 @@
 import update from 'immutability-helper';
-import { AuthenticationError, NotFoundError, ServerError, UserError } from './error';
+import {
+  AuthenticationError,
+  NotFoundError,
+  ServerError,
+  UserError,
+} from './error';
 import { ApiResponse } from './types';
 
 const API_KEY_AUTH_TYPE = 'ApiKey';
