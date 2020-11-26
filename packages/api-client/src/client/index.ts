@@ -84,9 +84,7 @@ export class ApiClient {
       if (fetchResponse.status < 500) {
         throw new UserError(fetchResponse, data);
       }
-      if (fetchResponse.status >= 500) {
-        throw new ServerError(fetchResponse, data);
-      }
+      throw new ServerError(fetchResponse, data);
     }
   }
 }
@@ -125,5 +123,10 @@ function computeBaseUrl(domain: string): string {
   } else {
     baseUrl = `https://${domain}.opendatasoft.com`;
   }
+  if (!baseUrl.endsWith('/')) {
+    baseUrl += '/';
+  }
+  baseUrl += 'api/v2/';
+
   return baseUrl;
 }
