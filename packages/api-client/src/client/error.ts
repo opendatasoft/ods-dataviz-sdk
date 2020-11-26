@@ -15,4 +15,6 @@ export class UserError extends ApiError {}
 
 export class AuthenticationError extends UserError {}
 
+export class NotFoundError extends UserError {}
+
 export class ServerError extends ApiError {}

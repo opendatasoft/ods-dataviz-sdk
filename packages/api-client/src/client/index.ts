@@ -1,5 +1,5 @@
 import update from 'immutability-helper';
-import { AuthenticationError, ServerError, UserError } from './error';
+import { AuthenticationError, NotFoundError, ServerError, UserError } from './error';
 import { ApiResponse } from './types';
 
 const API_KEY_AUTH_TYPE = 'ApiKey';
@@ -80,6 +80,9 @@ export class ApiClient {
     } else {
       if (fetchResponse.status === 401) {
         throw new AuthenticationError(fetchResponse, data);
+      }
+      if (fetchResponse.status === 404) {
+        throw new NotFoundError(fetchResponse, data);
       }
       if (fetchResponse.status < 500) {
         throw new UserError(fetchResponse, data);
