@@ -1,17 +1,25 @@
 import update from 'immutability-helper';
+import { AuthenticationError, ServerError, UserError } from './error';
+import { ApiResponse } from './types';
 
-const API_KEY_PARAM = 'apiKey';
+const API_KEY_AUTH_TYPE = 'ApiKey';
 
+type RequestInterceptor = (request: Request) => Request;
+type ResponseInterceptor = (response: Response) => Response;
 export interface ApiClientOptions {
   domain?: string;
   apiKey?: string;
   fetch?: WindowOrWorkerGlobalScope['fetch'];
+  interceptRequest?: RequestInterceptor;
+  interceptResponse?: ResponseInterceptor;
 }
 
 interface ApiClientConfiguration {
-  origin: string;
+  baseUrl: string;
   apiKey?: string;
   fetch: WindowOrWorkerGlobalScope['fetch'];
+  interceptRequest?: RequestInterceptor;
+  interceptResponse?: ResponseInterceptor;
 }
 
 export class ApiClient {
@@ -21,36 +29,65 @@ export class ApiClient {
    * Constructs an instance of {@link ApiClient}
    */
   constructor(options?: ApiClientOptions) {
-    const fetch = options?.fetch || global?.fetch;
+    const fetch = options?.fetch || window?.fetch || global?.fetch;
 
     if (!fetch) {
       throw new Error(
-        'fetch was not found, try installing a polyfill in the browser or node-fetch in node js. You can pass fetch as an option to the api client'
+        'fetch() was not found, try installing a polyfill in the browser or node-fetch in nodejs. You can pass fetch as an option to the api client.'
       );
     }
 
+    if (!URL) {
+      throw new Error('URL() was not found, try installing a polyfill.');
+    }
+
     this.defaultConfig = buildConfig(options, {
-      origin: '',
+      baseUrl: '',
       fetch,
     });
   }
 
-  async get(query: string, options?: ApiClientOptions) {
+  async get(query: string, options?: ApiClientOptions): Promise<ApiResponse> {
     const config = buildConfig(options, this.defaultConfig);
 
-    let url = new URL(query, config.origin);
+    // Build the URL
+    const url = new URL(query, config.baseUrl);
+    url.searchParams.sort(); // Url stability is HTTP cache friendly
 
-    if (url.searchParams.get(API_KEY_PARAM) !== null) {
-      const apiKey = config.apiKey;
-      if (apiKey) url.searchParams.set(API_KEY_PARAM, apiKey);
+    // Build the Headers
+    const headers = new Headers();
+    headers.append('Accept', 'application/json');
+    if (config.apiKey) {
+      headers.append('Authorization', `${API_KEY_AUTH_TYPE} ${config.apiKey}`);
     }
 
-    // Stable url to be cache friendly
-    url.searchParams.sort();
+    // Build Request
+    let request = new Request(url.toJSON(), {
+      method: 'GET',
+      headers,
+      credentials: 'same-origin',
+    });
+    if (config.interceptRequest) request = config.interceptRequest(request);
 
-    const fetchResponse = await fetch(url.toString());
+    // Send request
+    let fetchResponse = await fetch(request);
+    if (config.interceptResponse)
+      fetchResponse = config.interceptResponse(fetchResponse);
+    const data = await fetchResponse.json();
 
-    return fetchResponse;
+    if (fetchResponse.ok) {
+      return data;
+    } else {
+      if (fetchResponse.status === 401) {
+        throw new AuthenticationError(fetchResponse, data);
+      }
+      if (fetchResponse.status < 500) {
+        throw new UserError(fetchResponse, data);
+      }
+      if (fetchResponse.status >= 500) {
+        throw new ServerError(fetchResponse, data);
+      }
+    }
   }
 }
 
@@ -62,23 +99,31 @@ function buildConfig(
     return defaultConfig;
   }
 
-  const { domain, fetch, apiKey } = apiClientOptions;
+  const {
+    domain,
+    fetch,
+    apiKey,
+    interceptRequest,
+    interceptResponse,
+  } = apiClientOptions;
 
   const newConfig: Partial<ApiClientConfiguration> = {};
 
-  if (domain) newConfig.origin = computeOrigin(domain);
+  if (domain) newConfig.baseUrl = computeBaseUrl(domain);
   if (apiKey) newConfig.apiKey = apiKey;
   if (fetch) newConfig.fetch = fetch;
+  if (interceptRequest) newConfig.interceptRequest = interceptRequest;
+  if (interceptResponse) newConfig.interceptResponse = interceptResponse;
 
   return update(defaultConfig, { $merge: newConfig });
 }
 
-function computeOrigin(domain: string): string {
-  let origin;
+function computeBaseUrl(domain: string): string {
+  let baseUrl;
   if (domain.startsWith('http://') || domain.startsWith('https://')) {
-    origin = domain;
+    baseUrl = domain;
   } else {
-    origin = `https://${domain}.opendatasoft.com`;
+    baseUrl = `https://${domain}.opendatasoft.com`;
   }
-  return origin;
+  return baseUrl;
 }
