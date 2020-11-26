@@ -9,8 +9,8 @@ import { ApiResponse } from './types';
 
 const API_KEY_AUTH_TYPE = 'ApiKey';
 
-type RequestInterceptor = (request: Request) => Request;
-type ResponseInterceptor = (response: Response) => Response;
+type RequestInterceptor = (request: Request) => Promise<Request>;
+type ResponseInterceptor = (response: Response) => Promise<ApiResponse>;
 export interface ApiClientOptions {
   domain?: string;
   apiKey?: string;
@@ -77,27 +77,45 @@ export class ApiClient {
       headers,
       credentials: 'same-origin',
     });
-    if (config.interceptRequest) request = config.interceptRequest(request);
+    if (config.interceptRequest)
+      request = await config.interceptRequest(request);
 
     // Send request
+    const fetch = config.fetch;
     let fetchResponse = await fetch(request);
     if (config.interceptResponse)
-      fetchResponse = config.interceptResponse(fetchResponse);
-    const data = await fetchResponse.json();
+      return await config.interceptResponse(fetchResponse);
 
     if (fetchResponse.ok) {
+      const data = await fetchResponse.json();
       return data;
     } else {
+      let errorData = undefined;
+      const response = await fetchResponse.text();
+      if (response) {
+        try {
+          errorData = JSON.parse(response);
+        } catch (e) {}
+      }
+      if (!errorData && (response || fetchResponse.statusText)) {
+        errorData = {
+          message: response || fetchResponse.statusText,
+        };
+      }
+
       if (fetchResponse.status === 401) {
-        throw new AuthenticationError(fetchResponse, data);
+        throw new AuthenticationError(
+          fetchResponse,
+          errorData || 'authentication-error'
+        );
       }
       if (fetchResponse.status === 404) {
-        throw new NotFoundError(fetchResponse, data);
+        throw new NotFoundError(fetchResponse, errorData || 'not-found');
       }
       if (fetchResponse.status < 500) {
-        throw new UserError(fetchResponse, data);
+        throw new UserError(fetchResponse, errorData || 'user-error');
       }
-      throw new ServerError(fetchResponse, data);
+      throw new ServerError(fetchResponse, errorData || 'server-error');
     }
   }
 }

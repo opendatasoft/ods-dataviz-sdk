@@ -5,7 +5,7 @@ class ApiError extends Error {
   readonly response: Response;
 
   constructor(response: Response, details: any) {
-    super(`API Error : ${JSON.stringify(details)}`);
+    super(JSON.stringify(details));
     this.details = details;
     this.response = response;
   }
