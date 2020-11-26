@@ -36,6 +36,7 @@ export interface OdsRecord {
 }
 
 export interface ApiResponse {
+  total_count?: number;
   links?: Link[];
   aggregations?: any[];
   facets?: Facet[];
