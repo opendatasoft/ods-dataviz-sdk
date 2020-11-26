@@ -46,8 +46,13 @@ export class ApiClient {
       throw new Error('URL() was not found, try installing a polyfill.');
     }
 
+    const domain = options?.domain || window?.location.origin;
+    if (!domain) {
+      throw new Error('Missing domain');
+    }
+
     this.defaultConfig = buildConfig(options, {
-      baseUrl: computeBaseUrl(''),
+      baseUrl: computeBaseUrl(domain),
       fetch,
     });
   }
@@ -128,10 +133,8 @@ function computeBaseUrl(domain: string): string {
   let baseUrl;
   if (domain.startsWith('http://') || domain.startsWith('https://')) {
     baseUrl = domain;
-  } else if (domain.length > 0) {
-    baseUrl = `https://${domain}.opendatasoft.com`;
   } else {
-    baseUrl = domain;
+    baseUrl = `https://${domain}.opendatasoft.com`;
   }
   if (!baseUrl.endsWith('/')) {
     baseUrl += '/';
