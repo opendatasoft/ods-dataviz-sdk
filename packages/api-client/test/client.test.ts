@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { enableFetchMocks } from 'jest-fetch-mock';
 import { ApiClient } from '../src';
 import { expect, it, beforeEach } from '@jest/globals';
@@ -9,7 +13,7 @@ beforeEach(() => {
 
 it('should create a client without error', () => {
   const client = new ApiClient();
-  expect(client.defaultConfig.baseUrl).toEqual('/api/v2/');
+  expect(client.defaultConfig.baseUrl).toEqual('http://localhost/api/v2/');
 });
 
 it('should use the global fetch', () => {
