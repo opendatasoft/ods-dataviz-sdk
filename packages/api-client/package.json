@@ -27,7 +27,7 @@
   "peerDependencies": {},
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint"
+      "pre-commit": "npm run lint:fix"
     }
   },
   "prettier": {
@@ -49,6 +49,7 @@
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.9.0",
     "husky": "^4.3.0",
+    "jest-fetch-mock": "^3.0.3",
     "size-limit": "^4.9.0",
     "tsdx": "^0.14.1",
     "tslib": "^2.0.3",
