@@ -1,4 +1,5 @@
 import update from 'immutability-helper';
+import { Query } from '../odsql';
 import {
   AuthenticationError,
   NotFoundError,
@@ -57,11 +58,16 @@ export class ApiClient {
     });
   }
 
-  async get(query: string, options?: ApiClientOptions): Promise<ApiResponse> {
+  async get(
+    query: string | Query,
+    options?: ApiClientOptions
+  ): Promise<ApiResponse> {
     const config = buildConfig(options, this.defaultConfig);
 
     // Build the URL
-    const url = new URL(query, config.baseUrl);
+    let path = typeof query === 'string' ? query : query.toString();
+    if(path.startsWith('/')) path = path.slice(1);
+    const url = new URL(path, config.baseUrl);
     url.searchParams.sort(); // Url stability is HTTP cache friendly
 
     // Build the Headers
