@@ -78,7 +78,7 @@ export class ApiClient {
     }
 
     // Build Request
-    let request = new Request(url.toJSON(), {
+    let request = new Request(url.toString(), {
       method: 'GET',
       headers,
       credentials: 'same-origin',
