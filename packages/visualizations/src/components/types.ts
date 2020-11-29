@@ -1,13 +1,53 @@
-import type DataProvider from '../dataprovider';
+import type { SvelteComponentDev } from 'svelte/internal';
 
-export interface ComponentParameters {
-    // TODO: Base parameters
+export interface DataType {
+    data?: unknown;
+    error?: unknown;
+    loading?: boolean;
 }
 
-export abstract class BaseComponent {
-    constructor(protected container: any, protected dataProvider: DataProvider, parameters: ComponentParameters) {}
+interface SvelteComponentConstructable {
+    new (options: {
+        target: Element;
+        props?: Record<string, any>;
+    }): SvelteComponentDev;
+}
 
-    abstract updateParameters(newParameters: ComponentParameters): void;
+export default abstract class BaseComponent<ParametersType> {
+    protected container: HTMLElement;
+    protected data: DataType;
+    parameters: ParametersType;
+    styles: CSSStyleDeclaration;
 
-    abstract hasData(parameters: ComponentParameters): void;
+    constructor(container: HTMLElement, data: DataType, parameters: ParametersType, styles: CSSStyleDeclaration) {
+        this.container = container;
+        this.data = data;
+        this.parameters = parameters;
+        this.styles = styles;
+    }
+
+    abstract get hasData(): boolean;
+
+    abstract updateParameters(newParameters: unknown): void;
+
+    render(Component: SvelteComponentConstructable, Placeholder: SvelteComponentConstructable): void {
+        if (this.hasData) {
+            new Component({
+                target: this.container,
+                props: {
+                    data: this.data.data,
+                    parameters: this.parameters,
+                    styles: this.styles,
+                }
+            });
+        } else {
+            new Placeholder({
+                target: this.container,
+                props: {
+                    loading: this.data?.loading,
+                    error: this.data?.error,
+                }
+            });
+        }
+    }
 }

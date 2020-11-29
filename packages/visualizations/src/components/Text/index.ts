@@ -1,35 +1,18 @@
-import type DataProvider from '../../dataprovider';
-import type { ComponentParameters } from '../types';
-import { BaseComponent } from '../types';
+import BaseComponent, { DataType } from '../types';
+import type { TextParameters } from './types'
+
 import TextImpl from './Text.svelte';
 import PlaceholderImpl from './Placeholder.svelte';
 
-export interface TextParameters extends ComponentParameters {
-    text: string;
-}
+export default class Text extends BaseComponent<TextParameters> {
+    hasData = !!(this.data?.data);
 
-class Text extends BaseComponent {
-    constructor(protected container:any, protected dataProvider: DataProvider, private parameters: TextParameters) {
-        super(container, dataProvider, parameters);
-
-        if (this.hasData(parameters)) {
-            new TextImpl({
-                target: container,
-                props: {
-                    parameters: parameters,
-                    dataProvider: dataProvider
-                }
-            });
-        } else {
-            new PlaceholderImpl({ target: container });
-        }
+    constructor(container: HTMLElement, data: DataType, parameters: TextParameters, styles: CSSStyleDeclaration) {
+        super(container, data, parameters, styles);
+        this.render(TextImpl, PlaceholderImpl);
     }
 
-    updateParameters(newParameters: TextParameters) {}
-
-    hasData(parameters: TextParameters) {
-        return !!parameters.text;
+    updateParameters(newParameters: TextParameters): void {
+        this.parameters = newParameters;
     }
 }
-
-export default Text;

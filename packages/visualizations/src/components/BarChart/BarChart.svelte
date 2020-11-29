@@ -1,17 +1,22 @@
 <script lang="ts">
-    import { Chart, BarController, CategoryScale, LinearScale, BarElement, Tooltip } from 'chart.js';
-    import { ColorConfigurationTypes } from './types';
-    /*
-    TypeScript isn't properly supported by Storybook/Svelte yet:
-    We need https://github.com/storybookjs/storybook/issues/12754 first
-    Or https://github.com/alexprey/sveltedoc-parser/issues/34 and the current workaround in .storybook/main.js
+    /**
+     * TypeScript isn't properly supported by Storybook/Svelte yet:
+     * We need https://github.com/storybookjs/storybook/issues/12754 first
+     * Or https://github.com/alexprey/sveltedoc-parser/issues/34 and the current workaround in .storybook/main.js
     */
-    //import type { BarChartParameters } from './index';
+
+    import { onMount } from 'svelte';
+    import { Chart, BarController, CategoryScale, LinearScale, BarElement, Tooltip } from 'chart.js';
+
+    import type { BarChartParameters } from './types';
+    import { ColorConfigurationTypes} from './types';
 
     Chart.register(BarController, CategoryScale, LinearScale, BarElement, Tooltip);
 
-    export let dataProvider = null;
-    export let parameters = null;
+    export let data: any = null;
+    export let parameters: BarChartParameters = null;
+
+    let canvas: HTMLCanvasElement;
 
     const defaultParameters = {
         colorConfiguration: {
@@ -32,35 +37,23 @@
         yAxis: null,
     };
 
-    let canvas;
-
-    function render() {
+    onMount(() => {
+        let colors: string[];
         const effectiveParameters = { ...defaultParameters, ...parameters };
-        // Fetch
-        //this.dataProvider.client
-        const queryString = `select=${effectiveParameters.yAxis} as y&group_by=${effectiveParameters.xAxis} as x`;
-        const response = fetch(`${dataProvider.domainId}/api/v2/catalog/datasets/${dataProvider.datasetId}/aggregates?${queryString}`).then(response => {
-            response.json().then(data => {
-                console.log(data.aggregations);
-                drawChart(data.aggregations, effectiveParameters);
-            })
-        })
-    }
+        const ctx = canvas.getContext('2d');
 
-    function drawChart(data, effectiveParameters) {
-        let colors;
         if (effectiveParameters.colorConfiguration.type === 'roundrobin') {
             colors = effectiveParameters.colorConfiguration.colors;
         }
-        new Chart(canvas.getContext('2d'), {
+
+        new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: null,
                 datasets: [
                     {
-                        label: dataProvider.datasetId,
                         backgroundColor: colors,
-                        data
+                        data: data,
                     }
                 ],
             },
@@ -68,7 +61,7 @@
                 scales: {
                     x: {
                         type: 'category',
-                        labels: data.map(entry => entry.x)
+                        labels: data.map((entry: any) => entry.x)
                     },
                     y: {
                         type: 'linear'
@@ -76,13 +69,15 @@
                 },
             }
         });
-    }
-
-    if (dataProvider && parameters) {
-        render();
-    }
+    });
 </script>
 
-<div>
-    <canvas bind:this={canvas}></canvas>
+<div class="ods-viz__bar-chart">
+    <canvas bind:this={canvas} height="330"></canvas>
 </div>
+
+<style lang="scss">
+    .ods-viz__bar-chart {
+        min-height: 330px;
+    }
+</style>

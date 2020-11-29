@@ -1,0 +1,12 @@
+// global.scss
+@import "./theme.scss";
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    -ms-overflow-style: scrollbar;
+    font-family: $font-family-base;
+    font-size: 15px;
+}

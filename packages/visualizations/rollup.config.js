@@ -1,6 +1,19 @@
-import typescript from '@rollup/plugin-typescript';
 import svelte from 'rollup-plugin-svelte';
 import autoPreprocess from 'svelte-preprocess';
+import autoprefixer from 'autoprefixer';
+
+import typescript from '@rollup/plugin-typescript';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+
+const preprocess = autoPreprocess({
+    scss: {
+        includePaths: ['src'],
+    },
+    postcss: {
+        plugins: [autoprefixer],
+    },
+});
 
 export default {
     input: 'src/index.ts',
@@ -11,8 +24,13 @@ export default {
     },
     plugins: [
         svelte({
-            preprocess: autoPreprocess()
+            include: 'src/**/*.svelte',
+            preprocess,
         }),
-        typescript({sourceMap: true}),
+        typescript({ sourceMap: true }),
+        nodeResolve(),
+        commonjs({
+            include: 'node_modules/**'
+        }),
     ],
 };
