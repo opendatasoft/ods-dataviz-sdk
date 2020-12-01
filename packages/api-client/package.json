@@ -17,18 +17,17 @@
     "build": "tsdx build",
     "test": "tsdx test",
     "lint": "tsdx lint src test",
+    "lint:fix": "tsdx lint src test --fix",
     "prepare": "tsdx build",
     "size": "size-limit",
-    "analyze": "size-limit --why"
+    "analyze": "size-limit --why",
+    "test:watch": "tsdx test --watch",
+    "test:coverage": "tsdx test --coverage"
   },
   "peerDependencies": {},
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
-  },
   "prettier": {
-    "printWidth": 80,
+    "printWidth": 100,
+    "tabWidth": 4,
     "semi": true,
     "singleQuote": true,
     "trailingComma": "es5"
@@ -45,10 +44,13 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.9.0",
-    "husky": "^4.3.0",
+    "jest-fetch-mock": "^3.0.3",
     "size-limit": "^4.9.0",
     "tsdx": "^0.14.1",
     "tslib": "^2.0.3",
     "typescript": "^4.1.2"
+  },
+  "dependencies": {
+    "immutability-helper": "^3.1.1"
   }
 }

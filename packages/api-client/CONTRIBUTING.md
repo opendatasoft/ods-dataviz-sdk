@@ -24,6 +24,8 @@ Code quality is set up with `prettier`, `husky`, and `lint-staged`.
 
 Jest tests are set up to run with `npm test` or `yarn test`.
 
+You can also have test coverage with `npm run test:coverage`. And rerun test as you work with `npm run test:watch`.
+
 ### Bundling
 
 This project uses [Rollup](https://rollupjs.org) as a bundler through [TSDX](https://tsdx.io/api-reference).
