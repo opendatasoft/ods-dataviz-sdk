@@ -57,8 +57,8 @@ export class Query {
             currentValue === undefined
                 ? [value]
                 : typeof currentValue === 'string'
-                    ? [currentValue, value]
-                    : [...currentValue, value];
+                ? [currentValue, value]
+                : [...currentValue, value];
         return this.set(name, newValue);
     }
 
@@ -72,15 +72,13 @@ export class Query {
 
     andWhere(filters: string): Query {
         const currentFilters = this.params['where'];
-        if (currentFilters)
-            return this.where(`(${currentFilters}) AND (${filters})`);
+        if (currentFilters) return this.where(`(${currentFilters}) AND (${filters})`);
         return this.set('where', filters);
     }
 
     orWhere(filters: string): Query {
         const currentFilters = this.params['where'];
-        if (currentFilters)
-            return this.where(`(${currentFilters}) OR (${filters})`);
+        if (currentFilters) return this.where(`(${currentFilters}) OR (${filters})`);
         return this.set('where', filters);
     }
 
@@ -101,15 +99,15 @@ export class Query {
     }
 
     facet(facet: string): Query {
-        return this.append("facet", facet);
+        return this.append('facet', facet);
     }
 
     refine(refine: string): Query {
-        return this.append("refine", refine);
+        return this.append('refine', refine);
     }
 
     exclude(exclude: string): Query {
-        return this.append("exclude", exclude);
+        return this.append('exclude', exclude);
     }
 }
 
@@ -121,8 +119,7 @@ function root(source: string) {
         datasets: () => new Query(`${source}/datasets/`),
         dataset: (datasetId: string) => ({
             itself: () => new Query(`${source}/datasets/${datasetId}/`),
-            aggregates: () =>
-                new Query(`${source}/datasets/${datasetId}/aggregates/`),
+            aggregates: () => new Query(`${source}/datasets/${datasetId}/aggregates/`),
             facets: () => new Query(`${source}/datasets/${datasetId}/facets/`),
             records: () => new Query(`${source}/datasets/${datasetId}/records/`),
         }),
