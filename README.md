@@ -1,8 +1,8 @@
 # Opendatasoft SDKs for data visualization
 
 This project is a development root for two packages:
-- `@opendatasoft/api-client`: An API client for the Opendatasoft V2 API
-- `@opendatasoft/visualizations`: Components to easily build dashboards and visualizations on top of an Opendatasoft platform
+- [`@opendatasoft/api-client`](packages/api-client/): An API client for the Opendatasoft V2 API
+- [`@opendatasoft/visualizations`](packages/visualizations/): Components to easily build dashboards and visualizations on top of an Opendatasoft platform
 
 It contains setup instructions, tools and scripts that can be useful if you need to work on both packages at the same time.
 
