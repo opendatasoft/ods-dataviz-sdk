@@ -4,7 +4,6 @@ import autoprefixer from 'autoprefixer';
 
 import typescript from '@rollup/plugin-typescript';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
 
 const preprocess = autoPreprocess({
     scss: {
@@ -29,8 +28,5 @@ export default {
         }),
         typescript({ sourceMap: true }),
         nodeResolve(),
-        commonjs({
-            include: 'node_modules/**'
-        }),
     ],
 };
