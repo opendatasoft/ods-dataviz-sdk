@@ -1,4 +1,4 @@
-import BaseComponent, { DataType } from '../types';
+import BaseComponent, { DataType, StylesType } from '../types';
 import type { BarChartParameters } from './types'
 
 import BarChartImpl from './BarChart.svelte';
@@ -7,12 +7,20 @@ import PlaceholderImpl from './Placeholder.svelte';
 export default class BarChart extends BaseComponent<BarChartParameters> {
     hasData = !!(this.data?.data && this.parameters.xAxis && this.parameters.yAxis);
 
-    constructor(container: HTMLElement, data: DataType, parameters: BarChartParameters, styles: CSSStyleDeclaration) {
+    constructor(container: HTMLElement, data: DataType, parameters: BarChartParameters, styles: StylesType) {
         super(container, data, parameters, styles);
         this.render(BarChartImpl, PlaceholderImpl);
     }
 
-    updateParameters(newParameters: BarChartParameters): void {
+    public updateParameters(newParameters: BarChartParameters): void {
         this.parameters = newParameters;
+    }
+
+    public updateData(newData: DataType): void {
+        this.data = newData;
+    }
+
+    public updateStyles(newStyles: StylesType): void {
+        this.styles = newStyles;
     }
 }

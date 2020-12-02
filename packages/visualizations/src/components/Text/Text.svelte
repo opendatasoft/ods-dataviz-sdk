@@ -1,11 +1,13 @@
 <script lang="ts">
+    import type { StylesType } from '../types';
     import type { TextParameters } from './types'
 
     export let data: string = null;
     export let parameters: TextParameters = null;
+    export let styles: StylesType = null;
 </script>
 
-<div class="ods-viz__text">
+<div class="ods-viz__text" style={styles}>
     {#if parameters.tag === "h1"}
         <h1>{data || ''}</h1>
     {:else if parameters.tag === "h2"}

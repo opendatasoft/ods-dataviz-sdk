@@ -8,6 +8,7 @@
     import { onMount } from 'svelte';
     import { Chart, BarController, CategoryScale, LinearScale, BarElement, Tooltip } from 'chart.js';
 
+    import type { StylesType } from '../types';
     import type { BarChartParameters } from './types';
     import { ColorConfigurationTypes} from './types';
 
@@ -15,6 +16,7 @@
 
     export let data: any = null;
     export let parameters: BarChartParameters = null;
+    export let styles: StylesType = null;
 
     let canvas: HTMLCanvasElement;
 
@@ -72,7 +74,7 @@
     });
 </script>
 
-<div class="ods-viz__bar-chart">
+<div class="ods-viz__bar-chart" style={styles}>
     <canvas bind:this={canvas} height="330"></canvas>
 </div>
 

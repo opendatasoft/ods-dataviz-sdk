@@ -6,6 +6,8 @@ export interface DataType {
     loading?: boolean;
 }
 
+export type StylesType = string;
+
 interface SvelteComponentConstructable {
     new (options: {
         target: Element;
@@ -14,12 +16,12 @@ interface SvelteComponentConstructable {
 }
 
 export default abstract class BaseComponent<ParametersType> {
-    protected container: HTMLElement;
+    readonly container: HTMLElement;
     protected data: DataType;
-    parameters: ParametersType;
-    styles: CSSStyleDeclaration;
+    protected parameters: ParametersType;
+    protected styles: StylesType;
 
-    constructor(container: HTMLElement, data: DataType, parameters: ParametersType, styles: CSSStyleDeclaration) {
+    constructor(container: HTMLElement, data: DataType, parameters: ParametersType, styles: StylesType) {
         this.container = container;
         this.data = data;
         this.parameters = parameters;
@@ -28,7 +30,17 @@ export default abstract class BaseComponent<ParametersType> {
 
     abstract get hasData(): boolean;
 
-    abstract updateParameters(newParameters: unknown): void;
+    public update(newData: DataType, newParameters: ParametersType, newStyles: StylesType): void {
+        this.updateData(newData);
+        this.updateParameters(newParameters);
+        this.updateStyles(newStyles);
+    }
+
+    public abstract updateData(newData: DataType): void;
+
+    public abstract updateParameters(newParameters: unknown): void;
+
+    public abstract updateStyles(newStyles: StylesType): void;
 
     render(Component: SvelteComponentConstructable, Placeholder: SvelteComponentConstructable): void {
         if (this.hasData) {
