@@ -83,21 +83,6 @@ $control-100-height: 28px;
 $control-200-height: 36px;
 $control-300-height: 44px;
 
-$input-color:               $light-700;
-$input-bg:                  $light-100;
-$input-disabled-bg:         $light-300;
-$input-font-size:           $text-200-font-size;
-$input-line-height:         $text-200-line-height;
-$input-select-icon:         url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512' width='448' height='512'%3E%3Cpath d='M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z'/%3E%3C/svg%3E");
-$input-select-icon-size:    8px;
-$input-height-switch:           20px;
-$input-width-switch:            40px;
-$input-switch-indicator-size:   12px;
-$input-check-size:          1.067rem;
-$input-check-margin:        0.733rem;
-
-$modal-height-margin: 40px;
-
 $grid-breakpoints: (
   xs: 0,
   sm: 576px,
@@ -105,6 +90,3 @@ $grid-breakpoints: (
   lg: 992px,
   xl: 1200px
 );
-
-$backoffice-nav-width: 205px;
-$backoffice-nav-right-gutter-desktop: $spacing-400;
