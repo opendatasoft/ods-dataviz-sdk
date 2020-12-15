@@ -5,7 +5,7 @@ import TextImpl from './Text.svelte';
 import PlaceholderImpl from './Placeholder.svelte';
 
 export default class Text extends BaseComponent<TextParameters> {
-    hasData = !!(this.data?.data);
+    isDisplayable = !!(this.data?.data);
 
     constructor(container: HTMLElement, data: Data, parameters: TextParameters, styles: Styles) {
         super(container, data, parameters, styles);

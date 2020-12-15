@@ -28,7 +28,7 @@ export default abstract class BaseComponent<Parameters> {
         this.styles = styles;
     }
 
-    abstract get hasData(): boolean;
+    abstract get isDisplayable(): boolean;
 
     public update(newData: Data, newParameters: Parameters, newStyles: Styles): void {
         this.updateData(newData);
@@ -43,7 +43,7 @@ export default abstract class BaseComponent<Parameters> {
     public abstract updateStyles(newStyles: Styles): void;
 
     render(Component: SvelteComponentConstructable, Placeholder: SvelteComponentConstructable): void {
-        if (this.hasData) {
+        if (this.isDisplayable) {
             new Component({
                 target: this.container,
                 props: {

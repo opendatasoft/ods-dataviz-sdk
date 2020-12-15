@@ -5,7 +5,7 @@ import BarChartImpl from './BarChart.svelte';
 import PlaceholderImpl from './Placeholder.svelte';
 
 export default class BarChart extends BaseComponent<BarChartParameters> {
-    hasData = !!(this.data?.data && this.parameters.xAxis && this.parameters.yAxis);
+    isDisplayable = !!(this.data?.data && this.parameters.xAxis && this.parameters.yAxis);
 
     constructor(container: HTMLElement, data: Data, parameters: BarChartParameters, styles: Styles) {
         super(container, data, parameters, styles);
