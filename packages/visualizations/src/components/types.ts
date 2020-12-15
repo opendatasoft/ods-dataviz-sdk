@@ -1,12 +1,12 @@
 import type { SvelteComponentDev } from 'svelte/internal';
 
-export interface DataType {
+export interface Data {
     data?: unknown;
     error?: unknown;
     loading?: boolean;
 }
 
-export type StylesType = string;
+export type Styles = string;
 
 interface SvelteComponentConstructable {
     new (options: {
@@ -15,13 +15,13 @@ interface SvelteComponentConstructable {
     }): SvelteComponentDev;
 }
 
-export default abstract class BaseComponent<ParametersType> {
+export default abstract class BaseComponent<Parameters> {
     readonly container: HTMLElement;
-    protected data: DataType;
-    protected parameters: ParametersType;
-    protected styles: StylesType;
+    protected data: Data;
+    protected parameters: Parameters;
+    protected styles: Styles;
 
-    constructor(container: HTMLElement, data: DataType, parameters: ParametersType, styles: StylesType) {
+    constructor(container: HTMLElement, data: Data, parameters: Parameters, styles: Styles) {
         this.container = container;
         this.data = data;
         this.parameters = parameters;
@@ -30,17 +30,17 @@ export default abstract class BaseComponent<ParametersType> {
 
     abstract get hasData(): boolean;
 
-    public update(newData: DataType, newParameters: ParametersType, newStyles: StylesType): void {
+    public update(newData: Data, newParameters: Parameters, newStyles: Styles): void {
         this.updateData(newData);
         this.updateParameters(newParameters);
         this.updateStyles(newStyles);
     }
 
-    public abstract updateData(newData: DataType): void;
+    public abstract updateData(newData: Data): void;
 
     public abstract updateParameters(newParameters: unknown): void;
 
-    public abstract updateStyles(newStyles: StylesType): void;
+    public abstract updateStyles(newStyles: Styles): void;
 
     render(Component: SvelteComponentConstructable, Placeholder: SvelteComponentConstructable): void {
         if (this.hasData) {

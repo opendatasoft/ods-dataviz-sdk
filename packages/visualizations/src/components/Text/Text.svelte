@@ -1,10 +1,10 @@
 <script lang="ts">
-    import type { StylesType } from '../types';
+    import type { Styles } from '../types';
     import type { TextParameters } from './types'
 
     export let data: string = null;
     export let parameters: TextParameters = null;
-    export let styles: StylesType = null;
+    export let styles: Styles = null;
 </script>
 
 <div class="ods-viz__text" style={styles}>

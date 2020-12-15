@@ -1,4 +1,4 @@
-import BaseComponent, { DataType, StylesType } from '../types';
+import BaseComponent, { Data, Styles } from '../types';
 import type { TextParameters } from './types'
 
 import TextImpl from './Text.svelte';
@@ -7,7 +7,7 @@ import PlaceholderImpl from './Placeholder.svelte';
 export default class Text extends BaseComponent<TextParameters> {
     hasData = !!(this.data?.data);
 
-    constructor(container: HTMLElement, data: DataType, parameters: TextParameters, styles: StylesType) {
+    constructor(container: HTMLElement, data: Data, parameters: TextParameters, styles: Styles) {
         super(container, data, parameters, styles);
         this.render(TextImpl, PlaceholderImpl);
     }
@@ -16,11 +16,11 @@ export default class Text extends BaseComponent<TextParameters> {
         this.parameters = newParameters;
     }
 
-    public updateData(newData: DataType): void {
+    public updateData(newData: Data): void {
         this.data = newData;
     }
 
-    public updateStyles(newStyles: StylesType): void {
+    public updateStyles(newStyles: Styles): void {
         this.styles = newStyles;
     }
 }

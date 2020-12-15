@@ -8,7 +8,7 @@
     import { onMount } from 'svelte';
     import { Chart, BarController, CategoryScale, LinearScale, BarElement, Tooltip } from 'chart.js';
 
-    import type { StylesType } from '../types';
+    import type { Styles } from '../types';
     import type { BarChartParameters } from './types';
     import { ColorConfigurationTypes} from './types';
 
@@ -16,7 +16,7 @@
 
     export let data: any = null;
     export let parameters: BarChartParameters = null;
-    export let styles: StylesType = null;
+    export let styles: Styles = null;
 
     let canvas: HTMLCanvasElement;
 
