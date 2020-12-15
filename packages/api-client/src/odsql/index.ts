@@ -3,6 +3,9 @@ import update from 'immutability-helper';
 if (!URLSearchParams) {
     throw new Error('URLSearchParams was not found, try installing a polyfill.');
 }
+
+type StringOrUpdater = string | ((current: string) => string);
+
 export class Query {
     private readonly params: Record<string, string | string[]>;
     private readonly path: string;
@@ -11,10 +14,6 @@ export class Query {
     constructor(path: string = '', init?: Record<string, string | string[]>) {
         this.params = init ? { ...init } : {};
         this.path = path;
-    }
-
-    getParams(): Record<string, string | string[]> {
-        return { ...this.params };
     }
 
     getPath(): string {
@@ -51,6 +50,15 @@ export class Query {
         return new Query(this.path, newParams);
     }
 
+    update(name: string, value: StringOrUpdater): Query {
+        const current: string | string[] | undefined = this.params[name];
+        let newValue = '';
+        if (typeof value === 'string') newValue = value;
+        else if (typeof current === 'string') newValue = value(current || '');
+        else newValue = value(current?.[0] || '');
+        return this.set(name, newValue);
+    }
+
     append(name: string, value: string): Query {
         const currentValue: string | string[] | undefined = this.params[name];
         const newValue =
@@ -62,32 +70,20 @@ export class Query {
         return this.set(name, newValue);
     }
 
-    select(expressions: string): Query {
-        return this.set('select', expressions);
+    select(expressions: StringOrUpdater): Query {
+        return this.update('select', expressions);
     }
 
-    where(filters: string): Query {
-        return this.set('where', filters);
+    where(filters: StringOrUpdater): Query {
+        return this.update('where', filters);
     }
 
-    andWhere(filters: string): Query {
-        const currentFilters = this.params['where'];
-        if (currentFilters) return this.where(`(${currentFilters}) AND (${filters})`);
-        return this.set('where', filters);
+    groupBy(expressions: StringOrUpdater): Query {
+        return this.update('group_by', expressions);
     }
 
-    orWhere(filters: string): Query {
-        const currentFilters = this.params['where'];
-        if (currentFilters) return this.where(`(${currentFilters}) OR (${filters})`);
-        return this.set('where', filters);
-    }
-
-    groupBy(expressions: string): Query {
-        return this.set('group_by', expressions);
-    }
-
-    orderBy(expressions: string): Query {
-        return this.set('order_by', expressions);
+    orderBy(expressions: StringOrUpdater): Query {
+        return this.update('order_by', expressions);
     }
 
     limit(limit: number): Query {
@@ -108,6 +104,10 @@ export class Query {
 
     exclude(exclude: string): Query {
         return this.append('exclude', exclude);
+    }
+
+    lang(lang: string): Query {
+        return this.set('lang', lang);
     }
 }
 
@@ -140,3 +140,9 @@ export const string = (value: string) =>
 export const dateTime = (date: Date) => `date'${date.toISOString()}'`;
 
 export const date = (date: Date) => `date'${date.toISOString().split('T')[0]}'`;
+
+export const all = (...conditions: string[]) =>
+    conditions.map(condition => `(${condition})`).join(' AND ');
+
+export const one = (...conditions: string[]) =>
+    conditions.map(condition => `(${condition})`).join(' OR ');

@@ -2,7 +2,16 @@
  * @jest-environment jsdom
  */
 
-import { fromCatalog, Query, fromDataNetwork, fromMonitoring, field, dateTime } from '../src/';
+import {
+    fromCatalog,
+    Query,
+    fromDataNetwork,
+    fromMonitoring,
+    field,
+    dateTime,
+    all,
+    one,
+} from '../src/';
 import { expect, it, describe, test } from '@jest/globals';
 
 describe('ODSQL query builder', () => {
@@ -38,8 +47,9 @@ describe('ODSQL query builder', () => {
                 fromDataNetwork()
                     .dataset('sirene@data')
                     .facets()
+                    .lang('fr')
                     .toString()
-            ).toEqual('opendatasoft/datasets/sirene@data/facets/');
+            ).toEqual('opendatasoft/datasets/sirene@data/facets/?lang=fr');
         });
 
         test('with select', () => {
@@ -75,9 +85,8 @@ describe('ODSQL query builder', () => {
 
             expect(
                 query
-                    .where('first filter')
-                    .andWhere('second filter')
-                    .orWhere('third filter')
+                    .where(all('first filter', 'second filter'))
+                    .where(currentFilter => one(currentFilter, 'third filter'))
                     .toString()
             ).toEqual(
                 'catalog/datasets/my_dataset/?where=%28%28first+filter%29+AND+%28second+filter%29%29+OR+%28third+filter%29'
