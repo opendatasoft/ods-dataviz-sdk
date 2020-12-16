@@ -1,6 +1,6 @@
 /**
  * @packageDocumentation
- * @module api-client
+ * @module @opendatasoft/api-client
  */
 
 export { ApiClient } from './client';
