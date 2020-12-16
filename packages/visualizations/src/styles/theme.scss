@@ -1,0 +1,92 @@
+$font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+$font-size-base: 15px;
+
+$identity-100: #00C7B1;
+$identity-200: #142E7B;
+$identity-300: #0086D6;
+$identity-400: #EFB71B;
+$identity-500: #CE0037;
+$identity-600: #4BC467;
+
+$light-100: #FFFFFF;
+$light-200: #F6F8FB;
+$light-300: #DEE5EF;
+$light-400: #CBD2DB;
+$light-500: #898D92;
+$light-600: #565656;
+$light-700: #000000;
+
+$color-text: $light-600;
+$color-primary: $identity-100;
+$color-secondary: $identity-200;
+$color-tertiary: $light-500;
+$color-critical: $identity-500;
+
+$color-link: $light-700;  ;
+$color-link-blue: $identity-300;
+$color-input-border: $light-400;
+
+$spacing-50: 6px;
+$spacing-100: 13px;
+$spacing-200: 26px;
+$spacing-300: 39px;
+$spacing-400: 65px;
+$spacing-500: 105px;
+
+$border-radius-2: 2px;
+$border-radius-3: 3px;
+$border-radius-4: 4px;
+$border-radius-5: 5px;
+$border-radius-6: 6px;
+
+$heading-100-font-size: 1.2rem;
+$heading-100-line-height: 1.3;
+$heading-100-color: $light-700;
+
+$heading-200-font-size: 1.44rem;
+$heading-200-line-height: 1.2;
+$heading-200-color: $light-700;
+
+$heading-300-font-size: 1.728rem;
+$heading-300-line-height: 1.3;
+$heading-300-color: $light-700;
+
+$heading-400-font-size: 2.074rem;
+$heading-400-line-height: 1.4;
+$heading-400-color: $light-700;
+
+$heading-500-font-size: 2.488rem;
+$heading-500-line-height: 1.35;
+$heading-500-color: $light-700;
+
+$text-100-font-size: 0.733rem;
+$text-100-line-height: 1.5;
+$text-100-color: $light-600;
+
+$text-200-font-size: 0.833rem;
+$text-200-line-height: 1.4;
+$text-200-color: $light-600;
+
+$text-300-font-size: 1rem;
+$text-300-line-height: 1.4;
+$text-300-color: $light-600;
+
+$zindex-dropdown:                   1000;
+$zindex-sticky:                     1020;
+$zindex-fixed:                      1030;
+$zindex-modal-backdrop:             1040;
+$zindex-modal:                      1050;
+$zindex-popover:                    1060;
+$zindex-tooltip:                    1070;
+
+$control-100-height: 28px;
+$control-200-height: 36px;
+$control-300-height: 44px;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);

@@ -1,24 +1,26 @@
-import type DataProvider from '../../dataprovider';
-import { BaseComponent } from '../types';
+import BaseComponent, { Data, Styles } from '../types';
 import type { BarChartParameters } from './types'
+
 import BarChartImpl from './BarChart.svelte';
+import PlaceholderImpl from './Placeholder.svelte';
 
-class BarChart extends BaseComponent {
-    canvas = null;
+export default class BarChart extends BaseComponent<BarChartParameters> {
+    isDisplayable = !!(this.data?.data && this.parameters.xAxis && this.parameters.yAxis);
 
-    constructor(protected container:any, protected dataProvider: DataProvider, private parameters: BarChartParameters) {
-        super(container, dataProvider, parameters);
-
-        new BarChartImpl({
-            target: container,
-            props: {
-                parameters: parameters,
-                dataProvider: dataProvider
-            }
-        });
+    constructor(container: HTMLElement, data: Data, parameters: BarChartParameters, styles: Styles) {
+        super(container, data, parameters, styles);
+        this.render(BarChartImpl, PlaceholderImpl);
     }
 
-    updateParameters(newParameters: BarChartParameters) {}
-}
+    public updateParameters(newParameters: BarChartParameters): void {
+        this.parameters = newParameters;
+    }
 
-export default BarChart;
+    public updateData(newData: Data): void {
+        this.data = newData;
+    }
+
+    public updateStyles(newStyles: Styles): void {
+        this.styles = newStyles;
+    }
+}
