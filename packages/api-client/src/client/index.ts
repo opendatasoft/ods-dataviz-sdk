@@ -31,7 +31,7 @@ export class ApiClient {
      * Constructs an instance of {@link ApiClient}
      */
     constructor(options?: ApiClientOptions) {
-        const fetch = options?.fetch || window?.fetch || global?.fetch;
+        const fetch = options?.fetch || global?.fetch;
 
         if (!fetch) {
             throw new Error(
@@ -43,7 +43,7 @@ export class ApiClient {
             throw new Error('URL() was not found, try installing a polyfill.');
         }
 
-        const domain = options?.domain || window?.location.origin;
+        const domain = options?.domain || global?.location?.origin;
         if (!domain) {
             throw new Error('Missing domain');
         }
