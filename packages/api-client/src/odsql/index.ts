@@ -4,7 +4,7 @@ if (!URLSearchParams) {
     throw new Error('URLSearchParams was not found, try installing a polyfill.');
 }
 
-type StringOrUpdater = string | ((current: string) => string);
+export type StringOrUpdater = string | ((current: string) => string);
 
 export class Query {
     private readonly params: Record<string, string | string[]>;

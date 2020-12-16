@@ -5,8 +5,9 @@ import { ApiResponse } from './types';
 
 const API_KEY_AUTH_TYPE = 'ApiKey';
 
-type RequestInterceptor = (request: Request) => Promise<Request>;
-type ResponseInterceptor = (response: Response) => Promise<ApiResponse>;
+export type RequestInterceptor = (request: Request) => Promise<Request>;
+export type ResponseInterceptor = (response: Response) => Promise<ApiResponse>;
+
 export interface ApiClientOptions {
     domain?: string;
     apiKey?: string;
@@ -15,7 +16,7 @@ export interface ApiClientOptions {
     interceptResponse?: ResponseInterceptor;
 }
 
-interface ApiClientConfiguration {
+export interface ApiClientConfiguration {
     baseUrl: string;
     apiKey?: string;
     fetch: WindowOrWorkerGlobalScope['fetch'];
