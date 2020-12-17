@@ -128,7 +128,7 @@ export const fromMonitoring = root('monitoring');
 
 export const fromDataNetwork = root('opendatasoft');
 
-export const field = (fieldName: string) => `\`${fieldName.replace(/`/g, "\\`")}\``;
+export const field = (fieldName: string) => `\`${fieldName.replace(/`/g, '\\`')}\``;
 
 export const string = (value: string) => JSON.stringify(value);
 
