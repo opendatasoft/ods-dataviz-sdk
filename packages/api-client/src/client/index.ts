@@ -39,10 +39,6 @@ export class ApiClient {
             );
         }
 
-        if (!URL) {
-            throw new Error('URL() was not found, try installing a polyfill.');
-        }
-
         const domain = options?.domain || global?.location?.origin;
         if (!domain) {
             throw new Error('Missing domain');

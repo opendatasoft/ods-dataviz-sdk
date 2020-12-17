@@ -1,9 +1,5 @@
 import update from 'immutability-helper';
 
-if (!URLSearchParams) {
-    throw new Error('URLSearchParams was not found, try installing a polyfill.');
-}
-
 export type StringOrUpdater = string | ((current: string) => string);
 
 export class Query {
