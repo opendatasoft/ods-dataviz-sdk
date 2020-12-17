@@ -39,7 +39,7 @@ describe('Api client', () => {
     it('should add the api key', async () => {
         const apiResponse = { any: 'any' };
         fetchMock.once(async req => {
-            expect(req.headers.get('Authorization')).toEqual("ApiKey 1234");
+            expect(req.headers.get('Authorization')).toEqual('ApiKey 1234');
             return JSON.stringify(apiResponse);
         });
         const client = new ApiClient({ apiKey: '1234' });
@@ -95,44 +95,43 @@ describe('Api client', () => {
     it('Handle UserError', async () => {
         fetchMock.once(async () => ({
             status: 400,
-            body: 'Try turning it on and off'
+            body: 'Try turning it on and off',
         }));
         const client = new ApiClient();
-        await expect(client.get("whatever")).rejects.toBeInstanceOf(UserError);
+        await expect(client.get('whatever')).rejects.toBeInstanceOf(UserError);
         expect(fetch).toHaveBeenCalledTimes(1);
     });
 
     it('Handle ServerError', async () => {
         fetchMock.once(async () => ({
             status: 500,
-            body: '💥'
+            body: '💥',
         }));
         const client = new ApiClient();
-        const expectRequest =  expect(client.get("whatever"));
+        const expectRequest = expect(client.get('whatever'));
         await expectRequest.rejects.toBeInstanceOf(ServerError);
-        await expectRequest.rejects.toHaveProperty("response");
-        await expectRequest.rejects.toHaveProperty(["details","message"], '💥');
+        await expectRequest.rejects.toHaveProperty('response');
+        await expectRequest.rejects.toHaveProperty(['details', 'message'], '💥');
         expect(fetch).toHaveBeenCalledTimes(1);
     });
 
     it('Handle AuthenticationError', async () => {
         fetchMock.once(async () => ({
             status: 401,
-            body: 'New api, who dis ?'
+            body: 'New api, who dis ?',
         }));
         const client = new ApiClient();
-        await expect(client.get("whatever")).rejects.toBeInstanceOf(AuthenticationError);
+        await expect(client.get('whatever')).rejects.toBeInstanceOf(AuthenticationError);
         expect(fetch).toHaveBeenCalledTimes(1);
     });
 
     it('Handle NotFoundError', async () => {
         fetchMock.once(async () => ({
             status: 404,
-            body: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+            body: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
         }));
         const client = new ApiClient();
-        await expect(client.get("whatever")).rejects.toBeInstanceOf(NotFoundError);
+        await expect(client.get('whatever')).rejects.toBeInstanceOf(NotFoundError);
         expect(fetch).toHaveBeenCalledTimes(1);
     });
-
 });
