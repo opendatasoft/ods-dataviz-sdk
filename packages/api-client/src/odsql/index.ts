@@ -128,10 +128,9 @@ export const fromMonitoring = root('monitoring');
 
 export const fromDataNetwork = root('opendatasoft');
 
-export const field = (fieldName: string) => `\`${fieldName}\``;
+export const field = (fieldName: string) => `\`${fieldName.replace(/`/g, "\\`")}\``;
 
-export const string = (value: string) =>
-    `"${value.replaceAll('"', '\\"').replaceAll('\\', '\\\\')}"`;
+export const string = (value: string) => JSON.stringify(value);
 
 export const dateTime = (date: Date) => `date'${date.toISOString()}'`;
 
