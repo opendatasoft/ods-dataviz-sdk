@@ -35,6 +35,18 @@ describe('Api client', () => {
         expect(fetch).toHaveBeenCalledTimes(1);
     });
 
+    it('should add the api key', async () => {
+        const apiResponse = { any: 'any' };
+        fetchMock.once(async req => {
+            expect(req.headers.get('Authorization')).toEqual("ApiKey 1234");
+            return JSON.stringify(apiResponse);
+        });
+        const client = new ApiClient({ apiKey: '1234' });
+        const response = await client.get(fromCatalog().itself());
+        expect(response).toEqual(apiResponse);
+        expect(fetch).toHaveBeenCalledTimes(1);
+    });
+
     it('works with the query builder', async () => {
         const apiResponse = { any: 'any' };
         fetchMock.once(async req => {
