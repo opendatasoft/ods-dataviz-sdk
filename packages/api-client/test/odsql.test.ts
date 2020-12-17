@@ -126,18 +126,18 @@ describe('ODSQL query builder', () => {
                     .aggregates()
                     .orderBy(`${field('x')}`)
                     .limit(40)
-                    .offset(50)
+                    .limit(l => l + 5)
+                    .offset(o => o + 10)
                     .refine('field:1')
                     .exclude('field:2')
                     .toString()
             ).toEqual(
-                'catalog/aggregates/?exclude=field%3A2&limit=40&offset=50&order_by=%60x%60&refine=field%3A1'
+                'catalog/aggregates/?exclude=field%3A2&limit=45&offset=10&order_by=%60x%60&refine=field%3A1'
             );
         });
 
         test('escaping', () => {
             expect(string('-"-\'-\\-p-')).toEqual('"-\\"-\'-\\\\-p-"');
-
             expect(field('`f')).toEqual('`\\`f`');
         });
     });

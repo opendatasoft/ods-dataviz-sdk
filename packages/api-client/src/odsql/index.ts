@@ -2,6 +2,8 @@ import update from 'immutability-helper';
 
 export type StringOrUpdater = string | ((current: string) => string);
 
+export type NumberOrUpdater = number | ((current: number) => number);
+
 export class Query {
     private readonly params: Record<string, string | string[]>;
     private readonly path: string;
@@ -82,12 +84,14 @@ export class Query {
         return this.update('order_by', expressions);
     }
 
-    limit(limit: number): Query {
-        return this.set('limit', limit.toString());
+    limit(limit: NumberOrUpdater): Query {
+        if (typeof limit === 'number') return this.set('limit', limit.toString());
+        return this.update('limit', (current: string) => limit(Number(current)).toString());
     }
 
-    offset(offset: number): Query {
-        return this.set('offset', offset.toString());
+    offset(offset: NumberOrUpdater): Query {
+        if (typeof offset === 'number') return this.set('offset', offset.toString());
+        return this.update('offset', (current: string) => offset(Number(current)).toString());
     }
 
     facet(facet: string): Query {
