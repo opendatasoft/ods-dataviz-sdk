@@ -1,5 +1,7 @@
 # Opendatasoft SDKs for data visualization
 
+![CI status](https://github.com/opendatasoft/ods-dataviz-sdk/workflows/CI/badge.svg)
+
 This project is a development root for two packages:
 - [`@opendatasoft/api-client`](packages/api-client/): An API client for the Opendatasoft V2 API
 - [`@opendatasoft/visualizations`](packages/visualizations/): Components to easily build dashboards and visualizations on top of an Opendatasoft platform

@@ -5,8 +5,9 @@ import { ApiResponse } from './types';
 
 const API_KEY_AUTH_TYPE = 'ApiKey';
 
-type RequestInterceptor = (request: Request) => Promise<Request>;
-type ResponseInterceptor = (response: Response) => Promise<ApiResponse>;
+export type RequestInterceptor = (request: Request) => Promise<Request>;
+export type ResponseInterceptor = (response: Response) => Promise<ApiResponse>;
+
 export interface ApiClientOptions {
     domain?: string;
     apiKey?: string;
@@ -15,7 +16,7 @@ export interface ApiClientOptions {
     interceptResponse?: ResponseInterceptor;
 }
 
-interface ApiClientConfiguration {
+export interface ApiClientConfiguration {
     baseUrl: string;
     apiKey?: string;
     fetch: WindowOrWorkerGlobalScope['fetch'];
@@ -30,7 +31,7 @@ export class ApiClient {
      * Constructs an instance of {@link ApiClient}
      */
     constructor(options?: ApiClientOptions) {
-        const fetch = options?.fetch || window?.fetch || global?.fetch;
+        const fetch = options?.fetch || global?.fetch;
 
         if (!fetch) {
             throw new Error(
@@ -38,11 +39,7 @@ export class ApiClient {
             );
         }
 
-        if (!URL) {
-            throw new Error('URL() was not found, try installing a polyfill.');
-        }
-
-        const domain = options?.domain || window?.location.origin;
+        const domain = options?.domain || global?.location?.origin;
         if (!domain) {
             throw new Error('Missing domain');
         }

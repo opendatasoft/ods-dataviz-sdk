@@ -5,9 +5,11 @@ class ApiError extends Error {
     readonly response: Response;
 
     constructor(response: Response, details: any) {
+        const proto = new.target.prototype;
         super(JSON.stringify(details));
         this.details = details;
         this.response = response;
+        Object.setPrototypeOf(this, proto);
     }
 }
 

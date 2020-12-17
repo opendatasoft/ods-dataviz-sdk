@@ -1,0 +1,37 @@
+name: api-client coverage
+on:
+  pull_request:
+    paths:
+    - 'packages/api-client/**'
+jobs:
+  build:
+    name: Get api client test coverage on node ${{ matrix.node }} and ${{ matrix.os }}
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node: ['14.x']
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Use Node ${{ matrix.node }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install
+        run: npm ci
+        working-directory: ./packages/api-client
+
+      - name: Coverage
+        run: npm run test:coverage
+        working-directory: ./packages/api-client
+
+      - name: Comment
+        uses: romeovs/lcov-reporter-action@v0.2.16
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          lcov-file: ./packages/api-client/coverage/lcov.info

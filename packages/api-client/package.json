@@ -15,6 +15,7 @@
   "scripts": {
     "watch": "tsdx watch --verbose",
     "build": "tsdx build",
+    "docs": "typedoc",
     "test": "tsdx test",
     "lint": "tsdx lint src test",
     "lint:fix": "tsdx lint src test --fix",
@@ -48,6 +49,8 @@
     "size-limit": "^4.9.0",
     "tsdx": "^0.14.1",
     "tslib": "^2.0.3",
+    "typedoc": "^0.19.2",
+    "typedoc-plugin-external-module-name": "^4.0.3",
     "typescript": "^4.1.2"
   },
   "dependencies": {
