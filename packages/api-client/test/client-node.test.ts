@@ -10,4 +10,12 @@ describe('Api client in Node environment', () => {
             new ApiClient();
         }).toThrowError('fetch');
     });
+
+    it('should warn when domain is missing', () => {
+        expect(() => {
+            new ApiClient({
+                fetch : (() => {}) as any
+            });
+        }).toThrowError('domain');
+    });
 });
