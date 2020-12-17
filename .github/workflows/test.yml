@@ -7,7 +7,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node: ['10.x', '12.x', '14.x']
+        node: ['10.x', '14.x']
         os: [ubuntu-latest]
 
     steps:
@@ -20,7 +20,7 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: Install
-        run: npm install
+        run: npm ci
 
       - name: Bootstrap
         run: npm run bootstrap
