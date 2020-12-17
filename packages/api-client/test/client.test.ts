@@ -5,6 +5,7 @@
 import { enableFetchMocks } from 'jest-fetch-mock';
 import { ApiClient, field, fromCatalog } from '../src';
 import { expect, it, beforeEach, describe } from '@jest/globals';
+import { AuthenticationError, NotFoundError, ServerError, UserError } from '../src/client/error';
 enableFetchMocks();
 
 describe('Api client', () => {
@@ -90,4 +91,48 @@ describe('Api client', () => {
         expect(response).toEqual('response_intercepted');
         expect(fetch).toHaveBeenCalledTimes(1);
     });
+
+    it('Handle UserError', async () => {
+        fetchMock.once(async () => ({
+            status: 400,
+            body: 'Try turning it on and off'
+        }));
+        const client = new ApiClient();
+        await expect(client.get("whatever")).rejects.toBeInstanceOf(UserError);
+        expect(fetch).toHaveBeenCalledTimes(1);
+    });
+
+    it('Handle ServerError', async () => {
+        fetchMock.once(async () => ({
+            status: 500,
+            body: '💥'
+        }));
+        const client = new ApiClient();
+        const expectRequest =  expect(client.get("whatever"));
+        await expectRequest.rejects.toBeInstanceOf(ServerError);
+        await expectRequest.rejects.toHaveProperty("response");
+        await expectRequest.rejects.toHaveProperty(["details","message"], '💥');
+        expect(fetch).toHaveBeenCalledTimes(1);
+    });
+
+    it('Handle AuthenticationError', async () => {
+        fetchMock.once(async () => ({
+            status: 401,
+            body: 'New api, who dis ?'
+        }));
+        const client = new ApiClient();
+        await expect(client.get("whatever")).rejects.toBeInstanceOf(AuthenticationError);
+        expect(fetch).toHaveBeenCalledTimes(1);
+    });
+
+    it('Handle NotFoundError', async () => {
+        fetchMock.once(async () => ({
+            status: 404,
+            body: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+        }));
+        const client = new ApiClient();
+        await expect(client.get("whatever")).rejects.toBeInstanceOf(NotFoundError);
+        expect(fetch).toHaveBeenCalledTimes(1);
+    });
+
 });
