@@ -1,6 +1,6 @@
 # @opendatasoft/api-client
 
-TODO: Insert badges.
+![CI status](https://github.com/opendatasoft/ods-dataviz-sdk/workflows/CI/badge.svg)
 
 This package implement a Typescript/Javascript client library for Opendatasoft's [Search API v2](https://help.opendatasoft.com/apis/ods-search-v2/#search-api-v2).
 
