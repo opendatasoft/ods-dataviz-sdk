@@ -146,7 +146,7 @@ client.get(fromCatalog().datasets());
 // ../opendatasoft/datasets/sirene@data/facets/?lang=fr
 client.get(fromDataNetwork().dataset('sirene@data').facets().lang('fr'));
 
-// ../catalog/?select=dataset_id%2C+records_count
+// ../catalog/datasets/?select=dataset_id%2C+records_count
 client.get(fromCatalog().datasets().select('dataset_id, records_count'));
 ```
 
@@ -168,7 +168,7 @@ fromCatalog().aggregates()
    .select("count(*), avg(f)") // You can select fields
    .where("field2 > 2") // Add a where clause
    .where("field3 > 3") // This replace the previous clause
-   .where(condition => condition + " AND field4: 4") // This combine both condition
+   .where(condition => condition + " AND field4: 4") // This combine both conditions
    .where(filter => all(filter, "field4:4", "field5: 5")) // condition1 AND condition2...
    .where(one("field4:4", "field5:5")) //condition1 OR condition2...
    .where(`${field("name")}:${string("paul")}`) // string and field escaping
@@ -180,6 +180,7 @@ fromCatalog().aggregates()
    .limit(currentLimit => currentLimit + 10) // useful for pagination
    .refine("field:value") // Use facet refine for faceted navigation
    .exclude("field:value") // Same for excluding
+   .lang("fr") // Force a language
 ```
 
 ## Frameworks
