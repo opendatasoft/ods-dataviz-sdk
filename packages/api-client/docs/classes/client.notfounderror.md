@@ -30,9 +30,9 @@
 
 \+ **new NotFoundError**(`response`: Response, `details`: any): [NotFoundError](client.notfounderror.md)
 
-*Inherited from [ApiError](client.apierror.md).[constructor](client.apierror.md#constructor)*
+*Inherited from [UserError](client.usererror.md).[constructor](client.usererror.md#constructor)*
 
-*Defined in [src/client/error.ts:5](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/error.ts#L5)*
+*Defined in [src/client/error.ts:5](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/error.ts#L5)*
 
 #### Parameters:
 
@@ -49,9 +49,9 @@ Name | Type |
 
 • `Readonly` **details**: any
 
-*Inherited from [ApiError](client.apierror.md).[details](client.apierror.md#details)*
+*Inherited from [UserError](client.usererror.md).[details](client.usererror.md#details)*
 
-*Defined in [src/client/error.ts:4](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/error.ts#L4)*
+*Defined in [src/client/error.ts:4](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/error.ts#L4)*
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 •  **message**: string
 
-*Inherited from [ApiError](client.apierror.md).[message](client.apierror.md#message)*
+*Inherited from [UserError](client.usererror.md).[message](client.usererror.md#message)*
 
 *Defined in node_modules/typescript/lib/lib.es5.d.ts:974*
 
@@ -69,7 +69,7 @@ ___
 
 •  **name**: string
 
-*Inherited from [ApiError](client.apierror.md).[name](client.apierror.md#name)*
+*Inherited from [UserError](client.usererror.md).[name](client.usererror.md#name)*
 
 *Defined in node_modules/typescript/lib/lib.es5.d.ts:973*
 
@@ -79,9 +79,9 @@ ___
 
 • `Readonly` **response**: Response
 
-*Inherited from [ApiError](client.apierror.md).[response](client.apierror.md#response)*
+*Inherited from [UserError](client.usererror.md).[response](client.usererror.md#response)*
 
-*Defined in [src/client/error.ts:5](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/error.ts#L5)*
+*Defined in [src/client/error.ts:5](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/error.ts#L5)*
 
 ___
 
@@ -89,6 +89,6 @@ ___
 
 • `Optional` **stack**: undefined \| string
 
-*Inherited from [ApiError](client.apierror.md).[stack](client.apierror.md#stack)*
+*Inherited from [UserError](client.usererror.md).[stack](client.usererror.md#stack)*
 
 *Defined in node_modules/typescript/lib/lib.es5.d.ts:975*

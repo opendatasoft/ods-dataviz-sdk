@@ -4,5 +4,6 @@
     ],
     "mode": "modules",
     "out": "docs",
-    "excludePrivate": true
+    "excludePrivate": true,
+    "excludeNotExported": true
 }

@@ -23,7 +23,7 @@
 
 • `Optional` **fields**: Record<string, any\>
 
-*Defined in [src/client/types.ts:35](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L35)*
+*Defined in [src/client/types.ts:35](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L35)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • `Optional` **id**: undefined \| string
 
-*Defined in [src/client/types.ts:32](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L32)*
+*Defined in [src/client/types.ts:32](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L32)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • `Optional` **size**: undefined \| number
 
-*Defined in [src/client/types.ts:34](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L34)*
+*Defined in [src/client/types.ts:34](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L34)*
 
 ___
 
@@ -47,4 +47,4 @@ ___
 
 • `Optional` **timestamp**: undefined \| string
 
-*Defined in [src/client/types.ts:33](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L33)*
+*Defined in [src/client/types.ts:33](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L33)*

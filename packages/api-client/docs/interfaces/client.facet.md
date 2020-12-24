@@ -23,7 +23,7 @@
 
 • `Optional` **count**: undefined \| number
 
-*Defined in [src/client/types.ts:5](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L5)*
+*Defined in [src/client/types.ts:5](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L5)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • `Optional` **facets**: [Facet](client.facet.md)[]
 
-*Defined in [src/client/types.ts:7](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L7)*
+*Defined in [src/client/types.ts:7](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L7)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • `Optional` **name**: undefined \| string
 
-*Defined in [src/client/types.ts:4](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L4)*
+*Defined in [src/client/types.ts:4](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L4)*
 
 ___
 
@@ -47,4 +47,4 @@ ___
 
 • `Optional` **path**: undefined \| string
 
-*Defined in [src/client/types.ts:6](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L6)*
+*Defined in [src/client/types.ts:6](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L6)*

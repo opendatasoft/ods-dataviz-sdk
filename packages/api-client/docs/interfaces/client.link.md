@@ -21,7 +21,7 @@
 
 • `Optional` **href**: undefined \| string
 
-*Defined in [src/client/types.ts:11](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L11)*
+*Defined in [src/client/types.ts:11](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L11)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 • `Optional` **rel**: undefined \| string
 
-*Defined in [src/client/types.ts:12](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L12)*
+*Defined in [src/client/types.ts:12](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L12)*

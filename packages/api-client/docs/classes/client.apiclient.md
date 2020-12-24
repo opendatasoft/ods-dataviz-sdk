@@ -28,7 +28,7 @@
 
 \+ **new ApiClient**(`options?`: [ApiClientOptions](../interfaces/client.apiclientoptions.md)): [ApiClient](client.apiclient.md)
 
-*Defined in [src/client/index.ts:28](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/index.ts#L28)*
+*Defined in [src/client/index.ts:28](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/index.ts#L28)*
 
 Constructs an instance of [ApiClient](client.apiclient.md)
 
@@ -46,7 +46,7 @@ Name | Type |
 
 • `Readonly` **defaultConfig**: [ApiClientConfiguration](../interfaces/client.apiclientconfiguration.md)
 
-*Defined in [src/client/index.ts:28](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/index.ts#L28)*
+*Defined in [src/client/index.ts:28](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/index.ts#L28)*
 
 ## Methods
 
@@ -54,7 +54,7 @@ Name | Type |
 
 ▸ **get**(`query`: string \| [Query](odsql.query.md), `options?`: [ApiClientOptions](../interfaces/client.apiclientoptions.md)): Promise<[ApiResponse](../interfaces/client.apiresponse.md)\>
 
-*Defined in [src/client/index.ts:53](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/index.ts#L53)*
+*Defined in [src/client/index.ts:53](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/index.ts#L53)*
 
 #### Parameters:
 

@@ -28,7 +28,6 @@
 * [dateTime](odsql.md#datetime)
 * [field](odsql.md#field)
 * [one](odsql.md#one)
-* [root](odsql.md#root)
 * [string](odsql.md#string)
 
 ## Type aliases
@@ -37,7 +36,7 @@
 
 Ƭ  **NumberOrUpdater**: number \| (current: number) => number
 
-*Defined in [src/odsql/index.ts:5](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L5)*
+*Defined in [src/odsql/index.ts:5](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L5)*
 
 ___
 
@@ -45,7 +44,7 @@ ___
 
 Ƭ  **StringOrUpdater**: string \| (current: string) => string
 
-*Defined in [src/odsql/index.ts:3](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L3)*
+*Defined in [src/odsql/index.ts:3](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L3)*
 
 ## Variables
 
@@ -53,7 +52,7 @@ ___
 
 • `Const` **fromCatalog**: (Anonymous function) = root('catalog')
 
-*Defined in [src/odsql/index.ts:129](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L129)*
+*Defined in [src/odsql/index.ts:129](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L129)*
 
 ___
 
@@ -61,7 +60,7 @@ ___
 
 • `Const` **fromDataNetwork**: (Anonymous function) = root('opendatasoft')
 
-*Defined in [src/odsql/index.ts:133](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L133)*
+*Defined in [src/odsql/index.ts:133](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L133)*
 
 ___
 
@@ -69,7 +68,7 @@ ___
 
 • `Const` **fromMonitoring**: (Anonymous function) = root('monitoring')
 
-*Defined in [src/odsql/index.ts:131](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L131)*
+*Defined in [src/odsql/index.ts:131](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L131)*
 
 ## Functions
 
@@ -77,7 +76,7 @@ ___
 
 ▸ `Const`**all**(...`conditions`: string[]): string
 
-*Defined in [src/odsql/index.ts:143](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L143)*
+*Defined in [src/odsql/index.ts:143](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L143)*
 
 #### Parameters:
 
@@ -93,7 +92,7 @@ ___
 
 ▸ `Const`**date**(`date`: Date): string
 
-*Defined in [src/odsql/index.ts:141](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L141)*
+*Defined in [src/odsql/index.ts:141](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L141)*
 
 #### Parameters:
 
@@ -109,7 +108,7 @@ ___
 
 ▸ `Const`**dateTime**(`date`: Date): string
 
-*Defined in [src/odsql/index.ts:139](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L139)*
+*Defined in [src/odsql/index.ts:139](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L139)*
 
 #### Parameters:
 
@@ -125,7 +124,7 @@ ___
 
 ▸ `Const`**field**(`fieldName`: string): string
 
-*Defined in [src/odsql/index.ts:135](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L135)*
+*Defined in [src/odsql/index.ts:135](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L135)*
 
 #### Parameters:
 
@@ -141,7 +140,7 @@ ___
 
 ▸ `Const`**one**(...`conditions`: string[]): string
 
-*Defined in [src/odsql/index.ts:146](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L146)*
+*Defined in [src/odsql/index.ts:146](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L146)*
 
 #### Parameters:
 
@@ -153,27 +152,11 @@ Name | Type |
 
 ___
 
-### root
-
-▸ **root**(`source`: string): (Anonymous function)
-
-*Defined in [src/odsql/index.ts:114](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L114)*
-
-#### Parameters:
-
-Name | Type |
------- | ------ |
-`source` | string |
-
-**Returns:** (Anonymous function)
-
-___
-
 ### string
 
 ▸ `Const`**string**(`value`: string): string
 
-*Defined in [src/odsql/index.ts:137](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L137)*
+*Defined in [src/odsql/index.ts:137](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L137)*
 
 #### Parameters:
 

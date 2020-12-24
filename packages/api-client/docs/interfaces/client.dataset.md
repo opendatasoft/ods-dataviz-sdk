@@ -26,7 +26,7 @@
 
 • `Optional` **data\_visible**: undefined \| false \| true
 
-*Defined in [src/client/types.ts:19](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L19)*
+*Defined in [src/client/types.ts:19](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L19)*
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 • `Optional` **dataset\_id**: undefined \| string
 
-*Defined in [src/client/types.ts:16](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L16)*
+*Defined in [src/client/types.ts:16](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L16)*
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 • `Optional` **dataset\_uid**: undefined \| string
 
-*Defined in [src/client/types.ts:17](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L17)*
+*Defined in [src/client/types.ts:17](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L17)*
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 • `Optional` **features**: string[]
 
-*Defined in [src/client/types.ts:20](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L20)*
+*Defined in [src/client/types.ts:20](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L20)*
 
 ___
 
@@ -58,7 +58,7 @@ ___
 
 • `Optional` **fields**: { annotations?: any ; description?: undefined \| string ; label?: undefined \| string ; name?: undefined \| string ; type?: undefined \| string  }[]
 
-*Defined in [src/client/types.ts:22](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L22)*
+*Defined in [src/client/types.ts:22](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L22)*
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 • `Optional` **has\_records**: undefined \| false \| true
 
-*Defined in [src/client/types.ts:18](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L18)*
+*Defined in [src/client/types.ts:18](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L18)*
 
 ___
 
@@ -74,4 +74,4 @@ ___
 
 • `Optional` **metas**: Record<string, any\>
 
-*Defined in [src/client/types.ts:21](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L21)*
+*Defined in [src/client/types.ts:21](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L21)*

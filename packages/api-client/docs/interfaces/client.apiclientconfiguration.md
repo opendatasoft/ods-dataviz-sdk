@@ -24,7 +24,7 @@
 
 • `Optional` **apiKey**: undefined \| string
 
-*Defined in [src/client/index.ts:21](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/index.ts#L21)*
+*Defined in [src/client/index.ts:21](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/index.ts#L21)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 •  **baseUrl**: string
 
-*Defined in [src/client/index.ts:20](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/index.ts#L20)*
+*Defined in [src/client/index.ts:20](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/index.ts#L20)*
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 •  **fetch**: WindowOrWorkerGlobalScope[\"fetch\"]
 
-*Defined in [src/client/index.ts:22](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/index.ts#L22)*
+*Defined in [src/client/index.ts:22](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/index.ts#L22)*
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 • `Optional` **interceptRequest**: [RequestInterceptor](../modules/client.md#requestinterceptor)
 
-*Defined in [src/client/index.ts:23](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/index.ts#L23)*
+*Defined in [src/client/index.ts:23](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/index.ts#L23)*
 
 ___
 
@@ -56,4 +56,4 @@ ___
 
 • `Optional` **interceptResponse**: [ResponseInterceptor](../modules/client.md#responseinterceptor)
 
-*Defined in [src/client/index.ts:24](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/index.ts#L24)*
+*Defined in [src/client/index.ts:24](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/index.ts#L24)*

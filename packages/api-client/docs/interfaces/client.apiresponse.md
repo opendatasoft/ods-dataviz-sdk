@@ -27,7 +27,7 @@
 
 • `Optional` **aggregations**: any[]
 
-*Defined in [src/client/types.ts:41](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L41)*
+*Defined in [src/client/types.ts:41](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L41)*
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 • `Optional` **dataset**: [Dataset](client.dataset.md)
 
-*Defined in [src/client/types.ts:46](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L46)*
+*Defined in [src/client/types.ts:46](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L46)*
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 • `Optional` **datasets**: { dataset?: [Dataset](client.dataset.md) ; links?: [Link](client.link.md)[]  }[]
 
-*Defined in [src/client/types.ts:43](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L43)*
+*Defined in [src/client/types.ts:43](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L43)*
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 • `Optional` **facets**: [Facet](client.facet.md)[]
 
-*Defined in [src/client/types.ts:42](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L42)*
+*Defined in [src/client/types.ts:42](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L42)*
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 • `Optional` **links**: [Link](client.link.md)[]
 
-*Defined in [src/client/types.ts:40](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L40)*
+*Defined in [src/client/types.ts:40](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L40)*
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 • `Optional` **record**: [OdsRecord](client.odsrecord.md)
 
-*Defined in [src/client/types.ts:45](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L45)*
+*Defined in [src/client/types.ts:45](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L45)*
 
 ___
 
@@ -75,7 +75,7 @@ ___
 
 • `Optional` **records**: { links?: [Link](client.link.md)[] ; record?: [OdsRecord](client.odsrecord.md)  }[]
 
-*Defined in [src/client/types.ts:44](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L44)*
+*Defined in [src/client/types.ts:44](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L44)*
 
 ___
 
@@ -83,4 +83,4 @@ ___
 
 • `Optional` **total\_count**: undefined \| number
 
-*Defined in [src/client/types.ts:39](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/client/types.ts#L39)*
+*Defined in [src/client/types.ts:39](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/client/types.ts#L39)*

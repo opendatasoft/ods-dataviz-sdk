@@ -39,7 +39,7 @@
 
 \+ **new Query**(`path?`: string, `init?`: Record<string, string \| string[]\>): [Query](odsql.query.md)
 
-*Defined in [src/odsql/index.ts:10](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L10)*
+*Defined in [src/odsql/index.ts:10](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L10)*
 
 #### Parameters:
 
@@ -56,7 +56,7 @@ Name | Type | Default value |
 
 ▸ **append**(`name`: string, `value`: string): [Query](odsql.query.md)
 
-*Defined in [src/odsql/index.ts:60](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L60)*
+*Defined in [src/odsql/index.ts:60](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L60)*
 
 #### Parameters:
 
@@ -73,7 +73,7 @@ ___
 
 ▸ **exclude**(`exclude`: string): [Query](odsql.query.md)
 
-*Defined in [src/odsql/index.ts:105](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L105)*
+*Defined in [src/odsql/index.ts:105](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L105)*
 
 #### Parameters:
 
@@ -89,7 +89,7 @@ ___
 
 ▸ **facet**(`facet`: string): [Query](odsql.query.md)
 
-*Defined in [src/odsql/index.ts:97](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L97)*
+*Defined in [src/odsql/index.ts:97](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L97)*
 
 #### Parameters:
 
@@ -105,7 +105,7 @@ ___
 
 ▸ **getPath**(): string
 
-*Defined in [src/odsql/index.ts:17](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L17)*
+*Defined in [src/odsql/index.ts:17](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L17)*
 
 **Returns:** string
 
@@ -115,7 +115,7 @@ ___
 
 ▸ **getSearchParams**(): URLSearchParams
 
-*Defined in [src/odsql/index.ts:21](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L21)*
+*Defined in [src/odsql/index.ts:21](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L21)*
 
 **Returns:** URLSearchParams
 
@@ -125,7 +125,7 @@ ___
 
 ▸ **groupBy**(`expressions`: [StringOrUpdater](../modules/odsql.md#stringorupdater)): [Query](odsql.query.md)
 
-*Defined in [src/odsql/index.ts:79](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L79)*
+*Defined in [src/odsql/index.ts:79](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L79)*
 
 #### Parameters:
 
@@ -141,7 +141,7 @@ ___
 
 ▸ **lang**(`lang`: string): [Query](odsql.query.md)
 
-*Defined in [src/odsql/index.ts:109](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L109)*
+*Defined in [src/odsql/index.ts:109](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L109)*
 
 #### Parameters:
 
@@ -157,7 +157,7 @@ ___
 
 ▸ **limit**(`limit`: [NumberOrUpdater](../modules/odsql.md#numberorupdater)): [Query](odsql.query.md)
 
-*Defined in [src/odsql/index.ts:87](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L87)*
+*Defined in [src/odsql/index.ts:87](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L87)*
 
 #### Parameters:
 
@@ -173,7 +173,7 @@ ___
 
 ▸ **offset**(`offset`: [NumberOrUpdater](../modules/odsql.md#numberorupdater)): [Query](odsql.query.md)
 
-*Defined in [src/odsql/index.ts:92](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L92)*
+*Defined in [src/odsql/index.ts:92](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L92)*
 
 #### Parameters:
 
@@ -189,7 +189,7 @@ ___
 
 ▸ **orderBy**(`expressions`: [StringOrUpdater](../modules/odsql.md#stringorupdater)): [Query](odsql.query.md)
 
-*Defined in [src/odsql/index.ts:83](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L83)*
+*Defined in [src/odsql/index.ts:83](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L83)*
 
 #### Parameters:
 
@@ -205,7 +205,7 @@ ___
 
 ▸ **refine**(`refine`: string): [Query](odsql.query.md)
 
-*Defined in [src/odsql/index.ts:101](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L101)*
+*Defined in [src/odsql/index.ts:101](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L101)*
 
 #### Parameters:
 
@@ -221,7 +221,7 @@ ___
 
 ▸ **select**(`expressions`: [StringOrUpdater](../modules/odsql.md#stringorupdater)): [Query](odsql.query.md)
 
-*Defined in [src/odsql/index.ts:71](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L71)*
+*Defined in [src/odsql/index.ts:71](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L71)*
 
 #### Parameters:
 
@@ -237,7 +237,7 @@ ___
 
 ▸ **set**(`name`: string, `value`: string \| string[]): [Query](odsql.query.md)
 
-*Defined in [src/odsql/index.ts:45](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L45)*
+*Defined in [src/odsql/index.ts:45](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L45)*
 
 #### Parameters:
 
@@ -254,7 +254,7 @@ ___
 
 ▸ **toString**(): string
 
-*Defined in [src/odsql/index.ts:39](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L39)*
+*Defined in [src/odsql/index.ts:39](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L39)*
 
 **Returns:** string
 
@@ -264,7 +264,7 @@ ___
 
 ▸ **update**(`name`: string, `value`: [StringOrUpdater](../modules/odsql.md#stringorupdater)): [Query](odsql.query.md)
 
-*Defined in [src/odsql/index.ts:51](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L51)*
+*Defined in [src/odsql/index.ts:51](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L51)*
 
 #### Parameters:
 
@@ -281,7 +281,7 @@ ___
 
 ▸ **where**(`filters`: [StringOrUpdater](../modules/odsql.md#stringorupdater)): [Query](odsql.query.md)
 
-*Defined in [src/odsql/index.ts:75](https://github.com/opendatasoft/ods-dataviz-sdk/blob/8246d9d/packages/api-client/src/odsql/index.ts#L75)*
+*Defined in [src/odsql/index.ts:75](https://github.com/opendatasoft/ods-dataviz-sdk/blob/ab29865/packages/api-client/src/odsql/index.ts#L75)*
 
 #### Parameters:
 
