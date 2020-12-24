@@ -120,7 +120,7 @@ Start with one the entry point :
 
 - `fromDataNetwork()`: access any datasets on [Opendatasoft's data network](https://data.opendatasoft.com/)
 
-From there, your IDE should provide autocompletion. If not, you can always check the client reference. **⚠️ FIXME :** link to reference.
+From there, your IDE should provide autocompletion. If not, you can always check the [client reference](docs/globals.md).
 
 ```javascript
 import {
