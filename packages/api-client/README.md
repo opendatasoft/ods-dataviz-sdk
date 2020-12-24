@@ -44,7 +44,7 @@ client.get(query)
 
 ### ApiClient
 
-The `ApiClient` class can be used to send api request and get back an api response.
+The [`ApiClient`](docs/classes/client.apiclient.md) class can be used to send api request and get back an api response.
 
 It takes an optional configuration object.
 
@@ -120,7 +120,7 @@ Start with one the entry point :
 
 - `fromDataNetwork()`: access any datasets on [Opendatasoft's data network](https://data.opendatasoft.com/)
 
-From there, your IDE should provide autocompletion. If not, you can always check the [client reference](docs/globals.md).
+From there, your IDE should provide autocompletion. If not, you can always check the [the query builder reference](docs/modules/odsql.md).
 
 ```javascript
 import {
@@ -150,7 +150,7 @@ client.get(fromDataNetwork().dataset('sirene@data').facets().lang('fr'));
 client.get(fromCatalog().datasets().select('dataset_id, records_count'));
 ```
 
-The `Query` interface expose convenient parameters of an API request.
+The [`Query`](docs/classes/odsql.query.md) interface expose convenient parameters of an API request.
 
 ```javascript
 import {
@@ -208,6 +208,7 @@ Here are some samples to get you started.
 ## Resources
 
 - [Api documentation](https://help.opendatasoft.com/apis/ods-search-v2/#search-api-v2)
+- [Api Client Reference](docs/globals.md)
 - [Data network api console](https://data.opendatasoft.com/api/v2/console)
 
 ## How to contribute
