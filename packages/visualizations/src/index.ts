@@ -1,7 +1,2 @@
-import BarChart from './components/BarChart';
-import Text from './components/Text';
-
-export default {
-    BarChart,
-    Text,
-};
+export { default as BarChart } from './components/BarChart';
+export { default as Text } from './components/Text';
