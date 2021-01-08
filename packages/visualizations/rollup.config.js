@@ -26,7 +26,12 @@ export default {
             include: 'src/**/*.svelte',
             preprocess,
         }),
-        typescript({ sourceMap: true }),
+        typescript({ 
+            sourceMap: true,
+            declaration: true,
+            declarationDir: 'dist',
+            rootDir: 'src',
+        }),
         nodeResolve(),
     ],
 };
