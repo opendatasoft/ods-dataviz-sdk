@@ -16,3 +16,7 @@ export enum ColorConfigurationTypes {
     /** Cycle through a list of colors, defined in the `colors` property */
     RoundRobin = 'roundrobin',
 }
+
+export interface Dataset {
+    
+}

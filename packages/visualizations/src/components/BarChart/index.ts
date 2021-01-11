@@ -1,26 +1,10 @@
-import BaseComponent, { Data, Styles } from '../types';
-import type { BarChartParameters } from './types'
-
+import { BaseComponent, Async } from '../types';
+import type { BarChartParameters, Dataset } from './types'
 import BarChartImpl from './BarChart.svelte';
-import PlaceholderImpl from './Placeholder.svelte';
+import { SvelteImpl } from '../SvelteImpl';
 
-export default class BarChart extends BaseComponent<BarChartParameters> {
-    isDisplayable = !!(this.data?.data && this.parameters.xAxis && this.parameters.yAxis);
-
-    constructor(container: HTMLElement, data: Data, parameters: BarChartParameters, styles: Styles) {
-        super(container, data, parameters, styles);
-        this.render(BarChartImpl, PlaceholderImpl);
-    }
-
-    public updateParameters(newParameters: BarChartParameters): void {
-        this.parameters = newParameters;
-    }
-
-    public updateData(newData: Data): void {
-        this.data = newData;
-    }
-
-    public updateStyles(newStyles: Styles): void {
-        this.styles = newStyles;
+export default class BarChart extends SvelteImpl<Dataset, BarChartParameters> {
+    protected getSvelteComponentClass(): typeof BarChartImpl {
+        return BarChartImpl;
     }
 }
