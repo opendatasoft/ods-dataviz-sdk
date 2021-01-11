@@ -1,5 +1,4 @@
-import { BaseComponent, Async } from '../types';
-import type { BarChartParameters, Dataset } from './types'
+import type { BarChartParameters, Dataset } from './types';
 import BarChartImpl from './BarChart.svelte';
 import { SvelteImpl } from '../SvelteImpl';
 
