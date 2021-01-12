@@ -3,7 +3,7 @@
     "license": "MIT",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
-    "name": "visualizations-react",
+    "name": "@opendatasoft/visualizations-react",
     "author": "opendatasoft",
     "module": "dist/visualizations-react.esm.js",
     "files": [
