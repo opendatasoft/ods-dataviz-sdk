@@ -26,11 +26,11 @@ export default {
     plugins: [
         svelte({
             // enable run-time checks when not in production
-			dev: !production,
+            dev: !production,
             include: 'src/**/*.svelte',
             preprocess,
         }),
-        typescript({ 
+        typescript({
             sourceMap: true,
             declaration: true,
             declarationDir: 'dist',
