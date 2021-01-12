@@ -1,1 +1,1 @@
-export { default as BarChart } from './components/BarChart/BarChart.svelte';
+export { default as Chart } from './components/Chart/Chart.svelte';

@@ -1,42 +1,25 @@
-export interface Async<T> {
-    data?: T;
-    error?: any; // unknown is more safe, but Typescript doesn't allow catching error as unknown yet, see https://github.com/microsoft/TypeScript/issues/26174
-    loading: boolean;
+export interface ColorConfiguration {
+    type: ColorConfigurationTypes;
+    colors: string[];
 }
 
+export interface ChartOptions {
+    /** Chart aspect ratio */
+    aspectRatio?: number;
+    /** Chart type */
+    type: 'bar' | 'line' | 'pie' | 'scatter' | 'bubble' | 'doughnut' | 'polarArea' | 'radar';
 
-export abstract class BaseComponent<Data, Options> {
-    readonly container: HTMLElement;
-    protected data: Async<Data>;
-    protected options: Options;
-
-    constructor(container: HTMLElement, data: Async<Data>, options: Options) {
-        this.container = container;
-        this.data = data;
-        this.options = options;
-        this.onCreate();
-    }
-
-    public updateData(newData: Async<Data>): void {
-        const oldData = this.data;
-        this.data = newData;
-        this.onDataUpdated(oldData);
-    };
-
-    public updateOptions(newOptions: Options): void {
-        const oldOptions = this.options;
-        this.options = newOptions;
-        this.onOptionsUpdated(oldOptions);
-    };
-
-    public destroy(): void {
-        this.onDestroy();
-    }
-
-    protected abstract onCreate(): void;
-    protected abstract onDataUpdated(oldData: Async<Data>): void;
-    protected abstract onOptionsUpdated(oldOptions: Options): void;
-    protected abstract onDestroy(): void;
+    //FIXME: Maybe the following options should be in an array...
+    /** Dataset label */
+    label: string;
+    /** Field name to use as the X axis */
+    xAxis: string;
+    /** Field name to use as the Y axis */
+    yAxis: string;
+    /** Configuration of colors used for the bars */
+    colorConfiguration: ColorConfiguration;
 }
 
+export type ColorConfigurationTypes = 'roundrobin';
 
+export type DataFrame = Record<string, any>[];

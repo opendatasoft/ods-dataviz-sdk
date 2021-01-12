@@ -1,37 +1,35 @@
-import type { SvelteComponent } from "svelte";
-import { BaseComponent } from "./types";
+import type { SvelteComponent } from 'svelte';
+import { BaseComponent } from '../types';
 
 export abstract class SvelteImpl<Data, Options> extends BaseComponent<Data, Options> {
-
     protected abstract getSvelteComponentClass(): typeof SvelteComponent;
     private svelteComponent: SvelteComponent;
 
-    protected onCreate(){
+    protected onCreate() {
         const ComponentClass = this.getSvelteComponentClass();
         this.svelteComponent = new ComponentClass({
             target: this.container,
             props: {
                 data: this.data,
-                options: this.options
-            }
-        })
-    }
-
-    protected onDataUpdated(){
-        this.svelteComponent.$$set({
-            data: this.data
+                options: this.options,
+            },
         });
     }
 
-    protected onOptionsUpdated(){
+    protected onDataUpdated() {
         this.svelteComponent.$$set({
-            options: this.options
+            data: this.data,
         });
     }
 
-    protected onDestroy(){
+    protected onOptionsUpdated() {
+        this.svelteComponent.$$set({
+            options: this.options,
+        });
+    }
+
+    protected onDestroy() {
         this.svelteComponent.$destroy();
         this.svelteComponent = null;
     }
-
 }
