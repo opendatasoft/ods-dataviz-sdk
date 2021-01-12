@@ -4,6 +4,7 @@
     "description": "",
     "main": "dist/index.js",
     "scripts": {
+        "prepare": "rollup --config",
         "build": "rollup --config",
         "watch": "rollup --config --watch",
         "test": "echo \"No test specified\""
