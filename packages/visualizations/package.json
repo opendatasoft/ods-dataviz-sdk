@@ -4,12 +4,20 @@
     "description": "",
     "main": "dist/index.js",
     "scripts": {
+        "prepare": "rollup --config",
         "build": "rollup --config",
         "watch": "rollup --config --watch",
         "test": "echo \"No test specified\""
     },
-    "author": "",
+    "author": "opendatasoft",
     "license": "MIT",
+    "prettier": {
+        "printWidth": 100,
+        "tabWidth": 4,
+        "semi": true,
+        "singleQuote": true,
+        "trailingComma": "es5"
+    },
     "devDependencies": {
         "@opendatasoft/api-client": "^0.1.0",
         "@rollup/plugin-node-resolve": "^10.0.0",
