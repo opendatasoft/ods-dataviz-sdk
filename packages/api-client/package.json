@@ -2,6 +2,17 @@
   "name": "@opendatasoft/api-client",
   "version": "0.1.0",
   "license": "MIT",
+  "author": "opendatasoft",
+  "homepage": "https://github.com/opendatasoft/ods-dataviz-sdk",
+  "description": "Opendatasoft's API client.",
+  "keywords": [
+    "Opendatasoft",
+    "ODS",
+    "API Client",
+    "Dataviz",
+    "JavaScript",
+    "TypeScript"
+  ],
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "module": "dist/api-client.esm.js",

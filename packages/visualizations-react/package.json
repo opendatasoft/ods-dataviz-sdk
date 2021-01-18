@@ -1,10 +1,21 @@
 {
+    "name": "@opendatasoft/visualizations-react",
     "version": "1.0.0",
     "license": "MIT",
+    "author": "opendatasoft",
+    "homepage": "https://github.com/opendatasoft/ods-dataviz-sdk",
+    "description": "Opendatasoft's React wrapper for visualization components.",
+    "keywords": [
+      "Opendatasoft",
+      "ODS",
+      "Data visualization",
+      "Dataviz",
+      "JavaScript",
+      "TypeScript",
+      "React"
+    ],
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
-    "name": "@opendatasoft/visualizations-react",
-    "author": "opendatasoft",
     "module": "dist/visualizations-react.esm.js",
     "files": [
         "dist",
