@@ -8,13 +8,13 @@ This package implement a Typescript/Javascript client library for Opendatasoft's
 
 The client is available as an npm package.
 
-With npm :
+With npm:
 
 ```shell
 npm install @opendatasoft/api-client
 ```
 
-With yarn :
+With yarn:
 
 ```shell
 yarn add @opendatasoft/api-client
@@ -24,7 +24,7 @@ yarn add @opendatasoft/api-client
 
 ## Get started
 
-Here is a quick example to get you started :
+Here is a quick example to get you started:
 
 ```javascript
 import { ApiClient, fromCatalog } from '@opendatasoft/api-client';
@@ -38,7 +38,7 @@ client.get(query)
 
 ```
 
-**⚠️ FIXME :** Add CodeSandbox sample.
+**⚠️ FIXME:** Add CodeSandbox sample.
 
 ## Usage
 
@@ -61,17 +61,17 @@ const client = new ApiClient({
       domain: 'public' || 'https://public.opendatasoft.com',
 
       /* (Optional) A fetch-compatible API for making a request. */
-      fetch : window.fetch,
+      fetch: window.fetch,
 
       /* (Optional) Allow you to update the request before it is send. */
-      interceptRequest : async (request) => {
+      interceptRequest: async (request) => {
             console.log(request);
             request.headers.append('x-custom', 'custom');
             return request;
       },
 
       /* (Optional) Allow you to intercept the response before it is returned */
-      interceptResponse : async (response) => {
+      interceptResponse: async (response) => {
             const apiResponse = await response.json();
             delete apiResponse['links'];
             return apiResponse;
@@ -112,9 +112,9 @@ You can use that to display a better error message.
 
 The client also include a query builder.
 
-Start with one the entry point :
+Start with one the entry point:
 
-- `fromCatalog()` : query the domain catalog
+- `fromCatalog()`: query the domain catalog
 
 - `fromMonitoring()`: access monitoring datasets
 
@@ -131,7 +131,7 @@ import {
 } from '@opendatasoft/api-client';
 
 const client = new ApiClient({
-      interceptRequest : async (request) => {
+      interceptRequest: async (request) => {
             console.log(request.url); // Log the url
             return request;
       }
@@ -191,19 +191,19 @@ Here are some samples to get you started.
 
 ### React
 
-**⚠️ FIXME :** Add CodeSandbox sample.
+**⚠️ FIXME:** Add CodeSandbox sample.
 
 ### Angular
 
-**⚠️ FIXME :** Add CodeSandbox sample.
+**⚠️ FIXME:** Add CodeSandbox sample.
 
 ### Vue
 
-**⚠️ FIXME :** Add CodeSandbox sample.
+**⚠️ FIXME:** Add CodeSandbox sample.
 
 ### Svelte
 
-**⚠️ FIXME :** Add CodeSandbox sample.
+**⚠️ FIXME:** Add CodeSandbox sample.
 
 ## Resources
 
@@ -213,4 +213,4 @@ Here are some samples to get you started.
 
 ## How to contribute
 
-Take a look at our [contribution guide](CONTRIBUTING.md) if you're interested in helping.
+Take a look at our [Contributing Guide](CONTRIBUTING.md) if you're interested in helping.
