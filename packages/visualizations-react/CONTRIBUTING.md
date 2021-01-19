@@ -8,6 +8,11 @@ When contributing to this repository, please first discuss the change you wish t
 
 - Specific to this package:
   - [Build](#Build)
+  - [Jest](#jest)
+  - [Bundle Analysis](#bundle-analysis)
+  - [Optimizations](#optimizations)
+  - [Module Formats](#module-formats)
+  - [Named Exports](#named-exports)
   - [Resources](#resources)
 - General rules of contribution:
   - [Commit messages](../../CONTRIBUTING.md#commit-messages)
@@ -16,13 +21,55 @@ When contributing to this repository, please first discuss the change you wish t
 
 ## Build
 
+This project uses [Rollup](https://rollupjs.org) as a bundler through [TSDX](https://tsdx.io/api-reference).
+
 To watch this package:
 
 ```bash
 npm run watch # or yarn run watch
 ```
 
-**⚠️ FIXME:** Finish this section.
+This builds to `/dist` and runs the project in watch mode so any edits you save inside `src` causes a rebuild to `/dist`.
+
+To do a one-off build, use `npm run build` or `yarn build`.
+
+To run tests, use `npm test` or `yarn test`.
+
+Code quality is set up with `prettier`, `husky`, and `lint-staged`.
+
+## Jest
+
+Jest tests are set up to run with `npm test` or `yarn test`.
+
+You can also have test coverage with `npm run test:coverage`. And rerun test as you work with `npm run test:watch`.
+
+## Bundle Analysis
+
+[`size-limit`](https://github.com/ai/size-limit) with `npm run size` and visualize the bundle with `npm run analyze`.
+
+## Optimizations
+
+Please see the main `tsdx` [optimizations docs](https://github.com/palmerhq/tsdx#optimizations). In particular, know that you can take advantage of development-only optimizations:
+
+```js
+// ./types/index.d.ts
+declare var __DEV__: boolean;
+
+// inside your code...
+if (__DEV__) {
+  console.log('foo');
+}
+```
+
+## Module Formats
+
+CJS, ESModules, and UMD module formats are supported.
+
+The appropriate paths are configured in `package.json` and `dist/index.js` accordingly. Please report if any issues are found.
+
+## Named Exports
+
+Per Palmer Group guidelines, [always use named exports.](https://github.com/palmerhq/typescript#exports).
 
 ## Resources
 
