@@ -34,7 +34,7 @@ npm run watch
 
 **Contributing Guides specific to each package:**
 
-- [:package: @opendatasoft/api-client](ackages/api-client/CONTRIBUTING.md)
+- [:package: @opendatasoft/api-client](packages/api-client/CONTRIBUTING.md)
 - [:package: @opendatasoft/visualizations](packages/visualizations/CONTRIBUTING.md)
 - [:package: @opendatasoft/visualizations-react](packages/visualizations-react/CONTRIBUTING.md)
 
