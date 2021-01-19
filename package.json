@@ -1,34 +1,35 @@
 {
-  "name": "ods-dataviz-sdk",
-  "version": "1.0.0",
-  "license": "MIT",
-  "author": "opendatasoft",
-  "homepage": "https://github.com/opendatasoft/ods-dataviz-sdk",
-  "description": "Opendatasoft SDKs for data visualization.",
-  "keywords": [
-    "Opendatasoft",
-    "ODS",
-    "Data visualization",
-    "Dataviz",
-    "JavaScript",
-    "TypeScript",
-    "Svelte"
-  ],
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:opendatasoft/ods-dataviz-sdk.git"
-  },
-  "bugs": {
-    "url": "https://github.com/opendatasoft/ods-dataviz-sdk/issues"
-  },
-  "scripts": {
-    "test": "lerna run test",
-    "bootstrap": "lerna bootstrap",
-    "watch": "lerna run watch --parallel",
-    "new-version": "lerna version --conventional-commits --yes"
-  },
-  "devDependencies": {
-    "lerna": "^3.22.1"
-  }
+    "private": true,
+    "name": "ods-dataviz-sdk",
+    "version": "0.0.1",
+    "license": "MIT",
+    "author": "opendatasoft",
+    "homepage": "https://github.com/opendatasoft/ods-dataviz-sdk",
+    "description": "Opendatasoft librairies for Data Visualization.",
+    "keywords": [
+        "Opendatasoft",
+        "ODS",
+        "Data visualization",
+        "Dataviz",
+        "JavaScript",
+        "TypeScript",
+        "Svelte"
+    ],
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:opendatasoft/ods-dataviz-sdk.git"
+    },
+    "bugs": {
+        "url": "https://github.com/opendatasoft/ods-dataviz-sdk/issues"
+    },
+    "scripts": {
+        "test": "lerna run test",
+        "bootstrap": "lerna bootstrap",
+        "watch": "lerna run watch --parallel",
+        "new-version": "lerna version --conventional-commits --yes"
+    },
+    "devDependencies": {
+        "lerna": "^3.22.1"
+    }
 }

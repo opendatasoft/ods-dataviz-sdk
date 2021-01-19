@@ -1,6 +1,6 @@
 {
     "name": "@opendatasoft/visualizations",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "description": "",
     "main": "dist/index.js",
     "scripts": {
@@ -19,7 +19,7 @@
         "trailingComma": "es5"
     },
     "devDependencies": {
-        "@opendatasoft/api-client": "^0.1.0",
+        "@opendatasoft/api-client": "^0.0.1",
         "@rollup/plugin-node-resolve": "^10.0.0",
         "@rollup/plugin-typescript": "^6.1.0",
         "@tsconfig/svelte": "^1.0.10",
