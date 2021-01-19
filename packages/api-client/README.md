@@ -1,8 +1,16 @@
-# @opendatasoft/api-client
+# @opendatasoft/api-client ![CI status](https://github.com/opendatasoft/ods-dataviz-sdk/workflows/CI/badge.svg)
 
-![CI status](https://github.com/opendatasoft/ods-dataviz-sdk/workflows/CI/badge.svg)
+This package implement a Typescript/Javascript client library for Opendatasoft's [Search APIv2](https://help.opendatasoft.com/apis/ods-search-v2/#search-api-v2).
 
-This package implement a Typescript/Javascript client library for Opendatasoft's [Search API v2](https://help.opendatasoft.com/apis/ods-search-v2/#search-api-v2).
+- [Installation](#installation)
+- [Get started](#get-started)
+- [Usage](#usage)
+  - [ApiClient](#ApiClient)
+  - [Query builder](#query-builder)
+- [Frameworks](#frameworks)
+- [Resources](#resources)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Installation
 
@@ -35,7 +43,6 @@ const query = fromCatalog().facets();
 client.get(query)
       .then((response) => console.log(response))
       .catch((error) => console.error(error));
-
 ```
 
 **⚠️ FIXME:** Add CodeSandbox sample.
@@ -207,10 +214,16 @@ Here are some samples to get you started.
 
 ## Resources
 
-- [Api documentation](https://help.opendatasoft.com/apis/ods-search-v2/#search-api-v2)
-- [Api Client Reference](docs/globals.md)
-- [Data network api console](https://data.opendatasoft.com/api/v2/console)
+- [Opendatasoft's APIv2 documentation](https://help.opendatasoft.com/apis/ods-search-v2/#search-api-v2)
+- [API Client Reference](docs/globals.md)
+- [Data Network API Console](https://data.opendatasoft.com/api/v2/console)
 
-## How to contribute
+## Contributing
 
-Take a look at our [Contributing Guide](CONTRIBUTING.md) if you're interested in helping.
+This project welcomes contributions and suggestions! To do so, take a look at our [Contributing Guide](CONTRIBUTING.md). It contains setup instructions, tools and scripts that can be useful if you need to work on all packages at the same time.
+
+## License
+
+This project is licensed under the [MIT license](LICENSE).
+
+Copyrights on the definition files are respective of each contributor listed at the beginning of each definition file.
