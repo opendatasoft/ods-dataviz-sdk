@@ -34,5 +34,3 @@ This project welcomes contributions and suggestions! To do so, take a look at ou
 ## License
 
 This project is licensed under the [MIT license](LICENSE).
-
-Copyrights on the definition files are respective of each contributor listed at the beginning of each definition file.
