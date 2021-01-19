@@ -15,6 +15,7 @@ When contributing to this repository, please first discuss the change you wish t
   - [Named Exports](#named-exports)
   - [Resources](#resources)
 - General rules of contribution:
+  - [Reporting a bug](../../CONTRIBUTING.md#reporting-a-bug)
   - [Commit messages](../../CONTRIBUTING.md#commit-messages)
   - [Versioning](../../CONTRIBUTING.md#versioning)
   - [Pull Requests](../../CONTRIBUTING.md#pull-requests)
