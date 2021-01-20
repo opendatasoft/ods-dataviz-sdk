@@ -7,7 +7,8 @@ Contributions are welcome and are greatly appreciated! Every little bit helps, a
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
 
 - Specific to this package:
-  - [Build](#Build)
+  - [Build](#build)
+  - [Configuration](#configuration)
   - [Jest](#jest)
   - [Bundle Analysis](#bundle-analysis)
   - [Optimizations](#optimizations)
@@ -34,9 +35,9 @@ This builds to `/dist` and runs the project in watch mode so any edits you save 
 
 To do a one-off build, use `npm run build` or `yarn build`.
 
-To run tests, use `npm test` or `yarn test`.
+## Configuration
 
-Code quality is set up with `prettier`, `husky`, and `lint-staged`.
+Code quality is set up for you with `prettier`, `husky`, and `lint-staged`.
 
 ## Jest
 

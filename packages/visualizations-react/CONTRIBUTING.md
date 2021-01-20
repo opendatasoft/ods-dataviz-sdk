@@ -7,7 +7,9 @@ Contributions are welcome and are greatly appreciated! Every little bit helps, a
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
 
 - Specific to this package:
-  - [Build](#Build)
+  - [Build](#build)
+    - [Storybook](#storybook)
+  - [Configuration](#configuration)
   - [Jest](#jest)
   - [Bundle Analysis](#bundle-analysis)
   - [Optimizations](#optimizations)
@@ -34,9 +36,21 @@ This builds to `/dist` and runs the project in watch mode so any edits you save 
 
 To do a one-off build, use `npm run build` or `yarn build`.
 
-To run tests, use `npm test` or `yarn test`.
+Then run either Storybook or the example playground:
 
-Code quality is set up with `prettier`, `husky`, and `lint-staged`.
+### Storybook
+
+Run inside another terminal:
+
+```bash
+npm run storybook
+```
+
+This loads the stories from `./stories`.
+
+## Configuration
+
+Code quality is set up for you with `prettier`, `husky`, and `lint-staged`.
 
 ## Jest
 
@@ -75,5 +89,4 @@ Per Palmer Group guidelines, [always use named exports.](https://github.com/palm
 ## Resources
 
 - [TypeScript cheatsheet](https://devhints.io/typescript)
-- [Svelte tutorial](https://svelte.dev/tutorial/basics)
 - [React tutorial](https://fr.reactjs.org/tutorial/tutorial.html)

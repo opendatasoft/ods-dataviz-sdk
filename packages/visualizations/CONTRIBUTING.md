@@ -7,7 +7,7 @@ Contributions are welcome and are greatly appreciated! Every little bit helps, a
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
 
 - Specific to this package:
-  - [Build](#Build)
+  - [Build](#build)
   - [Resources](#resources)
 - General rules of contribution:
   - [Reporting a bug](../../CONTRIBUTING.md#reporting-a-bug)
