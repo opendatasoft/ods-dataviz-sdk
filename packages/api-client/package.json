@@ -36,7 +36,6 @@
         "test:watch": "tsdx test --watch",
         "test:coverage": "tsdx test --coverage"
     },
-    "peerDependencies": {},
     "prettier": {
         "printWidth": 100,
         "tabWidth": 4,
