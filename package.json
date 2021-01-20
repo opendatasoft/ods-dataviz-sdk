@@ -27,7 +27,7 @@
         "test": "lerna run test",
         "bootstrap": "lerna bootstrap",
         "watch": "lerna run watch --parallel",
-        "new-version": "lerna version --conventional-commits --yes"
+        "new-version": "lerna version --conventional-commits --no-push"
     },
     "devDependencies": {
         "lerna": "^3.22.1"

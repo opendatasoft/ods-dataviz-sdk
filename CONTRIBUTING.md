@@ -89,7 +89,8 @@ When run, this command does the following:
 1. Identifies packages that have been updated since the previous tagged release.
 2. Modifies the `CHANGELOG.md` files to reflect new release using the [Conventional Commits Specification](https://www.conventionalcommits.org/) to determine the version bump.
 3. Commits those changes and tags the commit.
-4. Pushes to the git remote.
+
+Then, you'll have to **manually push** the new version.
 
 ## Pull Requests
 
