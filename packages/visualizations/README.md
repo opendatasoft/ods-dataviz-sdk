@@ -33,7 +33,7 @@ import { Chart } from "@opendatasoft/visualizations";
 
 const container = document.getElementsByTagName("body")[0];
 
-const client = new ApiClient({ domain: "public" });
+const client = new ApiClient({ domain: "public" }); // FIXME: Once it's ready, we should use the domain dedicated to the documentation.
 
 const query = fromCatalog()
     .dataset("worldcitiespop")
