@@ -50,6 +50,30 @@ If you want to [submit a pull request](#pull-requests) that fixes your bug, that
 
 Good commit messages are important, that's why we're using [Conventional Commits Specification](https://www.conventionalcommits.org/). Which is a lightweight convention on top of commit messages. Apart from the gain in readability, the nice thing about using this specification studiously is that when you want to publish a new version of a package (see details [below](#versioning)), your changes will be listed automatically in the `CHANGELOG` file.
 
+### Format
+
+Each commit message consists of a **header**, a **body** and a **footer**. The header has a special format that includes a **type**, a **scope** and a **subject**:
+
+```text
+<type>(<scope>): <subject>
+<BLANK LINE>
+<body>
+<BLANK LINE>
+<footer>
+```
+
+The **header** is mandatory and the **scope** of the header is optional.
+
+The **type** must be one of the following:
+
+- `feat`: A new feature
+- `fix`: A bug fix
+- `build`: Changes that affect the build system or external dependencies (example `scopes: rollup, lerna, npm`)
+- `perf`: A code change that improves performance
+- `refactor`: A code change that neither fixes a bug nor adds a feature
+- `style`: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+- `test`: Adding missing tests or correcting existing tests
+
 ## Versioning
 
 As mentioned above, this project uses [lerna](https://github.com/lerna/lerna) to structure its repo, and has multiple packages to publish out of this one repo. We use lerna's "independent" mode, which means that the versioning of each package in the repo is versioned independently.
