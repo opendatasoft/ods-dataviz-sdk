@@ -3,11 +3,20 @@
 
     ChartJs.Chart.register.apply(
         null,
-        Object.values(ChartJs).filter((chartClass) => (chartClass as any).id)
+        Object.values(ChartJs).filter((chartClass) => (chartClass as any).id) as any
     );
+</script>
+
+<script lang="ts">
+    import type { Async } from '../../types';
+    import Placeholder from './Placeholder.svelte';
+    import type { ChartOptions, ChartSeries, ColorConfiguration, DataFrame } from '../types';
+    export let data: Async<DataFrame>;
+    export let options: ChartOptions;
 
     function chartJs(node: HTMLCanvasElement, config: ChartJs.ChartConfiguration) {
         const ctx = node.getContext('2d');
+        if (!ctx) throw new Error('Failed to get canvas context');
         const chart = new ChartJs.Chart(ctx, config);
         return {
             update(config: ChartJs.ChartConfiguration) {
@@ -18,14 +27,32 @@
             },
         };
     }
-</script>
 
-<script lang="ts">
-    import type { Async } from '../../types';
-    import Placeholder from './Placeholder.svelte';
-    import type { ChartOptions, DataFrame } from '../types';
-    export let data: Async<DataFrame>;
-    export let options: ChartOptions;
+    function chartJsColor(config?: ColorConfiguration) {
+        return config?.colors;
+    }
+
+    function toDataset(dataFrame: DataFrame, series: ChartSeries): ChartJs.ChartDataset {
+        if (series.type === 'bar') {
+            return {
+                type: 'bar',
+                data: dataFrame.map((entry) => entry[series.valueColumn]),
+                backgroundColor: chartJsColor(series.backgroundColor),
+                label: series.label,
+            };
+        }
+
+        if (series.type === 'line') {
+            return {
+                type: 'line',
+                data: dataFrame.map((entry) => entry[series.valueColumn]),
+                backgroundColor: chartJsColor(series.backgroundColor),
+                label: series.label,
+            };
+        }
+
+        throw new Error('Unknown chart type: ' + (series as any).type);
+    }
 
     let chartConfig: ChartJs.ChartConfiguration = {
         type: 'bar',
@@ -37,29 +64,37 @@
     };
 
     $: {
-        chartConfig.type = options.type;
-        chartConfig.options.aspectRatio = options.aspectRatio;
+        chartConfig.options = {
+            aspectRatio: options.aspectRatio,
+            scales: {
+                x: {
+                    type: options?.xAxis?.type,
+                    display: options?.xAxis?.display,
+                    scaleLabel: {
+                        display: options?.xAxis?.label?.display,
+                        align: options?.xAxis?.label?.align,
+                        labelString: options?.xAxis?.label?.value,
+                    },
+                },
+                y: {
+                    type: options?.yAxis?.type,
+                    display: options?.yAxis?.display,
+                    scaleLabel: {
+                        display: options?.yAxis?.label?.display,
+                        align: options?.yAxis?.label?.align,
+                        labelString: options?.yAxis?.label?.value,
+                    },
+                },
+            },
+        };
     }
 
     $: {
-        chartConfig.data.labels = data.value.map((entry) => entry[options.xAxis]);
-        chartConfig.data.datasets = [
-            {
-                label: options.label,
-                data: data.value.map((entry) => entry[options.yAxis]),
-                backgroundColor: options.colorConfiguration.colors,
-            },
-        ];
+        const dataFrame = data.value || [];
+        chartConfig.data.labels = dataFrame.map((entry) => entry[options.labelColumn]);
+        chartConfig.data.datasets = options.series.map((series) => toDataset(dataFrame, series));
     }
 </script>
-
-<style>
-    .chart-container {
-        position: relative;
-        height: 100%;
-        width: 100%;
-    }
-</style>
 
 <div class="chart-container">
     {#if data.loading}
@@ -73,3 +108,11 @@
         {#if data.error}Error : {JSON.stringify(data.error)}{/if}
     {/if}
 </div>
+
+<style>
+    .chart-container {
+        position: relative;
+        height: 100%;
+        width: 100%;
+    }
+</style>

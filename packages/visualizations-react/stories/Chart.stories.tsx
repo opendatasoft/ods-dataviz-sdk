@@ -43,28 +43,52 @@ Default.args = {
     data: {
         loading: false,
         value: [
-            { x: '01/01', y: 10 },
-            { x: '02/01', y: 5 },
-            { x: '03/01', y: 2 },
-            { x: '04/01', y: 3 },
-            { x: '05/01', y: 4 },
-            { x: '06/01', y: 10 },
+            { x: '01/01', y: 10, z: 1 },
+            { x: '02/01', y: 5, z: 2 },
+            { x: '03/01', y: 2, z: 3 },
+            { x: '04/01', y: 3, z: 1 },
+            { x: '05/01', y: 4, z: 1 },
+            { x: '06/01', y: 10, z: 1 },
         ],
     },
     options: {
-        type: 'radar',
-        xAxis: 'x',
-        yAxis: 'y',
-        label: 'My dataset',
-        colorConfiguration: {
-            type: 'roundrobin',
-            colors: [
-                'rgba(254,14,23,0.5)',
-                'rgba(54,174,23,0.5)',
-                'rgba(200,74,223,0.5)',
-                'rgba(255,255,23,0.5)',
-                'rgba(54,74,223,0.5)',
-            ],
+        labelColumn: 'x',
+        series: [
+            {
+                type: 'bar',
+                valueColumn: 'y',
+                label: 'bar dataset',
+                backgroundColor: {
+                    type: 'roundrobin',
+                    colors: ['rgba(255,50,50,.5)'],
+                },
+            },
+            {
+                type: 'line',
+                valueColumn: 'z',
+                label: 'line dataset',
+                backgroundColor: {
+                    type: 'roundrobin',
+                    colors: ['rgba(55,250,50,.5)'],
+                },
+            },
+        ],
+        xAxis: {
+            display: true,
+            type: 'category',
+            label: {
+                display: true,
+                value: 'Jour',
+                align: 'start',
+            },
+        },
+        yAxis: {
+            display: true,
+            label: {
+                display: true,
+                value: 'count(*)',
+                align: 'end',
+            },
         },
     },
 };
