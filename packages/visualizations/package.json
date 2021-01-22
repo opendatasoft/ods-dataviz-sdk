@@ -1,7 +1,19 @@
 {
     "name": "@opendatasoft/visualizations",
-    "version": "0.0.1",
-    "description": "",
+	"version": "0.0.1",
+	"license": "MIT",
+	"author": "opendatasoft",
+	"homepage": "https://github.com/opendatasoft/ods-dataviz-sdk",
+	"description": "Opendatasoft's components to easily build dashboards and visualizations.",
+	"keywords": [
+		"Opendatasoft",
+		"ODS",
+		"Data visualization",
+		"Dataviz",
+		"JavaScript",
+		"TypeScript",
+		"Svelte"
+	],
     "main": "dist/index.js",
     "scripts": {
         "prepare": "rollup --config",
