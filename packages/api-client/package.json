@@ -1,6 +1,6 @@
 {
     "name": "@opendatasoft/api-client",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "license": "MIT",
     "author": "opendatasoft",
     "homepage": "https://github.com/opendatasoft/ods-dataviz-sdk",
@@ -53,7 +53,6 @@
             "limit": "10 KB"
         }
     ],
-    "peerDependencies": {},
     "devDependencies": {
         "@size-limit/preset-small-lib": "^4.9.0",
         "jest-fetch-mock": "^3.0.3",

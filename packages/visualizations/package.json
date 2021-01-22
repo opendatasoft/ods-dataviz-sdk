@@ -1,19 +1,19 @@
 {
     "name": "@opendatasoft/visualizations",
-	"version": "0.0.1",
-	"license": "MIT",
-	"author": "opendatasoft",
-	"homepage": "https://github.com/opendatasoft/ods-dataviz-sdk",
-	"description": "Opendatasoft's components to easily build dashboards and visualizations.",
-	"keywords": [
-		"Opendatasoft",
-		"ODS",
-		"Data visualization",
-		"Dataviz",
-		"JavaScript",
-		"TypeScript",
-		"Svelte"
-	],
+    "version": "0.0.2",
+    "license": "MIT",
+    "author": "opendatasoft",
+    "homepage": "https://github.com/opendatasoft/ods-dataviz-sdk",
+    "description": "Opendatasoft's components to easily build dashboards and visualizations.",
+    "keywords": [
+        "Opendatasoft",
+        "ODS",
+        "Data visualization",
+        "Dataviz",
+        "JavaScript",
+        "TypeScript",
+        "Svelte"
+    ],
     "main": "dist/index.js",
     "scripts": {
         "prepare": "rollup --config",
@@ -21,8 +21,6 @@
         "watch": "rollup --config --watch",
         "test": "echo \"No test specified\""
     },
-    "author": "opendatasoft",
-    "license": "MIT",
     "prettier": {
         "printWidth": 100,
         "tabWidth": 4,
@@ -31,7 +29,7 @@
         "trailingComma": "es5"
     },
     "devDependencies": {
-        "@opendatasoft/api-client": "^0.0.1",
+        "@opendatasoft/api-client": "^0.0.2",
         "@rollup/plugin-node-resolve": "^10.0.0",
         "@rollup/plugin-typescript": "^6.1.0",
         "@tsconfig/svelte": "^1.0.10",
