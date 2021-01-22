@@ -1,26 +1,15 @@
-# Opendatasoft SDKs for data visualization
+# Opendatasoft's libraries for Data Visualization ![CI status](https://github.com/opendatasoft/ods-dataviz-sdk/workflows/CI/badge.svg)
 
-![CI status](https://github.com/opendatasoft/ods-dataviz-sdk/workflows/CI/badge.svg)
+A monorepo for the Opendatasoft's libraries:
 
-This project is a development root for two packages:
-- [`@opendatasoft/api-client`](packages/api-client/): An API client for the Opendatasoft V2 API
-- [`@opendatasoft/visualizations`](packages/visualizations/): Components to easily build dashboards and visualizations on top of an Opendatasoft platform
+- [`@opendatasoft/api-client`](packages/api-client/): An API client for the [Opendatasoft's APIv2](https://help.opendatasoft.com/apis/ods-search-v2/#search-api-v2).
+- [`@opendatasoft/visualizations`](packages/visualizations/): Components to easily build dashboards and visualizations on top of an Opendatasoft platform.
+- [`@opendatasoft/visualizations-react`](packages/visualizations-react/): A convenient React wrapper for the visualizations components.
 
-It contains setup instructions, tools and scripts that can be useful if you need to work on both packages at the same time.
+## Contributing
 
-### Setup
-Install the necessary tools for this monorepo:
-```
-npm install
-```
+This project welcomes contributions and suggestions! To do so, take a look at our [Contributing Guide](CONTRIBUTING.md). It contains setup instructions, tools and scripts that can be useful if you need to work on all packages at the same time.
 
-Then bootstrap all the packages:
-```
-npm run bootstrap
-```
+## License
 
-### Developer
-To watch and rebuild all packages:
-```
-npm run watch
-```
+This project is licensed under the [MIT license](LICENSE).

@@ -1,4 +1,4 @@
-# Contributing Guide for `@opendatasoft/api-client`
+# Contributing Guide for `@opendatasoft/visualizations-react`
 
 > Please note we have a [Code of Conduct](../../CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
 
@@ -8,6 +8,7 @@ When contributing to this repository, please first discuss the change you wish t
 
 - Specific to this package:
   - [Build](#build)
+    - [Storybook](#storybook)
   - [Configuration](#configuration)
   - [Jest](#jest)
   - [Bundle Analysis](#bundle-analysis)
@@ -34,6 +35,18 @@ npm run watch # or yarn run watch
 This builds to `/dist` and runs the project in watch mode so any edits you save inside `src` causes a rebuild to `/dist`.
 
 To do a one-off build, use `npm run build` or `yarn build`.
+
+Then run either Storybook or the example playground:
+
+### Storybook
+
+Run inside another terminal:
+
+```bash
+npm run storybook
+```
+
+This loads the stories from `./stories`.
 
 ## Configuration
 
@@ -76,3 +89,4 @@ Per Palmer Group guidelines, [always use named exports.](https://github.com/palm
 ## Resources
 
 - [TypeScript cheatsheet](https://devhints.io/typescript)
+- [React tutorial](https://fr.reactjs.org/tutorial/tutorial.html)
