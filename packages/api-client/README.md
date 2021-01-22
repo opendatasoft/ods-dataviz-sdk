@@ -37,9 +37,6 @@ Here is a quick example to get you started:
 ```javascript
 import { ApiClient, fromCatalog } from '@opendatasoft/api-client';
 
-const queryEl = document.getElementById("query");
-const resultsEl = document.getElementById("results");
-
 // Here we initialize the Client by indicating the domain to request.
 const client = new ApiClient({ domain: "public" });
 
@@ -52,17 +49,9 @@ const query = fromCatalog() // From the domain catalog
     .limit(10) // But we only want the first 10 most populated cities.
     .toString(); // Then finally, we convert our query into a string.
 
-queryEl.innerHTML += query;
-
-client
-    .get(query)
-    .then(({ aggregations }) => {
-        const stringifiedResponse = JSON.stringify(aggregations, null, 4);
-        resultsEl.innerHTML += stringifiedResponse;
-    })
-    .catch((error) => {
-        console.error(error);
-    });
+client.get(query)
+    .then(response => console.log(response))
+    .catch(error => console.error(error));
 ```
 
 [CodeSandbox sample](https://codesandbox.io/s/api-clientget-started-be0xu?file=/src/index.js)
