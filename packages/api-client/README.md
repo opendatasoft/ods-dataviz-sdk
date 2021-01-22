@@ -37,21 +37,41 @@ Here is a quick example to get you started:
 ```javascript
 import { ApiClient, fromCatalog } from '@opendatasoft/api-client';
 
-const client = new ApiClient({ domain: 'public' });
-const query = fromCatalog().facets();
+const queryEl = document.getElementById("query");
+const resultsEl = document.getElementById("results");
 
-client.get(query)
-      .then((response) => console.log(response))
-      .catch((error) => console.error(error));
+// Here we initialize the Client by indicating the domain to request.
+const client = new ApiClient({ domain: "public" });
+
+const query = fromCatalog() // From the domain catalog
+    .dataset("worldcitiespop") // ... we'll use the dataset "worldcitiespop"
+    .aggregates() // ... in order to make an aggregation.
+    .where("country:'fr'") // Filtering records where country === "fr".
+    .groupBy("city, population") // Selecting the fields "city" and "population".
+    .orderBy("-population") // Sorted by the most populated cities.
+    .limit(10) // But we only want the first 10 most populated cities.
+    .toString(); // Then finally, we convert our query into a string.
+
+queryEl.innerHTML += query;
+
+client
+    .get(query)
+    .then(({ aggregations }) => {
+        const stringifiedResponse = JSON.stringify(aggregations, null, 4);
+        resultsEl.innerHTML += stringifiedResponse;
+    })
+    .catch((error) => {
+        console.error(error);
+    });
 ```
 
-**⚠️ FIXME:** Add CodeSandbox sample.
+[CodeSandbox sample](https://codesandbox.io/s/api-clientget-started-be0xu?file=/src/index.js)
 
 ## Usage
 
 ### ApiClient
 
-The [`ApiClient`](docs/classes/client.apiclient.md) class can be used to send api request and get back an api response.
+The [`ApiClient`](docs/classes/client.apiclient.md) class can be used to send API request and get back an API response.
 
 It takes an optional configuration object.
 
