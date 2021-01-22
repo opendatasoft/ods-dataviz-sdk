@@ -1,6 +1,7 @@
 # @opendatasoft/visualizations-react ![CI status](https://github.com/opendatasoft/ods-dataviz-sdk/workflows/CI/badge.svg)
 
-A convenient React wrapper for the [Opendatasoft's visualizations components](packages/visualizations/).
+A convenient React wrapper for [Opendatasoft's visualizations components](packages/visualizations/).
+If you are a React user, this wrapper makes it easier for you to use our [visualizations components](packages/visualizations/) in your React app. It adds an abstraction layer that handles for you data updates and options in your visualizations.
 
 - [Installation](#installation)
 - [Get started](#get-started)

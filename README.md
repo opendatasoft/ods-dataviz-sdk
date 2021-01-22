@@ -2,7 +2,7 @@
 
 A monorepo for the Opendatasoft's libraries:
 
-- [`@opendatasoft/api-client`](packages/api-client/): An API client for the Opendatasoft APIv2.
+- [`@opendatasoft/api-client`](packages/api-client/): An API client for the [Opendatasoft's APIv2](https://help.opendatasoft.com/apis/ods-search-v2/#search-api-v2).
 - [`@opendatasoft/visualizations`](packages/visualizations/): Components to easily build dashboards and visualizations on top of an Opendatasoft platform.
 - [`@opendatasoft/visualizations-react`](packages/visualizations-react/): A convenient React wrapper for the visualizations components.
 

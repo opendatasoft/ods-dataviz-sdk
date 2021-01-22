@@ -38,6 +38,7 @@ export function wrap<Data, Options, ComponentClass extends BaseComponent<Data, O
                 componentRef.current = component;
                 return () => {
                     component.destroy();
+                    componentRef.current = null;
                 };
             } else {
                 throw new Error(

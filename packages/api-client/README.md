@@ -1,6 +1,6 @@
 # @opendatasoft/api-client ![CI status](https://github.com/opendatasoft/ods-dataviz-sdk/workflows/CI/badge.svg)
 
-This package implement a Typescript/Javascript client library for Opendatasoft's [Search APIv2](https://help.opendatasoft.com/apis/ods-search-v2/#search-api-v2).
+This package implements a Typescript/Javascript client library for [Opendatasoft's Search APIv2](https://help.opendatasoft.com/apis/ods-search-v2/#search-api-v2).
 
 - [Installation](#installation)
 - [Get started](#get-started)
@@ -37,18 +37,20 @@ Here is a quick example to get you started:
 ```javascript
 import { ApiClient, fromCatalog } from '@opendatasoft/api-client';
 
-// Here we initialize the Client by indicating the domain to request.
+// Initialize the Client by indicating the domain to request.
 const client = new ApiClient({ domain: "public" });
 
+// Create the query to run.
 const query = fromCatalog() // From the domain catalog
     .dataset("worldcitiespop") // ... we'll use the dataset "worldcitiespop"
     .aggregates() // ... in order to make an aggregation.
-    .where("country:'fr'") // Filtering records where country === "fr".
-    .groupBy("city, population") // Selecting the fields "city" and "population".
-    .orderBy("-population") // Sorted by the most populated cities.
+    .where("country:'fr'") // // Filter records where country === "fr".
+    .groupBy("city, population") // Select the fields "city" and "population".
+    .orderBy("-population") // Sort by population in descending order.
     .limit(10) // But we only want the first 10 most populated cities.
     .toString(); // Then finally, we convert our query into a string.
 
+// Now, run the query.
 client.get(query)
     .then(response => console.log(response))
     .catch(error => console.error(error));
@@ -126,11 +128,11 @@ You can use that to display a better error message.
 
 ### Query builder
 
-The client also include a query builder.
+The client also includes a query builder.
 
-Start with one the entry point:
+Start with one of the following entry points:
 
-- `fromCatalog()`: query the domain catalog
+- `fromCatalog()`: access the domain catalog
 
 - `fromMonitoring()`: access monitoring datasets
 

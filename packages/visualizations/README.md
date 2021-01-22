@@ -1,6 +1,6 @@
 # @opendatasoft/visualizations ![CI status](https://github.com/opendatasoft/ods-dataviz-sdk/workflows/CI/badge.svg)
 
-This package provides components to easily build dashboards and visualizations on top of an Opendatasoft platform. It is convenient to use those components with the [`@opendatasoft/api-client`](packages/api-client/) package which is in charge of querying the data.
+This package provides components to easily build dashboards and visualizations on top of an Opendatasoft platform. An easy and convenient way to query and get data in components is to use them with the [`@opendatasoft/api-client`](packages/api-client/) package.
 
 - [Installation](#installation)
 - [Get started](#get-started)
