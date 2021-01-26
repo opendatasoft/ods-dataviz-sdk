@@ -45,7 +45,7 @@ const query = fromCatalog() // From the domain catalog
     .dataset("doc-geonames-cities-5000") // ... we'll use the dataset "doc-geonames-cities-5000"
     .aggregates() // ... in order to make an aggregation.
     .where("country_code:'FR'") // // Filter records where country_code === "FR".
-    .groupBy("name, population") // Select the fields "name" and "population".
+    .groupBy("name as city, population") // Select the fields "name" and "population".
     .orderBy("-population") // Sort by population in descending order.
     .limit(10) // But we only want the first 10 most populated cities.
     .toString(); // Then finally, we convert our query into a string.
