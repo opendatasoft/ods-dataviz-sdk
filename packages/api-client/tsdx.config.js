@@ -5,10 +5,10 @@ module.exports = {
         if (config.output.format === 'umd') {
             delete config.external;
             config.output = {
-                    name: 'opendatasoft.apiClient',
-                    file: __dirname + '/umd/opendatasoft.apiclient.umd.js',
-                    name: 'opendatasoft.apiClient',
-                    format: 'umd'
+                name: 'opendatasoft.apiClient',
+                file: __dirname + '/umd/opendatasoft.apiclient.umd.js',
+                name: 'opendatasoft.apiClient',
+                format: 'umd'
             }
         }
         return config;
