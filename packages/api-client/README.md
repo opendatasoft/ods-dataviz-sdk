@@ -38,14 +38,14 @@ Here is a quick example to get you started:
 import { ApiClient, fromCatalog } from '@opendatasoft/api-client';
 
 // Initialize the Client by indicating the domain to request.
-const client = new ApiClient({ domain: "public" });
+const client = new ApiClient({ domain: "documentation-resources" });
 
 // Create the query to run.
 const query = fromCatalog() // From the domain catalog
-    .dataset("worldcitiespop") // ... we'll use the dataset "worldcitiespop"
+    .dataset("doc-geonames-cities-5000") // ... we'll use the dataset "doc-geonames-cities-5000"
     .aggregates() // ... in order to make an aggregation.
-    .where("country:'fr'") // // Filter records where country === "fr".
-    .groupBy("city, population") // Select the fields "city" and "population".
+    .where("country_code:'FR'") // // Filter records where country_code === "FR".
+    .groupBy("name, population") // Select the fields "name" and "population".
     .orderBy("-population") // Sort by population in descending order.
     .limit(10) // But we only want the first 10 most populated cities.
     .toString(); // Then finally, we convert our query into a string.
