@@ -5,6 +5,12 @@ import { ApiResponse } from './types';
 
 const API_KEY_AUTH_TYPE = 'ApiKey';
 
+// Using the UMD bundle in ObservableHQ, the error "ReferenceError: global is not defined" is returned.
+// ... I'm not sure why it behaves that way, but this fixes the issue:
+const _global: any = typeof global !== "undefined" ? global :
+    typeof self !== "undefined" ? self :
+    typeof window !== "undefined" ? window : {};
+
 export type RequestInterceptor = (request: Request) => Promise<Request>;
 export type ResponseInterceptor = (response: Response) => Promise<ApiResponse>;
 
@@ -31,7 +37,7 @@ export class ApiClient {
      * Constructs an instance of {@link ApiClient}
      */
     constructor(options?: ApiClientOptions) {
-        const fetch = options?.fetch || global?.fetch;
+        const fetch = options?.fetch || _global?.fetch;
 
         if (!fetch) {
             throw new Error(
@@ -39,7 +45,7 @@ export class ApiClient {
             );
         }
 
-        const domain = options?.domain || global?.location?.origin;
+        const domain = options?.domain || _global?.location?.origin;
         if (!domain) {
             throw new Error('Missing domain');
         }
