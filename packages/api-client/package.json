@@ -16,6 +16,7 @@
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
     "module": "dist/api-client.esm.js",
+    "browser": "dist/opendatasoft.apiclient.umd.development.js",
     "files": [
         "dist",
         "src"
@@ -25,7 +26,7 @@
     },
     "scripts": {
         "watch": "tsdx watch --verbose",
-        "build": "tsdx build",
+        "build": "tsdx build --format cjs,esm,umd --name 'opendatasoft.apiClient'",
         "docs": "typedoc",
         "test": "tsdx test",
         "lint": "tsdx lint src test",
