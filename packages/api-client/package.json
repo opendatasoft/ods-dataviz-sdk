@@ -16,10 +16,11 @@
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
     "module": "dist/api-client.esm.js",
-    "browser": "dist/opendatasoft.apiclient.umd.js",
+    "browser": "umd/opendatasoft.apiclient.umd.js",
     "files": [
         "dist",
-        "src"
+        "src",
+        "umd"
     ],
     "engines": {
         "node": ">=10"

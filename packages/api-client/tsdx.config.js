@@ -6,7 +6,7 @@ module.exports = {
             delete config.external;
             config.output = {
                     name: 'opendatasoft.apiClient',
-                    file: __dirname + '/dist/umd/opendatasoft.apiclient.umd.js',
+                    file: __dirname + '/umd/opendatasoft.apiclient.umd.js',
                     name: 'opendatasoft.apiClient',
                     format: 'umd'
             }
