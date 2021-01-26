@@ -16,7 +16,7 @@
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
     "module": "dist/api-client.esm.js",
-    "browser": "dist/opendatasoft.apiclient.umd.development.js",
+    "browser": "dist/opendatasoft.apiclient.umd.production.js",
     "files": [
         "dist",
         "src"
