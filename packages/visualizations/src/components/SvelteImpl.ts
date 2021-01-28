@@ -3,7 +3,7 @@ import { BaseComponent } from '../types';
 
 export abstract class SvelteImpl<Data, Options> extends BaseComponent<Data, Options> {
     protected abstract getSvelteComponentClass(): typeof SvelteComponent;
-    private svelteComponent: SvelteComponent;
+    private svelteComponent: SvelteComponent | null = null;
 
     protected onCreate() {
         const ComponentClass = this.getSvelteComponentClass();
@@ -17,19 +17,19 @@ export abstract class SvelteImpl<Data, Options> extends BaseComponent<Data, Opti
     }
 
     protected onDataUpdated() {
-        this.svelteComponent.$$set({
+        this.svelteComponent?.$$set?.({
             data: this.data,
         });
     }
 
     protected onOptionsUpdated() {
-        this.svelteComponent.$$set({
+        this.svelteComponent?.$$set?.({
             options: this.options,
         });
     }
 
     protected onDestroy() {
-        this.svelteComponent.$destroy();
+        this.svelteComponent?.$destroy();
         this.svelteComponent = null;
     }
 }

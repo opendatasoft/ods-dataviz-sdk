@@ -1,25 +1,49 @@
+export interface ChartOptions {
+    /** Specify label column in DataFrame */
+    labelColumn: string;
+    /** Series to display */
+    series: ChartSeries[];
+    /** Chart aspect ratio */
+    aspectRatio?: number;
+    /** Configure xAxis */
+    xAxis?: CartesianAxisConfiguration;
+    /** Configure default yAxis */
+    yAxis?: CartesianAxisConfiguration;
+}
+
+interface CartesianAxisConfiguration {
+    type?: 'linear' | 'logarithmic' | 'category';
+    display?: boolean;
+    label?: AxisLabelConfiguration;
+}
+
+interface AxisLabelConfiguration {
+    display?: boolean;
+    align?: 'start' | 'center' | 'end';
+    value?: string;
+}
+
+export type ChartSeries = Line | Bar;
+
+export interface Line {
+    type: 'line';
+    valueColumn: string;
+    label?: string;
+    backgroundColor?: ColorConfiguration;
+}
+
+export interface Bar {
+    type: 'bar';
+    valueColumn: string;
+    label?: string;
+    backgroundColor?: ColorConfiguration;
+}
+
+export type ColorConfigurationTypes = 'roundrobin';
+
 export interface ColorConfiguration {
     type: ColorConfigurationTypes;
     colors: string[];
 }
-
-export interface ChartOptions {
-    /** Chart aspect ratio */
-    aspectRatio?: number;
-    /** Chart type */
-    type: 'bar' | 'line' | 'pie' | 'scatter' | 'bubble' | 'doughnut' | 'polarArea' | 'radar';
-
-    //FIXME: Maybe the following options should be in an array...
-    /** Dataset label */
-    label: string;
-    /** Field name to use as the X axis */
-    xAxis: string;
-    /** Field name to use as the Y axis */
-    yAxis: string;
-    /** Configuration of colors used for the bars */
-    colorConfiguration: ColorConfiguration;
-}
-
-export type ColorConfigurationTypes = 'roundrobin';
 
 export type DataFrame = Record<string, any>[];
