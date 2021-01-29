@@ -3,7 +3,7 @@ import { BaseComponent } from '../types';
 
 export abstract class SvelteImpl<Data, Options> extends BaseComponent<Data, Options> {
     protected abstract getSvelteComponentClass(): typeof SvelteComponent;
-    private svelteComponent: SvelteComponent | null = null;
+    private svelteComponent: SvelteComponent | undefined;
 
     protected onCreate() {
         const ComponentClass = this.getSvelteComponentClass();
@@ -30,6 +30,6 @@ export abstract class SvelteImpl<Data, Options> extends BaseComponent<Data, Opti
 
     protected onDestroy() {
         this.svelteComponent?.$destroy();
-        this.svelteComponent = null;
+        this.svelteComponent = undefined;
     }
 }
