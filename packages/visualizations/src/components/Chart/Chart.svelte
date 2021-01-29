@@ -64,26 +64,24 @@
     };
 
     $: {
-        chartConfig.options = {
-            aspectRatio: options.aspectRatio,
-            scales: {
-                x: {
-                    type: options?.xAxis?.type,
-                    display: options?.xAxis?.display,
-                    scaleLabel: {
-                        display: options?.xAxis?.label?.display,
-                        align: options?.xAxis?.label?.align,
-                        labelString: options?.xAxis?.label?.value,
-                    },
+        chartConfig.options.aspectRatio = options.aspectRatio;
+        chartConfig.options.scales = {
+            x: {
+                type: options?.xAxis?.type,
+                display: options?.xAxis?.display,
+                scaleLabel: {
+                    display: options?.xAxis?.label?.display,
+                    align: options?.xAxis?.label?.align,
+                    labelString: options?.xAxis?.label?.value,
                 },
-                y: {
-                    type: options?.yAxis?.type,
-                    display: options?.yAxis?.display,
-                    scaleLabel: {
-                        display: options?.yAxis?.label?.display,
-                        align: options?.yAxis?.label?.align,
-                        labelString: options?.yAxis?.label?.value,
-                    },
+            },
+            y: {
+                type: options?.yAxis?.type,
+                display: options?.yAxis?.display,
+                scaleLabel: {
+                    display: options?.yAxis?.label?.display,
+                    align: options?.yAxis?.label?.align,
+                    labelString: options?.yAxis?.label?.value,
                 },
             },
         };
