@@ -82,10 +82,15 @@ export function wrap<Data, Options, ComponentClass extends BaseComponent<Data, O
                     color: '#a94442',
                     height: '100%',
                     display: 'flex',
+                    flexDirection: 'column',
                     alignItems: 'center',
+                    justifyContent: 'center',
                     textAlign: 'center',
                 },
-            }, "An error occurred while rendering the component") :
+            }, "An error occurred while rendering the component",
+                React.createElement("button", {
+                    onClick: () => setError(false),
+                }, "Try again")) :
             null;
 
         return React.createElement(tag || 'div', {
