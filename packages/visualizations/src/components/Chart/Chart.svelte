@@ -87,10 +87,19 @@
         };
     }
 
+    let dataFrame: DataFrame = [];
+    let series: ChartSeries[] = [];
+    let labelColumn: string = options.labelColumn;
+
     $: {
-        const dataFrame = data.value || [];
-        chartConfig.data.labels = dataFrame.map((entry) => entry[options.labelColumn]);
-        chartConfig.data.datasets = options.series.map((series) => toDataset(dataFrame, series));
+        dataFrame = data.value || [];
+        series = options.series;
+        labelColumn = options.labelColumn;
+    }
+
+    $: {
+        chartConfig.data.labels = dataFrame.map((entry) => entry[labelColumn]);
+        chartConfig.data.datasets = series.map((series) => toDataset(dataFrame, series));
     }
 </script>
 
