@@ -85,6 +85,11 @@
                 },
             },
         };
+        chartConfig.options.legend = {
+            display: options?.legend?.display !== false, // Default to true
+            position: options?.legend?.position || 'top',
+            align: options?.legend?.align || 'center',
+        };
     }
 
     let dataFrame: DataFrame = [];

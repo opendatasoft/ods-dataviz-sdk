@@ -79,7 +79,7 @@ Default.args = {
             label: {
                 display: true,
                 value: 'Jour',
-                align: 'start',
+                align: 'center',
             },
         },
         yAxis: {
@@ -87,8 +87,13 @@ Default.args = {
             label: {
                 display: true,
                 value: 'count(*)',
-                align: 'end',
+                align: 'center',
             },
+        },
+        legend: {
+            display: true,
+            position: 'left',
+            align: 'start',
         },
     },
 };

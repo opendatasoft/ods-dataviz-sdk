@@ -9,6 +9,8 @@ export interface ChartOptions {
     xAxis?: CartesianAxisConfiguration;
     /** Configure default yAxis */
     yAxis?: CartesianAxisConfiguration;
+    /** Configure legend */
+    legend?: LegendConfiguration;
 }
 
 interface CartesianAxisConfiguration {
@@ -21,6 +23,12 @@ interface AxisLabelConfiguration {
     display?: boolean;
     align?: 'start' | 'center' | 'end';
     value?: string;
+}
+
+interface LegendConfiguration {
+    display?: boolean;
+    position?: 'top' | 'left' | 'bottom' | 'right';
+    align?: 'start' | 'center' | 'end';
 }
 
 export type ChartSeries = Line | Bar;
