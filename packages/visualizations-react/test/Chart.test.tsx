@@ -9,7 +9,7 @@ describe('Chart Default Story', () => {
         const { getByRole } = render(<ChartStory {...(ChartStory.args as any)} />);
         const chartCanvas = getByRole('img', {
             name: /a line and bar chart, showing random data/i,
-        }) as any;
+        });
         expect(chartCanvas).toBeInTheDocument();
     });
 });
