@@ -87,8 +87,18 @@ Default.args = {
             label: {
                 display: true,
                 value: 'count(*)',
-                align: 'end',
+                align: 'center',
             },
+        },
+        legend: {
+            display: true,
+            position: 'top',
+            align: 'start',
+        },
+        title: {
+            display: true,
+            text: 'A line at the bar',
+            position: 'bottom',
         },
     },
 };

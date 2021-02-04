@@ -38,7 +38,7 @@
                 type: 'bar',
                 data: dataFrame.map((entry) => entry[series.valueColumn]),
                 backgroundColor: chartJsColor(series.backgroundColor),
-                label: series.label,
+                label: series.label || '',
             };
         }
 
@@ -47,7 +47,7 @@
                 type: 'line',
                 data: dataFrame.map((entry) => entry[series.valueColumn]),
                 backgroundColor: chartJsColor(series.backgroundColor),
-                label: series.label,
+                label: series.label || '',
             };
         }
 
@@ -85,12 +85,32 @@
                 },
             },
         };
+        chartConfig.options.legend = {
+            display: options?.legend?.display !== false, // Default to true
+            position: options?.legend?.position || 'bottom',
+            align: options?.legend?.align || 'center',
+        };
+        chartConfig.options.title = {
+            display: options?.title?.display,
+            position: options?.title?.position || 'top',
+            align: options?.title?.align || 'center',
+            text: options?.title?.text || '',
+        };
+    }
+
+    let dataFrame: DataFrame = [];
+    let series: ChartSeries[] = [];
+    let labelColumn: string = options.labelColumn;
+
+    $: {
+        dataFrame = data.value || [];
+        series = options.series;
+        labelColumn = options.labelColumn;
     }
 
     $: {
-        const dataFrame = data.value || [];
-        chartConfig.data.labels = dataFrame.map((entry) => entry[options.labelColumn]);
-        chartConfig.data.datasets = options.series.map((series) => toDataset(dataFrame, series));
+        chartConfig.data.labels = dataFrame.map((entry) => entry[labelColumn]);
+        chartConfig.data.datasets = series.map((series) => toDataset(dataFrame, series));
     }
 </script>
 
