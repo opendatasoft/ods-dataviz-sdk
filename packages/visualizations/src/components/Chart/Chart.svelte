@@ -38,7 +38,7 @@
                 type: 'bar',
                 data: dataFrame.map((entry) => entry[series.valueColumn]),
                 backgroundColor: chartJsColor(series.backgroundColor),
-                label: series.label,
+                label: series.label || '',
             };
         }
 
@@ -47,7 +47,7 @@
                 type: 'line',
                 data: dataFrame.map((entry) => entry[series.valueColumn]),
                 backgroundColor: chartJsColor(series.backgroundColor),
-                label: series.label,
+                label: series.label || '',
             };
         }
 
