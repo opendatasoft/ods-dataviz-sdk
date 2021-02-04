@@ -11,6 +11,8 @@ export interface ChartOptions {
     yAxis?: CartesianAxisConfiguration;
     /** Configure legend */
     legend?: LegendConfiguration;
+    /** Configure title */
+    title?: TitleConfiguration;
 }
 
 interface CartesianAxisConfiguration {
@@ -29,6 +31,13 @@ interface LegendConfiguration {
     display?: boolean;
     position?: 'top' | 'left' | 'bottom' | 'right';
     align?: 'start' | 'center' | 'end';
+}
+
+interface TitleConfiguration {
+    display?: boolean;
+    position?: 'top' | 'left' | 'bottom' | 'right';
+    align?: 'start' | 'center' | 'end';
+    text?: string | string[];
 }
 
 export type ChartSeries = Line | Bar;

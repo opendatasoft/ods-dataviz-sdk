@@ -79,7 +79,7 @@ Default.args = {
             label: {
                 display: true,
                 value: 'Jour',
-                align: 'center',
+                align: 'start',
             },
         },
         yAxis: {
@@ -92,8 +92,13 @@ Default.args = {
         },
         legend: {
             display: true,
-            position: 'left',
+            position: 'top',
             align: 'start',
+        },
+        title: {
+            display: true,
+            text: 'A line at the bar',
+            position: 'bottom',
         },
     },
 };

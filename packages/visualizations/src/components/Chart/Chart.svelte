@@ -87,8 +87,14 @@
         };
         chartConfig.options.legend = {
             display: options?.legend?.display !== false, // Default to true
-            position: options?.legend?.position || 'top',
+            position: options?.legend?.position || 'bottom',
             align: options?.legend?.align || 'center',
+        };
+        chartConfig.options.title = {
+            display: options?.title?.display,
+            position: options?.title?.position || 'top',
+            align: options?.title?.align || 'center',
+            text: options?.title?.text || '',
         };
     }
 
