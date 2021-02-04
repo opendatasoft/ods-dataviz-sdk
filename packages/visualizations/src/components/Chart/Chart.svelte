@@ -119,7 +119,7 @@
         Loading...
     {:else}
         {#if data.value}
-            <canvas use:chartJs={chartConfig} />
+            <canvas use:chartJs={chartConfig} role="img" aria-label={options.ariaLabel} />
         {:else}
             <Placeholder />
         {/if}
