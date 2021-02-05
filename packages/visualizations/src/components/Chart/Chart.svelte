@@ -65,6 +65,7 @@
 
     $: {
         chartConfig.options.aspectRatio = options.aspectRatio;
+        chartConfig.options.animation = false;
         chartConfig.options.scales = {
             x: {
                 type: options?.xAxis?.type,
@@ -118,8 +119,8 @@
     {#if data.loading}
         Loading...
     {:else}
-        {#if data.value}
-            <canvas use:chartJs={chartConfig} />
+        {#if options}
+            <canvas use:chartJs={chartConfig} role="img" aria-label={options.ariaLabel} />
         {:else}
             <Placeholder />
         {/if}
