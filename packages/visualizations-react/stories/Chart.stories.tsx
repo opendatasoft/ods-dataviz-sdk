@@ -32,7 +32,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template = (args) => <Chart {...args} />;
+const Template = (args: Props<DataFrame, ChartOptions>) => <Chart {...args} />;
 
 export const Default: Story<Props<DataFrame, ChartOptions>> = Template.bind({});
 
@@ -100,5 +100,6 @@ Default.args = {
             text: 'A line at the bar',
             position: 'bottom',
         },
+        ariaLabel: 'A line and bar chart, showing random data',
     },
 };

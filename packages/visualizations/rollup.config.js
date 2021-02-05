@@ -20,7 +20,8 @@ export default {
     input: 'src/index.ts',
     output: {
         dir: 'dist',
-        format: 'es',
+        format: 'umd',
+        name: 'opendatasoft.visualizations',
         sourcemap: true,
     },
     plugins: [
