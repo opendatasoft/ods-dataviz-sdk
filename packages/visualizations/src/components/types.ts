@@ -13,6 +13,8 @@ export interface ChartOptions {
     legend?: LegendConfiguration;
     /** Configure title */
     title?: TitleConfiguration;
+    /** Accessibility */
+    ariaLabel: string;
 }
 
 interface CartesianAxisConfiguration {
