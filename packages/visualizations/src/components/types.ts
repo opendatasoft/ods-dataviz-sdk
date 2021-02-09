@@ -13,6 +13,8 @@ export interface ChartOptions {
     legend?: LegendConfiguration;
     /** Configure title */
     title?: TitleConfiguration;
+    /* Configure tooltips */
+    tooltips?: TooltipsConfiguration;
     /** Accessibility */
     ariaLabel: string;
 }
@@ -40,6 +42,10 @@ interface TitleConfiguration {
     position?: 'top' | 'left' | 'bottom' | 'right';
     align?: 'start' | 'center' | 'end';
     text?: string | string[];
+}
+
+interface TooltipsConfiguration {
+    display?: boolean;
 }
 
 export type ChartSeries = Line | Bar;

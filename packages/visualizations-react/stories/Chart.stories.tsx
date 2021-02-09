@@ -100,6 +100,9 @@ Default.args = {
             text: 'A line at the bar',
             position: 'bottom',
         },
+        tooltips: {
+            display: true,
+        },
         ariaLabel: 'A line and bar chart, showing random data',
     },
 };
