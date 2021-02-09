@@ -23,12 +23,17 @@ interface CartesianAxisConfiguration {
     type?: 'linear' | 'logarithmic' | 'category';
     display?: boolean;
     label?: AxisLabelConfiguration;
+    gridLines?: GridLinesConfiguration;
 }
 
 interface AxisLabelConfiguration {
     display?: boolean;
     align?: 'start' | 'center' | 'end';
     value?: string;
+}
+
+interface GridLinesConfiguration {
+    display?: boolean;
 }
 
 interface LegendConfiguration {

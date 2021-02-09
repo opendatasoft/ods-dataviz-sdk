@@ -81,6 +81,9 @@ Default.args = {
                 value: 'Jour',
                 align: 'start',
             },
+            gridLines: {
+                display: false,
+            },
         },
         yAxis: {
             display: true,

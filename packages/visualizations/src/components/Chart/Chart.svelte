@@ -76,6 +76,9 @@
                     align: options?.xAxis?.label?.align,
                     labelString: options?.xAxis?.label?.value,
                 },
+                gridLines: {
+                    display: options?.xAxis?.gridLines?.display !== false, // Default to true
+                },
             },
             y: {
                 type: options?.yAxis?.type,
@@ -84,6 +87,9 @@
                     display: options?.yAxis?.label?.display,
                     align: options?.yAxis?.label?.align,
                     labelString: options?.yAxis?.label?.value,
+                },
+                gridLines: {
+                    display: options?.yAxis?.gridLines?.display !== false, // Default to true
                 },
             },
         };
