@@ -419,11 +419,11 @@ Radar.args = {
     data: {
         loading: false,
         value: [
-            { x: 'A', y: 100 },
-            { x: 'B', y: 50 },
-            { x: 'C', y: 80 },
-            { x: 'D', y: 30 },
-            { x: 'E', y: 70 },
+            { x: 'speed', y: 100, z: 10 },
+            { x: 'strength', y: 50, z: 45 },
+            { x: 'magic', y: 80, z: 100 },
+            { x: 'luck', y: 30, z: 100 },
+            { x: 'persuasion', y: 70, z: 2 },
         ],
     },
     options: {
@@ -433,9 +433,16 @@ Radar.args = {
             {
                 type: 'radar',
                 valueColumn: 'y',
-                label: 'Radar',
+                label: 'User 1',
                 backgroundColor: 'rgba(27,210,210,0.5)',
                 borderColor: 'rgb(27,210,210)',
+            },
+            {
+                type: 'radar',
+                valueColumn: 'z',
+                label: 'User 2',
+                backgroundColor: 'rgba(127,10,210,0.5)',
+                borderColor: 'rgb(127,10,210)',
             },
         ],
         legend: {
