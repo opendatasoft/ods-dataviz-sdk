@@ -13,6 +13,8 @@ export interface ChartOptions {
     legend?: LegendConfiguration;
     /** Configure title */
     title?: TitleConfiguration;
+    /* Configure tooltips */
+    tooltips?: TooltipsConfiguration;
     /** Accessibility */
     ariaLabel: string;
 }
@@ -21,12 +23,17 @@ interface CartesianAxisConfiguration {
     type?: 'linear' | 'logarithmic' | 'category';
     display?: boolean;
     label?: AxisLabelConfiguration;
+    gridLines?: GridLinesConfiguration;
 }
 
 interface AxisLabelConfiguration {
     display?: boolean;
     align?: 'start' | 'center' | 'end';
     value?: string;
+}
+
+interface GridLinesConfiguration {
+    display?: boolean;
 }
 
 interface LegendConfiguration {
@@ -40,6 +47,10 @@ interface TitleConfiguration {
     position?: 'top' | 'left' | 'bottom' | 'right';
     align?: 'start' | 'center' | 'end';
     text?: string | string[];
+}
+
+interface TooltipsConfiguration {
+    display?: boolean;
 }
 
 export type ChartSeries = Line | Bar;

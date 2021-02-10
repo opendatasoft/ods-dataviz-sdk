@@ -81,6 +81,9 @@ Default.args = {
                 value: 'Jour',
                 align: 'start',
             },
+            gridLines: {
+                display: false,
+            },
         },
         yAxis: {
             display: true,
@@ -99,6 +102,9 @@ Default.args = {
             display: true,
             text: 'A line at the bar',
             position: 'bottom',
+        },
+        tooltips: {
+            display: true,
         },
         ariaLabel: 'A line and bar chart, showing random data',
     },

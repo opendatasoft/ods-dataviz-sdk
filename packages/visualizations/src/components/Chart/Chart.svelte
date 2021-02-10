@@ -64,9 +64,10 @@
     };
 
     $: {
-        chartConfig.options.aspectRatio = options.aspectRatio;
-        chartConfig.options.animation = false;
-        chartConfig.options.scales = {
+        let chartOptions = chartConfig.options || {};
+        chartOptions.aspectRatio = options.aspectRatio;
+        chartOptions.animation = false;
+        chartOptions.scales = {
             x: {
                 type: options?.xAxis?.type,
                 display: options?.xAxis?.display,
@@ -74,6 +75,9 @@
                     display: options?.xAxis?.label?.display,
                     align: options?.xAxis?.label?.align,
                     labelString: options?.xAxis?.label?.value,
+                },
+                gridLines: {
+                    display: options?.xAxis?.gridLines?.display !== false, // Default to true
                 },
             },
             y: {
@@ -84,19 +88,26 @@
                     align: options?.yAxis?.label?.align,
                     labelString: options?.yAxis?.label?.value,
                 },
+                gridLines: {
+                    display: options?.yAxis?.gridLines?.display !== false, // Default to true
+                },
             },
         };
-        chartConfig.options.legend = {
+        chartOptions.legend = {
             display: options?.legend?.display !== false, // Default to true
             position: options?.legend?.position || 'bottom',
             align: options?.legend?.align || 'center',
         };
-        chartConfig.options.title = {
+        chartOptions.title = {
             display: options?.title?.display,
             position: options?.title?.position || 'top',
             align: options?.title?.align || 'center',
             text: options?.title?.text || '',
         };
+        chartOptions.tooltips = {
+            enabled: options?.tooltips?.display,
+        };
+        chartConfig.options = chartOptions;
     }
 
     let dataFrame: DataFrame = [];
