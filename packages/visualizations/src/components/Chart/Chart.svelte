@@ -10,7 +10,7 @@
 <script lang="ts">
     import type { Async } from '../../types';
     import Placeholder from './Placeholder.svelte';
-    import type { ChartOptions, ChartSeries, ColorConfiguration, DataFrame } from '../types';
+    import type { ChartOptions, ChartSeries, Color, DataFrame, FillConfiguration } from '../types';
     export let data: Async<DataFrame>;
     export let options: ChartOptions;
 
@@ -28,8 +28,22 @@
         };
     }
 
-    function chartJsColor(config?: ColorConfiguration) {
-        return config?.colors;
+    function defaultValue<T>(value: T | undefined, defaultValue: T): T {
+        if (value === undefined) return defaultValue;
+        return value;
+    }
+
+    function chartJsColor(color?: Color) {
+        return color;
+    }
+
+    function chartJsFill(fill: FillConfiguration | undefined) {
+        if (fill === undefined) return false;
+        return {
+            target: fill.mode,
+            above: chartJsColor(fill.above),
+            below: chartJsColor(fill.below),
+        };
     }
 
     function toDataset(dataFrame: DataFrame, series: ChartSeries): ChartJs.ChartDataset {
@@ -38,7 +52,10 @@
                 type: 'bar',
                 data: dataFrame.map((entry) => entry[series.valueColumn]),
                 backgroundColor: chartJsColor(series.backgroundColor),
-                label: series.label || '',
+                label: defaultValue(series.label, ''),
+                indexAxis: defaultValue(series.indexAxis, 'x'),
+                barPercentage: defaultValue(series.barPercentage, 0.9),
+                categoryPercentage: defaultValue(series.categoryPercentage, 0.8),
             };
         }
 
@@ -47,7 +64,27 @@
                 type: 'line',
                 data: dataFrame.map((entry) => entry[series.valueColumn]),
                 backgroundColor: chartJsColor(series.backgroundColor),
-                label: series.label || '',
+                borderColor: chartJsColor(series.borderColor),
+                label: defaultValue(series.label, ''),
+                fill: chartJsFill(series.fill),
+            };
+        }
+
+        if (series.type === 'pie') {
+            return {
+                type: 'pie',
+                data: dataFrame.map((entry) => entry[series.valueColumn]),
+                backgroundColor: chartJsColor(series.backgroundColor),
+            };
+        }
+
+        if (series.type === 'radar') {
+            return {
+                type: 'radar',
+                data: dataFrame.map((entry) => entry[series.valueColumn]),
+                backgroundColor: chartJsColor(series.backgroundColor),
+                borderColor: chartJsColor(series.borderColor),
+                label: defaultValue(series.label, ''),
             };
         }
 
@@ -55,7 +92,7 @@
     }
 
     let chartConfig: ChartJs.ChartConfiguration = {
-        type: 'bar',
+        type: options.series[0]?.type || 'line',
         data: {
             labels: [],
             datasets: [],
@@ -64,11 +101,12 @@
     };
 
     $: {
+        chartConfig.type = defaultValue(options.series[0]?.type, 'line'); // Will set chartJs default value accordingly
         let chartOptions = chartConfig.options || {};
         chartOptions.aspectRatio = options.aspectRatio;
-        chartOptions.animation = false;
-        chartOptions.scales = {
-            x: {
+        chartOptions.scales = {};
+        if (options.xAxis) {
+            chartOptions.scales['x'] = {
                 type: options?.xAxis?.type,
                 display: options?.xAxis?.display,
                 scaleLabel: {
@@ -77,10 +115,12 @@
                     labelString: options?.xAxis?.label?.value,
                 },
                 gridLines: {
-                    display: options?.xAxis?.gridLines?.display !== false, // Default to true
+                    display: defaultValue(options?.xAxis?.gridLines?.display, true),
                 },
-            },
-            y: {
+            };
+        }
+        if (options.yAxis) {
+            chartOptions.scales['y'] = {
                 type: options?.yAxis?.type,
                 display: options?.yAxis?.display,
                 scaleLabel: {
@@ -89,20 +129,26 @@
                     labelString: options?.yAxis?.label?.value,
                 },
                 gridLines: {
-                    display: options?.yAxis?.gridLines?.display !== false, // Default to true
+                    display: defaultValue(options?.yAxis?.gridLines?.display, true),
                 },
-            },
-        };
+            };
+        }
+        if (options.rAxis || options.series.map((series) => series.type).indexOf('radar') > -1) {
+            //FIXME: Use scales.r when https://github.com/chartjs/Chart.js/pull/8393 will be available
+            chartOptions.scale = {
+                beginAtZero: defaultValue(options?.rAxis?.beginAtZero, true),
+            };
+        }
         chartOptions.legend = {
-            display: options?.legend?.display !== false, // Default to true
-            position: options?.legend?.position || 'bottom',
-            align: options?.legend?.align || 'center',
+            display: options?.legend?.display,
+            position: defaultValue(options?.legend?.position, 'bottom'),
+            align: defaultValue(options?.legend?.align, 'center'),
         };
         chartOptions.title = {
             display: options?.title?.display,
-            position: options?.title?.position || 'top',
-            align: options?.title?.align || 'center',
-            text: options?.title?.text || '',
+            position: defaultValue(options?.title?.position, 'top'),
+            align: defaultValue(options?.title?.align, 'center'),
+            text: defaultValue(options?.title?.text, ''),
         };
         chartOptions.tooltips = {
             enabled: options?.tooltips?.display,
