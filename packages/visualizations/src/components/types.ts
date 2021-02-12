@@ -9,6 +9,8 @@ export interface ChartOptions {
     xAxis?: CartesianAxisConfiguration;
     /** Configure default yAxis */
     yAxis?: CartesianAxisConfiguration;
+    /** Configure default radial axis */
+    rAxis?: RadialAxisConfiguration;
     /** Configure legend */
     legend?: LegendConfiguration;
     /** Configure title */
@@ -32,6 +34,10 @@ interface AxisLabelConfiguration {
     value?: string;
 }
 
+interface RadialAxisConfiguration {
+    beginAtZero?: boolean;
+}
+
 interface GridLinesConfiguration {
     display?: boolean;
 }
@@ -53,27 +59,49 @@ interface TooltipsConfiguration {
     display?: boolean;
 }
 
-export type ChartSeries = Line | Bar;
+export type ChartSeries = Line | Bar | Pie | Radar;
 
 export interface Line {
     type: 'line';
     valueColumn: string;
     label?: string;
-    backgroundColor?: ColorConfiguration;
+    backgroundColor?: Color;
+    borderColor?: Color;
+    fill?: FillConfiguration;
 }
 
 export interface Bar {
     type: 'bar';
     valueColumn: string;
     label?: string;
-    backgroundColor?: ColorConfiguration;
+    backgroundColor?: Color;
+    indexAxis?: 'x' | 'y';
+    categoryPercentage?: number;
+    barPercentage?: number;
 }
 
-export type ColorConfigurationTypes = 'roundrobin';
-
-export interface ColorConfiguration {
-    type: ColorConfigurationTypes;
-    colors: string[];
+export interface Pie {
+    type: 'pie';
+    valueColumn: string;
+    backgroundColor?: Color;
 }
+
+export interface Radar {
+    type: 'radar';
+    valueColumn: string;
+    label?: string;
+    backgroundColor?: Color;
+    borderColor?: Color;
+}
+
+export type FillMode = false | number | string | { value: number };
+
+export interface FillConfiguration {
+    mode?: FillMode;
+    above?: Color;
+    below?: Color;
+}
+
+export type Color = string | string[];
 
 export type DataFrame = Record<string, any>[];
