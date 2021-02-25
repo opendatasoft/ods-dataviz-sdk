@@ -5,6 +5,8 @@ export interface ChartOptions {
     series: ChartSeries[];
     /** Chart aspect ratio */
     aspectRatio?: number;
+    /** Maintain aspect ratio when the canvas is resized */
+    maintainAspectRatio?: boolean;
     /** Configure xAxis */
     xAxis?: CartesianAxisConfiguration;
     /** Configure default yAxis */
