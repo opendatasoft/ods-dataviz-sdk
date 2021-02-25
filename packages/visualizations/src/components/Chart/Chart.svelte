@@ -104,6 +104,7 @@
         chartConfig.type = defaultValue(options.series[0]?.type, 'line'); // Will set chartJs default value accordingly
         let chartOptions = chartConfig.options || {};
         chartOptions.aspectRatio = options.aspectRatio;
+        chartOptions.maintainAspectRatio = options.maintainAspectRatio;
         chartOptions.scales = {};
         if (options.xAxis) {
             chartOptions.scales['x'] = {
