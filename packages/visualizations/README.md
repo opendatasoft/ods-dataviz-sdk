@@ -7,6 +7,8 @@ This package provides components to easily build dashboards and visualizations o
 - [Contributing](#contributing)
 - [License](#license)
 
+> :warning: This package is currently under initial development, and shouldn't be used in any project yet.
+
 ## Installation
 
 The client is available as an npm package.
