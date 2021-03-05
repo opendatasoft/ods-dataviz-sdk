@@ -8,6 +8,8 @@ If you are a React user, this wrapper makes it easier for you to use our [visual
 - [Contributing](#contributing)
 - [License](#license)
 
+> :warning: This package is currently under initial development, and shouldn't be used in any project yet.
+
 ## Installation
 
 The client is available as an npm package.
