@@ -4,6 +4,7 @@ import autoprefixer from 'autoprefixer';
 
 import typescript from '@rollup/plugin-typescript';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
+import { babel } from '@rollup/plugin-babel';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -38,5 +39,16 @@ export default {
             rootDir: 'src',
         }),
         nodeResolve(),
+        // Transpile to ES5 when running a production build
+        production && babel({
+            babelHelpers: 'bundled',
+            extensions: ['.ts', '.mjs', '.js', '.svelte'],
+            include: [
+                'src/**',
+                'node_modules/chart.js/**',
+                'node_modules/svelte/**',
+            ],
+            presets: ['@babel/preset-env'],
+        }),
     ],
 };
