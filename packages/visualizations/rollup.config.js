@@ -39,12 +39,14 @@ export default {
             rootDir: 'src',
         }),
         nodeResolve(),
-        babel({
+        // Transpile to ES5 when running a production build
+        production && babel({
             babelHelpers: 'bundled',
             extensions: ['.ts', '.mjs', '.js', '.svelte'],
             include: [
                 'src/**',
-                'node_modules/**',
+                'node_modules/chart.js/**',
+                'node_modules/svelte/**',
             ],
             presets: ['@babel/preset-env'],
         }),
