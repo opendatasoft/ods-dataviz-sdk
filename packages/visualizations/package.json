@@ -48,6 +48,8 @@
         "typescript": "^4.0.5"
     },
     "dependencies": {
-        "chart.js": "3.0.0-beta.6"
+        "chart.js": "3.0.0-beta.6",
+        "rollup-plugin-terser": "^7.0.2",
+        "rollup-plugin-visualizer": "^4.2.0"
     }
 }
