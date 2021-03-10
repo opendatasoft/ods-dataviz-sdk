@@ -2,6 +2,7 @@ import svelte from 'rollup-plugin-svelte';
 import autoPreprocess from 'svelte-preprocess';
 import autoprefixer from 'autoprefixer';
 import visualizer from 'rollup-plugin-visualizer';
+import { terser } from 'rollup-plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import { babel } from '@rollup/plugin-babel';
@@ -47,9 +48,12 @@ export default {
                 include: ['src/**', 'node_modules/chart.js/**', 'node_modules/svelte/**'],
                 presets: ['@babel/preset-env'],
             }),
+        // Minify when running a production build
+        production && terser(),
+        // Visualize size when  running a production build
         production &&
             visualizer({
-                filename: 'dist/stats.html',
+                filename: 'gen/stats.html',
                 sourcemap: true,
             }),
     ],
