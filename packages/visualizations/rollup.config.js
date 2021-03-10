@@ -1,7 +1,7 @@
 import svelte from 'rollup-plugin-svelte';
 import autoPreprocess from 'svelte-preprocess';
 import autoprefixer from 'autoprefixer';
-
+import visualizer from 'rollup-plugin-visualizer';
 import typescript from '@rollup/plugin-typescript';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import { babel } from '@rollup/plugin-babel';
@@ -40,15 +40,17 @@ export default {
         }),
         nodeResolve(),
         // Transpile to ES5 when running a production build
-        production && babel({
-            babelHelpers: 'bundled',
-            extensions: ['.ts', '.mjs', '.js', '.svelte'],
-            include: [
-                'src/**',
-                'node_modules/chart.js/**',
-                'node_modules/svelte/**',
-            ],
-            presets: ['@babel/preset-env'],
-        }),
+        production &&
+            babel({
+                babelHelpers: 'bundled',
+                extensions: ['.ts', '.mjs', '.js', '.svelte'],
+                include: ['src/**', 'node_modules/chart.js/**', 'node_modules/svelte/**'],
+                presets: ['@babel/preset-env'],
+            }),
+        production &&
+            visualizer({
+                filename: 'dist/stats.html',
+                sourcemap: true,
+            }),
     ],
 };
