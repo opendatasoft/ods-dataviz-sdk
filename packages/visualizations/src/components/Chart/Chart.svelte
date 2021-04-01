@@ -1,16 +1,26 @@
 <script lang="ts" context="module">
     import * as ChartJs from 'chart.js';
+    import ChartDataLabels from 'chartjs-plugin-datalabels';
 
     ChartJs.Chart.register.apply(
         null,
         Object.values(ChartJs).filter((chartClass) => (chartClass as any).id) as any
     );
+    ChartJs.Chart.register(ChartDataLabels);
 </script>
 
 <script lang="ts">
     import type { Async } from '../../types';
     import Placeholder from './Placeholder.svelte';
-    import type { ChartOptions, ChartSeries, Color, DataFrame, FillConfiguration } from '../types';
+    import type {
+        ChartOptions,
+        ChartSeries,
+        Color,
+        DataFrame,
+        DataLabelsConfiguration,
+        FillConfiguration,
+    } from '../types';
+    import type { Options as DataLabelsOptions } from 'chartjs-plugin-datalabels/types/options';
     export let data: Async<DataFrame>;
     export let options: ChartOptions;
 
@@ -33,16 +43,32 @@
         return value;
     }
 
-    function chartJsColor(color?: Color) {
+    function chartJsColorPalette(color?: Color) {
         return color;
+    }
+
+    function chartJsColorSingle(color?: Color) {
+        return color === undefined ? undefined : typeof color === 'string' ? color : color[0];
     }
 
     function chartJsFill(fill: FillConfiguration | undefined) {
         if (fill === undefined) return false;
         return {
             target: fill.mode,
-            above: chartJsColor(fill.above),
-            below: chartJsColor(fill.below),
+            above: chartJsColorSingle(fill.above),
+            below: chartJsColorSingle(fill.below),
+        };
+    }
+
+    function chartJsDataLabels(dataLabels: DataLabelsConfiguration | undefined): DataLabelsOptions {
+        if (dataLabels === undefined) return { display: false };
+        return {
+            align: defaultValue(dataLabels.align, 'center'),
+            display: defaultValue(dataLabels.display, false),
+            color: chartJsColorPalette(dataLabels.color),
+            backgroundColor: chartJsColorPalette(dataLabels.backgroundColor),
+            offset: defaultValue(dataLabels.offset, 0),
+            borderRadius: defaultValue(dataLabels.borderRadius, 0),
         };
     }
 
@@ -51,11 +77,12 @@
             return {
                 type: 'bar',
                 data: dataFrame.map((entry) => entry[series.valueColumn]),
-                backgroundColor: chartJsColor(series.backgroundColor),
-                label: defaultValue(series.label, ''),
+                backgroundColor: chartJsColorPalette(series.backgroundColor),
+                label: series.label,
                 indexAxis: defaultValue(series.indexAxis, 'x'),
                 barPercentage: defaultValue(series.barPercentage, 0.9),
                 categoryPercentage: defaultValue(series.categoryPercentage, 0.8),
+                datalabels: chartJsDataLabels(series.dataLabels),
             };
         }
 
@@ -63,10 +90,11 @@
             return {
                 type: 'line',
                 data: dataFrame.map((entry) => entry[series.valueColumn]),
-                backgroundColor: chartJsColor(series.backgroundColor),
-                borderColor: chartJsColor(series.borderColor),
-                label: defaultValue(series.label, ''),
+                backgroundColor: chartJsColorSingle(series.backgroundColor),
+                borderColor: chartJsColorSingle(series.borderColor),
+                label: series.label,
                 fill: chartJsFill(series.fill),
+                datalabels: chartJsDataLabels(series.dataLabels),
             };
         }
 
@@ -74,7 +102,10 @@
             return {
                 type: 'pie',
                 data: dataFrame.map((entry) => entry[series.valueColumn]),
-                backgroundColor: chartJsColor(series.backgroundColor),
+                backgroundColor: chartJsColorPalette(series.backgroundColor),
+                datalabels: {
+                    display: false,
+                },
             };
         }
 
@@ -82,9 +113,12 @@
             return {
                 type: 'radar',
                 data: dataFrame.map((entry) => entry[series.valueColumn]),
-                backgroundColor: chartJsColor(series.backgroundColor),
-                borderColor: chartJsColor(series.borderColor),
-                label: defaultValue(series.label, ''),
+                backgroundColor: chartJsColorSingle(series.backgroundColor),
+                borderColor: chartJsColorSingle(series.borderColor),
+                label: series.label,
+                datalabels: {
+                    display: false,
+                },
             };
         }
 
@@ -134,25 +168,24 @@
                 },
             };
         }
-        if (options.rAxis || options.series.map((series) => series.type).indexOf('radar') > -1) {
-            //FIXME: Use scales.r when https://github.com/chartjs/Chart.js/pull/8393 will be available
-            chartOptions.scale = {
+        if (options.rAxis) {
+            chartOptions.scales['r'] = {
                 beginAtZero: defaultValue(options?.rAxis?.beginAtZero, true),
             };
         }
         chartOptions.legend = {
-            display: options?.legend?.display,
+            display: defaultValue(options?.legend?.display, true),
             position: defaultValue(options?.legend?.position, 'bottom'),
             align: defaultValue(options?.legend?.align, 'center'),
         };
         chartOptions.title = {
-            display: options?.title?.display,
+            display: defaultValue(options?.title?.display, true),
             position: defaultValue(options?.title?.position, 'top'),
             align: defaultValue(options?.title?.align, 'center'),
-            text: defaultValue(options?.title?.text, ''),
+            text: options?.title?.text,
         };
         chartOptions.tooltips = {
-            enabled: options?.tooltips?.display,
+            enabled: defaultValue(options?.tooltips?.display, true),
         };
         chartConfig.options = chartOptions;
     }
