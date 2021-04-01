@@ -23,42 +23,51 @@ export interface ChartOptions {
     ariaLabel: string;
 }
 
-interface CartesianAxisConfiguration {
+export interface CartesianAxisConfiguration {
     type?: 'linear' | 'logarithmic' | 'category';
     display?: boolean;
     label?: AxisLabelConfiguration;
     gridLines?: GridLinesConfiguration;
 }
 
-interface AxisLabelConfiguration {
+export interface AxisLabelConfiguration {
     display?: boolean;
     align?: 'start' | 'center' | 'end';
     value?: string;
 }
 
-interface RadialAxisConfiguration {
+export interface RadialAxisConfiguration {
     beginAtZero?: boolean;
 }
 
-interface GridLinesConfiguration {
+export interface GridLinesConfiguration {
     display?: boolean;
 }
 
-interface LegendConfiguration {
+export interface LegendConfiguration {
     display?: boolean;
     position?: 'top' | 'left' | 'bottom' | 'right';
     align?: 'start' | 'center' | 'end';
 }
 
-interface TitleConfiguration {
+export interface TitleConfiguration {
     display?: boolean;
     position?: 'top' | 'left' | 'bottom' | 'right';
     align?: 'start' | 'center' | 'end';
     text?: string | string[];
 }
 
-interface TooltipsConfiguration {
+export interface TooltipsConfiguration {
     display?: boolean;
+}
+
+export interface DataLabelsConfiguration {
+    display?: boolean;
+    align?: 'start' | 'center' | 'end';
+    backgroundColor?: Color;
+    color?: Color;
+    borderRadius?: number;
+    offset?: number;
 }
 
 export type ChartSeries = Line | Bar | Pie | Radar;
@@ -70,6 +79,7 @@ export interface Line {
     backgroundColor?: Color;
     borderColor?: Color;
     fill?: FillConfiguration;
+    dataLabels?: DataLabelsConfiguration;
 }
 
 export interface Bar {
@@ -80,6 +90,7 @@ export interface Bar {
     indexAxis?: 'x' | 'y';
     categoryPercentage?: number;
     barPercentage?: number;
+    dataLabels?: DataLabelsConfiguration;
 }
 
 export interface Pie {

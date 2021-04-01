@@ -36,10 +36,13 @@ const Template = (args: Props<DataFrame, ChartOptions>) => <Chart {...args} />;
 
 export const Default: Story<Props<DataFrame, ChartOptions>> = Template.bind({});
 
+const style = {
+    width: '50%',
+    maxWidth: '500px',
+};
+
 Default.args = {
-    style: {
-        width: '50%',
-    },
+    style,
     data: {
         loading: false,
         value: [
@@ -55,16 +58,33 @@ Default.args = {
         labelColumn: 'x',
         series: [
             {
-                type: 'bar',
-                valueColumn: 'y',
-                label: 'bar dataset',
-                backgroundColor: 'rgba(255,50,50,.5)',
-            },
-            {
                 type: 'line',
                 valueColumn: 'z',
                 label: 'line dataset',
                 backgroundColor: 'rgba(55,250,50,.5)',
+                borderColor: 'rgba(55,200,50)',
+                dataLabels: {
+                    display: true,
+                    backgroundColor: 'rgba(55,200,50)',
+                    color: 'white',
+                    align: 'start',
+                    borderRadius: 4,
+                    offset: 4,
+                },
+            },
+            {
+                type: 'bar',
+                valueColumn: 'y',
+                label: 'bar dataset',
+                backgroundColor: 'rgba(255,50,50,.5)',
+                dataLabels: {
+                    display: true,
+                    backgroundColor: 'rgba(255,50,50)',
+                    color: 'white',
+                    align: 'end',
+                    borderRadius: 4,
+                    offset: 4,
+                },
             },
         ],
         xAxis: {
@@ -107,9 +127,7 @@ Default.args = {
 export const Line: Story<Props<DataFrame, ChartOptions>> = Template.bind({});
 
 Line.args = {
-    style: {
-        width: '50%',
-    },
+    style,
     data: {
         loading: false,
         value: [
@@ -156,9 +174,7 @@ Line.args = {
 export const Area: Story<Props<DataFrame, ChartOptions>> = Template.bind({});
 
 Area.args = {
-    style: {
-        width: '50%',
-    },
+    style,
     data: {
         loading: false,
         value: [
@@ -215,9 +231,7 @@ Area.args = {
 export const Column: Story<Props<DataFrame, ChartOptions>> = Template.bind({});
 
 Column.args = {
-    style: {
-        width: '50%',
-    },
+    style,
     data: {
         loading: false,
         value: [
@@ -264,9 +278,7 @@ Column.args = {
 export const Bar: Story<Props<DataFrame, ChartOptions>> = Template.bind({});
 
 Bar.args = {
-    style: {
-        width: '50%',
-    },
+    style,
     data: {
         loading: false,
         value: [
@@ -322,9 +334,7 @@ Bar.args = {
 export const Histogram: Story<Props<DataFrame, ChartOptions>> = Template.bind({});
 
 Histogram.args = {
-    style: {
-        width: '50%',
-    },
+    style,
     data: {
         loading: false,
         value: [
@@ -374,9 +384,7 @@ Histogram.args = {
 export const Pie: Story<Props<DataFrame, ChartOptions>> = Template.bind({});
 
 Pie.args = {
-    style: {
-        width: '50%',
-    },
+    style,
     data: {
         loading: false,
         value: [
@@ -413,9 +421,7 @@ Pie.args = {
 export const Radar: Story<Props<DataFrame, ChartOptions>> = Template.bind({});
 
 Radar.args = {
-    style: {
-        width: '50%',
-    },
+    style,
     data: {
         loading: false,
         value: [
