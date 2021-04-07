@@ -118,3 +118,5 @@ export interface FillConfiguration {
 export type Color = string | string[];
 
 export type DataFrame = Record<string, any>[];
+
+export interface MarkdownTextOptions {}
