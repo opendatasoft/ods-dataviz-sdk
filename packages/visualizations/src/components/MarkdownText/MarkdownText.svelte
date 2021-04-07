@@ -9,9 +9,10 @@
     import type { Async } from '../../types';
     export let data: Async<string>;
     export let options: MarkdownTextOptions;
-    const marked = require('marked');
+    var MarkdownIt = require('markdown-it');
+    const md = new MarkdownIt();
 
-    $: renderedText = marked(data);
+    $: renderedText = md.render(data);
 </script>
 
 <div class="markdown-text-container">
