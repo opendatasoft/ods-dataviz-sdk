@@ -334,7 +334,7 @@ Bar.args = {
             type: 'category',
             title: {
                 display: true,
-                value: 'y',
+                text: 'y',
                 align: 'center',
             },
             gridLines: {
