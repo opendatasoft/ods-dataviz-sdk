@@ -26,14 +26,14 @@ export interface ChartOptions {
 export interface CartesianAxisConfiguration {
     type?: 'linear' | 'logarithmic' | 'category';
     display?: boolean;
-    label?: AxisLabelConfiguration;
+    title?: AxisTitleConfiguration;
     gridLines?: GridLinesConfiguration;
 }
 
-export interface AxisLabelConfiguration {
+export interface AxisTitleConfiguration {
     display?: boolean;
     align?: 'start' | 'center' | 'end';
-    value?: string;
+    text?: string;
 }
 
 export interface RadialAxisConfiguration {

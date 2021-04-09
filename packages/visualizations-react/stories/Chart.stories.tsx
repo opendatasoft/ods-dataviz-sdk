@@ -34,12 +34,26 @@ export default meta;
 
 const Template = (args: Props<DataFrame, ChartOptions>) => <Chart {...args} />;
 
-export const Default: Story<Props<DataFrame, ChartOptions>> = Template.bind({});
+export const Loading: Story<Props<DataFrame, ChartOptions>> = Template.bind({});
 
 const style = {
     width: '50%',
-    maxWidth: '500px',
+    maxWidth: '1000px',
 };
+
+Loading.args = {
+    style,
+    data: {
+        loading: true,
+    },
+    options: {
+        labelColumn: 'y',
+        ariaLabel: 'should not be visible',
+        series: [{ type: 'line', valueColumn: 'y' }],
+    },
+};
+
+export const Default: Story<Props<DataFrame, ChartOptions>> = Template.bind({});
 
 Default.args = {
     style,
@@ -62,7 +76,6 @@ Default.args = {
                 valueColumn: 'z',
                 label: 'line dataset',
                 backgroundColor: 'rgba(55,250,50,.5)',
-                borderColor: 'rgba(55,200,50)',
                 dataLabels: {
                     display: true,
                     backgroundColor: 'rgba(55,200,50)',
@@ -90,9 +103,9 @@ Default.args = {
         xAxis: {
             display: true,
             type: 'category',
-            label: {
+            title: {
                 display: true,
-                value: 'Day',
+                text: 'Day',
                 align: 'start',
             },
             gridLines: {
@@ -101,16 +114,16 @@ Default.args = {
         },
         yAxis: {
             display: true,
-            label: {
+            title: {
                 display: true,
-                value: 'count(*)',
+                text: 'count(*)',
                 align: 'center',
             },
         },
         legend: {
             display: true,
             position: 'top',
-            align: 'start',
+            align: 'center',
         },
         title: {
             display: true,
@@ -151,9 +164,9 @@ Line.args = {
         xAxis: {
             display: true,
             type: 'linear',
-            label: {
+            title: {
                 display: true,
-                value: 'x',
+                text: 'x',
                 align: 'center',
             },
             gridLines: {
@@ -162,9 +175,9 @@ Line.args = {
         },
         yAxis: {
             display: true,
-            label: {
+            title: {
                 display: true,
-                value: 'y',
+                text: 'y',
                 align: 'center',
             },
         },
@@ -208,9 +221,9 @@ Area.args = {
         xAxis: {
             display: true,
             type: 'linear',
-            label: {
+            title: {
                 display: true,
-                value: 'x',
+                text: 'x',
                 align: 'center',
             },
             gridLines: {
@@ -219,9 +232,9 @@ Area.args = {
         },
         yAxis: {
             display: true,
-            label: {
+            title: {
                 display: true,
-                value: 'y',
+                text: 'y',
                 align: 'center',
             },
         },
@@ -255,9 +268,9 @@ Column.args = {
         xAxis: {
             display: true,
             type: 'category',
-            label: {
+            title: {
                 display: true,
-                value: 'x',
+                text: 'x',
                 align: 'center',
             },
             gridLines: {
@@ -266,9 +279,9 @@ Column.args = {
         },
         yAxis: {
             display: true,
-            label: {
+            title: {
                 display: true,
-                value: 'y',
+                text: 'y',
                 align: 'center',
             },
         },
@@ -307,9 +320,9 @@ Bar.args = {
         xAxis: {
             display: true,
             type: 'linear',
-            label: {
+            title: {
                 display: true,
-                value: 'x',
+                text: 'x',
                 align: 'center',
             },
             gridLines: {
@@ -319,7 +332,7 @@ Bar.args = {
         yAxis: {
             display: true,
             type: 'category',
-            label: {
+            title: {
                 display: true,
                 value: 'y',
                 align: 'center',
@@ -361,17 +374,17 @@ Histogram.args = {
         xAxis: {
             display: true,
             type: 'category',
-            label: {
+            title: {
                 display: true,
-                value: 'x',
+                text: 'x',
                 align: 'center',
             },
         },
         yAxis: {
             display: true,
-            label: {
+            title: {
                 display: true,
-                value: 'y',
+                text: 'y',
                 align: 'center',
             },
             gridLines: {
