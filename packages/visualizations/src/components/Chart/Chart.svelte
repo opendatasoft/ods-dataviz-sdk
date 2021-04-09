@@ -173,19 +173,21 @@
                 beginAtZero: defaultValue(options?.rAxis?.beginAtZero, true),
             };
         }
-        chartOptions.legend = {
-            display: defaultValue(options?.legend?.display, true),
-            position: defaultValue(options?.legend?.position, 'bottom'),
-            align: defaultValue(options?.legend?.align, 'center'),
-        };
-        chartOptions.title = {
-            display: defaultValue(options?.title?.display, true),
-            position: defaultValue(options?.title?.position, 'top'),
-            align: defaultValue(options?.title?.align, 'center'),
-            text: options?.title?.text,
-        };
-        chartOptions.tooltips = {
-            enabled: defaultValue(options?.tooltips?.display, true),
+        chartOptions.plugins = {
+            legend: {
+                display: defaultValue(options?.legend?.display, true),
+                position: defaultValue(options?.legend?.position, 'bottom'),
+                align: defaultValue(options?.legend?.align, 'center'),
+            },
+            title: {
+                display: defaultValue(options?.title?.display, true),
+                position: defaultValue(options?.title?.position, 'top'),
+                align: defaultValue(options?.title?.align, 'center'),
+                text: options?.title?.text,
+            },
+            tooltip: {
+                enabled: defaultValue(options?.tooltips?.display, true),
+            },
         };
         chartConfig.options = chartOptions;
     }
