@@ -95,6 +95,7 @@
                 label: series.label,
                 fill: chartJsFill(series.fill),
                 datalabels: chartJsDataLabels(series.dataLabels),
+                tension: defaultValue(series.tension, 0),
             };
         }
 
@@ -140,6 +141,9 @@
         chartOptions.aspectRatio = options.aspectRatio;
         chartOptions.maintainAspectRatio = options.maintainAspectRatio;
         chartOptions.scales = {};
+        chartOptions.layout = {
+            padding: options.padding,
+        };
         if (options.xAxis) {
             chartOptions.scales['x'] = {
                 type: options?.xAxis?.type,
