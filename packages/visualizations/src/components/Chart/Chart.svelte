@@ -1,15 +1,5 @@
-<script lang="ts" context="module">
-    import * as ChartJs from 'chart.js';
-    import ChartDataLabels from 'chartjs-plugin-datalabels';
-
-    ChartJs.Chart.register.apply(
-        null,
-        Object.values(ChartJs).filter((chartClass) => (chartClass as any).id) as any
-    );
-    ChartJs.Chart.register(ChartDataLabels);
-</script>
-
 <script lang="ts">
+    import * as ChartJs from 'chart.js';
     import type { Async } from '../../types';
     import Placeholder from './Placeholder.svelte';
     import type {

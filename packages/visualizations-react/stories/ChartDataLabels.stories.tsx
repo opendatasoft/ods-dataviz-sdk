@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import React from 'react';
 import type { Props } from '../src';
 import { Chart } from '../src';
-import { casual, COLORS, generateArrayOf, style } from './utils';
+import { COLORS, generateArrayOf, style } from './utils';
 
 const meta: Meta = {
     title: 'Chart/DataLabels',
