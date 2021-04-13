@@ -144,12 +144,12 @@
             chartOptions.scales['x'] = {
                 type: options?.xAxis?.type,
                 display: options?.xAxis?.display,
-                scaleLabel: {
-                    display: options?.xAxis?.label?.display,
-                    align: options?.xAxis?.label?.align,
-                    labelString: options?.xAxis?.label?.value,
+                title: {
+                    display: options?.xAxis?.title?.display,
+                    align: options?.xAxis?.title?.align,
+                    text: options?.xAxis?.title?.text,
                 },
-                gridLines: {
+                grid: {
                     display: defaultValue(options?.xAxis?.gridLines?.display, true),
                 },
             };
@@ -158,12 +158,12 @@
             chartOptions.scales['y'] = {
                 type: options?.yAxis?.type,
                 display: options?.yAxis?.display,
-                scaleLabel: {
-                    display: options?.yAxis?.label?.display,
-                    align: options?.yAxis?.label?.align,
-                    labelString: options?.yAxis?.label?.value,
+                title: {
+                    display: options?.yAxis?.title?.display,
+                    align: options?.yAxis?.title?.align,
+                    text: options?.yAxis?.title?.text,
                 },
-                gridLines: {
+                grid: {
                     display: defaultValue(options?.yAxis?.gridLines?.display, true),
                 },
             };
@@ -173,19 +173,21 @@
                 beginAtZero: defaultValue(options?.rAxis?.beginAtZero, true),
             };
         }
-        chartOptions.legend = {
-            display: defaultValue(options?.legend?.display, true),
-            position: defaultValue(options?.legend?.position, 'bottom'),
-            align: defaultValue(options?.legend?.align, 'center'),
-        };
-        chartOptions.title = {
-            display: defaultValue(options?.title?.display, true),
-            position: defaultValue(options?.title?.position, 'top'),
-            align: defaultValue(options?.title?.align, 'center'),
-            text: options?.title?.text,
-        };
-        chartOptions.tooltips = {
-            enabled: defaultValue(options?.tooltips?.display, true),
+        chartOptions.plugins = {
+            legend: {
+                display: defaultValue(options?.legend?.display, false),
+                position: defaultValue(options?.legend?.position, 'bottom'),
+                align: defaultValue(options?.legend?.align, 'center'),
+            },
+            title: {
+                display: defaultValue(options?.title?.display, true),
+                position: defaultValue(options?.title?.position, 'top'),
+                align: defaultValue(options?.title?.align, 'center'),
+                text: options?.title?.text,
+            },
+            tooltip: {
+                enabled: defaultValue(options?.tooltips?.display, true),
+            },
         };
         chartConfig.options = chartOptions;
     }
