@@ -10,7 +10,7 @@
     export let data: Async<string>;
     export let options: MarkdownTextOptions;
     var MarkdownIt = require('markdown-it');
-    const md = new MarkdownIt();
+    const md = new MarkdownIt().use(require('markdown-it-mark'));
 
     $: renderedText = md.render(data);
 </script>
