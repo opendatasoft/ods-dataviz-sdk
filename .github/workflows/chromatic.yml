@@ -7,7 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v1 # required as chromatic won't work with shallow clone
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Use Node ${{ matrix.node }}
         uses: actions/setup-node@v1
@@ -29,4 +31,5 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           projectToken: 338d0576bcf1 # ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          workingDir: ./packages/visualizations-react
           storybookBuildDir: ./packages/visualizations-react/storybook-static
