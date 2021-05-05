@@ -33,8 +33,7 @@
         "size": "size-limit",
         "analyze": "size-limit --why",
         "storybook": "start-storybook -p 6006",
-        "build-storybook": "build-storybook",
-        "chromatic": "npm run build-storybook && npx chromatic -d storybook-static --project-token 338d0576bcf1"
+        "build-storybook": "build-storybook"
     },
     "peerDependencies": {
         "react": ">=16"
