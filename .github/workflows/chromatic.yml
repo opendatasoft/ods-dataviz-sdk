@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1 # required as chromatic won't work with shallow clone
 
       - name: Use Node ${{ matrix.node }}
         uses: actions/setup-node@v1
