@@ -32,4 +32,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           projectToken: 338d0576bcf1 # ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           workingDir: ./packages/visualizations-react
-          storybookBuildDir: ./packages/visualizations-react/storybook-static
+          storybookBuildDir: storybook-static
