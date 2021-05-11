@@ -1,17 +1,15 @@
 <script lang="ts" context="module">
-
 </script>
 
 <script lang="ts">
-    import type {
-        MarkdownTextOptions,
-    } from '../types';
+    import type { MarkdownTextOptions } from '../types';
     import type { Async } from '../../types';
     export let data: Async<string>;
     export let options: MarkdownTextOptions;
-    var MarkdownIt = require('markdown-it');
-    const md = new MarkdownIt().use(require('markdown-it-mark'));
+    import MarkdownIt from 'markdown-it';
+    import MarkdownItMark from 'markdown-it-mark';
 
+    const md = new MarkdownIt().use(MarkdownItMark);
     $: renderedText = md.render(data);
 </script>
 
