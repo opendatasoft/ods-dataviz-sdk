@@ -30,6 +30,6 @@ jobs:
         uses: chromaui/action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          projectToken: 338d0576bcf1 # ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          projectToken: ${{ secrets.CHROMATIC_TOKEN }}
           workingDir: ./packages/visualizations-react
           storybookBuildDir: storybook-static
