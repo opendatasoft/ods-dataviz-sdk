@@ -7,6 +7,8 @@ export interface ChartOptions {
     aspectRatio?: number;
     /** Maintain aspect ratio when the canvas is resized */
     maintainAspectRatio?: boolean;
+    /** Chart padding */
+    padding?: number;
     /** Configure xAxis */
     xAxis?: CartesianAxisConfiguration;
     /** Configure default yAxis */
@@ -62,7 +64,7 @@ export interface TooltipsConfiguration {
 }
 
 export interface DataLabelsConfiguration {
-    display?: boolean;
+    display?: boolean | 'auto';
     align?: 'start' | 'center' | 'end';
     backgroundColor?: Color;
     color?: Color;
@@ -80,6 +82,7 @@ export interface Line {
     borderColor?: Color;
     fill?: FillConfiguration;
     dataLabels?: DataLabelsConfiguration;
+    tension?: number;
 }
 
 export interface Bar {

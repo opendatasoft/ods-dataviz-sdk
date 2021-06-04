@@ -1,15 +1,5 @@
-<script lang="ts" context="module">
-    import * as ChartJs from 'chart.js';
-    import ChartDataLabels from 'chartjs-plugin-datalabels';
-
-    ChartJs.Chart.register.apply(
-        null,
-        Object.values(ChartJs).filter((chartClass) => (chartClass as any).id) as any
-    );
-    ChartJs.Chart.register(ChartDataLabels);
-</script>
-
 <script lang="ts">
+    import * as ChartJs from 'chart.js';
     import type { Async } from '../../types';
     import Placeholder from './Placeholder.svelte';
     import type {
@@ -95,6 +85,7 @@
                 label: series.label,
                 fill: chartJsFill(series.fill),
                 datalabels: chartJsDataLabels(series.dataLabels),
+                tension: defaultValue(series.tension, 0),
             };
         }
 
@@ -140,6 +131,9 @@
         chartOptions.aspectRatio = options.aspectRatio;
         chartOptions.maintainAspectRatio = options.maintainAspectRatio;
         chartOptions.scales = {};
+        chartOptions.layout = {
+            padding: options.padding,
+        };
         if (options.xAxis) {
             chartOptions.scales['x'] = {
                 type: options?.xAxis?.type,
