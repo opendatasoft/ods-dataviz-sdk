@@ -123,5 +123,5 @@ export type Color = string | string[];
 export type DataFrame = Record<string, any>[];
 
 export interface MarkdownTextOptions {
-    align?: 'left' | 'right' | 'center' | 'justify';
+    align?: 'left' | 'right' | 'center';
 }

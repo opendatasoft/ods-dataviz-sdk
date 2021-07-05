@@ -35,8 +35,4 @@
     .markdown-text-container--align-right {
         text-align: right;
     }
-
-    .markdown-text-container--align-justify {
-        text-align: justify;
-    }
 </style>
