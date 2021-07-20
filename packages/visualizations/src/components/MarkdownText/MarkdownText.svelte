@@ -22,6 +22,7 @@
         position: relative;
         height: 100%;
         width: 100%;
+        word-wrap: break-word;
     }
 
     .markdown-text-container--align-left {
