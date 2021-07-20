@@ -13,7 +13,7 @@
     $: renderedText = md.render(data);
 </script>
 
-<div class="markdown-text-container">
+<div class="markdown-text-container markdown-text-container--align-{options.align}">
     {@html renderedText}
 </div>
 
@@ -22,5 +22,18 @@
         position: relative;
         height: 100%;
         width: 100%;
+        word-wrap: break-word;
+    }
+
+    .markdown-text-container--align-left {
+        text-align: left;
+    }
+
+    .markdown-text-container--align-center {
+        text-align: center;
+    }
+
+    .markdown-text-container--align-right {
+        text-align: right;
     }
 </style>
