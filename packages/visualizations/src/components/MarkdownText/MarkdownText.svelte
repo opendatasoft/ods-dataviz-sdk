@@ -36,4 +36,16 @@
     .markdown-text-container--align-right {
         text-align: right;
     }
+
+    .markdown-text-container :global(ol),
+    .markdown-text-container :global(ul) {
+        list-style-position: inside;
+        padding-left: 0;
+    }
+
+    .markdown-text-container :global(ol > li > p),
+    .markdown-text-container :global(ul > li > p) {
+        display: inline-block;
+    }
 </style>
+`
