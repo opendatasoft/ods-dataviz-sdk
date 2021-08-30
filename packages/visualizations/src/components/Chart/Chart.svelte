@@ -211,13 +211,12 @@
 <div class="chart-container">
     {#if data.loading}
         Loading...
+    {:else if data.error}
+        Error : {JSON.stringify(data.error)}
+    {:else if options}
+        <canvas use:chartJs={chartConfig} role="img" aria-label={options.ariaLabel} />
     {:else}
-        {#if options}
-            <canvas use:chartJs={chartConfig} role="img" aria-label={options.ariaLabel} />
-        {:else}
-            <Placeholder />
-        {/if}
-        {#if data.error}Error : {JSON.stringify(data.error)}{/if}
+        <Placeholder />
     {/if}
 </div>
 
