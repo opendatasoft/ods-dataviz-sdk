@@ -3,6 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import React from 'react';
 import type { Props } from '../src';
 import { Chart } from '../src';
+import { COLORS, style } from './utils';
 
 const meta: Meta = {
     title: 'Chart',
@@ -12,22 +13,6 @@ const meta: Meta = {
             expanded: true,
         },
     },
-    decorators: [
-        (Story) => (
-            <div>
-                <div
-                    style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        height: '90vh',
-                    }}
-                >
-                    <Story />
-                </div>
-            </div>
-        ),
-    ],
 };
 
 export default meta;
@@ -35,11 +20,6 @@ export default meta;
 const Template = (args: Props<DataFrame, ChartOptions>) => <Chart {...args} />;
 
 export const Loading: Story<Props<DataFrame, ChartOptions>> = Template.bind({});
-
-const style = {
-    width: '50%',
-    maxWidth: '1000px',
-};
 
 Loading.args = {
     style,
@@ -63,9 +43,9 @@ Default.args = {
             { x: '01/01', y: 10, z: 1 },
             { x: '02/01', y: 5, z: 2 },
             { x: '03/01', y: 2, z: 2 },
-            { x: '04/01', y: 3, z: 1 },
-            { x: '05/01', y: 4, z: 1 },
-            { x: '06/01', y: 10, z: 1 },
+            { x: '04/01', y: 3, z: 7 },
+            { x: '05/01', y: 4, z: 8 },
+            { x: '06/01', y: 5, z: 10 },
         ],
     },
     options: {
@@ -75,27 +55,27 @@ Default.args = {
                 type: 'line',
                 valueColumn: 'z',
                 label: 'line dataset',
-                backgroundColor: 'rgba(55,250,50,.5)',
+                backgroundColor: COLORS.red,
+                borderColor: COLORS.red,
+                tension: 0.4,
                 dataLabels: {
                     display: true,
-                    backgroundColor: 'rgba(55,200,50)',
+                    backgroundColor: COLORS.red,
                     color: 'white',
-                    align: 'start',
                     borderRadius: 4,
-                    offset: 4,
                 },
             },
             {
                 type: 'bar',
                 valueColumn: 'y',
                 label: 'bar dataset',
-                backgroundColor: 'rgba(255,50,50,.5)',
+                backgroundColor: COLORS.blue,
                 dataLabels: {
                     display: true,
-                    backgroundColor: 'rgba(255,50,50)',
+                    backgroundColor: COLORS.blue,
                     color: 'white',
-                    align: 'end',
                     borderRadius: 4,
+                    align: 'end',
                     offset: 4,
                 },
             },
@@ -154,11 +134,13 @@ Line.args = {
     },
     options: {
         labelColumn: 'x',
-        ariaLabel: 'Single line series chart',
+        ariaLabel: 'Single line chart with tension and no grids',
         series: [
             {
                 type: 'line',
                 valueColumn: 'y',
+                tension: 0.3,
+                borderColor: COLORS.orange,
             },
         ],
         xAxis: {
@@ -180,6 +162,12 @@ Line.args = {
                 text: 'y',
                 align: 'center',
             },
+            gridLines: {
+                display: false,
+            },
+        },
+        title: {
+            text: 'Single line chart with tension and no grids',
         },
     },
 };
@@ -195,27 +183,30 @@ Area.args = {
             { x: 1, y: 140, z: 1000 },
             { x: 2, y: 2000, z: 1000 },
             { x: 3, y: 3, z: 1000 },
-            { x: 4, y: 180.47, z: 1000 },
+            { x: 4, y: 1200, z: 1000 },
             { x: 5, y: 778, z: 1000 },
         ],
     },
     options: {
         labelColumn: 'x',
-        ariaLabel: 'Area series chart',
+        ariaLabel: 'Area chart with fill mode green above 1000 and red below',
         series: [
             {
                 type: 'line',
                 valueColumn: 'y',
+                borderColor: 'rgba(0,0,0,0)',
+                tension: 0.4,
                 fill: {
                     mode: 1,
-                    above: 'rgba(50,210,50,.5)',
-                    below: 'rgba(250,50,50,.5)',
+                    above: COLORS.green,
+                    below: COLORS.red,
                 },
             },
             {
                 type: 'line',
                 valueColumn: 'z',
-                borderColor: 'rgb(0,0,0)',
+                borderColor: 'rgba(0,0,0,0)',
+                backgroundColor: 'rgba(0,0,0,0)',
             },
         ],
         xAxis: {
@@ -237,6 +228,9 @@ Area.args = {
                 text: 'y',
                 align: 'center',
             },
+        },
+        title: {
+            text: 'Area chart with fill mode green above 1000 and red below',
         },
     },
 };
@@ -410,6 +404,8 @@ Pie.args = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Pie chart',
+        maintainAspectRatio: true,
+        aspectRatio: 2,
         series: [
             {
                 type: 'pie',
@@ -448,6 +444,8 @@ Radar.args = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Radar chart',
+        maintainAspectRatio: true,
+        aspectRatio: 2,
         series: [
             {
                 type: 'radar',
