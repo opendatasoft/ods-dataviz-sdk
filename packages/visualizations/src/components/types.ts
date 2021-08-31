@@ -19,6 +19,8 @@ export interface ChartOptions {
     legend?: LegendConfiguration;
     /** Configure title */
     title?: TitleConfiguration;
+    /** Configure subtitle */
+    subtitle?: SubtitleConfiguration;
     /* Configure tooltips */
     tooltips?: TooltipsConfiguration;
     /** Accessibility */
@@ -30,6 +32,7 @@ export interface CartesianAxisConfiguration {
     display?: boolean;
     title?: AxisTitleConfiguration;
     gridLines?: GridLinesConfiguration;
+    ticks?: TicksConfiguration;
 }
 
 export interface AxisTitleConfiguration {
@@ -40,16 +43,43 @@ export interface AxisTitleConfiguration {
 
 export interface RadialAxisConfiguration {
     beginAtZero?: boolean;
+    ticks?: TicksConfiguration;
 }
 
 export interface GridLinesConfiguration {
     display?: boolean;
 }
 
+export interface LabelsConfiguration {
+    filter?: (x :{}, y:[]) => string;
+}
+
 export interface LegendConfiguration {
     display?: boolean;
     position?: 'top' | 'left' | 'bottom' | 'right';
     align?: 'start' | 'center' | 'end';
+    labels?: LabelsConfiguration;
+}
+
+export interface FontConfiguration {
+    size?: number;
+}
+
+export interface FontConfiguration {
+    size?: number;
+    padding?: {
+        top : number;
+        bottom : number;
+    }
+}
+
+export interface PaddingConfiguration {
+    top? : number;
+    bottom? : number;
+}
+
+export interface TicksConfiguration {
+    display?: boolean;
 }
 
 export interface TitleConfiguration {
@@ -57,6 +87,19 @@ export interface TitleConfiguration {
     position?: 'top' | 'left' | 'bottom' | 'right';
     align?: 'start' | 'center' | 'end';
     text?: string | string[];
+    fullSize?: boolean;
+    font? : FontConfiguration;
+    padding? : PaddingConfiguration;
+}
+
+export interface SubtitleConfiguration {
+    display?: boolean;
+    position?: 'top' | 'left' | 'bottom' | 'right';
+    align?: 'start' | 'center' | 'end';
+    text?: string | string[];
+    fullSize?: boolean;
+    font? : FontConfiguration;
+    padding? : PaddingConfiguration;
 }
 
 export interface TooltipsConfiguration {
@@ -66,10 +109,13 @@ export interface TooltipsConfiguration {
 export interface DataLabelsConfiguration {
     display?: boolean | 'auto';
     align?: 'start' | 'center' | 'end';
+    anchor?: 'start' | 'center' | 'end';
     backgroundColor?: Color;
     color?: Color;
     borderRadius?: number;
     offset?: number;
+    formatter?: ({}) => number;
+    padding?: number;
 }
 
 export type ChartSeries = Line | Bar | Pie | Radar;
@@ -83,6 +129,7 @@ export interface Line {
     fill?: FillConfiguration;
     dataLabels?: DataLabelsConfiguration;
     tension?: number;
+    pointRadius?: number;
 }
 
 export interface Bar {
@@ -99,7 +146,10 @@ export interface Bar {
 export interface Pie {
     type: 'pie';
     valueColumn: string;
+    label?: string;
     backgroundColor?: Color;
+    dataLabels?: DataLabelsConfiguration;
+    indexAxis?: 'x' | 'y';
 }
 
 export interface Radar {
@@ -108,6 +158,7 @@ export interface Radar {
     label?: string;
     backgroundColor?: Color;
     borderColor?: Color;
+    dataLabels?: DataLabelsConfiguration;
 }
 
 export type FillMode = false | number | string | { value: number };

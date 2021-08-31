@@ -54,7 +54,7 @@
     },
     "dependencies": {
         "chart.js": "^3.5.1",
-        "chartjs-plugin-datalabels": "^2.0.0-beta.1",
+        "chartjs-plugin-datalabels": "^2.0.0-rc.1",
         "markdown-it": "^12.0.4",
         "markdown-it-mark": "^3.0.1"
     }

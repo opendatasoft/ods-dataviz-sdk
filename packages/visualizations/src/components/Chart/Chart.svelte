@@ -54,11 +54,14 @@
         if (dataLabels === undefined) return { display: false };
         return {
             align: defaultValue(dataLabels.align, 'center'),
+            anchor: defaultValue(dataLabels.anchor, 'center'),
             display: defaultValue(dataLabels.display, false),
             color: chartJsColorPalette(dataLabels.color),
             backgroundColor: chartJsColorPalette(dataLabels.backgroundColor),
             offset: defaultValue(dataLabels.offset, 0),
             borderRadius: defaultValue(dataLabels.borderRadius, 0),
+            formatter: defaultValue(dataLabels.formatter, Math.round),
+            padding: defaultValue(dataLabels.padding, 6),
         };
     }
 
@@ -86,17 +89,17 @@
                 fill: chartJsFill(series.fill),
                 datalabels: chartJsDataLabels(series.dataLabels),
                 tension: defaultValue(series.tension, 0),
+                pointRadius: defaultValue(series.pointRadius, 3),
             };
         }
 
         if (series.type === 'pie') {
             return {
                 type: 'pie',
+                label: series.label,
                 data: dataFrame.map((entry) => entry[series.valueColumn]),
                 backgroundColor: chartJsColorPalette(series.backgroundColor),
-                datalabels: {
-                    display: false,
-                },
+                datalabels: chartJsDataLabels(series.dataLabels),
             };
         }
 
@@ -107,9 +110,7 @@
                 backgroundColor: chartJsColorSingle(series.backgroundColor),
                 borderColor: chartJsColorSingle(series.borderColor),
                 label: series.label,
-                datalabels: {
-                    display: false,
-                },
+                datalabels: chartJsDataLabels(series.dataLabels),
             };
         }
 
@@ -123,6 +124,7 @@
             datasets: [],
         },
         options: {},
+        plugins: {},
     };
 
     $: {
@@ -146,6 +148,9 @@
                 grid: {
                     display: defaultValue(options?.xAxis?.gridLines?.display, true),
                 },
+                ticks: {
+                    display: defaultValue(options?.xAxis?.ticks?.display, true),
+                }
             };
         }
         if (options.yAxis) {
@@ -160,11 +165,17 @@
                 grid: {
                     display: defaultValue(options?.yAxis?.gridLines?.display, true),
                 },
+                ticks: {
+                    display: defaultValue(options?.yAxis?.ticks?.display, true),
+                }
             };
         }
         if (options.rAxis) {
             chartOptions.scales['r'] = {
                 beginAtZero: defaultValue(options?.rAxis?.beginAtZero, true),
+                ticks: {
+                display: defaultValue(options?.rAxis?.ticks?.display, true),
+                }
             };
         }
         chartOptions.plugins = {
@@ -172,18 +183,57 @@
                 display: defaultValue(options?.legend?.display, false),
                 position: defaultValue(options?.legend?.position, 'bottom'),
                 align: defaultValue(options?.legend?.align, 'center'),
+                labels: options?.legend?.labels,
             },
             title: {
                 display: defaultValue(options?.title?.display, true),
                 position: defaultValue(options?.title?.position, 'top'),
                 align: defaultValue(options?.title?.align, 'center'),
                 text: options?.title?.text,
+                fullSize: defaultValue(options?.title?.fullSize, false),
+                font: {
+                    size : defaultValue(options?.title?.font?.size, 22),
+                },
+                padding: {
+                    top : defaultValue(options?.title?.padding?.top, 4),
+                    bottom : defaultValue(options?.title?.padding?.bottom, 18),
+                },
             },
             tooltip: {
                 enabled: defaultValue(options?.tooltips?.display, true),
             },
+            subtitle: {
+                display: defaultValue(options?.subtitle?.display, false),
+                text: options?.subtitle?.text,
+                align: defaultValue(options?.subtitle?.align, 'center'),
+                fullSize: defaultValue(options?.subtitle?.fullSize, false),
+                font: {
+                    size : defaultValue(options?.subtitle?.font?.size, 12),
+                },
+                padding: {
+                    top : defaultValue(options?.subtitle?.padding?.top, 4),
+                    bottom : defaultValue(options?.subtitle?.padding?.bottom, 18),
+                }
+            },
         };
         chartConfig.options = chartOptions;
+        // chartConfig.plugins.push(
+        //         {
+        //             afterDraw: chart => {
+        //                 console.log(chart)
+        //                 const ctx = chart.$context.chart.ctx;
+        //                 ctx.save();
+        //                 ctx.fillStyle = "gray";
+
+        //                 ctx.textAlign = 'left';
+        //                 ctx.textBaseline="middle";
+        //                 ctx.fillText(`pouet`, 0, 10);
+        //                 ctx.restore();12
+        //             }
+        //         },
+        //     )
+
+
     }
 
     let dataFrame: DataFrame = [];
