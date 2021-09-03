@@ -75,7 +75,15 @@ Default.args = {
                     backgroundColor: COLORS.blue,
                     color: 'white',
                     borderRadius: 4,
-                    align: 'end',
+                    align: function(index, { dataFrame }) {
+                        if (dataFrame[index].y > 0){
+                            return 'end';
+                        } else if (dataFrame[index].y === 0) {
+                            return 'center';
+                        } else {
+                            return 'start';
+                        }
+                    },
                     offset: 4,
                 },
             },

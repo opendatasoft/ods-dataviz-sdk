@@ -1,15 +1,17 @@
+import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { Props } from '../../../src';
 import { COLORS, styleForLayouts } from '../../utils';
 
 // Axis title cannot be rotated by default options
 // We can change also size of different elements paddings margin
 
-export const LineTitleAxisGridDots = {
+export const LineTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
         value: [
             { x: 0, y: 2400, z: 1 },
-            { x: 1, y: 140, z: 2 },
+            { x: 1, y: -140, z: 2 },
             { x: 2, y: 2000, z: 3 },
             { x: 3, y: 3, z: 1 },
             { x: 4, y: 180.47, z: 1 },
@@ -19,11 +21,12 @@ export const LineTitleAxisGridDots = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Line chart with title, axis, grid and dots',
+        padding: 6,
         series: [
             {
                 type: 'line',
                 valueColumn: 'y',
-                tension: 0.3,
+                tension: 0,
                 borderColor: COLORS.red,
             },
         ],
@@ -32,7 +35,7 @@ export const LineTitleAxisGridDots = {
             type: 'linear',
             title: {
                 display: true,
-                text: 'x',
+                text: 'x / min',
                 align: 'center',
             },
             gridLines: {
@@ -43,11 +46,18 @@ export const LineTitleAxisGridDots = {
             display: true,
             title: {
                 display: true,
-                text: 'Hello',
+                text: 'Hello / km',
                 align: 'center',
             },
             gridLines: {
                 display: true,
+                color: function (ticksValue) {
+                    if (ticksValue === 0) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'rgba(0, 0, 0, 0.1)';
+                    }
+                },
             },
         },
         title: {
@@ -57,13 +67,13 @@ export const LineTitleAxisGridDots = {
     },
 };
 
-export const LineAxisGridDots = {
+export const LineAxisGridDots: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
         value: [
             { x: 0, y: 2400, z: 1 },
-            { x: 1, y: 140, z: 2 },
+            { x: 1, y: -140, z: 2 },
             { x: 2, y: 2000, z: 3 },
             { x: 3, y: 3, z: 1 },
             { x: 4, y: 180.47, z: 1 },
@@ -73,11 +83,12 @@ export const LineAxisGridDots = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Line chart with axis, grid and dots',
+        padding: 6,
         series: [
             {
                 type: 'line',
                 valueColumn: 'y',
-                tension: 0.3,
+                tension: 0,
                 borderColor: COLORS.red,
             },
         ],
@@ -102,19 +113,25 @@ export const LineAxisGridDots = {
             },
             gridLines: {
                 display: true,
+                color: function (ticksValue) {
+                    if (ticksValue === 0) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'rgba(0, 0, 0, 0.1)';
+                    }
+                },
             },
         },
     },
 };
 
-export const LineTitleAxisGrid = {
+export const LineTitleAxisGrid: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
-    datasets: [{ pointRadius: 0 }],
     data: {
         loading: false,
         value: [
             { x: 0, y: 2400, z: 1 },
-            { x: 1, y: 140, z: 2 },
+            { x: 1, y: -140, z: 2 },
             { x: 2, y: 2000, z: 3 },
             { x: 3, y: 3, z: 1 },
             { x: 4, y: 180.47, z: 1 },
@@ -124,11 +141,12 @@ export const LineTitleAxisGrid = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Line chart with title, axis and grid',
+        padding: 6,
         series: [
             {
                 type: 'line',
                 valueColumn: 'y',
-                tension: 0.3,
+                tension: 0,
                 borderColor: COLORS.red,
                 pointRadius: 0,
             },
@@ -154,6 +172,13 @@ export const LineTitleAxisGrid = {
             },
             gridLines: {
                 display: true,
+                color: function (ticksValue) {
+                    if (ticksValue === 0) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'rgba(0, 0, 0, 0.1)';
+                    }
+                },
             },
         },
         title: {
@@ -163,13 +188,13 @@ export const LineTitleAxisGrid = {
     },
 };
 
-export const LineTitleSubtitleGrid = {
+export const LineTitleSubtitleGrid: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
         value: [
             { x: 0, y: 2400, z: 1 },
-            { x: 1, y: 140, z: 2 },
+            { x: 1, y: -140, z: 2 },
             { x: 2, y: 2000, z: 3 },
             { x: 3, y: 3, z: 1 },
             { x: 4, y: 180.47, z: 1 },
@@ -179,11 +204,12 @@ export const LineTitleSubtitleGrid = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Line chart with title, subtitle and grid',
+        padding: 6,
         series: [
             {
                 type: 'line',
                 valueColumn: 'y',
-                tension: 0.3,
+                tension: 0,
                 borderColor: COLORS.red,
                 pointRadius: 0,
             },
@@ -204,11 +230,18 @@ export const LineTitleSubtitleGrid = {
             display: true,
             title: {
                 display: false,
-                text: 'y',
+                text: 'yfdfgergergejrngoje',
                 align: 'center',
             },
             gridLines: {
                 display: true,
+                color: function (ticksValue) {
+                    if (ticksValue === 0) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'rgba(0, 0, 0, 0.1)';
+                    }
+                },
             },
         },
         title: {
@@ -217,40 +250,56 @@ export const LineTitleSubtitleGrid = {
         },
         subtitle: {
             display: true,
-            text: 'Custom Chart Subtitle',
+            text: ['Custom Chart Subtitle'],
             align: 'start',
         },
     },
 };
 
-export const LineTitleDataValues = {
+export const LineTitleDataValues: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
         value: [
             { x: 0, y: 2400, z: 1 },
-            { x: 1, y: 140, z: 2 },
+            { x: 1, y: -140, z: 2 },
             { x: 2, y: 2000, z: 3 },
             { x: 3, y: 3, z: 1 },
             { x: 4, y: 180.47, z: 1 },
             { x: 5, y: 778, z: 1 },
         ],
-        hidden: false,
     },
     options: {
         labelColumn: 'x',
         ariaLabel: 'Line chart with title and data values on axis',
+        padding: 6,
         series: [
             {
                 type: 'line',
                 valueColumn: 'y',
-                tension: 0.3,
+                tension: 0,
                 borderColor: COLORS.red,
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
-                    align: 'end',
-                    anchor: 'end',
+                    align: function (index, { dataFrame }) {
+                        if (dataFrame[index].y > 0) {
+                            return 'end';
+                        } else if (dataFrame[index].y === 0) {
+                            return 'center';
+                        } else {
+                            return 'start';
+                        }
+                    },
+                    anchor: function (index, { dataFrame }) {
+                        if (dataFrame[index].y > 0) {
+                            return 'end';
+                        } else if (dataFrame[index].y === 0) {
+                            return 'center';
+                        } else {
+                            return 'start';
+                        }
+                    },
                 },
             },
         ],
@@ -267,7 +316,21 @@ export const LineTitleDataValues = {
             },
         },
         yAxis: {
-            display: false,
+            display: true,
+            gridLines: {
+                display: true,
+                drawBorder: false,
+                color: function (ticksValue) {
+                    if (ticksValue === 0) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'transparent';
+                    }
+                },
+            },
+            ticks: {
+                display: false,
+            },
         },
         title: {
             text: 'Line chart with title and data values on axis',
@@ -276,13 +339,13 @@ export const LineTitleDataValues = {
     },
 };
 
-export const LineDataValuesOnly = {
+export const LineDataValuesOnly: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
         value: [
             { x: 0, y: 2400, z: 1 },
-            { x: 1, y: 140, z: 2 },
+            { x: 1, y: -140, z: 2 },
             { x: 2, y: 2000, z: 3 },
             { x: 3, y: 3, z: 1 },
             { x: 4, y: 180.47, z: 1 },
@@ -292,17 +355,34 @@ export const LineDataValuesOnly = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Line chart with data values on axis',
+        padding: 6,
         series: [
             {
                 type: 'line',
                 valueColumn: 'y',
-                tension: 0.3,
+                tension: 0,
                 borderColor: COLORS.red,
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
-                    align: 'end',
-                    anchor: 'end',
+                    align: function (index, { dataFrame }) {
+                        if (dataFrame[index].y > 0) {
+                            return 'end';
+                        } else if (dataFrame[index].y === 0) {
+                            return 'center';
+                        } else {
+                            return 'start';
+                        }
+                    },
+                    anchor: function (index, { dataFrame }) {
+                        if (dataFrame[index].y > 0) {
+                            return 'end';
+                        } else if (dataFrame[index].y === 0) {
+                            return 'center';
+                        } else {
+                            return 'start';
+                        }
+                    },
                 },
             },
         ],
@@ -319,7 +399,21 @@ export const LineDataValuesOnly = {
             },
         },
         yAxis: {
-            display: false,
+            display: true,
+            gridLines: {
+                display: true,
+                drawBorder: false,
+                color: function (ticksValue) {
+                    if (ticksValue === 0) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'transparent';
+                    }
+                },
+            },
+            ticks: {
+                display: false,
+            },
         },
     },
 };

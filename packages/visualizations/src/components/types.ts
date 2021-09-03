@@ -20,7 +20,7 @@ export interface ChartOptions {
     /** Configure title */
     title?: TitleConfiguration;
     /** Configure subtitle */
-    subtitle?: SubtitleConfiguration;
+    subtitle?: TitleConfiguration;
     /* Configure tooltips */
     tooltips?: TooltipsConfiguration;
     /** Accessibility */
@@ -30,6 +30,7 @@ export interface ChartOptions {
 export interface CartesianAxisConfiguration {
     type?: 'linear' | 'logarithmic' | 'category';
     display?: boolean;
+    offset?: boolean;
     title?: AxisTitleConfiguration;
     gridLines?: GridLinesConfiguration;
     ticks?: TicksConfiguration;
@@ -48,17 +49,16 @@ export interface RadialAxisConfiguration {
 
 export interface GridLinesConfiguration {
     display?: boolean;
-}
-
-export interface LabelsConfiguration {
-    filter?: (x :{}, y:[]) => string;
+    drawBorder?: boolean;
+    borderColor?: string;
+    offset?: boolean;
+    color?: (context:number) => string | string[];
 }
 
 export interface LegendConfiguration {
     display?: boolean;
     position?: 'top' | 'left' | 'bottom' | 'right';
     align?: 'start' | 'center' | 'end';
-    labels?: LabelsConfiguration;
 }
 
 export interface FontConfiguration {
@@ -92,29 +92,19 @@ export interface TitleConfiguration {
     padding? : PaddingConfiguration;
 }
 
-export interface SubtitleConfiguration {
-    display?: boolean;
-    position?: 'top' | 'left' | 'bottom' | 'right';
-    align?: 'start' | 'center' | 'end';
-    text?: string | string[];
-    fullSize?: boolean;
-    font? : FontConfiguration;
-    padding? : PaddingConfiguration;
-}
-
 export interface TooltipsConfiguration {
     display?: boolean;
 }
 
 export interface DataLabelsConfiguration {
     display?: boolean | 'auto';
-    align?: 'start' | 'center' | 'end';
-    anchor?: 'start' | 'center' | 'end';
+    align?: ((index:number, context:{ dataFrame:DataFrame }) => string);
+    anchor?: ((index:number, context:{ dataFrame:DataFrame }) => string);
     backgroundColor?: Color;
     color?: Color;
     borderRadius?: number;
     offset?: number;
-    formatter?: ({}) => number;
+    formatter?: (index:number, context:{ dataFrame:DataFrame }) => string | string[];
     padding?: number;
 }
 

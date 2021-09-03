@@ -1,6 +1,8 @@
+import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { Props } from '../../../src';
 import { COLORS, styleForLayouts } from '../../utils';
 
-export const HistogramTitleAxisGrid = {
+export const HistogramTitleAxisGrid: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
@@ -8,7 +10,7 @@ export const HistogramTitleAxisGrid = {
             { x: 0, y: 100 },
             { x: 1, y: 50 },
             { x: 2, y: 20 },
-            { x: 3, y: 30 },
+            { x: 3, y: -30 },
             { x: 4, y: 40 },
             { x: 5, y: 50 },
         ],
@@ -16,6 +18,7 @@ export const HistogramTitleAxisGrid = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Histogram series chart',
+        padding: 6,
         series: [
             {
                 type: 'bar',
@@ -33,6 +36,9 @@ export const HistogramTitleAxisGrid = {
                 text: 'x',
                 align: 'center',
             },
+            gridLines: {
+                display: false,
+            },
         },
         yAxis: {
             display: true,
@@ -42,7 +48,14 @@ export const HistogramTitleAxisGrid = {
                 align: 'center',
             },
             gridLines: {
-                display: false,
+                display: true,
+                color: function (ticksValue) {
+                    if (ticksValue === 0) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'rgba(0, 0, 0, 0.1)';
+                    }
+                },
             },
         },
         title: {
@@ -52,7 +65,7 @@ export const HistogramTitleAxisGrid = {
     },
 };
 
-export const HistogramAxisGrid = {
+export const HistogramAxisGrid: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
@@ -60,7 +73,7 @@ export const HistogramAxisGrid = {
             { x: 0, y: 100 },
             { x: 1, y: 50 },
             { x: 2, y: 20 },
-            { x: 3, y: 30 },
+            { x: 3, y: -30 },
             { x: 4, y: 40 },
             { x: 5, y: 50 },
         ],
@@ -68,6 +81,7 @@ export const HistogramAxisGrid = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Histogram chart with axis and grid',
+        padding: 6,
         series: [
             {
                 type: 'bar',
@@ -85,6 +99,9 @@ export const HistogramAxisGrid = {
                 text: 'x',
                 align: 'center',
             },
+            gridLines: {
+                display: false,
+            },
         },
         yAxis: {
             display: true,
@@ -94,13 +111,20 @@ export const HistogramAxisGrid = {
                 align: 'center',
             },
             gridLines: {
-                display: false,
+                display: true,
+                color: function (ticksValue) {
+                    if (ticksValue === 0) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'rgba(0, 0, 0, 0.1)';
+                    }
+                },
             },
         },
     },
 };
 
-export const HistogramTitleDataValues = {
+export const HistogramTitleDataValues: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
@@ -108,7 +132,7 @@ export const HistogramTitleDataValues = {
             { x: 0, y: 100 },
             { x: 1, y: 50 },
             { x: 2, y: 20 },
-            { x: 3, y: 30 },
+            { x: 3, y: -30 },
             { x: 4, y: 40 },
             { x: 5, y: 50 },
         ],
@@ -116,6 +140,7 @@ export const HistogramTitleDataValues = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Histogram chart with title, subtitle and data values',
+        padding: 6,
         series: [
             {
                 type: 'bar',
@@ -125,8 +150,24 @@ export const HistogramTitleDataValues = {
                 backgroundColor: 'rgba(50,50,225,0.5)',
                 dataLabels: {
                     display: true,
-                    align: 'end',
-                    anchor: 'end',
+                    align: function (index, { dataFrame }) {
+                        if (dataFrame[index].y > 0) {
+                            return 'end';
+                        } else if (dataFrame[index].y === 0) {
+                            return 'center';
+                        } else {
+                            return 'start';
+                        }
+                    },
+                    anchor: function (index, { dataFrame }) {
+                        if (dataFrame[index].y > 0) {
+                            return 'end';
+                        } else if (dataFrame[index].y === 0) {
+                            return 'center';
+                        } else {
+                            return 'start';
+                        }
+                    },
                 },
             },
         ],
@@ -143,14 +184,22 @@ export const HistogramTitleDataValues = {
             },
         },
         yAxis: {
-            display: false,
+            display: true,
             title: {
                 display: false,
                 text: 'y',
                 align: 'center',
             },
             gridLines: {
-                display: false,
+                drawBorder: false,
+                display: true,
+                color: function (ticksValue) {
+                    if (ticksValue === 0) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'transparent';
+                    }
+                },
             },
             ticks: {
                 display: false,
@@ -168,7 +217,7 @@ export const HistogramTitleDataValues = {
     },
 };
 
-export const HistogramDataValues = {
+export const HistogramDataValues: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
@@ -176,7 +225,7 @@ export const HistogramDataValues = {
             { x: 0, y: 100 },
             { x: 1, y: 50 },
             { x: 2, y: 20 },
-            { x: 3, y: 30 },
+            { x: 3, y: -30 },
             { x: 4, y: 40 },
             { x: 5, y: 50 },
         ],
@@ -184,6 +233,7 @@ export const HistogramDataValues = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Histogram chart with data values',
+        padding: 6,
         series: [
             {
                 type: 'bar',
@@ -193,8 +243,24 @@ export const HistogramDataValues = {
                 backgroundColor: 'rgba(50,50,225,0.5)',
                 dataLabels: {
                     display: true,
-                    align: 'end',
-                    anchor: 'end',
+                    align: function (index, { dataFrame }) {
+                        if (dataFrame[index].y > 0) {
+                            return 'end';
+                        } else if (dataFrame[index].y === 0) {
+                            return 'center';
+                        } else {
+                            return 'start';
+                        }
+                    },
+                    anchor: function (index, { dataFrame }) {
+                        if (dataFrame[index].y > 0) {
+                            return 'end';
+                        } else if (dataFrame[index].y === 0) {
+                            return 'center';
+                        } else {
+                            return 'start';
+                        }
+                    },
                 },
             },
         ],
@@ -211,14 +277,22 @@ export const HistogramDataValues = {
             },
         },
         yAxis: {
-            display: false,
+            display: true,
             title: {
                 display: false,
                 text: 'y',
                 align: 'center',
             },
             gridLines: {
-                display: false,
+                drawBorder: false,
+                display: true,
+                color: function (ticksValue) {
+                    if (ticksValue === 0) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'transparent';
+                    }
+                },
             },
             ticks: {
                 display: false,
@@ -227,7 +301,7 @@ export const HistogramDataValues = {
     },
 };
 
-export const HistogramAxisDataValues = {
+export const HistogramAxisDataValues: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
@@ -235,7 +309,7 @@ export const HistogramAxisDataValues = {
             { x: 0, y: 100 },
             { x: 1, y: 50 },
             { x: 2, y: 20 },
-            { x: 3, y: 30 },
+            { x: 3, y: -30 },
             { x: 4, y: 40 },
             { x: 5, y: 50 },
         ],
@@ -243,6 +317,7 @@ export const HistogramAxisDataValues = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Histogram chart with axis and data values',
+        padding: 6,
         series: [
             {
                 type: 'bar',
@@ -252,8 +327,24 @@ export const HistogramAxisDataValues = {
                 backgroundColor: 'rgba(50,50,225,0.5)',
                 dataLabels: {
                     display: true,
-                    align: 'end',
-                    anchor: 'end',
+                    align: function (index, { dataFrame }) {
+                        if (dataFrame[index].y > 0) {
+                            return 'end';
+                        } else if (dataFrame[index].y === 0) {
+                            return 'center';
+                        } else {
+                            return 'start';
+                        }
+                    },
+                    anchor: function (index, { dataFrame }) {
+                        if (dataFrame[index].y > 0) {
+                            return 'end';
+                        } else if (dataFrame[index].y === 0) {
+                            return 'center';
+                        } else {
+                            return 'start';
+                        }
+                    },
                 },
             },
         ],
@@ -264,6 +355,9 @@ export const HistogramAxisDataValues = {
                 display: true,
                 text: 'x',
                 align: 'center',
+            },
+            gridLines: {
+                display: false,
             },
             ticks: {
                 display: true,
@@ -277,10 +371,18 @@ export const HistogramAxisDataValues = {
                 align: 'center',
             },
             gridLines: {
-                display: false,
+                drawBorder: false,
+                display: true,
+                color: function (ticksValue) {
+                    if (ticksValue === 0) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'transparent';
+                    }
+                },
             },
             ticks: {
-                display: true,
+                display: false,
             },
         },
     },

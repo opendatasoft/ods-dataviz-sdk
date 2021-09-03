@@ -1,6 +1,8 @@
+import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { Props } from '../../../src';
 import { styleForLayouts } from '../../utils';
 
-export const RadarTitleScale = {
+export const RadarTitleScale: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
@@ -15,6 +17,7 @@ export const RadarTitleScale = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Radar chart',
+        padding: 6,
         maintainAspectRatio: true,
         aspectRatio: 2,
         series: [
@@ -46,7 +49,7 @@ export const RadarTitleScale = {
     },
 };
 
-export const RadarTitle = {
+export const RadarTitle: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
@@ -61,6 +64,7 @@ export const RadarTitle = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Radar chart',
+        padding: 6,
         maintainAspectRatio: true,
         aspectRatio: 2,
         series: [
@@ -95,7 +99,7 @@ export const RadarTitle = {
     },
 };
 
-export const RadarTitleDataValues = {
+export const RadarTitleDataValues: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
@@ -110,8 +114,9 @@ export const RadarTitleDataValues = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Radar chart',
+        padding: 6,
         maintainAspectRatio: true,
-        aspectRatio: 2,
+        aspectRatio: 2/1.3,
         series: [
             {
                 type: 'radar',
@@ -121,12 +126,8 @@ export const RadarTitleDataValues = {
                 borderColor: 'rgb(27,210,210)',
                 dataLabels: {
                     display: true,
-                    backgroundColor: function (context) {
-                        return context.dataset.borderColor;
-                    },
+                    backgroundColor: 'rgb(27,210,210)',
                     color: 'white',
-                    formatter: Math.round,
-                    padding: 8,
                     borderRadius: 4,
                 },
             },
@@ -138,13 +139,17 @@ export const RadarTitleDataValues = {
                 borderColor: 'rgb(127,10,210)',
                 dataLabels: {
                     display: true,
-                    color: function (context) {
-                        return context.dataset.borderColor;
-                    },
-                    formatter: Math.round,
+                    color: 'rgb(127,10,210)',
                     padding: 8,
-                    align: 'end',
-                    anchor: 'end',
+                    align: function (index, { dataFrame }) {
+                        if (dataFrame[index].y > 0) {
+                            return 'end';
+                        } else if (dataFrame[index].y === 0) {
+                            return 'center';
+                        } else {
+                            return 'start';
+                        }
+                    },
                 },
             },
         ],

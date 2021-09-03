@@ -1,15 +1,17 @@
+import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { Props } from '../../../src';
 import { COLORS, styleForLayouts } from '../../utils';
 
 // Axis title cannot be rotated by default options
 // We can change also size of different elements paddings margin
 
-export const AreaTitleAxisGridDots = {
+export const AreaTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
         value: [
             { x: 0, y: 2400, z: 1 },
-            { x: 1, y: 140, z: 2 },
+            { x: 1, y: -140, z: 2 },
             { x: 2, y: 2000, z: 3 },
             { x: 3, y: 3, z: 1 },
             { x: 4, y: 180.47, z: 1 },
@@ -19,6 +21,7 @@ export const AreaTitleAxisGridDots = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Area chart with title, axis, grid and dots',
+        padding: 6,
         series: [
             {
                 type: 'line',
@@ -52,11 +55,16 @@ export const AreaTitleAxisGridDots = {
             title: {
                 display: true,
                 text: 'hello',
-                align: 'end',
-                rotation: 90,
             },
             gridLines: {
                 display: true,
+                color: function (ticksValue) {
+                    if (ticksValue === 0) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'rgba(0, 0, 0, 0.1)';
+                    }
+                },
             },
         },
         title: {
@@ -66,13 +74,13 @@ export const AreaTitleAxisGridDots = {
     },
 };
 
-export const AreaAxisGridDots = {
+export const AreaAxisGridDots: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
         value: [
             { x: 0, y: 2400, z: 1 },
-            { x: 1, y: 140, z: 2 },
+            { x: 1, y: -140, z: 2 },
             { x: 2, y: 2000, z: 3 },
             { x: 3, y: 3, z: 1 },
             { x: 4, y: 180.47, z: 1 },
@@ -82,6 +90,7 @@ export const AreaAxisGridDots = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Area chart with axis, grid and dots',
+        padding: 6,
         series: [
             {
                 type: 'line',
@@ -119,19 +128,25 @@ export const AreaAxisGridDots = {
             },
             gridLines: {
                 display: true,
+                color: function (ticksValue) {
+                    if (ticksValue === 0) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'rgba(0, 0, 0, 0.1)';
+                    }
+                },
             },
         },
     },
 };
 
-export const AreaTitleAxisGrid = {
+export const AreaTitleAxisGrid: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
-    datasets: [{ pointRadius: 0 }],
     data: {
         loading: false,
         value: [
             { x: 0, y: 2400, z: 1 },
-            { x: 1, y: 140, z: 2 },
+            { x: 1, y: -140, z: 2 },
             { x: 2, y: 2000, z: 3 },
             { x: 3, y: 3, z: 1 },
             { x: 4, y: 180.47, z: 1 },
@@ -141,6 +156,7 @@ export const AreaTitleAxisGrid = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Area chart with title, axis and grid',
+        padding: 6,
         series: [
             {
                 type: 'line',
@@ -179,6 +195,13 @@ export const AreaTitleAxisGrid = {
             },
             gridLines: {
                 display: true,
+                color: function (ticksValue) {
+                    if (ticksValue === 0) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'rgba(0, 0, 0, 0.1)';
+                    }
+                },
             },
         },
         title: {
@@ -188,13 +211,13 @@ export const AreaTitleAxisGrid = {
     },
 };
 
-export const AreaTitleSubtitleGrid = {
+export const AreaTitleSubtitleGrid: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
         value: [
             { x: 0, y: 2400, z: 1 },
-            { x: 1, y: 140, z: 2 },
+            { x: 1, y: -140, z: 2 },
             { x: 2, y: 2000, z: 3 },
             { x: 3, y: 3, z: 1 },
             { x: 4, y: 180.47, z: 1 },
@@ -204,6 +227,7 @@ export const AreaTitleSubtitleGrid = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Area chart with title, subtitle and grid',
+        padding: 6,
         series: [
             {
                 type: 'line',
@@ -242,6 +266,13 @@ export const AreaTitleSubtitleGrid = {
             },
             gridLines: {
                 display: true,
+                color: function (ticksValue) {
+                    if (ticksValue === 0) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'rgba(0, 0, 0, 0.1)';
+                    }
+                },
             },
         },
         title: {
@@ -256,23 +287,23 @@ export const AreaTitleSubtitleGrid = {
     },
 };
 
-export const AreaTitleDataValues = {
+export const AreaTitleDataValues: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
         value: [
             { x: 0, y: 2400, z: 1 },
-            { x: 1, y: 140, z: 2 },
+            { x: 1, y: -140, z: 2 },
             { x: 2, y: 2000, z: 3 },
             { x: 3, y: 3, z: 1 },
             { x: 4, y: 180.47, z: 1 },
             { x: 5, y: 778, z: 1 },
         ],
-        hidden: false,
     },
     options: {
         labelColumn: 'x',
         ariaLabel: 'Area chart with title and data values on axis',
+        padding: 6,
         series: [
             {
                 type: 'line',
@@ -282,8 +313,24 @@ export const AreaTitleDataValues = {
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
-                    align: 'end',
-                    anchor: 'end',
+                    align: function (index, { dataFrame }) {
+                        if (dataFrame[index].y > 0) {
+                            return 'end';
+                        } else if (dataFrame[index].y === 0) {
+                            return 'center';
+                        } else {
+                            return 'start';
+                        }
+                    },
+                    anchor: function (index, { dataFrame }) {
+                        if (dataFrame[index].y > 0) {
+                            return 'end';
+                        } else if (dataFrame[index].y === 0) {
+                            return 'center';
+                        } else {
+                            return 'start';
+                        }
+                    },
                 },
                 fill: {
                     mode: 1,
@@ -308,7 +355,21 @@ export const AreaTitleDataValues = {
             },
         },
         yAxis: {
-            display: false,
+            display: true,
+            gridLines: {
+                display: true,
+                drawBorder: false,
+                color: function (ticksValue) {
+                    if (ticksValue === 0) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'transparent';
+                    }
+                },
+            },
+            ticks: {
+                display: false,
+            },
         },
         title: {
             text: 'Area chart with title and data values on axis',
@@ -317,13 +378,13 @@ export const AreaTitleDataValues = {
     },
 };
 
-export const AreaDataValuesOnly = {
+export const AreaDataValuesOnly: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
         value: [
             { x: 0, y: 2400, z: 1 },
-            { x: 1, y: 140, z: 2 },
+            { x: 1, y: -140, z: 2 },
             { x: 2, y: 2000, z: 3 },
             { x: 3, y: 3, z: 1 },
             { x: 4, y: 180.47, z: 1 },
@@ -333,6 +394,7 @@ export const AreaDataValuesOnly = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Area chart with data values on axis',
+        padding: 6,
         series: [
             {
                 type: 'line',
@@ -342,8 +404,24 @@ export const AreaDataValuesOnly = {
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
-                    align: 'end',
-                    anchor: 'end',
+                    align: function (index, { dataFrame }) {
+                        if (dataFrame[index].y > 0) {
+                            return 'end';
+                        } else if (dataFrame[index].y === 0) {
+                            return 'center';
+                        } else {
+                            return 'start';
+                        }
+                    },
+                    anchor: function (index, { dataFrame }) {
+                        if (dataFrame[index].y > 0) {
+                            return 'end';
+                        } else if (dataFrame[index].y === 0) {
+                            return 'center';
+                        } else {
+                            return 'start';
+                        }
+                    },
                 },
                 fill: {
                     mode: 1,
@@ -368,7 +446,21 @@ export const AreaDataValuesOnly = {
             },
         },
         yAxis: {
-            display: false,
+            display: true,
+            gridLines: {
+                display: true,
+                drawBorder: false,
+                color: function (ticksValue) {
+                    if (ticksValue === 0) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'transparent';
+                    }
+                },
+            },
+            ticks: {
+                display: false,
+            },
         },
     },
 };

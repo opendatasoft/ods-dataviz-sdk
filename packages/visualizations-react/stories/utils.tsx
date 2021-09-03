@@ -16,14 +16,13 @@ export const style = {
 
 export const styleForLayouts = {
     width: '100%',
-    maxWidth: '1000px',
 };
 
 export const gridStyle = {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(2, 1fr)',
-    justifyItems: 'center',
-    alignItems: 'center',
+    display: 'flex' as const,
+    flexDirection: 'column' as const,
+    justifyItems: 'space-around' as const,
+    alignItems: 'space-around' as const,
 };
 
 export function generateArrayOf<T>(generator: (index: number) => T, size: number) {

@@ -1,12 +1,14 @@
+import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { Props } from '../../../src';
 import { styleForLayouts } from '../../utils';
 
-export const PieTitleSectorsName = {
+export const PieTitleSectorsName: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
         value: [
             { x: 'Alpha', y: 100 },
-            { x: 'Beta', y: 50 },
+            { x: 'Beta', y: -50 },
             { x: 'Gamma', y: 20 },
             { x: 'Delta', y: 30 },
         ],
@@ -14,6 +16,7 @@ export const PieTitleSectorsName = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Pie chart with title and sectors name',
+        padding: 16,
         maintainAspectRatio: true,
         aspectRatio: 2,
         series: [
@@ -28,11 +31,9 @@ export const PieTitleSectorsName = {
                 ],
                 dataLabels: {
                     display: true,
-                    anchor: 'end',
-                    align: 'end',
-                    formatter : function(value, context) {
-                        return context.chart.data.labels[context.dataIndex];
-                      }
+                    formatter: function (index, { dataFrame }) {
+                        return `${dataFrame[index].x}`;
+                    },
                 },
             },
         ],
@@ -46,13 +47,13 @@ export const PieTitleSectorsName = {
     },
 };
 
-export const PieTitleSectorsNameValue = {
+export const PieTitleSectorsNameValue: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
         value: [
             { x: 'Alpha', y: 100 },
-            { x: 'Beta', y: 50 },
+            { x: 'Beta', y: -50 },
             { x: 'Gamma', y: 20 },
             { x: 'Delta', y: 30 },
         ],
@@ -60,6 +61,7 @@ export const PieTitleSectorsNameValue = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Pie chart with title and sectors name with values',
+        padding: 16,
         maintainAspectRatio: true,
         aspectRatio: 2,
         series: [
@@ -74,29 +76,9 @@ export const PieTitleSectorsNameValue = {
                 ],
                 dataLabels: {
                     display: true,
-                    anchor: 'end',
-                    align: 'end',
-                    formatter : function(value, context) {
-                        return [`${context.chart.data.labels[context.dataIndex]}`, `${value}`];
-                      }
-                    // labels : {
-                    //     index: {
-                    //         align: 'end',
-                    //         anchor: 'top',
-                    //         formatter : function(value, context) {
-                    //                 return context.chart.data.labels[context.dataIndex];
-                    //               },
-                    //         padding: 4,
-                    //     },
-                    //     name: {
-                    //         align: 'end',
-                    //         anchor: 'bottom',
-                    //         formatter : function(value, context) {
-                    //                 return value;
-                    //               },
-                    //         padding: 14,
-                    //     },
-                    // }
+                    formatter: function (index, { dataFrame }) {
+                        return [`${dataFrame[index].x}`, `${dataFrame[index].y}`];
+                    },
                 },
             },
         ],
@@ -106,17 +88,20 @@ export const PieTitleSectorsNameValue = {
         title: {
             text: 'Pie chart with title and sectors name with values',
             align: 'center',
+            padding: {
+                bottom: 36,
+            },
         },
     },
 };
 
-export const PieTitleLegend = {
+export const PieTitleLegend: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
         value: [
             { x: 'Alpha', y: 100 },
-            { x: 'Beta', y: 50 },
+            { x: 'Beta', y: -50 },
             { x: 'Gamma', y: 20 },
             { x: 'Delta', y: 30 },
         ],
@@ -124,6 +109,7 @@ export const PieTitleLegend = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Pie chart with title and legend',
+        padding: 16,
         maintainAspectRatio: true,
         aspectRatio: 2,
         series: [
@@ -152,20 +138,21 @@ export const PieTitleLegend = {
     },
 };
 
-export const PieTitleLegendValues = {
+export const PieTitleLegendValues: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
         value: [
-            { x: 'Alpha', y: 100 },
-            { x: 'Beta', y: 50 },
-            { x: 'Gamma', y: 20 },
-            { x: 'Delta', y: 30 },
+            { x: 'Alpha - 100', y: 100 },
+            { x: 'Beta - 50', y: 50 },
+            { x: 'Gamma - 20', y: 20 },
+            { x: 'Delta - 30', y: 30 },
         ],
     },
     options: {
         labelColumn: 'x',
         ariaLabel: 'Pie chart with title and legend with values',
+        padding: 16,
         maintainAspectRatio: true,
         aspectRatio: 2,
         series: [
@@ -183,12 +170,6 @@ export const PieTitleLegendValues = {
         legend: {
             display: true,
             position: 'right',
-            labels : {
-                filter: function(legendItem, data) {
-                    legendItem.text = `${legendItem.text} - ${data.datasets[0].data[legendItem.index]}`
-                    return true
-               }
-            }
         },
         tooltips: {
             display: true,

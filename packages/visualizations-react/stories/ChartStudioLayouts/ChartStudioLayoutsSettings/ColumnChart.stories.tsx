@@ -1,6 +1,8 @@
+import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { Props } from '../../../src';
 import { COLORS, styleForLayouts } from '../../utils';
 
-export const ColumnTitleAxisGrid = {
+export const ColumnTitleAxisGrid: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
@@ -16,6 +18,7 @@ export const ColumnTitleAxisGrid = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Column chart with title, axis and grid',
+        padding: 6,
         series: [
             {
                 type: 'bar',
@@ -41,6 +44,16 @@ export const ColumnTitleAxisGrid = {
                 text: 'y',
                 align: 'center',
             },
+            gridLines: {
+                display: true,
+                color: function (ticksValue) {
+                    if (ticksValue === 0) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'rgba(0, 0, 0, 0.1)';
+                    }
+                },
+            },
         },
         title: {
             text: 'Column chart with title, axis and grid',
@@ -49,7 +62,7 @@ export const ColumnTitleAxisGrid = {
     },
 };
 
-export const ColumnAxisGrid = {
+export const ColumnAxisGrid: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
@@ -65,6 +78,7 @@ export const ColumnAxisGrid = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Column chart with axis and grid',
+        padding: 6,
         series: [
             {
                 type: 'bar',
@@ -90,11 +104,21 @@ export const ColumnAxisGrid = {
                 text: 'y',
                 align: 'center',
             },
+            gridLines: {
+                display: true,
+                color: function (ticksValue) {
+                    if (ticksValue === 0) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'rgba(0, 0, 0, 0.1)';
+                    }
+                },
+            },
         },
     },
 };
 
-export const ColumnTitleSubtitleDataValues = {
+export const ColumnTitleSubtitleDataValues: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
@@ -110,14 +134,31 @@ export const ColumnTitleSubtitleDataValues = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Column chart with title, axis and grid',
+        padding: 6,
         series: [
             {
                 type: 'bar',
                 valueColumn: 'y',
                 dataLabels: {
                     display: true,
-                    align: 'end',
-                    anchor: 'end',
+                    align: function (index, { dataFrame }) {
+                        if (dataFrame[index].y > 0) {
+                            return 'end';
+                        } else if (dataFrame[index].y === 0) {
+                            return 'center';
+                        } else {
+                            return 'start';
+                        }
+                    },
+                    anchor: function (index, { dataFrame }) {
+                        if (dataFrame[index].y > 0) {
+                            return 'end';
+                        } else if (dataFrame[index].y === 0) {
+                            return 'center';
+                        } else {
+                            return 'start';
+                        }
+                    },
                 },
             },
         ],
@@ -132,22 +173,30 @@ export const ColumnTitleSubtitleDataValues = {
             gridLines: {
                 display: false,
             },
-            ticks : {
-                display:false,
+            ticks: {
+                display: false,
             },
         },
         yAxis: {
-            display: false,
+            display: true,
             title: {
                 display: false,
                 text: 'y',
                 align: 'center',
             },
             gridLines: {
-                display: false,
+                display: true,
+                drawBorder: false,
+                color: function (ticksValue) {
+                    if (ticksValue === 0) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'transparent';
+                    }
+                },
             },
-            ticks : {
-                display:false,
+            ticks: {
+                display: false,
             },
         },
         title: {
@@ -162,7 +211,7 @@ export const ColumnTitleSubtitleDataValues = {
     },
 };
 
-export const ColumnDataValues = {
+export const ColumnDataValues: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
@@ -178,14 +227,31 @@ export const ColumnDataValues = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Column chart with title, axis and grid',
+        padding: 6,
         series: [
             {
                 type: 'bar',
                 valueColumn: 'y',
                 dataLabels: {
                     display: true,
-                    align: 'end',
-                    anchor: 'end',
+                    align: function (index, { dataFrame }) {
+                        if (dataFrame[index].y > 0) {
+                            return 'end';
+                        } else if (dataFrame[index].y === 0) {
+                            return 'center';
+                        } else {
+                            return 'start';
+                        }
+                    },
+                    anchor: function (index, { dataFrame }) {
+                        if (dataFrame[index].y > 0) {
+                            return 'end';
+                        } else if (dataFrame[index].y === 0) {
+                            return 'center';
+                        } else {
+                            return 'start';
+                        }
+                    },
                 },
             },
         ],
@@ -200,28 +266,36 @@ export const ColumnDataValues = {
             gridLines: {
                 display: false,
             },
-            ticks : {
-                display:false,
+            ticks: {
+                display: false,
             },
         },
         yAxis: {
-            display: false,
+            display: true,
             title: {
                 display: false,
                 text: 'y',
                 align: 'center',
             },
             gridLines: {
-                display: false,
+                display: true,
+                drawBorder: false,
+                color: function (ticksValue) {
+                    if (ticksValue === 0) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'transparent';
+                    }
+                },
             },
-            ticks : {
-                display:false,
+            ticks: {
+                display: false,
             },
         },
     },
 };
 
-export const ColumnAxisDataValues = {
+export const ColumnAxisDataValues: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
@@ -237,14 +311,31 @@ export const ColumnAxisDataValues = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Column chart with title, axis and grid',
+        padding: 6,
         series: [
             {
                 type: 'bar',
                 valueColumn: 'y',
                 dataLabels: {
                     display: true,
-                    align: 'end',
-                    anchor: 'end',
+                    align: function (index, { dataFrame }) {
+                        if (dataFrame[index].y > 0) {
+                            return 'end';
+                        } else if (dataFrame[index].y === 0) {
+                            return 'center';
+                        } else {
+                            return 'start';
+                        }
+                    },
+                    anchor: function (index, { dataFrame }) {
+                        if (dataFrame[index].y > 0) {
+                            return 'end';
+                        } else if (dataFrame[index].y === 0) {
+                            return 'center';
+                        } else {
+                            return 'start';
+                        }
+                    },
                 },
             },
         ],
@@ -258,7 +349,7 @@ export const ColumnAxisDataValues = {
             },
             gridLines: {
                 display: false,
-            }
+            },
         },
         yAxis: {
             display: true,
@@ -268,9 +359,19 @@ export const ColumnAxisDataValues = {
                 align: 'center',
             },
             gridLines: {
+                display: true,
+                drawBorder: false,
+                color: function (ticksValue) {
+                    if (ticksValue === 0) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'transparent';
+                    }
+                }
+            },
+            ticks: {
                 display: false,
             }
         },
     },
 };
-
