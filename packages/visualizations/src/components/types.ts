@@ -125,3 +125,12 @@ export type DataFrame = Record<string, any>[];
 export interface MarkdownTextOptions {
     align?: 'left' | 'right' | 'center';
 }
+
+export interface KpiCardOptions {
+    title?: string;
+    description?: string;
+    imgSrc?: string;
+    color?: string;
+    prefix?: string;
+    suffix?: string;
+}
