@@ -9,7 +9,7 @@ const meta: Meta = {
 
 export default meta;
 
-type KpiCardStoryProps = { [key: string]: Props<string, KpiCardOptions> };
+type KpiCardStoryProps = { [key: string]: Props<number, KpiCardOptions> };
 
 const Template = (args: KpiCardStoryProps) => (
     <div
@@ -32,7 +32,7 @@ const Template = (args: KpiCardStoryProps) => (
     </div>
 );
 
-function withData(data: Async<string>): KpiCardStoryProps {
+function withData(data: Async<number>): KpiCardStoryProps {
     return {
         'Context only': {
             style: {
@@ -76,4 +76,7 @@ export const Loading = Template.bind({});
 Loading.args = withData({ loading: true });
 
 export const ShortValue = Template.bind({});
-ShortValue.args = withData({ value: '42' });
+ShortValue.args = withData({ value: 42 });
+
+export const LongValue = Template.bind({});
+LongValue.args = withData({ value: 123456789 });

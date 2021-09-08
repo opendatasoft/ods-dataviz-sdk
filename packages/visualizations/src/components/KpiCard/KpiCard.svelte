@@ -1,8 +1,10 @@
 <script lang="ts">
     import type { Async } from '../../types';
     import type { KpiCardOptions } from '../types';
-    export let data: Async<string>;
+    export let data: Async<number>;
     export let options: KpiCardOptions;
+
+    $: formattedValue = data.value !== undefined ? data.value.toLocaleString() : '';
 </script>
 
 <div class="kpi-card">
@@ -19,7 +21,7 @@
             <div class="kpi-card__value">
                 {#if options.prefix}<span class="kpi-card__prefix">{options.prefix}</span
                     >{/if}{#if data.loading}<span class="kpi-card__value-loading" />{:else}<span
-                        class="kpi-card__value-number">{data.value}</span
+                        class="kpi-card__value-number">{formattedValue}</span
                     >{/if}{#if options.suffix}<span class="kpi-card__suffix">{options.suffix}</span
                     >{/if}
             </div>
@@ -42,6 +44,7 @@
         border-color: var(--kpi-card-border-color, #ddd);
         height: 100%;
         width: 100%;
+        overflow: auto;
     }
     .kpi-card__img {
         height: var(--kpi-card-img-height, 10rem);

@@ -4,5 +4,5 @@ import { Props } from './Props';
 import { wrap } from './ReactImpl';
 
 // Explicit name and type are needed for storybook
-const KpiCard: FC<Props<string, KpiCardOptions>> = wrap(_KpiCard);
+const KpiCard: FC<Props<number, KpiCardOptions>> = wrap(_KpiCard);
 export default KpiCard;

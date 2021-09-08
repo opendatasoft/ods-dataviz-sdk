@@ -7,6 +7,7 @@ const meta: Meta = {
     argTypes: {
         title: CONTROLS.text,
         description: CONTROLS.text,
+        value: CONTROLS.number,
         prefix: CONTROLS.text,
         suffix: CONTROLS.text,
         imgSrc: CONTROLS.image,
@@ -33,7 +34,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template = ({ data, title, description, suffix, prefix, imgSrc, ...style }: any) => (
+const Template = ({ value, title, description, suffix, prefix, imgSrc, ...style }: any) => (
     <div
         style={{
             display: 'flex',
@@ -43,7 +44,9 @@ const Template = ({ data, title, description, suffix, prefix, imgSrc, ...style }
         }}
     >
         <KpiCard
-            data={data}
+            data={{
+                value,
+            }}
             options={{
                 title,
                 description,
@@ -59,12 +62,9 @@ export const FixedSize = Template.bind({});
 FixedSize.args = {
     title: 'KPI Card',
     description: 'This is a description',
+    value: 1000,
     prefix: '$',
-    suffix: 'M',
     imgSrc: Object.keys(IMAGES)[0],
     height: '50%',
     width: '50%',
-    data: {
-        value: '42',
-    },
 };

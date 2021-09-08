@@ -37,6 +37,11 @@ export const CONTROLS = {
             type: 'text',
         },
     },
+    number: {
+        control: {
+            type: 'number',
+        },
+    },
     image: {
         options: [...Object.keys(IMAGES), 'none'],
         mapping: { ...IMAGES, none: null },
