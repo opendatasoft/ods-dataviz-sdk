@@ -23,11 +23,25 @@ export const ColumnTitleAxisGrid: Props<DataFrame, ChartOptions> = {
             {
                 type: 'bar',
                 valueColumn: 'y',
+                backgroundColor: [
+                    'rgba(250,50,50,0.5)',
+                    'rgba(50,250,50,0.5)',
+                    'rgba(50,50,250,0.5)',
+                    'rgba(250,50,250,0.5)',
+                ],
+                borderColor: [
+                    'rgba(250,50,50)',
+                    'rgba(50,250,50)',
+                    'rgba(50,50,250)',
+                    'rgba(250,50,250)',
+                ],
+                borderWidth: 2,
             },
         ],
         xAxis: {
             display: true,
             type: 'category',
+            offset: true,
             title: {
                 display: true,
                 text: 'x',
@@ -83,11 +97,25 @@ export const ColumnAxisGrid: Props<DataFrame, ChartOptions> = {
             {
                 type: 'bar',
                 valueColumn: 'y',
+                backgroundColor: [
+                    'rgba(250,50,50,0.5)',
+                    'rgba(50,250,50,0.5)',
+                    'rgba(50,50,250,0.5)',
+                    'rgba(250,50,250,0.5)',
+                ],
+                borderColor: [
+                    'rgba(250,50,50)',
+                    'rgba(50,250,50)',
+                    'rgba(50,50,250)',
+                    'rgba(250,50,250)',
+                ],
+                borderWidth: 2,
             },
         ],
         xAxis: {
             display: true,
             type: 'category',
+            offset: true,
             title: {
                 display: true,
                 text: 'x',
@@ -139,6 +167,19 @@ export const ColumnTitleSubtitleDataValues: Props<DataFrame, ChartOptions> = {
             {
                 type: 'bar',
                 valueColumn: 'y',
+                backgroundColor: [
+                    'rgba(250,50,50,0.5)',
+                    'rgba(50,250,50,0.5)',
+                    'rgba(50,50,250,0.5)',
+                    'rgba(250,50,250,0.5)',
+                ],
+                borderColor: [
+                    'rgba(250,50,50)',
+                    'rgba(50,250,50)',
+                    'rgba(50,50,250)',
+                    'rgba(250,50,250)',
+                ],
+                borderWidth: 2,
                 dataLabels: {
                     display: true,
                     align: function (index, { dataFrame }) {
@@ -165,6 +206,7 @@ export const ColumnTitleSubtitleDataValues: Props<DataFrame, ChartOptions> = {
         xAxis: {
             display: false,
             type: 'category',
+            offset: true,
             title: {
                 display: false,
                 text: 'x',
@@ -196,7 +238,8 @@ export const ColumnTitleSubtitleDataValues: Props<DataFrame, ChartOptions> = {
                 },
             },
             ticks: {
-                display: false,
+                display: true,
+                zeroTick: true,
             },
         },
         title: {
@@ -232,6 +275,19 @@ export const ColumnDataValues: Props<DataFrame, ChartOptions> = {
             {
                 type: 'bar',
                 valueColumn: 'y',
+                backgroundColor: [
+                    'rgba(250,50,50,0.5)',
+                    'rgba(50,250,50,0.5)',
+                    'rgba(50,50,250,0.5)',
+                    'rgba(250,50,250,0.5)',
+                ],
+                borderColor: [
+                    'rgba(250,50,50)',
+                    'rgba(50,250,50)',
+                    'rgba(50,50,250)',
+                    'rgba(250,50,250)',
+                ],
+                borderWidth: 2,
                 dataLabels: {
                     display: true,
                     align: function (index, { dataFrame }) {
@@ -258,6 +314,7 @@ export const ColumnDataValues: Props<DataFrame, ChartOptions> = {
         xAxis: {
             display: false,
             type: 'category',
+            offset: true,
             title: {
                 display: false,
                 text: 'x',
@@ -289,7 +346,8 @@ export const ColumnDataValues: Props<DataFrame, ChartOptions> = {
                 },
             },
             ticks: {
-                display: false,
+                display: true,
+                zeroTick: true,
             },
         },
     },
@@ -316,6 +374,19 @@ export const ColumnAxisDataValues: Props<DataFrame, ChartOptions> = {
             {
                 type: 'bar',
                 valueColumn: 'y',
+                backgroundColor: [
+                    'rgba(250,50,50,0.5)',
+                    'rgba(50,250,50,0.5)',
+                    'rgba(50,50,250,0.5)',
+                    'rgba(250,50,250,0.5)',
+                ],
+                borderColor: [
+                    'rgba(250,50,50)',
+                    'rgba(50,250,50)',
+                    'rgba(50,50,250)',
+                    'rgba(250,50,250)',
+                ],
+                borderWidth: 2,
                 dataLabels: {
                     display: true,
                     align: function (index, { dataFrame }) {
@@ -342,6 +413,7 @@ export const ColumnAxisDataValues: Props<DataFrame, ChartOptions> = {
         xAxis: {
             display: true,
             type: 'category',
+            offset: true,
             title: {
                 display: true,
                 text: 'x',
@@ -370,7 +442,8 @@ export const ColumnAxisDataValues: Props<DataFrame, ChartOptions> = {
                 }
             },
             ticks: {
-                display: false,
+                display: true,
+                zeroTick: true,
             }
         },
     },

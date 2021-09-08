@@ -329,7 +329,8 @@ export const LineTitleDataValues: Props<DataFrame, ChartOptions> = {
                 },
             },
             ticks: {
-                display: false,
+                display: true,
+                zeroTick: true,
             },
         },
         title: {
@@ -412,7 +413,8 @@ export const LineDataValuesOnly: Props<DataFrame, ChartOptions> = {
                 },
             },
             ticks: {
-                display: false,
+                display: true,
+                zeroTick: true,
             },
         },
     },

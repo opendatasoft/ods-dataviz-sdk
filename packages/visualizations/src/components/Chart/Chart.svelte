@@ -37,6 +37,51 @@
         return color;
     }
 
+    function handleHoverPieChart(evt:any, item:any, legend:any) {
+        legend.chart.data.datasets[0].backgroundColor.forEach((color:any, index:any, colors:any) => {
+            if (color.length === 7) {
+                colors[index] = index === item.index ? color : color + '4D';
+            } else if (color.slice(0,3) === 'rgb') {
+                colors[index] = index === item.index ? color : color.slice(0, -1) + ',0.3)';
+            }
+        });
+        legend.chart.update();
+    }
+
+    function handleLeavePieChart(evt:any, item:any, legend:any) {
+        legend.chart.data.datasets[0].backgroundColor.forEach((color:any, index:any, colors:any) => {
+            if (color.length === 9) {
+                colors[index] = color.slice(0, -2);
+            } else if (color.slice(0,3) === 'rgb' && color.slice(-5).includes('.')) {
+                colors[index] = `${color.slice(0, -5)})`;
+            }
+
+        });
+        legend.chart.update();
+    }
+
+    function handleLongTicksLabel(this:any, value:number, index:number, values:[]) {
+        if (this.getLabelForValue(value).length > 20) {
+            return (this.getLabelForValue(value).slice(0, 20) + '...');
+        } else {
+            return this.getLabelForValue(value);
+        }
+    }
+
+    function handleLongLegendLabel(item:any, data:any) {
+        if (item.text.length > 20) {
+            item.text = item.text.slice(0, 20) + '...'
+        }
+        return true;
+    }
+
+    function displayZeroTick(this:any, val:number, index:number) {
+        if (val === 0) {
+            return this.getLabelForValue(val)
+        }
+        return '';
+    }
+
     function chartJsColorSingle(color?: Color) {
         return color === undefined ? undefined : typeof color === 'string' ? color : color[0];
     }
@@ -87,6 +132,8 @@
                 type: 'bar',
                 data: dataFrame.map((entry) => entry[series.valueColumn]),
                 backgroundColor: chartJsColorPalette(series.backgroundColor),
+                borderColor: chartJsColorPalette(series.borderColor),
+                borderWidth: defaultValue(series.borderWidth, 0),
                 label: defaultValue(series.label, ''),
                 indexAxis: defaultValue(series.indexAxis, 'x'),
                 barPercentage: defaultValue(series.barPercentage, 0.9),
@@ -146,7 +193,7 @@
     $: {
         chartConfig.type = defaultValue(options.series[0]?.type, 'line'); // Will set chartJs default value accordingly
         let chartOptions = chartConfig.options || {};
-        chartOptions.aspectRatio = options.aspectRatio;
+        chartOptions.aspectRatio = defaultValue(options.aspectRatio, 2/1.3);
         chartOptions.maintainAspectRatio = options.maintainAspectRatio;
         chartOptions.scales = {};
         chartOptions.layout = {
@@ -157,7 +204,7 @@
             chartOptions.scales['x'] = {
                 type: options?.xAxis?.type,
                 display: options?.xAxis?.display,
-                offset: defaultValue(options?.xAxis?.offset, true),
+                offset: defaultValue(options?.xAxis?.offset, false),
                 title: {
                     display: options?.xAxis?.title?.display,
                     align: options?.xAxis?.title?.align,
@@ -176,6 +223,9 @@
                 },
                 ticks: {
                     display: defaultValue(options?.xAxis?.ticks?.display, true),
+                    ...(options?.xAxis?.ticks?.zeroTick === true && {callback: displayZeroTick}),
+                    ...(options?.xAxis?.ticks?.longTick === true && {callback: handleLongTicksLabel}),
+                    maxTicksLimit: 10,
                 },
             };
         }
@@ -201,6 +251,9 @@
                 },
                 ticks: {
                     display: defaultValue(options?.yAxis?.ticks?.display, true),
+                    ...(options?.yAxis?.ticks?.zeroTick === true && {callback: displayZeroTick}),
+                    ...(options?.yAxis?.ticks?.longTick === true && {callback: handleLongTicksLabel}),
+                    maxTicksLimit: 10,
                 },
             };
         }
@@ -209,6 +262,9 @@
                 beginAtZero: defaultValue(options?.rAxis?.beginAtZero, true),
                 ticks: {
                     display: defaultValue(options?.rAxis?.ticks?.display, true),
+                    ...(options?.xAxis?.ticks?.zeroTick === true && {callback: displayZeroTick}),
+                    ...(options?.xAxis?.ticks?.longTick === true && {callback: handleLongTicksLabel}),
+                    maxTicksLimit: 10,
                 },
             };
         }
@@ -217,6 +273,11 @@
                 display: defaultValue(options?.legend?.display, false),
                 position: defaultValue(options?.legend?.position, 'bottom'),
                 align: defaultValue(options?.legend?.align, 'center'),
+                ...(options.series[0]?.type === 'pie' && {onHover: handleHoverPieChart}),
+                ...(options.series[0]?.type === 'pie' && {onLeave: handleLeavePieChart}),
+                labels : {
+                    ...(options?.legend?.labels?.longLegend === true && {filter : handleLongLegendLabel}),
+                },
             },
             title: {
                 display: defaultValue(options?.title?.display, true),

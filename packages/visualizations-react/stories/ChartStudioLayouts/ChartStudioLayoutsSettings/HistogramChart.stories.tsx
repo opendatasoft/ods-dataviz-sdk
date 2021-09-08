@@ -26,11 +26,14 @@ export const HistogramTitleAxisGrid: Props<DataFrame, ChartOptions> = {
                 barPercentage: 1,
                 categoryPercentage: 1,
                 backgroundColor: 'rgba(50,50,225,0.5)',
+                borderColor: 'rgba(50,50,225)',
+                borderWidth: 2,
             },
         ],
         xAxis: {
             display: true,
             type: 'category',
+            offset: true,
             title: {
                 display: true,
                 text: 'x',
@@ -89,11 +92,14 @@ export const HistogramAxisGrid: Props<DataFrame, ChartOptions> = {
                 barPercentage: 1,
                 categoryPercentage: 1,
                 backgroundColor: 'rgba(50,50,225,0.5)',
+                borderColor: 'rgba(50,50,225)',
+                borderWidth: 2,
             },
         ],
         xAxis: {
             display: true,
             type: 'category',
+            offset: true,
             title: {
                 display: true,
                 text: 'x',
@@ -148,6 +154,8 @@ export const HistogramTitleDataValues: Props<DataFrame, ChartOptions> = {
                 barPercentage: 1,
                 categoryPercentage: 1,
                 backgroundColor: 'rgba(50,50,225,0.5)',
+                borderColor: 'rgba(50,50,225)',
+                borderWidth: 2,
                 dataLabels: {
                     display: true,
                     align: function (index, { dataFrame }) {
@@ -174,6 +182,7 @@ export const HistogramTitleDataValues: Props<DataFrame, ChartOptions> = {
         xAxis: {
             display: false,
             type: 'category',
+            offset: true,
             title: {
                 display: false,
                 text: 'x',
@@ -202,7 +211,8 @@ export const HistogramTitleDataValues: Props<DataFrame, ChartOptions> = {
                 },
             },
             ticks: {
-                display: false,
+                display: true,
+                zeroTick: true,
             },
         },
         title: {
@@ -241,6 +251,8 @@ export const HistogramDataValues: Props<DataFrame, ChartOptions> = {
                 barPercentage: 1,
                 categoryPercentage: 1,
                 backgroundColor: 'rgba(50,50,225,0.5)',
+                borderColor: 'rgba(50,50,225)',
+                borderWidth: 2,
                 dataLabels: {
                     display: true,
                     align: function (index, { dataFrame }) {
@@ -267,6 +279,7 @@ export const HistogramDataValues: Props<DataFrame, ChartOptions> = {
         xAxis: {
             display: false,
             type: 'category',
+            offset: true,
             title: {
                 display: false,
                 text: 'x',
@@ -295,7 +308,8 @@ export const HistogramDataValues: Props<DataFrame, ChartOptions> = {
                 },
             },
             ticks: {
-                display: false,
+                display: true,
+                zeroTick: true,
             },
         },
     },
@@ -325,6 +339,8 @@ export const HistogramAxisDataValues: Props<DataFrame, ChartOptions> = {
                 barPercentage: 1,
                 categoryPercentage: 1,
                 backgroundColor: 'rgba(50,50,225,0.5)',
+                borderColor: 'rgba(50,50,225)',
+                borderWidth: 2,
                 dataLabels: {
                     display: true,
                     align: function (index, { dataFrame }) {
@@ -351,6 +367,7 @@ export const HistogramAxisDataValues: Props<DataFrame, ChartOptions> = {
         xAxis: {
             display: true,
             type: 'category',
+            offset: true,
             title: {
                 display: true,
                 text: 'x',
@@ -382,7 +399,8 @@ export const HistogramAxisDataValues: Props<DataFrame, ChartOptions> = {
                 },
             },
             ticks: {
-                display: false,
+                display: true,
+                zeroTick: true,
             },
         },
     },

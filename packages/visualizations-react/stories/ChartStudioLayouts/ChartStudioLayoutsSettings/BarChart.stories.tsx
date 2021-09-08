@@ -28,6 +28,13 @@ export const BarTitleAxisGrid: Props<DataFrame, ChartOptions> = {
                     'rgba(50,50,250,0.5)',
                     'rgba(250,50,250,0.5)',
                 ],
+                borderColor: [
+                    'rgba(250,50,50)',
+                    'rgba(50,250,50)',
+                    'rgba(50,50,250)',
+                    'rgba(250,50,250)',
+                ],
+                borderWidth: 2,
             },
         ],
         xAxis: {
@@ -95,6 +102,13 @@ export const BarAxisGrid: Props<DataFrame, ChartOptions> = {
                     'rgba(50,50,250,0.5)',
                     'rgba(250,50,250,0.5)',
                 ],
+                borderColor: [
+                    'rgba(250,50,50)',
+                    'rgba(50,250,50)',
+                    'rgba(50,50,250)',
+                    'rgba(250,50,250)',
+                ],
+                borderWidth: 2,
             },
         ],
         xAxis: {
@@ -151,6 +165,13 @@ export const BarTitleAxisDataValues: Props<DataFrame, ChartOptions> = {
                     'rgba(50,50,250,0.5)',
                     'rgba(250,50,250,0.5)',
                 ],
+                borderColor: [
+                    'rgba(250,50,50)',
+                    'rgba(50,250,50)',
+                    'rgba(50,50,250)',
+                    'rgba(250,50,250)',
+                ],
+                borderWidth: 2,
                 dataLabels: {
                     display: true,
                     align: function (index, { dataFrame }) {
@@ -184,7 +205,8 @@ export const BarTitleAxisDataValues: Props<DataFrame, ChartOptions> = {
                 align: 'center',
             },
             ticks: {
-                display: false,
+                display: true,
+                zeroTick: true,
             },
             gridLines: {
                 display: true,
@@ -242,6 +264,13 @@ export const BarAxisDataValues: Props<DataFrame, ChartOptions> = {
                     'rgba(50,50,250,0.5)',
                     'rgba(250,50,250,0.5)',
                 ],
+                borderColor: [
+                    'rgba(250,50,50)',
+                    'rgba(50,250,50)',
+                    'rgba(50,50,250)',
+                    'rgba(250,50,250)',
+                ],
+                borderWidth: 2,
                 dataLabels: {
                     display: true,
                     align: function (index, { dataFrame }) {
@@ -285,7 +314,8 @@ export const BarAxisDataValues: Props<DataFrame, ChartOptions> = {
                 },
             },
             ticks: {
-                display: false,
+                display: true,
+                zeroTick: true,
             },
         },
         yAxis: {
@@ -318,8 +348,6 @@ export const BarTitleSubTitleGrid: Props<DataFrame, ChartOptions> = {
         labelColumn: 'x',
         ariaLabel: 'Bar chart with title, subtitle and grid',
         padding: 6,
-        maintainAspectRatio: true,
-        aspectRatio: 2/1.3,
         series: [
             {
                 type: 'bar',
@@ -331,6 +359,13 @@ export const BarTitleSubTitleGrid: Props<DataFrame, ChartOptions> = {
                     'rgba(50,50,250,0.5)',
                     'rgba(250,50,250,0.5)',
                 ],
+                borderColor: [
+                    'rgba(250,50,50)',
+                    'rgba(50,250,50)',
+                    'rgba(50,50,250)',
+                    'rgba(250,50,250)',
+                ],
+                borderWidth: 2,
             },
         ],
         xAxis: {

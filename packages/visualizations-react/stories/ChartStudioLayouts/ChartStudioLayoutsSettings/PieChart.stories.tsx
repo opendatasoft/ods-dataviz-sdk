@@ -17,17 +17,15 @@ export const PieTitleSectorsName: Props<DataFrame, ChartOptions> = {
         labelColumn: 'x',
         ariaLabel: 'Pie chart with title and sectors name',
         padding: 16,
-        maintainAspectRatio: true,
-        aspectRatio: 2,
         series: [
             {
                 type: 'pie',
                 valueColumn: 'y',
                 backgroundColor: [
-                    'rgba(250,50,50,0.5)',
-                    'rgba(50,250,50,0.5)',
-                    'rgba(50,50,250,0.5)',
-                    'rgba(250,50,250,0.5)',
+                    '#CB4335',
+                    '#1F618D',
+                    '#F1C40F',
+                    '#27AE60',
                 ],
                 dataLabels: {
                     display: true,
@@ -62,17 +60,15 @@ export const PieTitleSectorsNameValue: Props<DataFrame, ChartOptions> = {
         labelColumn: 'x',
         ariaLabel: 'Pie chart with title and sectors name with values',
         padding: 16,
-        maintainAspectRatio: true,
-        aspectRatio: 2,
         series: [
             {
                 type: 'pie',
                 valueColumn: 'y',
                 backgroundColor: [
-                    'rgba(250,50,50,0.5)',
-                    'rgba(50,250,50,0.5)',
-                    'rgba(50,50,250,0.5)',
-                    'rgba(250,50,250,0.5)',
+                    '#CB4335',
+                    '#1F618D',
+                    '#F1C40F',
+                    '#27AE60',
                 ],
                 dataLabels: {
                     display: true,
@@ -110,17 +106,15 @@ export const PieTitleLegend: Props<DataFrame, ChartOptions> = {
         labelColumn: 'x',
         ariaLabel: 'Pie chart with title and legend',
         padding: 16,
-        maintainAspectRatio: true,
-        aspectRatio: 2,
         series: [
             {
                 type: 'pie',
                 valueColumn: 'y',
                 backgroundColor: [
-                    'rgba(250,50,50,0.5)',
-                    'rgba(50,250,50,0.5)',
-                    'rgba(50,50,250,0.5)',
-                    'rgba(250,50,250,0.5)',
+                    '#CB4335',
+                    '#1F618D',
+                    '#F1C40F',
+                    '#27AE60',
                 ],
             },
         ],
@@ -153,17 +147,15 @@ export const PieTitleLegendValues: Props<DataFrame, ChartOptions> = {
         labelColumn: 'x',
         ariaLabel: 'Pie chart with title and legend with values',
         padding: 16,
-        maintainAspectRatio: true,
-        aspectRatio: 2,
         series: [
             {
                 type: 'pie',
                 valueColumn: 'y',
                 backgroundColor: [
-                    'rgba(250,50,50,0.5)',
-                    'rgba(50,250,50,0.5)',
-                    'rgba(50,50,250,0.5)',
-                    'rgba(250,50,250,0.5)',
+                    '#CB4335',
+                    '#1F618D',
+                    '#F1C40F',
+                    'rgb(39,174,96)',
                 ],
             },
         ],

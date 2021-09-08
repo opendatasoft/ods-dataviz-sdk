@@ -18,8 +18,6 @@ export const RadarTitleScale: Props<DataFrame, ChartOptions> = {
         labelColumn: 'x',
         ariaLabel: 'Radar chart',
         padding: 6,
-        maintainAspectRatio: true,
-        aspectRatio: 2,
         series: [
             {
                 type: 'radar',
@@ -65,8 +63,6 @@ export const RadarTitle: Props<DataFrame, ChartOptions> = {
         labelColumn: 'x',
         ariaLabel: 'Radar chart',
         padding: 6,
-        maintainAspectRatio: true,
-        aspectRatio: 2,
         series: [
             {
                 type: 'radar',
@@ -115,8 +111,6 @@ export const RadarTitleDataValues: Props<DataFrame, ChartOptions> = {
         labelColumn: 'x',
         ariaLabel: 'Radar chart',
         padding: 6,
-        maintainAspectRatio: true,
-        aspectRatio: 2/1.3,
         series: [
             {
                 type: 'radar',

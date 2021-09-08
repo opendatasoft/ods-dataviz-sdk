@@ -30,7 +30,7 @@ export const AreaTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
                 borderColor: COLORS.red,
                 fill: {
                     mode: 1,
-                    above: COLORS.pink,
+                    above: 'rgb(255, 99, 132, 0.26)',
                 },
             },
             {
@@ -99,7 +99,7 @@ export const AreaAxisGridDots: Props<DataFrame, ChartOptions> = {
                 borderColor: COLORS.red,
                 fill: {
                     mode: 1,
-                    above: COLORS.pink,
+                    above: 'rgb(255, 99, 132, 0.26)',
                 },
             },
             {
@@ -166,7 +166,7 @@ export const AreaTitleAxisGrid: Props<DataFrame, ChartOptions> = {
                 pointRadius: 0,
                 fill: {
                     mode: 1,
-                    above: COLORS.pink,
+                    above: 'rgb(255, 99, 132, 0.26)',
                 },
             },
             {
@@ -237,7 +237,7 @@ export const AreaTitleSubtitleGrid: Props<DataFrame, ChartOptions> = {
                 pointRadius: 0,
                 fill: {
                     mode: 1,
-                    above: COLORS.pink,
+                    above: 'rgb(255, 99, 132, 0.26)',
                 },
             },
             {
@@ -334,7 +334,7 @@ export const AreaTitleDataValues: Props<DataFrame, ChartOptions> = {
                 },
                 fill: {
                     mode: 1,
-                    above: COLORS.pink,
+                    above: 'rgb(255, 99, 132, 0.26)',
                 },
             },
             {
@@ -368,7 +368,8 @@ export const AreaTitleDataValues: Props<DataFrame, ChartOptions> = {
                 },
             },
             ticks: {
-                display: false,
+                display: true,
+                zeroTick: true,
             },
         },
         title: {
@@ -425,7 +426,7 @@ export const AreaDataValuesOnly: Props<DataFrame, ChartOptions> = {
                 },
                 fill: {
                     mode: 1,
-                    above: COLORS.pink,
+                    above: 'rgb(255, 99, 132, 0.26)',
                 },
             },
             {
@@ -459,7 +460,8 @@ export const AreaDataValuesOnly: Props<DataFrame, ChartOptions> = {
                 },
             },
             ticks: {
-                display: false,
+                display: true,
+                zeroTick: true,
             },
         },
     },
