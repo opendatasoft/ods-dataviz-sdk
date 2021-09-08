@@ -65,6 +65,10 @@ export const CONTROLS = {
         ],
         control: { type: 'select' },
     },
+    borderStyle: {
+        options: ['solid', 'dashed', 'dotted', 'none'],
+        control: { type: 'select' },
+    },
     flexDirection: {
         options: ['row', 'column', 'row-reverse', 'column-reverse'],
         control: {
@@ -94,6 +98,12 @@ export const CONTROLS = {
         control: {
             type: 'color',
             presetColors: Object.values(COLORS),
+        },
+    },
+    textAlign: {
+        options: ['left', 'center', 'right'],
+        control: {
+            type: 'select',
         },
     },
 };

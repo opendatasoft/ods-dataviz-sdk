@@ -22,7 +22,6 @@ const Template = (args: KpiCardStoryProps) => (
             gap: '1rem',
             ['--kpi-card-background-color' as any]: '#f6f8fb',
             ['--kpi-card-value-color' as any]: 'orange',
-            ['--kpi-card-description-color' as any]: '#555',
             ['--kpi-card-border-width' as any]: '0',
         }}
     >
@@ -35,33 +34,32 @@ const Template = (args: KpiCardStoryProps) => (
 function withData(data: Async<number>): KpiCardStoryProps {
     return {
         'Context only': {
-            style: {
-                ['--kpi-card-content-justify-content' as any]: 'space-evenly',
-            },
             data,
             options: {
                 description: 'médailles aux JO de Tokyo 2021',
             },
         },
         'Context, picture': {
-            style: {
-                ['--kpi-card-flex-direction' as any]: 'column',
-            },
             data,
             options: {
                 imgSrc: IMAGES.trophy,
                 description: 'médailles aux JO de Tokyo 2021',
             },
         },
-        'Title only': {
+        'Header only': {
+            style: {
+                ['--kpi-card-header-background-color' as any]: 'none',
+            },
             data,
             options: {
-                title: 'Budget des JO Tokyo 2021',
+                header: 'Budget des JO Tokyo 2021',
                 suffix: '€',
             },
         },
         'Title, picture': {
-            style: {},
+            style: {
+                ['--kpi-card-body-flex-direction' as any]: 'row',
+            },
             data,
             options: {
                 title: 'Tokyo Olympic Budget 2021',

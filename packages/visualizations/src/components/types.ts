@@ -133,4 +133,6 @@ export interface KpiCardOptions {
     color?: string;
     prefix?: string;
     suffix?: string;
+    header?: string;
+    footer?: string;
 }
