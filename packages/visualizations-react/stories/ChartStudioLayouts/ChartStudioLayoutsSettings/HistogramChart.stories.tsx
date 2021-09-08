@@ -159,19 +159,15 @@ export const HistogramTitleDataValues: Props<DataFrame, ChartOptions> = {
                 dataLabels: {
                     display: true,
                     align: function (index, { dataFrame }) {
-                        if (dataFrame[index].y > 0) {
+                        if (dataFrame[index].y >= 0) {
                             return 'end';
-                        } else if (dataFrame[index].y === 0) {
-                            return 'center';
                         } else {
                             return 'start';
                         }
                     },
                     anchor: function (index, { dataFrame }) {
-                        if (dataFrame[index].y > 0) {
+                        if (dataFrame[index].y >= 0) {
                             return 'end';
-                        } else if (dataFrame[index].y === 0) {
-                            return 'center';
                         } else {
                             return 'start';
                         }
@@ -256,19 +252,15 @@ export const HistogramDataValues: Props<DataFrame, ChartOptions> = {
                 dataLabels: {
                     display: true,
                     align: function (index, { dataFrame }) {
-                        if (dataFrame[index].y > 0) {
+                        if (dataFrame[index].y >= 0) {
                             return 'end';
-                        } else if (dataFrame[index].y === 0) {
-                            return 'center';
                         } else {
                             return 'start';
                         }
                     },
                     anchor: function (index, { dataFrame }) {
-                        if (dataFrame[index].y > 0) {
+                        if (dataFrame[index].y >= 0) {
                             return 'end';
-                        } else if (dataFrame[index].y === 0) {
-                            return 'center';
                         } else {
                             return 'start';
                         }
@@ -344,19 +336,15 @@ export const HistogramAxisDataValues: Props<DataFrame, ChartOptions> = {
                 dataLabels: {
                     display: true,
                     align: function (index, { dataFrame }) {
-                        if (dataFrame[index].y > 0) {
+                        if (dataFrame[index].y >= 0) {
                             return 'end';
-                        } else if (dataFrame[index].y === 0) {
-                            return 'center';
                         } else {
                             return 'start';
                         }
                     },
                     anchor: function (index, { dataFrame }) {
-                        if (dataFrame[index].y > 0) {
+                        if (dataFrame[index].y >= 0) {
                             return 'end';
-                        } else if (dataFrame[index].y === 0) {
-                            return 'center';
                         } else {
                             return 'start';
                         }
