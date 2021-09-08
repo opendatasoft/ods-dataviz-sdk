@@ -87,7 +87,6 @@ export interface TicksConfiguration {
     display?: boolean;
     zeroTick?: boolean;
     longTick?: boolean;
-    maxTicksLimit?: boolean;
 }
 
 export interface TitleConfiguration {

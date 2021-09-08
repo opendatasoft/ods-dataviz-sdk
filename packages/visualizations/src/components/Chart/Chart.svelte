@@ -225,7 +225,6 @@
                     display: defaultValue(options?.xAxis?.ticks?.display, true),
                     ...(options?.xAxis?.ticks?.zeroTick === true && {callback: displayZeroTick}),
                     ...(options?.xAxis?.ticks?.longTick === true && {callback: handleLongTicksLabel}),
-                    maxTicksLimit: 10,
                 },
             };
         }
