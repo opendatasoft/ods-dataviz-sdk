@@ -60,21 +60,6 @@
         legend.chart.update();
     }
 
-    function handleLongTicksLabel(this:any, value:number, index:number, values:[]) {
-        if (this.getLabelForValue(value).length > 20) {
-            return (this.getLabelForValue(value).slice(0, 20) + '...');
-        } else {
-            return this.getLabelForValue(value);
-        }
-    }
-
-    function handleLongLegendLabel(item:any, data:any) {
-        if (item.text.length > 20) {
-            item.text = item.text.slice(0, 20) + '...'
-        }
-        return true;
-    }
-
     function displayZeroTick(this:any, val:number, index:number) {
         if (val === 0) {
             return this.getLabelForValue(val)
@@ -224,7 +209,6 @@
                 ticks: {
                     display: defaultValue(options?.xAxis?.ticks?.display, true),
                     ...(options?.xAxis?.ticks?.zeroTick === true && {callback: displayZeroTick}),
-                    ...(options?.xAxis?.ticks?.longTick === true && {callback: handleLongTicksLabel}),
                 },
             };
         }
@@ -251,8 +235,6 @@
                 ticks: {
                     display: defaultValue(options?.yAxis?.ticks?.display, true),
                     ...(options?.yAxis?.ticks?.zeroTick === true && {callback: displayZeroTick}),
-                    ...(options?.yAxis?.ticks?.longTick === true && {callback: handleLongTicksLabel}),
-                    maxTicksLimit: 10,
                 },
             };
         }
@@ -262,8 +244,6 @@
                 ticks: {
                     display: defaultValue(options?.rAxis?.ticks?.display, true),
                     ...(options?.xAxis?.ticks?.zeroTick === true && {callback: displayZeroTick}),
-                    ...(options?.xAxis?.ticks?.longTick === true && {callback: handleLongTicksLabel}),
-                    maxTicksLimit: 10,
                 },
             };
         }
@@ -274,9 +254,6 @@
                 align: defaultValue(options?.legend?.align, 'center'),
                 ...(options.series[0]?.type === 'pie' && {onHover: handleHoverPieChart}),
                 ...(options.series[0]?.type === 'pie' && {onLeave: handleLeavePieChart}),
-                labels : {
-                    ...(options?.legend?.labels?.longLegend === true && {filter : handleLongLegendLabel}),
-                },
             },
             title: {
                 display: defaultValue(options?.title?.display, true),

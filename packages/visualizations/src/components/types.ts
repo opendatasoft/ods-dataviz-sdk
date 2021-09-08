@@ -55,15 +55,10 @@ export interface GridLinesConfiguration {
     color?: (context:number) => string | string[];
 }
 
-export interface LabelsConfiguration {
-    longLegend?: boolean;
-}
-
 export interface LegendConfiguration {
     display?: boolean;
     position?: 'top' | 'left' | 'bottom' | 'right';
     align?: 'start' | 'center' | 'end';
-    labels?: LabelsConfiguration;
 }
 
 export interface FontConfiguration {
@@ -86,7 +81,6 @@ export interface PaddingConfiguration {
 export interface TicksConfiguration {
     display?: boolean;
     zeroTick?: boolean;
-    longTick?: boolean;
 }
 
 export interface TitleConfiguration {
