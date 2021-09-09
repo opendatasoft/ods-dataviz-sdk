@@ -2,26 +2,22 @@ import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Props } from '../../../src';
 import { COLORS, styleForLayouts } from '../../utils';
 
-// Axis title cannot be rotated by default options
-// We can change also size of different elements paddings margin
-
 export const AreaTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
         value: [
-            { x: 0, y: 2400, z: 1 },
-            { x: 1, y: -140, z: 2 },
-            { x: 2, y: 2000, z: 3 },
-            { x: 3, y: 3, z: 1 },
-            { x: 4, y: 180.47, z: 1 },
-            { x: 5, y: 778, z: 1 },
+            { x: 0, y: 2400},
+            { x: 1, y: -140},
+            { x: 2, y: 2000},
+            { x: 3, y: 3},
+            { x: 4, y: 180.47},
+            { x: 5, y: 778},
         ],
     },
     options: {
         labelColumn: 'x',
         ariaLabel: 'Area chart with title, axis, grid and dots',
-        padding: 6,
         series: [
             {
                 type: 'line',
@@ -29,7 +25,7 @@ export const AreaTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
                 tension: 0.3,
                 borderColor: COLORS.red,
                 fill: {
-                    mode: 1,
+                    mode: 'origin',
                     above: 'rgb(255, 99, 132, 0.26)',
                 },
             },
@@ -58,8 +54,8 @@ export const AreaTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                color: function (ticksValue) {
-                    if (ticksValue === 0) {
+                color: function (ticksIndex, ticksToColor) {
+                    if (ticksIndex === ticksToColor) {
                         return 'rgba(0, 0, 0, 0.4)';
                     } else {
                         return 'rgba(0, 0, 0, 0.1)';
@@ -79,18 +75,17 @@ export const AreaAxisGridDots: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
-            { x: 0, y: 2400, z: 1 },
-            { x: 1, y: -140, z: 2 },
-            { x: 2, y: 2000, z: 3 },
-            { x: 3, y: 3, z: 1 },
-            { x: 4, y: 180.47, z: 1 },
-            { x: 5, y: 778, z: 1 },
+            { x: 0, y: 2400},
+            { x: 1, y: -140},
+            { x: 2, y: 2000},
+            { x: 3, y: 3},
+            { x: 4, y: 180.47},
+            { x: 5, y: 778},
         ],
     },
     options: {
         labelColumn: 'x',
         ariaLabel: 'Area chart with axis, grid and dots',
-        padding: 6,
         series: [
             {
                 type: 'line',
@@ -98,7 +93,7 @@ export const AreaAxisGridDots: Props<DataFrame, ChartOptions> = {
                 tension: 0.3,
                 borderColor: COLORS.red,
                 fill: {
-                    mode: 1,
+                    mode: 'origin',
                     above: 'rgb(255, 99, 132, 0.26)',
                 },
             },
@@ -128,8 +123,8 @@ export const AreaAxisGridDots: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                color: function (ticksValue) {
-                    if (ticksValue === 0) {
+                color: function (ticksIndex, ticksToColor) {
+                    if (ticksIndex === ticksToColor) {
                         return 'rgba(0, 0, 0, 0.4)';
                     } else {
                         return 'rgba(0, 0, 0, 0.1)';
@@ -145,18 +140,17 @@ export const AreaTitleAxisGrid: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
-            { x: 0, y: 2400, z: 1 },
-            { x: 1, y: -140, z: 2 },
-            { x: 2, y: 2000, z: 3 },
-            { x: 3, y: 3, z: 1 },
-            { x: 4, y: 180.47, z: 1 },
-            { x: 5, y: 778, z: 1 },
+            { x: 0, y: 2400},
+            { x: 1, y: -140},
+            { x: 2, y: 2000},
+            { x: 3, y: 3},
+            { x: 4, y: 180.47},
+            { x: 5, y: 778},
         ],
     },
     options: {
         labelColumn: 'x',
         ariaLabel: 'Area chart with title, axis and grid',
-        padding: 6,
         series: [
             {
                 type: 'line',
@@ -165,7 +159,7 @@ export const AreaTitleAxisGrid: Props<DataFrame, ChartOptions> = {
                 borderColor: COLORS.red,
                 pointRadius: 0,
                 fill: {
-                    mode: 1,
+                    mode: 'origin',
                     above: 'rgb(255, 99, 132, 0.26)',
                 },
             },
@@ -195,8 +189,8 @@ export const AreaTitleAxisGrid: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                color: function (ticksValue) {
-                    if (ticksValue === 0) {
+                color: function (ticksIndex, ticksToColor) {
+                    if (ticksIndex === ticksToColor) {
                         return 'rgba(0, 0, 0, 0.4)';
                     } else {
                         return 'rgba(0, 0, 0, 0.1)';
@@ -216,18 +210,17 @@ export const AreaTitleSubtitleGrid: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
-            { x: 0, y: 2400, z: 1 },
-            { x: 1, y: -140, z: 2 },
-            { x: 2, y: 2000, z: 3 },
-            { x: 3, y: 3, z: 1 },
-            { x: 4, y: 180.47, z: 1 },
-            { x: 5, y: 778, z: 1 },
+            { x: 0, y: 2400},
+            { x: 1, y: -140},
+            { x: 2, y: 2000},
+            { x: 3, y: 3},
+            { x: 4, y: 180.47},
+            { x: 5, y: 778},
         ],
     },
     options: {
         labelColumn: 'x',
         ariaLabel: 'Area chart with title, subtitle and grid',
-        padding: 6,
         series: [
             {
                 type: 'line',
@@ -236,7 +229,7 @@ export const AreaTitleSubtitleGrid: Props<DataFrame, ChartOptions> = {
                 borderColor: COLORS.red,
                 pointRadius: 0,
                 fill: {
-                    mode: 1,
+                    mode: 'origin',
                     above: 'rgb(255, 99, 132, 0.26)',
                 },
             },
@@ -266,8 +259,8 @@ export const AreaTitleSubtitleGrid: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                color: function (ticksValue) {
-                    if (ticksValue === 0) {
+                color: function (ticksIndex, ticksToColor) {
+                    if (ticksIndex === ticksToColor) {
                         return 'rgba(0, 0, 0, 0.4)';
                     } else {
                         return 'rgba(0, 0, 0, 0.1)';
@@ -292,18 +285,17 @@ export const AreaTitleDataValues: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
-            { x: 0, y: 2400, z: 1 },
-            { x: 1, y: -140, z: 2 },
-            { x: 2, y: 2000, z: 3 },
-            { x: 3, y: 3, z: 1 },
-            { x: 4, y: 180.47, z: 1 },
-            { x: 5, y: 778, z: 1 },
+            { x: 0, y: 2400},
+            { x: 1, y: -140},
+            { x: 2, y: 2000},
+            { x: 3, y: 3},
+            { x: 4, y: 180.47},
+            { x: 5, y: 778},
         ],
     },
     options: {
         labelColumn: 'x',
         ariaLabel: 'Area chart with title and data values on axis',
-        padding: 6,
         series: [
             {
                 type: 'line',
@@ -329,7 +321,7 @@ export const AreaTitleDataValues: Props<DataFrame, ChartOptions> = {
                     },
                 },
                 fill: {
-                    mode: 1,
+                    mode: 'origin',
                     above: 'rgb(255, 99, 132, 0.26)',
                 },
             },
@@ -354,9 +346,8 @@ export const AreaTitleDataValues: Props<DataFrame, ChartOptions> = {
             display: true,
             gridLines: {
                 display: true,
-                drawBorder: false,
-                color: function (ticksValue) {
-                    if (ticksValue === 0) {
+                color: function (ticksIndex, ticksToColor) {
+                    if (ticksIndex === ticksToColor) {
                         return 'rgba(0, 0, 0, 0.4)';
                     } else {
                         return 'transparent';
@@ -380,18 +371,17 @@ export const AreaDataValuesOnly: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
-            { x: 0, y: 2400, z: 1 },
-            { x: 1, y: -140, z: 2 },
-            { x: 2, y: 2000, z: 3 },
-            { x: 3, y: 3, z: 1 },
-            { x: 4, y: 180.47, z: 1 },
-            { x: 5, y: 778, z: 1 },
+            { x: 0, y: 2400},
+            { x: 1, y: -140},
+            { x: 2, y: 2000},
+            { x: 3, y: 3},
+            { x: 4, y: 180.47},
+            { x: 5, y: 778},
         ],
     },
     options: {
         labelColumn: 'x',
         ariaLabel: 'Area chart with data values on axis',
-        padding: 6,
         series: [
             {
                 type: 'line',
@@ -417,7 +407,7 @@ export const AreaDataValuesOnly: Props<DataFrame, ChartOptions> = {
                     },
                 },
                 fill: {
-                    mode: 1,
+                    mode: 'origin',
                     above: 'rgb(255, 99, 132, 0.26)',
                 },
             },
@@ -442,9 +432,8 @@ export const AreaDataValuesOnly: Props<DataFrame, ChartOptions> = {
             display: true,
             gridLines: {
                 display: true,
-                drawBorder: false,
-                color: function (ticksValue) {
-                    if (ticksValue === 0) {
+                color: function (ticksIndex, ticksToColor) {
+                    if (ticksIndex === ticksToColor) {
                         return 'rgba(0, 0, 0, 0.4)';
                     } else {
                         return 'transparent';

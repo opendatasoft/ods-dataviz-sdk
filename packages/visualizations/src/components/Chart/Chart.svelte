@@ -60,7 +60,7 @@
         legend.chart.update();
     }
 
-    function displayZeroTick(this:any, val:number, index:number) {
+    function displayZeroTick(this:any, val:string | number) {
         if (val === 0) {
             return this.getLabelForValue(val)
         }
@@ -101,7 +101,7 @@
             color: chartJsColorPalette(dataLabels.color),
             backgroundColor: chartJsColorPalette(dataLabels.backgroundColor),
             offset: defaultValue(dataLabels.offset, 0),
-            borderRadius: defaultValue(dataLabels.borderRadius, 0),
+            borderRadius: defaultValue(dataLabels.borderRadius, 4),
             formatter: formatter
                 ? (value, context) => {
                       return formatter(context.dataIndex, { dataFrame });
@@ -138,6 +138,7 @@
                 datalabels: chartJsDataLabels(series.dataLabels),
                 tension: defaultValue(series.tension, 0),
                 pointRadius: defaultValue(series.pointRadius, 3),
+                borderWidth: defaultValue(series.borderWidth, 2)
             };
         }
 
@@ -178,11 +179,11 @@
     $: {
         chartConfig.type = defaultValue(options.series[0]?.type, 'line'); // Will set chartJs default value accordingly
         let chartOptions = chartConfig.options || {};
-        chartOptions.aspectRatio = defaultValue(options.aspectRatio, 2/1.3);
+        chartOptions.aspectRatio = defaultValue(options.aspectRatio, 4/3);
         chartOptions.maintainAspectRatio = options.maintainAspectRatio;
         chartOptions.scales = {};
         chartOptions.layout = {
-            padding: options.padding,
+            padding: defaultValue(options?.padding, 12),
         };
         const gridXColor = options?.xAxis?.gridLines?.color;
         if (options.xAxis) {
@@ -192,22 +193,31 @@
                 offset: defaultValue(options?.xAxis?.offset, false),
                 title: {
                     display: options?.xAxis?.title?.display,
+                    color: defaultValue(options?.xAxis?.title?.color, 'rgb(0, 0, 0)'),
                     align: options?.xAxis?.title?.align,
                     text: options?.xAxis?.title?.text,
+                    font: {
+                        weight: defaultValue(options?.xAxis?.title?.font?.weight, '400'),
+                        size: defaultValue(options?.xAxis?.title?.font?.size, 12),
+                    }
                 },
                 grid: {
                     display: defaultValue(options?.xAxis?.gridLines?.display, true),
                     borderColor: defaultValue(options?.xAxis?.gridLines?.borderColor, 'rgba(0, 0, 0, 0.4)'),
-                    drawBorder: defaultValue(options?.xAxis?.gridLines?.drawBorder, true),
+                    drawBorder: defaultValue(options?.xAxis?.gridLines?.drawBorder, false),
                     ...(gridXColor && {
-                        color: (context) => {
-                            return gridXColor(context.tick.value);
+                        color: (context, proxy) => {
+                            const ticksArray = proxy._context.scale.ticks;
+                            const ticksAbsoluteValues = ticksArray.map((tick:any)=>Math.abs(tick.value))
+                            const minAbsoluteTicksIndex = ticksAbsoluteValues.indexOf(Math.min(...ticksAbsoluteValues))
+                            return gridXColor(context.index, minAbsoluteTicksIndex);
                         },
                     }),
                     offset: defaultValue(options?.xAxis?.gridLines?.offset, false),
                 },
                 ticks: {
                     display: defaultValue(options?.xAxis?.ticks?.display, true),
+                    color: defaultValue(options?.xAxis?.ticks?.color, 'rgb(86, 86, 86)'),
                     ...(options?.xAxis?.ticks?.zeroTick === true && {callback: displayZeroTick}),
                 },
             };
@@ -221,19 +231,28 @@
                     display: options?.yAxis?.title?.display,
                     align: options?.yAxis?.title?.align,
                     text: options?.yAxis?.title?.text,
+                    color: defaultValue(options?.yAxis?.title?.color, 'rgb(0, 0, 0)'),
+                    font: {
+                        weight: defaultValue(options?.yAxis?.title?.font?.weight, '400'),
+                        size: defaultValue(options?.yAxis?.title?.font?.size, 12),
+                    }
                 },
                 grid: {
                     display: defaultValue(options?.yAxis?.gridLines?.display, true),
                     borderColor: defaultValue(options?.yAxis?.gridLines?.borderColor, 'rgba(0, 0, 0, 0.4)'),
-                    drawBorder: defaultValue(options?.yAxis?.gridLines?.drawBorder, true),
+                    drawBorder: defaultValue(options?.yAxis?.gridLines?.drawBorder, false),
                     ...(gridYColor && {
-                        color: (context) => {
-                            return gridYColor(context.tick.value);
+                        color: (context, proxy) => {
+                            const ticksArray = proxy._context.scale.ticks;
+                            const ticksAbsoluteValues = ticksArray.map((tick:any)=>Math.abs(tick.value))
+                            const minAbsoluteTicksIndex = ticksAbsoluteValues.indexOf(Math.min(...ticksAbsoluteValues))
+                            return gridYColor(context.index, minAbsoluteTicksIndex);
                         },
                     }),
                 },
                 ticks: {
                     display: defaultValue(options?.yAxis?.ticks?.display, true),
+                    color: defaultValue(options?.yAxis?.ticks?.color, 'rgb(86, 86, 86)'),
                     ...(options?.yAxis?.ticks?.zeroTick === true && {callback: displayZeroTick}),
                 },
             };
@@ -243,6 +262,7 @@
                 beginAtZero: defaultValue(options?.rAxis?.beginAtZero, true),
                 ticks: {
                     display: defaultValue(options?.rAxis?.ticks?.display, true),
+                    color: defaultValue(options?.rAxis?.ticks?.color, 'rgb(86, 86, 86)'),
                     ...(options?.xAxis?.ticks?.zeroTick === true && {callback: displayZeroTick}),
                 },
             };
@@ -261,8 +281,10 @@
                 align: defaultValue(options?.title?.align, 'center'),
                 text: options?.title?.text,
                 fullSize: defaultValue(options?.title?.fullSize, false),
+                color: defaultValue(options?.title?.color, 'rgb(0, 0, 0)'),
                 font: {
-                    size: defaultValue(options?.title?.font?.size, 12),
+                    size: defaultValue(options?.title?.font?.size, 14),
+                    weight: defaultValue(options?.title?.font?.weight, '500'),
                 },
                 padding: {
                     top: defaultValue(options?.title?.padding?.top, 4),

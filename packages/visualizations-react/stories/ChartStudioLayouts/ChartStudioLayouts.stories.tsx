@@ -10,7 +10,8 @@ import {
     LineTitleAxisGrid,
     LineTitleSubtitleGrid,
     LineTitleDataValues,
-    LineDataValuesOnly
+    LineDataValuesOnly,
+    LineTitleAxisGridDotsNegative,
 } from './ChartStudioLayoutsSettings/LineChart.stories';
 
 import {
@@ -43,6 +44,7 @@ import {
     BarTitleAxisDataValues,
     BarAxisDataValues,
     BarTitleSubTitleGrid,
+    BarTitleSubTitleGridNegative,
 } from './ChartStudioLayoutsSettings/BarChart.stories';
 
 import {
@@ -51,6 +53,7 @@ import {
     ColumnTitleSubtitleDataValues,
     ColumnDataValues,
     ColumnAxisDataValues,
+    ColumnTitleAxisGridNegative,
 } from './ChartStudioLayoutsSettings/ColumnChart.stories';
 
 import {
@@ -59,6 +62,7 @@ import {
     HistogramTitleDataValues,
     HistogramDataValues,
     HistogramAxisDataValues,
+    HistogramTitleAxisGridNegative,
 } from './ChartStudioLayoutsSettings/HistogramChart.stories';
 
 const meta: Meta = {
@@ -90,7 +94,8 @@ LineChart.args =
         'LineTitleAxisGrid' : LineTitleAxisGrid,
         'LineTitleSubtitleGrid' : LineTitleSubtitleGrid,
         'LineTitleDataValues' : LineTitleDataValues,
-        'LineDataValuesOnly' : LineDataValuesOnly
+        'LineDataValuesOnly' : LineDataValuesOnly,
+        'LineTitleAxisGridDotsNegative' : LineTitleAxisGridDotsNegative,
     }
 
 export const AreaChart: Story<Args> = Template.bind({});
@@ -133,6 +138,7 @@ BarChart.args =
         'BarTitleAxisDataValues' : BarTitleAxisDataValues,
         'BarAxisDataValues' : BarAxisDataValues,
         'BarTitleSubTitleGrid' : BarTitleSubTitleGrid,
+        'BarTitleSubTitleGridNegative' : BarTitleSubTitleGridNegative,
     }
 
 export const ColumnChart: Story<Args> = Template.bind({});
@@ -144,6 +150,7 @@ ColumnChart.args =
         'ColumnTitleSubtitleDataValues' : ColumnTitleSubtitleDataValues,
         'ColumnDataValues' : ColumnDataValues,
         'ColumnAxisDataValues' : ColumnAxisDataValues,
+        'ColumnTitleAxisGridNegative' : ColumnTitleAxisGridNegative,
     }
 
 export const HistogramChart: Story<Args> = Template.bind({});
@@ -155,4 +162,5 @@ HistogramChart.args =
         'HistogramTitleDataValues' : HistogramTitleDataValues,
         'HistogramDataValues' : HistogramDataValues,
         'HistogramAxisDataValues' : HistogramAxisDataValues,
+        'HistogramTitleAxisGridNegative' : HistogramTitleAxisGridNegative,
     }

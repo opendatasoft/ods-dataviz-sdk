@@ -2,32 +2,34 @@ import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Props } from '../../../src';
 import { COLORS, styleForLayouts } from '../../utils';
 
-// Axis title cannot be rotated by default options
-// We can change also size of different elements paddings margin
-
 export const LineTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
         value: [
-            { x: 0, y: 2400, z: 1 },
-            { x: 1, y: -140, z: 2 },
-            { x: 2, y: 2000, z: 3 },
-            { x: 3, y: 3, z: 1 },
-            { x: 4, y: 180.47, z: 1 },
-            { x: 5, y: 778, z: 1 },
+            { x: 0, y: 2400, z: 1021 },
+            { x: 1, y: -140, z: 2424 },
+            { x: 2, y: 2000, z: 3222 },
+            { x: 3, y: 3, z: 1255 },
+            { x: 4, y: 180.47, z: 1424 },
+            { x: 5, y: 778, z: 12 },
         ],
     },
     options: {
         labelColumn: 'x',
         ariaLabel: 'Line chart with title, axis, grid and dots',
-        padding: 6,
         series: [
             {
                 type: 'line',
                 valueColumn: 'y',
                 tension: 0,
-                borderColor: COLORS.red,
+                borderColor: 'rgb(22, 161, 145)',
+            },
+            {
+                type: 'line',
+                valueColumn: 'z',
+                tension: 0,
+                borderColor: 'rgb(119, 73, 54)',
             },
         ],
         xAxis: {
@@ -35,7 +37,7 @@ export const LineTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
             type: 'linear',
             title: {
                 display: true,
-                text: 'x / min',
+                text: 'Date de plantation',
                 align: 'center',
             },
             gridLines: {
@@ -46,13 +48,13 @@ export const LineTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
             display: true,
             title: {
                 display: true,
-                text: 'Hello / km',
+                text: 'Moyenne de la hauteur en CM',
                 align: 'center',
             },
             gridLines: {
                 display: true,
-                color: function (ticksValue) {
-                    if (ticksValue === 0) {
+                color: function (ticksIndex, ticksToColor) {
+                    if (ticksIndex === ticksToColor) {
                         return 'rgba(0, 0, 0, 0.4)';
                     } else {
                         return 'rgba(0, 0, 0, 0.1)';
@@ -72,24 +74,29 @@ export const LineAxisGridDots: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
-            { x: 0, y: 2400, z: 1 },
-            { x: 1, y: -140, z: 2 },
-            { x: 2, y: 2000, z: 3 },
-            { x: 3, y: 3, z: 1 },
-            { x: 4, y: 180.47, z: 1 },
-            { x: 5, y: 778, z: 1 },
+            { x: 0, y: 2400, z: 1021 },
+            { x: 1, y: -140, z: 2424 },
+            { x: 2, y: 2000, z: 3222 },
+            { x: 3, y: 3, z: 1255 },
+            { x: 4, y: 180.47, z: 1424 },
+            { x: 5, y: 778, z: 12 },
         ],
     },
     options: {
         labelColumn: 'x',
         ariaLabel: 'Line chart with axis, grid and dots',
-        padding: 6,
         series: [
             {
                 type: 'line',
                 valueColumn: 'y',
-                tension: 0,
-                borderColor: COLORS.red,
+                tension: 0.3,
+                borderColor: 'rgb(22, 161, 145)',
+            },
+            {
+                type: 'line',
+                valueColumn: 'z',
+                tension: 0.3,
+                borderColor: 'rgb(119, 73, 54)',
             },
         ],
         xAxis: {
@@ -97,7 +104,7 @@ export const LineAxisGridDots: Props<DataFrame, ChartOptions> = {
             type: 'linear',
             title: {
                 display: true,
-                text: 'x',
+                text: 'Date de plantation',
                 align: 'center',
             },
             gridLines: {
@@ -108,13 +115,13 @@ export const LineAxisGridDots: Props<DataFrame, ChartOptions> = {
             display: true,
             title: {
                 display: true,
-                text: 'y',
+                text: 'Moyenne de la hauteur en CM',
                 align: 'center',
             },
             gridLines: {
                 display: true,
-                color: function (ticksValue) {
-                    if (ticksValue === 0) {
+                color: function (ticksIndex, ticksToColor) {
+                    if (ticksIndex === ticksToColor) {
                         return 'rgba(0, 0, 0, 0.4)';
                     } else {
                         return 'rgba(0, 0, 0, 0.1)';
@@ -141,13 +148,12 @@ export const LineTitleAxisGrid: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Line chart with title, axis and grid',
-        padding: 6,
         series: [
             {
                 type: 'line',
                 valueColumn: 'y',
                 tension: 0,
-                borderColor: COLORS.red,
+                borderColor: 'rgb(22, 161, 145)',
                 pointRadius: 0,
             },
         ],
@@ -156,7 +162,7 @@ export const LineTitleAxisGrid: Props<DataFrame, ChartOptions> = {
             type: 'linear',
             title: {
                 display: true,
-                text: 'x',
+                text: 'Date de plantation',
                 align: 'center',
             },
             gridLines: {
@@ -167,13 +173,13 @@ export const LineTitleAxisGrid: Props<DataFrame, ChartOptions> = {
             display: true,
             title: {
                 display: true,
-                text: 'y',
+                text: 'Moyenne de la hauteur en CM',
                 align: 'center',
             },
             gridLines: {
                 display: true,
-                color: function (ticksValue) {
-                    if (ticksValue === 0) {
+                color: function (ticksIndex, ticksToColor) {
+                    if (ticksIndex === ticksToColor) {
                         return 'rgba(0, 0, 0, 0.4)';
                     } else {
                         return 'rgba(0, 0, 0, 0.1)';
@@ -204,13 +210,12 @@ export const LineTitleSubtitleGrid: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Line chart with title, subtitle and grid',
-        padding: 6,
         series: [
             {
                 type: 'line',
                 valueColumn: 'y',
                 tension: 0,
-                borderColor: COLORS.red,
+                borderColor: 'rgb(22, 161, 145)',
                 pointRadius: 0,
             },
         ],
@@ -219,7 +224,7 @@ export const LineTitleSubtitleGrid: Props<DataFrame, ChartOptions> = {
             type: 'linear',
             title: {
                 display: false,
-                text: 'x',
+                text: 'Date de plantation',
                 align: 'center',
             },
             gridLines: {
@@ -230,13 +235,13 @@ export const LineTitleSubtitleGrid: Props<DataFrame, ChartOptions> = {
             display: true,
             title: {
                 display: false,
-                text: 'yfdfgergergejrngoje',
+                text: 'Moyenne de la hauteur en CM',
                 align: 'center',
             },
             gridLines: {
                 display: true,
-                color: function (ticksValue) {
-                    if (ticksValue === 0) {
+                color: function (ticksIndex, ticksToColor) {
+                    if (ticksIndex === ticksToColor) {
                         return 'rgba(0, 0, 0, 0.4)';
                     } else {
                         return 'rgba(0, 0, 0, 0.1)';
@@ -272,13 +277,12 @@ export const LineTitleDataValues: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Line chart with title and data values on axis',
-        padding: 6,
         series: [
             {
                 type: 'line',
                 valueColumn: 'y',
                 tension: 0,
-                borderColor: COLORS.red,
+                borderColor: 'rgb(22, 161, 145)',
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
@@ -292,6 +296,8 @@ export const LineTitleDataValues: Props<DataFrame, ChartOptions> = {
                     anchor: function (index, { dataFrame }) {
                         if (dataFrame[index].y >= 0) {
                             return 'end';
+                        } else if (dataFrame[index].y === 0) {
+                            return 'center';
                         } else {
                             return 'start';
                         }
@@ -304,7 +310,7 @@ export const LineTitleDataValues: Props<DataFrame, ChartOptions> = {
             type: 'linear',
             title: {
                 display: true,
-                text: 'x',
+                text: 'Date de plantation',
                 align: 'center',
             },
             gridLines: {
@@ -315,9 +321,8 @@ export const LineTitleDataValues: Props<DataFrame, ChartOptions> = {
             display: true,
             gridLines: {
                 display: true,
-                drawBorder: false,
-                color: function (ticksValue) {
-                    if (ticksValue === 0) {
+                color: function (ticksIndex, ticksToColor) {
+                    if (ticksIndex === ticksToColor) {
                         return 'rgba(0, 0, 0, 0.4)';
                     } else {
                         return 'transparent';
@@ -352,13 +357,12 @@ export const LineDataValuesOnly: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Line chart with data values on axis',
-        padding: 6,
         series: [
             {
                 type: 'line',
                 valueColumn: 'y',
                 tension: 0,
-                borderColor: COLORS.red,
+                borderColor: 'rgb(22, 161, 145)',
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
@@ -384,7 +388,7 @@ export const LineDataValuesOnly: Props<DataFrame, ChartOptions> = {
             type: 'linear',
             title: {
                 display: true,
-                text: 'x',
+                text: 'Date de plantation',
                 align: 'center',
             },
             gridLines: {
@@ -395,9 +399,8 @@ export const LineDataValuesOnly: Props<DataFrame, ChartOptions> = {
             display: true,
             gridLines: {
                 display: true,
-                drawBorder: false,
-                color: function (ticksValue) {
-                    if (ticksValue === 0) {
+                color: function (ticksIndex, ticksToColor) {
+                    if (ticksIndex === ticksToColor) {
                         return 'rgba(0, 0, 0, 0.4)';
                     } else {
                         return 'transparent';
@@ -411,3 +414,66 @@ export const LineDataValuesOnly: Props<DataFrame, ChartOptions> = {
         },
     },
 };
+
+export const LineTitleAxisGridDotsNegative: Props<DataFrame, ChartOptions> = {
+    style: styleForLayouts,
+    data: {
+        loading: false,
+        value: [
+            { x: 0, y: -2400, z: 1 },
+            { x: 1, y: -1400, z: 2 },
+            { x: 2, y: -2000, z: 3 },
+            { x: 3, y: -3000, z: 1 },
+            { x: 4, y: -1800.47, z: 1 },
+            { x: 5, y: -7780, z: 1 },
+        ],
+    },
+    options: {
+        labelColumn: 'x',
+        ariaLabel: 'Line chart with title, axis, grid and dots',
+        series: [
+            {
+                type: 'line',
+                valueColumn: 'y',
+                tension: 0,
+                borderColor: 'rgb(22, 161, 145)',
+            },
+        ],
+        xAxis: {
+            display: true,
+            type: 'linear',
+            title: {
+                display: true,
+                text: 'Date de plantation',
+                align: 'center',
+            },
+            gridLines: {
+                display: false,
+            },
+        },
+        yAxis: {
+            display: true,
+            title: {
+                display: true,
+                text: 'Hello / km',
+                align: 'center',
+            },
+            gridLines: {
+                display: true,
+                color: function (ticksIndex, ticksToColor) {
+
+                    if (ticksIndex === ticksToColor) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'rgba(0, 0, 0, 0.1)';
+                    }
+                },
+            },
+        },
+        title: {
+            text: 'Line chart with title, axis, grid and dots',
+            align: 'start',
+        },
+    },
+};
+

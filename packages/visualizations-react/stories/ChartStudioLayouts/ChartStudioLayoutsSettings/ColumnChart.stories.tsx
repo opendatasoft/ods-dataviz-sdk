@@ -18,7 +18,6 @@ export const ColumnTitleAxisGrid: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Column chart with title, axis and grid',
-        padding: 6,
         series: [
             {
                 type: 'bar',
@@ -60,8 +59,8 @@ export const ColumnTitleAxisGrid: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                color: function (ticksValue) {
-                    if (ticksValue === 0) {
+                color: function (ticksIndex, ticksToColor) {
+                    if (ticksIndex === ticksToColor) {
                         return 'rgba(0, 0, 0, 0.4)';
                     } else {
                         return 'rgba(0, 0, 0, 0.1)';
@@ -92,7 +91,6 @@ export const ColumnAxisGrid: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Column chart with axis and grid',
-        padding: 6,
         series: [
             {
                 type: 'bar',
@@ -134,8 +132,8 @@ export const ColumnAxisGrid: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                color: function (ticksValue) {
-                    if (ticksValue === 0) {
+                color: function (ticksIndex, ticksToColor) {
+                    if (ticksIndex === ticksToColor) {
                         return 'rgba(0, 0, 0, 0.4)';
                     } else {
                         return 'rgba(0, 0, 0, 0.1)';
@@ -162,7 +160,6 @@ export const ColumnTitleSubtitleDataValues: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Column chart with title, axis and grid',
-        padding: 6,
         series: [
             {
                 type: 'bar',
@@ -224,9 +221,8 @@ export const ColumnTitleSubtitleDataValues: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                drawBorder: false,
-                color: function (ticksValue) {
-                    if (ticksValue === 0) {
+                color: function (ticksIndex, ticksToColor) {
+                    if (ticksIndex === ticksToColor) {
                         return 'rgba(0, 0, 0, 0.4)';
                     } else {
                         return 'transparent';
@@ -266,7 +262,6 @@ export const ColumnDataValues: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Column chart with title, axis and grid',
-        padding: 6,
         series: [
             {
                 type: 'bar',
@@ -328,9 +323,8 @@ export const ColumnDataValues: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                drawBorder: false,
-                color: function (ticksValue) {
-                    if (ticksValue === 0) {
+                color: function (ticksIndex, ticksToColor) {
+                    if (ticksIndex === ticksToColor) {
                         return 'rgba(0, 0, 0, 0.4)';
                     } else {
                         return 'transparent';
@@ -361,7 +355,6 @@ export const ColumnAxisDataValues: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Column chart with title, axis and grid',
-        padding: 6,
         series: [
             {
                 type: 'bar',
@@ -420,9 +413,8 @@ export const ColumnAxisDataValues: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                drawBorder: false,
-                color: function (ticksValue) {
-                    if (ticksValue === 0) {
+                color: function (ticksIndex, ticksToColor) {
+                    if (ticksIndex === ticksToColor) {
                         return 'rgba(0, 0, 0, 0.4)';
                     } else {
                         return 'transparent';
@@ -433,6 +425,79 @@ export const ColumnAxisDataValues: Props<DataFrame, ChartOptions> = {
                 display: true,
                 zeroTick: true,
             }
+        },
+    },
+};
+
+export const ColumnTitleAxisGridNegative: Props<DataFrame, ChartOptions> = {
+    style: styleForLayouts,
+    data: {
+        loading: false,
+        value: [
+            { x: 0, y: -100 },
+            { x: 1, y: -50 },
+            { x: 2, y: -20 },
+            { x: 3, y: -30 },
+            { x: 4, y: -40 },
+            { x: 5, y: -50 },
+        ],
+    },
+    options: {
+        labelColumn: 'x',
+        ariaLabel: 'Column chart with title, axis and grid',
+        series: [
+            {
+                type: 'bar',
+                valueColumn: 'y',
+                backgroundColor: [
+                    'rgba(250,50,50,0.5)',
+                    'rgba(50,250,50,0.5)',
+                    'rgba(50,50,250,0.5)',
+                    'rgba(250,50,250,0.5)',
+                ],
+                borderColor: [
+                    'rgba(250,50,50)',
+                    'rgba(50,250,50)',
+                    'rgba(50,50,250)',
+                    'rgba(250,50,250)',
+                ],
+                borderWidth: 2,
+            },
+        ],
+        xAxis: {
+            display: true,
+            type: 'category',
+            offset: true,
+            title: {
+                display: true,
+                text: 'x',
+                align: 'center',
+            },
+            gridLines: {
+                display: false,
+            },
+        },
+        yAxis: {
+            display: true,
+            title: {
+                display: true,
+                text: 'y',
+                align: 'center',
+            },
+            gridLines: {
+                display: true,
+                color: function (ticksIndex, ticksToColor) {
+                    if (ticksIndex === ticksToColor) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'rgba(0, 0, 0, 0.1)';
+                    }
+                },
+            },
+        },
+        title: {
+            text: 'Column chart with title, axis and grid',
+            align: 'start',
         },
     },
 };

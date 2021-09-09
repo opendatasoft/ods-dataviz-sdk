@@ -40,6 +40,8 @@ export interface AxisTitleConfiguration {
     display?: boolean;
     align?: 'start' | 'center' | 'end';
     text?: string;
+    color?: string;
+    font? : FontConfiguration;
 }
 
 export interface RadialAxisConfiguration {
@@ -52,7 +54,7 @@ export interface GridLinesConfiguration {
     drawBorder?: boolean;
     borderColor?: string;
     offset?: boolean;
-    color?: (context:number) => string | string[];
+    color?: (context:any, proxy:any) => string;
 }
 
 export interface LegendConfiguration {
@@ -67,6 +69,7 @@ export interface FontConfiguration {
 
 export interface FontConfiguration {
     size?: number;
+    weight?: string;
     padding?: {
         top : number;
         bottom : number;
@@ -81,6 +84,8 @@ export interface PaddingConfiguration {
 export interface TicksConfiguration {
     display?: boolean;
     zeroTick?: boolean;
+    color?: string;
+    callback?: (tickValue: number | string, index: number) => string | number | null | undefined;
 }
 
 export interface TitleConfiguration {
@@ -91,6 +96,7 @@ export interface TitleConfiguration {
     fullSize?: boolean;
     font? : FontConfiguration;
     padding? : PaddingConfiguration;
+    color?: string;
 }
 
 export interface TooltipsConfiguration {
@@ -99,8 +105,8 @@ export interface TooltipsConfiguration {
 
 export interface DataLabelsConfiguration {
     display?: boolean | 'auto';
-    align?: ((index:number, context:{ dataFrame:DataFrame }) => string);
-    anchor?: ((index:number, context:{ dataFrame:DataFrame }) => string);
+    align?: ((index:number, context:{ dataFrame:DataFrame }) => 'bottom' | 'center' | 'end' | 'left' | 'right' | 'start' | 'top' | number);
+    anchor?: ((index:number, context:{ dataFrame:DataFrame }) => 'center' | 'end' | 'start');
     backgroundColor?: Color;
     color?: Color;
     borderRadius?: number;
@@ -121,6 +127,7 @@ export interface Line {
     dataLabels?: DataLabelsConfiguration;
     tension?: number;
     pointRadius?: number;
+    borderWidth?: number;
 }
 
 export interface Bar {

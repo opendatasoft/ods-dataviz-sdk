@@ -17,7 +17,6 @@ export const RadarTitleScale: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Radar chart',
-        padding: 6,
         series: [
             {
                 type: 'radar',
@@ -62,7 +61,6 @@ export const RadarTitle: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Radar chart',
-        padding: 6,
         series: [
             {
                 type: 'radar',
@@ -110,7 +108,6 @@ export const RadarTitleDataValues: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Radar chart',
-        padding: 6,
         series: [
             {
                 type: 'radar',
@@ -119,7 +116,7 @@ export const RadarTitleDataValues: Props<DataFrame, ChartOptions> = {
                 backgroundColor: 'rgba(27,210,210,0.5)',
                 borderColor: 'rgb(27,210,210)',
                 dataLabels: {
-                    display: true,
+                    display: 'auto',
                     backgroundColor: 'rgb(27,210,210)',
                     color: 'white',
                     borderRadius: 4,
@@ -132,9 +129,10 @@ export const RadarTitleDataValues: Props<DataFrame, ChartOptions> = {
                 backgroundColor: 'rgba(127,10,210,0.5)',
                 borderColor: 'rgb(127,10,210)',
                 dataLabels: {
-                    display: true,
-                    color: 'rgb(127,10,210)',
-                    padding: 8,
+                    display: 'auto',
+                    color: 'white',
+                    backgroundColor: 'rgb(127,10,210)',
+                    borderRadius: 4,
                     align: function (index, { dataFrame }) {
                         if (dataFrame[index].y > 0) {
                             return 'end';

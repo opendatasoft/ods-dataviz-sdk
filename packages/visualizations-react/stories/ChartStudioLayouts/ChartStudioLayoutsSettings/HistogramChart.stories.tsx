@@ -18,7 +18,6 @@ export const HistogramTitleAxisGrid: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Histogram series chart',
-        padding: 6,
         series: [
             {
                 type: 'bar',
@@ -52,8 +51,8 @@ export const HistogramTitleAxisGrid: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                color: function (ticksValue) {
-                    if (ticksValue === 0) {
+                color: function (ticksIndex, ticksToColor) {
+                    if (ticksIndex === ticksToColor) {
                         return 'rgba(0, 0, 0, 0.4)';
                     } else {
                         return 'rgba(0, 0, 0, 0.1)';
@@ -84,7 +83,6 @@ export const HistogramAxisGrid: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Histogram chart with axis and grid',
-        padding: 6,
         series: [
             {
                 type: 'bar',
@@ -118,8 +116,8 @@ export const HistogramAxisGrid: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                color: function (ticksValue) {
-                    if (ticksValue === 0) {
+                color: function (ticksIndex, ticksToColor) {
+                    if (ticksIndex === ticksToColor) {
                         return 'rgba(0, 0, 0, 0.4)';
                     } else {
                         return 'rgba(0, 0, 0, 0.1)';
@@ -146,7 +144,6 @@ export const HistogramTitleDataValues: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Histogram chart with title, subtitle and data values',
-        padding: 6,
         series: [
             {
                 type: 'bar',
@@ -196,10 +193,9 @@ export const HistogramTitleDataValues: Props<DataFrame, ChartOptions> = {
                 align: 'center',
             },
             gridLines: {
-                drawBorder: false,
                 display: true,
-                color: function (ticksValue) {
-                    if (ticksValue === 0) {
+                color: function (ticksIndex, ticksToColor) {
+                    if (ticksIndex === ticksToColor) {
                         return 'rgba(0, 0, 0, 0.4)';
                     } else {
                         return 'transparent';
@@ -239,7 +235,6 @@ export const HistogramDataValues: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Histogram chart with data values',
-        padding: 6,
         series: [
             {
                 type: 'bar',
@@ -289,10 +284,9 @@ export const HistogramDataValues: Props<DataFrame, ChartOptions> = {
                 align: 'center',
             },
             gridLines: {
-                drawBorder: false,
                 display: true,
-                color: function (ticksValue) {
-                    if (ticksValue === 0) {
+                color: function (ticksIndex, ticksToColor) {
+                    if (ticksIndex === ticksToColor) {
                         return 'rgba(0, 0, 0, 0.4)';
                     } else {
                         return 'transparent';
@@ -323,7 +317,6 @@ export const HistogramAxisDataValues: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Histogram chart with axis and data values',
-        padding: 6,
         series: [
             {
                 type: 'bar',
@@ -376,10 +369,9 @@ export const HistogramAxisDataValues: Props<DataFrame, ChartOptions> = {
                 align: 'center',
             },
             gridLines: {
-                drawBorder: false,
                 display: true,
-                color: function (ticksValue) {
-                    if (ticksValue === 0) {
+                color: function (ticksIndex, ticksToColor) {
+                    if (ticksIndex === ticksToColor) {
                         return 'rgba(0, 0, 0, 0.4)';
                     } else {
                         return 'transparent';
@@ -390,6 +382,71 @@ export const HistogramAxisDataValues: Props<DataFrame, ChartOptions> = {
                 display: true,
                 zeroTick: true,
             },
+        },
+    },
+};
+
+export const HistogramTitleAxisGridNegative: Props<DataFrame, ChartOptions> = {
+    style: styleForLayouts,
+    data: {
+        loading: false,
+        value: [
+            { x: 0, y: -10000 },
+            { x: 1, y: -5000 },
+            { x: 2, y: -2000 },
+            { x: 3, y: -3000 },
+            { x: 4, y: -4000 },
+            { x: 5, y: -5000 },
+        ],
+    },
+    options: {
+        labelColumn: 'x',
+        ariaLabel: 'Histogram series chart',
+        series: [
+            {
+                type: 'bar',
+                valueColumn: 'y',
+                barPercentage: 1,
+                categoryPercentage: 1,
+                backgroundColor: 'rgba(50,50,225,0.5)',
+                borderColor: 'rgba(50,50,225)',
+                borderWidth: 2,
+            },
+        ],
+        xAxis: {
+            display: true,
+            type: 'category',
+            offset: true,
+            title: {
+                display: true,
+                text: 'x',
+                align: 'center',
+            },
+            gridLines: {
+                display: false,
+            },
+        },
+        yAxis: {
+            display: true,
+            title: {
+                display: true,
+                text: 'y',
+                align: 'center',
+            },
+            gridLines: {
+                display: true,
+                color: function (ticksIndex, ticksToColor) {
+                    if (ticksIndex === ticksToColor) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'rgba(0, 0, 0, 0.1)';
+                    }
+                },
+            },
+        },
+        title: {
+            text: 'Histogram chart with title, axis and grid',
+            align: 'start',
         },
     },
 };
