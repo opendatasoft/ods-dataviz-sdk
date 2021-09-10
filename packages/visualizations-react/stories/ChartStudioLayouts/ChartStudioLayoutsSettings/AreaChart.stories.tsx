@@ -23,10 +23,10 @@ export const AreaTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
                 type: 'line',
                 valueColumn: 'y',
                 tension: 0.3,
-                borderColor: COLORS.red,
+                borderColor: 'rgb(22, 161, 145)',
                 fill: {
                     mode: 'origin',
-                    above: 'rgb(255, 99, 132, 0.26)',
+                    above: 'rgb(22, 161, 145, 0.26)',
                 },
             },
             {
@@ -91,10 +91,10 @@ export const AreaAxisGridDots: Props<DataFrame, ChartOptions> = {
                 type: 'line',
                 valueColumn: 'y',
                 tension: 0.3,
-                borderColor: COLORS.red,
+                borderColor: 'rgb(22, 161, 145)',
                 fill: {
                     mode: 'origin',
-                    above: 'rgb(255, 99, 132, 0.26)',
+                    above: 'rgb(22, 161, 145, 0.26)',
                 },
             },
             {
@@ -156,11 +156,11 @@ export const AreaTitleAxisGrid: Props<DataFrame, ChartOptions> = {
                 type: 'line',
                 valueColumn: 'y',
                 tension: 0.3,
-                borderColor: COLORS.red,
                 pointRadius: 0,
+                borderColor: 'rgb(22, 161, 145)',
                 fill: {
                     mode: 'origin',
-                    above: 'rgb(255, 99, 132, 0.26)',
+                    above: 'rgb(22, 161, 145, 0.26)',
                 },
             },
             {
@@ -226,11 +226,11 @@ export const AreaTitleSubtitleGrid: Props<DataFrame, ChartOptions> = {
                 type: 'line',
                 valueColumn: 'y',
                 tension: 0.3,
-                borderColor: COLORS.red,
                 pointRadius: 0,
+                borderColor: 'rgb(22, 161, 145)',
                 fill: {
                     mode: 'origin',
-                    above: 'rgb(255, 99, 132, 0.26)',
+                    above: 'rgb(22, 161, 145, 0.26)',
                 },
             },
             {
@@ -301,7 +301,7 @@ export const AreaTitleDataValues: Props<DataFrame, ChartOptions> = {
                 type: 'line',
                 valueColumn: 'y',
                 tension: 0.3,
-                borderColor: COLORS.red,
+                borderColor: 'rgb(22, 161, 145)',
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
@@ -322,7 +322,7 @@ export const AreaTitleDataValues: Props<DataFrame, ChartOptions> = {
                 },
                 fill: {
                     mode: 'origin',
-                    above: 'rgb(255, 99, 132, 0.26)',
+                    above: 'rgb(22, 161, 145, 0.26)',
                 },
             },
             {
@@ -387,7 +387,11 @@ export const AreaDataValuesOnly: Props<DataFrame, ChartOptions> = {
                 type: 'line',
                 valueColumn: 'y',
                 tension: 0.3,
-                borderColor: COLORS.red,
+                borderColor: 'rgb(22, 161, 145)',
+                fill: {
+                    mode: 'origin',
+                    above: 'rgb(22, 161, 145, 0.26)',
+                },
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
@@ -405,10 +409,6 @@ export const AreaDataValuesOnly: Props<DataFrame, ChartOptions> = {
                             return 'start';
                         }
                     },
-                },
-                fill: {
-                    mode: 'origin',
-                    above: 'rgb(255, 99, 132, 0.26)',
                 },
             },
             {

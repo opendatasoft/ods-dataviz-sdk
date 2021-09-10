@@ -378,7 +378,7 @@ export const BarTitleSubTitleGrid: Props<DataFrame, ChartOptions> = {
                     if (ticksIndex === ticksToColor) {
                         return 'rgba(0, 0, 0, 0.4)';
                     } else {
-                        return 'transparent';
+                        return 'rgba(0, 0, 0, 0.1)';
                     }
                 },
             },

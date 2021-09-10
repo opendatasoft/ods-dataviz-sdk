@@ -187,6 +187,7 @@ export const HistogramTitleDataValues: Props<DataFrame, ChartOptions> = {
         },
         yAxis: {
             display: true,
+            type: 'category',
             title: {
                 display: false,
                 text: 'y',
