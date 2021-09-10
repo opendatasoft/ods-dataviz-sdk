@@ -37,6 +37,7 @@
         return color;
     }
 
+    // This feature implies that every data in the Pie Chart must have a unique color
     function handleHoverPieChart(evt:any, item:any, legend:any) {
         legend.chart.data.datasets[0].backgroundColor.forEach((color:any, index:any, colors:any) => {
             if (color.length === 7) {
@@ -60,6 +61,7 @@
         legend.chart.update();
     }
 
+    // The function below displays the "0" tick on the chart
     function displayZeroTick(this:any, val:string | number) {
         if (val === 0) {
             return this.getLabelForValue(val)
@@ -207,6 +209,11 @@
                     drawBorder: defaultValue(options?.xAxis?.gridLines?.drawBorder, false),
                     ...(gridXColor && {
                         color: (context, proxy) => {
+                            /** The code below aims to display the right dark gridline depending on the ticks values:
+                            If there are negative and positive values then the "0" gridline will be displayed
+                            If there are only positive values the dark gridline will be at the bottom
+                            If there are only negative values the dark gridline will be at the top
+                            We achieve that by looking for the lowest absolute values of the present ticks*/
                             const ticksArray = proxy._context.scale.ticks;
                             const ticksAbsoluteValues = ticksArray.map((tick:any)=>Math.abs(tick.value))
                             const minAbsoluteTicksIndex = ticksAbsoluteValues.indexOf(Math.min(...ticksAbsoluteValues))
@@ -243,6 +250,11 @@
                     drawBorder: defaultValue(options?.yAxis?.gridLines?.drawBorder, false),
                     ...(gridYColor && {
                         color: (context, proxy) => {
+                            /** The code below aims to display the right dark gridline depending on the ticks values:
+                            If there are negative and positive values then the "0" gridline will be displayed
+                            If there are only positive values the dark gridline will be at the bottom
+                            If there are only negative values the dark gridline will be at the top
+                            We achieve that by looking for the lowest absolute values of the present ticks*/
                             const ticksArray = proxy._context.scale.ticks;
                             const ticksAbsoluteValues = ticksArray.map((tick:any)=>Math.abs(tick.value))
                             const minAbsoluteTicksIndex = ticksAbsoluteValues.indexOf(Math.min(...ticksAbsoluteValues))
