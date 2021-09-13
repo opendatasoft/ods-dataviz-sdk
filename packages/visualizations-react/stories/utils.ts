@@ -1,3 +1,4 @@
+/// <reference path="./utils.d.ts" />
 import trophy from './img/trophy.svg';
 import gov from './img/gov.svg';
 

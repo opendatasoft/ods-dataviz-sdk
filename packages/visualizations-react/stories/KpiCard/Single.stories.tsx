@@ -130,7 +130,7 @@ FullCustom.args = {
     '--kpi-card-header-text-align': 'left',
     // Kpi Card Img
     '--kpi-card-img-height': '2rem',
-    '--kpi-card-img-align-self': 'end',
+    '--kpi-card-img-align-self': 'start',
     // Kpi Card Content
     '--kpi-card-content-align-self': 'end',
     // Kpi Card Value
