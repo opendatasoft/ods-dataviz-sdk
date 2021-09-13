@@ -1,3 +1,5 @@
+import type { Context } from "chartjs-plugin-datalabels";
+
 export interface ChartOptions {
     /** Specify label column in DataFrame */
     labelColumn: string;
@@ -57,10 +59,15 @@ export interface GridLinesConfiguration {
     color?: (context:any, proxy:any) => string;
 }
 
+export interface LegendLabelsConfiguration {
+    legendWithValues?: boolean;
+}
+
 export interface LegendConfiguration {
     display?: boolean;
     position?: 'top' | 'left' | 'bottom' | 'right';
     align?: 'start' | 'center' | 'end';
+    labels?: LegendLabelsConfiguration;
 }
 
 export interface FontConfiguration {
@@ -108,7 +115,7 @@ export interface DataLabelsConfiguration {
     align?: ((index:number, context:{ dataFrame:DataFrame }) => 'bottom' | 'center' | 'end' | 'left' | 'right' | 'start' | 'top' | number);
     anchor?: ((index:number, context:{ dataFrame:DataFrame }) => 'center' | 'end' | 'start');
     backgroundColor?: Color;
-    color?: Color;
+    color?: (context: Context) => Color;
     borderRadius?: number;
     offset?: number;
     formatter?: (index:number, context:{ dataFrame:DataFrame }) => string | string[];

@@ -60,8 +60,6 @@ Default.args = {
                 tension: 0.4,
                 dataLabels: {
                     display: true,
-                    backgroundColor: COLORS.red,
-                    color: 'white',
                     borderRadius: 4,
                 },
             },
@@ -70,10 +68,9 @@ Default.args = {
                 valueColumn: 'y',
                 label: 'bar dataset',
                 backgroundColor: COLORS.blue,
+                borderColor: COLORS.blue,
                 dataLabels: {
                     display: true,
-                    backgroundColor: COLORS.blue,
-                    color: 'white',
                     borderRadius: 4,
                     align: function(index, { dataFrame }) {
                         if (dataFrame[index].y > 0){

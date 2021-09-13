@@ -79,7 +79,7 @@
     });
 
     // This is a generic function that checks if the value is a string or a number and returns a formatted version
-    function formatStringOrNumber(value) {
+    function formatStringOrNumber(value: any) {
         if (isNaN(value)) {
             if (value.length > 10) {
                 return value.slice(0, 10) + '...';
