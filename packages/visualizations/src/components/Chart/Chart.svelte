@@ -101,8 +101,16 @@
                   }
                 : 'end',
             display: defaultValue(dataLabels.display, false),
-            color: chartJsColorPalette(dataLabels.color),
-            backgroundColor: chartJsColorPalette(dataLabels.backgroundColor),
+            color: (context) => {
+                if (context.dataset.borderColor) {
+                    return context.dataset.borderColor;
+                } else if (dataLabels.color) {
+                    return chartJsColorPalette(dataLabels.color) ;
+                } else {
+                    return 'rgb(0, 0, 0)';
+                }
+            },
+            backgroundColor: defaultValue(chartJsColorPalette(dataLabels.backgroundColor), 'rgb(255,255,255)'),
             offset: defaultValue(dataLabels.offset, 0),
             borderRadius: defaultValue(dataLabels.borderRadius, 4),
             formatter: formatter
