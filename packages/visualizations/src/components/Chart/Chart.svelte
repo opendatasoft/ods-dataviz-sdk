@@ -192,6 +192,7 @@
                 backgroundColor: chartJsColorPalette(series.backgroundColor),
                 borderColor: chartJsColorPalette(series.borderColor),
                 borderWidth: defaultValue(series.borderWidth, 1),
+                borderRadius: defaultValue(series.borderRadius, 5),
                 label: defaultValue(series.label, ''),
                 indexAxis: defaultValue(series.indexAxis, 'x'),
                 barPercentage: defaultValue(series.barPercentage, 0.9),

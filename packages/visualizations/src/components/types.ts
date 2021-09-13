@@ -153,6 +153,7 @@ export interface Bar {
     backgroundColor?: Color;
     borderColor?: Color;
     borderWidth?: number;
+    borderRadius?: number;
     indexAxis?: 'x' | 'y';
     categoryPercentage?: number;
     barPercentage?: number;
