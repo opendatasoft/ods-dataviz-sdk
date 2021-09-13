@@ -28,9 +28,6 @@ export const PieTitleSectorsName: Props<DataFrame, ChartOptions> = {
                 ],
                 dataLabels: {
                     display: true,
-                    formatter: function (index, { dataFrame }) {
-                        return `${dataFrame[index].x}`;
-                    },
                 },
             },
         ],
@@ -70,7 +67,7 @@ export const PieTitleSectorsNameValue: Props<DataFrame, ChartOptions> = {
                 ],
                 dataLabels: {
                     display: true,
-                    formatter: function (index, { dataFrame }) {
+                    formatter: function (index, dataFrame ) {
                         return [`${dataFrame[index].x}`, `${dataFrame[index].y}`];
                     },
                 },
@@ -134,10 +131,10 @@ export const PieTitleLegendValues: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
-            { x: 'Alpha - 100', y: 100 },
-            { x: 'Beta - 50', y: 50 },
-            { x: 'Gamma - 20', y: 20 },
-            { x: 'Delta - 30', y: 30 },
+            { x: 'Alpha', y: 100 },
+            { x: 'Beta', y: 50 },
+            { x: 'Gamma', y: 20 },
+            { x: 'Delta', y: 30 },
         ],
     },
     options: {
@@ -158,6 +155,9 @@ export const PieTitleLegendValues: Props<DataFrame, ChartOptions> = {
         legend: {
             display: true,
             position: 'right',
+            labels : {
+                legendWithValues: true,
+            },
         },
         tooltips: {
             display: true,

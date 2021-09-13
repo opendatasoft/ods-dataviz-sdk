@@ -117,8 +117,6 @@ export const RadarTitleDataValues: Props<DataFrame, ChartOptions> = {
                 borderColor: 'rgb(27,210,210)',
                 dataLabels: {
                     display: 'auto',
-                    backgroundColor: 'rgb(27,210,210)',
-                    color: 'white',
                     borderRadius: 4,
                 },
             },
@@ -130,8 +128,6 @@ export const RadarTitleDataValues: Props<DataFrame, ChartOptions> = {
                 borderColor: 'rgb(127,10,210)',
                 dataLabels: {
                     display: 'auto',
-                    color: 'white',
-                    backgroundColor: 'rgb(127,10,210)',
                     borderRadius: 4,
                     align: function (index, { dataFrame }) {
                         if (dataFrame[index].y > 0) {

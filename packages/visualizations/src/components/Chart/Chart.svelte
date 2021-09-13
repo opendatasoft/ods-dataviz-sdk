@@ -70,6 +70,66 @@
         return '';
     }
 
+    /** The functions below are handling the format and display of too long strings or big numbers
+     * for the ticks, legends and datalabels, They are implemented by default to make an easier chart implementation. */
+
+    // The formatter variable will display the right number format according to a locale variable
+     const formatter = new Intl.NumberFormat('fr', {
+        notation: 'compact',
+    });
+
+    // This is a generic function that checks if the value is a string or a number and returns a formatted version
+    function formatStringOrNumber(value) {
+        if (isNaN(value)) {
+            if (value.length > 10) {
+                return value.slice(0, 10) + '...';
+            } else {
+                return value;
+            }
+        } else {
+            return formatter.format(value).toString();
+        }
+    }
+
+    // The ticks format handler depends of type of axis and return the formatted value
+    function handleLongTicksLabel(this:any, value:any, index:number, values:[]) {
+        if (this.type === 'linear' || this.type === 'radialLinear') {
+            return formatStringOrNumber(value);
+        } else if (this.type === 'category'){
+            return formatStringOrNumber(this.getLabelForValue(value));
+        } else {
+            return formatStringOrNumber(value);
+        }
+    }
+
+    // The legend format handler is set upon the chartjs filter method, sets legend text and return always true
+    function handleLongLegendLabel(item:any, data:any) {
+        item.text = formatStringOrNumber(item.text);
+        return true;
+    }
+
+    // The legend with value format handler is set upon the chartjs filter method, sets legend text after formatting text and value separately
+    function handleLongLegendWithValuesLabel(item:any, data:any) {
+        const firstLabel = formatStringOrNumber(item.text);
+        const secondLabel = formatStringOrNumber(data.datasets[0].data[item.index])
+        item.text = `${firstLabel} - ${secondLabel}`
+        return true;
+    }
+
+    /**  The datalabels displaying x and y labels handler, creates a new formatted array of value to send to datalabels formatter
+     * We need to recreate a new array in the particular case where the datalabels will display both text and values from x and y data */
+    function handleLongDataLabels(dataFrame: DataFrame) {
+        const formattedDataFrame:DataFrame = [];
+
+        for (let i = 0; i<dataFrame.length; i ++) {
+            let xData = formatStringOrNumber(dataFrame[i].x);
+            let yData = formatStringOrNumber(dataFrame[i].y);
+
+            formattedDataFrame.push({x: xData, y: yData})
+        }
+        return formattedDataFrame;
+    }
+
     function chartJsColorSingle(color?: Color) {
         return color === undefined ? undefined : typeof color === 'string' ? color : color[0];
     }
@@ -88,7 +148,6 @@
         const formatter = dataLabels.formatter;
         const aligner = dataLabels.align;
         const anchorer = dataLabels.anchor;
-
         return {
             align: aligner
                 ? (context) => {
@@ -101,15 +160,27 @@
                   }
                 : 'end',
             display: defaultValue(dataLabels.display, false),
-            color: chartJsColorPalette(dataLabels.color),
-            backgroundColor: chartJsColorPalette(dataLabels.backgroundColor),
+            color: (context) => {
+                console.log(context.dataset.borderColor)
+                if (context.dataset.borderColor) {
+                    return context.dataset.borderColor;
+                } else if (dataLabels.color) {
+                    return chartJsColorPalette(dataLabels.color) ;
+                } else {
+                    return 'rgb(0, 0, 0)';
+                }
+            },
+            backgroundColor: defaultValue(chartJsColorPalette(dataLabels.backgroundColor), 'rgb(255,255,255)'),
             offset: defaultValue(dataLabels.offset, 0),
             borderRadius: defaultValue(dataLabels.borderRadius, 4),
             formatter: formatter
                 ? (value, context) => {
-                      return formatter(context.dataIndex, { dataFrame });
+                      const formattedDataFrame = handleLongDataLabels(dataFrame);
+                      return formatter(context.dataIndex, formattedDataFrame);
                   }
-                : Math.round,
+                : (value, context) => {
+                      return formatStringOrNumber(value);
+                  },
             padding: defaultValue(dataLabels.padding, 4),
         };
     }
@@ -226,7 +297,7 @@
                 ticks: {
                     display: defaultValue(options?.xAxis?.ticks?.display, true),
                     color: defaultValue(options?.xAxis?.ticks?.color, 'rgb(86, 86, 86)'),
-                    ...(options?.xAxis?.ticks?.zeroTick === true && {callback: displayZeroTick}),
+                    ...(options?.xAxis?.ticks?.zeroTick === true ? {callback: displayZeroTick} : {callback: handleLongTicksLabel}),
                 },
             };
         }
@@ -266,7 +337,7 @@
                 ticks: {
                     display: defaultValue(options?.yAxis?.ticks?.display, true),
                     color: defaultValue(options?.yAxis?.ticks?.color, 'rgb(86, 86, 86)'),
-                    ...(options?.yAxis?.ticks?.zeroTick === true && {callback: displayZeroTick}),
+                    ...(options?.yAxis?.ticks?.zeroTick === true ? {callback: displayZeroTick} : {callback: handleLongTicksLabel}),
                 },
             };
         }
@@ -276,7 +347,7 @@
                 ticks: {
                     display: defaultValue(options?.rAxis?.ticks?.display, true),
                     color: defaultValue(options?.rAxis?.ticks?.color, 'rgb(86, 86, 86)'),
-                    ...(options?.xAxis?.ticks?.zeroTick === true && {callback: displayZeroTick}),
+                    callback: handleLongTicksLabel,
                 },
             };
         }
@@ -287,6 +358,9 @@
                 align: defaultValue(options?.legend?.align, 'center'),
                 ...(options.series[0]?.type === 'pie' && {onHover: handleHoverPieChart}),
                 ...(options.series[0]?.type === 'pie' && {onLeave: handleLeavePieChart}),
+                labels: {
+                    ...(options?.legend?.labels?.legendWithValues === true ? {filter: handleLongLegendWithValuesLabel} : {filter: handleLongLegendLabel}),
+                }
             },
             title: {
                 display: defaultValue(options?.title?.display, true),
@@ -335,7 +409,7 @@
     }
 
     $: {
-        chartConfig.data.labels = dataFrame.map((entry) => entry[labelColumn]);
+        chartConfig.data.labels = dataFrame.map((entry) => formatStringOrNumber(entry[labelColumn]));
         chartConfig.data.datasets = series.map((series) => toDataset(dataFrame, series));
     }
 </script>
