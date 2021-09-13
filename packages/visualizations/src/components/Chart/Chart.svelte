@@ -161,7 +161,6 @@
                 : 'end',
             display: defaultValue(dataLabels.display, false),
             color: (context) => {
-                console.log(context.dataset.borderColor)
                 if (context.dataset.borderColor) {
                     return context.dataset.borderColor;
                 } else if (dataLabels.color) {
