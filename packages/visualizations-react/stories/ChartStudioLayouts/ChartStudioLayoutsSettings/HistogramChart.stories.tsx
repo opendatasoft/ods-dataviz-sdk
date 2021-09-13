@@ -26,7 +26,6 @@ export const HistogramTitleAxisGrid: Props<DataFrame, ChartOptions> = {
                 categoryPercentage: 1,
                 backgroundColor: 'rgba(50,50,225,0.5)',
                 borderColor: 'rgba(50,50,225)',
-                borderWidth: 2,
             },
         ],
         xAxis: {
@@ -91,7 +90,6 @@ export const HistogramAxisGrid: Props<DataFrame, ChartOptions> = {
                 categoryPercentage: 1,
                 backgroundColor: 'rgba(50,50,225,0.5)',
                 borderColor: 'rgba(50,50,225)',
-                borderWidth: 2,
             },
         ],
         xAxis: {
@@ -152,7 +150,6 @@ export const HistogramTitleDataValues: Props<DataFrame, ChartOptions> = {
                 categoryPercentage: 1,
                 backgroundColor: 'rgba(50,50,225,0.5)',
                 borderColor: 'rgba(50,50,225)',
-                borderWidth: 2,
                 dataLabels: {
                     display: true,
                     align: function (index, { dataFrame }) {
@@ -244,7 +241,6 @@ export const HistogramDataValues: Props<DataFrame, ChartOptions> = {
                 categoryPercentage: 1,
                 backgroundColor: 'rgba(50,50,225,0.5)',
                 borderColor: 'rgba(50,50,225)',
-                borderWidth: 2,
                 dataLabels: {
                     display: true,
                     align: function (index, { dataFrame }) {
@@ -326,7 +322,6 @@ export const HistogramAxisDataValues: Props<DataFrame, ChartOptions> = {
                 categoryPercentage: 1,
                 backgroundColor: 'rgba(50,50,225,0.5)',
                 borderColor: 'rgba(50,50,225)',
-                borderWidth: 2,
                 dataLabels: {
                     display: true,
                     align: function (index, { dataFrame }) {
@@ -411,7 +406,6 @@ export const HistogramTitleAxisGridNegative: Props<DataFrame, ChartOptions> = {
                 categoryPercentage: 1,
                 backgroundColor: 'rgba(50,50,225,0.5)',
                 borderColor: 'rgba(50,50,225)',
-                borderWidth: 2,
             },
         ],
         xAxis: {

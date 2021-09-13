@@ -7,10 +7,10 @@ export const BarTitleAxisGrid: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
-            { x: '01/01', y: 100 },
-            { x: '02/01', y: -50 },
-            { x: '03/01', y: 20 },
-            { x: '04/01', y: 30 },
+            { x: '01/01', y: 100, z: 45 },
+            { x: '02/01', y: -50, z: 50 },
+            { x: '03/01', y: 20, z: 100 },
+            { x: '04/01', y: 30, z: 20 },
         ],
     },
     options: {
@@ -21,19 +21,15 @@ export const BarTitleAxisGrid: Props<DataFrame, ChartOptions> = {
                 type: 'bar',
                 valueColumn: 'y',
                 indexAxis: 'y',
-                backgroundColor: [
-                    'rgba(250,50,50,0.5)',
-                    'rgba(50,250,50,0.5)',
-                    'rgba(50,50,250,0.5)',
-                    'rgba(250,50,250,0.5)',
-                ],
-                borderColor: [
-                    'rgba(250,50,50)',
-                    'rgba(50,250,50)',
-                    'rgba(50,50,250)',
-                    'rgba(250,50,250)',
-                ],
-                borderWidth: 2,
+                backgroundColor: 'rgba(22, 161, 145, 0.26)',
+                borderColor:'rgba(22, 161, 145)',
+            },
+            {
+                type: 'bar',
+                valueColumn: 'z',
+                indexAxis: 'y',
+                backgroundColor:'rgba(119, 73, 54, 0.26)',
+                borderColor: 'rgba(119, 73, 54)',
             },
         ],
         xAxis: {
@@ -106,7 +102,6 @@ export const BarAxisGrid: Props<DataFrame, ChartOptions> = {
                     'rgba(50,50,250)',
                     'rgba(250,50,250)',
                 ],
-                borderWidth: 2,
             },
         ],
         xAxis: {
@@ -149,10 +144,10 @@ export const BarTitleAxisDataValues: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
-            { x: '01/01', y: 100 },
-            { x: '02/01', y: -50 },
-            { x: '03/01', y: 20 },
-            { x: '04/01', y: 30 },
+            { x: '01/01', y: 100, z: 45 },
+            { x: '02/01', y: -50, z: 50 },
+            { x: '03/01', y: 20, z: 100 },
+            { x: '04/01', y: 30, z: 20 },
         ],
     },
     options: {
@@ -164,19 +159,32 @@ export const BarTitleAxisDataValues: Props<DataFrame, ChartOptions> = {
                 type: 'bar',
                 valueColumn: 'y',
                 indexAxis: 'y',
-                backgroundColor: [
-                    'rgba(250,50,50,0.5)',
-                    'rgba(50,250,50,0.5)',
-                    'rgba(50,50,250,0.5)',
-                    'rgba(250,50,250,0.5)',
-                ],
-                borderColor: [
-                    'rgba(250,50,50)',
-                    'rgba(50,250,50)',
-                    'rgba(50,50,250)',
-                    'rgba(250,50,250)',
-                ],
-                borderWidth: 2,
+                backgroundColor: 'rgba(22, 161, 145, 0.26)',
+                borderColor:'rgba(22, 161, 145)',
+                dataLabels: {
+                    display: true,
+                    align: function (index, { dataFrame }) {
+                        if (dataFrame[index].y >= 0) {
+                            return 'end';
+                        } else {
+                            return 'start';
+                        }
+                    },
+                    anchor: function (index, { dataFrame }) {
+                        if (dataFrame[index].y >= 0) {
+                            return 'end';
+                        } else {
+                            return 'start';
+                        }
+                    },
+                },
+            },
+            {
+                type: 'bar',
+                valueColumn: 'z',
+                indexAxis: 'y',
+                backgroundColor: 'rgba(119, 73, 54, 0.26)',
+                borderColor:'rgba(119, 73, 54)',
                 dataLabels: {
                     display: true,
                     align: function (index, { dataFrame }) {
@@ -271,7 +279,6 @@ export const BarAxisDataValues: Props<DataFrame, ChartOptions> = {
                     'rgba(50,50,250)',
                     'rgba(250,50,250)',
                 ],
-                borderWidth: 2,
                 dataLabels: {
                     display: true,
                     align: function (index, { dataFrame }) {
@@ -361,7 +368,6 @@ export const BarTitleSubTitleGrid: Props<DataFrame, ChartOptions> = {
                     'rgba(50,50,250)',
                     'rgba(250,50,250)',
                 ],
-                borderWidth: 2,
             },
         ],
         xAxis: {
@@ -439,7 +445,6 @@ export const BarTitleSubTitleGridNegative: Props<DataFrame, ChartOptions> = {
                     'rgba(50,50,250)',
                     'rgba(250,50,250)',
                 ],
-                borderWidth: 2,
             },
         ],
         xAxis: {

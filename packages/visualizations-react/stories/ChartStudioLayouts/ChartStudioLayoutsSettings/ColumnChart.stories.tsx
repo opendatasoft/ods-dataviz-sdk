@@ -34,7 +34,6 @@ export const ColumnTitleAxisGrid: Props<DataFrame, ChartOptions> = {
                     'rgba(50,50,250)',
                     'rgba(250,50,250)',
                 ],
-                borderWidth: 2,
             },
         ],
         xAxis: {
@@ -107,7 +106,6 @@ export const ColumnAxisGrid: Props<DataFrame, ChartOptions> = {
                     'rgba(50,50,250)',
                     'rgba(250,50,250)',
                 ],
-                borderWidth: 2,
             },
         ],
         xAxis: {
@@ -176,7 +174,6 @@ export const ColumnTitleSubtitleDataValues: Props<DataFrame, ChartOptions> = {
                     'rgba(50,50,250)',
                     'rgba(250,50,250)',
                 ],
-                borderWidth: 2,
                 dataLabels: {
                     display: true,
                     align: function (index, { dataFrame }) {
@@ -278,7 +275,6 @@ export const ColumnDataValues: Props<DataFrame, ChartOptions> = {
                     'rgba(50,50,250)',
                     'rgba(250,50,250)',
                 ],
-                borderWidth: 2,
                 dataLabels: {
                     display: true,
                     align: function (index, { dataFrame }) {
@@ -371,7 +367,6 @@ export const ColumnAxisDataValues: Props<DataFrame, ChartOptions> = {
                     'rgba(50,50,250)',
                     'rgba(250,50,250)',
                 ],
-                borderWidth: 2,
                 dataLabels: {
                     display: true,
                     align: function (index, { dataFrame }) {
@@ -461,7 +456,6 @@ export const ColumnTitleAxisGridNegative: Props<DataFrame, ChartOptions> = {
                     'rgba(50,50,250)',
                     'rgba(250,50,250)',
                 ],
-                borderWidth: 2,
             },
         ],
         xAxis: {

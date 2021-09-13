@@ -191,7 +191,7 @@
                 data: dataFrame.map((entry) => entry[series.valueColumn]),
                 backgroundColor: chartJsColorPalette(series.backgroundColor),
                 borderColor: chartJsColorPalette(series.borderColor),
-                borderWidth: defaultValue(series.borderWidth, 0),
+                borderWidth: defaultValue(series.borderWidth, 1),
                 label: defaultValue(series.label, ''),
                 indexAxis: defaultValue(series.indexAxis, 'x'),
                 barPercentage: defaultValue(series.barPercentage, 0.9),
@@ -211,7 +211,9 @@
                 datalabels: chartJsDataLabels(series.dataLabels),
                 tension: defaultValue(series.tension, 0),
                 pointRadius: defaultValue(series.pointRadius, 3),
-                borderWidth: defaultValue(series.borderWidth, 2)
+                pointBackgroundColor: defaultValue(series.pointBackgroundColor, 'rgb(255,255,255)'),
+                borderDash: defaultValue(series.borderDash, []),
+                borderWidth: defaultValue(series.borderWidth, 2),
             };
         }
 
@@ -233,6 +235,9 @@
                 borderColor: chartJsColorSingle(series.borderColor),
                 label: defaultValue(series.label, ''),
                 datalabels: chartJsDataLabels(series.dataLabels),
+                pointRadius: defaultValue(series.pointRadius, 3),
+                pointBackgroundColor: defaultValue(series.pointBackgroundColor, 'rgb(255,255,255)'),
+                borderWidth: defaultValue(series.borderWidth, 2),
             };
         }
 

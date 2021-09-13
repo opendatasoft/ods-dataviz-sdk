@@ -24,6 +24,7 @@ export const LineTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
                 valueColumn: 'y',
                 tension: 0,
                 borderColor: 'rgb(22, 161, 145)',
+                borderDash: [5,5],
             },
             {
                 type: 'line',
@@ -91,6 +92,7 @@ export const LineAxisGridDots: Props<DataFrame, ChartOptions> = {
                 valueColumn: 'y',
                 tension: 0.3,
                 borderColor: 'rgb(22, 161, 145)',
+                borderDash: [5,5],
             },
             {
                 type: 'line',

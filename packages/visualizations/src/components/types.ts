@@ -140,7 +140,9 @@ export interface Line {
     dataLabels?: DataLabelsConfiguration;
     tension?: number;
     pointRadius?: number;
+    pointBackgroundColor?: Color;
     borderWidth?: number;
+    borderDash?: number[];
 }
 
 export interface Bar {
@@ -172,6 +174,9 @@ export interface Radar {
     backgroundColor?: Color;
     borderColor?: Color;
     dataLabels?: DataLabelsConfiguration;
+    pointRadius?: number;
+    pointBackgroundColor?: Color;
+    borderWidth?: number;
 }
 
 export type FillMode = false | number | string | { value: number };

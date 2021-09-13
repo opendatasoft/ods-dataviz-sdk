@@ -7,12 +7,12 @@ export const AreaTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
-            { x: 0, y: 2400},
-            { x: 1, y: -140},
-            { x: 2, y: 2000},
-            { x: 3, y: 3},
-            { x: 4, y: 180.47},
-            { x: 5, y: 778},
+            { x: 0, y: 2400, z: 1021 },
+            { x: 1, y: -140, z: 2424 },
+            { x: 2, y: 2000, z: 3222 },
+            { x: 3, y: 3, z: 1255 },
+            { x: 4, y: 180.47, z: 1424 },
+            { x: 5, y: 778, z: 12 },
         ],
     },
     options: {
@@ -27,11 +27,19 @@ export const AreaTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
                 fill: {
                     mode: 'origin',
                     above: 'rgb(22, 161, 145, 0.26)',
+                    below: 'rgb(22, 161, 145, 0.26)',
                 },
             },
             {
                 type: 'line',
                 valueColumn: 'z',
+                tension: 0.3,
+                borderColor: 'rgb(119, 73, 54)',
+                fill: {
+                    mode: 'origin',
+                    above: 'rgb(119, 73, 54, 0.26)',
+                    below: 'rgb(119, 73, 54, 0.26)',
+                },
             },
         ],
         xAxis: {
@@ -95,6 +103,7 @@ export const AreaAxisGridDots: Props<DataFrame, ChartOptions> = {
                 fill: {
                     mode: 'origin',
                     above: 'rgb(22, 161, 145, 0.26)',
+                    below: 'rgb(22, 161, 145, 0.26)',
                 },
             },
             {
@@ -161,6 +170,7 @@ export const AreaTitleAxisGrid: Props<DataFrame, ChartOptions> = {
                 fill: {
                     mode: 'origin',
                     above: 'rgb(22, 161, 145, 0.26)',
+                    below: 'rgb(22, 161, 145, 0.26)',
                 },
             },
             {
@@ -231,6 +241,7 @@ export const AreaTitleSubtitleGrid: Props<DataFrame, ChartOptions> = {
                 fill: {
                     mode: 'origin',
                     above: 'rgb(22, 161, 145, 0.26)',
+                    below: 'rgb(22, 161, 145, 0.26)',
                 },
             },
             {
@@ -323,6 +334,7 @@ export const AreaTitleDataValues: Props<DataFrame, ChartOptions> = {
                 fill: {
                     mode: 'origin',
                     above: 'rgb(22, 161, 145, 0.26)',
+                    below: 'rgb(22, 161, 145, 0.26)',
                 },
             },
             {
@@ -391,6 +403,7 @@ export const AreaDataValuesOnly: Props<DataFrame, ChartOptions> = {
                 fill: {
                     mode: 'origin',
                     above: 'rgb(22, 161, 145, 0.26)',
+                    below: 'rgb(22, 161, 145, 0.26)',
                 },
                 pointRadius: 0,
                 dataLabels: {
