@@ -49,6 +49,7 @@ export interface AxisTitleConfiguration {
 export interface RadialAxisConfiguration {
     beginAtZero?: boolean;
     ticks?: TicksConfiguration;
+    gridLines?: GridLinesConfiguration;
 }
 
 export interface GridLinesConfiguration {

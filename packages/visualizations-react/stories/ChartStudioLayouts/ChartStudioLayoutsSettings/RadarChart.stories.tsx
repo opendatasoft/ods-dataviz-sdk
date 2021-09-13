@@ -7,9 +7,66 @@ export const RadarTitleScale: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
+            { x: 'speed', y: -100, z: -10 },
+            { x: 'strength', y: -50, z: -45 },
+            { x: 'magic', y: -80, z: -100 },
+            { x: 'luck', y: -30, z: -100 },
+            { x: 'persuasion', y: -70, z: -2 },
+        ],
+    },
+    options: {
+        labelColumn: 'x',
+        ariaLabel: 'Radar chart',
+        series: [
+            {
+                type: 'radar',
+                valueColumn: 'y',
+                label: 'User 1',
+                backgroundColor: 'rgba(27,210,210,0.5)',
+                borderColor: 'rgb(27,210,210)',
+            },
+            {
+                type: 'radar',
+                valueColumn: 'z',
+                label: 'User 2',
+                backgroundColor: 'rgba(127,10,210,0.5)',
+                borderColor: 'rgb(127,10,210)',
+            },
+        ],
+        legend: {
+            display: true,
+        },
+        tooltips: {
+            display: true,
+        },
+        rAxis: {
+            gridLines: {
+                color: function (ticksIndex, ticksToColor) {
+                    console.log(ticksIndex)
+                    console.log(ticksToColor)
+                    if (ticksIndex === ticksToColor) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'rgba(0, 0, 0, 0.1)';
+                    }
+                },
+            },
+        },
+        title: {
+            text: 'Radar chart with title and scale',
+            align: 'center',
+        },
+    },
+};
+
+export const RadarTitleScaleNegativePositive: Props<DataFrame, ChartOptions> = {
+    style: styleForLayouts,
+    data: {
+        loading: false,
+        value: [
             { x: 'speed', y: 100, z: 10 },
-            { x: 'strength', y: 50, z: 45 },
-            { x: 'magic', y: 80, z: 100 },
+            { x: 'strength', y: -50, z: 45 },
+            { x: 'magic', y: 80, z: -100 },
             { x: 'luck', y: 30, z: 100 },
             { x: 'persuasion', y: 70, z: 2 },
         ],
@@ -38,6 +95,20 @@ export const RadarTitleScale: Props<DataFrame, ChartOptions> = {
         },
         tooltips: {
             display: true,
+        },
+        rAxis: {
+            gridLines: {
+                display: true,
+                color: function (ticksIndex, ticksToColor) {
+                    console.log(ticksIndex)
+                    console.log(ticksToColor)
+                    if (ticksIndex === ticksToColor) {
+                        return 'rgba(0, 0, 0, 0.4)';
+                    } else {
+                        return 'rgba(0, 0, 0, 0.1)';
+                    }
+                },
+            },
         },
         title: {
             text: 'Radar chart with title and scale',

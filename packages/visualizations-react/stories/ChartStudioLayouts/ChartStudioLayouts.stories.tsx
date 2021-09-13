@@ -27,6 +27,7 @@ import {
     RadarTitleScale,
     RadarTitle,
     RadarTitleDataValues,
+    RadarTitleScaleNegativePositive,
 } from './ChartStudioLayoutsSettings/RadarChart.stories';
 
 import {
@@ -115,6 +116,7 @@ export const RadarChart: Story<Args> = Template.bind({});
 RadarChart.args =
     {
         'RadarTitleScale' : RadarTitleScale,
+        'RadarTitleScaleNegativePositive' : RadarTitleScaleNegativePositive,
         'RadarTitle' : RadarTitle,
         'RadarTitleDataValues' : RadarTitleDataValues,
     }

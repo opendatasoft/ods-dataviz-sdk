@@ -345,6 +345,7 @@
                 },
             };
         }
+        const gridRColor = options?.rAxis?.gridLines?.color;
         if (options.rAxis) {
             chartOptions.scales['r'] = {
                 beginAtZero: defaultValue(options?.rAxis?.beginAtZero, true),
@@ -352,6 +353,25 @@
                     display: defaultValue(options?.rAxis?.ticks?.display, true),
                     color: defaultValue(options?.rAxis?.ticks?.color, 'rgb(86, 86, 86)'),
                     callback: handleLongTicksLabel,
+                },
+                grid: {
+                    display: defaultValue(options?.rAxis?.gridLines?.display, true),
+                    borderColor: defaultValue(options?.rAxis?.gridLines?.borderColor, 'rgba(0, 0, 0, 0.4)'),
+                    drawBorder: defaultValue(options?.rAxis?.gridLines?.drawBorder, false),
+                    ...(gridRColor && {
+                        color: (context, proxy) => {
+                            /** The code below aims to display the right dark gridline depending on the ticks values:
+                            * If there are negative and positive values then the "0" gridline will be displayed
+                            * If there are only positive values the dark gridline will be at the bottom
+                            * If there are only negative values the dark gridline will be at the top
+                            * We achieve that by looking for the lowest absolute values of the present ticks */
+                            const ticksArray = proxy._context.scale.ticks;
+                            const ticksAbsoluteValues = ticksArray.map((tick:any)=>Math.abs(tick.value))
+                            const minAbsoluteTicksIndex = ticksAbsoluteValues.indexOf(Math.min(...ticksAbsoluteValues))-1;
+                            return gridRColor(context.index, minAbsoluteTicksIndex);
+                        },
+                    }),
+                    offset: defaultValue(options?.rAxis?.gridLines?.offset, false),
                 },
             };
         }
