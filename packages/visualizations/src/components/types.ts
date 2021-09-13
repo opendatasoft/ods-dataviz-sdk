@@ -106,8 +106,14 @@ export interface TitleConfiguration {
     color?: string;
 }
 
+export interface CallbacksConfiguration {
+    title?: (context:any) => string | string[];
+    label?: (context:any) => string | string[];
+}
+
 export interface TooltipsConfiguration {
     display?: boolean;
+    callbacks?: CallbacksConfiguration;
 }
 
 export interface DataLabelsConfiguration {

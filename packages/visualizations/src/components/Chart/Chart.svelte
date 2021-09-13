@@ -379,6 +379,14 @@
             },
             tooltip: {
                 enabled: defaultValue(options?.tooltips?.display, true),
+                callbacks: {
+                    title: (context) => {
+                        return dataFrame[context[0].dataIndex][labelColumn];
+                    },
+                    label: (context) => {
+                        return context.dataset.data[context.dataIndex];
+                    },
+                }
             },
             subtitle: {
                 display: defaultValue(options?.subtitle?.display, false),
