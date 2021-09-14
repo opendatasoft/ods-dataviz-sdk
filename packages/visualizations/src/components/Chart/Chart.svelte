@@ -419,14 +419,14 @@
                     ...(options.series[0]?.type !== 'pie' &&
                     {
                         beforeTitle: (context) => {
-                        return context[0].dataset.label;
+                        return context[0].dataset.label.toString().replace(/(.{25})/g,"$&" + "\n");
                         },
                     }),
                     title: (context) => {
-                        return dataFrame[context[0].dataIndex][labelColumn];
+                        return dataFrame[context[0].dataIndex][labelColumn].toString().replace(/(.{25})/g,"$&" + "\n");
                     },
                     label: (context) => {
-                        return context.dataset.data[context.dataIndex];
+                        return context.dataset.data[context.dataIndex].toString().replace(/(.{25})/g,"$&" + "\n");
                     },
                 }
             },
