@@ -464,18 +464,18 @@
                         beforeTitle: (context) => {
                             return context[0].dataset.label
                                 .toString()
-                                .replace(/(.{25})/g, '$&' + '\n');
+                                .replace(/(.*?\s.*?\s.*?\s)/g, '$1'+'\n');
                         },
                     }),
                     title: (context) => {
                         return dataFrame[context[0].dataIndex][labelColumn]
                             .toString()
-                            .replace(/(.{25})/g, '$&' + '\n');
+                            .replace(/(.*?\s.*?\s.*?\s)/g, '$1'+'\n');
                     },
                     label: (context) => {
                         return context.dataset.data[context.dataIndex]
                             .toString()
-                            .replace(/(.{25})/g, '$&' + '\n');
+                            .replace(/(.*?\s.*?\s.*?\s)/g, '$1'+'\n');
                     },
                 },
             },
