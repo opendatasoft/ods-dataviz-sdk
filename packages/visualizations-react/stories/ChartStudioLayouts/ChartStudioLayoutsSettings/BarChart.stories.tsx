@@ -23,6 +23,7 @@ export const BarTitleAxisGrid: Props<DataFrame, ChartOptions> = {
                 indexAxis: 'y',
                 backgroundColor: 'rgba(22, 161, 145, 0.26)',
                 borderColor:'rgba(22, 161, 145)',
+                label: 'User 1',
             },
             {
                 type: 'bar',
@@ -30,6 +31,7 @@ export const BarTitleAxisGrid: Props<DataFrame, ChartOptions> = {
                 indexAxis: 'y',
                 backgroundColor:'rgba(119, 73, 54, 0.26)',
                 borderColor: 'rgba(119, 73, 54)',
+                label: 'User 2',
             },
         ],
         xAxis: {

@@ -416,6 +416,12 @@
             tooltip: {
                 enabled: defaultValue(options?.tooltips?.display, true),
                 callbacks: {
+                    ...(options.series[0]?.type !== 'pie' &&
+                    {
+                        beforeTitle: (context) => {
+                        return context[0].dataset.label;
+                        },
+                    }),
                     title: (context) => {
                         return dataFrame[context[0].dataIndex][labelColumn];
                     },
