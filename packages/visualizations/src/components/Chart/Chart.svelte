@@ -11,6 +11,7 @@
         FillConfiguration,
     } from '../types';
     import type { Options as DataLabelsOptions } from 'chartjs-plugin-datalabels/types/options';
+    import { pieDataLabelsPlugin } from './piechartplugins';
     export let data: Async<DataFrame>;
     export let options: ChartOptions;
 
@@ -38,44 +39,52 @@
     }
 
     /** The two functions below are handling the focus on the right part of the Pie Chart on hover on the legend
-    * and requires that every data in the Pie Chart must have a unique color */
+     * and requires that every data in the Pie Chart must have a unique color */
     function handleHoverPieChart(evt:any, item:any, legend:any) {
-        legend.chart.data.datasets[0].backgroundColor.forEach((color:any, index:any, colors:any) => {
-            if (color.length === 7) {
-                colors[index] = index === item.index ? color : color + '4D';
-            } else if (color.slice(0,3) === 'rgb') {
-                colors[index] = index === item.index ? color : color.slice(0, -1) + ',0.3)';
+        legend.chart.data.datasets[0].backgroundColor.forEach(
+            (color: any, index: any, colors: any) => {
+                if (color.length === 7) {
+                    colors[index] = index === item.index ? color : color + '4D';
+                } else if (color.slice(0, 3) === 'rgb') {
+                    colors[index] = index === item.index ? color : color.slice(0, -1) + ',0.3)';
+                }
             }
-        });
+        );
         const chart = legend.chart;
         const tooltip = chart.tooltip;
         const chartArea = chart.chartArea;
-        tooltip.setActiveElements([{
-            datasetIndex: 0,
-            index: item.index,
-        }], {
-            x: (chartArea.left + chartArea.right) / 2,
-            y: (chartArea.top + chartArea.bottom) / 2,
-        });
+        tooltip.setActiveElements(
+            [
+                {
+                    datasetIndex: 0,
+                    index: item.index,
+                },
+            ],
+            {
+                x: (chartArea.left + chartArea.right) / 2,
+                y: (chartArea.top + chartArea.bottom) / 2,
+            }
+        );
         legend.chart.update();
     }
 
-    function handleLeavePieChart(evt:any, item:any, legend:any) {
-        legend.chart.data.datasets[0].backgroundColor.forEach((color:any, index:any, colors:any) => {
-            if (color.length === 9) {
-                colors[index] = color.slice(0, -2);
-            } else if (color.slice(0,3) === 'rgb' && color.slice(-5).includes('.')) {
-                colors[index] = `${color.slice(0, -5)})`;
+    function handleLeavePieChart(evt: any, item: any, legend: any) {
+        legend.chart.data.datasets[0].backgroundColor.forEach(
+            (color: any, index: any, colors: any) => {
+                if (color.length === 9) {
+                    colors[index] = color.slice(0, -2);
+                } else if (color.slice(0, 3) === 'rgb' && color.slice(-5).includes('.')) {
+                    colors[index] = `${color.slice(0, -5)})`;
+                }
             }
-
-        });
+        );
         legend.chart.update();
     }
 
     // The function below displays the "0" tick on the chart
-    function displayZeroTick(this:any, val:string | number) {
+    function displayZeroTick(this: any, val: string | number) {
         if (val === 0) {
-            return this.getLabelForValue(val)
+            return this.getLabelForValue(val);
         }
         return '';
     }
@@ -84,7 +93,7 @@
      * for the ticks, legends and datalabels, They are implemented by default to make an easier chart implementation. */
 
     // The formatter variable will display the right number format according to a locale variable
-     const formatter = new Intl.NumberFormat('fr', {
+    const formatter = new Intl.NumberFormat('fr', {
         notation: 'compact',
     });
 
@@ -102,10 +111,10 @@
     }
 
     // The ticks format handler depends of type of axis and return the formatted value
-    function handleLongTicksLabel(this:any, value:any, index:number, values:[]) {
+    function handleLongTicksLabel(this: any, value: any, index: number, values: []) {
         if (this.type === 'linear' || this.type === 'radialLinear') {
             return formatStringOrNumber(value);
-        } else if (this.type === 'category'){
+        } else if (this.type === 'category') {
             return formatStringOrNumber(this.getLabelForValue(value));
         } else {
             return formatStringOrNumber(value);
@@ -113,29 +122,29 @@
     }
 
     // The legend format handler is set upon the chartjs filter method, sets legend text and return always true
-    function handleLongLegendLabel(item:any, data:any) {
+    function handleLongLegendLabel(item: any, data: any) {
         item.text = formatStringOrNumber(item.text);
         return true;
     }
 
     // The legend with value format handler is set upon the chartjs filter method, sets legend text after formatting text and value separately
-    function handleLongLegendWithValuesLabel(item:any, data:any) {
+    function handleLongLegendWithValuesLabel(item: any, data: any) {
         const firstLabel = formatStringOrNumber(item.text);
-        const secondLabel = formatStringOrNumber(data.datasets[0].data[item.index])
-        item.text = `${firstLabel} - ${secondLabel}`
+        const secondLabel = formatStringOrNumber(data.datasets[0].data[item.index]);
+        item.text = `${firstLabel} - ${secondLabel}`;
         return true;
     }
 
     /**  The datalabels displaying x and y labels handler, creates a new formatted array of value to send to datalabels formatter
      * We need to recreate a new array in the particular case where the datalabels will display both text and values from x and y data */
     function handleLongDataLabels(dataFrame: DataFrame) {
-        const formattedDataFrame:DataFrame = [];
+        const formattedDataFrame: DataFrame = [];
 
-        for (let i = 0; i<dataFrame.length; i ++) {
+        for (let i = 0; i < dataFrame.length; i++) {
             let xData = formatStringOrNumber(dataFrame[i].x);
             let yData = formatStringOrNumber(dataFrame[i].y);
 
-            formattedDataFrame.push({x: xData, y: yData})
+            formattedDataFrame.push({ x: xData, y: yData });
         }
         return formattedDataFrame;
     }
@@ -174,16 +183,19 @@
                 if (context.dataset.borderColor) {
                     return context.dataset.borderColor;
                 } else if (dataLabels.color) {
-                    return chartJsColorPalette(dataLabels.color) ;
+                    return chartJsColorPalette(dataLabels.color);
                 } else {
                     return 'rgb(0, 0, 0)';
                 }
             },
             backgroundColor: (context) => {
                 if (options.series[0]?.type === 'pie') {
-                    return context.dataset.backgroundColor[context.dataIndex]
+                    return context.dataset.backgroundColor[context.dataIndex];
                 } else {
-                    defaultValue(chartJsColorPalette(dataLabels.backgroundColor), 'rgb(255,255,255)')
+                    defaultValue(
+                        chartJsColorPalette(dataLabels.backgroundColor),
+                        'rgb(255,255,255)'
+                    );
                 }
             },
             offset: defaultValue(dataLabels.offset, 4),
@@ -274,7 +286,7 @@
     $: {
         chartConfig.type = defaultValue(options.series[0]?.type, 'line'); // Will set chartJs default value accordingly
         let chartOptions = chartConfig.options || {};
-        chartOptions.aspectRatio = defaultValue(options.aspectRatio, 4/3);
+        chartOptions.aspectRatio = defaultValue(options.aspectRatio, 4 / 3);
         chartOptions.maintainAspectRatio = options.maintainAspectRatio;
         chartOptions.scales = {};
         chartOptions.layout = {
@@ -294,22 +306,29 @@
                     font: {
                         weight: defaultValue(options?.xAxis?.title?.font?.weight, '400'),
                         size: defaultValue(options?.xAxis?.title?.font?.size, 12),
-                    }
+                    },
                 },
                 grid: {
                     display: defaultValue(options?.xAxis?.gridLines?.display, true),
-                    borderColor: defaultValue(options?.xAxis?.gridLines?.borderColor, 'rgba(0, 0, 0, 0.4)'),
+                    borderColor: defaultValue(
+                        options?.xAxis?.gridLines?.borderColor,
+                        'rgba(0, 0, 0, 0.4)'
+                    ),
                     drawBorder: defaultValue(options?.xAxis?.gridLines?.drawBorder, false),
                     ...(gridXColor && {
                         color: (context, proxy) => {
                             /** The code below aims to display the right dark gridline depending on the ticks values:
-                            * If there are negative and positive values then the "0" gridline will be displayed
-                            * If there are only positive values the dark gridline will be at the bottom
-                            * If there are only negative values the dark gridline will be at the top
-                            * We achieve that by looking for the lowest absolute values of the present ticks */
+                             * If there are negative and positive values then the "0" gridline will be displayed
+                             * If there are only positive values the dark gridline will be at the bottom
+                             * If there are only negative values the dark gridline will be at the top
+                             * We achieve that by looking for the lowest absolute values of the present ticks */
                             const ticksArray = proxy._context.scale.ticks;
-                            const ticksAbsoluteValues = ticksArray.map((tick:any)=>Math.abs(tick.value))
-                            const minAbsoluteTicksIndex = ticksAbsoluteValues.indexOf(Math.min(...ticksAbsoluteValues))
+                            const ticksAbsoluteValues = ticksArray.map((tick: any) =>
+                                Math.abs(tick.value)
+                            );
+                            const minAbsoluteTicksIndex = ticksAbsoluteValues.indexOf(
+                                Math.min(...ticksAbsoluteValues)
+                            );
                             return gridXColor(context.index, minAbsoluteTicksIndex);
                         },
                     }),
@@ -318,7 +337,9 @@
                 ticks: {
                     display: defaultValue(options?.xAxis?.ticks?.display, true),
                     color: defaultValue(options?.xAxis?.ticks?.color, 'rgb(86, 86, 86)'),
-                    ...(options?.xAxis?.ticks?.zeroTick === true ? {callback: displayZeroTick} : {callback: handleLongTicksLabel}),
+                    ...(options?.xAxis?.ticks?.zeroTick === true
+                        ? { callback: displayZeroTick }
+                        : { callback: handleLongTicksLabel }),
                 },
             };
         }
@@ -335,22 +356,29 @@
                     font: {
                         weight: defaultValue(options?.yAxis?.title?.font?.weight, '400'),
                         size: defaultValue(options?.yAxis?.title?.font?.size, 12),
-                    }
+                    },
                 },
                 grid: {
                     display: defaultValue(options?.yAxis?.gridLines?.display, true),
-                    borderColor: defaultValue(options?.yAxis?.gridLines?.borderColor, 'rgba(0, 0, 0, 0.4)'),
+                    borderColor: defaultValue(
+                        options?.yAxis?.gridLines?.borderColor,
+                        'rgba(0, 0, 0, 0.4)'
+                    ),
                     drawBorder: defaultValue(options?.yAxis?.gridLines?.drawBorder, false),
                     ...(gridYColor && {
                         color: (context, proxy) => {
                             /** The code below aims to display the right dark gridline depending on the ticks values:
-                            * If there are negative and positive values then the "0" gridline will be displayed
-                            * If there are only positive values the dark gridline will be at the bottom
-                            * If there are only negative values the dark gridline will be at the top
-                            * We achieve that by looking for the lowest absolute values of the present ticks */
+                             * If there are negative and positive values then the "0" gridline will be displayed
+                             * If there are only positive values the dark gridline will be at the bottom
+                             * If there are only negative values the dark gridline will be at the top
+                             * We achieve that by looking for the lowest absolute values of the present ticks */
                             const ticksArray = proxy._context.scale.ticks;
-                            const ticksAbsoluteValues = ticksArray.map((tick:any)=>Math.abs(tick.value))
-                            const minAbsoluteTicksIndex = ticksAbsoluteValues.indexOf(Math.min(...ticksAbsoluteValues))
+                            const ticksAbsoluteValues = ticksArray.map((tick: any) =>
+                                Math.abs(tick.value)
+                            );
+                            const minAbsoluteTicksIndex = ticksAbsoluteValues.indexOf(
+                                Math.min(...ticksAbsoluteValues)
+                            );
                             return gridYColor(context.index, minAbsoluteTicksIndex);
                         },
                     }),
@@ -358,7 +386,9 @@
                 ticks: {
                     display: defaultValue(options?.yAxis?.ticks?.display, true),
                     color: defaultValue(options?.yAxis?.ticks?.color, 'rgb(86, 86, 86)'),
-                    ...(options?.yAxis?.ticks?.zeroTick === true ? {callback: displayZeroTick} : {callback: handleLongTicksLabel}),
+                    ...(options?.yAxis?.ticks?.zeroTick === true
+                        ? { callback: displayZeroTick }
+                        : { callback: handleLongTicksLabel }),
                 },
             };
         }
@@ -373,18 +403,24 @@
                 },
                 grid: {
                     display: defaultValue(options?.rAxis?.gridLines?.display, true),
-                    borderColor: defaultValue(options?.rAxis?.gridLines?.borderColor, 'rgba(0, 0, 0, 0.4)'),
+                    borderColor: defaultValue(
+                        options?.rAxis?.gridLines?.borderColor,
+                        'rgba(0, 0, 0, 0.4)'
+                    ),
                     drawBorder: defaultValue(options?.rAxis?.gridLines?.drawBorder, false),
                     ...(gridRColor && {
                         color: (context, proxy) => {
                             /** The code below aims to display the right dark gridline depending on the ticks values:
-                            * If there are negative and positive values then the "0" gridline will be displayed
-                            * If there are only positive values the dark gridline will be at the bottom
-                            * If there are only negative values the dark gridline will be at the top
-                            * We achieve that by looking for the lowest absolute values of the present ticks */
+                             * If there are negative and positive values then the "0" gridline will be displayed
+                             * If there are only positive values the dark gridline will be at the bottom
+                             * If there are only negative values the dark gridline will be at the top
+                             * We achieve that by looking for the lowest absolute values of the present ticks */
                             const ticksArray = proxy._context.scale.ticks;
-                            const ticksAbsoluteValues = ticksArray.map((tick:any)=>Math.abs(tick.value))
-                            const minAbsoluteTicksIndex = ticksAbsoluteValues.indexOf(Math.min(...ticksAbsoluteValues))-1;
+                            const ticksAbsoluteValues = ticksArray.map((tick: any) =>
+                                Math.abs(tick.value)
+                            );
+                            const minAbsoluteTicksIndex =
+                                ticksAbsoluteValues.indexOf(Math.min(...ticksAbsoluteValues)) - 1;
                             return gridRColor(context.index, minAbsoluteTicksIndex);
                         },
                     }),
@@ -397,10 +433,12 @@
                 display: defaultValue(options?.legend?.display, false),
                 position: defaultValue(options?.legend?.position, 'bottom'),
                 align: defaultValue(options?.legend?.align, 'center'),
-                ...(options.series[0]?.type === 'pie' && {onHover: handleHoverPieChart}),
-                ...(options.series[0]?.type === 'pie' && {onLeave: handleLeavePieChart}),
+                ...(options.series[0]?.type === 'pie' && { onHover: handleHoverPieChart }),
+                ...(options.series[0]?.type === 'pie' && { onLeave: handleLeavePieChart }),
                 labels: {
-                    ...(options?.legend?.labels?.legendWithValues === true ? {filter: handleLongLegendWithValuesLabel} : {filter: handleLongLegendLabel}),
+                    ...(options?.legend?.labels?.legendWithValues === true
+                        ? { filter: handleLongLegendWithValuesLabel }
+                        : { filter: handleLongLegendLabel }),
                 },
             },
             title: {
@@ -422,19 +460,24 @@
             tooltip: {
                 enabled: defaultValue(options?.tooltips?.display, true),
                 callbacks: {
-                    ...(options.series[0]?.type !== 'pie' &&
-                    {
+                    ...(options.series[0]?.type !== 'pie' && {
                         beforeTitle: (context) => {
-                        return context[0].dataset.label.toString().replace(/(.{25})/g,"$&" + "\n");
+                            return context[0].dataset.label
+                                .toString()
+                                .replace(/(.{25})/g, '$&' + '\n');
                         },
                     }),
                     title: (context) => {
-                        return dataFrame[context[0].dataIndex][labelColumn].toString().replace(/(.{25})/g,"$&" + "\n");
+                        return dataFrame[context[0].dataIndex][labelColumn]
+                            .toString()
+                            .replace(/(.{25})/g, '$&' + '\n');
                     },
                     label: (context) => {
-                        return context.dataset.data[context.dataIndex].toString().replace(/(.{25})/g,"$&" + "\n");
+                        return context.dataset.data[context.dataIndex]
+                            .toString()
+                            .replace(/(.{25})/g, '$&' + '\n');
                     },
-                }
+                },
             },
             subtitle: {
                 display: defaultValue(options?.subtitle?.display, false),
@@ -451,6 +494,10 @@
             },
         };
         chartConfig.options = chartOptions;
+
+        if (series[0].type === 'pie' && series[0].dataLabels?.display) {
+            chartConfig.plugins.push(pieDataLabelsPlugin);
+        }
     }
 
     let dataFrame: DataFrame = [];
@@ -464,7 +511,9 @@
     }
 
     $: {
-        chartConfig.data.labels = dataFrame.map((entry) => formatStringOrNumber(entry[labelColumn]));
+        chartConfig.data.labels = dataFrame.map((entry) =>
+            formatStringOrNumber(entry[labelColumn])
+        );
         chartConfig.data.datasets = series.map((series) => toDataset(dataFrame, series));
     }
 </script>
