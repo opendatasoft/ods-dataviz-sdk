@@ -179,9 +179,15 @@
                     return 'rgb(0, 0, 0)';
                 }
             },
-            backgroundColor: defaultValue(chartJsColorPalette(dataLabels.backgroundColor), 'rgb(255,255,255)'),
-            offset: defaultValue(dataLabels.offset, 0),
-            borderRadius: defaultValue(dataLabels.borderRadius, 4),
+            backgroundColor: (context) => {
+                if (options.series[0]?.type === 'pie') {
+                    return context.dataset.backgroundColor[context.dataIndex]
+                } else {
+                    defaultValue(chartJsColorPalette(dataLabels.backgroundColor), 'rgb(255,255,255)')
+                }
+            },
+            offset: defaultValue(dataLabels.offset, 4),
+            borderRadius: defaultValue(dataLabels.borderRadius, 3),
             formatter: formatter
                 ? (value, context) => {
                       const formattedDataFrame = handleLongDataLabels(dataFrame);
