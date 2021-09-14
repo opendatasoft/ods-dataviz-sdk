@@ -47,6 +47,16 @@
                 colors[index] = index === item.index ? color : color.slice(0, -1) + ',0.3)';
             }
         });
+        const chart = legend.chart;
+        const tooltip = chart.tooltip;
+        const chartArea = chart.chartArea;
+        tooltip.setActiveElements([{
+            datasetIndex: 0,
+            index: item.index,
+        }], {
+            x: (chartArea.left + chartArea.right) / 2,
+            y: (chartArea.top + chartArea.bottom) / 2,
+        });
         legend.chart.update();
     }
 
@@ -385,7 +395,7 @@
                 ...(options.series[0]?.type === 'pie' && {onLeave: handleLeavePieChart}),
                 labels: {
                     ...(options?.legend?.labels?.legendWithValues === true ? {filter: handleLongLegendWithValuesLabel} : {filter: handleLongLegendLabel}),
-                }
+                },
             },
             title: {
                 display: defaultValue(options?.title?.display, true),
