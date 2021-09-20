@@ -27,6 +27,7 @@
         "test": "lerna run test",
         "bootstrap": "lerna bootstrap",
         "watch": "lerna run watch --parallel",
+        "lint": "lerna run lint  --parallel",
         "new-version": "lerna version --conventional-commits --no-push"
     },
     "devDependencies": {
