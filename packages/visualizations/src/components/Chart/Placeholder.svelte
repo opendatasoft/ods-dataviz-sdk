@@ -1,12 +1,12 @@
 <script lang="ts">
-    export const error: string = null;
-    export const loading: boolean = null;
+    export const error: string | null = null;
+    export const loading: boolean | null = null;
 </script>
 
 <div class="ods-viz__bar-chart--placeholder" />
 
 <style lang="scss">
-    @import "./styles/theme.scss";
+    @import "../../styles/theme.scss";
 
     .ods-viz__bar-chart--placeholder {
         background-color: $light-300;
