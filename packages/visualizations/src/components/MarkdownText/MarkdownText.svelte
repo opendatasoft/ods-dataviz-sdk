@@ -10,7 +10,7 @@
     import MarkdownItMark from 'markdown-it-mark';
 
     const md = new MarkdownIt().use(MarkdownItMark);
-    $: renderedText = md.render(data);
+    $: renderedText = md.render(data.value || '');
 </script>
 
 <div class="markdown-text-container markdown-text-container--align-{options.align}">
@@ -48,4 +48,3 @@
         display: inline-block;
     }
 </style>
-`
