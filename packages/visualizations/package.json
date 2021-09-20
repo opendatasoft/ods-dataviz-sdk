@@ -21,7 +21,7 @@
         "watch": "rollup --config --watch",
         "test": "echo \"No test specified\"",
         "lint": "run-p lint:* -c",
-        "lint:eslint": "eslint --ext .ts,.svelte src/",
+        "lint:eslint": "eslint .",
         "lint:svelte": "svelte-check"
     },
     "prettier": {

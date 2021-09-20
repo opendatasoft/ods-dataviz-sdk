@@ -3,3 +3,4 @@
 node_modules
 dist
 gen
+.eslintrc.js

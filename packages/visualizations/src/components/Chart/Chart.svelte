@@ -19,7 +19,7 @@
         if (!ctx) throw new Error('Failed to get canvas context');
         const chart = new ChartJs.Chart(ctx, config);
         return {
-            update(config: ChartJs.ChartConfiguration) {
+            update() {
                 chart.update();
             },
             destroy() {
