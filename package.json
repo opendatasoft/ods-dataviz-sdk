@@ -24,10 +24,10 @@
         "url": "https://github.com/opendatasoft/ods-dataviz-sdk/issues"
     },
     "scripts": {
-        "test": "lerna run test",
+        "test": "lerna run test --parallel --no-bail",
         "bootstrap": "lerna bootstrap",
         "watch": "lerna run watch --parallel",
-        "lint": "lerna run lint  --parallel",
+        "lint": "lerna run lint  --parallel --no-bail",
         "new-version": "lerna version --conventional-commits --no-push"
     },
     "devDependencies": {
