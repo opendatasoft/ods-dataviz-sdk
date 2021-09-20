@@ -7,9 +7,16 @@ const API_KEY_AUTH_TYPE = 'ApiKey';
 
 // Using the UMD bundle in ObservableHQ, the error "ReferenceError: global is not defined" is returned.
 // ... I'm not sure why it behaves that way, but this fixes the issue:
-const _global: any = typeof global !== "undefined" ? global :
-    typeof self !== "undefined" ? self :
-    typeof window !== "undefined" ? window : {};
+const _global: any =
+    typeof global !== 'undefined'
+        ? global
+        : // eslint-disable-next-line no-restricted-globals
+        typeof self !== 'undefined'
+        ? // eslint-disable-next-line no-restricted-globals
+          self
+        : typeof window !== 'undefined'
+        ? window
+        : {};
 
 export type RequestInterceptor = (request: Request) => Promise<Request>;
 export type ResponseInterceptor = (response: Response) => Promise<ApiResponse>;
