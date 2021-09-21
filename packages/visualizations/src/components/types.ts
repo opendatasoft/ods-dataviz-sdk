@@ -76,11 +76,6 @@ export interface FontConfiguration {
     weight?: string;
 }
 
-export interface PaddingConfiguration {
-    top? : number;
-    bottom? : number;
-}
-
 export interface TicksConfiguration {
     display?: boolean;
     zeroTick?: boolean;
@@ -95,7 +90,10 @@ export interface TitleConfiguration {
     text?: string | string[];
     fullSize?: boolean;
     font? : FontConfiguration;
-    padding? : PaddingConfiguration;
+    padding? : {
+        top? : number;
+        bottom? : number;
+    };
     color?: string;
 }
 
