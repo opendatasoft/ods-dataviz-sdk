@@ -26,7 +26,7 @@
                 <div class="kpi-card__value">
                     {#if options.prefix}<span class="kpi-card__prefix">{options.prefix}</span
                         >{/if}{#if data.loading}<span class="kpi-card__value-loading" />{:else}<span
-                            class="kpi-card__value-number">{formattedValue}</span
+                            class="kpi-card__value-number">{formattedValue} Error</span
                         >{/if}{#if options.suffix}<span class="kpi-card__suffix"
                             >{options.suffix}</span
                         >{/if}
