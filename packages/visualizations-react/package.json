@@ -28,7 +28,7 @@
         "watch": "tsdx watch --verbose",
         "build": "tsdx build",
         "test": "tsdx test --passWithNoTests",
-        "lint": "tsdx lint",
+        "lint": "tsdx lint src test stories",
         "prepare": "tsdx build",
         "size": "size-limit",
         "analyze": "size-limit --why",

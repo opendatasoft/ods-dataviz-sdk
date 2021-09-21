@@ -2,10 +2,10 @@
 
 This package provides components to easily build dashboards and visualizations on top of an Opendatasoft platform. An easy and convenient way to query and get data in components is to use them with the [`@opendatasoft/api-client`](packages/api-client/) package.
 
-- [Installation](#installation)
-- [Get started](#get-started)
-- [Contributing](#contributing)
-- [License](#license)
+-   [Installation](#installation)
+-   [Get started](#get-started)
+-   [Contributing](#contributing)
+-   [License](#license)
 
 > :warning: This package is currently under initial development, and shouldn't be used in any project yet.
 
@@ -30,19 +30,19 @@ yarn add @opendatasoft/visualizations
 Here is a quick example of setting up a visualization as well as using the `@opendatasoft/api-client` package:
 
 ```javascript
-import { ApiClient, fromCatalog } from "@opendatasoft/api-client";
-import { Chart } from "@opendatasoft/visualizations";
+import { ApiClient, fromCatalog } from '@opendatasoft/api-client';
+import { Chart } from '@opendatasoft/visualizations';
 
-const container = document.getElementsByTagName("body")[0];
+const container = document.getElementsByTagName('body')[0];
 
-const client = new ApiClient({ domain: "public" }); // FIXME: Once it's ready, we should use the domain dedicated to the documentation.
+const client = new ApiClient({ domain: 'public' }); // FIXME: Once it's ready, we should use the domain dedicated to the documentation.
 
 const query = fromCatalog()
-    .dataset("worldcitiespop")
+    .dataset('worldcitiespop')
     .aggregates()
     .where("country:'fr'")
-    .groupBy("city as x, population as y")
-    .orderBy("-y")
+    .groupBy('city as x, population as y')
+    .orderBy('-y')
     .limit(10)
     .toString();
 
@@ -53,20 +53,20 @@ client.get(query).then(({ aggregations }) => {
             value: aggregations,
         },
         {
-            type: "bar",
-            xAxis: "x",
-            yAxis: "y",
+            type: 'bar',
+            xAxis: 'x',
+            yAxis: 'y',
             label: "France's most populated cities",
             colorConfiguration: {
                 colors: [
-                    "rgba(254,14,23,0.5)",
-                    "rgba(54,174,23,0.5)",
-                    "rgba(200,74,223,0.5)",
-                    "rgba(255,255,23,0.5)",
-                    "rgba(54,74,223,0.5)",
+                    'rgba(254,14,23,0.5)',
+                    'rgba(54,174,23,0.5)',
+                    'rgba(200,74,223,0.5)',
+                    'rgba(255,255,23,0.5)',
+                    'rgba(54,74,223,0.5)',
                 ],
             },
-        },
+        }
     );
 });
 ```
