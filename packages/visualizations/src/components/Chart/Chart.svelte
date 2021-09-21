@@ -1,7 +1,6 @@
 <script lang="ts">
     import * as ChartJs from 'chart.js';
     import type { Async } from '../../types';
-    import Placeholder from './Placeholder.svelte';
     import type {
         ChartOptions,
         ChartSeries,
@@ -11,6 +10,7 @@
         FillConfiguration,
     } from '../types';
     import type { Options as DataLabelsOptions } from 'chartjs-plugin-datalabels/types/options';
+    import type { _DeepPartialObject } from 'chart.js/types/utils';
     export let data: Async<DataFrame>;
     export let options: ChartOptions;
 
@@ -19,7 +19,7 @@
         if (!ctx) throw new Error('Failed to get canvas context');
         const chart = new ChartJs.Chart(ctx, config);
         return {
-            update(config: ChartJs.ChartConfiguration) {
+            update() {
                 chart.update();
             },
             destroy() {
@@ -146,7 +146,7 @@
                 grid: {
                     display: defaultValue(options?.xAxis?.gridLines?.display, true),
                 },
-            };
+            } as _DeepPartialObject<ChartJs.CartesianScaleOptions>;
         }
         if (options.yAxis) {
             chartOptions.scales['y'] = {
@@ -160,12 +160,12 @@
                 grid: {
                     display: defaultValue(options?.yAxis?.gridLines?.display, true),
                 },
-            };
+            } as _DeepPartialObject<ChartJs.CartesianScaleOptions>;
         }
         if (options.rAxis) {
             chartOptions.scales['r'] = {
                 beginAtZero: defaultValue(options?.rAxis?.beginAtZero, true),
-            };
+            } as _DeepPartialObject<ChartJs.RadialLinearScaleOptions>;
         }
         chartOptions.plugins = {
             legend: {
@@ -203,14 +203,10 @@
 </script>
 
 <div class="chart-container">
-    {#if data.loading}
-        Loading...
-    {:else if data.error}
+    {#if data.error}
         Error : {JSON.stringify(data.error)}
     {:else if options}
         <canvas use:chartJs={chartConfig} role="img" aria-label={options.ariaLabel} />
-    {:else}
-        <Placeholder />
     {/if}
 </div>
 

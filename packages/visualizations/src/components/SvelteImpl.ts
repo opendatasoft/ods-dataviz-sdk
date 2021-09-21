@@ -1,8 +1,9 @@
 import type { SvelteComponent } from 'svelte';
 import { BaseComponent } from '../types';
 
-export abstract class SvelteImpl<Data, Options> extends BaseComponent<Data, Options> {
+export default abstract class SvelteImpl<Data, Options> extends BaseComponent<Data, Options> {
     protected abstract getSvelteComponentClass(): typeof SvelteComponent;
+
     private svelteComponent: SvelteComponent | undefined;
 
     protected onCreate() {
