@@ -1,8 +1,8 @@
 <script lang="ts" context="module">
-    import type { MarkdownTextOptions } from '../types';
-    import type { Async } from '../../types';
     import MarkdownIt from 'markdown-it';
     import MarkdownItMark from 'markdown-it-mark';
+    import type { MarkdownTextOptions } from '../types';
+    import type { Async } from '../../types';
 
     const md = new MarkdownIt().use(MarkdownItMark);
 </script>

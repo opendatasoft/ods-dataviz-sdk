@@ -7,12 +7,16 @@ module.exports = {
     parser: '@typescript-eslint/parser',
     parserOptions: {
         project: './tsconfig.json',
+        extraFileExtensions: ['.svelte'],
     },
     plugins: ['svelte3', '@typescript-eslint'],
     overrides: [
         {
             files: ['*.svelte'],
             processor: 'svelte3/svelte3',
+            rules: {
+                'import/no-mutable-exports': 'off', // Allowed in svelte
+            },
         },
     ],
     settings: {
