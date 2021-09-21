@@ -1,5 +1,4 @@
-import type { Chart, ChartData, ChartDataset, ArcElement, PieController, PieMetaExtensions } from 'chart.js';
-import type { Pie, Color } from '../types';
+import type { Chart, ArcElement } from 'chart.js';
 
 interface ChartPluginDataLabelArc extends ArcElement {
     // This key comes from `chartjs-plugin-datalabels` (defined in the `EXPANDO_KEY` variable). Since this plugin
