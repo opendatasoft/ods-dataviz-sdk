@@ -4,3 +4,4 @@ node_modules
 dist
 gen
 .eslintrc.js
+package-lock.json

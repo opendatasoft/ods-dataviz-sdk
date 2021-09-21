@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { Async } from '../../types';
     import type { KpiCardOptions } from '../types';
+
     export let data: Async<number>;
     export let options: KpiCardOptions;
 
