@@ -1,13 +1,14 @@
-import type { Plugin } from 'chart.js'
+/* eslint-disable no-underscore-dangle */
+import type { Plugin } from 'chart.js';
 
 const pieDataLabelsPlugin: Plugin<'pie'> = {
     id: 'ods-chartjs-plugin-datalabels',
     afterDraw: (chart) => {
-        const ctx = chart.ctx;
+        const { ctx } = chart;
         ctx.save();
 
         const chartCenterPoint = {
-            x: (chart.chartArea.right - chart.chartArea.left) / 2 +  chart.chartArea.left,
+            x: (chart.chartArea.right - chart.chartArea.left) / 2 + chart.chartArea.left,
             y: (chart.chartArea.bottom - chart.chartArea.top) / 2 + chart.chartArea.top,
         };
 
@@ -34,16 +35,17 @@ const pieDataLabelsPlugin: Plugin<'pie'> = {
             // FIXME: As warn by chartjs-plugin-datalabels, we should not access private properties or methods starting
             // ... with `$` or `_`.  The implementation can change at any version and could break.
             if (arc.$datalabels[0]._model?.offset) {
-                datalabelsOffset = arc.$datalabels[0]._model.offset
-            } ;
+                datalabelsOffset = arc.$datalabels[0]._model.offset;
+            }
 
             // Get a first drawing point
             const point1X = chartCenterPoint.x + Math.cos(angle) * (arc.outerRadius - 8);
-            let point1Y = chartCenterPoint.y + Math.sin(angle) * (arc.outerRadius - 8);
+            const point1Y = chartCenterPoint.y + Math.sin(angle) * (arc.outerRadius - 8);
             // Get the second point depending of its position
             const point2X =
                 chartCenterPoint.x + Math.cos(angle) * (arc.outerRadius + 4 + datalabelsOffset);
-            let point2Y = chartCenterPoint.y + Math.sin(angle) * (arc.outerRadius + 4 + datalabelsOffset);
+            const point2Y =
+                chartCenterPoint.y + Math.sin(angle) * (arc.outerRadius + 4 + datalabelsOffset);
 
             // Draw line between center of the slice and label
             if (backgroundColor?.[i]) {
