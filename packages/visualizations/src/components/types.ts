@@ -73,15 +73,7 @@ export interface LegendConfiguration {
 
 export interface FontConfiguration {
     size?: number;
-}
-
-export interface FontConfiguration {
-    size?: number;
     weight?: string;
-    padding?: {
-        top : number;
-        bottom : number;
-    }
 }
 
 export interface PaddingConfiguration {
@@ -122,7 +114,7 @@ export interface DataLabelsConfiguration {
     align?: ((index:number, context:{ dataFrame:DataFrame }) => 'bottom' | 'center' | 'end' | 'left' | 'right' | 'start' | 'top' | number);
     anchor?: ((index:number, context:{ dataFrame:DataFrame }) => 'center' | 'end' | 'start');
     backgroundColor?: Color;
-    color?: (context: Context) => Color;
+    color?: Color;
     borderRadius?: number;
     offset?: number;
     formatter?: (index:number, context:{ dataFrame:DataFrame }) => string | string[];
