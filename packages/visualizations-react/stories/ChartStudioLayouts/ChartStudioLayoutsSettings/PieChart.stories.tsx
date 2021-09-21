@@ -1,4 +1,4 @@
-import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { ChartOptions, DataFrame, compactStringOrNumber } from '@opendatasoft/visualizations';
 import { Props } from '../../../src';
 import { styleForLayouts } from '../../utils';
 
@@ -67,8 +67,10 @@ export const PieTitleSectorsNameValue: Props<DataFrame, ChartOptions> = {
                 ],
                 dataLabels: {
                     display: true,
-                    formatter: function (index, dataFrame ) {
-                        return [`${dataFrame[index].x}`, `${dataFrame[index].y}`];
+                    formatter: function (index, { dataFrame }) {
+                        const xData = compactStringOrNumber(dataFrame[index].x);
+                        const yData = compactStringOrNumber(dataFrame[index].y);
+                        return [xData, yData];
                     },
                 },
             },
