@@ -13,7 +13,6 @@ export const _ChartJs = ChartJs;
 // eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle
 export const _ChartDataLabels = ChartDataLabels;
 export default class Chart extends SvelteImpl<DataFrame, ChartOptions> {
-    // eslint-disable-next-line class-methods-use-this
     protected getSvelteComponentClass(): typeof ChartImpl {
         return ChartImpl;
     }
