@@ -1,3 +1,4 @@
+import React from 'react';
 import { Meta } from '@storybook/react';
 import { KpiCard } from '../../src';
 import { COLORS, CONTROLS, IMAGES } from '../utils';

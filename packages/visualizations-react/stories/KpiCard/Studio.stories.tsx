@@ -1,3 +1,4 @@
+import React from 'react';
 import { Async, KpiCardOptions } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { KpiCard, Props } from '../../src';
