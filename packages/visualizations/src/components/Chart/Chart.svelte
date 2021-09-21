@@ -1,5 +1,7 @@
 <script lang="ts">
     import * as ChartJs from 'chart.js';
+    import type { Options as DataLabelsOptions } from 'chartjs-plugin-datalabels/types/options';
+    import type { _DeepPartialObject } from 'chart.js/types/utils';
     import type { Async } from '../../types';
     import type {
         ChartOptions,
@@ -9,8 +11,7 @@
         DataLabelsConfiguration,
         FillConfiguration,
     } from '../types';
-    import type { Options as DataLabelsOptions } from 'chartjs-plugin-datalabels/types/options';
-    import type { _DeepPartialObject } from 'chart.js/types/utils';
+
     export let data: Async<DataFrame>;
     export let options: ChartOptions;
 
@@ -28,8 +29,8 @@
         };
     }
 
-    function defaultValue<T>(value: T | undefined, defaultValue: T): T {
-        if (value === undefined) return defaultValue;
+    function defaultValue<T>(value: T | undefined, fallback: T): T {
+        if (value === undefined) return fallback;
         return value;
     }
 
@@ -38,7 +39,9 @@
     }
 
     function chartJsColorSingle(color?: Color) {
-        return color === undefined ? undefined : typeof color === 'string' ? color : color[0];
+        if (color === undefined) return undefined;
+        if (typeof color === 'string') return color;
+        return color[0];
     }
 
     function chartJsFill(fill: FillConfiguration | undefined) {
@@ -113,10 +116,10 @@
             };
         }
 
-        throw new Error('Unknown chart type: ' + (series as any).type);
+        throw new Error(`Unknown chart type: ${(series as any).type}`);
     }
 
-    let chartConfig: ChartJs.ChartConfiguration = {
+    const chartConfig: ChartJs.ChartConfiguration = {
         type: options.series[0]?.type || 'line',
         data: {
             labels: [],
@@ -127,7 +130,7 @@
 
     $: {
         chartConfig.type = defaultValue(options.series[0]?.type, 'line'); // Will set chartJs default value accordingly
-        let chartOptions = chartConfig.options || {};
+        const chartOptions = chartConfig.options || {};
         chartOptions.aspectRatio = options.aspectRatio;
         chartOptions.maintainAspectRatio = options.maintainAspectRatio;
         chartOptions.scales = {};
@@ -135,7 +138,7 @@
             padding: options.padding,
         };
         if (options.xAxis) {
-            chartOptions.scales['x'] = {
+            chartOptions.scales.x = {
                 type: options?.xAxis?.type,
                 display: options?.xAxis?.display,
                 title: {
@@ -149,7 +152,7 @@
             } as _DeepPartialObject<ChartJs.CartesianScaleOptions>;
         }
         if (options.yAxis) {
-            chartOptions.scales['y'] = {
+            chartOptions.scales.y = {
                 type: options?.yAxis?.type,
                 display: options?.yAxis?.display,
                 title: {
@@ -163,7 +166,7 @@
             } as _DeepPartialObject<ChartJs.CartesianScaleOptions>;
         }
         if (options.rAxis) {
-            chartOptions.scales['r'] = {
+            chartOptions.scales.r = {
                 beginAtZero: defaultValue(options?.rAxis?.beginAtZero, true),
             } as _DeepPartialObject<ChartJs.RadialLinearScaleOptions>;
         }
@@ -188,7 +191,7 @@
 
     let dataFrame: DataFrame = [];
     let series: ChartSeries[] = [];
-    let labelColumn: string = options.labelColumn;
+    let { labelColumn } = options;
 
     $: {
         dataFrame = data.value || [];
@@ -198,7 +201,7 @@
 
     $: {
         chartConfig.data.labels = dataFrame.map((entry) => entry[labelColumn]);
-        chartConfig.data.datasets = series.map((series) => toDataset(dataFrame, series));
+        chartConfig.data.datasets = series.map((s) => toDataset(dataFrame, s));
     }
 </script>
 

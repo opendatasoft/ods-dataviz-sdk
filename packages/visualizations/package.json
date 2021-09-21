@@ -22,7 +22,8 @@
         "test": "echo \"No test specified\"",
         "lint": "run-p lint:* -c",
         "lint:eslint": "eslint .",
-        "lint:svelte": "svelte-check"
+        "lint:svelte": "svelte-check",
+        "lint:prettier": "prettier --check ."
     },
     "prettier": {
         "printWidth": 100,
