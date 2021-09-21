@@ -1,6 +1,6 @@
-import { ChartOptions, DataFrame, MarkdownTextOptions } from '@opendatasoft/visualizations';
-import { Meta, Story } from '@storybook/react';
 import React from 'react';
+import { MarkdownTextOptions } from '@opendatasoft/visualizations';
+import { Meta, Story } from '@storybook/react';
 import type { Props } from '../src';
 import { MarkdownText } from '../src';
 
