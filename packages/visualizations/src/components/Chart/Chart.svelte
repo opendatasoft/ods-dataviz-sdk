@@ -11,6 +11,7 @@
         DataLabelsConfiguration,
         FillConfiguration,
     } from '../types';
+    import { compactStringOrNumber } from '../../utils';
     import pieDataLabelsPlugin from './pieDataLabelsPlugin';
 
     export let data: Async<DataFrame>;
@@ -41,35 +42,45 @@
 
     /** The two functions below are handling the focus on the right part of the Pie Chart on hover on the legend
      * and requires that every data in the Pie Chart must have a unique color */
-    function handleHoverPieChart(evt:any, item:any, legend:any) {
-        legend.chart.data.datasets[0].backgroundColor.forEach(
-            (color: any, index: any, colors: any) => {
-                if (color.length === 7) {
-                    colors[index] = index === item.index ? color : color + '4D';
-                } else if (color.slice(0, 3) === 'rgb') {
-                    colors[index] = index === item.index ? color : color.slice(0, -1) + ',0.3)';
+    const handleHoverPieChart: ChartJs.LegendOptions<'pie'>['onHover'] = (_, item, legend) => {
+        const backgroundColor = legend.chart.data.datasets[0]?.backgroundColor as string[] | undefined;
+
+        if (backgroundColor) {
+            backgroundColor.forEach(
+                (color: any, index: any, colors: any) => {
+                    if (color.length === 7) {
+                        colors[index] = index === (item as any).index ? color : color + '4D';
+                    } else if (color.slice(0, 3) === 'rgb') {
+                        colors[index] = index === (item as any).index ? color : color.slice(0, -1) + ',0.3)';
+                    }
                 }
-            }
-        );
+            );
+        }
+
         const chart = legend.chart;
         const tooltip = chart.tooltip;
         const chartArea = chart.chartArea;
-        tooltip.setActiveElements(
-            [
+
+        if (tooltip) {
+            // FIXME: `TooltipModel` doesn't have a `setActiveElements` method.
+            (tooltip as any).setActiveElements(
+                [
+                    {
+                        datasetIndex: 0,
+                        index: (item as any).index,
+                    },
+                ],
                 {
-                    datasetIndex: 0,
-                    index: item.index,
-                },
-            ],
-            {
-                x: (chartArea.left + chartArea.right) / 2,
-                y: (chartArea.top + chartArea.bottom) / 2,
-            }
-        );
+                    x: (chartArea.left + chartArea.right) / 2,
+                    y: (chartArea.top + chartArea.bottom) / 2,
+                }
+            );
+        }
+
         legend.chart.update();
     }
 
-    function handleLeavePieChart(evt: any, item: any, legend: any) {
+    function handleLeavePieChart(_evt: any, _item: any, legend: any) {
         legend.chart.data.datasets[0].backgroundColor.forEach(
             (color: any, index: any, colors: any) => {
                 if (color.length === 9) {
@@ -83,71 +94,36 @@
     }
 
     // The function below displays the "0" tick on the chart
-    function displayZeroTick(this: any, val: string | number) {
-        if (val === 0) {
-            return this.getLabelForValue(val);
+    function displayZeroTick(this: ChartJs.Scale, tickValue: number | string) {
+        if (tickValue === 0) {
+            return this.getLabelForValue(tickValue);
         }
         return '';
     }
 
-    /** The functions below are handling the format and display of too long strings or big numbers
-     * for the ticks, legends and datalabels, They are implemented by default to make an easier chart implementation. */
-
-    // The formatter variable will display the right number format according to a locale variable
-    const formatter = new Intl.NumberFormat('fr', {
-        notation: 'compact',
-    });
-
-    // This is a generic function that checks if the value is a string or a number and returns a formatted version
-    function formatStringOrNumber(value: any) {
-        if (isNaN(value)) {
-            if (value.length > 10) {
-                return value.slice(0, 10) + '...';
-            } else {
-                return value;
-            }
-        } else {
-            return formatter.format(value).toString();
-        }
-    }
-
     // The ticks format handler depends of type of axis and return the formatted value
-    function handleLongTicksLabel(this: any, value: any, index: number, values: []) {
+    function handleLongTicksLabel(this: any, value: any) {
         if (this.type === 'linear' || this.type === 'radialLinear') {
-            return formatStringOrNumber(value);
+            return compactStringOrNumber(value);
         } else if (this.type === 'category') {
-            return formatStringOrNumber(this.getLabelForValue(value));
+            return compactStringOrNumber(this.getLabelForValue(value));
         } else {
-            return formatStringOrNumber(value);
+            return compactStringOrNumber(value);
         }
     }
 
     // The legend format handler is set upon the chartjs filter method, sets legend text and return always true
-    function handleLongLegendLabel(item: any, data: any) {
-        item.text = formatStringOrNumber(item.text);
+    function handleLongLegendLabel(item: any) {
+        item.text = compactStringOrNumber(item.text);
         return true;
     }
 
     // The legend with value format handler is set upon the chartjs filter method, sets legend text after formatting text and value separately
     function handleLongLegendWithValuesLabel(item: any, data: any) {
-        const firstLabel = formatStringOrNumber(item.text);
-        const secondLabel = formatStringOrNumber(data.datasets[0].data[item.index]);
+        const firstLabel = compactStringOrNumber(item.text);
+        const secondLabel = compactStringOrNumber(data.datasets[0].data[item.index]);
         item.text = `${firstLabel} - ${secondLabel}`;
         return true;
-    }
-
-    /**  The datalabels displaying x and y labels handler, creates a new formatted array of value to send to datalabels formatter
-     * We need to recreate a new array in the particular case where the datalabels will display both text and values from x and y data */
-    function handleLongDataLabels(dataFrame: DataFrame) {
-        const formattedDataFrame: DataFrame = [];
-
-        for (let i = 0; i < dataFrame.length; i++) {
-            let xData = formatStringOrNumber(dataFrame[i].x);
-            let yData = formatStringOrNumber(dataFrame[i].y);
-
-            formattedDataFrame.push({ x: xData, y: yData });
-        }
-        return formattedDataFrame;
     }
 
     function chartJsColorSingle(color?: Color) {
@@ -170,47 +146,18 @@
         const formatter = dataLabels.formatter;
         const aligner = dataLabels.align;
         const anchorer = dataLabels.anchor;
+
         return {
-            align: aligner
-                ? (context) => {
-                      return aligner(context.dataIndex, { dataFrame });
-                  }
-                : 'end',
-            anchor: anchorer
-                ? (context) => {
-                      return anchorer(context.dataIndex, { dataFrame });
-                  }
-                : 'end',
+            align: aligner ? (context) => aligner(context.dataIndex, { dataFrame }) : 'end',
+            anchor: anchorer ? (context) => anchorer(context.dataIndex, { dataFrame }) : 'end',
             display: defaultValue(dataLabels.display, false),
-            color: (context) => {
-                if (context.dataset.borderColor) {
-                    return context.dataset.borderColor;
-                } else if (dataLabels.color) {
-                    return chartJsColorPalette(dataLabels.color);
-                } else {
-                    return 'rgb(0, 0, 0)';
-                }
-            },
-            backgroundColor: (context) => {
-                if (options.series[0]?.type === 'pie') {
-                    return context.dataset.backgroundColor[context.dataIndex];
-                } else {
-                    defaultValue(
-                        chartJsColorPalette(dataLabels.backgroundColor),
-                        'rgb(255,255,255)'
-                    );
-                }
-            },
+            color: defaultValue(dataLabels.color, 'rgb(0,0,0)'),
+            backgroundColor: defaultValue(dataLabels.backgroundColor, 'rgb(255,255,255)'),
             offset: defaultValue(dataLabels.offset, 4),
             borderRadius: defaultValue(dataLabels.borderRadius, 3),
             formatter: formatter
-                ? (value, context) => {
-                      const formattedDataFrame = handleLongDataLabels(dataFrame);
-                      return formatter(context.dataIndex, formattedDataFrame);
-                  }
-                : (value, context) => {
-                      return formatStringOrNumber(value);
-                  },
+                ? (_, context) => formatter(context.dataIndex, { dataFrame })
+                : (value) => compactStringOrNumber(value),
             padding: defaultValue(dataLabels.padding, 4),
         };
     }
@@ -499,7 +446,7 @@
         chartConfig.options = chartOptions;
 
         if (series[0].type === 'pie' && series[0].dataLabels?.display) {
-            chartConfig.plugins.push(pieDataLabelsPlugin);
+            chartConfig?.plugins?.push(pieDataLabelsPlugin);
         }
     }
 
@@ -515,7 +462,7 @@
 
     $: {
         chartConfig.data.labels = dataFrame.map((entry) =>
-            formatStringOrNumber(entry[labelColumn])
+            compactStringOrNumber(entry[labelColumn])
         );
         chartConfig.data.datasets = series.map((s) => toDataset(dataFrame, s));
     }
