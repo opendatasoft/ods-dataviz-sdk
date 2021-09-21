@@ -6,7 +6,9 @@ export interface Async<T> {
 
 export abstract class BaseComponent<Data, Options> {
     readonly container: HTMLElement;
+
     protected data: Async<Data>;
+
     protected options: Options;
 
     constructor(container: HTMLElement, data: Async<Data>, options: Options) {
@@ -33,7 +35,10 @@ export abstract class BaseComponent<Data, Options> {
     }
 
     protected abstract onCreate(): void;
+
     protected abstract onDataUpdated(oldData: Async<Data>): void;
+
     protected abstract onOptionsUpdated(oldOptions: Options): void;
+
     protected abstract onDestroy(): void;
 }
