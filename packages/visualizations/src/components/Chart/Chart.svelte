@@ -11,7 +11,7 @@
         DataLabelsConfiguration,
         FillConfiguration,
     } from '../types';
-    import { pieDataLabelsPlugin } from './piechartplugins';
+    import pieDataLabelsPlugin from './pieDataLabelsPlugin';
 
     export let data: Async<DataFrame>;
     export let options: ChartOptions;
