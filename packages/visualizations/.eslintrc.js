@@ -18,5 +18,7 @@ module.exports = {
     settings: {
         'svelte3/typescript': true,
     },
-    rules: {},
+    rules: {
+        'class-methods-use-this': 'off', // False positives with abstract methods
+    },
 };
