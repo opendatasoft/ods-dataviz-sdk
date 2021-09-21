@@ -13,10 +13,9 @@ export const pieDataLabelsPlugin = {
     afterDraw: (chart: Chart) => {
         const ctx = chart.ctx;
         ctx.save();
+
         const chartCenterPoint = {
-            x:
-                (chart.chartArea.right - chart.chartArea.left) / 2 +
-                chart.chartArea.left,
+            x: (chart.chartArea.right - chart.chartArea.left) / 2 + chart.chartArea.left,
             y: (chart.chartArea.bottom - chart.chartArea.top) / 2 + chart.chartArea.top,
         };
 
