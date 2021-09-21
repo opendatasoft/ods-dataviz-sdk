@@ -1,5 +1,6 @@
 <script lang="ts">
     import * as ChartJs from 'chart.js';
+    import type { Color as ChartJSColor } from 'chart.js';
     import type { Options as DataLabelsOptions } from 'chartjs-plugin-datalabels/types/options';
     import type { _DeepPartialObject } from 'chart.js/types/utils';
     import type { Async } from '../../types';
@@ -11,9 +12,37 @@
         DataLabelsConfiguration,
         FillConfiguration,
     } from '../types';
+    import type { Context } from 'chartjs-plugin-datalabels';
     import { pieDataLabelsPlugin } from './piechartplugins';
     export let data: Async<DataFrame>;
     export let options: ChartOptions;
+
+    let dataFrame: DataFrame = [];
+    let series: ChartSeries[] = [];
+    let { labelColumn } = options;
+
+    const chartConfig: ChartJs.ChartConfiguration = {
+        type: options.series[0]?.type || 'line',
+        data: {
+            labels: [],
+            datasets: [],
+        },
+        options: {},
+        plugins: [],
+    };
+
+    $: {
+        dataFrame = data.value || [];
+        series = options.series;
+        labelColumn = options.labelColumn;
+    }
+
+    $: {
+        chartConfig.data.labels = dataFrame.map((entry) =>
+            formatStringOrNumber(entry[labelColumn])
+        );
+        chartConfig.data.datasets = series.map((series) => toDataset(dataFrame, series));
+    }
 
     function chartJs(node: HTMLCanvasElement, config: ChartJs.ChartConfiguration) {
         const ctx = node.getContext('2d');
@@ -40,7 +69,7 @@
 
     /** The two functions below are handling the focus on the right part of the Pie Chart on hover on the legend
      * and requires that every data in the Pie Chart must have a unique color */
-    function handleHoverPieChart(evt:any, item:any, legend:any) {
+    function handleHoverPieChart(_evt:any, item:any, legend:any) {
         legend.chart.data.datasets[0].backgroundColor.forEach(
             (color: any, index: any, colors: any) => {
                 if (color.length === 7) {
@@ -68,7 +97,7 @@
         legend.chart.update();
     }
 
-    function handleLeavePieChart(evt: any, item: any, legend: any) {
+    function handleLeavePieChart(_evt: any, _item: any, legend: any) {
         legend.chart.data.datasets[0].backgroundColor.forEach(
             (color: any, index: any, colors: any) => {
                 if (color.length === 9) {
@@ -111,7 +140,7 @@
     }
 
     // The ticks format handler depends of type of axis and return the formatted value
-    function handleLongTicksLabel(this: any, value: any, index: number, values: []) {
+    function handleLongTicksLabel(this: any, value: any) {
         if (this.type === 'linear' || this.type === 'radialLinear') {
             return formatStringOrNumber(value);
         } else if (this.type === 'category') {
@@ -122,7 +151,7 @@
     }
 
     // The legend format handler is set upon the chartjs filter method, sets legend text and return always true
-    function handleLongLegendLabel(item: any, data: any) {
+    function handleLongLegendLabel(item: any) {
         item.text = formatStringOrNumber(item.text);
         return true;
     }
@@ -169,47 +198,47 @@
         const formatter = dataLabels.formatter;
         const aligner = dataLabels.align;
         const anchorer = dataLabels.anchor;
+
         return {
             align: aligner
-                ? (context) => {
-                      return aligner(context.dataIndex, { dataFrame });
-                  }
-                : 'end',
+                ? (context: Context) => {
+                    return aligner(context.dataIndex, { dataFrame });
+                } : 'end',
             anchor: anchorer
-                ? (context) => {
-                      return anchorer(context.dataIndex, { dataFrame });
-                  }
-                : 'end',
+                ? (context: Context) => {
+                    return anchorer(context.dataIndex, { dataFrame });
+                } : 'end',
             display: defaultValue(dataLabels.display, false),
-            color: (context) => {
+            color : (context: Context) => {
                 if (context.dataset.borderColor) {
-                    return context.dataset.borderColor;
+                    return context.dataset.borderColor as ChartJSColor;
                 } else if (dataLabels.color) {
-                    return chartJsColorPalette(dataLabels.color);
+                    return dataLabels.color as unknown as ChartJSColor;
                 } else {
                     return 'rgb(0, 0, 0)';
                 }
             },
-            backgroundColor: (context) => {
+            backgroundColor: (context: Context): ChartJSColor => {
                 if (options.series[0]?.type === 'pie') {
-                    return context.dataset.backgroundColor[context.dataIndex];
+                    const backgroundColor = context.dataset.backgroundColor as string[];
+                    return backgroundColor[context.dataIndex] as ChartJSColor;
                 } else {
-                    defaultValue(
+                    return defaultValue(
                         chartJsColorPalette(dataLabels.backgroundColor),
                         'rgb(255,255,255)'
-                    );
+                    ) as ChartJSColor;
                 }
             },
             offset: defaultValue(dataLabels.offset, 4),
             borderRadius: defaultValue(dataLabels.borderRadius, 3),
             formatter: formatter
-                ? (value, context) => {
-                      const formattedDataFrame = handleLongDataLabels(dataFrame);
-                      return formatter(context.dataIndex, formattedDataFrame);
+                ? (_, context) => {
+                    const formattedDataFrame = handleLongDataLabels(dataFrame);
+                    return formatter(context.dataIndex, formattedDataFrame);
                   }
-                : (value, context) => {
-                      return formatStringOrNumber(value);
-                  },
+                : (value) => {
+                    return formatStringOrNumber(value);
+                },
             padding: defaultValue(dataLabels.padding, 4),
         };
     }
@@ -275,16 +304,6 @@
         throw new Error(`Unknown chart type: ${(series as any).type}`);
     }
 
-    const chartConfig: ChartJs.ChartConfiguration = {
-        type: options.series[0]?.type || 'line',
-        data: {
-            labels: [],
-            datasets: [],
-        },
-        options: {},
-        plugins: [],
-    };
-
     $: {
         chartConfig.type = defaultValue(options.series[0]?.type, 'line'); // Will set chartJs default value accordingly
         let chartOptions = chartConfig.options || {};
@@ -318,7 +337,7 @@
                     ),
                     drawBorder: defaultValue(options?.xAxis?.gridLines?.drawBorder, false),
                     ...(gridXColor && {
-                        color: (context, proxy) => {
+                        color: (context, proxy: any) => {
                             /** The code below aims to display the right dark gridline depending on the ticks values:
                              * If there are negative and positive values then the "0" gridline will be displayed
                              * If there are only positive values the dark gridline will be at the bottom
@@ -368,7 +387,7 @@
                     ),
                     drawBorder: defaultValue(options?.yAxis?.gridLines?.drawBorder, false),
                     ...(gridYColor && {
-                        color: (context, proxy) => {
+                        color: (context, proxy: any) => {
                             /** The code below aims to display the right dark gridline depending on the ticks values:
                              * If there are negative and positive values then the "0" gridline will be displayed
                              * If there are only positive values the dark gridline will be at the bottom
@@ -411,7 +430,7 @@
                     ),
                     drawBorder: defaultValue(options?.rAxis?.gridLines?.drawBorder, false),
                     ...(gridRColor && {
-                        color: (context, proxy) => {
+                        color: (context, proxy: any) => {
                             /** The code below aims to display the right dark gridline depending on the ticks values:
                              * If there are negative and positive values then the "0" gridline will be displayed
                              * If there are only positive values the dark gridline will be at the bottom
@@ -464,9 +483,11 @@
                 callbacks: {
                     ...(options.series[0]?.type !== 'pie' && {
                         beforeTitle: (context) => {
-                            return context[0].dataset.label
+                            const { label } = context[0].dataset;
+
+                            return label ? label
                                 .toString()
-                                .replace(/(.*?\s.*?\s.*?\s)/g, '$1'+'\n');
+                                .replace(/(.*?\s.*?\s.*?\s)/g, '$1'+'\n') : '';
                         },
                     }),
                     title: (context) => {
@@ -475,9 +496,17 @@
                             .replace(/(.*?\s.*?\s.*?\s)/g, '$1'+'\n');
                     },
                     label: (context) => {
-                        return context.dataset.data[context.dataIndex]
-                            .toString()
-                            .replace(/(.*?\s.*?\s.*?\s)/g, '$1'+'\n');
+                        const { dataIndex } = context;
+                        const { data } = context.dataset;
+
+                        // FIXME: WTF ?????
+                        if (data !== null && data[dataIndex] !== null) {
+                            return data[dataIndex]!
+                                .toString()
+                                .replace(/(.*?\s.*?\s.*?\s)/g, '$1'+'\n');
+                        }
+
+                        return '';
                     },
                 },
             },
@@ -498,26 +527,10 @@
         chartConfig.options = chartOptions;
 
         if (series[0].type === 'pie' && series[0].dataLabels?.display) {
-            chartConfig.plugins.push(pieDataLabelsPlugin);
+            chartConfig?.plugins?.push(pieDataLabelsPlugin);
         }
     }
 
-    let dataFrame: DataFrame = [];
-    let series: ChartSeries[] = [];
-    let { labelColumn } = options;
-
-    $: {
-        dataFrame = data.value || [];
-        series = options.series;
-        labelColumn = options.labelColumn;
-    }
-
-    $: {
-        chartConfig.data.labels = dataFrame.map((entry) =>
-            formatStringOrNumber(entry[labelColumn])
-        );
-        chartConfig.data.datasets = series.map((s) => toDataset(dataFrame, s));
-    }
 </script>
 
 <div class="chart-container">
