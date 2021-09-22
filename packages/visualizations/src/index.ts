@@ -4,3 +4,4 @@ export { default as KpiCard } from './components/KpiCard';
 export * from './types';
 export * from './components/types';
 export * as svelte from './svelte';
+export * from './utils';
