@@ -71,19 +71,27 @@
             );
         }
         legend.chart.update();
-    }
+    };
 
     const handleLeavePieChart: ChartJs.LegendOptions<'pie'>['onLeave'] = (_evt, _item, legend) => {
         legend.chart.update();
-    }
+    };
 
-    function computeFormatTick(displayTick: TicksConfiguration['display'], type: CartesianAxisConfiguration['type']) {
-        function formatTick(this: ChartJs.Scale, tickValue: number, _index: number, ticks: ChartJs.Tick[]) {
-            const minAbsTickValue = Math.min(...ticks.map(tick =>  Math.abs(tick.value)));
+    function computeFormatTick(
+        displayTick: TicksConfiguration['display'],
+        type: CartesianAxisConfiguration['type']
+    ) {
+        function formatTick(
+            this: ChartJs.Scale,
+            tickValue: number,
+            _index: number,
+            ticks: ChartJs.Tick[]
+        ) {
+            const minAbsTickValue = Math.min(...ticks.map((tick) => Math.abs(tick.value)));
             if (displayTick === 'single' && tickValue !== minAbsTickValue) {
-               return '';
+                return '';
             }
-            if(type === 'category'){
+            if (type === 'category') {
                 return compactStringOrNumber(this.getLabelForValue(tickValue));
             }
             return compactStringOrNumber(tickValue);
@@ -100,10 +108,12 @@
         };
     }
 
-    const computeGridLineColor : ((display: GridLinesConfiguration['display']) => ChartJs.GridLineOptions['color']) = (display) => (context) => {
+    const computeGridLineColor: (
+        display: GridLinesConfiguration['display']
+    ) => ChartJs.GridLineOptions['color'] = (display) => (context) => {
         const ticksAbsoluteValues = context.scale.ticks.map((tick) => Math.abs(tick.value));
         let minAbsoluteTicksIndex = ticksAbsoluteValues.indexOf(Math.min(...ticksAbsoluteValues));
-        if(context.scale.type === 'radialLinear') {
+        if (context.scale.type === 'radialLinear') {
             // On radar, chartjs compute one supplementary grid line
             minAbsoluteTicksIndex--;
         }
@@ -112,7 +122,7 @@
             if (display !== 'single') return 'rgba(0, 0, 0, 0.1)';
         }
         return 'rgba(0, 0, 0, 0)';
-    }
+    };
 
     function chartJsDataLabels(dataLabels: DataLabelsConfiguration | undefined): DataLabelsOptions {
         if (dataLabels === undefined) return { display: false };
@@ -232,12 +242,17 @@
                     display: !!defaultValue(options.xAxis?.gridLines?.display, true),
                     offset: false,
                     drawBorder: false,
-                    color: computeGridLineColor(defaultValue(options.xAxis?.gridLines?.display, true)),
+                    color: computeGridLineColor(
+                        defaultValue(options.xAxis?.gridLines?.display, true)
+                    ),
                 },
                 ticks: {
                     display: !!defaultValue(options?.xAxis?.ticks?.display, true),
                     color: defaultValue(options?.xAxis?.ticks?.color, 'rgb(86, 86, 86)'),
-                    callback: computeFormatTick(defaultValue(options?.xAxis?.ticks?.display, true), options?.xAxis?.type),
+                    callback: computeFormatTick(
+                        defaultValue(options?.xAxis?.ticks?.display, true),
+                        options?.xAxis?.type
+                    ),
                 },
             } as _DeepPartialObject<ChartJs.CartesianScaleOptions>;
         }
@@ -258,12 +273,20 @@
                 grid: {
                     display: !!defaultValue(options.yAxis?.gridLines?.display, true),
                     drawBorder: false,
-                    color: computeGridLineColor(defaultValue(options.yAxis?.gridLines?.display, true)),
+                    color: computeGridLineColor(
+                        defaultValue(options.yAxis?.gridLines?.display, true)
+                    ),
                 },
                 ticks: {
                     display: !!defaultValue(options?.yAxis?.ticks?.display, true),
-                    color: defaultValue(singleChartJsColor(options?.yAxis?.ticks?.color), 'rgb(86, 86, 86)'),
-                    callback: computeFormatTick(defaultValue(options?.yAxis?.ticks?.display, true), options?.yAxis?.type),
+                    color: defaultValue(
+                        singleChartJsColor(options?.yAxis?.ticks?.color),
+                        'rgb(86, 86, 86)'
+                    ),
+                    callback: computeFormatTick(
+                        defaultValue(options?.yAxis?.ticks?.display, true),
+                        options?.yAxis?.type
+                    ),
                 },
             } as _DeepPartialObject<ChartJs.CartesianScaleOptions>;
         }
@@ -273,13 +296,18 @@
                 ticks: {
                     display: defaultValue(options?.rAxis?.ticks?.display, true),
                     color: defaultValue(options?.rAxis?.ticks?.color, 'rgb(86, 86, 86)'),
-                    callback: computeFormatTick(defaultValue(options?.rAxis?.ticks?.display, true), undefined),
+                    callback: computeFormatTick(
+                        defaultValue(options?.rAxis?.ticks?.display, true),
+                        undefined
+                    ),
                 },
                 grid: {
                     display: defaultValue(options.rAxis?.gridLines?.display, true),
                     drawBorder: false,
                     offset: false,
-                    color: computeGridLineColor(defaultValue(options.rAxis?.gridLines?.display, true)),
+                    color: computeGridLineColor(
+                        defaultValue(options.rAxis?.gridLines?.display, true)
+                    ),
                 },
             } as _DeepPartialObject<ChartJs.RadialLinearScaleOptions>;
         }
@@ -293,10 +321,15 @@
                 labels: {
                     filter: (item) => {
                         const formatter = options?.legend?.labels?.formatter;
-                        const index = (typeof (item as any).index === 'number')  ? (item as any).index : item.datasetIndex;
-                        item.text = formatter ? formatter(index, { dataFrame }) : compactStringOrNumber(item.text);
+                        const index =
+                            typeof (item as any).index === 'number'
+                                ? (item as any).index
+                                : item.datasetIndex;
+                        item.text = formatter
+                            ? formatter(index, { dataFrame })
+                            : compactStringOrNumber(item.text);
                         return true;
-                    }
+                    },
                 },
             },
             title: {
@@ -320,10 +353,19 @@
                 callbacks: {
                     ...(options.series[0]?.type !== 'pie' && {
                         // Add series name
-                        beforeTitle: (items) => items[0].dataset?.label?.toString().replace(/(.*?\s.*?\s.*?\s)/g, '$1'+'\n') || '',
+                        beforeTitle: (items) =>
+                            items[0].dataset?.label
+                                ?.toString()
+                                .replace(/(.*?\s.*?\s.*?\s)/g, '$1' + '\n') || '',
                     }),
-                    title: (items) => dataFrame[items[0].dataIndex][labelColumn]?.toString().replace(/(.*?\s.*?\s.*?\s)/g, '$1'+'\n') || '',
-                    label: (item) => item.dataset.data[item.dataIndex]?.toString().replace(/(.*?\s.*?\s.*?\s)/g, '$1'+'\n') || '',
+                    title: (items) =>
+                        dataFrame[items[0].dataIndex][labelColumn]
+                            ?.toString()
+                            .replace(/(.*?\s.*?\s.*?\s)/g, '$1' + '\n') || '',
+                    label: (item) =>
+                        item.dataset.data[item.dataIndex]
+                            ?.toString()
+                            .replace(/(.*?\s.*?\s.*?\s)/g, '$1' + '\n') || '',
                 },
             },
             subtitle: {

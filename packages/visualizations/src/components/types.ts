@@ -43,7 +43,7 @@ export interface AxisTitleConfiguration {
     align?: 'start' | 'center' | 'end';
     text?: string;
     color?: Color;
-    font? : FontConfiguration;
+    font?: FontConfiguration;
 }
 
 export interface RadialAxisConfiguration {
@@ -79,23 +79,26 @@ export interface TitleConfiguration {
     align?: 'start' | 'center' | 'end';
     text?: string | string[];
     fullSize?: boolean;
-    font? : FontConfiguration;
-    padding? : {
-        top? : number;
-        bottom? : number;
+    font?: FontConfiguration;
+    padding?: {
+        top?: number;
+        bottom?: number;
     };
     color?: Color;
 }
 
 export interface DataLabelsConfiguration {
     display?: boolean | 'auto';
-    align?: ((index:number, context:{ dataFrame:DataFrame }) => 'bottom' | 'center' | 'end' | 'left' | 'right' | 'start' | 'top' | number);
-    anchor?: ((index:number, context:{ dataFrame:DataFrame }) => 'center' | 'end' | 'start');
+    align?: (
+        index: number,
+        context: { dataFrame: DataFrame }
+    ) => 'bottom' | 'center' | 'end' | 'left' | 'right' | 'start' | 'top' | number;
+    anchor?: (index: number, context: { dataFrame: DataFrame }) => 'center' | 'end' | 'start';
     backgroundColor?: Color;
     color?: Color;
     borderRadius?: number;
     offset?: number;
-    formatter?: (index:number, context:{ dataFrame:DataFrame }) => string | string[];
+    formatter?: (index: number, context: { dataFrame: DataFrame }) => string | string[];
     padding?: number;
 }
 
