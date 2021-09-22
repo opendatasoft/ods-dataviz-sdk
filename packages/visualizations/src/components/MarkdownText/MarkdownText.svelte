@@ -16,7 +16,6 @@
 <div class="markdown-text-container markdown-text-container--align-{options.align}">
     {@html renderedText}
 </div>
-`
 
 <style>
     .markdown-text-container {
