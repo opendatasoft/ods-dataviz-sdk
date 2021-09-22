@@ -44,7 +44,7 @@ export interface AxisTitleConfiguration {
     display?: boolean;
     align?: 'start' | 'center' | 'end';
     text?: string;
-    color?: string;
+    color?: Color;
     font? : FontConfiguration;
 }
 
@@ -73,7 +73,7 @@ export interface FontConfiguration {
 export interface TicksConfiguration {
     display?: boolean;
     zeroTick?: boolean;
-    color?: string;
+    color?: Color;
     callback?: (tickValue: number | string, index: number) => string | number | null | undefined;
 }
 
@@ -88,7 +88,7 @@ export interface TitleConfiguration {
         top? : number;
         bottom? : number;
     };
-    color?: string;
+    color?: Color;
 }
 
 export interface CallbacksConfiguration {
