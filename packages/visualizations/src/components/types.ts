@@ -1,5 +1,3 @@
-import type { Context } from "chartjs-plugin-datalabels";
-
 export interface ChartOptions {
     /** Specify label column in DataFrame */
     labelColumn: string;
