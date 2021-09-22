@@ -6,11 +6,23 @@ export const COLORS = {
     blue: 'rgb(54, 162, 235)',
     purple: 'rgb(153, 102, 255)',
     grey: 'rgb(201, 203, 207)',
+    pink: 'rgb(220,76,115)',
 };
 
 export const style = {
     width: '50%',
     maxWidth: '1000px',
+};
+
+export const styleForLayouts = {
+    width: '100%',
+};
+
+export const gridStyle = {
+    display: 'flex' as const,
+    flexDirection: 'column' as const,
+    justifyItems: 'space-around' as const,
+    alignItems: 'space-around' as const,
 };
 
 export function generateArrayOf<T>(generator: (index: number) => T, size: number) {
