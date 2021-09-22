@@ -165,6 +165,7 @@ export const BarTitleAxisDataValues: Props<DataFrame, ChartOptions> = {
                             return 'start';
                         }
                     },
+                    color: 'rgba(22, 161, 145)',
                 },
             },
             {
@@ -189,6 +190,7 @@ export const BarTitleAxisDataValues: Props<DataFrame, ChartOptions> = {
                             return 'start';
                         }
                     },
+                    color: 'rgba(119, 73, 54)',
                 },
             },
         ],
@@ -202,11 +204,10 @@ export const BarTitleAxisDataValues: Props<DataFrame, ChartOptions> = {
                 align: 'center',
             },
             ticks: {
-                display: true,
-                zeroTick: true,
+                display: 'single'
             },
             gridLines: {
-                display: false,
+                display: 'single',
             },
         },
         yAxis: {
@@ -262,20 +263,26 @@ export const BarAxisDataValues: Props<DataFrame, ChartOptions> = {
                 ],
                 dataLabels: {
                     display: true,
-                    align: function (index, { dataFrame }) {
+                    align(index, { dataFrame }) {
                         if (dataFrame[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
-                    anchor: function (index, { dataFrame }) {
+                    anchor(index, { dataFrame }) {
                         if (dataFrame[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
+                    color: [
+                        'rgba(250,50,50)',
+                        'rgba(50,250,50)',
+                        'rgba(50,50,250)',
+                        'rgba(250,50,250)',
+                    ]
                 },
             },
         ],
@@ -289,11 +296,10 @@ export const BarAxisDataValues: Props<DataFrame, ChartOptions> = {
                 align: 'center',
             },
             gridLines: {
-                display: false,
+                display: 'single',
             },
             ticks: {
-                display: true,
-                zeroTick: true,
+                display: 'single'
             },
         },
         yAxis: {
@@ -354,76 +360,6 @@ export const BarTitleSubTitleGrid: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-            },
-        },
-        yAxis: {
-            display: true,
-            type: 'category',
-            title: {
-                display: true,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: false,
-            },
-        },
-        title: {
-            text: 'Bar chart with title, subtitle and grid',
-            align: 'start',
-        },
-        subtitle: {
-            display: true,
-            text: 'Custom Chart Subtitle',
-            align: 'start',
-        },
-    },
-};
-
-
-export const BarTitleSubTitleGridNegative: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
-    data: {
-        loading: false,
-        value: [
-            { x: '01/01', y: -100 },
-            { x: '02/01', y: -50 },
-            { x: '03/01', y: -20 },
-            { x: '04/01', y: -30 },
-        ],
-    },
-    options: {
-        labelColumn: 'x',
-        ariaLabel: 'Bar chart with title, subtitle and grid',
-        series: [
-            {
-                type: 'bar',
-                valueColumn: 'y',
-                indexAxis: 'y',
-                backgroundColor: [
-                    'rgba(250,50,50,0.5)',
-                    'rgba(50,250,50,0.5)',
-                    'rgba(50,50,250,0.5)',
-                    'rgba(250,50,250,0.5)',
-                ],
-                borderColor: [
-                    'rgba(250,50,50)',
-                    'rgba(50,250,50)',
-                    'rgba(50,50,250)',
-                    'rgba(250,50,250)',
-                ],
-            },
-        ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            title: {
-                display: false,
-                text: 'x',
-                align: 'center',
-            },
-            gridLines: {
-                display: false,
             },
         },
         yAxis: {

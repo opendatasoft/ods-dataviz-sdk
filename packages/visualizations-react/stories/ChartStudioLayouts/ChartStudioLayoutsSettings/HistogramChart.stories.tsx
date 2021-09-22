@@ -152,6 +152,7 @@ export const HistogramTitleDataValues: Props<DataFrame, ChartOptions> = {
                             return 'start';
                         }
                     },
+                    color: 'rgba(50,50,225)',
                 },
             },
         ],
@@ -177,11 +178,10 @@ export const HistogramTitleDataValues: Props<DataFrame, ChartOptions> = {
                 align: 'center',
             },
             gridLines: {
-                display: false,
+                display: 'single',
             },
             ticks: {
-                display: true,
-                zeroTick: true,
+                display: 'single'
             },
         },
         title: {
@@ -236,6 +236,7 @@ export const HistogramDataValues: Props<DataFrame, ChartOptions> = {
                             return 'start';
                         }
                     },
+                    color: 'rgba(50,50,225)',
                 },
             },
         ],
@@ -260,11 +261,10 @@ export const HistogramDataValues: Props<DataFrame, ChartOptions> = {
                 align: 'center',
             },
             gridLines: {
-                display: false,
+                display: 'single',
             },
             ticks: {
-                display: true,
-                zeroTick: true,
+                display: 'single'
             },
         },
     },
@@ -310,6 +310,7 @@ export const HistogramAxisDataValues: Props<DataFrame, ChartOptions> = {
                             return 'start';
                         }
                     },
+                    color: 'rgba(50,50,225)',
                 },
             },
         ],
@@ -337,11 +338,10 @@ export const HistogramAxisDataValues: Props<DataFrame, ChartOptions> = {
                 align: 'center',
             },
             gridLines: {
-                display: false,
+                display: 'single',
             },
             ticks: {
-                display: true,
-                zeroTick: true,
+                display: 'single'
             },
         },
     },

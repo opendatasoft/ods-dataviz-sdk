@@ -176,6 +176,12 @@ export const ColumnTitleSubtitleDataValues: Props<DataFrame, ChartOptions> = {
                             return 'start';
                         }
                     },
+                    color: [
+                        'rgba(250,50,50)',
+                        'rgba(50,250,50)',
+                        'rgba(50,50,250)',
+                        'rgba(250,50,250)',
+                    ],
                 },
             },
         ],
@@ -203,11 +209,10 @@ export const ColumnTitleSubtitleDataValues: Props<DataFrame, ChartOptions> = {
                 align: 'center',
             },
             gridLines: {
-                display: false,
+                display: 'single',
             },
             ticks: {
-                display: true,
-                zeroTick: true,
+                display: 'single'
             },
         },
         title: {
@@ -256,20 +261,26 @@ export const ColumnDataValues: Props<DataFrame, ChartOptions> = {
                 ],
                 dataLabels: {
                     display: true,
-                    align: function (index, { dataFrame }) {
+                    align(index, { dataFrame }) {
                         if (dataFrame[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
-                    anchor: function (index, { dataFrame }) {
+                    anchor(index, { dataFrame }) {
                         if (dataFrame[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
+                    color: [
+                        'rgba(250,50,50)',
+                        'rgba(50,250,50)',
+                        'rgba(50,50,250)',
+                        'rgba(250,50,250)',
+                    ],
                 },
             },
         ],
@@ -297,11 +308,10 @@ export const ColumnDataValues: Props<DataFrame, ChartOptions> = {
                 align: 'center',
             },
             gridLines: {
-                display: false,
+                display: 'single',
             },
             ticks: {
-                display: true,
-                zeroTick: true,
+                display: 'single'
             },
         },
     },
@@ -341,20 +351,26 @@ export const ColumnAxisDataValues: Props<DataFrame, ChartOptions> = {
                 ],
                 dataLabels: {
                     display: true,
-                    align: function (index, { dataFrame }) {
+                    align(index, { dataFrame }) {
                         if (dataFrame[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
-                    anchor: function (index, { dataFrame }) {
+                    anchor(index, { dataFrame }) {
                         if (dataFrame[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
+                    color: [
+                        'rgba(250,50,50)',
+                        'rgba(50,250,50)',
+                        'rgba(50,50,250)',
+                        'rgba(250,50,250)',
+                    ],
                 },
             },
         ],
@@ -379,11 +395,10 @@ export const ColumnAxisDataValues: Props<DataFrame, ChartOptions> = {
                 align: 'center',
             },
             gridLines: {
-                display: false,
+                display: 'single',
             },
             ticks: {
-                display: true,
-                zeroTick: true,
+                display: 'single'
             }
         },
     },

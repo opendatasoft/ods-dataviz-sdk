@@ -41,6 +41,7 @@ export const LineLongDataLabels: Props<DataFrame, ChartOptions> = {
                             return 'start';
                         }
                     },
+                    color: 'rgb(22, 161, 145)',
                 },
             },
         ],
@@ -59,11 +60,10 @@ export const LineLongDataLabels: Props<DataFrame, ChartOptions> = {
         yAxis: {
             display: true,
             gridLines: {
-                display: false,
+                display: 'single',
             },
             ticks: {
-                display: true,
-                zeroTick: true,
+                display: 'single'
             },
         },
     },
@@ -121,11 +121,11 @@ export const RadarLongDataLabels: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
-            { x: 'speed', y: 10000, z: 10 },
-            { x: 'strength', y: 50000, z: 45 },
-            { x: 'magic', y: 80000, z: 100 },
+            { x: 'speed', y: 10000, z: 1740 },
+            { x: 'strength', y: 50000, z: 450 },
+            { x: 'magic', y: 80000, z: 1010 },
             { x: 'luck', y: 30000, z: 100 },
-            { x: 'persuasion', y: 7000, z: 2 },
+            { x: 'persuasion', y: 7000, z: 24 },
         ],
     },
     options: {
@@ -141,6 +141,7 @@ export const RadarLongDataLabels: Props<DataFrame, ChartOptions> = {
                 dataLabels: {
                     display: 'auto',
                     borderRadius: 4,
+                    color: 'rgb(27,210,210)',
                 },
             },
             {
@@ -161,6 +162,7 @@ export const RadarLongDataLabels: Props<DataFrame, ChartOptions> = {
                             return 'start';
                         }
                     },
+                    color: 'rgb(127,10,210)',
                 },
             },
         ],

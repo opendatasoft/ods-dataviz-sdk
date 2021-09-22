@@ -302,6 +302,7 @@ export const AreaTitleDataValues: Props<DataFrame, ChartOptions> = {
                             return 'start';
                         }
                     },
+                    color: 'rgb(22, 161, 145)',
                 },
                 fill: {
                     mode: 'origin',
@@ -329,11 +330,10 @@ export const AreaTitleDataValues: Props<DataFrame, ChartOptions> = {
         yAxis: {
             display: true,
             gridLines: {
-                display: false,
+                display: 'single',
             },
             ticks: {
-                display: true,
-                zeroTick: true,
+                display: 'single'
             },
         },
         title: {
@@ -387,6 +387,7 @@ export const AreaDataValuesOnly: Props<DataFrame, ChartOptions> = {
                             return 'start';
                         }
                     },
+                    color: 'rgb(22, 161, 145)',
                 },
             },
             {
@@ -409,11 +410,10 @@ export const AreaDataValuesOnly: Props<DataFrame, ChartOptions> = {
         yAxis: {
             display: true,
             gridLines: {
-                display: false,
+                display: 'single',
             },
             ticks: {
-                display: true,
-                zeroTick: true,
+                display: 'single'
             },
         },
     },

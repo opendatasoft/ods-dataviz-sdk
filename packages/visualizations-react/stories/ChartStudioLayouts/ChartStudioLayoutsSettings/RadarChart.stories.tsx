@@ -171,6 +171,7 @@ export const RadarTitleDataValues: Props<DataFrame, ChartOptions> = {
                 dataLabels: {
                     display: 'auto',
                     borderRadius: 4,
+                    color: 'rgb(27,210,210)',
                 },
             },
             {
@@ -182,15 +183,15 @@ export const RadarTitleDataValues: Props<DataFrame, ChartOptions> = {
                 dataLabels: {
                     display: 'auto',
                     borderRadius: 4,
-                    align: function (index, { dataFrame }) {
+                    align(index, { dataFrame }) {
                         if (dataFrame[index].y > 0) {
                             return 'end';
                         } else if (dataFrame[index].y === 0) {
                             return 'center';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
+                    color: 'rgb(127,10,210)',
                 },
             },
         ],

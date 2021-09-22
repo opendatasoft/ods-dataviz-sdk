@@ -45,7 +45,6 @@ import {
     BarTitleAxisDataValues,
     BarAxisDataValues,
     BarTitleSubTitleGrid,
-    BarTitleSubTitleGridNegative,
 } from './ChartStudioLayoutsSettings/BarChart.stories';
 
 import {
@@ -140,7 +139,6 @@ BarChart.args =
         'BarTitleAxisDataValues' : BarTitleAxisDataValues,
         'BarAxisDataValues' : BarAxisDataValues,
         'BarTitleSubTitleGrid' : BarTitleSubTitleGrid,
-        'BarTitleSubTitleGridNegative' : BarTitleSubTitleGridNegative,
     }
 
 export const ColumnChart: Story<Args> = Template.bind({});

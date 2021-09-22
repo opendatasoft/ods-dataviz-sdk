@@ -260,6 +260,7 @@ export const LineTitleDataValues: Props<DataFrame, ChartOptions> = {
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
+                    color: 'rgb(22, 161, 145)',
                     align: function (index, { dataFrame }) {
                         if (dataFrame[index].y >= 0) {
                             return 'end';
@@ -294,11 +295,10 @@ export const LineTitleDataValues: Props<DataFrame, ChartOptions> = {
         yAxis: {
             display: true,
             gridLines: {
-                display: false,
+                display: 'single',
             },
             ticks: {
-                display: true,
-                zeroTick: true,
+                display: 'single',
             },
         },
         title: {
@@ -347,6 +347,7 @@ export const LineDataValuesOnly: Props<DataFrame, ChartOptions> = {
                             return 'start';
                         }
                     },
+                    color: 'rgb(22, 161, 145)',
                 },
             },
         ],
@@ -365,11 +366,10 @@ export const LineDataValuesOnly: Props<DataFrame, ChartOptions> = {
         yAxis: {
             display: true,
             gridLines: {
-                display: false,
+                display: 'single',
             },
             ticks: {
-                display: true,
-                zeroTick: true,
+                display: 'single',
             },
         },
     },
