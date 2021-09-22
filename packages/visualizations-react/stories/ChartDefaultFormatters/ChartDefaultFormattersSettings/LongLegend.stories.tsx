@@ -21,7 +21,8 @@ export const LineLongLegend: Props<DataFrame, ChartOptions> = {
         series: [
             {
                 type: 'line',
-                label: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
+                label:
+                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
                 valueColumn: 'y',
                 tension: 0,
                 borderColor: 'rgb(22, 161, 145)',
@@ -72,10 +73,22 @@ export const PieLongLegend: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
-            { x: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.', y: 100 },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
+                y: 100,
+            },
             { x: '100000', y: -50 },
-            { x: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.', y: 20 },
-            { x: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.', y: 30 },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
+                y: 20,
+            },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
+                y: 30,
+            },
         ],
     },
     options: {
@@ -85,12 +98,7 @@ export const PieLongLegend: Props<DataFrame, ChartOptions> = {
             {
                 type: 'pie',
                 valueColumn: 'y',
-                backgroundColor: [
-                    '#CB4335',
-                    '#1F618D',
-                    '#F1C40F',
-                    '#27AE60',
-                ],
+                backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
                 dataLabels: {
                     display: false,
                 },
@@ -115,10 +123,26 @@ export const PieLongLegendBis: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
-            { x: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.', y: 100 },
-            { x: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.', y: 50 },
-            { x: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.', y: 20 },
-            { x: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.', y: 30 },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
+                y: 100,
+            },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
+                y: 50,
+            },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
+                y: 20,
+            },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
+                y: 30,
+            },
         ],
     },
     options: {
@@ -128,19 +152,14 @@ export const PieLongLegendBis: Props<DataFrame, ChartOptions> = {
             {
                 type: 'pie',
                 valueColumn: 'y',
-                backgroundColor: [
-                    '#CB4335',
-                    '#1F618D',
-                    '#F1C40F',
-                    'rgb(39,174,96)',
-                ],
+                backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', 'rgb(39,174,96)'],
             },
         ],
         legend: {
             display: true,
             position: 'right',
-            labels : {
-                formatter(index, { dataFrame })  {
+            labels: {
+                formatter(index, { dataFrame }) {
                     const xData = compactStringOrNumber(dataFrame[index]['x']);
                     const yData = compactStringOrNumber(dataFrame[index]['y']);
                     return `${xData} - ${yData}`;
@@ -176,7 +195,8 @@ export const RadarLongLegend: Props<DataFrame, ChartOptions> = {
             {
                 type: 'radar',
                 valueColumn: 'y',
-                label: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
+                label:
+                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
                 backgroundColor: 'rgba(27,210,210,0.5)',
                 borderColor: 'rgb(27,210,210)',
             },

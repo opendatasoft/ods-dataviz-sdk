@@ -1,6 +1,6 @@
 import { ChartOptions, DataFrame, compactStringOrNumber } from '@opendatasoft/visualizations';
 import { Props } from '../../../src';
-import { COLORS, styleForLayouts } from '../../utils';
+import { styleForLayouts } from '../../utils';
 
 export const LineLongDataLabels: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
@@ -63,7 +63,7 @@ export const LineLongDataLabels: Props<DataFrame, ChartOptions> = {
                 display: 'single',
             },
             ticks: {
-                display: 'single'
+                display: 'single',
             },
         },
     },
@@ -74,7 +74,11 @@ export const PieLongDataLabels: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
-            { x: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla optio unde porro incidunt provident quis amet saepe voluptas explicabo maiores. Voluptatum itaque dolores consectetur assumenda repellendus accusamus laudantium vero deleniti.', y: 1000000 },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla optio unde porro incidunt provident quis amet saepe voluptas explicabo maiores. Voluptatum itaque dolores consectetur assumenda repellendus accusamus laudantium vero deleniti.',
+                y: 1000000,
+            },
             { x: 'Beta', y: -5000000 },
             { x: 'Gamma', y: 2000000 },
             { x: 'Delta', y: 3000000 },
@@ -87,12 +91,7 @@ export const PieLongDataLabels: Props<DataFrame, ChartOptions> = {
             {
                 type: 'pie',
                 valueColumn: 'y',
-                backgroundColor: [
-                    '#CB4335',
-                    '#1F618D',
-                    '#F1C40F',
-                    '#27AE60',
-                ],
+                backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
                 dataLabels: {
                     display: true,
                     formatter: function (index, { dataFrame }) {

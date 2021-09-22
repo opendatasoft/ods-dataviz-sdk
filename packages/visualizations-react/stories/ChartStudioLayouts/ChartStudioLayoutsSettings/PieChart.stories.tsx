@@ -20,12 +20,7 @@ export const PieTitleSectorsName: Props<DataFrame, ChartOptions> = {
             {
                 type: 'pie',
                 valueColumn: 'y',
-                backgroundColor: [
-                    '#CB4335',
-                    '#1F618D',
-                    '#F1C40F',
-                    '#27AE60',
-                ],
+                backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
                 dataLabels: {
                     display: true,
                 },
@@ -59,12 +54,7 @@ export const PieTitleSectorsNameValue: Props<DataFrame, ChartOptions> = {
             {
                 type: 'pie',
                 valueColumn: 'y',
-                backgroundColor: [
-                    '#CB4335',
-                    '#1F618D',
-                    '#F1C40F',
-                    '#27AE60',
-                ],
+                backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
                 dataLabels: {
                     display: true,
                     formatter: function (index, { dataFrame }) {
@@ -106,12 +96,7 @@ export const PieTitleLegend: Props<DataFrame, ChartOptions> = {
             {
                 type: 'pie',
                 valueColumn: 'y',
-                backgroundColor: [
-                    '#CB4335',
-                    '#1F618D',
-                    '#F1C40F',
-                    '#27AE60',
-                ],
+                backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
             },
         ],
         legend: {
@@ -146,19 +131,14 @@ export const PieTitleLegendValues: Props<DataFrame, ChartOptions> = {
             {
                 type: 'pie',
                 valueColumn: 'y',
-                backgroundColor: [
-                    '#CB4335',
-                    '#1F618D',
-                    '#F1C40F',
-                    'rgb(39,174,96)',
-                ],
+                backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', 'rgb(39,174,96)'],
             },
         ],
         legend: {
             display: true,
             position: 'right',
-            labels : {
-                formatter(index, { dataFrame })  {
+            labels: {
+                formatter(index, { dataFrame }) {
                     const xData = compactStringOrNumber(dataFrame[index]['x']);
                     const yData = compactStringOrNumber(dataFrame[index]['y']);
                     return `${xData} - ${yData}`;

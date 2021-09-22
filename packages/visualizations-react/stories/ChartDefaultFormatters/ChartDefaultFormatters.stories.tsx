@@ -24,12 +24,6 @@ import {
     RadarLongDataLabels,
 } from './ChartDefaultFormattersSettings/LongDataLabels.stories';
 
-
-
-LineLongLegend
-PieLongLegend
-RadarLongLegend
-
 const meta: Meta = {
     title: 'Chart/DefaultFormatters',
     parameters: {
@@ -40,46 +34,37 @@ const meta: Meta = {
 };
 
 export default meta;
-type Args = {[key: string]: Props<DataFrame, ChartOptions>}
+type Args = { [key: string]: Props<DataFrame, ChartOptions> };
 const Template = (args: Args) => (
     <div style={gridStyle}>
-        {
-        Object.keys(args).map((key, index)=>
+        {Object.keys(args).map((key, index) => (
             <Chart key={key} {...args[key]} />
-        )
-        }
-    </div>);
+        ))}
+    </div>
+);
 
 export const LongTicks: Story<Args> = Template.bind({});
 
-LongTicks.args =
-    {
-        'LongTicksFixed' : LongTicksFixed,
-        'BarLongTicks' : BarLongTicks,
-        'ColumnLongTicks' : ColumnLongTicks,
-        'RadarLongTicks' : RadarLongTicks,
-
-    }
+LongTicks.args = {
+    LongTicksFixed: LongTicksFixed,
+    BarLongTicks: BarLongTicks,
+    ColumnLongTicks: ColumnLongTicks,
+    RadarLongTicks: RadarLongTicks,
+};
 
 export const LongLegend: Story<Args> = Template.bind({});
 
-LongLegend.args =
-    {
-       'LineLongLegend' : LineLongLegend,
-       'PieLongLegend' : PieLongLegend,
-       'PieLongLegendBis' : PieLongLegendBis,
-       'RadarLongLegend' : RadarLongLegend,
-
-    }
+LongLegend.args = {
+    LineLongLegend: LineLongLegend,
+    PieLongLegend: PieLongLegend,
+    PieLongLegendBis: PieLongLegendBis,
+    RadarLongLegend: RadarLongLegend,
+};
 
 export const LongDataLabels: Story<Args> = Template.bind({});
 
-LongDataLabels.args =
-    {
-        'LineLongDataLabels' : LineLongDataLabels,
-        'PieLongDataLabels' : PieLongDataLabels,
-        'RadarLongDataLabels' : RadarLongDataLabels,
-    }
-
-
-
+LongDataLabels.args = {
+    LineLongDataLabels: LineLongDataLabels,
+    PieLongDataLabels: PieLongDataLabels,
+    RadarLongDataLabels: RadarLongDataLabels,
+};

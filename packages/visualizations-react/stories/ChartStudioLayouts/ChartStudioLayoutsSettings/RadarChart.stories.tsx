@@ -40,8 +40,7 @@ export const RadarTitleScale: Props<DataFrame, ChartOptions> = {
             display: true,
         },
         rAxis: {
-            gridLines: {
-            },
+            gridLines: {},
         },
         title: {
             text: 'Radar chart with title and scale',

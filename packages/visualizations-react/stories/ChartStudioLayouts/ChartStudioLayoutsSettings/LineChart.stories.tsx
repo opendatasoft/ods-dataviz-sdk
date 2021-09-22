@@ -1,6 +1,6 @@
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Props } from '../../../src';
-import { COLORS, styleForLayouts } from '../../utils';
+import { styleForLayouts } from '../../utils';
 
 export const LineTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
@@ -24,7 +24,7 @@ export const LineTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
                 valueColumn: 'y',
                 tension: 0,
                 borderColor: 'rgb(22, 161, 145)',
-                borderDash: [5,5],
+                borderDash: [5, 5],
             },
             {
                 type: 'line',
@@ -85,7 +85,7 @@ export const LineAxisGridDots: Props<DataFrame, ChartOptions> = {
                 valueColumn: 'y',
                 tension: 0.3,
                 borderColor: 'rgb(22, 161, 145)',
-                borderDash: [5,5],
+                borderDash: [5, 5],
             },
             {
                 type: 'line',
@@ -428,4 +428,3 @@ export const LineTitleAxisGridDotsNegative: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-

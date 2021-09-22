@@ -1,6 +1,6 @@
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Props } from '../../../src';
-import { COLORS, styleForLayouts } from '../../utils';
+import { styleForLayouts } from '../../utils';
 
 export const HistogramTitleAxisGrid: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
@@ -181,7 +181,7 @@ export const HistogramTitleDataValues: Props<DataFrame, ChartOptions> = {
                 display: 'single',
             },
             ticks: {
-                display: 'single'
+                display: 'single',
             },
         },
         title: {
@@ -264,7 +264,7 @@ export const HistogramDataValues: Props<DataFrame, ChartOptions> = {
                 display: 'single',
             },
             ticks: {
-                display: 'single'
+                display: 'single',
             },
         },
     },
@@ -341,7 +341,7 @@ export const HistogramAxisDataValues: Props<DataFrame, ChartOptions> = {
                 display: 'single',
             },
             ticks: {
-                display: 'single'
+                display: 'single',
             },
         },
     },

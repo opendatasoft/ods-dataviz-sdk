@@ -1,6 +1,6 @@
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Props } from '../../../src';
-import { COLORS, styleForLayouts } from '../../utils';
+import { styleForLayouts } from '../../utils';
 
 export const BarTitleAxisGrid: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
@@ -22,14 +22,14 @@ export const BarTitleAxisGrid: Props<DataFrame, ChartOptions> = {
                 valueColumn: 'y',
                 indexAxis: 'y',
                 backgroundColor: 'rgba(22, 161, 145, 0.26)',
-                borderColor:'rgba(22, 161, 145)',
+                borderColor: 'rgba(22, 161, 145)',
                 label: 'User 1',
             },
             {
                 type: 'bar',
                 valueColumn: 'z',
                 indexAxis: 'y',
-                backgroundColor:'rgba(119, 73, 54, 0.26)',
+                backgroundColor: 'rgba(119, 73, 54, 0.26)',
                 borderColor: 'rgba(119, 73, 54)',
                 label: 'User 2',
             },
@@ -141,14 +141,14 @@ export const BarTitleAxisDataValues: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Bar chart with title, axis and data values',
-        padding:24,
+        padding: 24,
         series: [
             {
                 type: 'bar',
                 valueColumn: 'y',
                 indexAxis: 'y',
                 backgroundColor: 'rgba(22, 161, 145, 0.26)',
-                borderColor:'rgba(22, 161, 145)',
+                borderColor: 'rgba(22, 161, 145)',
                 dataLabels: {
                     display: true,
                     align: function (index, { dataFrame }) {
@@ -173,7 +173,7 @@ export const BarTitleAxisDataValues: Props<DataFrame, ChartOptions> = {
                 valueColumn: 'z',
                 indexAxis: 'y',
                 backgroundColor: 'rgba(119, 73, 54, 0.26)',
-                borderColor:'rgba(119, 73, 54)',
+                borderColor: 'rgba(119, 73, 54)',
                 dataLabels: {
                     display: true,
                     align: function (index, { dataFrame }) {
@@ -204,7 +204,7 @@ export const BarTitleAxisDataValues: Props<DataFrame, ChartOptions> = {
                 align: 'center',
             },
             ticks: {
-                display: 'single'
+                display: 'single',
             },
             gridLines: {
                 display: 'single',
@@ -243,7 +243,7 @@ export const BarAxisDataValues: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         ariaLabel: 'Bar chart with axis and data values',
-        padding:24,
+        padding: 24,
         series: [
             {
                 type: 'bar',
@@ -282,7 +282,7 @@ export const BarAxisDataValues: Props<DataFrame, ChartOptions> = {
                         'rgba(50,250,50)',
                         'rgba(50,50,250)',
                         'rgba(250,50,250)',
-                    ]
+                    ],
                 },
             },
         ],
@@ -299,7 +299,7 @@ export const BarAxisDataValues: Props<DataFrame, ChartOptions> = {
                 display: 'single',
             },
             ticks: {
-                display: 'single'
+                display: 'single',
             },
         },
         yAxis: {

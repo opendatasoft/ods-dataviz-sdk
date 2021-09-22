@@ -115,7 +115,7 @@
         let minAbsoluteTicksIndex = ticksAbsoluteValues.indexOf(Math.min(...ticksAbsoluteValues));
         if (context.scale.type === 'radialLinear') {
             // On radar, chartjs compute one supplementary grid line
-            minAbsoluteTicksIndex--;
+            minAbsoluteTicksIndex -= 1;
         }
         if (display) {
             if (context.index === minAbsoluteTicksIndex) return 'rgba(0, 0, 0, 0.4)';
@@ -325,6 +325,7 @@
                             typeof (item as any).index === 'number'
                                 ? (item as any).index
                                 : item.datasetIndex;
+                        // eslint-disable-next-line no-param-reassign
                         item.text = formatter
                             ? formatter(index, { dataFrame })
                             : compactStringOrNumber(item.text);
@@ -356,16 +357,16 @@
                         beforeTitle: (items) =>
                             items[0].dataset?.label
                                 ?.toString()
-                                .replace(/(.*?\s.*?\s.*?\s)/g, '$1' + '\n') || '',
+                                .replace(/(.*?\s.*?\s.*?\s)/g, '$1\n') || '',
                     }),
                     title: (items) =>
                         dataFrame[items[0].dataIndex][labelColumn]
                             ?.toString()
-                            .replace(/(.*?\s.*?\s.*?\s)/g, '$1' + '\n') || '',
+                            .replace(/(.*?\s.*?\s.*?\s)/g, '$1\n') || '',
                     label: (item) =>
                         item.dataset.data[item.dataIndex]
                             ?.toString()
-                            .replace(/(.*?\s.*?\s.*?\s)/g, '$1' + '\n') || '',
+                            .replace(/(.*?\s.*?\s.*?\s)/g, '$1\n') || '',
                 },
             },
             subtitle: {

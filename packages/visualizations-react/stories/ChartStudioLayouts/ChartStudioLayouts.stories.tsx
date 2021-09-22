@@ -20,7 +20,7 @@ import {
     AreaTitleAxisGrid,
     AreaTitleSubtitleGrid,
     AreaTitleDataValues,
-    AreaDataValuesOnly
+    AreaDataValuesOnly,
 } from './ChartStudioLayoutsSettings/AreaChart.stories';
 
 import {
@@ -36,8 +36,6 @@ import {
     PieTitleLegend,
     PieTitleLegendValues,
 } from './ChartStudioLayoutsSettings/PieChart.stories';
-
-
 
 import {
     BarTitleAxisGrid,
@@ -75,92 +73,84 @@ const meta: Meta = {
 };
 
 export default meta;
-type Args = {[key: string]: Props<DataFrame, ChartOptions>}
+type Args = { [key: string]: Props<DataFrame, ChartOptions> };
 const Template = (args: Args) => (
     <div style={gridStyle}>
-        {
-        Object.keys(args).map((key, index)=>
+        {Object.keys(args).map((key, index) => (
             <Chart key={key} {...args[key]} />
-        )
-        }
-    </div>);
+        ))}
+    </div>
+);
 
 export const LineChart: Story<Args> = Template.bind({});
 
-LineChart.args =
-    {
-        'LineTitleAxisGridDots' : LineTitleAxisGridDots,
-        'LineAxisGridDots' : LineAxisGridDots,
-        'LineTitleAxisGrid' : LineTitleAxisGrid,
-        'LineTitleSubtitleGrid' : LineTitleSubtitleGrid,
-        'LineTitleDataValues' : LineTitleDataValues,
-        'LineDataValuesOnly' : LineDataValuesOnly,
-        'LineTitleAxisGridDotsNegative' : LineTitleAxisGridDotsNegative,
-    }
+LineChart.args = {
+    LineTitleAxisGridDots: LineTitleAxisGridDots,
+    LineAxisGridDots: LineAxisGridDots,
+    LineTitleAxisGrid: LineTitleAxisGrid,
+    LineTitleSubtitleGrid: LineTitleSubtitleGrid,
+    LineTitleDataValues: LineTitleDataValues,
+    LineDataValuesOnly: LineDataValuesOnly,
+    LineTitleAxisGridDotsNegative: LineTitleAxisGridDotsNegative,
+};
 
 export const AreaChart: Story<Args> = Template.bind({});
 
-AreaChart.args =
-    {
-        'AreaTitleAxisGridDots' : AreaTitleAxisGridDots,
-        'AreaAxisGridDots' : AreaAxisGridDots,
-        'AreaTitleAxisGrid' : AreaTitleAxisGrid,
-        'AreaTitleSubtitleGrid' : AreaTitleSubtitleGrid,
-        'AreaTitleDataValues' : AreaTitleDataValues,
-        'AreaDataValuesOnly' : AreaDataValuesOnly
-    }
+AreaChart.args = {
+    AreaTitleAxisGridDots: AreaTitleAxisGridDots,
+    AreaAxisGridDots: AreaAxisGridDots,
+    AreaTitleAxisGrid: AreaTitleAxisGrid,
+    AreaTitleSubtitleGrid: AreaTitleSubtitleGrid,
+    AreaTitleDataValues: AreaTitleDataValues,
+    AreaDataValuesOnly: AreaDataValuesOnly,
+};
 
 export const RadarChart: Story<Args> = Template.bind({});
 
-RadarChart.args =
-    {
-        'RadarTitleScale' : RadarTitleScale,
-        'RadarTitleScaleNegativePositive' : RadarTitleScaleNegativePositive,
-        'RadarTitle' : RadarTitle,
-        'RadarTitleDataValues' : RadarTitleDataValues,
-    }
+RadarChart.args = {
+    RadarTitleScale: RadarTitleScale,
+    RadarTitleScaleNegativePositive: RadarTitleScaleNegativePositive,
+    RadarTitle: RadarTitle,
+    RadarTitleDataValues: RadarTitleDataValues,
+};
 
 export const PieChart: Story<Args> = Template.bind({});
 
-PieChart.args =
-    {
-        'PieTitleSectorsName' : PieTitleSectorsName,
-        'PieTitleSectorsNameValue' : PieTitleSectorsNameValue,
-        'PieTitleLegend' : PieTitleLegend,
-        'PieTitleLegendValues' : PieTitleLegendValues,
-    }
+PieChart.args = {
+    PieTitleSectorsName: PieTitleSectorsName,
+    PieTitleSectorsNameValue: PieTitleSectorsNameValue,
+    PieTitleLegend: PieTitleLegend,
+    PieTitleLegendValues: PieTitleLegendValues,
+};
 
 export const BarChart: Story<Args> = Template.bind({});
 
-BarChart.args =
-    {
-        'BarTitleAxisGrid' : BarTitleAxisGrid,
-        'BarAxisGrid' : BarAxisGrid,
-        'BarTitleAxisDataValues' : BarTitleAxisDataValues,
-        'BarAxisDataValues' : BarAxisDataValues,
-        'BarTitleSubTitleGrid' : BarTitleSubTitleGrid,
-    }
+BarChart.args = {
+    BarTitleAxisGrid: BarTitleAxisGrid,
+    BarAxisGrid: BarAxisGrid,
+    BarTitleAxisDataValues: BarTitleAxisDataValues,
+    BarAxisDataValues: BarAxisDataValues,
+    BarTitleSubTitleGrid: BarTitleSubTitleGrid,
+};
 
 export const ColumnChart: Story<Args> = Template.bind({});
 
-ColumnChart.args =
-    {
-        'ColumnTitleAxisGrid' : ColumnTitleAxisGrid,
-        'ColumnAxisGrid' : ColumnAxisGrid,
-        'ColumnTitleSubtitleDataValues' : ColumnTitleSubtitleDataValues,
-        'ColumnDataValues' : ColumnDataValues,
-        'ColumnAxisDataValues' : ColumnAxisDataValues,
-        'ColumnTitleAxisGridNegative' : ColumnTitleAxisGridNegative,
-    }
+ColumnChart.args = {
+    ColumnTitleAxisGrid: ColumnTitleAxisGrid,
+    ColumnAxisGrid: ColumnAxisGrid,
+    ColumnTitleSubtitleDataValues: ColumnTitleSubtitleDataValues,
+    ColumnDataValues: ColumnDataValues,
+    ColumnAxisDataValues: ColumnAxisDataValues,
+    ColumnTitleAxisGridNegative: ColumnTitleAxisGridNegative,
+};
 
 export const HistogramChart: Story<Args> = Template.bind({});
 
-HistogramChart.args =
-    {
-        'HistogramTitleAxisGrid' : HistogramTitleAxisGrid,
-        'HistogramAxisGrid' : HistogramAxisGrid,
-        'HistogramTitleDataValues' : HistogramTitleDataValues,
-        'HistogramDataValues' : HistogramDataValues,
-        'HistogramAxisDataValues' : HistogramAxisDataValues,
-        'HistogramTitleAxisGridNegative' : HistogramTitleAxisGridNegative,
-    }
+HistogramChart.args = {
+    HistogramTitleAxisGrid: HistogramTitleAxisGrid,
+    HistogramAxisGrid: HistogramAxisGrid,
+    HistogramTitleDataValues: HistogramTitleDataValues,
+    HistogramDataValues: HistogramDataValues,
+    HistogramAxisDataValues: HistogramAxisDataValues,
+    HistogramTitleAxisGridNegative: HistogramTitleAxisGridNegative,
+};

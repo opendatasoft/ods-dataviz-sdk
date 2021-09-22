@@ -3,10 +3,10 @@
 A convenient React wrapper for [Opendatasoft's visualizations components](packages/visualizations/).
 If you are a React user, this wrapper makes it easier for you to use our [visualizations components](packages/visualizations/) in your React app. It adds an abstraction layer that handles for you data updates and options in your visualizations.
 
-- [Installation](#installation)
-- [Get started](#get-started)
-- [Contributing](#contributing)
-- [License](#license)
+-   [Installation](#installation)
+-   [Get started](#get-started)
+-   [Contributing](#contributing)
+-   [License](#license)
 
 > :warning: This package is currently under initial development, and shouldn't be used in any project yet.
 

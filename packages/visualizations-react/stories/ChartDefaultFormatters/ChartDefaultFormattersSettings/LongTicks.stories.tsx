@@ -1,23 +1,78 @@
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Props } from '../../../src';
-import { COLORS, styleForLayouts } from '../../utils';
+import { styleForLayouts } from '../../utils';
 
 export const LongTicksFixed: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
         value: [
-            { x: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis at ad animi officiis reprehenderit repudiandae ratione, fugit recusandae provident illum ducimus, enim beatae magnam doloremque ut id voluptatibus tempora asperiores', y: 2400000, z: 101442 },
-            { x: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis at ad animi officiis reprehenderit repudiandae ratione, fugit recusandae provident illum ducimus, enim beatae magnam doloremque ut id voluptatibus tempora asperiores', y: -1400, z: 200 },
-            { x: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis at ad animi officiis reprehenderit repudiandae ratione, fugit recusandae provident illum ducimus, enim beatae magnam doloremque ut id voluptatibus tempora asperiores', y: 200000, z: 347757 },
-            { x: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis at ad animi officiis reprehenderit repudiandae ratione, fugit recusandae provident illum ducimus, enim beatae magnam doloremque ut id voluptatibus tempora asperiores', y: 300, z: 100000 },
-            { x: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis at ad animi officiis reprehenderit repudiandae ratione, fugit recusandae provident illum ducimus, enim beatae magnam doloremque ut id voluptatibus tempora asperiores', y: 180.47, z: 1414 },
-            { x: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis at ad animi officiis reprehenderit repudiandae ratione, fugit recusandae provident illum ducimus, enim beatae magnam doloremque ut id voluptatibus tempora asperiores', y: 77800, z: 12442 },
-            { x: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis at ad animi officiis reprehenderit repudiandae ratione, fugit recusandae provident illum ducimus, enim beatae magnam doloremque ut id voluptatibus tempora asperiores', y: 778, z: 142244 },
-            { x: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis at ad animi officiis reprehenderit repudiandae ratione, fugit recusandae provident illum ducimus, enim beatae magnam doloremque ut id voluptatibus tempora asperiores', y: 77800, z: 1242 },
-            { x: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis at ad animi officiis reprehenderit repudiandae ratione, fugit recusandae provident illum ducimus, enim beatae magnam doloremque ut id voluptatibus tempora asperiores', y: 2400000, z: 1242 },
-            { x: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis at ad animi officiis reprehenderit repudiandae ratione, fugit recusandae provident illum ducimus, enim beatae magnam doloremque ut id voluptatibus tempora asperiores', y: 77800, z: 1424242 },
-            { x: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis at ad animi officiis reprehenderit repudiandae ratione, fugit recusandae provident illum ducimus, enim beatae magnam doloremque ut id voluptatibus tempora asperiores', y: 77800, z: 1 },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis at ad animi officiis reprehenderit repudiandae ratione, fugit recusandae provident illum ducimus, enim beatae magnam doloremque ut id voluptatibus tempora asperiores',
+                y: 2400000,
+                z: 101442,
+            },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis at ad animi officiis reprehenderit repudiandae ratione, fugit recusandae provident illum ducimus, enim beatae magnam doloremque ut id voluptatibus tempora asperiores',
+                y: -1400,
+                z: 200,
+            },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis at ad animi officiis reprehenderit repudiandae ratione, fugit recusandae provident illum ducimus, enim beatae magnam doloremque ut id voluptatibus tempora asperiores',
+                y: 200000,
+                z: 347757,
+            },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis at ad animi officiis reprehenderit repudiandae ratione, fugit recusandae provident illum ducimus, enim beatae magnam doloremque ut id voluptatibus tempora asperiores',
+                y: 300,
+                z: 100000,
+            },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis at ad animi officiis reprehenderit repudiandae ratione, fugit recusandae provident illum ducimus, enim beatae magnam doloremque ut id voluptatibus tempora asperiores',
+                y: 180.47,
+                z: 1414,
+            },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis at ad animi officiis reprehenderit repudiandae ratione, fugit recusandae provident illum ducimus, enim beatae magnam doloremque ut id voluptatibus tempora asperiores',
+                y: 77800,
+                z: 12442,
+            },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis at ad animi officiis reprehenderit repudiandae ratione, fugit recusandae provident illum ducimus, enim beatae magnam doloremque ut id voluptatibus tempora asperiores',
+                y: 778,
+                z: 142244,
+            },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis at ad animi officiis reprehenderit repudiandae ratione, fugit recusandae provident illum ducimus, enim beatae magnam doloremque ut id voluptatibus tempora asperiores',
+                y: 77800,
+                z: 1242,
+            },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis at ad animi officiis reprehenderit repudiandae ratione, fugit recusandae provident illum ducimus, enim beatae magnam doloremque ut id voluptatibus tempora asperiores',
+                y: 2400000,
+                z: 1242,
+            },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis at ad animi officiis reprehenderit repudiandae ratione, fugit recusandae provident illum ducimus, enim beatae magnam doloremque ut id voluptatibus tempora asperiores',
+                y: 77800,
+                z: 1424242,
+            },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis at ad animi officiis reprehenderit repudiandae ratione, fugit recusandae provident illum ducimus, enim beatae magnam doloremque ut id voluptatibus tempora asperiores',
+                y: 77800,
+                z: 1,
+            },
         ],
     },
     options: {
@@ -73,10 +128,26 @@ export const BarLongTicks: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
-            { x: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus, aut voluptates odit fugit voluptatem impedit assumenda ad itaque repellat reprehenderit consectetur odio cupiditate recusandae, dolorum minus illum aliquam delectus quibusdam?', y: 1000000000 },
-            { x: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus, aut voluptates odit fugit voluptatem impedit assumenda ad itaque repellat reprehenderit consectetur odio cupiditate recusandae, dolorum minus illum aliquam delectus quibusdam?', y: -5000 },
-            { x: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus, aut voluptates odit fugit voluptatem impedit assumenda ad itaque repellat reprehenderit consectetur odio cupiditate recusandae, dolorum minus illum aliquam delectus quibusdam?', y: 200000000 },
-            { x: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus, aut voluptates odit fugit voluptatem impedit assumenda ad itaque repellat reprehenderit consectetur odio cupiditate recusandae, dolorum minus illum aliquam delectus quibusdam?', y: 30000 },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus, aut voluptates odit fugit voluptatem impedit assumenda ad itaque repellat reprehenderit consectetur odio cupiditate recusandae, dolorum minus illum aliquam delectus quibusdam?',
+                y: 1000000000,
+            },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus, aut voluptates odit fugit voluptatem impedit assumenda ad itaque repellat reprehenderit consectetur odio cupiditate recusandae, dolorum minus illum aliquam delectus quibusdam?',
+                y: -5000,
+            },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus, aut voluptates odit fugit voluptatem impedit assumenda ad itaque repellat reprehenderit consectetur odio cupiditate recusandae, dolorum minus illum aliquam delectus quibusdam?',
+                y: 200000000,
+            },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus, aut voluptates odit fugit voluptatem impedit assumenda ad itaque repellat reprehenderit consectetur odio cupiditate recusandae, dolorum minus illum aliquam delectus quibusdam?',
+                y: 30000,
+            },
         ],
     },
     options: {
@@ -139,12 +210,36 @@ export const ColumnLongTicks: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
-            { x: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?', y: 100000000 },
-            { x: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?', y: 500000000 },
-            { x: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?', y: 200000000 },
-            { x: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?', y: -300000000 },
-            { x: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?', y: 40000000 },
-            { x: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?', y: -5000000 },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?',
+                y: 100000000,
+            },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?',
+                y: 500000000,
+            },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?',
+                y: 200000000,
+            },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?',
+                y: -300000000,
+            },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?',
+                y: 40000000,
+            },
+            {
+                x:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?',
+                y: -5000000,
+            },
         ],
     },
     options: {
@@ -205,12 +300,36 @@ export const ColumnLongTicks2: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
-            { x:5484396, y: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?' },
-            { x:54833384896, y: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?' },
-            { x:54844545896, y: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?' },
-            { x:548465345496, y: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?' },
-            { x:5484284896, y: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?'},
-            { x:548434896, y: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?'},
+            {
+                x: 5484396,
+                y:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?',
+            },
+            {
+                x: 54833384896,
+                y:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?',
+            },
+            {
+                x: 54844545896,
+                y:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?',
+            },
+            {
+                x: 548465345496,
+                y:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?',
+            },
+            {
+                x: 5484284896,
+                y:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?',
+            },
+            {
+                x: 548434896,
+                y:
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?',
+            },
         ],
     },
     options: {
@@ -314,4 +433,3 @@ export const RadarLongTicks: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-

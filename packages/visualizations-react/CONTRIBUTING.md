@@ -6,21 +6,21 @@ Contributions are welcome and are greatly appreciated! Every little bit helps, a
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
 
-- Specific to this package:
-  - [Build](#build)
-    - [Storybook](#storybook)
-  - [Configuration](#configuration)
-  - [Jest](#jest)
-  - [Bundle Analysis](#bundle-analysis)
-  - [Optimizations](#optimizations)
-  - [Module Formats](#module-formats)
-  - [Named Exports](#named-exports)
-  - [Resources](#resources)
-- General rules of contribution:
-  - [Reporting a bug](../../CONTRIBUTING.md#reporting-a-bug)
-  - [Commit messages](../../CONTRIBUTING.md#commit-messages)
-  - [Versioning](../../CONTRIBUTING.md#versioning)
-  - [Pull Requests](../../CONTRIBUTING.md#pull-requests)
+-   Specific to this package:
+    -   [Build](#build)
+        -   [Storybook](#storybook)
+    -   [Configuration](#configuration)
+    -   [Jest](#jest)
+    -   [Bundle Analysis](#bundle-analysis)
+    -   [Optimizations](#optimizations)
+    -   [Module Formats](#module-formats)
+    -   [Named Exports](#named-exports)
+    -   [Resources](#resources)
+-   General rules of contribution:
+    -   [Reporting a bug](../../CONTRIBUTING.md#reporting-a-bug)
+    -   [Commit messages](../../CONTRIBUTING.md#commit-messages)
+    -   [Versioning](../../CONTRIBUTING.md#versioning)
+    -   [Pull Requests](../../CONTRIBUTING.md#pull-requests)
 
 ## Build
 
@@ -72,7 +72,7 @@ declare var __DEV__: boolean;
 
 // inside your code...
 if (__DEV__) {
-  console.log('foo');
+    console.log('foo');
 }
 ```
 
@@ -88,5 +88,5 @@ Per Palmer Group guidelines, [always use named exports.](https://github.com/palm
 
 ## Resources
 
-- [TypeScript cheatsheet](https://devhints.io/typescript)
-- [React tutorial](https://fr.reactjs.org/tutorial/tutorial.html)
+-   [TypeScript cheatsheet](https://devhints.io/typescript)
+-   [React tutorial](https://fr.reactjs.org/tutorial/tutorial.html)

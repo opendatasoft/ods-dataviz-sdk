@@ -1,6 +1,6 @@
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Props } from '../../../src';
-import { COLORS, styleForLayouts } from '../../utils';
+import { styleForLayouts } from '../../utils';
 
 export const ColumnTitleAxisGrid: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
@@ -212,7 +212,7 @@ export const ColumnTitleSubtitleDataValues: Props<DataFrame, ChartOptions> = {
                 display: 'single',
             },
             ticks: {
-                display: 'single'
+                display: 'single',
             },
         },
         title: {
@@ -311,7 +311,7 @@ export const ColumnDataValues: Props<DataFrame, ChartOptions> = {
                 display: 'single',
             },
             ticks: {
-                display: 'single'
+                display: 'single',
             },
         },
     },
@@ -398,8 +398,8 @@ export const ColumnAxisDataValues: Props<DataFrame, ChartOptions> = {
                 display: 'single',
             },
             ticks: {
-                display: 'single'
-            }
+                display: 'single',
+            },
         },
     },
 };
