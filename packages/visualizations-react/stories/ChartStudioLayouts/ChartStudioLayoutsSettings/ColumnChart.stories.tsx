@@ -58,13 +58,6 @@ export const ColumnTitleAxisGrid: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                color: function (ticksIndex, ticksToColor) {
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'rgba(0, 0, 0, 0.1)';
-                    }
-                },
             },
         },
         title: {
@@ -130,13 +123,6 @@ export const ColumnAxisGrid: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                color: function (ticksIndex, ticksToColor) {
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'rgba(0, 0, 0, 0.1)';
-                    }
-                },
             },
         },
     },
@@ -217,14 +203,7 @@ export const ColumnTitleSubtitleDataValues: Props<DataFrame, ChartOptions> = {
                 align: 'center',
             },
             gridLines: {
-                display: true,
-                color: function (ticksIndex, ticksToColor) {
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'transparent';
-                    }
-                },
+                display: false,
             },
             ticks: {
                 display: true,
@@ -318,14 +297,7 @@ export const ColumnDataValues: Props<DataFrame, ChartOptions> = {
                 align: 'center',
             },
             gridLines: {
-                display: true,
-                color: function (ticksIndex, ticksToColor) {
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'transparent';
-                    }
-                },
+                display: false,
             },
             ticks: {
                 display: true,
@@ -407,14 +379,7 @@ export const ColumnAxisDataValues: Props<DataFrame, ChartOptions> = {
                 align: 'center',
             },
             gridLines: {
-                display: true,
-                color: function (ticksIndex, ticksToColor) {
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'transparent';
-                    }
-                }
+                display: false,
             },
             ticks: {
                 display: true,
@@ -480,13 +445,6 @@ export const ColumnTitleAxisGridNegative: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                color: function (ticksIndex, ticksToColor) {
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'rgba(0, 0, 0, 0.1)';
-                    }
-                },
             },
         },
         title: {

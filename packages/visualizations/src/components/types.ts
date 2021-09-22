@@ -27,6 +27,10 @@ export interface ChartOptions {
     ariaLabel: string;
 }
 
+export interface GridLinesConfiguration {
+    display?: boolean;
+}
+
 export interface CartesianAxisConfiguration {
     type?: 'linear' | 'logarithmic' | 'category';
     display?: boolean;
@@ -48,14 +52,6 @@ export interface RadialAxisConfiguration {
     beginAtZero?: boolean;
     ticks?: TicksConfiguration;
     gridLines?: GridLinesConfiguration;
-}
-
-export interface GridLinesConfiguration {
-    display?: boolean;
-    drawBorder?: boolean;
-    borderColor?: string;
-    offset?: boolean;
-    color?: (context:any, proxy:any) => string;
 }
 
 export interface LegendLabelsConfiguration {

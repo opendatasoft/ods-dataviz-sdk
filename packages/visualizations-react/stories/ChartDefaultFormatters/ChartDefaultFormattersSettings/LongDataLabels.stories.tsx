@@ -59,14 +59,7 @@ export const LineLongDataLabels: Props<DataFrame, ChartOptions> = {
         yAxis: {
             display: true,
             gridLines: {
-                display: true,
-                color: function (ticksIndex, ticksToColor) {
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'transparent';
-                    }
-                },
+                display: false,
             },
             ticks: {
                 display: true,

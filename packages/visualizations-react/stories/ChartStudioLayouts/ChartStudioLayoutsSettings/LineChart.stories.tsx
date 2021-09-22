@@ -54,13 +54,6 @@ export const LineTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                color: function (ticksIndex, ticksToColor) {
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'rgba(0, 0, 0, 0.1)';
-                    }
-                },
             },
         },
         title: {
@@ -122,13 +115,6 @@ export const LineAxisGridDots: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                color: function (ticksIndex, ticksToColor) {
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'rgba(0, 0, 0, 0.1)';
-                    }
-                },
             },
         },
     },
@@ -180,13 +166,6 @@ export const LineTitleAxisGrid: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                color: function (ticksIndex, ticksToColor) {
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'rgba(0, 0, 0, 0.1)';
-                    }
-                },
             },
         },
         title: {
@@ -242,13 +221,6 @@ export const LineTitleSubtitleGrid: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                color: function (ticksIndex, ticksToColor) {
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'rgba(0, 0, 0, 0.1)';
-                    }
-                },
             },
         },
         title: {
@@ -322,14 +294,7 @@ export const LineTitleDataValues: Props<DataFrame, ChartOptions> = {
         yAxis: {
             display: true,
             gridLines: {
-                display: true,
-                color: function (ticksIndex, ticksToColor) {
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'transparent';
-                    }
-                },
+                display: false,
             },
             ticks: {
                 display: true,
@@ -400,14 +365,7 @@ export const LineDataValuesOnly: Props<DataFrame, ChartOptions> = {
         yAxis: {
             display: true,
             gridLines: {
-                display: true,
-                color: function (ticksIndex, ticksToColor) {
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'transparent';
-                    }
-                },
+                display: false,
             },
             ticks: {
                 display: true,
@@ -462,14 +420,6 @@ export const LineTitleAxisGridDotsNegative: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                color: function (ticksIndex, ticksToColor) {
-
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'rgba(0, 0, 0, 0.1)';
-                    }
-                },
             },
         },
         title: {

@@ -41,13 +41,6 @@ export const RadarTitleScale: Props<DataFrame, ChartOptions> = {
         },
         rAxis: {
             gridLines: {
-                color: function (ticksIndex, ticksToColor) {
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'rgba(0, 0, 0, 0.1)';
-                    }
-                },
             },
         },
         title: {
@@ -97,13 +90,6 @@ export const RadarTitleScaleNegativePositive: Props<DataFrame, ChartOptions> = {
         rAxis: {
             gridLines: {
                 display: true,
-                color: function (ticksIndex, ticksToColor) {
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'rgba(0, 0, 0, 0.1)';
-                    }
-                },
             },
         },
         title: {

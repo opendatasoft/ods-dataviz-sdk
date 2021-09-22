@@ -50,13 +50,6 @@ export const HistogramTitleAxisGrid: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                color: function (ticksIndex, ticksToColor) {
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'rgba(0, 0, 0, 0.1)';
-                    }
-                },
             },
         },
         title: {
@@ -114,13 +107,6 @@ export const HistogramAxisGrid: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                color: function (ticksIndex, ticksToColor) {
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'rgba(0, 0, 0, 0.1)';
-                    }
-                },
             },
         },
     },
@@ -191,14 +177,7 @@ export const HistogramTitleDataValues: Props<DataFrame, ChartOptions> = {
                 align: 'center',
             },
             gridLines: {
-                display: true,
-                color: function (ticksIndex, ticksToColor) {
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'transparent';
-                    }
-                },
+                display: false,
             },
             ticks: {
                 display: true,
@@ -281,14 +260,7 @@ export const HistogramDataValues: Props<DataFrame, ChartOptions> = {
                 align: 'center',
             },
             gridLines: {
-                display: true,
-                color: function (ticksIndex, ticksToColor) {
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'transparent';
-                    }
-                },
+                display: false,
             },
             ticks: {
                 display: true,
@@ -365,14 +337,7 @@ export const HistogramAxisDataValues: Props<DataFrame, ChartOptions> = {
                 align: 'center',
             },
             gridLines: {
-                display: true,
-                color: function (ticksIndex, ticksToColor) {
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'transparent';
-                    }
-                },
+                display: false,
             },
             ticks: {
                 display: true,
@@ -430,13 +395,6 @@ export const HistogramTitleAxisGridNegative: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                color: function (ticksIndex, ticksToColor) {
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'rgba(0, 0, 0, 0.1)';
-                    }
-                },
             },
         },
         title: {

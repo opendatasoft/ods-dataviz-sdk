@@ -59,13 +59,6 @@ export const LongTicksFixed: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                color: function (ticksValue) {
-                    if (ticksValue === 0) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'rgba(0, 0, 0, 0.1)';
-                    }
-                },
             },
         },
         title: {
@@ -120,13 +113,6 @@ export const BarLongTicks: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                color: function (ticksIndex, ticksToColor) {
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'rgba(0, 0, 0, 0.1)';
-                    }
-                },
             },
         },
         yAxis: {
@@ -205,13 +191,6 @@ export const ColumnLongTicks: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                color: function (ticksIndex, ticksToColor) {
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'rgba(0, 0, 0, 0.1)';
-                    }
-                },
             },
         },
         title: {
@@ -278,13 +257,6 @@ export const ColumnLongTicks2: Props<DataFrame, ChartOptions> = {
             },
             gridLines: {
                 display: true,
-                color: function (ticksIndex, ticksToColor) {
-                    if (ticksIndex === ticksToColor) {
-                        return 'rgba(0, 0, 0, 0.4)';
-                    } else {
-                        return 'rgba(0, 0, 0, 0.1)';
-                    }
-                },
             },
         },
         title: {
