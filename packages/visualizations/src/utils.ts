@@ -4,7 +4,8 @@ const formatter = new Intl.NumberFormat(undefined, {
 } as any);
 
 // eslint-disable-next-line import/prefer-default-export
-export function compactStringOrNumber(value: string | number) {
+export function compactStringOrNumber(value: string | number | undefined | null): string {
+    if (value === undefined || value === null) return '';
     if (typeof value === 'string') {
         return value.length > 10 ? `${value.slice(0, 10)}...` : value;
     }

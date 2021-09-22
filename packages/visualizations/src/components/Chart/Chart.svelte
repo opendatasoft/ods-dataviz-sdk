@@ -10,6 +10,9 @@
         DataFrame,
         DataLabelsConfiguration,
         FillConfiguration,
+        TicksConfiguration,
+        GridLinesConfiguration,
+        CartesianAxisConfiguration,
     } from '../types';
     import { compactStringOrNumber } from '../../utils';
     import pieDataLabelsPlugin from './pieDataLabelsPlugin';
@@ -40,15 +43,18 @@
         return value;
     }
 
-    function chartJsColorPalette(color?: Color) {
+    function singleChartJsColor(color?: Color) {
+        if (color === undefined) return undefined;
+        if (typeof color === 'string') return color;
+        return color[0];
+    }
+
+    function multipleChartJsColors(color?: Color) {
         return color;
     }
 
-    /** The two functions below are handling the focus on the right part of the Pie Chart on hover on the legend
-     * and requires that every data in the Pie Chart must have a unique color */
     const handleHoverPieChart: ChartJs.LegendOptions<'pie'>['onHover'] = (_, item, legend) => {
         const { tooltip, chartArea } = legend.chart;
-
         if (tooltip) {
             // FIXME: `TooltipModel` doesn't have a `setActiveElements` method.
             (tooltip as any).setActiveElements(
@@ -64,7 +70,6 @@
                 }
             );
         }
-
         legend.chart.update();
     }
 
@@ -72,55 +77,41 @@
         legend.chart.update();
     }
 
-    // The function below displays the "0" tick on the chart
-    function displayZeroTick(this: ChartJs.Scale, tickValue: number | string) {
-        if (tickValue === 0) {
-            return this.getLabelForValue(tickValue);
+    function computeFormatTick(displayTick: TicksConfiguration['display'], type: CartesianAxisConfiguration['type']) {
+        function formatTick(this: ChartJs.Scale, tickValue: number, _index: number, ticks: ChartJs.Tick[]) {
+            const minAbsTickValue = Math.min(...ticks.map(tick =>  Math.abs(tick.value)));
+            if (displayTick === 'single' && tickValue !== minAbsTickValue) {
+               return '';
+            }
+            if(type === 'category'){
+                return compactStringOrNumber(this.getLabelForValue(tickValue));
+            }
+            return compactStringOrNumber(tickValue);
         }
-        return '';
-    }
-
-    // The ticks format handler depends of type of axis and return the formatted value
-    function handleLongTicksLabel(this: any, value: any) {
-        if (this.type === 'linear' || this.type === 'radialLinear') {
-            return compactStringOrNumber(value);
-        }
-        if (this.type === 'category') {
-            return compactStringOrNumber(this.getLabelForValue(value));
-        }
-        return compactStringOrNumber(value);
-    }
-
-    function chartJsColorSingle(color?: Color) {
-        if (color === undefined) return undefined;
-        if (typeof color === 'string') return color;
-        return color[0];
+        return formatTick;
     }
 
     function chartJsFill(fill: FillConfiguration | undefined) {
         if (fill === undefined) return false;
         return {
             target: fill.mode,
-            above: chartJsColorSingle(fill.above),
-            below: chartJsColorSingle(fill.below),
+            above: singleChartJsColor(fill.above),
+            below: singleChartJsColor(fill.below),
         };
     }
 
-    function computeGridLineColor(context: ChartJs.ScriptableScaleContext, options: any) {
-        /** The code below aims to display the right dark gridline depending on the ticks values:
-         * If there are negative and positive values then the "0" gridline will be displayed
-         * If there are only positive values the dark gridline will be at the bottom
-         * If there are only negative values the dark gridline will be at the top
-         * We achieve that by looking for the lowest absolute values of the present ticks */
-        const ticksArray = options._context.scale.ticks;
-        const ticksAbsoluteValues = ticksArray.map((tick: any) => Math.abs(tick.value));
-        const minAbsoluteTicksIndex = ticksAbsoluteValues.indexOf(Math.min(...ticksAbsoluteValues));
-
-        if (context.index === minAbsoluteTicksIndex) return 'rgba(0, 0, 0, 0.4)';
-
-        if (options?.xAxis?.gridLines?.display) return 'rgba(0, 0, 0, 0.1)';
-
-        return 'transparent';
+    const computeGridLineColor : ((display: GridLinesConfiguration['display']) => ChartJs.GridLineOptions['color']) = (display) => (context) => {
+        const ticksAbsoluteValues = context.scale.ticks.map((tick) => Math.abs(tick.value));
+        let minAbsoluteTicksIndex = ticksAbsoluteValues.indexOf(Math.min(...ticksAbsoluteValues));
+        if(context.scale.type === 'radialLinear') {
+            // On radar, chartjs compute one supplementary grid line
+            minAbsoluteTicksIndex--;
+        }
+        if (display) {
+            if (context.index === minAbsoluteTicksIndex) return 'rgba(0, 0, 0, 0.4)';
+            if (display !== 'single') return 'rgba(0, 0, 0, 0.1)';
+        }
+        return 'rgba(0, 0, 0, 0)';
     }
 
     function chartJsDataLabels(dataLabels: DataLabelsConfiguration | undefined): DataLabelsOptions {
@@ -147,8 +138,8 @@
             return {
                 type: 'bar',
                 data: df.map((entry) => entry[s.valueColumn]),
-                backgroundColor: chartJsColorPalette(s.backgroundColor),
-                borderColor: chartJsColorPalette(s.borderColor),
+                backgroundColor: multipleChartJsColors(s.backgroundColor),
+                borderColor: multipleChartJsColors(s.borderColor),
                 borderWidth: defaultValue(s.borderWidth, 1),
                 borderRadius: defaultValue(s.borderRadius, 5),
                 label: defaultValue(s.label, ''),
@@ -163,8 +154,8 @@
             return {
                 type: 'line',
                 data: df.map((entry) => entry[s.valueColumn]),
-                backgroundColor: chartJsColorSingle(s.backgroundColor),
-                borderColor: chartJsColorSingle(s.borderColor),
+                backgroundColor: singleChartJsColor(s.backgroundColor),
+                borderColor: singleChartJsColor(s.borderColor),
                 label: defaultValue(s.label, ''),
                 fill: chartJsFill(s.fill),
                 datalabels: chartJsDataLabels(s.dataLabels),
@@ -181,7 +172,7 @@
                 type: 'pie',
                 label: defaultValue(s.label, ''),
                 data: df.map((entry) => entry[s.valueColumn]),
-                backgroundColor: chartJsColorPalette(s.backgroundColor),
+                backgroundColor: multipleChartJsColors(s.backgroundColor),
                 datalabels: chartJsDataLabels(s.dataLabels),
             };
         }
@@ -190,8 +181,8 @@
             return {
                 type: 'radar',
                 data: df.map((entry) => entry[s.valueColumn]),
-                backgroundColor: chartJsColorSingle(s.backgroundColor),
-                borderColor: chartJsColorSingle(s.borderColor),
+                backgroundColor: singleChartJsColor(s.backgroundColor),
+                borderColor: singleChartJsColor(s.borderColor),
                 label: defaultValue(s.label, ''),
                 datalabels: chartJsDataLabels(s.dataLabels),
                 pointRadius: defaultValue(s.pointRadius, 3),
@@ -238,17 +229,15 @@
                     },
                 },
                 grid: {
-                    display: true,
+                    display: !!defaultValue(options.xAxis?.gridLines?.display, true),
                     offset: false,
                     drawBorder: false,
-                    color: computeGridLineColor,
+                    color: computeGridLineColor(defaultValue(options.xAxis?.gridLines?.display, true)),
                 },
                 ticks: {
-                    display: defaultValue(options?.xAxis?.ticks?.display, true),
+                    display: !!defaultValue(options?.xAxis?.ticks?.display, true),
                     color: defaultValue(options?.xAxis?.ticks?.color, 'rgb(86, 86, 86)'),
-                    ...(options?.xAxis?.ticks?.zeroTick === true
-                        ? { callback: displayZeroTick }
-                        : { callback: handleLongTicksLabel }),
+                    callback: computeFormatTick(defaultValue(options?.xAxis?.ticks?.display, true), options?.xAxis?.type),
                 },
             } as _DeepPartialObject<ChartJs.CartesianScaleOptions>;
         }
@@ -267,16 +256,14 @@
                     },
                 },
                 grid: {
-                    display: true,
+                    display: !!defaultValue(options.yAxis?.gridLines?.display, true),
                     drawBorder: false,
-                    color: computeGridLineColor,
+                    color: computeGridLineColor(defaultValue(options.yAxis?.gridLines?.display, true)),
                 },
                 ticks: {
-                    display: defaultValue(options?.yAxis?.ticks?.display, true),
-                    color: defaultValue(options?.yAxis?.ticks?.color, 'rgb(86, 86, 86)'),
-                    ...(options?.yAxis?.ticks?.zeroTick === true
-                        ? { callback: displayZeroTick }
-                        : { callback: handleLongTicksLabel }),
+                    display: !!defaultValue(options?.yAxis?.ticks?.display, true),
+                    color: defaultValue(singleChartJsColor(options?.yAxis?.ticks?.color), 'rgb(86, 86, 86)'),
+                    callback: computeFormatTick(defaultValue(options?.yAxis?.ticks?.display, true), options?.yAxis?.type),
                 },
             } as _DeepPartialObject<ChartJs.CartesianScaleOptions>;
         }
@@ -286,13 +273,13 @@
                 ticks: {
                     display: defaultValue(options?.rAxis?.ticks?.display, true),
                     color: defaultValue(options?.rAxis?.ticks?.color, 'rgb(86, 86, 86)'),
-                    callback: handleLongTicksLabel,
+                    callback: computeFormatTick(defaultValue(options?.rAxis?.ticks?.display, true), undefined),
                 },
                 grid: {
-                    display: true,
+                    display: defaultValue(options.rAxis?.gridLines?.display, true),
                     drawBorder: false,
                     offset: false,
-                    color: computeGridLineColor,
+                    color: computeGridLineColor(defaultValue(options.rAxis?.gridLines?.display, true)),
                 },
             } as _DeepPartialObject<ChartJs.RadialLinearScaleOptions>;
         }
@@ -318,7 +305,7 @@
                 align: defaultValue(options?.title?.align, 'center'),
                 text: options?.title?.text,
                 fullSize: defaultValue(options?.title?.fullSize, false),
-                color: defaultValue(options?.title?.color, 'rgb(0, 0, 0)'),
+                color: defaultValue(singleChartJsColor(options?.title?.color), 'rgb(0, 0, 0)'),
                 font: {
                     size: defaultValue(options?.title?.font?.size, 14),
                     weight: defaultValue(options?.title?.font?.weight, '500'),
@@ -329,13 +316,14 @@
                 },
             },
             tooltip: {
-                enabled: defaultValue(options?.tooltips?.display, true),
+                enabled: true,
                 callbacks: {
                     ...(options.series[0]?.type !== 'pie' && {
-                        beforeTitle: (context) => context[0].dataset.label.toString().replace(/(.*?\s.*?\s.*?\s)/g, '$1'+'\n')
+                        // Add series name
+                        beforeTitle: (items) => items[0].dataset?.label?.toString().replace(/(.*?\s.*?\s.*?\s)/g, '$1'+'\n') || '',
                     }),
-                    title: (context) => dataFrame[context[0].dataIndex][labelColumn].toString().replace(/(.*?\s.*?\s.*?\s)/g, '$1'+'\n'),
-                    label: (context) => context.dataset.data[context.dataIndex].toString().replace(/(.*?\s.*?\s.*?\s)/g, '$1'+'\n'),
+                    title: (items) => dataFrame[items[0].dataIndex][labelColumn]?.toString().replace(/(.*?\s.*?\s.*?\s)/g, '$1'+'\n') || '',
+                    label: (item) => item.dataset.data[item.dataIndex]?.toString().replace(/(.*?\s.*?\s.*?\s)/g, '$1'+'\n') || '',
                 },
             },
             subtitle: {

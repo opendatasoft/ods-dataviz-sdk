@@ -21,14 +21,12 @@ export interface ChartOptions {
     title?: TitleConfiguration;
     /** Configure subtitle */
     subtitle?: TitleConfiguration;
-    /* Configure tooltips */
-    tooltips?: TooltipsConfiguration;
     /** Accessibility */
     ariaLabel: string;
 }
 
 export interface GridLinesConfiguration {
-    display?: boolean;
+    display?: boolean | 'single';
 }
 
 export interface CartesianAxisConfiguration {
@@ -71,10 +69,8 @@ export interface FontConfiguration {
 }
 
 export interface TicksConfiguration {
-    display?: boolean;
-    zeroTick?: boolean;
+    display?: boolean | 'single';
     color?: Color;
-    callback?: (tickValue: number | string, index: number) => string | number | null | undefined;
 }
 
 export interface TitleConfiguration {
@@ -89,16 +85,6 @@ export interface TitleConfiguration {
         bottom? : number;
     };
     color?: Color;
-}
-
-export interface CallbacksConfiguration {
-    title?: (context:any) => string | string[];
-    label?: (context:any) => string | string[];
-}
-
-export interface TooltipsConfiguration {
-    display?: boolean;
-    callbacks?: CallbacksConfiguration;
 }
 
 export interface DataLabelsConfiguration {
