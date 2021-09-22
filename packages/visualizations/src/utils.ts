@@ -6,7 +6,7 @@ const formatter = new Intl.NumberFormat(undefined, {
 // eslint-disable-next-line import/prefer-default-export
 export function compactStringOrNumber(value: string | number) {
     if (typeof value === 'string') {
-        return value.length > 10 ? `${value.slice(0, 10)}...` : value
+        return value.length > 10 ? `${value.slice(0, 10)}...` : value;
     }
     return formatter.format(value).toString();
 }
