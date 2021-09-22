@@ -46,7 +46,6 @@
         "@typescript-eslint/eslint-plugin": "^4.31.1",
         "@typescript-eslint/parser": "^4.31.1",
         "autoprefixer": "^10.0.3",
-        "babel-jest": "^27.2.1",
         "eslint": "^7.32.0",
         "eslint-config-airbnb-base": "^14.2.1",
         "eslint-config-airbnb-typescript": "^14.0.0",
@@ -65,7 +64,6 @@
         "svelte": "^3.29.4",
         "svelte-check": "^1.6.0",
         "svelte-preprocess": "^4.6.1",
-        "ts-jest": "^27.0.5",
         "tslib": "^2.0.3",
         "typescript": "^4.0.5"
     },
