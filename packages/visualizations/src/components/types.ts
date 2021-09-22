@@ -55,7 +55,7 @@ export interface RadialAxisConfiguration {
 }
 
 export interface LegendLabelsConfiguration {
-    legendWithValues?: boolean;
+    formatter?: (legendIndex: number, context: { dataFrame: DataFrame }) => string;
 }
 
 export interface LegendConfiguration {

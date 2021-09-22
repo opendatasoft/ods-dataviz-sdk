@@ -91,20 +91,6 @@
         return compactStringOrNumber(value);
     }
 
-    // The legend format handler is set upon the chartjs filter method, sets legend text and return always true
-    function handleLongLegendLabel(item: any) {
-        item.text = compactStringOrNumber(item.text);
-        return true;
-    }
-
-    // The legend with value format handler is set upon the chartjs filter method, sets legend text after formatting text and value separately
-    function handleLongLegendWithValuesLabel(item: any, data: any) {
-        const firstLabel = compactStringOrNumber(item.text);
-        const secondLabel = compactStringOrNumber(data.datasets[0].data[item.index]);
-        item.text = `${firstLabel} - ${secondLabel}`;
-        return true;
-    }
-
     function chartJsColorSingle(color?: Color) {
         if (color === undefined) return undefined;
         if (typeof color === 'string') return color;
@@ -318,9 +304,12 @@
                 ...(options.series[0]?.type === 'pie' && { onHover: handleHoverPieChart }),
                 ...(options.series[0]?.type === 'pie' && { onLeave: handleLeavePieChart }),
                 labels: {
-                    ...(options?.legend?.labels?.legendWithValues === true
-                        ? { filter: handleLongLegendWithValuesLabel }
-                        : { filter: handleLongLegendLabel }),
+                    filter: (item) => {
+                        const formatter = options?.legend?.labels?.formatter;
+                        const index = (typeof (item as any).index === 'number')  ? (item as any).index : item.datasetIndex;
+                        item.text = formatter ? formatter(index, { dataFrame }) : compactStringOrNumber(item.text);
+                        return true;
+                    }
                 },
             },
             title: {

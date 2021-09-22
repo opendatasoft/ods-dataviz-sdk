@@ -1,6 +1,6 @@
-import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { ChartOptions, DataFrame, compactStringOrNumber } from '@opendatasoft/visualizations';
 import { Props } from '../../../src';
-import { COLORS, styleForLayouts } from '../../utils';
+import { styleForLayouts } from '../../utils';
 
 export const LineLongLegend: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
@@ -140,7 +140,11 @@ export const PieLongLegendBis: Props<DataFrame, ChartOptions> = {
             display: true,
             position: 'right',
             labels : {
-                legendWithValues: true,
+                formatter(index, { dataFrame })  {
+                    const xData = compactStringOrNumber(dataFrame[index]['x']);
+                    const yData = compactStringOrNumber(dataFrame[index]['y']);
+                    return `${xData} - ${yData}`;
+                },
             },
         },
         tooltips: {

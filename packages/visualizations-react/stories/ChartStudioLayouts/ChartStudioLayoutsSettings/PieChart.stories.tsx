@@ -158,7 +158,11 @@ export const PieTitleLegendValues: Props<DataFrame, ChartOptions> = {
             display: true,
             position: 'right',
             labels : {
-                legendWithValues: true,
+                formatter(index, { dataFrame })  {
+                    const xData = compactStringOrNumber(dataFrame[index]['x']);
+                    const yData = compactStringOrNumber(dataFrame[index]['y']);
+                    return `${xData} - ${yData}`;
+                },
             },
         },
         tooltips: {
