@@ -15,7 +15,9 @@ module.exports = {
             files: ['*.svelte'],
             processor: 'svelte3/svelte3',
             rules: {
-                'import/no-mutable-exports': 'off', // Allowed in svelte
+                // Allowed in svelte
+                'import/first': 'off',
+                'import/no-mutable-exports': 'off',
             },
         },
     ],

@@ -1,5 +1,6 @@
 import { _ChartJs } from '@opendatasoft/visualizations';
 import isChromatic from 'chromatic/isChromatic';
+import './theme.css';
 
 // https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
 export const parameters = {
