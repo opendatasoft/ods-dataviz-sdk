@@ -15,7 +15,6 @@
         CartesianAxisConfiguration,
     } from '../types';
     import { compactStringOrNumber } from '../../utils';
-    import pieDataLabelsPlugin from './pieDataLabelsPlugin';
 
     export let data: Async<DataFrame>;
     export let options: ChartOptions;
@@ -384,10 +383,6 @@
             },
         };
         chartConfig.options = chartOptions;
-
-        if (series[0].type === 'pie' && series[0].dataLabels?.display) {
-            chartConfig?.plugins?.push(pieDataLabelsPlugin);
-        }
     }
 
     $: {
