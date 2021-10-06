@@ -404,18 +404,40 @@
     }
 </script>
 
-<div class="chart-container">
-    {#if data.error}
-        Error : {JSON.stringify(data.error)}
-    {:else if options}
-        <canvas use:chartJs={chartConfig} role="img" aria-label={options.ariaLabel} />
-    {/if}
-</div>
+{#if data.error}
+    Error : {JSON.stringify(data.error)}
+{:else if options}
+    <figure>
+        <div class="chart-container">
+            <canvas use:chartJs={chartConfig} role="img" aria-label={options.ariaLabel} />
+        </div>
+        <a href={options.sourceUrl}>View source</a>
+    </figure>
+{/if}
 
 <style>
+    figure {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    a {
+        flex-shrink: 1;
+        align-self: flex-end;
+        font-size: 13px;
+        color: #6C7AAA;
+        text-decoration-style: dotted;
+    }
+
+    a:hover {
+       background: #DEE5EF;
+       text-decoration-style: dotted;
+    }
+
     .chart-container {
         position: relative;
-        height: 100%;
         width: 100%;
+        flex: 1 0 400px;
     }
 </style>

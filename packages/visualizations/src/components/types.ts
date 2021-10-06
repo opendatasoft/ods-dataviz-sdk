@@ -23,6 +23,8 @@ export interface ChartOptions {
     subtitle?: TitleConfiguration;
     /** Accessibility */
     ariaLabel: string;
+    /** Link button to source */
+    sourceUrl?: string;
 }
 
 export interface GridLinesConfiguration {
