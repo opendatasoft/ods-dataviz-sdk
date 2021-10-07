@@ -423,7 +423,7 @@
     }
 
     a {
-        flex-shrink: 1;
+        flex-shrink: 1;
         align-self: flex-end;
         font-size: var(--chart-source-font-size, 12px);
     }
