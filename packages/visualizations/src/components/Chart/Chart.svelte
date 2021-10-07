@@ -425,14 +425,7 @@
     a {
         flex-shrink: 1;
         align-self: flex-end;
-        font-size: 13px;
-        color: #6C7AAA;
-        text-decoration-style: dotted;
-    }
-
-    a:hover {
-       background: #DEE5EF;
-       text-decoration-style: dotted;
+        font-size: var(--chart-source-font-size, 12px);
     }
 
     .chart-container {
