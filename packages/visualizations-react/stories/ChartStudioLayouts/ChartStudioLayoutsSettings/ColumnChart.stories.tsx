@@ -17,6 +17,8 @@ export const ColumnTitleAxisGrid: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        sourceUrl:
+            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
         ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {
@@ -82,6 +84,8 @@ export const ColumnAxisGrid: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        sourceUrl:
+            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
         ariaLabel: 'Column chart with axis and grid',
         series: [
             {
@@ -143,6 +147,8 @@ export const ColumnTitleSubtitleDataValues: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        sourceUrl:
+            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
         ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {
@@ -242,6 +248,8 @@ export const ColumnDataValues: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        sourceUrl:
+            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
         ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {
@@ -332,6 +340,8 @@ export const ColumnAxisDataValues: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        sourceUrl:
+            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
         ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {
@@ -419,6 +429,8 @@ export const ColumnTitleAxisGridNegative: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        sourceUrl:
+            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
         ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {

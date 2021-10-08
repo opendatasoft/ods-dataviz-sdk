@@ -17,6 +17,8 @@ export const LineLongDataLabels: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        sourceUrl:
+            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
         ariaLabel: 'Line chart with data values on axis',
         series: [
             {
@@ -86,6 +88,8 @@ export const PieLongDataLabels: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        sourceUrl:
+            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
         ariaLabel: 'Pie chart with title and sectors name with values',
         series: [
             {
@@ -129,6 +133,8 @@ export const RadarLongDataLabels: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        sourceUrl:
+            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
         ariaLabel: 'Radar chart',
         series: [
             {

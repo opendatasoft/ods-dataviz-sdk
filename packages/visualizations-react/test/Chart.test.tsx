@@ -21,6 +21,8 @@ describe('Chart Default Story', () => {
                 }}
                 options={{
                     labelColumn: 'x',
+                    sourceUrl:
+                        'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
                     ariaLabel: 'Line chart with title, axis, grid and dots',
                     series: [
                         {

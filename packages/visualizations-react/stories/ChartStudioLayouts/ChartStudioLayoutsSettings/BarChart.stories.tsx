@@ -15,6 +15,8 @@ export const BarTitleAxisGrid: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        sourceUrl:
+            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
         ariaLabel: 'Bar chart with title, axis and grid',
         series: [
             {
@@ -79,6 +81,8 @@ export const BarAxisGrid: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        sourceUrl:
+            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
         ariaLabel: 'Bar chart with axis and grid',
         series: [
             {
@@ -140,6 +144,8 @@ export const BarTitleAxisDataValues: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        sourceUrl:
+            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
         ariaLabel: 'Bar chart with title, axis and data values',
         padding: 24,
         series: [
@@ -242,6 +248,8 @@ export const BarAxisDataValues: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        sourceUrl:
+            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
         ariaLabel: 'Bar chart with axis and data values',
         padding: 24,
         series: [
@@ -330,6 +338,8 @@ export const BarTitleSubTitleGrid: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        sourceUrl:
+            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
         ariaLabel: 'Bar chart with title, subtitle and grid',
         series: [
             {

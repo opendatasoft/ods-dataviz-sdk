@@ -77,6 +77,8 @@ export const LongTicksFixed: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        sourceUrl:
+            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
         ariaLabel: 'Line chart with Long Ticks Unfixed',
         padding: 6,
         series: [
@@ -152,6 +154,8 @@ export const BarLongTicks: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        sourceUrl:
+            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
         ariaLabel: 'Bar chart with title, axis and grid',
         series: [
             {
@@ -244,6 +248,8 @@ export const ColumnLongTicks: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        sourceUrl:
+            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
         ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {
@@ -334,6 +340,8 @@ export const ColumnLongTicks2: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        sourceUrl:
+            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
         ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {
@@ -399,6 +407,8 @@ export const RadarLongTicks: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        sourceUrl:
+            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
         ariaLabel: 'Radar chart',
         series: [
             {

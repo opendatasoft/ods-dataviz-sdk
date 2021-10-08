@@ -17,6 +17,8 @@ export const LineLongLegend: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        sourceUrl:
+            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
         ariaLabel: 'Line chart with title, axis, grid and dots',
         series: [
             {
@@ -93,6 +95,8 @@ export const PieLongLegend: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        sourceUrl:
+            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
         ariaLabel: 'Pie chart with title and sectors name',
         series: [
             {
@@ -147,6 +151,8 @@ export const PieLongLegendBis: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        sourceUrl:
+            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
         ariaLabel: 'Pie chart with title and legend with values',
         series: [
             {
@@ -190,6 +196,8 @@ export const RadarLongLegend: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        sourceUrl:
+            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
         ariaLabel: 'Radar chart',
         series: [
             {
