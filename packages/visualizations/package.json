@@ -22,7 +22,7 @@
         "test": "echo \"No test specified\"",
         "lint": "run-p lint:* -c",
         "lint:eslint": "eslint .",
-        "lint:svelte": "svelte-check",
+        "lint:svelte": "svelte-check --tsconfig ./tsconfig.json",
         "lint:prettier": "prettier --check ."
     },
     "prettier": {
