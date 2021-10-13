@@ -3,11 +3,13 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import type { ChartOptions, DataFrame } from '../types';
 import ChartImpl from './Chart.svelte';
 import SvelteImpl from '../SvelteImpl';
-import pieDataLabelsPlugin from './pieDataLabelsPlugin';
+import PieDataLabelsPlugin from './pieDataLabelsPlugin';
 
 ChartJs.Chart.register(...ChartJs.registerables);
 ChartJs.Chart.register(ChartDataLabels);
-ChartJs.Chart.register(pieDataLabelsPlugin);
+ChartJs.Chart.register(PieDataLabelsPlugin);
+
+ChartJs.defaults.animation = false;
 
 // Export ChartJS to allow reusing instance and changing default, use case not supported
 // eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle
