@@ -402,15 +402,13 @@
 <div class="chart-container">
     {#if data.error}
         Error : {JSON.stringify(data.error)}
-    {:else if options}
-        <canvas use:chartJs={chartConfig} role="img" aria-label={options.ariaLabel} />
     {/if}
 </div>
 
 <style>
     .chart-container {
         position: relative;
-        height: 50%;
+        height: 100%;
         width: 100%;
     }
 </style>
