@@ -410,7 +410,7 @@
 <style>
     .chart-container {
         position: relative;
-        height: 100%;
+        height: 50%;
         width: 100%;
     }
 </style>
