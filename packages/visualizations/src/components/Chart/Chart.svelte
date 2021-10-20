@@ -23,6 +23,7 @@
     let dataFrame: DataFrame = [];
     let series: ChartSeries[] = [];
     let { labelColumn } = options;
+    let { href, target, label = 'View source', disabled = false } = options.source;
 
     function chartJs(node: HTMLCanvasElement, config: ChartJs.ChartConfiguration) {
         const ctx = node.getContext('2d');
@@ -411,7 +412,14 @@
         <div class="chart-container">
             <canvas use:chartJs={chartConfig} role="img" aria-label={options.ariaLabel} />
         </div>
-        <a href={options.sourceUrl}>View source</a>
+        <a 
+            {href} 
+            {target} 
+            rel="noopener norefer"
+            {disabled}
+        >
+            {label}
+        </a>
     </figure>
 {/if}
 
