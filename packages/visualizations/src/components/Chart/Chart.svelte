@@ -15,7 +15,6 @@
         CartesianAxisConfiguration,
     } from '../types';
     import { compactStringOrNumber } from '../../utils';
-    import pieDataLabelsPlugin from './pieDataLabelsPlugin';
     import SourceLink from '../SourceLink/SourceLink.svelte';
 
     export let data: Async<DataFrame>;
