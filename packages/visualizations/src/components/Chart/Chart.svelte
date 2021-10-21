@@ -13,9 +13,12 @@
         TicksConfiguration,
         GridLinesConfiguration,
         CartesianAxisConfiguration,
+        Source,
     } from '../types';
     import { compactStringOrNumber } from '../../utils';
     import pieDataLabelsPlugin from './pieDataLabelsPlugin';
+    import SourceLink from '../SourceLink/SourceLink.svelte'
+
 
     export let data: Async<DataFrame>;
     export let options: ChartOptions;
@@ -23,7 +26,7 @@
     let dataFrame: DataFrame = [];
     let series: ChartSeries[] = [];
     let { labelColumn } = options;
-    let { href, target, label = 'View source', disabled = false } = options.source;
+    let { source } = options;
 
     function chartJs(node: HTMLCanvasElement, config: ChartJs.ChartConfiguration) {
         const ctx = node.getContext('2d');
@@ -412,14 +415,11 @@
         <div class="chart-container">
             <canvas use:chartJs={chartConfig} role="img" aria-label={options.ariaLabel} />
         </div>
-        <a 
-            {href} 
-            {target} 
-            rel="noopener norefer"
-            {disabled}
-        >
-            {label}
-        </a>
+        {#if source}
+            <div class="source-link">
+                <SourceLink {source} />
+            </div>
+        {/if}
     </figure>
 {/if}
 
@@ -430,10 +430,9 @@
         align-items: center;
     }
 
-    a {
+    .source-link {
         flex-shrink: 1;
         align-self: flex-end;
-        font-size: var(--chart-source-font-size, 12px);
     }
 
     .chart-container {
