@@ -1,6 +1,6 @@
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Props } from '../../../src';
-import { styleForLayouts } from '../../utils';
+import { styleForLayouts, defaultSource } from '../../utils';
 
 export const AreaTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
@@ -17,8 +17,7 @@ export const AreaTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        sourceUrl:
-            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+        source: defaultSource,
         ariaLabel: 'Area chart with title, axis, grid and dots',
         series: [
             {
@@ -88,8 +87,7 @@ export const AreaAxisGridDots: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        sourceUrl:
-            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+        source: defaultSource,
         ariaLabel: 'Area chart with axis, grid and dots',
         series: [
             {
@@ -149,8 +147,7 @@ export const AreaTitleAxisGrid: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        sourceUrl:
-            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+        source: defaultSource,
         ariaLabel: 'Area chart with title, axis and grid',
         series: [
             {
@@ -215,8 +212,7 @@ export const AreaTitleSubtitleGrid: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        sourceUrl:
-            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+        source: defaultSource,
         ariaLabel: 'Area chart with title, subtitle and grid',
         series: [
             {
@@ -286,8 +282,7 @@ export const AreaTitleDataValues: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        sourceUrl:
-            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+        source: defaultSource,
         ariaLabel: 'Area chart with title and data values on axis',
         series: [
             {
@@ -368,8 +363,7 @@ export const AreaDataValuesOnly: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        sourceUrl:
-            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+        source: defaultSource,
         ariaLabel: 'Area chart with data values on axis',
         series: [
             {

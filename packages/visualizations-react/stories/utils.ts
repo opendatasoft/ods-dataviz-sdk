@@ -22,6 +22,17 @@ export const style = {
     maxWidth: '1000px',
 };
 
+export const styleForLayouts = {
+    width: '100%',
+};
+
+export const gridStyle = {
+    display: 'flex' as const,
+    flexDirection: 'column' as const,
+    justifyItems: 'space-around' as const,
+    alignItems: 'space-around' as const,
+};
+
 export function generateArrayOf<T>(generator: (index: number) => T, size: number) {
     let result: T[] = [];
 
@@ -107,4 +118,10 @@ export const CONTROLS = {
             type: 'select',
         },
     },
+};
+
+export const defaultSource = {
+    href:
+        'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+    target: '_blank',
 };

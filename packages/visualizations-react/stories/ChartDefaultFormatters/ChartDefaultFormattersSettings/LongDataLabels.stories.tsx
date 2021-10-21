@@ -1,6 +1,6 @@
 import { ChartOptions, DataFrame, compactStringOrNumber } from '@opendatasoft/visualizations';
 import { Props } from '../../../src';
-import { styleForLayouts } from '../../utils';
+import { styleForLayouts, defaultSource } from '../../utils';
 
 export const LineLongDataLabels: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
@@ -17,8 +17,7 @@ export const LineLongDataLabels: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        sourceUrl:
-            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+        source: defaultSource,
         ariaLabel: 'Line chart with data values on axis',
         series: [
             {
@@ -88,8 +87,7 @@ export const PieLongDataLabels: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        sourceUrl:
-            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+        source: defaultSource,
         ariaLabel: 'Pie chart with title and sectors name with values',
         series: [
             {
@@ -133,8 +131,7 @@ export const RadarLongDataLabels: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        sourceUrl:
-            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+        source: defaultSource,
         ariaLabel: 'Radar chart',
         series: [
             {

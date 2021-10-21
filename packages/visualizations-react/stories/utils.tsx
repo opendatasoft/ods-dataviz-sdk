@@ -34,3 +34,10 @@ export function generateArrayOf<T>(generator: (index: number) => T, size: number
 
     return result;
 }
+
+export const defaultSource = {
+    href:
+        'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+    target: '_blank',
+};
+

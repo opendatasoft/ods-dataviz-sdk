@@ -1,6 +1,6 @@
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Props } from '../../../src';
-import { styleForLayouts } from '../../utils';
+import { styleForLayouts, defaultSource } from '../../utils';
 
 export const HistogramTitleAxisGrid: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
@@ -17,8 +17,7 @@ export const HistogramTitleAxisGrid: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        sourceUrl:
-            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+        source: defaultSource,
         ariaLabel: 'Histogram series chart',
         series: [
             {
@@ -76,8 +75,7 @@ export const HistogramAxisGrid: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        sourceUrl:
-            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+        source: defaultSource,
         ariaLabel: 'Histogram chart with axis and grid',
         series: [
             {
@@ -131,8 +129,7 @@ export const HistogramTitleDataValues: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        sourceUrl:
-            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+        source: defaultSource,
         ariaLabel: 'Histogram chart with title, subtitle and data values',
         series: [
             {
@@ -217,8 +214,7 @@ export const HistogramDataValues: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        sourceUrl:
-            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+        source: defaultSource,
         ariaLabel: 'Histogram chart with data values',
         series: [
             {
@@ -293,8 +289,7 @@ export const HistogramAxisDataValues: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        sourceUrl:
-            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+        source: defaultSource,
         ariaLabel: 'Histogram chart with axis and data values',
         series: [
             {
@@ -372,8 +367,7 @@ export const HistogramTitleAxisGridNegative: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        sourceUrl:
-            'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+        source: defaultSource,
         ariaLabel: 'Histogram series chart',
         series: [
             {
