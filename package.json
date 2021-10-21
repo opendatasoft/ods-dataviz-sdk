@@ -27,8 +27,7 @@
         "test": "lerna run test --parallel --no-bail",
         "bootstrap": "lerna bootstrap",
         "watch": "lerna run watch --parallel",
-        "lint": "lerna run lint  --parallel --no-bail",
-        "new-version": "lerna version --conventional-commits --no-push"
+        "lint": "lerna run lint  --parallel --no-bail"
     },
     "devDependencies": {
         "lerna": "^3.22.1"

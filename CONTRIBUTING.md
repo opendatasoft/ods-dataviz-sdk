@@ -75,24 +75,6 @@ The **type** must be one of the following:
 - `test`: Adding missing tests or correcting existing tests
 - `doc`: Changes made to the documentation
 
-## Versioning
-
-As mentioned above, this project uses [lerna](https://github.com/lerna/lerna) to structure its repo, and has multiple packages to publish out of this one repo. We use lerna's "independent" mode, which means that the versioning of each package in the repo is versioned independently.
-
-In order to publish package updates, we will:
-
-```shell
-npm run new-version
-```
-
-When run, this command does the following:
-
-1. Identifies packages that have been updated since the previous tagged release.
-2. Modifies the `CHANGELOG.md` files to reflect new release using the [Conventional Commits Specification](https://www.conventionalcommits.org/) to determine the version bump.
-3. Commits those changes and tags the commit.
-
-Then, you'll have to **manually push** the new version.
-
 ## Pull Requests
 
 Before you submit a pull request from your forked repo, check that it meets these guidelines:

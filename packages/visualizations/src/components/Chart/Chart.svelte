@@ -386,10 +386,6 @@
             },
         };
         chartConfig.options = chartOptions;
-
-        if (series[0].type === 'pie' && series[0].dataLabels?.display) {
-            chartConfig?.plugins?.push(pieDataLabelsPlugin);
-        }
     }
 
     $: {
