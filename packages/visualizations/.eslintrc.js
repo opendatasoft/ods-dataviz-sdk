@@ -18,6 +18,7 @@ module.exports = {
                 // Allowed in svelte
                 'import/first': 'off',
                 'import/no-mutable-exports': 'off',
+                'import/prefer-default-export': 'off',
             },
         },
     ],
@@ -26,6 +27,5 @@ module.exports = {
     },
     rules: {
         'class-methods-use-this': 'off', // False positives with abstract methods
-        'import/prefer-default-export': 'off',
     },
 };
