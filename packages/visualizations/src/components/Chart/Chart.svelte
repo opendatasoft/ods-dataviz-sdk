@@ -13,12 +13,10 @@
         TicksConfiguration,
         GridLinesConfiguration,
         CartesianAxisConfiguration,
-        Source,
     } from '../types';
     import { compactStringOrNumber } from '../../utils';
     import pieDataLabelsPlugin from './pieDataLabelsPlugin';
-    import SourceLink from '../SourceLink/SourceLink.svelte'
-
+    import SourceLink from '../SourceLink/SourceLink.svelte';
 
     export let data: Async<DataFrame>;
     export let options: ChartOptions;
@@ -26,7 +24,7 @@
     let dataFrame: DataFrame = [];
     let series: ChartSeries[] = [];
     let { labelColumn } = options;
-    let { source } = options;
+    const { source } = options;
 
     function chartJs(node: HTMLCanvasElement, config: ChartJs.ChartConfiguration) {
         const ctx = node.getContext('2d');

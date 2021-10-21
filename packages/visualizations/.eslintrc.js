@@ -26,5 +26,6 @@ module.exports = {
     },
     rules: {
         'class-methods-use-this': 'off', // False positives with abstract methods
+        'import/prefer-default-export': 'off',
     },
 };

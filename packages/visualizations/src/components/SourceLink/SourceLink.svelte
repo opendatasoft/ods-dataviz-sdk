@@ -1,11 +1,11 @@
 <script lang="ts">
     import type { Source } from '../types';
 
-    export let source: Source;
-    const { href, target, label = 'View source', disabled = false} = source;
+    export let source: Source;
+    const { href, target, label = 'View source', disabled = false } = source;
 </script>
 
-<a {href} {target} rel="noopener norefer"class:disabled>
+<a {href} {target} rel="noopener norefer" class:disabled>
     {label}
 </a>
 
@@ -17,6 +17,4 @@
     a.disabled {
         pointer-events: none;
     }
-
 </style>
-

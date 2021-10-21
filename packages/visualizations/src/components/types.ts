@@ -24,14 +24,14 @@ export interface ChartOptions {
     /** Accessibility */
     ariaLabel: string;
     /** Link button to source */
-    source?: Source;
+    source?: Source;
 }
 
 export interface Source {
-    href: string,
-    target?: '_self' | '_blank' | '_parent' | '_top',
-    label?: string,
-    disabled?: boolean,
+    href: string;
+    target?: '_self' | '_blank' | '_parent' | '_top';
+    label?: string;
+    disabled?: boolean;
 }
 
 export interface GridLinesConfiguration {
