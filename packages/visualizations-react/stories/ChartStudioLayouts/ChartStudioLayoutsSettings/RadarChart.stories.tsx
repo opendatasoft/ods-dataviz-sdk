@@ -16,7 +16,7 @@ export const RadarTitleScale: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        source: defaultSource,
         ariaLabel: 'Radar chart',
         series: [
             {
@@ -64,7 +64,7 @@ export const RadarTitleScaleNegativePositive: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        source: defaultSource,
         ariaLabel: 'Radar chart',
         series: [
             {

@@ -1,6 +1,7 @@
 /// <reference path="./utils.d.ts" />
 import trophy from './img/trophy.svg';
 import gov from './img/gov.svg';
+import { Source } from '../../visualizations/src/components/types';
 
 export const COLORS = {
     red: 'rgb(255, 99, 132)',
@@ -120,7 +121,7 @@ export const CONTROLS = {
     },
 };
 
-export const defaultSource = {
+export const defaultSource: Source = {
     href:
         'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
     target: '_blank',

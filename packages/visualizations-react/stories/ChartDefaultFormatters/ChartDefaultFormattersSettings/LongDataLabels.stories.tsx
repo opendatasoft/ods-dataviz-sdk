@@ -17,7 +17,7 @@ export const LineLongDataLabels: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        source: defaultSource,
         ariaLabel: 'Line chart with data values on axis',
         series: [
             {
@@ -87,7 +87,7 @@ export const PieLongDataLabels: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        source: defaultSource,
         ariaLabel: 'Pie chart with title and sectors name with values',
         series: [
             {
@@ -131,7 +131,7 @@ export const RadarLongDataLabels: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        source: defaultSource,
         ariaLabel: 'Radar chart',
         series: [
             {

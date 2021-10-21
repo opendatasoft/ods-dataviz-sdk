@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { Chart } from '../src';
+import { defaultSource } from '../stories/utils'; //Maybe move up dependencies?
 import './ResizeObserver.mock';
 import '@testing-library/jest-dom';
 
@@ -21,8 +22,7 @@ describe('Chart Default Story', () => {
                 }}
                 options={{
                     labelColumn: 'x',
-                    sourceUrl:
-                        'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+                    source: defaultSource,
                     ariaLabel: 'Line chart with title, axis, grid and dots',
                     series: [
                         {
