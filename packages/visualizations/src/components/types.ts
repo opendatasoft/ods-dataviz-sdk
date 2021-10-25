@@ -29,7 +29,6 @@ export interface ChartOptions {
 
 export interface Source {
     href: string;
-    target?: '_self' | '_blank' | '_parent' | '_top';
     label?: string;
     disabled?: boolean;
 }

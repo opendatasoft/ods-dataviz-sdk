@@ -2,10 +2,10 @@
     import type { Source } from '../types';
 
     export let source: Source;
-    const { href, target, label = 'View source', disabled = false } = source;
+    const { href, label = 'View source', disabled = false } = source;
 </script>
 
-<a {href} {target} rel="noopener norefer" class:disabled>
+<a {href} target="_blank" rel="noopener norefer" role="link" class:disabled>
     {label}
 </a>
 
