@@ -71,9 +71,7 @@ const options: ChartOptions = {
 };
 
 describe('Chart Default Story', () => {
-    beforeEach(() => {
-        render(<Chart data={data} options={options} />);
-    });
+    render(<Chart data={data} options={options} />);
 
     it('renders without crashing', () => {
         const chartCanvas = screen.getByRole('img', {
@@ -90,7 +88,7 @@ describe('Chart Default Story', () => {
     });
 });
 
-test('accepts custom link label', () => {
+test('Chart accepts custom link label', () => {
     const customOptions = {
         ...options,
         source: {
