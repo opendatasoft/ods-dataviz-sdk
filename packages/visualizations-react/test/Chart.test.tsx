@@ -71,23 +71,26 @@ const options: ChartOptions = {
 };
 
 describe('Chart Default Story', () => {
+    beforeEach(() => {
+        render(<Chart data={data} options={options} />);
+    });
+
     it('renders without crashing', () => {
-        const { getByRole } = render(<Chart data={data} options={options} />);
-        const chartCanvas = getByRole('img', {
+        const chartCanvas = screen.getByRole('img', {
             name: /Line chart with title, axis, grid and dots/i,
         });
         expect(chartCanvas).toBeInTheDocument();
     });
+
+    it('has a link to its source and default label', () => {
+        render(<Chart data={data} options={options} />);
+        const sourceLink = screen.getByRole('link');
+        expect(sourceLink).toBeInTheDocument();
+        expect(sourceLink).toHaveTextContent('View source');
+    });
 });
 
-test('has a link to its source and default label', () => {
-    render(<Chart data={data} options={options} />);
-    const sourceLink = screen.getByRole('link');
-    expect(sourceLink).toBeInTheDocument();
-    expect(sourceLink).toHaveTextContent('View source');
-});
-
-test('source link can have custom label', () => {
+test('accepts custom link label', () => {
     const customOptions = {
         ...options,
         source: {
