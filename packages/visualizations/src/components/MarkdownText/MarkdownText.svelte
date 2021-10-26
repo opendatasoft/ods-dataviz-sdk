@@ -4,15 +4,13 @@
     import type { MarkdownTextOptions } from '../types';
     import type { Async } from '../../types';
 
-    const md = new MarkdownIt("zero")
-        .use(MarkdownItMark)
-        .enable([
-            'hr',
-            'list',
-            'heading',
-            'emphasis', // bold & italic
-            'link',
-        ]);
+    const md = new MarkdownIt('zero').use(MarkdownItMark).enable([
+        'hr',
+        'list',
+        'heading',
+        'emphasis', // bold & italic
+        'link',
+    ]);
 </script>
 
 <script lang="ts">
