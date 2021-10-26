@@ -43,6 +43,8 @@ const style = {
 
 Default.args = {
     style,
-    data: '## Title',
+    data: {
+        value: '## Title'
+    },
     options: {},
 };
