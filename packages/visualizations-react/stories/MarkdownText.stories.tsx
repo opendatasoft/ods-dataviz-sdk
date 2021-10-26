@@ -44,7 +44,7 @@ const style = {
 Default.args = {
     style,
     data: {
-        value: '## Title'
+        value: '## Title',
     },
     options: {},
 };
