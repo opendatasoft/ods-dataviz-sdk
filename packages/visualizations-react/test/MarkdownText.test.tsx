@@ -30,7 +30,7 @@ describe('MarkdownText', () => {
         getByText('```code```');
         getByText('`inline`');
 
-        // Image
+        // Image (should be parsed as a link, not as an image tag)
         getByRole('link', {name: 'alt text'});
 
         // Strikethrough
