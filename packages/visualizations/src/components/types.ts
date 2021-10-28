@@ -29,13 +29,39 @@ export interface GridLinesConfiguration {
     display?: boolean | 'single';
 }
 
-export interface CartesianAxisConfiguration {
-    type?: 'linear' | 'logarithmic' | 'category';
+export type CartesianAxisConfiguration =
+    | TimeCartesianAxisConfiguration
+    | NumericCartesianAxisConfiguration
+    | CategoryCartesianAxisConfiguration;
+
+export interface BaseCartesianAxisConfiguration {
     display?: boolean;
     offset?: boolean;
     title?: AxisTitleConfiguration;
     gridLines?: GridLinesConfiguration;
     ticks?: TicksConfiguration;
+}
+
+export interface TimeCartesianAxisConfiguration extends BaseCartesianAxisConfiguration {
+    type: 'time';
+    timeUnit?:
+        | 'year'
+        | 'quarter'
+        | 'month'
+        | 'week'
+        | 'day'
+        | 'hour'
+        | 'minute'
+        | 'second'
+        | 'millisecond';
+}
+
+export interface CategoryCartesianAxisConfiguration extends BaseCartesianAxisConfiguration {
+    type?: 'category';
+}
+
+export interface NumericCartesianAxisConfiguration extends BaseCartesianAxisConfiguration {
+    type: 'linear' | 'logarithmic';
 }
 
 export interface AxisTitleConfiguration {
@@ -117,6 +143,7 @@ export interface Line {
     pointBackgroundColor?: Color;
     borderWidth?: number;
     borderDash?: number[];
+    spanGaps?: boolean | number;
 }
 
 export interface Bar {
