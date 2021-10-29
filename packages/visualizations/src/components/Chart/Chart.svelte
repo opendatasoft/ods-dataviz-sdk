@@ -23,7 +23,6 @@
     let dataFrame: DataFrame = [];
     let series: ChartSeries[] = [];
     let { labelColumn } = options;
-    const { source } = options;
 
     function chartJs(node: HTMLCanvasElement, config: ChartJs.ChartConfiguration) {
         const ctx = node.getContext('2d');
@@ -219,7 +218,7 @@
         chartConfig.type = defaultValue(options.series[0]?.type, 'line'); // Will set chartJs default value accordingly
         const chartOptions = chartConfig.options || {};
         chartOptions.aspectRatio = defaultValue(options.aspectRatio, 4 / 3);
-        chartOptions.maintainAspectRatio = options.maintainAspectRatio;
+        chartOptions.maintainAspectRatio = true;
         chartOptions.scales = {};
         chartOptions.layout = {
             padding: defaultValue(options?.padding, 12),
@@ -408,9 +407,9 @@
         <div class="chart-container">
             <canvas use:chartJs={chartConfig} role="img" aria-label={options.ariaLabel} />
         </div>
-        {#if source}
+        {#if options.source}
             <div class="source-link">
-                <SourceLink {source} />
+                <SourceLink source={options.source} />
             </div>
         {/if}
     </figure>
@@ -431,6 +430,6 @@
     .chart-container {
         position: relative;
         width: 100%;
-        flex: 1 0 400px;
+        flex-grow: 1;
     }
 </style>

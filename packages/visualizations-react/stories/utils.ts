@@ -124,5 +124,4 @@ export const CONTROLS = {
 export const defaultSource: Source = {
     href:
         'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
-    target: '_blank',
 };
