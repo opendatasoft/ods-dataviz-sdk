@@ -42,6 +42,7 @@
         "@rollup/plugin-node-resolve": "^10.0.0",
         "@rollup/plugin-typescript": "^6.1.0",
         "@tsconfig/svelte": "^1.0.10",
+        "@types/luxon": "^2.0.5",
         "@types/markdown-it": "^12.0.1",
         "@types/rollup-plugin-visualizer": "^4.2.1",
         "@typescript-eslint/eslint-plugin": "^4.31.1",
@@ -70,7 +71,9 @@
     },
     "dependencies": {
         "chart.js": "^3.5.1",
+        "chartjs-adapter-luxon": "^1.1.0",
         "chartjs-plugin-datalabels": "^2.0.0-rc.1",
+        "luxon": "^2.0.2",
         "markdown-it": "^12.0.4",
         "markdown-it-mark": "^3.0.1"
     }
