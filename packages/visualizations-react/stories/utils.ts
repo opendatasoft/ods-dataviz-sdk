@@ -1,6 +1,7 @@
 /// <reference path="./utils.d.ts" />
 import trophy from './img/trophy.svg';
 import gov from './img/gov.svg';
+import { Source } from '../../visualizations/src/components/types';
 
 export const COLORS = {
     red: 'rgb(255, 99, 132)',
@@ -20,6 +21,17 @@ export const IMAGES = {
 export const style = {
     width: '50%',
     maxWidth: '1000px',
+};
+
+export const styleForLayouts = {
+    width: '100%',
+};
+
+export const gridStyle = {
+    display: 'flex' as const,
+    flexDirection: 'column' as const,
+    justifyItems: 'space-around' as const,
+    alignItems: 'space-around' as const,
 };
 
 export function generateArrayOf<T>(generator: (index: number) => T, size: number) {
@@ -107,4 +119,9 @@ export const CONTROLS = {
             type: 'select',
         },
     },
+};
+
+export const defaultSource: Source = {
+    href:
+        'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
 };

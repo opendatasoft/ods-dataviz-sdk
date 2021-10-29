@@ -15,6 +15,7 @@
         CartesianAxisConfiguration,
     } from '../types';
     import { compactStringOrNumber } from '../../utils';
+    import SourceLink from '../SourceLink/SourceLink.svelte';
 
     export let data: Async<DataFrame>;
     export let options: ChartOptions;
@@ -217,7 +218,7 @@
         chartConfig.type = defaultValue(options.series[0]?.type, 'line'); // Will set chartJs default value accordingly
         const chartOptions = chartConfig.options || {};
         chartOptions.aspectRatio = defaultValue(options.aspectRatio, 4 / 3);
-        chartOptions.maintainAspectRatio = options.maintainAspectRatio;
+        chartOptions.maintainAspectRatio = true;
         chartOptions.scales = {};
         chartOptions.layout = {
             padding: defaultValue(options?.padding, 12),
@@ -399,18 +400,37 @@
     }
 </script>
 
-<div class="chart-container">
-    {#if data.error}
-        Error : {JSON.stringify(data.error)}
-    {:else if options}
-        <canvas use:chartJs={chartConfig} role="img" aria-label={options.ariaLabel} />
-    {/if}
-</div>
+{#if data.error}
+    Error : {JSON.stringify(data.error)}
+{:else if options}
+    <figure>
+        <div class="chart-container">
+            <canvas use:chartJs={chartConfig} role="img" aria-label={options.ariaLabel} />
+        </div>
+        {#if options.source}
+            <div class="source-link">
+                <SourceLink source={options.source} />
+            </div>
+        {/if}
+    </figure>
+{/if}
 
 <style>
+    figure {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+    }
+
+    .source-link {
+        flex-shrink: 1;
+        align-self: flex-end;
+    }
+
     .chart-container {
         position: relative;
-        height: 100%;
         width: 100%;
+        flex-grow: 1;
     }
 </style>

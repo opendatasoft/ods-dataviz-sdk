@@ -5,8 +5,6 @@ export interface ChartOptions {
     series: ChartSeries[];
     /** Chart aspect ratio */
     aspectRatio?: number;
-    /** Maintain aspect ratio when the canvas is resized */
-    maintainAspectRatio?: boolean;
     /** Chart padding */
     padding?: number;
     /** Configure xAxis */
@@ -23,6 +21,13 @@ export interface ChartOptions {
     subtitle?: TitleConfiguration;
     /** Accessibility */
     ariaLabel: string;
+    /** Link button to source */
+    source?: Source;
+}
+
+export interface Source {
+    href: string;
+    label?: string;
 }
 
 export interface GridLinesConfiguration {

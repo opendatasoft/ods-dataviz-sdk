@@ -18,6 +18,7 @@ module.exports = {
                 // Allowed in svelte
                 'import/first': 'off',
                 'import/no-mutable-exports': 'off',
+                'import/prefer-default-export': 'off',
             },
         },
     ],

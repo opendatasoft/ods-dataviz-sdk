@@ -1,6 +1,6 @@
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Props } from '../../../src';
-import { styleForLayouts } from '../../utils';
+import { styleForLayouts, defaultSource } from '../../utils';
 
 export const ColumnTitleAxisGrid: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
@@ -17,6 +17,7 @@ export const ColumnTitleAxisGrid: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {
@@ -82,6 +83,7 @@ export const ColumnAxisGrid: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Column chart with axis and grid',
         series: [
             {
@@ -143,6 +145,7 @@ export const ColumnTitleSubtitleDataValues: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {
@@ -242,6 +245,7 @@ export const ColumnDataValues: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {
@@ -332,6 +336,7 @@ export const ColumnAxisDataValues: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {
@@ -419,6 +424,7 @@ export const ColumnTitleAxisGridNegative: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {
