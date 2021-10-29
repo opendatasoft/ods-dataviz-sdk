@@ -11,6 +11,6 @@
 
 <style>
     a {
-        font-size: var(--chart-source-font-size, 12px);
+        font-size: var(--source-link-font-size, 12px);
     }
 </style>
