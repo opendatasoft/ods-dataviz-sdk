@@ -1,6 +1,6 @@
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Props } from '../../../src';
-import { styleForLayouts } from '../../utils';
+import { styleForLayouts, defaultSource } from '../../utils';
 
 export const LongTicksFixed: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
@@ -77,6 +77,7 @@ export const LongTicksFixed: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Line chart with Long Ticks Unfixed',
         padding: 6,
         series: [
@@ -152,6 +153,7 @@ export const BarLongTicks: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Bar chart with title, axis and grid',
         series: [
             {
@@ -244,6 +246,7 @@ export const ColumnLongTicks: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {
@@ -334,6 +337,7 @@ export const ColumnLongTicks2: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {
@@ -399,6 +403,7 @@ export const RadarLongTicks: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Radar chart',
         series: [
             {

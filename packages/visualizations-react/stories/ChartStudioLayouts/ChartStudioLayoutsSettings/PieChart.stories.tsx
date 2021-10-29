@@ -1,6 +1,6 @@
 import { ChartOptions, DataFrame, compactStringOrNumber } from '@opendatasoft/visualizations';
 import { Props } from '../../../src';
-import { styleForLayouts } from '../../utils';
+import { styleForLayouts, defaultSource } from '../../utils';
 
 export const PieTitleSectorsName: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
@@ -15,6 +15,7 @@ export const PieTitleSectorsName: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Pie chart with title and sectors name',
         series: [
             {
@@ -49,6 +50,7 @@ export const PieTitleSectorsNameValue: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Pie chart with title and sectors name with values',
         series: [
             {
@@ -91,6 +93,7 @@ export const PieTitleLegend: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Pie chart with title and legend',
         series: [
             {
@@ -126,6 +129,7 @@ export const PieTitleLegendValues: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Pie chart with title and legend with values',
         series: [
             {

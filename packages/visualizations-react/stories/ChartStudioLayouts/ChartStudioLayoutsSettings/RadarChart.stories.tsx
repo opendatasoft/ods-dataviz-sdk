@@ -1,6 +1,6 @@
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Props } from '../../../src';
-import { styleForLayouts } from '../../utils';
+import { styleForLayouts, defaultSource } from '../../utils';
 
 export const RadarTitleScale: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
@@ -16,6 +16,7 @@ export const RadarTitleScale: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Radar chart',
         series: [
             {
@@ -63,6 +64,7 @@ export const RadarTitleScaleNegativePositive: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Radar chart',
         series: [
             {
@@ -112,6 +114,7 @@ export const RadarTitle: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Radar chart',
         series: [
             {
@@ -159,6 +162,7 @@ export const RadarTitleDataValues: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Radar chart',
         series: [
             {

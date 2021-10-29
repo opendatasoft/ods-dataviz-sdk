@@ -1,6 +1,6 @@
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Props } from '../../../src';
-import { styleForLayouts } from '../../utils';
+import { styleForLayouts, defaultSource } from '../../utils';
 
 export const LineTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
@@ -17,6 +17,7 @@ export const LineTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Line chart with title, axis, grid and dots',
         series: [
             {
@@ -78,6 +79,7 @@ export const LineAxisGridDots: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Line chart with axis, grid and dots',
         series: [
             {
@@ -135,6 +137,7 @@ export const LineTitleAxisGrid: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Line chart with title, axis and grid',
         series: [
             {
@@ -190,6 +193,7 @@ export const LineTitleSubtitleGrid: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Line chart with title, subtitle and grid',
         series: [
             {
@@ -250,6 +254,7 @@ export const LineTitleDataValues: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Line chart with title and data values on axis',
         series: [
             {
@@ -323,6 +328,7 @@ export const LineDataValuesOnly: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Line chart with data values on axis',
         series: [
             {
@@ -390,6 +396,7 @@ export const LineTitleAxisGridDotsNegative: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Line chart with title, axis, grid and dots',
         series: [
             {

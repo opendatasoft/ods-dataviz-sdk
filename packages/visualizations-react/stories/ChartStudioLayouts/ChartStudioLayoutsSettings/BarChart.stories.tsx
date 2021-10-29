@@ -1,6 +1,6 @@
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Props } from '../../../src';
-import { styleForLayouts } from '../../utils';
+import { styleForLayouts, defaultSource } from '../../utils';
 
 export const BarTitleAxisGrid: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
@@ -15,6 +15,7 @@ export const BarTitleAxisGrid: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Bar chart with title, axis and grid',
         series: [
             {
@@ -79,6 +80,7 @@ export const BarAxisGrid: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Bar chart with axis and grid',
         series: [
             {
@@ -140,6 +142,7 @@ export const BarTitleAxisDataValues: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Bar chart with title, axis and data values',
         padding: 24,
         series: [
@@ -242,6 +245,7 @@ export const BarAxisDataValues: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Bar chart with axis and data values',
         padding: 24,
         series: [
@@ -330,6 +334,7 @@ export const BarTitleSubTitleGrid: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         ariaLabel: 'Bar chart with title, subtitle and grid',
         series: [
             {
