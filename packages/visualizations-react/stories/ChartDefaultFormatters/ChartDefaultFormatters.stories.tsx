@@ -26,11 +26,6 @@ import {
 
 const meta: Meta = {
     title: 'Chart/DefaultFormatters',
-    parameters: {
-        controls: {
-            expanded: true,
-        },
-    },
 };
 
 export default meta;

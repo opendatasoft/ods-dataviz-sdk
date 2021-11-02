@@ -7,11 +7,6 @@ import { MarkdownText } from '../src';
 const meta: Meta = {
     title: 'MarkdownText',
     component: MarkdownText,
-    parameters: {
-        controls: {
-            expanded: true,
-        },
-    },
     decorators: [
         (Story) => (
             <div>
