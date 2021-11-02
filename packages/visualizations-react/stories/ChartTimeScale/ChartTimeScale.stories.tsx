@@ -16,8 +16,8 @@ type Args = Props<DataFrame, ChartOptions>;
 
 const Template = (args: Args) => <Chart {...args} />;
 
-export const LineChartYears: Story<Args> = Template.bind({});
-const LineChartYearsArgs: Props<DataFrame, ChartOptions> = {
+export const AreaChartYears: Story<Args> = Template.bind({});
+const AreaChartYearsArgs: Props<DataFrame, ChartOptions> = {
     style: styleForLayouts,
     data: {
         loading: false,
@@ -36,8 +36,8 @@ const LineChartYearsArgs: Props<DataFrame, ChartOptions> = {
             {
                 type: 'line',
                 valueColumn: 'y',
-                borderColor: COLORS.purple,
-                backgroundColor: COLORS.red,
+                backgroundColor: COLORS.green,
+                fill: { mode: 'origin' },
             },
         ],
         xAxis: {
@@ -53,7 +53,7 @@ const LineChartYearsArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-LineChartYears.args = LineChartYearsArgs;
+AreaChartYears.args = AreaChartYearsArgs;
 
 export const LineChartYearsWithGap: Story<Args> = Template.bind({});
 const LineChartYearsWithGapArgs: Props<DataFrame, ChartOptions> = {
