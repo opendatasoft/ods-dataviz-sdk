@@ -53,9 +53,9 @@ const computeGridLineColor: (
 
 const DATE_TOOLTIP_FORMATS = {
     millisecond: 'h:mm:ss.SSS a',
-    second: DateTime.TIME_WITH_SECONDS,
-    minute: DateTime.TIME_SIMPLE,
-    hour: { hour: 'numeric' },
+    second: DateTime.DATETIME_MED_WITH_SECONDS,
+    minute: DateTime.DATETIME_MED,
+    hour: DateTime.DATETIME_MED,
     day: { day: 'numeric', month: 'long' },
     week: 'DD',
     month: { month: 'long', year: 'numeric' },
