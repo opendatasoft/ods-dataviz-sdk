@@ -61,4 +61,13 @@ export default {
                 sourcemap: true,
             }),
     ],
+    onwarn(warning, warn) {
+        // https://github.com/moment/luxon/issues/193
+        if (warning.code === 'CIRCULAR_DEPENDENCY') {
+            if (warning.importer.includes('node_modules/luxon')) {
+                return;
+            }
+        }
+        warn(warning);
+    },
 };

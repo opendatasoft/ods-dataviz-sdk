@@ -65,11 +65,6 @@ import {
 
 const meta: Meta = {
     title: 'Chart/StudioLayouts',
-    parameters: {
-        controls: {
-            expanded: true,
-        },
-    },
 };
 
 export default meta;
