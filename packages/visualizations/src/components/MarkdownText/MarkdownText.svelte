@@ -10,6 +10,7 @@
         'heading',
         'emphasis', // bold & italic
         'link',
+        'escape',
     ]);
 </script>
 
