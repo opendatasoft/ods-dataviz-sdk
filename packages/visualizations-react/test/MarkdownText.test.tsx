@@ -39,4 +39,12 @@ describe('MarkdownText', () => {
         // Strikethrough
         getByText('~~strikethrough~~');
     });
+
+    it("doesn't display escape characters", () => {
+        const value = 'Hi there \\*\\*world\\*\\*';
+
+        const { getByText } = render(<MarkdownText options={{}} data={{ value }} />);
+
+        getByText('Hi there **world**');
+    });
 });
