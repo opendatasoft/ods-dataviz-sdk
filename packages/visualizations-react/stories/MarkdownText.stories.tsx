@@ -39,7 +39,15 @@ const style = {
 Default.args = {
     style,
     data: {
-        value: '## Title',
+        value:
+            '' +
+            '## Title\n\n' +
+            'This list should appear tight:\n\n' +
+            '- Item 1\n' +
+            '- Item 2\n\n' +
+            '- Item 3\n\n\n\n' +
+            '- Item 4\n' +
+            '- Item 5',
     },
     options: {},
 };
