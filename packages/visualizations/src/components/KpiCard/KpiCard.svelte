@@ -115,7 +115,7 @@
     }
     .kpi-card__value {
         /* Text is customizable because it does not map to any HTML element */
-        font-size: var(--kpi-card-value-font-size, 4rem);
+        font-size: var(--kpi-card-value-font-size, 2rem);
         font-weight: var(--kpi-card-value-font-weight, bold);
         color: var(--kpi-card-value-color, var(--kpi-card-color, #000));
     }
