@@ -22,13 +22,12 @@ describe('KPI Default Story', () => {
     it('renders without crashing', () => {
         const KpiHeading = screen.getByRole('heading', { name: /tokyo olympic budget 2021/i });
         expect(KpiHeading).toBeInTheDocument();
-        const KpiImage = document.querySelector("img") as HTMLImageElement;
-        expect(KpiImage.src).toContain("My-fake-image-source");
+        const KpiImage = document.querySelector('img') as HTMLImageElement;
+        expect(KpiImage.src).toContain('My-fake-image-source');
         const KpiPrefix = screen.getByText(/\$/i);
         expect(KpiPrefix).toBeInTheDocument();
         const KpiValue = screen.getByText(/42/i);
         expect(KpiValue).toBeInTheDocument();
-
     });
 
     it('has a link to its source and default label', () => {
@@ -52,4 +51,3 @@ test('KPI accepts custom link label', () => {
     const sourceLink = screen.getByText('Explore data');
     expect(sourceLink).toBeInTheDocument();
 });
-
