@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta } from '@storybook/react';
 import { KpiCard } from '../../src';
-import { COLORS, CONTROLS, IMAGES } from '../utils';
+import { COLORS, CONTROLS, IMAGES, defaultSource } from '../utils';
 
 const meta: Meta = {
     title: 'KPI Card/Single',
@@ -47,6 +47,7 @@ const meta: Meta = {
         '--kpi-card-footer-font-size': CONTROLS.text,
         '--kpi-card-footer-font-weight': CONTROLS.fontWeight,
         '--kpi-card-footer-text-align': CONTROLS.textAlign,
+        '--kpi-card-source-link-align-self': CONTROLS.alignSelf,
     },
 };
 
@@ -83,6 +84,7 @@ const Template = ({
                 suffix,
                 imgSrc,
                 footer,
+                source: defaultSource,
             }}
             style={style}
         />
@@ -144,4 +146,5 @@ FullCustom.args = {
     '--kpi-card-footer-font-size': '1rem',
     '--kpi-card-footer-font-weight': '400',
     '--kpi-card-footer-text-align': 'left',
+    '--kpi-card-source-link-align-self': 'end',
 };

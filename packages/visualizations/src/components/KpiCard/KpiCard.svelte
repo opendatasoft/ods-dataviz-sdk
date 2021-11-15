@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { Async } from '../../types';
     import type { KpiCardOptions } from '../types';
+    import SourceLink from '../SourceLink/SourceLink.svelte';
 
     export let data: Async<number>;
     export let options: KpiCardOptions;
@@ -36,6 +37,11 @@
                 {/if}
             </div>
         </div>
+        {#if options.source}
+            <div class="kpi-card__source-link">
+                <SourceLink source={options.source} />
+            </div>
+        {/if}
         {#if options.footer}
             <div class="kpi-card__footer">{options.footer}</div>
         {/if}
@@ -91,7 +97,7 @@
         /* Layout disposition is customizable */
         align-self: var(--kpi-card-content-align-self, center);
     }
-    /* 
+    /*
         Title and description are not customizable.
         User can target the h3 and p element in CSS.
     */
@@ -112,6 +118,11 @@
         font-size: var(--kpi-card-value-font-size, 4rem);
         font-weight: var(--kpi-card-value-font-weight, bold);
         color: var(--kpi-card-value-color, var(--kpi-card-color, #000));
+    }
+    .kpi-card__source-link {
+        /* Source link position is customizable */
+        align-self: var(--kpi-card-source-link-align-self, center);
+        margin: 0 0.5rem 0 0.5rem;
     }
     .kpi-card__footer {
         /* Not customizable yet */

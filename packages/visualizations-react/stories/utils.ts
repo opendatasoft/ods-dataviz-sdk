@@ -119,6 +119,12 @@ export const CONTROLS = {
             type: 'select',
         },
     },
+    alignSelf: {
+        options: ['start', 'end', 'center'],
+        control: {
+            type: 'select',
+        },
+    },
 };
 
 export const defaultSource: Source = {

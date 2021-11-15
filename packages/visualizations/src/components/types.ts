@@ -211,4 +211,6 @@ export interface KpiCardOptions {
     suffix?: string;
     header?: string;
     footer?: string;
+    /** Link button to source */
+    source?: Source;
 }

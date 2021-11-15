@@ -2,7 +2,7 @@ import React from 'react';
 import { Async, KpiCardOptions } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { KpiCard, Props } from '../../src';
-import { IMAGES } from '../utils';
+import { IMAGES, defaultSource } from '../utils';
 
 const meta: Meta = {
     title: 'KPI Card/Studio Layouts',
@@ -38,6 +38,7 @@ function withData(data: Async<number>): KpiCardStoryProps {
             data,
             options: {
                 description: 'médailles aux JO de Tokyo 2021',
+                source: defaultSource,
             },
         },
         'Context, picture': {
@@ -45,6 +46,7 @@ function withData(data: Async<number>): KpiCardStoryProps {
             options: {
                 imgSrc: IMAGES.trophy,
                 description: 'médailles aux JO de Tokyo 2021',
+                source: defaultSource,
             },
         },
         'Header only': {
@@ -55,17 +57,20 @@ function withData(data: Async<number>): KpiCardStoryProps {
             options: {
                 header: 'Budget des JO Tokyo 2021',
                 suffix: '€',
+                source: defaultSource,
             },
         },
         'Title, picture': {
             style: {
                 ['--kpi-card-body-flex-direction' as any]: 'row',
+                ['--kpi-card-source-link-align-self' as any]: 'end',
             },
             data,
             options: {
                 title: 'Tokyo Olympic Budget 2021',
                 imgSrc: IMAGES.gov,
                 prefix: '$',
+                source: defaultSource,
             },
         },
     };
