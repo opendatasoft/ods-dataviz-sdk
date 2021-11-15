@@ -33,7 +33,6 @@ const meta: Meta = {
         '--kpi-card-header-font-weight': CONTROLS.fontWeight,
         '--kpi-card-header-text-align': CONTROLS.textAlign,
         // Kpi Card Img
-        '--kpi-card-img-height': CONTROLS.text,
         '--kpi-card-img-align-self': CONTROLS.alignItems,
         // Kpi Card Content
         '--kpi-card-content-align-self': CONTROLS.alignItems,
@@ -132,7 +131,6 @@ FullCustom.args = {
     '--kpi-card-header-font-weight': '400',
     '--kpi-card-header-text-align': 'left',
     // Kpi Card Img
-    '--kpi-card-img-height': '2rem',
     '--kpi-card-img-align-self': 'start',
     // Kpi Card Content
     '--kpi-card-content-align-self': 'end',

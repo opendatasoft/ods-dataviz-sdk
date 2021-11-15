@@ -82,10 +82,14 @@
     }
     .kpi-card__img {
         /* Not customizable yet */
-        padding: 0.5rem;
+        margin: 0.5rem;
 
-        /* Image display is customizable */
-        height: var(--kpi-card-img-height, 10rem);
+        /* Image display is not customizable */
+        width: auto;
+        height: auto;
+        max-width: 4rem;
+        max-height: 4rem;
+        object-fit: contain;
 
         /* Layout disposition is customizable */
         align-self: var(--kpi-card-img-align-self, center);
