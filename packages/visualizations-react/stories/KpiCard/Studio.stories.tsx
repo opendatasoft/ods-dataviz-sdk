@@ -21,9 +21,7 @@ const Template = (args: KpiCardStoryProps) => (
             gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
             gridTemplateRows: 'repeat(2, minmax(0, 1fr))',
             gap: '1rem',
-            ['--kpi-card-background-color' as any]: '#f6f8fb',
-            ['--kpi-card-value-color' as any]: 'orange',
-            ['--kpi-card-border-width' as any]: '0',
+            ['--kpi-card-value-color' as any]: '#198276',
         }}
     >
         {Object.keys(args).map((key) => (
@@ -37,26 +35,25 @@ function withData(data: Async<number>): KpiCardStoryProps {
         'Context only': {
             data,
             options: {
-                description: 'médailles aux JO de Tokyo 2021',
+                description: 'Chiffre d’affaires pour la catégorie Fruits et légumes sur l’année en cour',
+                suffix: ' EUR',
                 source: defaultSource,
             },
         },
         'Context, picture': {
             data,
             options: {
-                imgSrc: IMAGES.trophy,
-                description: 'médailles aux JO de Tokyo 2021',
+                imgSrc: IMAGES.rocket,
+                description: 'Chiffre d’affaires pour la catégorie Fruits et légumes sur l’année en cours',
+                suffix: ' EUR',
                 source: defaultSource,
             },
         },
-        'Header only': {
-            style: {
-                ['--kpi-card-header-background-color' as any]: 'none',
-            },
+        'Title only': {
             data,
             options: {
-                header: 'Budget des JO Tokyo 2021',
-                suffix: '€',
+                title: "Chiffre d'affaires",
+                suffix: ' EUR',
                 source: defaultSource,
             },
         },
@@ -64,12 +61,16 @@ function withData(data: Async<number>): KpiCardStoryProps {
             style: {
                 ['--kpi-card-body-flex-direction' as any]: 'row',
                 ['--kpi-card-source-link-align-self' as any]: 'end',
+                ['--kpi-card-img-margin' as any]: '0 1rem 0 0',
+                ['--kpi-card-content-align-items' as any]: 'start',
+                ['--kpi-card-title-margin' as any]: '0',
+                ['--kpi-card-value-margin' as any]: '0',
             },
             data,
             options: {
-                title: 'Tokyo Olympic Budget 2021',
-                imgSrc: IMAGES.gov,
-                prefix: '$',
+                title: "Chiffre d'affaires",
+                imgSrc: IMAGES.rocket,
+                suffix: ' EUR',
                 source: defaultSource,
             },
         },
@@ -83,4 +84,4 @@ export const ShortValue = Template.bind({});
 ShortValue.args = withData({ value: 42 });
 
 export const LongValue = Template.bind({});
-LongValue.args = withData({ value: 123456789 });
+LongValue.args = withData({ value: 42100 });

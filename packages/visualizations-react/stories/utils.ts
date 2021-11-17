@@ -1,6 +1,7 @@
 /// <reference path="./utils.d.ts" />
 import trophy from './img/trophy.svg';
 import gov from './img/gov.svg';
+import rocket from './img/rocket.png';
 import { Source } from '../../visualizations/src/components/types';
 
 export const COLORS = {
@@ -16,6 +17,7 @@ export const COLORS = {
 export const IMAGES = {
     gov,
     trophy,
+    rocket,
 };
 
 export const style = {
@@ -114,7 +116,7 @@ export const CONTROLS = {
         },
     },
     textAlign: {
-        options: ['left', 'center', 'right'],
+        options: ['start', 'center', 'end'],
         control: {
             type: 'select',
         },

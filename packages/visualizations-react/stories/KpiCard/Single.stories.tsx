@@ -34,19 +34,25 @@ const meta: Meta = {
         '--kpi-card-header-text-align': CONTROLS.textAlign,
         // Kpi Card Img
         '--kpi-card-img-align-self': CONTROLS.alignItems,
+        '--kpi-card-img-margin': CONTROLS.text,
         // Kpi Card Content
         '--kpi-card-content-align-self': CONTROLS.alignItems,
+        '--kpi-card-content-align-items': CONTROLS.alignItems,
+        // Kpi Card Title
+        '--kpi-card-title-margin': CONTROLS.text,
         // Kpi Card Value
         '--kpi-card-value-font-size': CONTROLS.text,
         '--kpi-card-value-font-weight': CONTROLS.fontWeight,
         '--kpi-card-value-color': CONTROLS.color,
+        '--kpi-card-value-margin': CONTROLS.text,
+        // Kpi Card Source Link
+        '--kpi-card-source-link-align-self': CONTROLS.alignSelf,
         // Kpi Card Footer
         '--kpi-card-footer-background-color': CONTROLS.color,
         '--kpi-card-footer-color': CONTROLS.color,
         '--kpi-card-footer-font-size': CONTROLS.text,
         '--kpi-card-footer-font-weight': CONTROLS.fontWeight,
         '--kpi-card-footer-text-align': CONTROLS.textAlign,
-        '--kpi-card-source-link-align-self': CONTROLS.alignSelf,
     },
 };
 
@@ -134,15 +140,17 @@ FullCustom.args = {
     '--kpi-card-img-align-self': 'start',
     // Kpi Card Content
     '--kpi-card-content-align-self': 'end',
+    '--kpi-card-content-align-items': 'center',
     // Kpi Card Value
     '--kpi-card-value-font-size': '3rem',
     '--kpi-card-value-font-weight': '400',
     '--kpi-card-value-color': 'white',
+    // Kpi Card Source Link
+    '--kpi-card-source-link-align-self': 'end',
     // Kpi Card Footer
     '--kpi-card-footer-background-color': 'white',
     '--kpi-card-footer-color': COLORS.red,
     '--kpi-card-footer-font-size': '1rem',
     '--kpi-card-footer-font-weight': '400',
     '--kpi-card-footer-text-align': 'left',
-    '--kpi-card-source-link-align-self': 'end',
 };
