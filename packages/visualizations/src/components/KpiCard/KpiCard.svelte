@@ -7,7 +7,8 @@
     export let data: Async<number>;
     export let options: KpiCardOptions;
 
-    $: formattedValue = data.value !== undefined ? kpiFormatter.format(data.value).toLocaleString() : '';
+    $: formattedValue =
+        data.value !== undefined ? kpiFormatter.format(data.value).toLocaleString() : '';
 </script>
 
 <div class="kpi-card">
