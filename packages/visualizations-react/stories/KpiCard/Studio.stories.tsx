@@ -35,7 +35,8 @@ function withData(data: Async<number>): KpiCardStoryProps {
         'Context only': {
             data,
             options: {
-                description: 'Chiffre d’affaires pour la catégorie Fruits et légumes sur l’année en cour',
+                description:
+                    'Chiffre d’affaires pour la catégorie Fruits et légumes sur l’année en cour',
                 suffix: ' EUR',
                 source: defaultSource,
             },
@@ -44,7 +45,8 @@ function withData(data: Async<number>): KpiCardStoryProps {
             data,
             options: {
                 imgSrc: IMAGES.rocket,
-                description: 'Chiffre d’affaires pour la catégorie Fruits et légumes sur l’année en cours',
+                description:
+                    'Chiffre d’affaires pour la catégorie Fruits et légumes sur l’année en cours',
                 suffix: ' EUR',
                 source: defaultSource,
             },
