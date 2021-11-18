@@ -213,4 +213,6 @@ export interface KpiCardOptions {
     footer?: string;
     /** Link button to source */
     source?: Source;
+    /** Custom formatting function to display data value */
+    formatCompact?: (value: number) => string;
 }

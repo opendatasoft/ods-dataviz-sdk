@@ -3,11 +3,6 @@ const formatter = new Intl.NumberFormat(undefined, {
     notation: 'compact',
 } as any);
 
-export const kpiFormatter = new Intl.NumberFormat(undefined, {
-    notation: 'compact',
-    maximumFractionDigits: 1,
-} as any);
-
 // eslint-disable-next-line import/prefer-default-export
 export function compactStringOrNumber(value: string | number | undefined | null): string {
     if (value === undefined || value === null) return '';

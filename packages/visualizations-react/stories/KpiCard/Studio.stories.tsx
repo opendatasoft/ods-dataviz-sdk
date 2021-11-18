@@ -2,7 +2,13 @@ import React from 'react';
 import { Async, KpiCardOptions } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { KpiCard, Props } from '../../src';
-import { IMAGES, defaultSource } from '../utils';
+import {
+    IMAGES,
+    defaultSource,
+    kpiNumberFormat,
+    kpiRatioNumberFormat,
+    kpiComparisonNumberFormat,
+} from '../utils';
 
 const meta: Meta = {
     title: 'KPI Card/Studio Layouts',
@@ -30,7 +36,7 @@ const Template = (args: KpiCardStoryProps) => (
     </div>
 );
 
-function withData(data: Async<number>): KpiCardStoryProps {
+function withData(data: Async<number>, formatOptions: any): KpiCardStoryProps {
     return {
         'Context only': {
             data,
@@ -39,6 +45,7 @@ function withData(data: Async<number>): KpiCardStoryProps {
                     'Chiffre d’affaires pour la catégorie Fruits et légumes sur l’année en cour',
                 suffix: ' EUR',
                 source: defaultSource,
+                formatCompact: (value) => formatOptions.format(value),
             },
         },
         'Context, picture': {
@@ -49,6 +56,7 @@ function withData(data: Async<number>): KpiCardStoryProps {
                     'Chiffre d’affaires pour la catégorie Fruits et légumes sur l’année en cours',
                 suffix: ' EUR',
                 source: defaultSource,
+                formatCompact: (value) => formatOptions.format(value),
             },
         },
         'Title only': {
@@ -57,6 +65,7 @@ function withData(data: Async<number>): KpiCardStoryProps {
                 title: "Chiffre d'affaires",
                 suffix: ' EUR',
                 source: defaultSource,
+                formatCompact: (value) => formatOptions.format(value),
             },
         },
         'Title, picture': {
@@ -74,16 +83,23 @@ function withData(data: Async<number>): KpiCardStoryProps {
                 imgSrc: IMAGES.rocket,
                 suffix: ' EUR',
                 source: defaultSource,
+                formatCompact: (value) => formatOptions.format(value),
             },
         },
     };
 }
 
 export const Loading = Template.bind({});
-Loading.args = withData({ loading: true });
+Loading.args = withData({ loading: true }, kpiNumberFormat);
 
 export const ShortValue = Template.bind({});
-ShortValue.args = withData({ value: 42 });
+ShortValue.args = withData({ value: 42 }, kpiNumberFormat);
 
 export const LongValue = Template.bind({});
-LongValue.args = withData({ value: 42100 });
+LongValue.args = withData({ value: 42100 }, kpiNumberFormat);
+
+export const RatioKPI = Template.bind({});
+RatioKPI.args = withData({ value: 0.42 }, kpiRatioNumberFormat);
+
+export const ComparisonKPI = Template.bind({});
+ComparisonKPI.args = withData({ value: 42 }, kpiComparisonNumberFormat);

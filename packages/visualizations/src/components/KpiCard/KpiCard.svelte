@@ -1,14 +1,19 @@
 <script lang="ts">
     import type { Async } from '../../types';
     import type { KpiCardOptions } from '../types';
-    import { kpiFormatter } from '../../utils';
     import SourceLink from '../SourceLink/SourceLink.svelte';
 
     export let data: Async<number>;
     export let options: KpiCardOptions;
+    let formattedValue: string;
 
-    $: formattedValue =
-        data.value !== undefined ? kpiFormatter.format(data.value).toLocaleString() : '';
+    $: if (options.formatCompact && data.value !== undefined) {
+        formattedValue = options.formatCompact(data.value).toLocaleString();
+    } else if (data.value !== undefined) {
+        formattedValue = data.value.toLocaleString();
+    } else {
+        formattedValue = '';
+    }
 </script>
 
 <div class="kpi-card">
