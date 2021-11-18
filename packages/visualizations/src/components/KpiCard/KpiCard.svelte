@@ -140,7 +140,7 @@
     .kpi-card__source-link {
         /* Source link position is customizable */
         align-self: var(--kpi-card-source-link-align-self, center);
-        margin: 1rem 0.5rem 0 0.5rem;
+        padding: 1rem 0.5rem 0 0.5rem;
     }
     .kpi-card__footer {
         /* Not customizable yet */
