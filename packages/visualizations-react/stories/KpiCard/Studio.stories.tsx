@@ -71,7 +71,6 @@ function withData(data: Async<number>, formatOptions: any): KpiCardStoryProps {
         'Title, picture': {
             style: {
                 ['--kpi-card-body-flex-direction' as any]: 'row',
-                ['--kpi-card-source-link-align-self' as any]: 'end',
                 ['--kpi-card-img-margin' as any]: '0 1rem 0 0',
                 ['--kpi-card-content-align-items' as any]: 'start',
                 ['--kpi-card-title-margin' as any]: '0',

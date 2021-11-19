@@ -132,7 +132,7 @@
 
     .source-link {
         flex-shrink: 1;
-        align-self: flex-end;
+        align-self: center;
     }
 
     .chart-container {
