@@ -89,7 +89,7 @@
     }
     .kpi-card__img {
         /* Image margin is customizable depending on the KPI layout */
-        margin: var(--kpi-card-img-margin, 0 0 1rem 0);
+        margin: var(--kpi-card-img-margin, 0 0 0.8rem 0);
 
         /* Image display is not customizable */
         width: auto;
@@ -128,11 +128,11 @@
         justify-content: var(--kpi-card-body-justify-content, center);
     }
     .kpi-card__title {
-        margin: var(--kpi-card-title-margin, 0 0 1rem 0);
+        margin: var(--kpi-card-title-margin, 0 0 0.8rem 0);
     }
     .kpi-card__value {
         /* Text is customizable because it does not map to any HTML element */
-        margin: var(--kpi-card-value-margin, 0 0 1rem 0);
+        margin: var(--kpi-card-value-margin, 0 0 0.8rem 0);
         font-size: var(--kpi-card-value-font-size, 2rem);
         font-weight: var(--kpi-card-value-font-weight, bold);
         color: var(--kpi-card-value-color, var(--kpi-card-color, #000));
