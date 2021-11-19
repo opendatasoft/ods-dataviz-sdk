@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { kpiTooltip } from "./kpiTooltip";
+    import kpiTooltip from './kpiTooltip';
     import type { Async } from '../../types';
     import type { KpiCardOptions } from '../types';
 
@@ -24,9 +24,7 @@
                 {#if options.title}
                     <h3 class="kpi-card__title">{options.title}</h3>
                 {/if}
-                <div
-                use:kpiTooltip={formattedValue}
-                class="kpi-card__value">
+                <div use:kpiTooltip={formattedValue} class="kpi-card__value">
                     {#if options.prefix}<span class="kpi-card__prefix">{options.prefix}</span
                         >{/if}{#if data.loading}<span class="kpi-card__value-loading" />{:else}<span
                             class="kpi-card__value-number">{formattedValue}</span
