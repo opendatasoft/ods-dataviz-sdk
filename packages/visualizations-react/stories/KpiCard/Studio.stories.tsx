@@ -1,4 +1,5 @@
 import React from 'react';
+import '@opendatasoft/visualizations/node_modules/tippy.js/dist/tippy.css';
 import { Async, KpiCardOptions } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { KpiCard, Props } from '../../src';
@@ -58,10 +59,10 @@ function withData(data: Async<number>): KpiCardStoryProps {
             },
         },
         'Title, picture': {
+            data,
             style: {
                 ['--kpi-card-body-flex-direction' as any]: 'row',
             },
-            data,
             options: {
                 title: 'Tokyo Olympic Budget 2021',
                 imgSrc: IMAGES.gov,

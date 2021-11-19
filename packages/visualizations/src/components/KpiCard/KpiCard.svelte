@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { kpiTooltip } from "./kpiTooltip";
     import type { Async } from '../../types';
     import type { KpiCardOptions } from '../types';
 
@@ -23,7 +24,9 @@
                 {#if options.title}
                     <h3 class="kpi-card__title">{options.title}</h3>
                 {/if}
-                <div class="kpi-card__value">
+                <div
+                use:kpiTooltip={formattedValue}
+                class="kpi-card__value">
                     {#if options.prefix}<span class="kpi-card__prefix">{options.prefix}</span
                         >{/if}{#if data.loading}<span class="kpi-card__value-loading" />{:else}<span
                             class="kpi-card__value-number">{formattedValue}</span
@@ -91,7 +94,7 @@
         /* Layout disposition is customizable */
         align-self: var(--kpi-card-content-align-self, center);
     }
-    /* 
+    /*
         Title and description are not customizable.
         User can target the h3 and p element in CSS.
     */
