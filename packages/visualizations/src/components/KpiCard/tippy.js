@@ -1,6 +1,6 @@
 import tippy from 'tippy.js';
 
-export default function kpiTooltip(node, formattedValue) {
+export default function tippyAction(node, formattedValue) {
     let tip = null;
     // Check if aria-label is present for accessibility
     const label = node.getAttribute('aria-label');
