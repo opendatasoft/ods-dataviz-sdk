@@ -11,7 +11,7 @@ import { babel } from '@rollup/plugin-babel';
 
 const production = !process.env.ROLLUP_WATCH;
 
-function plugins(outDir) {
+function plugins(prefix) {
     return [
         svelte({
             // enable run-time checks when not in production
@@ -29,7 +29,7 @@ function plugins(outDir) {
         typescript({
             sourceMap: true,
             declaration: true,
-            declarationDir: outDir,
+            declarationDir: `dist/${prefix}`,
             rootDir: 'src',
         }),
         nodeResolve(),
@@ -42,6 +42,12 @@ function plugins(outDir) {
                 extensions: ['.ts', '.mjs', '.js', '.svelte'],
                 include: ['src/**', 'node_modules/chart.js/**', 'node_modules/svelte/**'],
                 presets: ['@babel/preset-env'],
+            }),
+        // Visualize the generated bundle
+        production &&
+            visualizer({
+                filename: `gen/stats-${prefix}.html`,
+                sourcemap: true,
             }),
     ];
 }
@@ -64,16 +70,8 @@ const esm = {
         dir: 'dist/esm',
         format: 'es',
         sourcemap: true,
-        plugins: [
-            // Visualize size when  running a production build
-            production &&
-                visualizer({
-                    filename: 'gen/stats-es.html',
-                    sourcemap: true,
-                }),
-        ],
     },
-    plugins: plugins('dist/esm'),
+    plugins: plugins('esm'),
     onwarn,
 };
 
@@ -84,15 +82,9 @@ const umd = {
         format: 'umd',
         sourcemap: true,
         name: 'opendatasoft.visualizations',
-        plugins: [
-            visualizer({
-                filename: 'gen/stats-umd.html',
-                sourcemap: true,
-            }),
-            terser(),
-        ],
+        plugins: [terser()],
     },
-    plugins: plugins('dist/umd'),
+    plugins: plugins('umd'),
     onwarn,
 };
 
