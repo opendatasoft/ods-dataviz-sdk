@@ -134,19 +134,19 @@ export const defaultSource: Source = {
         'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
 };
 
-export const kpiNumberFormat = new Intl.NumberFormat(undefined, {
+export const simpleFormatter = new Intl.NumberFormat(undefined, {
     notation: 'compact',
     maximumFractionDigits: 1,
-} as any);
+});
 
-export const kpiRatioNumberFormat = new Intl.NumberFormat(undefined, {
+export const ratioFormatter = new Intl.NumberFormat(undefined, {
     notation: 'compact',
     maximumFractionDigits: 1,
     style: 'percent',
-} as any);
+});
 
-export const kpiComparisonNumberFormat = new Intl.NumberFormat(undefined, {
+export const comparisonFormatter = new Intl.NumberFormat(undefined, {
     notation: 'compact',
     maximumFractionDigits: 1,
     signDisplay: 'exceptZero',
-} as any);
+});

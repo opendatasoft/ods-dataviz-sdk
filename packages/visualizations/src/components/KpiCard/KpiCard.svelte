@@ -5,12 +5,14 @@
 
     export let data: Async<number>;
     export let options: KpiCardOptions;
-    let formattedValue: string;
 
-    $: if (options.formatCompact && data.value !== undefined) {
-        formattedValue = options.formatCompact(data.value).toLocaleString();
-    } else if (data.value !== undefined) {
-        formattedValue = data.value.toLocaleString();
+    let formattedValue: string;
+    let formatCompact: (value: number) => string;
+
+    $: formatCompact = options.formatCompact || ((value) => value.toLocaleString());
+
+    $: if (data.value !== undefined) {
+        formattedValue = formatCompact(data.value);
     } else {
         formattedValue = '';
     }

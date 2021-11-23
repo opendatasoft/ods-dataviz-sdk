@@ -5,9 +5,9 @@ import { KpiCard, Props } from '../../src';
 import {
     IMAGES,
     defaultSource,
-    kpiNumberFormat,
-    kpiRatioNumberFormat,
-    kpiComparisonNumberFormat,
+    simpleFormatter,
+    ratioFormatter,
+    comparisonFormatter,
 } from '../utils';
 
 const meta: Meta = {
@@ -18,34 +18,37 @@ export default meta;
 
 type KpiCardStoryProps = { [key: string]: Props<number, KpiCardOptions> };
 
-const Template = (args: KpiCardStoryProps) => (
-    <div
-        style={{
-            display: 'grid',
-            maxWidth: '800px',
-            margin: '0 auto',
-            gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-            gridTemplateRows: 'repeat(2, minmax(0, 1fr))',
-            gap: '1rem',
-            ['--kpi-card-value-color' as any]: '#198276',
-        }}
-    >
-        {Object.keys(args).map((key) => (
-            <KpiCard {...args[key]} key={key} />
-        ))}
-    </div>
-);
+const Template = function (this: Props<number, KpiCardOptions>, args: KpiCardStoryProps) {
+    return (
+        <div
+            style={{
+                display: 'grid',
+                maxWidth: '800px',
+                margin: '0 auto',
+                gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+                gridTemplateRows: 'repeat(2, minmax(0, 1fr))',
+                gap: '1rem',
+                ['--kpi-card-value-color' as any]: '#198276',
+            }}
+        >
+            {Object.keys(args).map((key) => {
+                const { data, options } = args[key];
 
-function withData(data: Async<number>, formatOptions: any): KpiCardStoryProps {
+                return <KpiCard data={data} options={{ ...this.options, ...options }} key={key} />;
+            })}
+        </div>
+    );
+};
+
+function withData(data: Async<number>): KpiCardStoryProps {
     return {
         'Context only': {
             data,
             options: {
                 description:
-                    'Chiffre d’affaires pour la catégorie Fruits et légumes sur l’année en cour',
+                    'Chiffre d’affaires pour la catégorie Fruits et légumes sur l’année en cours',
                 suffix: ' EUR',
                 source: defaultSource,
-                formatCompact: (value) => formatOptions.format(value),
             },
         },
         'Context, picture': {
@@ -56,7 +59,6 @@ function withData(data: Async<number>, formatOptions: any): KpiCardStoryProps {
                     'Chiffre d’affaires pour la catégorie Fruits et légumes sur l’année en cours',
                 suffix: ' EUR',
                 source: defaultSource,
-                formatCompact: (value) => formatOptions.format(value),
             },
         },
         'Title only': {
@@ -65,7 +67,6 @@ function withData(data: Async<number>, formatOptions: any): KpiCardStoryProps {
                 title: "Chiffre d'affaires",
                 suffix: ' EUR',
                 source: defaultSource,
-                formatCompact: (value) => formatOptions.format(value),
             },
         },
         'Title, picture': {
@@ -82,23 +83,24 @@ function withData(data: Async<number>, formatOptions: any): KpiCardStoryProps {
                 imgSrc: IMAGES.rocket,
                 suffix: ' EUR',
                 source: defaultSource,
-                formatCompact: (value) => formatOptions.format(value),
             },
         },
     };
 }
 
-export const Loading = Template.bind({});
-Loading.args = withData({ loading: true }, kpiNumberFormat);
+export const Loading = Template.bind({ options: { formatCompact: simpleFormatter.format } });
+Loading.args = withData({ loading: true });
 
-export const ShortValue = Template.bind({});
-ShortValue.args = withData({ value: 42 }, kpiNumberFormat);
+export const ShortValue = Template.bind({ options: { formatCompact: simpleFormatter.format } });
+ShortValue.args = withData({ value: 42 });
 
-export const LongValue = Template.bind({});
-LongValue.args = withData({ value: 42100 }, kpiNumberFormat);
+export const LongValue = Template.bind({ options: { formatCompact: simpleFormatter.format } });
+LongValue.args = withData({ value: 42100 });
 
-export const RatioKPI = Template.bind({});
-RatioKPI.args = withData({ value: 0.42 }, kpiRatioNumberFormat);
+export const RatioKPI = Template.bind({ options: { formatCompact: ratioFormatter.format } });
+RatioKPI.args = withData({ value: 0.42 });
 
-export const ComparisonKPI = Template.bind({});
-ComparisonKPI.args = withData({ value: 42 }, kpiComparisonNumberFormat);
+export const ComparisonKPI = Template.bind({
+    options: { formatCompact: comparisonFormatter.format },
+});
+ComparisonKPI.args = withData({ value: 42 });
