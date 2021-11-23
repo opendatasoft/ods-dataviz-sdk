@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta } from '@storybook/react';
 import { KpiCard } from '../../src';
-import { COLORS, CONTROLS, IMAGES } from '../utils';
+import { COLORS, CONTROLS, IMAGES, defaultSource } from '../utils';
 
 const meta: Meta = {
     title: 'KPI Card/Single',
@@ -33,14 +33,20 @@ const meta: Meta = {
         '--kpi-card-header-font-weight': CONTROLS.fontWeight,
         '--kpi-card-header-text-align': CONTROLS.textAlign,
         // Kpi Card Img
-        '--kpi-card-img-height': CONTROLS.text,
         '--kpi-card-img-align-self': CONTROLS.alignItems,
+        '--kpi-card-img-margin': CONTROLS.text,
         // Kpi Card Content
         '--kpi-card-content-align-self': CONTROLS.alignItems,
+        '--kpi-card-content-align-items': CONTROLS.alignItems,
+        // Kpi Card Title
+        '--kpi-card-title-margin': CONTROLS.text,
         // Kpi Card Value
         '--kpi-card-value-font-size': CONTROLS.text,
         '--kpi-card-value-font-weight': CONTROLS.fontWeight,
         '--kpi-card-value-color': CONTROLS.color,
+        '--kpi-card-value-margin': CONTROLS.text,
+        // Kpi Card Source Link
+        '--kpi-card-source-link-align-self': CONTROLS.alignSelf,
         // Kpi Card Footer
         '--kpi-card-footer-background-color': CONTROLS.color,
         '--kpi-card-footer-color': CONTROLS.color,
@@ -83,6 +89,7 @@ const Template = ({
                 suffix,
                 imgSrc,
                 footer,
+                source: defaultSource,
             }}
             style={style}
         />
@@ -130,14 +137,16 @@ FullCustom.args = {
     '--kpi-card-header-font-weight': '400',
     '--kpi-card-header-text-align': 'left',
     // Kpi Card Img
-    '--kpi-card-img-height': '2rem',
     '--kpi-card-img-align-self': 'start',
     // Kpi Card Content
     '--kpi-card-content-align-self': 'end',
+    '--kpi-card-content-align-items': 'center',
     // Kpi Card Value
     '--kpi-card-value-font-size': '3rem',
     '--kpi-card-value-font-weight': '400',
     '--kpi-card-value-color': 'white',
+    // Kpi Card Source Link
+    '--kpi-card-source-link-align-self': 'end',
     // Kpi Card Footer
     '--kpi-card-footer-background-color': 'white',
     '--kpi-card-footer-color': COLORS.red,

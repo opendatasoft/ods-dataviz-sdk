@@ -1,11 +1,21 @@
 <script lang="ts">
     import type { Async } from '../../types';
     import type { KpiCardOptions } from '../types';
+    import SourceLink from '../SourceLink/SourceLink.svelte';
 
     export let data: Async<number>;
     export let options: KpiCardOptions;
 
-    $: formattedValue = data.value !== undefined ? data.value.toLocaleString() : '';
+    let formattedValue: string;
+    let formatCompact: (value: number) => string;
+
+    $: formatCompact = options.formatCompact || ((value) => value.toLocaleString());
+
+    $: if (data.value !== undefined) {
+        formattedValue = formatCompact(data.value);
+    } else {
+        formattedValue = '';
+    }
 </script>
 
 <div class="kpi-card">
@@ -36,6 +46,11 @@
                 {/if}
             </div>
         </div>
+        {#if options.source}
+            <div class="kpi-card__source-link">
+                <SourceLink source={options.source} />
+            </div>
+        {/if}
         {#if options.footer}
             <div class="kpi-card__footer">{options.footer}</div>
         {/if}
@@ -70,16 +85,20 @@
 
         /* Text is customizable */
         color: var(--kpi-card-header-color, #333);
-        font-size: var(--kpi-card-header-font-size, 1.5rem);
-        font-weight: var(--kpi-card-header-font-weight, bold);
+        font-size: var(--kpi-card-header-font-size, 1rem);
+        font-weight: var(--kpi-card-header-font-weight, normal);
         text-align: var(--kpi-card-header-text-align, center);
     }
     .kpi-card__img {
-        /* Not customizable yet */
-        padding: 0.5rem;
+        /* Image margin is customizable depending on the KPI layout */
+        margin: var(--kpi-card-img-margin, 0 0 0.8rem 0);
 
-        /* Image display is customizable */
-        height: var(--kpi-card-img-height, 10rem);
+        /* Image display is not customizable */
+        width: auto;
+        height: auto;
+        max-width: 4rem;
+        max-height: 4rem;
+        object-fit: contain;
 
         /* Layout disposition is customizable */
         align-self: var(--kpi-card-img-align-self, center);
@@ -88,10 +107,13 @@
     .kpi-card__content {
         /* Not customizable yet */
         text-align: center;
+        display: flex;
+        flex-direction: column;
         /* Layout disposition is customizable */
+        align-items: var(--kpi-card-content-align-items, center);
         align-self: var(--kpi-card-content-align-self, center);
     }
-    /* 
+    /*
         Title and description are not customizable.
         User can target the h3 and p element in CSS.
     */
@@ -101,17 +123,26 @@
         display: flex;
 
         /* Not customizable yet */
-        padding: 1rem;
+        padding: 1rem 2rem 1rem 2rem;
 
         /* Layout disposition is customizable */
         flex-direction: var(--kpi-card-body-flex-direction, column);
         justify-content: var(--kpi-card-body-justify-content, center);
     }
+    .kpi-card__title {
+        margin: var(--kpi-card-title-margin, 0 0 0.8rem 0);
+    }
     .kpi-card__value {
         /* Text is customizable because it does not map to any HTML element */
-        font-size: var(--kpi-card-value-font-size, 4rem);
+        margin: var(--kpi-card-value-margin, 0 0 0.8rem 0);
+        font-size: var(--kpi-card-value-font-size, 2rem);
         font-weight: var(--kpi-card-value-font-weight, bold);
         color: var(--kpi-card-value-color, var(--kpi-card-color, #000));
+    }
+    .kpi-card__source-link {
+        /* Source link position is customizable */
+        align-self: var(--kpi-card-source-link-align-self, center);
+        padding: 1rem 0.5rem 0 0.5rem;
     }
     .kpi-card__footer {
         /* Not customizable yet */

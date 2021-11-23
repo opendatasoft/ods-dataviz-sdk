@@ -1,6 +1,7 @@
 /// <reference path="./utils.d.ts" />
 import trophy from './img/trophy.svg';
 import gov from './img/gov.svg';
+import rocket from './img/rocket.png';
 import { Source } from '../../visualizations/src/components/types';
 
 export const COLORS = {
@@ -16,6 +17,7 @@ export const COLORS = {
 export const IMAGES = {
     gov,
     trophy,
+    rocket,
 };
 
 export const style = {
@@ -114,7 +116,13 @@ export const CONTROLS = {
         },
     },
     textAlign: {
-        options: ['left', 'center', 'right'],
+        options: ['start', 'center', 'end'],
+        control: {
+            type: 'select',
+        },
+    },
+    alignSelf: {
+        options: ['start', 'end', 'center'],
         control: {
             type: 'select',
         },
@@ -125,3 +133,20 @@ export const defaultSource: Source = {
     href:
         'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
 };
+
+export const simpleFormatter = new Intl.NumberFormat(undefined, {
+    notation: 'compact',
+    maximumFractionDigits: 1,
+});
+
+export const ratioFormatter = new Intl.NumberFormat(undefined, {
+    notation: 'compact',
+    maximumFractionDigits: 1,
+    style: 'percent',
+});
+
+export const comparisonFormatter = new Intl.NumberFormat(undefined, {
+    notation: 'compact',
+    maximumFractionDigits: 1,
+    signDisplay: 'exceptZero',
+});
