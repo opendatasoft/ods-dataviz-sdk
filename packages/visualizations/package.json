@@ -19,7 +19,7 @@
     "typings": "dist/index.d.ts",
     "styles": "dist/index.css",
     "scripts": {
-        "prepare": "rollup --config",
+        "prepare": "rimraf dist && rollup --config",
         "build": "rollup --config",
         "watch": "rollup --config --watch",
         "test": "echo \"No test specified\"",
@@ -62,6 +62,7 @@
         "postcss": "^8.3.11",
         "prettier": "2.4.1",
         "prettier-plugin-svelte": "^2.4.0",
+        "rimraf": "^3.0.2",
         "rollup": "^2.33.1",
         "rollup-plugin-postcss": "^4.0.2",
         "rollup-plugin-svelte": "^6.1.0",
