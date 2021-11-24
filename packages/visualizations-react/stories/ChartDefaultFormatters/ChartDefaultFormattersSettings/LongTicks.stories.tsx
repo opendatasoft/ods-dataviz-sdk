@@ -119,7 +119,6 @@ export const LongTicksFixed: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Line chart with Long Ticks Fixed',
-            align: 'start',
         },
     },
 };
@@ -202,7 +201,6 @@ export const BarLongTicks: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Bar chart with long ticks',
-            align: 'start',
         },
     },
 };
@@ -293,7 +291,6 @@ export const ColumnLongTicks: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Column chart with long ticks',
-            align: 'start',
         },
     },
 };
@@ -384,7 +381,6 @@ export const ColumnLongTicks2: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Column chart with long ticks',
-            align: 'start',
         },
     },
 };
@@ -424,12 +420,8 @@ export const RadarLongTicks: Props<DataFrame, ChartOptions> = {
         legend: {
             display: true,
         },
-        tooltips: {
-            display: true,
-        },
         title: {
             text: 'Radar chart with long ticks',
-            align: 'center',
         },
         rAxis: {
             ticks: {

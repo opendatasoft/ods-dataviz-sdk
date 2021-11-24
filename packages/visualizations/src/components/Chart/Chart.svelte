@@ -63,38 +63,13 @@
         chartOptions.plugins = {
             legend: buildLegend(dataFrame, options),
             title: {
-                // FIXME: Title should be in HTML
-                display: defaultValue(options?.title?.display, true),
-                position: defaultValue(options?.title?.position, 'top'),
-                align: defaultValue(options?.title?.align, 'center'),
-                text: options?.title?.text,
-                fullSize: defaultValue(options?.title?.fullSize, false),
-                color: defaultValue(singleChartJsColor(options?.title?.color), 'rgb(0, 0, 0)'),
-                font: {
-                    size: defaultValue(options?.title?.font?.size, 14),
-                    weight: defaultValue(options?.title?.font?.weight, '500'),
-                },
-                padding: {
-                    top: defaultValue(options?.title?.padding?.top, 4),
-                    bottom: defaultValue(options?.title?.padding?.bottom, 24),
-                },
+                display: false,
             },
             tooltip: {
                 enabled: true,
             },
             subtitle: {
-                // FIXME: Subtitle should be in HTML
-                display: defaultValue(options?.subtitle?.display, false),
-                text: options?.subtitle?.text,
-                align: defaultValue(options?.subtitle?.align, 'center'),
-                fullSize: defaultValue(options?.subtitle?.fullSize, false),
-                font: {
-                    size: defaultValue(options?.subtitle?.font?.size, 12),
-                },
-                padding: {
-                    top: defaultValue(options?.subtitle?.padding?.top, 0),
-                    bottom: defaultValue(options?.subtitle?.padding?.bottom, 24),
-                },
+                display: false,
             },
         };
         chartConfig.options = chartOptions;
@@ -111,6 +86,20 @@
     Error : {JSON.stringify(data.error)}
 {:else if options}
     <figure>
+        {#if options.title?.text || options.subtitle?.text}
+            <figcaption>
+                {#if options.title?.text}
+                    <h3>
+                        {options.title?.text}
+                    </h3>
+                {/if}
+                {#if options.subtitle?.text}
+                    <p>
+                        {options.subtitle?.text}
+                    </p>
+                {/if}
+            </figcaption>
+        {/if}
         <div class="chart-container">
             <canvas use:chartJs={chartConfig} role="img" aria-label={options.ariaLabel} />
         </div>
@@ -126,7 +115,11 @@
     figure {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        margin: 0;
+    }
+
+    figcaption {
+        width: 100%;
         margin: 0;
     }
 

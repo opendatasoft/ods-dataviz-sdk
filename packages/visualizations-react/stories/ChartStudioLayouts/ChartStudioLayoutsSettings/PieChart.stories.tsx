@@ -27,12 +27,8 @@ export const PieTitleSectorsName: Props<DataFrame, ChartOptions> = {
                 },
             },
         ],
-        tooltips: {
-            display: true,
-        },
         title: {
             text: 'Pie chart with title and sectors name',
-            align: 'center',
         },
     },
 };
@@ -67,15 +63,8 @@ export const PieTitleSectorsNameValue: Props<DataFrame, ChartOptions> = {
                 },
             },
         ],
-        tooltips: {
-            display: true,
-        },
         title: {
             text: 'Pie chart with title and sectors name with values',
-            align: 'center',
-            padding: {
-                bottom: 36,
-            },
         },
     },
 };
@@ -106,12 +95,8 @@ export const PieTitleLegend: Props<DataFrame, ChartOptions> = {
             display: true,
             position: 'right',
         },
-        tooltips: {
-            display: true,
-        },
         title: {
             text: 'Pie chart with title and legend',
-            align: 'center',
         },
     },
 };
@@ -149,12 +134,8 @@ export const PieTitleLegendValues: Props<DataFrame, ChartOptions> = {
                 },
             },
         },
-        tooltips: {
-            display: true,
-        },
         title: {
             text: 'Pie chart with title and legend with values',
-            align: 'center',
         },
     },
 };

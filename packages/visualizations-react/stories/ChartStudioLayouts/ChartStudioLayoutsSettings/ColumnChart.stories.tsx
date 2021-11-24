@@ -63,7 +63,6 @@ export const ColumnTitleAxisGrid: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Column chart with title, axis and grid',
-            align: 'start',
         },
     },
 };
@@ -220,12 +219,9 @@ export const ColumnTitleSubtitleDataValues: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Column chart with title, axis and grid',
-            align: 'start',
         },
         subtitle: {
-            display: true,
             text: 'Custom Chart Subtitle',
-            align: 'start',
         },
     },
 };
@@ -470,7 +466,6 @@ export const ColumnTitleAxisGridNegative: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Column chart with title, axis and grid',
-            align: 'start',
         },
     },
 };

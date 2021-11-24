@@ -37,15 +37,11 @@ export const RadarTitleScale: Props<DataFrame, ChartOptions> = {
         legend: {
             display: true,
         },
-        tooltips: {
-            display: true,
-        },
         rAxis: {
             gridLines: {},
         },
         title: {
             text: 'Radar chart with title and scale',
-            align: 'center',
         },
     },
 };
@@ -85,9 +81,6 @@ export const RadarTitleScaleNegativePositive: Props<DataFrame, ChartOptions> = {
         legend: {
             display: true,
         },
-        tooltips: {
-            display: true,
-        },
         rAxis: {
             gridLines: {
                 display: true,
@@ -95,7 +88,6 @@ export const RadarTitleScaleNegativePositive: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Radar chart with title and scale',
-            align: 'center',
         },
     },
 };
@@ -135,12 +127,8 @@ export const RadarTitle: Props<DataFrame, ChartOptions> = {
         legend: {
             display: true,
         },
-        tooltips: {
-            display: true,
-        },
         title: {
             text: 'Radar chart with title',
-            align: 'center',
         },
         rAxis: {
             ticks: { display: false },
@@ -201,12 +189,8 @@ export const RadarTitleDataValues: Props<DataFrame, ChartOptions> = {
         legend: {
             display: true,
         },
-        tooltips: {
-            display: true,
-        },
         title: {
             text: 'Radar chart with title and data values',
-            align: 'center',
         },
         rAxis: {
             ticks: { display: false },

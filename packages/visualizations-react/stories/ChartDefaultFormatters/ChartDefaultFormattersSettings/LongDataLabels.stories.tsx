@@ -104,15 +104,8 @@ export const PieLongDataLabels: Props<DataFrame, ChartOptions> = {
                 },
             },
         ],
-        tooltips: {
-            display: true,
-        },
         title: {
             text: 'Pie chart with long data labels',
-            align: 'center',
-            padding: {
-                bottom: 36,
-            },
         },
     },
 };
@@ -171,12 +164,8 @@ export const RadarLongDataLabels: Props<DataFrame, ChartOptions> = {
         legend: {
             display: true,
         },
-        tooltips: {
-            display: true,
-        },
         title: {
             text: 'Radar chart with long data labels',
-            align: 'center',
         },
         rAxis: {
             ticks: { display: false },

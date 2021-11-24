@@ -55,7 +55,6 @@ export const HistogramTitleAxisGrid: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Histogram chart with title, axis and grid',
-            align: 'start',
         },
     },
 };
@@ -189,12 +188,9 @@ export const HistogramTitleDataValues: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Histogram chart with title, subtitle and data values',
-            align: 'start',
         },
         subtitle: {
-            display: true,
             text: 'Custom Chart Subtitle',
-            align: 'start',
         },
     },
 };
@@ -405,7 +401,6 @@ export const HistogramTitleAxisGridNegative: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Histogram chart with title, axis and grid',
-            align: 'start',
         },
     },
 };

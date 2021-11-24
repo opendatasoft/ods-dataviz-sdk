@@ -105,17 +105,7 @@ export interface TicksConfiguration {
 }
 
 export interface TitleConfiguration {
-    display?: boolean;
-    position?: 'top' | 'left' | 'bottom' | 'right';
-    align?: 'start' | 'center' | 'end';
-    text?: string | string[];
-    fullSize?: boolean;
-    font?: FontConfiguration;
-    padding?: {
-        top?: number;
-        bottom?: number;
-    };
-    color?: Color;
+    text?: string;
 }
 
 export interface DataLabelsConfiguration {

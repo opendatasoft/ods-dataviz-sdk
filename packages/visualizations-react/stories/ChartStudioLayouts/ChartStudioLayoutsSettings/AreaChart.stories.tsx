@@ -67,7 +67,6 @@ export const AreaTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Area chart with title, axis, grid and dots',
-            align: 'start',
         },
     },
 };
@@ -192,7 +191,6 @@ export const AreaTitleAxisGrid: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Area chart with title, axis and grid',
-            align: 'start',
         },
     },
 };
@@ -257,12 +255,9 @@ export const AreaTitleSubtitleGrid: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Area chart with title, subtitle and grid',
-            align: 'start',
         },
         subtitle: {
-            display: true,
             text: 'Custom Chart Subtitle',
-            align: 'start',
         },
     },
 };
@@ -343,7 +338,6 @@ export const AreaTitleDataValues: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Area chart with title and data values on axis',
-            align: 'start',
         },
     },
 };

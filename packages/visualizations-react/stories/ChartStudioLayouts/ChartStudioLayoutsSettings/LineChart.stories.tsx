@@ -59,7 +59,6 @@ export const LineTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Line chart with title, axis, grid and dots',
-            align: 'start',
         },
     },
 };
@@ -173,7 +172,6 @@ export const LineTitleAxisGrid: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Line chart with title, axis and grid',
-            align: 'start',
         },
     },
 };
@@ -229,12 +227,9 @@ export const LineTitleSubtitleGrid: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Line chart with title, subtitle and grid',
-            align: 'start',
         },
         subtitle: {
-            display: true,
-            text: ['Custom Chart Subtitle'],
-            align: 'start',
+            text: 'Custom Chart Subtitle',
         },
     },
 };
@@ -308,7 +303,6 @@ export const LineTitleDataValues: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Line chart with title and data values on axis',
-            align: 'start',
         },
     },
 };
@@ -431,7 +425,6 @@ export const LineTitleAxisGridDotsNegative: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Line chart with title, axis, grid and dots',
-            align: 'start',
         },
     },
 };

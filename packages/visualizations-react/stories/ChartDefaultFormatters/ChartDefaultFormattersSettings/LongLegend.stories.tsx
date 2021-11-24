@@ -64,7 +64,6 @@ export const LineLongLegend: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Line chart with long legend',
-            align: 'start',
         },
     },
 };
@@ -110,12 +109,8 @@ export const PieLongLegend: Props<DataFrame, ChartOptions> = {
             display: true,
             position: 'right',
         },
-        tooltips: {
-            display: true,
-        },
         title: {
             text: 'Pie chart with long legend',
-            align: 'center',
         },
     },
 };
@@ -169,12 +164,8 @@ export const PieLongLegendBis: Props<DataFrame, ChartOptions> = {
                 },
             },
         },
-        tooltips: {
-            display: true,
-        },
         title: {
             text: 'Pie chart with long legend and values',
-            align: 'center',
         },
     },
 };
@@ -215,12 +206,8 @@ export const RadarLongLegend: Props<DataFrame, ChartOptions> = {
         legend: {
             display: true,
         },
-        tooltips: {
-            display: true,
-        },
         title: {
             text: 'Radar chart with long legend',
-            align: 'center',
         },
         rAxis: {
             ticks: {

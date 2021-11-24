@@ -66,7 +66,6 @@ const options: ChartOptions = {
     },
     title: {
         text: 'Line chart with title, axis, grid and dots',
-        align: 'start',
     },
 };
 

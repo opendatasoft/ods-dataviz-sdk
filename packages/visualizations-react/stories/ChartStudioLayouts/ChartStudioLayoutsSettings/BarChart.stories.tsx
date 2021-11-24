@@ -62,7 +62,6 @@ export const BarTitleAxisGrid: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Bar chart with title, axis and grid',
-            align: 'start',
         },
     },
 };
@@ -227,7 +226,6 @@ export const BarTitleAxisDataValues: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Bar chart with title, axis and data values',
-            align: 'start',
         },
     },
 };
@@ -381,12 +379,9 @@ export const BarTitleSubTitleGrid: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Bar chart with title, subtitle and grid',
-            align: 'start',
         },
         subtitle: {
-            display: true,
             text: 'Custom Chart Subtitle',
-            align: 'start',
         },
     },
 };
