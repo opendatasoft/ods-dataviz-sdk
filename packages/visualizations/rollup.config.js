@@ -98,7 +98,7 @@ const umd = {
         // Visualize the generated bundle
         production &&
             visualizer({
-                filename: `gen/stats-umd.html`,
+                filename: 'gen/stats-umd.html',
                 sourcemap: true,
             }),
     ],
