@@ -4,7 +4,7 @@
     import 'chartjs-adapter-luxon';
     import type { Async } from '../../types';
     import type { ChartOptions, ChartSeries, DataFrame } from '../types';
-    import { defaultValue, singleChartJsColor } from './utils';
+    import { defaultValue } from './utils';
     import toDataset from './datasets';
     import buildScales from './scales';
     import buildLegend from './legend';
