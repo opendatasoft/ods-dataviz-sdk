@@ -1,5 +1,4 @@
 import React from 'react';
-import '@opendatasoft/visualizations/node_modules/tippy.js/dist/tippy.css';
 import { Async, KpiCardOptions } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { KpiCard, Props } from '../../src';
@@ -93,15 +92,15 @@ export const Loading = Template.bind({ options: { formatCompact: simpleFormatter
 Loading.args = withData({ loading: true });
 
 export const ShortValue = Template.bind({ options: { formatCompact: simpleFormatter.format } });
-ShortValue.args = withData({ value: 42 });
+ShortValue.args = withData({ value: -42 });
 
 export const LongValue = Template.bind({ options: { formatCompact: simpleFormatter.format } });
-LongValue.args = withData({ value: 42100 });
+LongValue.args = withData({ value: 42123456 });
 
 export const RatioKPI = Template.bind({ options: { formatCompact: ratioFormatter.format } });
-RatioKPI.args = withData({ value: 0.42 });
+RatioKPI.args = withData({ value: 0.42343953859 });
 
 export const ComparisonKPI = Template.bind({
     options: { formatCompact: comparisonFormatter.format },
 });
-ComparisonKPI.args = withData({ value: 42 });
+ComparisonKPI.args = withData({ value: 42.9 });
