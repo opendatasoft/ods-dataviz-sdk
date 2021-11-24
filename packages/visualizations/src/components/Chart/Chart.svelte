@@ -8,7 +8,7 @@
     import toDataset from './datasets';
     import buildScales from './scales';
     import buildLegend from './legend';
-    import SourceLink from '../SourceLink/SourceLink.svelte';
+    import SourceLink from '../utils/SourceLink.svelte';
 
     export let data: Async<DataFrame>;
     export let options: ChartOptions;
