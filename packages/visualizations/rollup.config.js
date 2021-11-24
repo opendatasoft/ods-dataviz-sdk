@@ -1,5 +1,6 @@
 import svelte from 'rollup-plugin-svelte';
 import autoPreprocess from 'svelte-preprocess';
+import postcss from 'rollup-plugin-postcss';
 import autoprefixer from 'autoprefixer';
 import visualizer from 'rollup-plugin-visualizer';
 import { terser } from 'rollup-plugin-terser';
@@ -11,29 +12,18 @@ import { babel } from '@rollup/plugin-babel';
 
 const production = !process.env.ROLLUP_WATCH;
 
-const preprocess = autoPreprocess({
-    scss: {
-        includePaths: ['src'],
-    },
-    postcss: {
-        plugins: [autoprefixer],
-    },
-});
-
-export default {
-    input: 'src/index.ts',
-    output: {
-        dir: 'dist',
-        format: 'umd',
-        name: 'opendatasoft.visualizations',
-        sourcemap: true,
-    },
-    plugins: [
+function basePlugins() {
+    return [
         svelte({
             // enable run-time checks when not in production
             dev: !production,
             include: 'src/**/*.svelte',
-            preprocess,
+            emitCss: true,
+            preprocess: autoPreprocess({
+                scss: {
+                    includePaths: ['src'],
+                },
+            }),
         }),
         typescript({
             sourceMap: true,
@@ -44,6 +34,10 @@ export default {
         nodeResolve(),
         commonjs(),
         json(),
+        postcss({
+            extract: 'index.css',
+            plugins: [autoprefixer()],
+        }),
         // Transpile to ES5 when running a production build
         production &&
             babel({
@@ -52,22 +46,66 @@ export default {
                 include: ['src/**', 'node_modules/chart.js/**', 'node_modules/svelte/**'],
                 presets: ['@babel/preset-env'],
             }),
-        // Minify when running a production build
-        production && terser(),
-        // Visualize size when  running a production build
+    ];
+}
+
+function onwarn(warning, warn) {
+    // https://github.com/moment/luxon/issues/193
+    if (warning.code === 'CIRCULAR_DEPENDENCY') {
+        if (warning.importer.includes('node_modules/luxon')) {
+            return;
+        }
+    }
+    warn(warning);
+}
+
+const esm = {
+    input: 'src/index.ts',
+    // Externalize all dependencies
+    external: (id) => !/^[./]/.test(id),
+    output: {
+        dir: 'dist',
+        entryFileNames: '[name].es.js',
+        format: 'es',
+        sourcemap: true,
+    },
+    plugins: [
+        ...basePlugins(),
+        // Visualize the generated bundle
         production &&
             visualizer({
-                filename: 'gen/stats.html',
+                filename: `gen/stats-es.html`,
                 sourcemap: true,
             }),
     ],
-    onwarn(warning, warn) {
-        // https://github.com/moment/luxon/issues/193
-        if (warning.code === 'CIRCULAR_DEPENDENCY') {
-            if (warning.importer.includes('node_modules/luxon')) {
-                return;
-            }
-        }
-        warn(warning);
-    },
+    onwarn,
 };
+
+const umd = {
+    input: 'src/index.ts',
+    output: {
+        dir: 'dist',
+        entryFileNames: '[name].umd.js',
+        format: 'umd',
+        sourcemap: true,
+        name: 'opendatasoft.visualizations',
+        plugins: [],
+    },
+    plugins: [
+        ...basePlugins(),
+        // Minify umd bundle
+        terser(),
+        // Visualize the generated bundle
+        production &&
+            visualizer({
+                filename: 'gen/stats-umd.html',
+                sourcemap: true,
+            }),
+    ],
+    onwarn,
+};
+
+// Just compile the ESM version during development
+const bundles = production ? [esm, umd] : [esm];
+
+export default bundles;
