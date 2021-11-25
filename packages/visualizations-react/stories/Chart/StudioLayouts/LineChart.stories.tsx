@@ -1,9 +1,17 @@
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
-import { styleForLayouts, defaultSource } from '../../utils';
+import { defaultSource } from '../../utils';
+import { Sample } from '../Chart.stories';
+import { storyWithArgs } from '../../utils';
 
-export const LineTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+const meta: Meta = {
+    title: 'Chart/StudioLayouts/LineChart',
+};
+
+export default meta;
+
+export const LineTitleAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -61,10 +69,9 @@ export const LineTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
             text: 'Line chart with title, axis, grid and dots',
         },
     },
-};
+});
 
-export const LineAxisGridDots: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const LineAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -119,10 +126,9 @@ export const LineAxisGridDots: Props<DataFrame, ChartOptions> = {
             },
         },
     },
-};
+});
 
-export const LineTitleAxisGrid: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const LineTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -174,10 +180,9 @@ export const LineTitleAxisGrid: Props<DataFrame, ChartOptions> = {
             text: 'Line chart with title, axis and grid',
         },
     },
-};
+});
 
-export const LineTitleSubtitleGrid: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const LineTitleSubtitleGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -232,10 +237,9 @@ export const LineTitleSubtitleGrid: Props<DataFrame, ChartOptions> = {
             text: 'Custom Chart Subtitle',
         },
     },
-};
+});
 
-export const LineTitleDataValues: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const LineTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -305,10 +309,9 @@ export const LineTitleDataValues: Props<DataFrame, ChartOptions> = {
             text: 'Line chart with title and data values on axis',
         },
     },
-};
+});
 
-export const LineDataValuesOnly: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const LineDataValuesOnly = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -373,10 +376,9 @@ export const LineDataValuesOnly: Props<DataFrame, ChartOptions> = {
             },
         },
     },
-};
+});
 
-export const LineTitleAxisGridDotsNegative: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const LineTitleAxisGridDotsNegative = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -427,4 +429,4 @@ export const LineTitleAxisGridDotsNegative: Props<DataFrame, ChartOptions> = {
             text: 'Line chart with title, axis, grid and dots',
         },
     },
-};
+});

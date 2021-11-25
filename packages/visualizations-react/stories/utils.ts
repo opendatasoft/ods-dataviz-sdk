@@ -20,21 +20,11 @@ export const IMAGES = {
     rocket,
 };
 
-export const style = {
-    width: '50%',
-    maxWidth: '1000px',
-};
-
-export const styleForLayouts = {
-    width: '100%',
-};
-
-export const gridStyle = {
-    display: 'flex' as const,
-    flexDirection: 'column' as const,
-    justifyItems: 'space-around' as const,
-    alignItems: 'space-around' as const,
-};
+export function storyWithArgs<Args>(template: Function, args: Args) {
+    const story = template.bind({});
+    story.args = args;
+    return story;
+}
 
 export function generateArrayOf<T>(generator: (index: number) => T, size: number) {
     let result: T[] = [];

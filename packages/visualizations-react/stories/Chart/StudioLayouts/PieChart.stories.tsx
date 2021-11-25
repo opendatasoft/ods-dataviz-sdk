@@ -1,9 +1,17 @@
 import { ChartOptions, DataFrame, compactStringOrNumber } from '@opendatasoft/visualizations';
+import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
-import { styleForLayouts, defaultSource } from '../../utils';
+import { defaultSource } from '../../utils';
+import { Sample } from '../Chart.stories';
+import { storyWithArgs } from '../../utils';
 
-export const PieTitleSectorsName: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+const meta: Meta = {
+    title: 'Chart/StudioLayouts/PieChart',
+};
+
+export default meta;
+
+export const PieTitleSectorsName = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -31,10 +39,9 @@ export const PieTitleSectorsName: Props<DataFrame, ChartOptions> = {
             text: 'Pie chart with title and sectors name',
         },
     },
-};
+});
 
-export const PieTitleSectorsNameValue: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const PieTitleSectorsNameValue = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -67,10 +74,9 @@ export const PieTitleSectorsNameValue: Props<DataFrame, ChartOptions> = {
             text: 'Pie chart with title and sectors name with values',
         },
     },
-};
+});
 
-export const PieTitleLegend: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const PieTitleLegend = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -99,10 +105,9 @@ export const PieTitleLegend: Props<DataFrame, ChartOptions> = {
             text: 'Pie chart with title and legend',
         },
     },
-};
+});
 
-export const PieTitleLegendValues: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const PieTitleLegendValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -138,4 +143,4 @@ export const PieTitleLegendValues: Props<DataFrame, ChartOptions> = {
             text: 'Pie chart with title and legend with values',
         },
     },
-};
+});

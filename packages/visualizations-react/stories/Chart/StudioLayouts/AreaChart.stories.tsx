@@ -1,9 +1,17 @@
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
-import { styleForLayouts, defaultSource } from '../../utils';
+import { defaultSource } from '../../utils';
+import { Sample } from '../Chart.stories';
+import { storyWithArgs } from '../../utils';
 
-export const AreaTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+const meta: Meta = {
+    title: 'Chart/StudioLayouts/AreaChart',
+};
+
+export default meta;
+
+export const AreaTitleAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -69,10 +77,9 @@ export const AreaTitleAxisGridDots: Props<DataFrame, ChartOptions> = {
             text: 'Area chart with title, axis, grid and dots',
         },
     },
-};
+});
 
-export const AreaAxisGridDots: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const AreaAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -129,10 +136,9 @@ export const AreaAxisGridDots: Props<DataFrame, ChartOptions> = {
             },
         },
     },
-};
+});
 
-export const AreaTitleAxisGrid: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const AreaTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -193,10 +199,9 @@ export const AreaTitleAxisGrid: Props<DataFrame, ChartOptions> = {
             text: 'Area chart with title, axis and grid',
         },
     },
-};
+});
 
-export const AreaTitleSubtitleGrid: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const AreaTitleSubtitleGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -260,10 +265,9 @@ export const AreaTitleSubtitleGrid: Props<DataFrame, ChartOptions> = {
             text: 'Custom Chart Subtitle',
         },
     },
-};
+});
 
-export const AreaTitleDataValues: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const AreaTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -340,10 +344,9 @@ export const AreaTitleDataValues: Props<DataFrame, ChartOptions> = {
             text: 'Area chart with title and data values on axis',
         },
     },
-};
+});
 
-export const AreaDataValuesOnly: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const AreaDataValuesOnly = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -417,4 +420,4 @@ export const AreaDataValuesOnly: Props<DataFrame, ChartOptions> = {
             },
         },
     },
-};
+});

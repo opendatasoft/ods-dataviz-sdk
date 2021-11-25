@@ -1,9 +1,17 @@
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
-import { styleForLayouts, defaultSource } from '../../utils';
+import { defaultSource } from '../../utils';
+import { Sample } from '../Chart.stories';
+import { storyWithArgs } from '../../utils';
 
-export const RadarTitleScale: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+const meta: Meta = {
+    title: 'Chart/StudioLayouts/RadarChart',
+};
+
+export default meta;
+
+export const RadarTitleScale = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -44,56 +52,57 @@ export const RadarTitleScale: Props<DataFrame, ChartOptions> = {
             text: 'Radar chart with title and scale',
         },
     },
-};
+});
 
-export const RadarTitleScaleNegativePositive: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
-    data: {
-        loading: false,
-        value: [
-            { x: 'speed', y: 100, z: 10 },
-            { x: 'strength', y: -50, z: 45 },
-            { x: 'magic', y: 80, z: -100 },
-            { x: 'luck', y: 30, z: 100 },
-            { x: 'persuasion', y: 70, z: 2 },
-        ],
-    },
-    options: {
-        labelColumn: 'x',
-        source: defaultSource,
-        ariaLabel: 'Radar chart',
-        series: [
-            {
-                type: 'radar',
-                valueColumn: 'y',
-                label: 'User 1',
-                backgroundColor: 'rgba(27,210,210,0.5)',
-                borderColor: 'rgb(27,210,210)',
-            },
-            {
-                type: 'radar',
-                valueColumn: 'z',
-                label: 'User 2',
-                backgroundColor: 'rgba(127,10,210,0.5)',
-                borderColor: 'rgb(127,10,210)',
-            },
-        ],
-        legend: {
-            display: true,
+export const RadarTitleScaleNegativePositive = storyWithArgs<Props<DataFrame, ChartOptions>>(
+    Sample,
+    {
+        data: {
+            loading: false,
+            value: [
+                { x: 'speed', y: 100, z: 10 },
+                { x: 'strength', y: -50, z: 45 },
+                { x: 'magic', y: 80, z: -100 },
+                { x: 'luck', y: 30, z: 100 },
+                { x: 'persuasion', y: 70, z: 2 },
+            ],
         },
-        rAxis: {
-            gridLines: {
+        options: {
+            labelColumn: 'x',
+            source: defaultSource,
+            ariaLabel: 'Radar chart',
+            series: [
+                {
+                    type: 'radar',
+                    valueColumn: 'y',
+                    label: 'User 1',
+                    backgroundColor: 'rgba(27,210,210,0.5)',
+                    borderColor: 'rgb(27,210,210)',
+                },
+                {
+                    type: 'radar',
+                    valueColumn: 'z',
+                    label: 'User 2',
+                    backgroundColor: 'rgba(127,10,210,0.5)',
+                    borderColor: 'rgb(127,10,210)',
+                },
+            ],
+            legend: {
                 display: true,
             },
+            rAxis: {
+                gridLines: {
+                    display: true,
+                },
+            },
+            title: {
+                text: 'Radar chart with title and scale',
+            },
         },
-        title: {
-            text: 'Radar chart with title and scale',
-        },
-    },
-};
+    }
+);
 
-export const RadarTitle: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const RadarTitle = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -134,10 +143,9 @@ export const RadarTitle: Props<DataFrame, ChartOptions> = {
             ticks: { display: false },
         },
     },
-};
+});
 
-export const RadarTitleDataValues: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const RadarTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -196,4 +204,4 @@ export const RadarTitleDataValues: Props<DataFrame, ChartOptions> = {
             ticks: { display: false },
         },
     },
-};
+});
