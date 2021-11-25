@@ -4,13 +4,13 @@ html, body {
 
 p {
     color: #565656;
-    font-size: 0.9rem;
+    font-size: 14px;
     font-weight: 400;
 }
 
 h3 {
     color: #153632;
-    font-size: 1rem;
+    font-size: 16px;
     font-weight: 400;
     margin: 0;
 }

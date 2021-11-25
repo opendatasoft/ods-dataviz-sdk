@@ -215,4 +215,6 @@ export interface KpiCardOptions {
     source?: Source;
     /** Custom formatting function to display data value */
     formatCompact?: (value: number) => string;
+    /** Custom formatting function for tooltips content */
+    format?: (value: number) => string;
 }
