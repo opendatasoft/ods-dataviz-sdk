@@ -58,7 +58,7 @@
         chartOptions.maintainAspectRatio = true;
         chartOptions.scales = buildScales(options);
         chartOptions.layout = {
-            padding: defaultValue(options?.padding, 12),
+            padding: defaultValue(options?.padding, 2),
         };
         chartOptions.plugins = {
             legend: buildLegend(dataFrame, options),
