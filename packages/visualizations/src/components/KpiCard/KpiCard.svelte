@@ -1,20 +1,27 @@
 <script lang="ts">
+    import tippy from '../utils/tippy';
     import type { Async } from '../../types';
     import type { KpiCardOptions } from '../types';
-    import SourceLink from '../SourceLink/SourceLink.svelte';
+    import SourceLink from '../utils/SourceLink.svelte';
 
     export let data: Async<number>;
     export let options: KpiCardOptions;
 
-    let formattedValue: string;
+    let displayValue: string;
+    let tooltipValue: string;
+    let format: (value: number) => string;
     let formatCompact: (value: number) => string;
 
-    $: formatCompact = options.formatCompact || ((value) => value.toLocaleString());
+    $: format = options.format || ((value) => value.toLocaleString());
+
+    $: formatCompact = options.formatCompact || format;
 
     $: if (data.value !== undefined) {
-        formattedValue = formatCompact(data.value);
+        displayValue = formatCompact(data.value);
+        tooltipValue = format(data.value);
     } else {
-        formattedValue = '';
+        displayValue = '';
+        tooltipValue = '';
     }
 </script>
 
@@ -36,13 +43,17 @@
                 <div class="kpi-card__value">
                     {#if options.prefix}<span class="kpi-card__prefix">{options.prefix}</span
                         >{/if}{#if data.loading}<span class="kpi-card__value-loading" />{:else}<span
-                            class="kpi-card__value-number">{formattedValue}</span
+                            use:tippy={{
+                                content: tooltipValue,
+                            }}
+                            aria-label={tooltipValue}
+                            class="kpi-card__value-number">{displayValue}</span
                         >{/if}{#if options.suffix}<span class="kpi-card__suffix"
                             >{options.suffix}</span
                         >{/if}
                 </div>
                 {#if options.description}
-                    <div class="kpi-card__description">{options.description}</div>
+                    <p class="kpi-card__description">{options.description}</p>
                 {/if}
             </div>
         </div>

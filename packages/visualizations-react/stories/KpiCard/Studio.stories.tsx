@@ -70,6 +70,7 @@ function withData(data: Async<number>): KpiCardStoryProps {
             },
         },
         'Title, picture': {
+            data,
             style: {
                 ['--kpi-card-body-flex-direction' as any]: 'row',
                 ['--kpi-card-img-margin' as any]: '0 1rem 0 0',
@@ -77,7 +78,6 @@ function withData(data: Async<number>): KpiCardStoryProps {
                 ['--kpi-card-title-margin' as any]: '0 0 0.37rem 0',
                 ['--kpi-card-value-margin' as any]: '0',
             },
-            data,
             options: {
                 title: "Chiffre d'affaires",
                 imgSrc: IMAGES.rocket,
@@ -92,15 +92,15 @@ export const Loading = Template.bind({ options: { formatCompact: simpleFormatter
 Loading.args = withData({ loading: true });
 
 export const ShortValue = Template.bind({ options: { formatCompact: simpleFormatter.format } });
-ShortValue.args = withData({ value: 42 });
+ShortValue.args = withData({ value: -42 });
 
 export const LongValue = Template.bind({ options: { formatCompact: simpleFormatter.format } });
-LongValue.args = withData({ value: 42100 });
+LongValue.args = withData({ value: 42123456 });
 
 export const RatioKPI = Template.bind({ options: { formatCompact: ratioFormatter.format } });
-RatioKPI.args = withData({ value: 0.42 });
+RatioKPI.args = withData({ value: 0.42343953859 });
 
 export const ComparisonKPI = Template.bind({
     options: { formatCompact: comparisonFormatter.format },
 });
-ComparisonKPI.args = withData({ value: 42 });
+ComparisonKPI.args = withData({ value: 42.9 });
