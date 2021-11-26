@@ -10,6 +10,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import { babel } from '@rollup/plugin-babel';
 import { defineConfig } from 'rollup';
+import pkg from './package.json';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -62,8 +63,8 @@ function onwarn(warning, warn) {
 
 const esm = defineConfig({
     input: 'src/index.ts',
-    // Externalize all dependencies, except css files
-    external: (id) => !/^[./]/.test(id) && !/\.css$/.test(id),
+    // Externalize all dependencies
+    external: (id) => Object.keys(pkg.dependencies).includes(id),
     output: {
         dir: 'dist',
         entryFileNames: '[name].es.js',
