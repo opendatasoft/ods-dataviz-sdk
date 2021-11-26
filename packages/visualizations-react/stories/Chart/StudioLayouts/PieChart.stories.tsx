@@ -1,9 +1,17 @@
 import { ChartOptions, DataFrame, compactStringOrNumber } from '@opendatasoft/visualizations';
+import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
-import { styleForLayouts, defaultSource } from '../../utils';
+import { defaultSource } from '../../utils';
+import { Sample } from '../Chart.stories';
+import { storyWithArgs } from '../../utils';
 
-export const PieTitleSectorsName: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+const meta: Meta = {
+    title: 'Chart/StudioLayouts/PieChart',
+};
+
+export default meta;
+
+export const PieTitleSectorsName = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -27,18 +35,13 @@ export const PieTitleSectorsName: Props<DataFrame, ChartOptions> = {
                 },
             },
         ],
-        tooltips: {
-            display: true,
-        },
         title: {
             text: 'Pie chart with title and sectors name',
-            align: 'center',
         },
     },
-};
+});
 
-export const PieTitleSectorsNameValue: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const PieTitleSectorsNameValue = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -67,21 +70,13 @@ export const PieTitleSectorsNameValue: Props<DataFrame, ChartOptions> = {
                 },
             },
         ],
-        tooltips: {
-            display: true,
-        },
         title: {
             text: 'Pie chart with title and sectors name with values',
-            align: 'center',
-            padding: {
-                bottom: 36,
-            },
         },
     },
-};
+});
 
-export const PieTitleLegend: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const PieTitleLegend = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -106,18 +101,13 @@ export const PieTitleLegend: Props<DataFrame, ChartOptions> = {
             display: true,
             position: 'right',
         },
-        tooltips: {
-            display: true,
-        },
         title: {
             text: 'Pie chart with title and legend',
-            align: 'center',
         },
     },
-};
+});
 
-export const PieTitleLegendValues: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const PieTitleLegendValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -149,12 +139,8 @@ export const PieTitleLegendValues: Props<DataFrame, ChartOptions> = {
                 },
             },
         },
-        tooltips: {
-            display: true,
-        },
         title: {
             text: 'Pie chart with title and legend with values',
-            align: 'center',
         },
     },
-};
+});

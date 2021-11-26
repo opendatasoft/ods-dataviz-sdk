@@ -1,9 +1,17 @@
+import React from 'react';
 import { ChartOptions, DataFrame, compactStringOrNumber } from '@opendatasoft/visualizations';
+import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
-import { styleForLayouts, defaultSource } from '../../utils';
+import { defaultSource } from '../../utils';
+import { Sample } from '../Chart.stories';
 
-export const LineLongLegend: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+const meta: Meta = {
+    title: 'Chart/Formatting/LongLegend',
+};
+
+export default meta;
+
+const LineLongLegendArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
@@ -64,64 +72,13 @@ export const LineLongLegend: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Line chart with long legend',
-            align: 'start',
         },
     },
 };
+export const LineLongLegend = Sample.bind({});
+LineLongLegend.args = LineLongLegendArgs;
 
-export const PieLongLegend: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
-    data: {
-        loading: false,
-        value: [
-            {
-                x:
-                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
-                y: 100,
-            },
-            { x: '100000', y: -50 },
-            {
-                x:
-                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
-                y: 20,
-            },
-            {
-                x:
-                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
-                y: 30,
-            },
-        ],
-    },
-    options: {
-        labelColumn: 'x',
-        source: defaultSource,
-        ariaLabel: 'Pie chart with title and sectors name',
-        series: [
-            {
-                type: 'pie',
-                valueColumn: 'y',
-                backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
-                dataLabels: {
-                    display: false,
-                },
-            },
-        ],
-        legend: {
-            display: true,
-            position: 'right',
-        },
-        tooltips: {
-            display: true,
-        },
-        title: {
-            text: 'Pie chart with long legend',
-            align: 'center',
-        },
-    },
-};
-
-export const PieLongLegendBis: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+const PieLongLegendArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
@@ -169,18 +126,15 @@ export const PieLongLegendBis: Props<DataFrame, ChartOptions> = {
                 },
             },
         },
-        tooltips: {
-            display: true,
-        },
         title: {
             text: 'Pie chart with long legend and values',
-            align: 'center',
         },
     },
 };
+export const PieLongLegend = Sample.bind({});
+PieLongLegend.args = PieLongLegendArgs;
 
-export const RadarLongLegend: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+const RadarLongLegendArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
@@ -215,12 +169,8 @@ export const RadarLongLegend: Props<DataFrame, ChartOptions> = {
         legend: {
             display: true,
         },
-        tooltips: {
-            display: true,
-        },
         title: {
             text: 'Radar chart with long legend',
-            align: 'center',
         },
         rAxis: {
             ticks: {
@@ -229,3 +179,5 @@ export const RadarLongLegend: Props<DataFrame, ChartOptions> = {
         },
     },
 };
+export const RadarLongLegend = Sample.bind({});
+RadarLongLegend.args = RadarLongLegendArgs;

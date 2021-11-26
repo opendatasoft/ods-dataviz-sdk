@@ -1,9 +1,17 @@
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
-import { styleForLayouts, defaultSource } from '../../utils';
+import { defaultSource } from '../../utils';
+import { Sample } from '../Chart.stories';
+import { storyWithArgs } from '../../utils';
 
-export const BarTitleAxisGrid: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+const meta: Meta = {
+    title: 'Chart/StudioLayouts/BarChart',
+};
+
+export default meta;
+
+export const BarTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -62,13 +70,11 @@ export const BarTitleAxisGrid: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Bar chart with title, axis and grid',
-            align: 'start',
         },
     },
-};
+});
 
-export const BarAxisGrid: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const BarAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -127,10 +133,9 @@ export const BarAxisGrid: Props<DataFrame, ChartOptions> = {
             },
         },
     },
-};
+});
 
-export const BarTitleAxisDataValues: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const BarTitleAxisDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -227,13 +232,11 @@ export const BarTitleAxisDataValues: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Bar chart with title, axis and data values',
-            align: 'start',
         },
     },
-};
+});
 
-export const BarAxisDataValues: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const BarAxisDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -319,10 +322,9 @@ export const BarAxisDataValues: Props<DataFrame, ChartOptions> = {
             },
         },
     },
-};
+});
 
-export const BarTitleSubTitleGrid: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const BarTitleSubTitleGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -381,12 +383,9 @@ export const BarTitleSubTitleGrid: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Bar chart with title, subtitle and grid',
-            align: 'start',
         },
         subtitle: {
-            display: true,
             text: 'Custom Chart Subtitle',
-            align: 'start',
         },
     },
-};
+});

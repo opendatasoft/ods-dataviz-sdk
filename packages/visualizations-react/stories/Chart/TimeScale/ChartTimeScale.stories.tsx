@@ -1,24 +1,19 @@
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Meta, Story } from '@storybook/react';
-import React from 'react';
-import type { Props } from '../../src';
-import { Chart } from '../../src';
-import { COLORS, generateArrayOf, styleForLayouts } from '../utils';
+import type { Props } from '../../../src';
+import { COLORS, generateArrayOf } from '../../utils';
+import { Sample } from '../Chart.stories';
 
 const meta: Meta = {
     title: 'Chart/TimeScale',
-    component: Chart,
 };
 
 export default meta;
 
 type Args = Props<DataFrame, ChartOptions>;
 
-const Template = (args: Args) => <Chart {...args} />;
-
-export const AreaChartYears: Story<Args> = Template.bind({});
+export const AreaChartYears: Story<Args> = Sample.bind({});
 const AreaChartYearsArgs: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
     data: {
         loading: false,
         value: generateArrayOf(
@@ -55,9 +50,8 @@ const AreaChartYearsArgs: Props<DataFrame, ChartOptions> = {
 };
 AreaChartYears.args = AreaChartYearsArgs;
 
-export const LineChartYearsWithGap: Story<Args> = Template.bind({});
+export const LineChartYearsWithGap: Story<Args> = Sample.bind({});
 const LineChartYearsWithGapArgs: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
     data: {
         loading: false,
         value: [
@@ -100,9 +94,8 @@ const LineChartYearsWithGapArgs: Props<DataFrame, ChartOptions> = {
 };
 LineChartYearsWithGap.args = LineChartYearsWithGapArgs;
 
-export const LineChartMonths: Story<Args> = Template.bind({});
+export const LineChartMonths: Story<Args> = Sample.bind({});
 const LineChartMonthsArgs: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
     data: {
         loading: false,
         value: generateArrayOf(
@@ -138,9 +131,8 @@ const LineChartMonthsArgs: Props<DataFrame, ChartOptions> = {
 };
 LineChartMonths.args = LineChartMonthsArgs;
 
-export const LineChartDays: Story<Args> = Template.bind({});
+export const LineChartDays: Story<Args> = Sample.bind({});
 const LineChartDaysArgs: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
     data: {
         loading: false,
         value: generateArrayOf(
@@ -177,9 +169,8 @@ const LineChartDaysArgs: Props<DataFrame, ChartOptions> = {
 };
 LineChartDays.args = LineChartDaysArgs;
 
-export const LineChartHours: Story<Args> = Template.bind({});
+export const LineChartHours: Story<Args> = Sample.bind({});
 const LineChartHoursArgs: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
     data: {
         loading: false,
         value: generateArrayOf(
@@ -215,9 +206,8 @@ const LineChartHoursArgs: Props<DataFrame, ChartOptions> = {
 };
 LineChartHours.args = LineChartHoursArgs;
 
-export const LineChartMinutes: Story<Args> = Template.bind({});
+export const LineChartMinutes: Story<Args> = Sample.bind({});
 const LineChartMinutesArgs: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
     data: {
         loading: false,
         value: generateArrayOf(
@@ -253,9 +243,8 @@ const LineChartMinutesArgs: Props<DataFrame, ChartOptions> = {
 };
 LineChartMinutes.args = LineChartMinutesArgs;
 
-export const BarChartSeconds: Story<Args> = Template.bind({});
+export const BarChartSeconds: Story<Args> = Sample.bind({});
 const BarChartSecondsArgs: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
     data: {
         loading: false,
         value: generateArrayOf(

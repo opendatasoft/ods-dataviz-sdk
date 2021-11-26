@@ -1,9 +1,17 @@
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
-import { styleForLayouts, defaultSource } from '../../utils';
+import { defaultSource } from '../../utils';
+import { Sample } from '../Chart.stories';
+import { storyWithArgs } from '../../utils';
 
-export const ColumnTitleAxisGrid: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+const meta: Meta = {
+    title: 'Chart/StudioLayouts/HistogramChart',
+};
+
+export default meta;
+
+export const HistogramTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -12,29 +20,21 @@ export const ColumnTitleAxisGrid: Props<DataFrame, ChartOptions> = {
             { x: 2, y: 20 },
             { x: 3, y: -30 },
             { x: 4, y: 40 },
-            { x: 5, y: -50 },
+            { x: 5, y: 50 },
         ],
     },
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Column chart with title, axis and grid',
+        ariaLabel: 'Histogram series chart',
         series: [
             {
                 type: 'bar',
                 valueColumn: 'y',
-                backgroundColor: [
-                    'rgba(250,50,50,0.5)',
-                    'rgba(50,250,50,0.5)',
-                    'rgba(50,50,250,0.5)',
-                    'rgba(250,50,250,0.5)',
-                ],
-                borderColor: [
-                    'rgba(250,50,50)',
-                    'rgba(50,250,50)',
-                    'rgba(50,50,250)',
-                    'rgba(250,50,250)',
-                ],
+                barPercentage: 1,
+                categoryPercentage: 1,
+                backgroundColor: 'rgba(50,50,225,0.5)',
+                borderColor: 'rgba(50,50,225)',
             },
         ],
         xAxis: {
@@ -62,14 +62,12 @@ export const ColumnTitleAxisGrid: Props<DataFrame, ChartOptions> = {
             },
         },
         title: {
-            text: 'Column chart with title, axis and grid',
-            align: 'start',
+            text: 'Histogram chart with title, axis and grid',
         },
     },
-};
+});
 
-export const ColumnAxisGrid: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const HistogramAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -78,29 +76,21 @@ export const ColumnAxisGrid: Props<DataFrame, ChartOptions> = {
             { x: 2, y: 20 },
             { x: 3, y: -30 },
             { x: 4, y: 40 },
-            { x: 5, y: -50 },
+            { x: 5, y: 50 },
         ],
     },
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Column chart with axis and grid',
+        ariaLabel: 'Histogram chart with axis and grid',
         series: [
             {
                 type: 'bar',
                 valueColumn: 'y',
-                backgroundColor: [
-                    'rgba(250,50,50,0.5)',
-                    'rgba(50,250,50,0.5)',
-                    'rgba(50,50,250,0.5)',
-                    'rgba(250,50,250,0.5)',
-                ],
-                borderColor: [
-                    'rgba(250,50,50)',
-                    'rgba(50,250,50)',
-                    'rgba(50,50,250)',
-                    'rgba(250,50,250)',
-                ],
+                barPercentage: 1,
+                categoryPercentage: 1,
+                backgroundColor: 'rgba(50,50,225,0.5)',
+                borderColor: 'rgba(50,50,225)',
             },
         ],
         xAxis: {
@@ -128,10 +118,9 @@ export const ColumnAxisGrid: Props<DataFrame, ChartOptions> = {
             },
         },
     },
-};
+});
 
-export const ColumnTitleSubtitleDataValues: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const HistogramTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -140,29 +129,21 @@ export const ColumnTitleSubtitleDataValues: Props<DataFrame, ChartOptions> = {
             { x: 2, y: 20 },
             { x: 3, y: -30 },
             { x: 4, y: 40 },
-            { x: 5, y: -50 },
+            { x: 5, y: 50 },
         ],
     },
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Column chart with title, axis and grid',
+        ariaLabel: 'Histogram chart with title, subtitle and data values',
         series: [
             {
                 type: 'bar',
                 valueColumn: 'y',
-                backgroundColor: [
-                    'rgba(250,50,50,0.5)',
-                    'rgba(50,250,50,0.5)',
-                    'rgba(50,50,250,0.5)',
-                    'rgba(250,50,250,0.5)',
-                ],
-                borderColor: [
-                    'rgba(250,50,50)',
-                    'rgba(50,250,50)',
-                    'rgba(50,50,250)',
-                    'rgba(250,50,250)',
-                ],
+                barPercentage: 1,
+                categoryPercentage: 1,
+                backgroundColor: 'rgba(50,50,225,0.5)',
+                borderColor: 'rgba(50,50,225)',
                 dataLabels: {
                     display: true,
                     align: function (index, { dataFrame }) {
@@ -179,12 +160,7 @@ export const ColumnTitleSubtitleDataValues: Props<DataFrame, ChartOptions> = {
                             return 'start';
                         }
                     },
-                    color: [
-                        'rgba(250,50,50)',
-                        'rgba(50,250,50)',
-                        'rgba(50,50,250)',
-                        'rgba(250,50,250)',
-                    ],
+                    color: 'rgba(50,50,225)',
                 },
             },
         ],
@@ -197,15 +173,13 @@ export const ColumnTitleSubtitleDataValues: Props<DataFrame, ChartOptions> = {
                 text: 'x',
                 align: 'center',
             },
-            gridLines: {
-                display: false,
-            },
             ticks: {
                 display: false,
             },
         },
         yAxis: {
             display: true,
+            type: 'category',
             title: {
                 display: false,
                 text: 'y',
@@ -219,19 +193,15 @@ export const ColumnTitleSubtitleDataValues: Props<DataFrame, ChartOptions> = {
             },
         },
         title: {
-            text: 'Column chart with title, axis and grid',
-            align: 'start',
+            text: 'Histogram chart with title, subtitle and data values',
         },
         subtitle: {
-            display: true,
             text: 'Custom Chart Subtitle',
-            align: 'start',
         },
     },
-};
+});
 
-export const ColumnDataValues: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const HistogramDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -240,51 +210,38 @@ export const ColumnDataValues: Props<DataFrame, ChartOptions> = {
             { x: 2, y: 20 },
             { x: 3, y: -30 },
             { x: 4, y: 40 },
-            { x: 5, y: -50 },
+            { x: 5, y: 50 },
         ],
     },
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Column chart with title, axis and grid',
+        ariaLabel: 'Histogram chart with data values',
         series: [
             {
                 type: 'bar',
                 valueColumn: 'y',
-                backgroundColor: [
-                    'rgba(250,50,50,0.5)',
-                    'rgba(50,250,50,0.5)',
-                    'rgba(50,50,250,0.5)',
-                    'rgba(250,50,250,0.5)',
-                ],
-                borderColor: [
-                    'rgba(250,50,50)',
-                    'rgba(50,250,50)',
-                    'rgba(50,50,250)',
-                    'rgba(250,50,250)',
-                ],
+                barPercentage: 1,
+                categoryPercentage: 1,
+                backgroundColor: 'rgba(50,50,225,0.5)',
+                borderColor: 'rgba(50,50,225)',
                 dataLabels: {
                     display: true,
-                    align(index, { dataFrame }) {
+                    align: function (index, { dataFrame }) {
                         if (dataFrame[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
-                    anchor(index, { dataFrame }) {
+                    anchor: function (index, { dataFrame }) {
                         if (dataFrame[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
-                    color: [
-                        'rgba(250,50,50)',
-                        'rgba(50,250,50)',
-                        'rgba(50,50,250)',
-                        'rgba(250,50,250)',
-                    ],
+                    color: 'rgba(50,50,225)',
                 },
             },
         ],
@@ -297,9 +254,6 @@ export const ColumnDataValues: Props<DataFrame, ChartOptions> = {
                 text: 'x',
                 align: 'center',
             },
-            gridLines: {
-                display: false,
-            },
             ticks: {
                 display: false,
             },
@@ -319,10 +273,9 @@ export const ColumnDataValues: Props<DataFrame, ChartOptions> = {
             },
         },
     },
-};
+});
 
-export const ColumnAxisDataValues: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const HistogramAxisDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -331,51 +284,38 @@ export const ColumnAxisDataValues: Props<DataFrame, ChartOptions> = {
             { x: 2, y: 20 },
             { x: 3, y: -30 },
             { x: 4, y: 40 },
-            { x: 5, y: -50 },
+            { x: 5, y: 50 },
         ],
     },
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Column chart with title, axis and grid',
+        ariaLabel: 'Histogram chart with axis and data values',
         series: [
             {
                 type: 'bar',
                 valueColumn: 'y',
-                backgroundColor: [
-                    'rgba(250,50,50,0.5)',
-                    'rgba(50,250,50,0.5)',
-                    'rgba(50,50,250,0.5)',
-                    'rgba(250,50,250,0.5)',
-                ],
-                borderColor: [
-                    'rgba(250,50,50)',
-                    'rgba(50,250,50)',
-                    'rgba(50,50,250)',
-                    'rgba(250,50,250)',
-                ],
+                barPercentage: 1,
+                categoryPercentage: 1,
+                backgroundColor: 'rgba(50,50,225,0.5)',
+                borderColor: 'rgba(50,50,225)',
                 dataLabels: {
                     display: true,
-                    align(index, { dataFrame }) {
+                    align: function (index, { dataFrame }) {
                         if (dataFrame[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
-                    anchor(index, { dataFrame }) {
+                    anchor: function (index, { dataFrame }) {
                         if (dataFrame[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
-                    color: [
-                        'rgba(250,50,50)',
-                        'rgba(50,250,50)',
-                        'rgba(50,50,250)',
-                        'rgba(250,50,250)',
-                    ],
+                    color: 'rgba(50,50,225)',
                 },
             },
         ],
@@ -391,6 +331,9 @@ export const ColumnAxisDataValues: Props<DataFrame, ChartOptions> = {
             gridLines: {
                 display: false,
             },
+            ticks: {
+                display: true,
+            },
         },
         yAxis: {
             display: true,
@@ -407,70 +350,63 @@ export const ColumnAxisDataValues: Props<DataFrame, ChartOptions> = {
             },
         },
     },
-};
+});
 
-export const ColumnTitleAxisGridNegative: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
-    data: {
-        loading: false,
-        value: [
-            { x: 0, y: -100 },
-            { x: 1, y: -50 },
-            { x: 2, y: -20 },
-            { x: 3, y: -30 },
-            { x: 4, y: -40 },
-            { x: 5, y: -50 },
-        ],
-    },
-    options: {
-        labelColumn: 'x',
-        source: defaultSource,
-        ariaLabel: 'Column chart with title, axis and grid',
-        series: [
-            {
-                type: 'bar',
-                valueColumn: 'y',
-                backgroundColor: [
-                    'rgba(250,50,50,0.5)',
-                    'rgba(50,250,50,0.5)',
-                    'rgba(50,50,250,0.5)',
-                    'rgba(250,50,250,0.5)',
-                ],
-                borderColor: [
-                    'rgba(250,50,50)',
-                    'rgba(50,250,50)',
-                    'rgba(50,50,250)',
-                    'rgba(250,50,250)',
-                ],
+export const HistogramTitleAxisGridNegative = storyWithArgs<Props<DataFrame, ChartOptions>>(
+    Sample,
+    {
+        data: {
+            loading: false,
+            value: [
+                { x: 0, y: -10000 },
+                { x: 1, y: -5000 },
+                { x: 2, y: -2000 },
+                { x: 3, y: -3000 },
+                { x: 4, y: -4000 },
+                { x: 5, y: -5000 },
+            ],
+        },
+        options: {
+            labelColumn: 'x',
+            source: defaultSource,
+            ariaLabel: 'Histogram series chart',
+            series: [
+                {
+                    type: 'bar',
+                    valueColumn: 'y',
+                    barPercentage: 1,
+                    categoryPercentage: 1,
+                    backgroundColor: 'rgba(50,50,225,0.5)',
+                    borderColor: 'rgba(50,50,225)',
+                },
+            ],
+            xAxis: {
+                display: true,
+                type: 'category',
+                offset: true,
+                title: {
+                    display: true,
+                    text: 'x',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
-        ],
-        xAxis: {
-            display: true,
-            type: 'category',
-            offset: true,
+            yAxis: {
+                display: true,
+                title: {
+                    display: true,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
+            },
             title: {
-                display: true,
-                text: 'x',
-                align: 'center',
-            },
-            gridLines: {
-                display: false,
+                text: 'Histogram chart with title, axis and grid',
             },
         },
-        yAxis: {
-            display: true,
-            title: {
-                display: true,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: true,
-            },
-        },
-        title: {
-            text: 'Column chart with title, axis and grid',
-            align: 'start',
-        },
-    },
-};
+    }
+);

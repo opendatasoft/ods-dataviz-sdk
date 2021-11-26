@@ -1,9 +1,17 @@
+import React from 'react';
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
-import { styleForLayouts, defaultSource } from '../../utils';
+import { defaultSource } from '../../utils';
+import { Sample } from '../Chart.stories';
 
-export const LongTicksFixed: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+const meta: Meta = {
+    title: 'Chart/Formatting/LongTicks',
+};
+
+export default meta;
+
+const LongTicksFixedArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
@@ -119,13 +127,13 @@ export const LongTicksFixed: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Line chart with Long Ticks Fixed',
-            align: 'start',
         },
     },
 };
+export const LongTicksFixed = Sample.bind({});
+LongTicksFixed.args = LongTicksFixedArgs;
 
-export const BarLongTicks: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+const BarLongTicksArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
@@ -202,13 +210,13 @@ export const BarLongTicks: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Bar chart with long ticks',
-            align: 'start',
         },
     },
 };
+export const BarLongTicks = Sample.bind({});
+BarLongTicks.args = BarLongTicksArgs;
 
-export const ColumnLongTicks: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+const ColumnLongTicksArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
@@ -293,104 +301,13 @@ export const ColumnLongTicks: Props<DataFrame, ChartOptions> = {
         },
         title: {
             text: 'Column chart with long ticks',
-            align: 'start',
         },
     },
 };
+export const ColumnLongTicks = Sample.bind({});
+ColumnLongTicks.args = ColumnLongTicksArgs;
 
-export const ColumnLongTicks2: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
-    data: {
-        loading: false,
-        value: [
-            {
-                x: 5484396,
-                y:
-                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?',
-            },
-            {
-                x: 54833384896,
-                y:
-                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?',
-            },
-            {
-                x: 54844545896,
-                y:
-                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?',
-            },
-            {
-                x: 548465345496,
-                y:
-                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?',
-            },
-            {
-                x: 5484284896,
-                y:
-                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?',
-            },
-            {
-                x: 548434896,
-                y:
-                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, error sequi placeat quis dolores id mollitia vel sed velit, voluptas, nisi sit? Doloremque nulla ullam id recusandae ex voluptatibus sit?',
-            },
-        ],
-    },
-    options: {
-        labelColumn: 'x',
-        source: defaultSource,
-        ariaLabel: 'Column chart with title, axis and grid',
-        series: [
-            {
-                type: 'bar',
-                valueColumn: 'y',
-                backgroundColor: [
-                    'rgba(250,50,50,0.5)',
-                    'rgba(50,250,50,0.5)',
-                    'rgba(50,50,250,0.5)',
-                    'rgba(250,50,250,0.5)',
-                ],
-                borderColor: [
-                    'rgba(250,50,50)',
-                    'rgba(50,250,50)',
-                    'rgba(50,50,250)',
-                    'rgba(250,50,250)',
-                ],
-                borderWidth: 2,
-            },
-        ],
-        xAxis: {
-            display: true,
-            type: 'category',
-            offset: true,
-            title: {
-                display: true,
-                text: 'x',
-                align: 'center',
-            },
-            gridLines: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            title: {
-                display: true,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: true,
-            },
-        },
-        title: {
-            text: 'Column chart with long ticks',
-            align: 'start',
-        },
-    },
-};
-
-export const RadarLongTicks: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+const RadarLongTicksArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
@@ -424,12 +341,8 @@ export const RadarLongTicks: Props<DataFrame, ChartOptions> = {
         legend: {
             display: true,
         },
-        tooltips: {
-            display: true,
-        },
         title: {
             text: 'Radar chart with long ticks',
-            align: 'center',
         },
         rAxis: {
             ticks: {
@@ -438,3 +351,5 @@ export const RadarLongTicks: Props<DataFrame, ChartOptions> = {
         },
     },
 };
+export const RadarLongTicks = Sample.bind({});
+RadarLongTicks.args = RadarLongTicksArgs;

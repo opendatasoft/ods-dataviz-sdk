@@ -1,9 +1,17 @@
 import { ChartOptions, DataFrame, compactStringOrNumber } from '@opendatasoft/visualizations';
+import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
-import { styleForLayouts, defaultSource } from '../../utils';
+import { defaultSource } from '../../utils';
+import { Sample } from '../Chart.stories';
+import { storyWithArgs } from '../../utils';
 
-export const LineLongDataLabels: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+const meta: Meta = {
+    title: 'Chart/Formatting/LongDataLabels',
+};
+
+export default meta;
+
+export const LineLongDataLabels = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -68,10 +76,9 @@ export const LineLongDataLabels: Props<DataFrame, ChartOptions> = {
             },
         },
     },
-};
+});
 
-export const PieLongDataLabels: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const PieLongDataLabels = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -104,21 +111,13 @@ export const PieLongDataLabels: Props<DataFrame, ChartOptions> = {
                 },
             },
         ],
-        tooltips: {
-            display: true,
-        },
         title: {
             text: 'Pie chart with long data labels',
-            align: 'center',
-            padding: {
-                bottom: 36,
-            },
         },
     },
-};
+});
 
-export const RadarLongDataLabels: Props<DataFrame, ChartOptions> = {
-    style: styleForLayouts,
+export const RadarLongDataLabels = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
         value: [
@@ -171,15 +170,11 @@ export const RadarLongDataLabels: Props<DataFrame, ChartOptions> = {
         legend: {
             display: true,
         },
-        tooltips: {
-            display: true,
-        },
         title: {
             text: 'Radar chart with long data labels',
-            align: 'center',
         },
         rAxis: {
             ticks: { display: false },
         },
     },
-};
+});

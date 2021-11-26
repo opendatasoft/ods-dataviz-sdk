@@ -9,6 +9,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import { babel } from '@rollup/plugin-babel';
+import { defineConfig } from 'rollup';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -59,10 +60,10 @@ function onwarn(warning, warn) {
     warn(warning);
 }
 
-const esm = {
+const esm = defineConfig({
     input: 'src/index.ts',
-    // Externalize all dependencies
-    external: (id) => !/^[./]/.test(id),
+    // Externalize all dependencies, except css files
+    external: (id) => !/^[./]/.test(id) && !/\.css$/.test(id),
     output: {
         dir: 'dist',
         entryFileNames: '[name].es.js',
@@ -79,9 +80,9 @@ const esm = {
             }),
     ],
     onwarn,
-};
+});
 
-const umd = {
+const umd = defineConfig({
     input: 'src/index.ts',
     output: {
         dir: 'dist',
@@ -103,7 +104,7 @@ const umd = {
             }),
     ],
     onwarn,
-};
+});
 
 // Just compile the ESM version during development
 const bundles = production ? [esm, umd] : [esm];
