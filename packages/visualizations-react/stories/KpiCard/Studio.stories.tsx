@@ -32,9 +32,16 @@ const Template = function (this: Props<number, KpiCardOptions>, args: KpiCardSto
             }}
         >
             {Object.keys(args).map((key) => {
-                const { data, options } = args[key];
+                const { data, options, style } = args[key];
 
-                return <KpiCard data={data} options={{ ...this.options, ...options }} key={key} />;
+                return (
+                    <KpiCard
+                        data={data}
+                        options={{ ...this.options, ...options }}
+                        style={style}
+                        key={key}
+                    />
+                );
             })}
         </div>
     );
