@@ -58,7 +58,7 @@
         chartOptions.maintainAspectRatio = true;
         chartOptions.scales = buildScales(options);
         chartOptions.layout = {
-            padding: defaultValue(options?.padding, 2),
+            padding: defaultValue(options?.padding, 12),
         };
         chartOptions.plugins = {
             legend: buildLegend(dataFrame, options),
@@ -80,20 +80,25 @@
         chartConfig.data.labels = dataFrame.map((entry) => entry[labelColumn]);
         chartConfig.data.datasets = series.map((s) => toDataset(dataFrame, s));
     }
+
+    let displayTitle: boolean;
+    let displaySubtitle: boolean;
+    $: displayTitle = defaultValue(options?.title?.display, !!options?.title?.text);
+    $: displaySubtitle = defaultValue(options?.subtitle?.display, !!options?.subtitle?.text);
 </script>
 
 {#if data.error}
     Error : {JSON.stringify(data.error)}
 {:else if options}
     <figure>
-        {#if options.title?.text || options.subtitle?.text}
+        {#if displayTitle || displaySubtitle}
             <figcaption>
-                {#if options.title?.text}
+                {#if displayTitle}
                     <h3>
                         {options.title?.text}
                     </h3>
                 {/if}
-                {#if options.subtitle?.text}
+                {#if displaySubtitle}
                     <p>
                         {options.subtitle?.text}
                     </p>

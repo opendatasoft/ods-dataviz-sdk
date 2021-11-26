@@ -105,6 +105,7 @@ export interface TicksConfiguration {
 }
 
 export interface TitleConfiguration {
+    display?: boolean;
     text?: string;
 }
 
