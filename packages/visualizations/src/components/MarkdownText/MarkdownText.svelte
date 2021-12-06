@@ -1,6 +1,7 @@
 <script lang="ts" context="module">
     import MarkdownIt from 'markdown-it';
     import MarkdownItMark from 'markdown-it-mark';
+    import mila from 'markdown-it-link-attributes';
     import type StateCore from 'markdown-it/lib/rules_core/state_core';
     import type { MarkdownTextOptions } from '../types';
     import type { Async } from '../../types';
@@ -31,14 +32,24 @@
         });
     }
 
-    const md = new MarkdownIt('zero').use(MarkdownItMark).use(tightLists).enable([
-        'hr',
-        'list',
-        'heading',
-        'emphasis', // bold & italic
-        'link',
-        'escape',
-    ]);
+    const md = new MarkdownIt('zero')
+        .use(MarkdownItMark)
+        .use(tightLists)
+        .use(mila, {
+            pattern: /^https?:/,
+            attrs: {
+                target: '_blank',
+                rel: 'noopener noreferer',
+            },
+        })
+        .enable([
+            'hr',
+            'list',
+            'heading',
+            'emphasis', // bold & italic
+            'link',
+            'escape',
+        ]);
 </script>
 
 <script lang="ts">
