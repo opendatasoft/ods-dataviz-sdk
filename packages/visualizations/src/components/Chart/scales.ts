@@ -16,11 +16,12 @@ import type {
     TimeCartesianAxisConfiguration,
 } from '../types';
 import { defaultValue, singleChartJsColor } from './utils';
-import { compactStringOrNumber } from '../../utils';
+import { defaultCompactNumberFormat } from '../utils/formatter';
 
 function computeFormatTick(
     displayTick: TicksConfiguration['display'],
-    type: CartesianAxisConfiguration['type']
+    type: CartesianAxisConfiguration['type'],
+    formatNumber: (value: number) => string
 ) {
     function formatTick(this: Scale, tickValue: number, _index: number, ticks: Tick[]) {
         const minAbsTickValue = Math.min(...ticks.map((tick) => Math.abs(tick.value)));
@@ -28,9 +29,9 @@ function computeFormatTick(
             return '';
         }
         if (type === 'category') {
-            return compactStringOrNumber(this.getLabelForValue(tickValue));
+            return this.getLabelForValue(tickValue);
         }
-        return compactStringOrNumber(tickValue);
+        return typeof tickValue === 'number' ? formatNumber(tickValue) : tickValue;
     }
     return formatTick;
 }
@@ -106,7 +107,8 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
                 color: defaultValue(options?.xAxis?.ticks?.color, 'rgb(86, 86, 86)'),
                 callback: computeFormatTick(
                     defaultValue(options?.xAxis?.ticks?.display, true),
-                    options?.xAxis?.type
+                    options?.xAxis?.type,
+                    defaultValue(options?.xAxis?.ticks?.format, defaultCompactNumberFormat)
                 ),
             },
         } as _DeepPartialObject<CartesianScaleOptions>;
@@ -140,7 +142,8 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
                 ),
                 callback: computeFormatTick(
                     defaultValue(options?.yAxis?.ticks?.display, true),
-                    options?.yAxis?.type
+                    options?.yAxis?.type,
+                    defaultValue(options?.xAxis?.ticks?.format, defaultCompactNumberFormat)
                 ),
             },
         } as _DeepPartialObject<CartesianScaleOptions>;
@@ -157,7 +160,8 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
                 color: defaultValue(options?.rAxis?.ticks?.color, 'rgb(86, 86, 86)'),
                 callback: computeFormatTick(
                     defaultValue(options?.rAxis?.ticks?.display, true),
-                    undefined
+                    undefined,
+                    defaultValue(options?.xAxis?.ticks?.format, defaultCompactNumberFormat)
                 ),
             },
             grid: {

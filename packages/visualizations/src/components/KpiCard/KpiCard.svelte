@@ -3,6 +3,7 @@
     import type { Async } from '../../types';
     import type { KpiCardOptions } from '../types';
     import SourceLink from '../utils/SourceLink.svelte';
+    import { defaultCompactNumberFormat, defaultNumberFormat } from '../utils/formatter';
 
     export let data: Async<number>;
     export let options: KpiCardOptions;
@@ -12,9 +13,9 @@
     let format: (value: number) => string;
     let formatCompact: (value: number) => string;
 
-    $: format = options.format || ((value) => value.toLocaleString());
+    $: format = options.format || defaultNumberFormat;
 
-    $: formatCompact = options.formatCompact || format;
+    $: formatCompact = options.formatCompact || defaultCompactNumberFormat;
 
     $: if (data.value !== undefined) {
         displayValue = formatCompact(data.value);

@@ -1,8 +1,7 @@
 import type { LegendOptions, ChartTypeRegistry } from 'chart.js';
 import type { _DeepPartialObject } from 'chart.js/types/utils';
-import type { ChartOptions, DataFrame } from '../types';
+import type { ChartOptions } from '../types';
 import { defaultValue } from './utils';
-import { compactStringOrNumber } from '../../utils';
 
 const handleHoverPieChart: LegendOptions<'pie'>['onHover'] = (_, item, legend) => {
     const { tooltip, chartArea } = legend.chart;
@@ -29,7 +28,6 @@ const handleLeavePieChart: LegendOptions<'pie'>['onLeave'] = (_evt, _item, legen
 };
 
 export default function buildLegend(
-    dataFrame: DataFrame,
     options: ChartOptions
 ): _DeepPartialObject<LegendOptions<keyof ChartTypeRegistry>> {
     const legend: _DeepPartialObject<LegendOptions<keyof ChartTypeRegistry>> = {
@@ -40,15 +38,15 @@ export default function buildLegend(
         ...(options.series[0]?.type === 'pie' && { onLeave: handleLeavePieChart }),
         labels: {
             filter: (item) => {
-                const formatter = options?.legend?.labels?.formatter;
-                const index =
-                    typeof (item as any).index === 'number'
-                        ? (item as any).index
-                        : item.datasetIndex;
-                // eslint-disable-next-line no-param-reassign
-                item.text = formatter
-                    ? formatter(index, { dataFrame })
-                    : compactStringOrNumber(item.text);
+                const text = options?.legend?.labels?.text;
+                if (text) {
+                    const index =
+                        typeof (item as any).index === 'number'
+                            ? (item as any).index
+                            : item.datasetIndex;
+                    // eslint-disable-next-line no-param-reassign
+                    item.text = text(index);
+                }
                 return true;
             },
         },

@@ -84,7 +84,7 @@ export interface RadialAxisConfiguration {
 }
 
 export interface LegendLabelsConfiguration {
-    formatter?: (legendIndex: number, context: { dataFrame: DataFrame }) => string;
+    text?: (legendIndex: number) => string;
 }
 
 export interface LegendConfiguration {
@@ -102,6 +102,7 @@ export interface FontConfiguration {
 export interface TicksConfiguration {
     display?: boolean | 'single';
     color?: Color;
+    format?: (value: number) => string;
 }
 
 export interface TitleConfiguration {
@@ -112,15 +113,14 @@ export interface TitleConfiguration {
 export interface DataLabelsConfiguration {
     display?: boolean | 'auto';
     align?: (
-        index: number,
-        context: { dataFrame: DataFrame }
+        index: number
     ) => 'bottom' | 'center' | 'end' | 'left' | 'right' | 'start' | 'top' | number;
-    anchor?: (index: number, context: { dataFrame: DataFrame }) => 'center' | 'end' | 'start';
+    anchor?: (index: number) => 'center' | 'end' | 'start';
     backgroundColor?: Color;
     color?: Color;
     borderRadius?: number;
     offset?: number;
-    formatter?: (index: number, context: { dataFrame: DataFrame }) => string | string[];
+    format?: (value: number) => string;
     padding?: number;
 }
 
