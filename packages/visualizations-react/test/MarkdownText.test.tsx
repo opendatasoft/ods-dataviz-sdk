@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MarkdownText } from '../src';
 import './ResizeObserver.mock';
 import '@testing-library/jest-dom';
@@ -47,4 +47,18 @@ describe('MarkdownText', () => {
 
         getByText('Hi there **world**');
     });
+
+    it("adds attributes to links", () => {
+        const value =  `
+        [full](https://www.opendatasoft.com) \n
+        [relative](/explore)
+        `
+        render(<MarkdownText options={{}} data={{ value }} />);
+        
+        const full = screen.getByRole('link', { name: 'full' });
+        const relative = screen.getByRole('link', { name: 'relative' });
+
+        expect(full).toHaveAttribute('target', '_blank');
+        expect(relative).not.toHaveAttribute('target', '_blank');
+    })
 });

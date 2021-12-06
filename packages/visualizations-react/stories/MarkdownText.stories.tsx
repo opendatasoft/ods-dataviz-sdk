@@ -51,3 +51,17 @@ Default.args = {
     },
     options: {},
 };
+
+export const Link = Template.bind({});
+Link.args = {
+    style,
+    data: {
+        value: `
+        [This link should have target=_blank](https://www.opendatasoft.com) \n
+        [This one shouldn't](/explore)
+        `
+            
+    },
+    options: {},
+};
+
