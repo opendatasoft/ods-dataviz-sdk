@@ -1,4 +1,4 @@
-import { ChartOptions, DataFrame, compactStringOrNumber } from '@opendatasoft/visualizations';
+import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
 import { defaultSource } from '../../utils';
@@ -11,17 +11,19 @@ const meta: Meta = {
 
 export default meta;
 
+const df = [
+    { x: 0, y: 240000000, z: 1 },
+    { x: 1, y: -14000000, z: 2 },
+    { x: 2, y: 200000000, z: 3 },
+    { x: 3, y: 300000, z: 1 },
+    { x: 4, y: 1800000.47, z: 1 },
+    { x: 5, y: 778000, z: 1 },
+];
+
 export const LineLongTitle = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 0, y: 240000000, z: 1 },
-            { x: 1, y: -14000000, z: 2 },
-            { x: 2, y: 200000000, z: 3 },
-            { x: 3, y: 300000, z: 1 },
-            { x: 4, y: 1800000.47, z: 1 },
-            { x: 5, y: 778000, z: 1 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -36,15 +38,15 @@ export const LineLongTitle = storyWithArgs<Props<DataFrame, ChartOptions>>(Sampl
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
-                    align: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    align: function (index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
-                    anchor: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    anchor: function (index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
@@ -68,14 +70,7 @@ export const LineLongTitle = storyWithArgs<Props<DataFrame, ChartOptions>>(Sampl
 export const LineNoTitle = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 0, y: 240000000, z: 1 },
-            { x: 1, y: -14000000, z: 2 },
-            { x: 2, y: 200000000, z: 3 },
-            { x: 3, y: 300000, z: 1 },
-            { x: 4, y: 1800000.47, z: 1 },
-            { x: 5, y: 778000, z: 1 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -90,15 +85,15 @@ export const LineNoTitle = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample,
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
-                    align: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    align: function (index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
-                    anchor: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    anchor: function (index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';

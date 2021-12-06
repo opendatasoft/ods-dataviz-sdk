@@ -1,7 +1,7 @@
-import { ChartOptions, DataFrame, compactStringOrNumber } from '@opendatasoft/visualizations';
+import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
-import { defaultSource } from '../../utils';
+import { compactNumberFormatter, defaultSource } from '../../utils';
 import { Sample } from '../Chart.stories';
 import { storyWithArgs } from '../../utils';
 
@@ -11,17 +11,19 @@ const meta: Meta = {
 
 export default meta;
 
+const lineDataFrame = [
+    { x: 0, y: 240000000, z: 1 },
+    { x: 1, y: -14000000, z: 2 },
+    { x: 2, y: 200000000, z: 3 },
+    { x: 3, y: 300000, z: 1 },
+    { x: 4, y: 1800000.47, z: 1 },
+    { x: 5, y: 778000, z: 1 },
+];
+
 export const LineLongDataLabels = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 0, y: 240000000, z: 1 },
-            { x: 1, y: -14000000, z: 2 },
-            { x: 2, y: 200000000, z: 3 },
-            { x: 3, y: 300000, z: 1 },
-            { x: 4, y: 1800000.47, z: 1 },
-            { x: 5, y: 778000, z: 1 },
-        ],
+        value: lineDataFrame,
     },
     options: {
         labelColumn: 'x',
@@ -36,15 +38,15 @@ export const LineLongDataLabels = storyWithArgs<Props<DataFrame, ChartOptions>>(
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
-                    align: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    align: function (index) {
+                        if (lineDataFrame[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
-                    anchor: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    anchor: function (index) {
+                        if (lineDataFrame[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
@@ -78,19 +80,21 @@ export const LineLongDataLabels = storyWithArgs<Props<DataFrame, ChartOptions>>(
     },
 });
 
+const pieDataFrame = [
+    {
+        x:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla optio unde porro incidunt provident quis amet saepe voluptas explicabo maiores. Voluptatum itaque dolores consectetur assumenda repellendus accusamus laudantium vero deleniti.',
+        y: 1000000,
+    },
+    { x: 'Beta', y: -5000000 },
+    { x: 'Gamma', y: 2000000 },
+    { x: 'Delta', y: 3000000 },
+];
+
 export const PieLongDataLabels = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            {
-                x:
-                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla optio unde porro incidunt provident quis amet saepe voluptas explicabo maiores. Voluptatum itaque dolores consectetur assumenda repellendus accusamus laudantium vero deleniti.',
-                y: 1000000,
-            },
-            { x: 'Beta', y: -5000000 },
-            { x: 'Gamma', y: 2000000 },
-            { x: 'Delta', y: 3000000 },
-        ],
+        value: pieDataFrame,
     },
     options: {
         labelColumn: 'x',
@@ -103,10 +107,11 @@ export const PieLongDataLabels = storyWithArgs<Props<DataFrame, ChartOptions>>(S
                 backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
                 dataLabels: {
                     display: true,
-                    formatter: function (index, { dataFrame }) {
-                        const xData = compactStringOrNumber(dataFrame[index].x);
-                        const yData = compactStringOrNumber(dataFrame[index].y);
-                        return [xData, yData];
+                    text(index) {
+                        return [
+                            pieDataFrame[index].x,
+                            compactNumberFormatter.format(pieDataFrame[index].y),
+                        ];
                     },
                 },
             },
@@ -117,16 +122,18 @@ export const PieLongDataLabels = storyWithArgs<Props<DataFrame, ChartOptions>>(S
     },
 });
 
+const radarDataFrame = [
+    { x: 'speed', y: 10000, z: 1740 },
+    { x: 'strength', y: 50000, z: 450 },
+    { x: 'magic', y: 80000, z: 1010 },
+    { x: 'luck', y: 30000, z: 100 },
+    { x: 'persuasion', y: 7000, z: 24 },
+];
+
 export const RadarLongDataLabels = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 'speed', y: 10000, z: 1740 },
-            { x: 'strength', y: 50000, z: 450 },
-            { x: 'magic', y: 80000, z: 1010 },
-            { x: 'luck', y: 30000, z: 100 },
-            { x: 'persuasion', y: 7000, z: 24 },
-        ],
+        value: radarDataFrame,
     },
     options: {
         labelColumn: 'x',
@@ -154,10 +161,10 @@ export const RadarLongDataLabels = storyWithArgs<Props<DataFrame, ChartOptions>>
                 dataLabels: {
                     display: 'auto',
                     borderRadius: 4,
-                    align: function (index, { dataFrame }) {
-                        if (dataFrame[index].y > 0) {
+                    align: function (index) {
+                        if (radarDataFrame[index].y > 0) {
                             return 'end';
-                        } else if (dataFrame[index].y === 0) {
+                        } else if (radarDataFrame[index].y === 0) {
                             return 'center';
                         } else {
                             return 'start';

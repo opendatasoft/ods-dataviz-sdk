@@ -11,17 +11,19 @@ const meta: Meta = {
 
 export default meta;
 
+const df = [
+    { x: 0, y: 100 },
+    { x: 1, y: 50 },
+    { x: 2, y: 20 },
+    { x: 3, y: -30 },
+    { x: 4, y: 40 },
+    { x: 5, y: -50 },
+];
+
 export const ColumnTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 0, y: 100 },
-            { x: 1, y: 50 },
-            { x: 2, y: 20 },
-            { x: 3, y: -30 },
-            { x: 4, y: 40 },
-            { x: 5, y: -50 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -78,14 +80,7 @@ export const ColumnTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>
 export const ColumnAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 0, y: 100 },
-            { x: 1, y: 50 },
-            { x: 2, y: 20 },
-            { x: 3, y: -30 },
-            { x: 4, y: 40 },
-            { x: 5, y: -50 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -139,14 +134,7 @@ export const ColumnAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Samp
 export const ColumnTitleSubtitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 0, y: 100 },
-            { x: 1, y: 50 },
-            { x: 2, y: 20 },
-            { x: 3, y: -30 },
-            { x: 4, y: 40 },
-            { x: 5, y: -50 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -170,15 +158,15 @@ export const ColumnTitleSubtitleDataValues = storyWithArgs<Props<DataFrame, Char
                 ],
                 dataLabels: {
                     display: true,
-                    align: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    align: function (index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
-                    anchor: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    anchor: function (index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
@@ -235,14 +223,7 @@ export const ColumnTitleSubtitleDataValues = storyWithArgs<Props<DataFrame, Char
 export const ColumnDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 0, y: 100 },
-            { x: 1, y: 50 },
-            { x: 2, y: 20 },
-            { x: 3, y: -30 },
-            { x: 4, y: 40 },
-            { x: 5, y: -50 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -266,15 +247,15 @@ export const ColumnDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sa
                 ],
                 dataLabels: {
                     display: true,
-                    align(index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    align(index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
-                    anchor(index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    anchor(index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
@@ -325,14 +306,7 @@ export const ColumnDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sa
 export const ColumnAxisDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 0, y: 100 },
-            { x: 1, y: 50 },
-            { x: 2, y: 20 },
-            { x: 3, y: -30 },
-            { x: 4, y: 40 },
-            { x: 5, y: -50 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -356,15 +330,15 @@ export const ColumnAxisDataValues = storyWithArgs<Props<DataFrame, ChartOptions>
                 ],
                 dataLabels: {
                     display: true,
-                    align(index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    align(index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
-                    anchor(index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    anchor(index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';

@@ -15,8 +15,7 @@ function chartJsFill(fill: FillConfiguration | undefined) {
 
 function chartJsDataLabels(dataLabels: DataLabelsConfiguration | undefined): DataLabelsOptions {
     if (dataLabels === undefined) return { display: false };
-    const { format, align, anchor } = dataLabels;
-
+    const { text, align, anchor } = dataLabels;
     return {
         align: align ? (context) => align(context.dataIndex) : 'end',
         anchor: anchor ? (context) => anchor(context.dataIndex) : 'end',
@@ -25,7 +24,8 @@ function chartJsDataLabels(dataLabels: DataLabelsConfiguration | undefined): Dat
         backgroundColor: defaultValue(dataLabels.backgroundColor, 'rgb(255,255,255)'),
         offset: defaultValue(dataLabels.offset, 4),
         borderRadius: defaultValue(dataLabels.borderRadius, 3),
-        formatter: defaultValue(format, defaultCompactNumberFormat),
+        formatter: (value, context) =>
+            text ? text(context.dataIndex) : defaultCompactNumberFormat(value),
         padding: defaultValue(dataLabels.padding, 4),
     };
 }

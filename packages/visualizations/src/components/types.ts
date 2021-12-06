@@ -120,7 +120,7 @@ export interface DataLabelsConfiguration {
     color?: Color;
     borderRadius?: number;
     offset?: number;
-    format?: (value: number) => string;
+    text?: (index: number) => string | string[];
     padding?: number;
 }
 
