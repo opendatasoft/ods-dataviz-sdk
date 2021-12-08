@@ -11,3 +11,10 @@ export function defaultNumberFormat(value: number): string {
 export function defaultCompactNumberFormat(value: number): string {
     return defaultCompactNumberFormatter.format(value);
 }
+
+export function assureMaxLength(value: string, maxLength: number) {
+    if (value.length > maxLength) {
+        return `${value.substring(0, maxLength)}...`;
+    }
+    return value;
+}

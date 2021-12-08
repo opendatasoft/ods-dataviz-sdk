@@ -16,7 +16,9 @@ import type {
     TimeCartesianAxisConfiguration,
 } from '../types';
 import { defaultValue, singleChartJsColor } from './utils';
-import { defaultCompactNumberFormat } from '../utils/formatter';
+import { assureMaxLength, defaultCompactNumberFormat } from '../utils/formatter';
+
+const TICK_MAX_LENGTH = 40;
 
 function computeFormatTick(
     displayTick: TicksConfiguration['display'],
@@ -29,9 +31,9 @@ function computeFormatTick(
             return '';
         }
         if (type === 'category') {
-            return this.getLabelForValue(tickValue);
+            return assureMaxLength(this.getLabelForValue(tickValue), TICK_MAX_LENGTH);
         }
-        return typeof tickValue === 'number' ? formatNumber(tickValue) : tickValue;
+        return formatNumber(tickValue);
     }
     return formatTick;
 }

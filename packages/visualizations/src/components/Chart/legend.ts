@@ -1,7 +1,10 @@
 import type { LegendOptions, ChartTypeRegistry } from 'chart.js';
 import type { _DeepPartialObject } from 'chart.js/types/utils';
 import type { ChartOptions } from '../types';
+import { assureMaxLength } from '../utils/formatter';
 import { defaultValue } from './utils';
+
+const LEGEND_MAX_LENGTH = 50;
 
 const handleHoverPieChart: LegendOptions<'pie'>['onHover'] = (_, item, legend) => {
     const { tooltip, chartArea } = legend.chart;
@@ -47,6 +50,8 @@ export default function buildLegend(
                     // eslint-disable-next-line no-param-reassign
                     item.text = text(index);
                 }
+                // eslint-disable-next-line no-param-reassign
+                item.text = assureMaxLength(item.text, LEGEND_MAX_LENGTH);
                 return true;
             },
         },
