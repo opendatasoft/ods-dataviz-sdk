@@ -12,12 +12,12 @@ const meta: Meta = {
 export default meta;
 
 const df = [
-    { x: 0, y: 2400 },
-    { x: 1, y: -140 },
-    { x: 2, y: 2000 },
-    { x: 3, y: 3 },
-    { x: 4, y: 180.47 },
-    { x: 5, y: 778 },
+    { x: 0, y: 2400, z: 1021 },
+    { x: 1, y: -140, z: 2424 },
+    { x: 2, y: 2000, z: 3222 },
+    { x: 3, y: 3, z: 1255 },
+    { x: 4, y: 180.47, z: 1424 },
+    { x: 5, y: 778, z: 12 },
 ];
 
 export const AreaTitleAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
