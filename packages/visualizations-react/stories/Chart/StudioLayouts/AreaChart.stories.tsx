@@ -102,10 +102,6 @@ export const AreaAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions>>(Sa
                     below: 'rgb(22, 161, 145, 0.26)',
                 },
             },
-            {
-                type: 'line',
-                valueColumn: 'z',
-            },
         ],
         xAxis: {
             display: true,
@@ -154,10 +150,6 @@ export const AreaTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(S
                     above: 'rgb(22, 161, 145, 0.26)',
                     below: 'rgb(22, 161, 145, 0.26)',
                 },
-            },
-            {
-                type: 'line',
-                valueColumn: 'z',
             },
         ],
         xAxis: {
@@ -210,10 +202,6 @@ export const AreaTitleSubtitleGrid = storyWithArgs<Props<DataFrame, ChartOptions
                     above: 'rgb(22, 161, 145, 0.26)',
                     below: 'rgb(22, 161, 145, 0.26)',
                 },
-            },
-            {
-                type: 'line',
-                valueColumn: 'z',
             },
         ],
         xAxis: {
@@ -288,10 +276,6 @@ export const AreaTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>
                     below: 'rgb(22, 161, 145, 0.26)',
                 },
             },
-            {
-                type: 'line',
-                valueColumn: 'z',
-            },
         ],
         xAxis: {
             display: true,
@@ -359,10 +343,6 @@ export const AreaDataValuesOnly = storyWithArgs<Props<DataFrame, ChartOptions>>(
                     },
                     color: 'rgb(22, 161, 145)',
                 },
-            },
-            {
-                type: 'line',
-                valueColumn: 'z',
             },
         ],
         xAxis: {
