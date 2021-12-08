@@ -38,6 +38,7 @@
         'emphasis', // bold & italic
         'link',
         'escape',
+        'image',
     ]);
 </script>
 
@@ -57,6 +58,10 @@
         height: 100%;
         width: 100%;
         word-wrap: break-word;
+    }
+
+    .markdown-text-container :global(img) {
+        width: 100%;
     }
 
     .markdown-text-container--align-left {
