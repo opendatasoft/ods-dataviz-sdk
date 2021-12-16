@@ -33,6 +33,9 @@ function computeFormatTick(
         if (type === 'category') {
             return assureMaxLength(this.getLabelForValue(tickValue), TICK_MAX_LENGTH);
         }
+        if (type === 'time') {
+            return tickValue;
+        }
         return formatNumber(tickValue);
     }
     return formatTick;
