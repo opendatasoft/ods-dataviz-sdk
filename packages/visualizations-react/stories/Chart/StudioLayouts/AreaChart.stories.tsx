@@ -11,17 +11,19 @@ const meta: Meta = {
 
 export default meta;
 
+const df = [
+    { x: 0, y: 2400, z: 1021 },
+    { x: 1, y: -140, z: 2424 },
+    { x: 2, y: 2000, z: 3222 },
+    { x: 3, y: 3, z: 1255 },
+    { x: 4, y: 180.47, z: 1424 },
+    { x: 5, y: 778, z: 12 },
+];
+
 export const AreaTitleAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 0, y: 2400, z: 1021 },
-            { x: 1, y: -140, z: 2424 },
-            { x: 2, y: 2000, z: 3222 },
-            { x: 3, y: 3, z: 1255 },
-            { x: 4, y: 180.47, z: 1424 },
-            { x: 5, y: 778, z: 12 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -82,14 +84,7 @@ export const AreaTitleAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions
 export const AreaAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 0, y: 2400 },
-            { x: 1, y: -140 },
-            { x: 2, y: 2000 },
-            { x: 3, y: 3 },
-            { x: 4, y: 180.47 },
-            { x: 5, y: 778 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -106,10 +101,6 @@ export const AreaAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions>>(Sa
                     above: 'rgb(22, 161, 145, 0.26)',
                     below: 'rgb(22, 161, 145, 0.26)',
                 },
-            },
-            {
-                type: 'line',
-                valueColumn: 'z',
             },
         ],
         xAxis: {
@@ -141,14 +132,7 @@ export const AreaAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions>>(Sa
 export const AreaTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 0, y: 2400 },
-            { x: 1, y: -140 },
-            { x: 2, y: 2000 },
-            { x: 3, y: 3 },
-            { x: 4, y: 180.47 },
-            { x: 5, y: 778 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -166,10 +150,6 @@ export const AreaTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(S
                     above: 'rgb(22, 161, 145, 0.26)',
                     below: 'rgb(22, 161, 145, 0.26)',
                 },
-            },
-            {
-                type: 'line',
-                valueColumn: 'z',
             },
         ],
         xAxis: {
@@ -204,14 +184,7 @@ export const AreaTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(S
 export const AreaTitleSubtitleGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 0, y: 2400 },
-            { x: 1, y: -140 },
-            { x: 2, y: 2000 },
-            { x: 3, y: 3 },
-            { x: 4, y: 180.47 },
-            { x: 5, y: 778 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -229,10 +202,6 @@ export const AreaTitleSubtitleGrid = storyWithArgs<Props<DataFrame, ChartOptions
                     above: 'rgb(22, 161, 145, 0.26)',
                     below: 'rgb(22, 161, 145, 0.26)',
                 },
-            },
-            {
-                type: 'line',
-                valueColumn: 'z',
             },
         ],
         xAxis: {
@@ -270,14 +239,7 @@ export const AreaTitleSubtitleGrid = storyWithArgs<Props<DataFrame, ChartOptions
 export const AreaTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 0, y: 2400 },
-            { x: 1, y: -140 },
-            { x: 2, y: 2000 },
-            { x: 3, y: 3 },
-            { x: 4, y: 180.47 },
-            { x: 5, y: 778 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -292,15 +254,15 @@ export const AreaTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
-                    align: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    align: function (index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
-                    anchor: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    anchor: function (index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
@@ -313,10 +275,6 @@ export const AreaTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>
                     above: 'rgb(22, 161, 145, 0.26)',
                     below: 'rgb(22, 161, 145, 0.26)',
                 },
-            },
-            {
-                type: 'line',
-                valueColumn: 'z',
             },
         ],
         xAxis: {
@@ -349,14 +307,7 @@ export const AreaTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>
 export const AreaDataValuesOnly = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 0, y: 2400 },
-            { x: 1, y: -140 },
-            { x: 2, y: 2000 },
-            { x: 3, y: 3 },
-            { x: 4, y: 180.47 },
-            { x: 5, y: 778 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -376,15 +327,15 @@ export const AreaDataValuesOnly = storyWithArgs<Props<DataFrame, ChartOptions>>(
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
-                    align: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    align: function (index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
-                    anchor: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    anchor: function (index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
@@ -392,10 +343,6 @@ export const AreaDataValuesOnly = storyWithArgs<Props<DataFrame, ChartOptions>>(
                     },
                     color: 'rgb(22, 161, 145)',
                 },
-            },
-            {
-                type: 'line',
-                valueColumn: 'z',
             },
         ],
         xAxis: {

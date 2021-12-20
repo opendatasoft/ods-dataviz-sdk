@@ -129,6 +129,10 @@ export const simpleFormatter = new Intl.NumberFormat(undefined, {
     maximumFractionDigits: 1,
 });
 
+export const compactNumberFormatter = new Intl.NumberFormat(undefined, {
+    notation: 'compact',
+});
+
 export const ratioFormatter = new Intl.NumberFormat(undefined, {
     notation: 'compact',
     maximumFractionDigits: 1,

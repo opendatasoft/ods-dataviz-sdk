@@ -61,7 +61,7 @@
             padding: defaultValue(options?.padding, 12),
         };
         chartOptions.plugins = {
-            legend: buildLegend(dataFrame, options),
+            legend: buildLegend(options),
             title: {
                 display: false,
             },
