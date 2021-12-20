@@ -1,8 +1,7 @@
-import React from 'react';
-import { ChartOptions, DataFrame, compactStringOrNumber } from '@opendatasoft/visualizations';
+import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
-import { defaultSource } from '../../utils';
+import { compactNumberFormatter, defaultSource } from '../../utils';
 import { Sample } from '../Chart.stories';
 
 const meta: Meta = {
@@ -78,31 +77,32 @@ const LineLongLegendArgs: Props<DataFrame, ChartOptions> = {
 export const LineLongLegend = Sample.bind({});
 LineLongLegend.args = LineLongLegendArgs;
 
+const pieDf = [
+    {
+        x:
+            'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
+        y: 100,
+    },
+    {
+        x:
+            'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
+        y: 50,
+    },
+    {
+        x:
+            'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
+        y: 20,
+    },
+    {
+        x:
+            'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
+        y: 30,
+    },
+];
 const PieLongLegendArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
-        value: [
-            {
-                x:
-                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
-                y: 100,
-            },
-            {
-                x:
-                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
-                y: 50,
-            },
-            {
-                x:
-                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
-                y: 20,
-            },
-            {
-                x:
-                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
-                y: 30,
-            },
-        ],
+        value: pieDf,
     },
     options: {
         labelColumn: 'x',
@@ -119,9 +119,9 @@ const PieLongLegendArgs: Props<DataFrame, ChartOptions> = {
             display: true,
             position: 'right',
             labels: {
-                formatter(index, { dataFrame }) {
-                    const xData = compactStringOrNumber(dataFrame[index]['x']);
-                    const yData = compactStringOrNumber(dataFrame[index]['y']);
+                text(index) {
+                    const xData = pieDf[index].x;
+                    const yData = compactNumberFormatter.format(pieDf[index].y);
                     return `${xData} - ${yData}`;
                 },
             },

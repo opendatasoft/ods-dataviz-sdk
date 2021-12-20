@@ -11,17 +11,19 @@ const meta: Meta = {
 
 export default meta;
 
+const df = [
+    { x: 0, y: 100 },
+    { x: 1, y: 50 },
+    { x: 2, y: 20 },
+    { x: 3, y: -30 },
+    { x: 4, y: 40 },
+    { x: 5, y: 50 },
+];
+
 export const HistogramTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 0, y: 100 },
-            { x: 1, y: 50 },
-            { x: 2, y: 20 },
-            { x: 3, y: -30 },
-            { x: 4, y: 40 },
-            { x: 5, y: 50 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -70,14 +72,7 @@ export const HistogramTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOption
 export const HistogramAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 0, y: 100 },
-            { x: 1, y: 50 },
-            { x: 2, y: 20 },
-            { x: 3, y: -30 },
-            { x: 4, y: 40 },
-            { x: 5, y: 50 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -123,14 +118,7 @@ export const HistogramAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(S
 export const HistogramTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 0, y: 100 },
-            { x: 1, y: 50 },
-            { x: 2, y: 20 },
-            { x: 3, y: -30 },
-            { x: 4, y: 40 },
-            { x: 5, y: 50 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -146,15 +134,15 @@ export const HistogramTitleDataValues = storyWithArgs<Props<DataFrame, ChartOpti
                 borderColor: 'rgba(50,50,225)',
                 dataLabels: {
                     display: true,
-                    align: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    align: function (index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
-                    anchor: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    anchor: function (index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
@@ -204,14 +192,7 @@ export const HistogramTitleDataValues = storyWithArgs<Props<DataFrame, ChartOpti
 export const HistogramDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 0, y: 100 },
-            { x: 1, y: 50 },
-            { x: 2, y: 20 },
-            { x: 3, y: -30 },
-            { x: 4, y: 40 },
-            { x: 5, y: 50 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -227,15 +208,15 @@ export const HistogramDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>
                 borderColor: 'rgba(50,50,225)',
                 dataLabels: {
                     display: true,
-                    align: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    align: function (index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
-                    anchor: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    anchor: function (index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
@@ -278,14 +259,7 @@ export const HistogramDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>
 export const HistogramAxisDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 0, y: 100 },
-            { x: 1, y: 50 },
-            { x: 2, y: 20 },
-            { x: 3, y: -30 },
-            { x: 4, y: 40 },
-            { x: 5, y: 50 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -301,15 +275,15 @@ export const HistogramAxisDataValues = storyWithArgs<Props<DataFrame, ChartOptio
                 borderColor: 'rgba(50,50,225)',
                 dataLabels: {
                     display: true,
-                    align: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    align: function (index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
-                    anchor: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    anchor: function (index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';

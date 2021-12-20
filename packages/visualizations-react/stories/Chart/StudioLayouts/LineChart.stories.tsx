@@ -11,17 +11,19 @@ const meta: Meta = {
 
 export default meta;
 
+const df = [
+    { x: 0, y: 2400, z: 1021 },
+    { x: 1, y: -140, z: 2424 },
+    { x: 2, y: 2000, z: 3222 },
+    { x: 3, y: 3, z: 1255 },
+    { x: 4, y: 180.47, z: 1424 },
+    { x: 5, y: 778, z: 12 },
+];
+
 export const LineTitleAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 0, y: 2400, z: 1021 },
-            { x: 1, y: -140, z: 2424 },
-            { x: 2, y: 2000, z: 3222 },
-            { x: 3, y: 3, z: 1255 },
-            { x: 4, y: 180.47, z: 1424 },
-            { x: 5, y: 778, z: 12 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -74,14 +76,7 @@ export const LineTitleAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions
 export const LineAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 0, y: 2400, z: 1021 },
-            { x: 1, y: -140, z: 2424 },
-            { x: 2, y: 2000, z: 3222 },
-            { x: 3, y: 3, z: 1255 },
-            { x: 4, y: 180.47, z: 1424 },
-            { x: 5, y: 778, z: 12 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -265,17 +260,17 @@ export const LineTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>
                 dataLabels: {
                     display: true,
                     color: 'rgb(22, 161, 145)',
-                    align: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    align: function (index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
-                    anchor: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    anchor: function (index) {
+                        if (df[index].y >= 0) {
                             return 'end';
-                        } else if (dataFrame[index].y === 0) {
+                        } else if (df[index].y === 0) {
                             return 'center';
                         } else {
                             return 'start';
@@ -336,15 +331,15 @@ export const LineDataValuesOnly = storyWithArgs<Props<DataFrame, ChartOptions>>(
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
-                    align: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    align: function (index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
-                    anchor: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    anchor: function (index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';

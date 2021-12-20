@@ -2,6 +2,7 @@
     "extends": "@tsconfig/svelte/tsconfig.json",
     "exclude": ["node_modules", "dist"],
     "compilerOptions": {
-        "strict": true
+        "strict": true,
+        "target": "ES2020"
     }
 }

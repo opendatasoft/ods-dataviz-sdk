@@ -11,15 +11,17 @@ const meta: Meta = {
 
 export default meta;
 
+const df = [
+    { x: '01/01', y: 100, z: 45 },
+    { x: '02/01', y: -50, z: 50 },
+    { x: '03/01', y: 20, z: 100 },
+    { x: '04/01', y: 30, z: 20 },
+];
+
 export const BarTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: '01/01', y: 100, z: 45 },
-            { x: '02/01', y: -50, z: 50 },
-            { x: '03/01', y: 20, z: 100 },
-            { x: '04/01', y: 30, z: 20 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -77,12 +79,7 @@ export const BarTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sa
 export const BarAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: '01/01', y: 100 },
-            { x: '02/01', y: -50 },
-            { x: '03/01', y: 20 },
-            { x: '04/01', y: 30 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -138,12 +135,7 @@ export const BarAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample,
 export const BarTitleAxisDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: '01/01', y: 100, z: 45 },
-            { x: '02/01', y: -50, z: 50 },
-            { x: '03/01', y: 20, z: 100 },
-            { x: '04/01', y: 30, z: 20 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -159,15 +151,15 @@ export const BarTitleAxisDataValues = storyWithArgs<Props<DataFrame, ChartOption
                 borderColor: 'rgba(22, 161, 145)',
                 dataLabels: {
                     display: true,
-                    align: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    align: function (index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
-                    anchor: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    anchor: function (index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
@@ -184,15 +176,15 @@ export const BarTitleAxisDataValues = storyWithArgs<Props<DataFrame, ChartOption
                 borderColor: 'rgba(119, 73, 54)',
                 dataLabels: {
                     display: true,
-                    align: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    align: function (index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
-                    anchor: function (index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    anchor: function (index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
@@ -239,12 +231,7 @@ export const BarTitleAxisDataValues = storyWithArgs<Props<DataFrame, ChartOption
 export const BarAxisDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: '01/01', y: 100 },
-            { x: '02/01', y: -50 },
-            { x: '03/01', y: 20 },
-            { x: '04/01', y: 30 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -270,15 +257,15 @@ export const BarAxisDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(S
                 ],
                 dataLabels: {
                     display: true,
-                    align(index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    align(index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';
                         }
                     },
-                    anchor(index, { dataFrame }) {
-                        if (dataFrame[index].y >= 0) {
+                    anchor(index) {
+                        if (df[index].y >= 0) {
                             return 'end';
                         } else {
                             return 'start';

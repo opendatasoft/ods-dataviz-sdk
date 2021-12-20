@@ -11,6 +11,14 @@ const meta: Meta = {
 
 export default meta;
 
+const df = [
+    { x: 'speed', y: 100, z: 10 },
+    { x: 'strength', y: 50, z: 45 },
+    { x: 'magic', y: 80, z: 100 },
+    { x: 'luck', y: 30, z: 100 },
+    { x: 'persuasion', y: 70, z: 2 },
+];
+
 export const RadarTitleScale = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
@@ -105,13 +113,7 @@ export const RadarTitleScaleNegativePositive = storyWithArgs<Props<DataFrame, Ch
 export const RadarTitle = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 'speed', y: 100, z: 10 },
-            { x: 'strength', y: 50, z: 45 },
-            { x: 'magic', y: 80, z: 100 },
-            { x: 'luck', y: 30, z: 100 },
-            { x: 'persuasion', y: 70, z: 2 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -148,13 +150,7 @@ export const RadarTitle = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, 
 export const RadarTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 'speed', y: 100, z: 10 },
-            { x: 'strength', y: 50, z: 45 },
-            { x: 'magic', y: 80, z: 100 },
-            { x: 'luck', y: 30, z: 100 },
-            { x: 'persuasion', y: 70, z: 2 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -182,10 +178,10 @@ export const RadarTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>
                 dataLabels: {
                     display: 'auto',
                     borderRadius: 4,
-                    align(index, { dataFrame }) {
-                        if (dataFrame[index].y > 0) {
+                    align(index) {
+                        if (df[index].y > 0) {
                             return 'end';
-                        } else if (dataFrame[index].y === 0) {
+                        } else if (df[index].y === 0) {
                             return 'center';
                         }
                         return 'start';

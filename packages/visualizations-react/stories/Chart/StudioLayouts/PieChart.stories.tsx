@@ -1,7 +1,7 @@
-import { ChartOptions, DataFrame, compactStringOrNumber } from '@opendatasoft/visualizations';
+import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
-import { defaultSource } from '../../utils';
+import { compactNumberFormatter, defaultSource } from '../../utils';
 import { Sample } from '../Chart.stories';
 import { storyWithArgs } from '../../utils';
 
@@ -11,15 +11,17 @@ const meta: Meta = {
 
 export default meta;
 
+const df = [
+    { x: 'Alpha', y: 100 },
+    { x: 'Beta', y: -50 },
+    { x: 'Gamma', y: 20 },
+    { x: 'Delta', y: 30 },
+];
+
 export const PieTitleSectorsName = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 'Alpha', y: 100 },
-            { x: 'Beta', y: -50 },
-            { x: 'Gamma', y: 20 },
-            { x: 'Delta', y: 30 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -44,12 +46,7 @@ export const PieTitleSectorsName = storyWithArgs<Props<DataFrame, ChartOptions>>
 export const PieTitleSectorsNameValue = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 'Alpha', y: 100 },
-            { x: 'Beta', y: -50 },
-            { x: 'Gamma', y: 20 },
-            { x: 'Delta', y: 30 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -62,9 +59,9 @@ export const PieTitleSectorsNameValue = storyWithArgs<Props<DataFrame, ChartOpti
                 backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
                 dataLabels: {
                     display: true,
-                    formatter: function (index, { dataFrame }) {
-                        const xData = compactStringOrNumber(dataFrame[index].x);
-                        const yData = compactStringOrNumber(dataFrame[index].y);
+                    text: function (index) {
+                        const xData = df[index].x;
+                        const yData = compactNumberFormatter.format(df[index].y);
                         return [xData, yData];
                     },
                 },
@@ -79,12 +76,7 @@ export const PieTitleSectorsNameValue = storyWithArgs<Props<DataFrame, ChartOpti
 export const PieTitleLegend = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
     data: {
         loading: false,
-        value: [
-            { x: 'Alpha', y: 100 },
-            { x: 'Beta', y: -50 },
-            { x: 'Gamma', y: 20 },
-            { x: 'Delta', y: 30 },
-        ],
+        value: df,
     },
     options: {
         labelColumn: 'x',
@@ -132,9 +124,9 @@ export const PieTitleLegendValues = storyWithArgs<Props<DataFrame, ChartOptions>
             display: true,
             position: 'right',
             labels: {
-                formatter(index, { dataFrame }) {
-                    const xData = compactStringOrNumber(dataFrame[index]['x']);
-                    const yData = compactStringOrNumber(dataFrame[index]['y']);
+                text: function (index) {
+                    const xData = df[index].x;
+                    const yData = compactNumberFormatter.format(df[index].y);
                     return `${xData} - ${yData}`;
                 },
             },
