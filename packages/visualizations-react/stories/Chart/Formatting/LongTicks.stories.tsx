@@ -1,4 +1,3 @@
-import React from 'react';
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';

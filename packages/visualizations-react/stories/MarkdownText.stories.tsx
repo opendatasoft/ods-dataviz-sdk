@@ -59,9 +59,7 @@ Link.args = {
         value: `
         [This link should have target=_blank](https://www.opendatasoft.com) \n
         [This one shouldn't](/explore)
-        `
-            
+        `,
     },
     options: {},
 };
-
