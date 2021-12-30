@@ -122,6 +122,7 @@ function root(source: string) {
             aggregates: () => new Query(`${source}/datasets/${datasetId}/aggregates/`),
             facets: () => new Query(`${source}/datasets/${datasetId}/facets/`),
             records: () => new Query(`${source}/datasets/${datasetId}/records/`),
+            exports: (format: string) => new Query(`${source}/datasets/${datasetId}/exports/${format}`),
         }),
     });
 }
