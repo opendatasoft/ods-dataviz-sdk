@@ -59,14 +59,10 @@ export function wrap<Data, Options, ComponentClass extends BaseComponent<Data, O
         useEffect(() => {
             const container = containerRef.current;
             if (container) {
-                const component = new ComponentConstructor(
-                    container,
-                    initialState.data,
-                    {
-                        ...initialState.options,
-                        setOnError,
-                    },
-                );
+                const component = new ComponentConstructor(container, initialState.data, {
+                    ...initialState.options,
+                    setOnError,
+                });
                 componentRef.current = component;
                 return () => {
                     component.destroy();
