@@ -22,8 +22,8 @@
     function tryCreateChart(ctx: CanvasRenderingContext2D, config: ChartConfiguration) {
         try {
             return new Chart(ctx, config);
-        } catch (err) {
-            setOnError?.(JSON.stringify(err));
+        } catch (err: any) {
+            setOnError?.(err.toString());
             return undefined;
         }
     }
@@ -37,15 +37,15 @@
             update() {
                 try {
                     chart?.update();
-                } catch (err) {
-                    setOnError?.(JSON.stringify(err));
+                } catch (err: any) {
+                    setOnError?.(err.toString());
                 }
             },
             destroy() {
                 try {
                     chart?.destroy();
-                } catch (err) {
-                    setOnError?.(JSON.stringify(err));
+                } catch (err: any) {
+                    setOnError?.(err.toString());
                 }
             },
         };
