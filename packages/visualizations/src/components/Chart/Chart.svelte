@@ -15,14 +15,16 @@
 
     let dataFrame: DataFrame = [];
     let series: ChartSeries[] = [];
-    let { labelColumn, setOnError } = options;
+    let { labelColumn } = options;
+    const { setOnError } = options;
 
     // Function to handle chart creation errors
     function tryCreateChart(ctx: CanvasRenderingContext2D, config: ChartConfiguration) {
         try {
             return new Chart(ctx, config);
         } catch(err) {
-            setOnError(JSON.stringify(err));
+            setOnError?.(JSON.stringify(err));
+            return undefined;
         }
     }
 
@@ -36,7 +38,7 @@
                 try {
                     chart?.update();
                 } catch(err) {
-                    setOnError(JSON.stringify(err));
+                    setOnError?.(JSON.stringify(err));
                 }
 
             },
@@ -44,7 +46,7 @@
                 try {
                     chart?.destroy();
                 } catch(err) {
-                    setOnError(JSON.stringify(err));
+                    setOnError?.(JSON.stringify(err));
                 }
             },
         };
