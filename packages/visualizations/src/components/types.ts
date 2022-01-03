@@ -23,6 +23,8 @@ export interface ChartOptions {
     ariaLabel: string;
     /** Link button to source */
     source?: Source;
+    /** Error setter to send error from svelte to react error boundary */
+    setOnError: (error: string) => string;
 }
 
 export interface Source {

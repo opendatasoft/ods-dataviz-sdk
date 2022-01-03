@@ -27,6 +27,16 @@ export function wrap<Data, Options, ComponentClass extends BaseComponent<Data, O
         });
         const [lastTag, setLastTag] = useState(tag);
 
+        // Throw errors coming from Svelte that cannot be caught by react error boundary
+        // FIXME: a better solution would be to implement a global error boundary in svelte when it will be available
+        const [onError, setOnError] = useState<string | null>(null);
+
+        useEffect(() => {
+            if (onError) {
+                throw onError;
+            }
+        }, [onError]);
+
         // Update data (put before creating the component to skip the initial render)
         useEffect(() => {
             componentRef.current?.updateData(data);
@@ -52,7 +62,10 @@ export function wrap<Data, Options, ComponentClass extends BaseComponent<Data, O
                 const component = new ComponentConstructor(
                     container,
                     initialState.data,
-                    initialState.options
+                    {
+                        ...initialState.options,
+                        setOnError,
+                    },
                 );
                 componentRef.current = component;
                 return () => {

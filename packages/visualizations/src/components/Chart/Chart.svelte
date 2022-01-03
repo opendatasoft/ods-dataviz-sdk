@@ -15,19 +15,37 @@
 
     let dataFrame: DataFrame = [];
     let series: ChartSeries[] = [];
-    let { labelColumn } = options;
+    let { labelColumn, setOnError } = options;
+
+    // Function to handle chart creation errors
+    function tryCreateChart(ctx: CanvasRenderingContext2D, config: ChartConfiguration) {
+        try {
+            return new Chart(ctx, config);
+        } catch(err) {
+            setOnError(JSON.stringify(err));
+        }
+    }
 
     // Hook to handle chart lifecycle
     function chartJs(node: HTMLCanvasElement, config: ChartConfiguration) {
         const ctx = node.getContext('2d');
         if (!ctx) throw new Error('Failed to get canvas context');
-        const chart = new Chart(ctx, config);
+        const chart: Chart | undefined = tryCreateChart(ctx, config);
         return {
             update() {
-                chart.update();
+                try {
+                    chart?.update();
+                } catch(err) {
+                    setOnError(JSON.stringify(err));
+                }
+
             },
             destroy() {
-                chart.destroy();
+                try {
+                    chart?.destroy();
+                } catch(err) {
+                    setOnError(JSON.stringify(err));
+                }
             },
         };
     }
