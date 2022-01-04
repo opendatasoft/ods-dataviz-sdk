@@ -143,9 +143,7 @@ describe('ODSQL query builder', () => {
                     .exports('geojson')
                     .limit(10000)
                     .toString()
-            ).toEqual(
-                'catalog/datasets/my_dataset/exports/geojson?limit=10000'
-            );
+            ).toEqual('catalog/datasets/my_dataset/exports/geojson?limit=10000');
         });
 
         test('escaping', () => {
