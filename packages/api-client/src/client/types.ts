@@ -1,18 +1,18 @@
 // Type hints for Api response
 
 export interface Facet {
-    name?: string;
-    count?: number;
+    name: string;
+    count: number;
     path?: string;
     facets?: Facet[];
 }
 
 export interface Link {
-    href?: string;
-    rel?: string;
+    href: string;
+    rel: string;
 }
 
-export interface Dataset {
+export interface OdsDataset {
     dataset_id?: string;
     dataset_uid?: string;
     has_records?: boolean;
@@ -28,20 +28,41 @@ export interface Dataset {
     }[];
 }
 
-export interface OdsRecord {
+export interface OdsRecord<T> {
     id?: string;
     timestamp?: string;
     size?: number;
-    fields?: Record<string, any>;
+    fields: T;
 }
 
-export interface ApiResponse {
+export interface ApiRecords<T> {
     total_count?: number;
-    links?: Link[];
-    aggregations?: any[];
-    facets?: Facet[];
-    datasets?: { links?: Link[]; dataset?: Dataset }[];
-    records?: { links?: Link[]; record?: OdsRecord }[];
-    record?: OdsRecord;
-    dataset?: Dataset;
+    links: Link[];
+    records: { links: Link[]; record: OdsRecord<T> }[];
+}
+
+export interface ApiRecord<T> {
+    links: Link[];
+    record: OdsRecord<T>;
+}
+
+export interface ApiDatasets {
+    total_count: number;
+    links: Link[];
+    datasets: { links: Link[]; dataset: OdsDataset }[];
+}
+
+export interface ApiDataset {
+    links: Link[];
+    dataset: OdsDataset;
+}
+
+export interface ApiFacets {
+    links: Link[];
+    facets: Facet[];
+}
+
+export interface ApiQuery<T> {
+    total_count?: number;
+    results: T[];
 }
