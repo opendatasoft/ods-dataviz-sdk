@@ -1,24 +1,30 @@
-**[@opendatasoft/api-client](README.md)**
+@opendatasoft/api-client / [Exports](modules.md)
 
-> [Globals](globals.md)
+# @opendatasoft/api-client ![CI status](https://github.com/opendatasoft/ods-dataviz-sdk/workflows/CI/badge.svg)
 
-# @opendatasoft/api-client
+This package implements a Typescript/Javascript client library for [Opendatasoft's Search APIv2](https://help.opendatasoft.com/apis/ods-search-v2/#search-api-v2).
 
-![CI status](https://github.com/opendatasoft/ods-dataviz-sdk/workflows/CI/badge.svg)
-
-This package implement a Typescript/Javascript client library for Opendatasoft's [Search API v2](https://help.opendatasoft.com/apis/ods-search-v2/#search-api-v2).
+- [Installation](#installation)
+- [Get started](#get-started)
+- [Usage](#usage)
+  - [ApiClient](#ApiClient)
+  - [Query builder](#query-builder)
+- [Frameworks](#frameworks)
+- [Resources](#resources)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Installation
 
 The client is available as an npm package.
 
-With npm :
+With npm:
 
 ```shell
 npm install @opendatasoft/api-client
 ```
 
-With yarn :
+With yarn:
 
 ```shell
 yarn add @opendatasoft/api-client
@@ -28,27 +34,37 @@ yarn add @opendatasoft/api-client
 
 ## Get started
 
-Here is a quick example to get you started :
+Here is a quick example to get you started:
 
 ```javascript
 import { ApiClient, fromCatalog } from '@opendatasoft/api-client';
 
-const client = new ApiClient({ domain: 'public' });
-const query = fromCatalog().facets();
+// Initialize the Client by indicating the domain to request.
+const client = new ApiClient({ domain: "documentation-resources" });
 
+// Create the query to run.
+const query = fromCatalog() // From the domain catalog
+    .dataset("doc-geonames-cities-5000") // ... we'll use the dataset "doc-geonames-cities-5000"
+    .aggregates() // ... in order to make an aggregation.
+    .where("country_code:'FR'") // // Filter records where country_code === "FR".
+    .groupBy("name as city, population") // Select the fields "name" and "population".
+    .orderBy("-population") // Sort by population in descending order.
+    .limit(10) // But we only want the first 10 most populated cities.
+    .toString(); // Then finally, we convert our query into a string.
+
+// Now, run the query.
 client.get(query)
-      .then((response) => console.log(response))
-      .catch((error) => console.error(error));
-
+    .then(response => console.log(response))
+    .catch(error => console.error(error));
 ```
 
-**⚠️ FIXME :** Add CodeSandbox sample.
+[CodeSandbox sample](https://codesandbox.io/s/api-clientget-started-be0xu?file=/src/index.js)
 
 ## Usage
 
 ### ApiClient
 
-The `ApiClient` class can be used to send api request and get back an api response.
+The [`ApiClient`](docs/classes/client.apiclient.md) class can be used to send API request and get back an API response.
 
 It takes an optional configuration object.
 
@@ -65,17 +81,17 @@ const client = new ApiClient({
       domain: 'public' || 'https://public.opendatasoft.com',
 
       /* (Optional) A fetch-compatible API for making a request. */
-      fetch : window.fetch,
+      fetch: window.fetch,
 
       /* (Optional) Allow you to update the request before it is send. */
-      interceptRequest : async (request) => {
+      interceptRequest: async (request) => {
             console.log(request);
             request.headers.append('x-custom', 'custom');
             return request;
       },
 
       /* (Optional) Allow you to intercept the response before it is returned */
-      interceptResponse : async (response) => {
+      interceptResponse: async (response) => {
             const apiResponse = await response.json();
             delete apiResponse['links'];
             return apiResponse;
@@ -114,17 +130,17 @@ You can use that to display a better error message.
 
 ### Query builder
 
-The client also include a query builder.
+The client also includes a query builder.
 
-Start with one the entry point :
+Start with one of the following entry points:
 
-- `fromCatalog()` : query the domain catalog
+- `fromCatalog()`: access the domain catalog
 
 - `fromMonitoring()`: access monitoring datasets
 
 - `fromDataNetwork()`: access any datasets on [Opendatasoft's data network](https://data.opendatasoft.com/)
 
-From there, your IDE should provide autocompletion. If not, you can always check the [client reference](docs/globals.md).
+From there, your IDE should provide autocompletion. If not, you can always check the [the query builder reference](docs/modules/odsql.md).
 
 ```javascript
 import {
@@ -135,7 +151,7 @@ import {
 } from '@opendatasoft/api-client';
 
 const client = new ApiClient({
-      interceptRequest : async (request) => {
+      interceptRequest: async (request) => {
             console.log(request.url); // Log the url
             return request;
       }
@@ -154,7 +170,7 @@ client.get(fromDataNetwork().dataset('sirene@data').facets().lang('fr'));
 client.get(fromCatalog().datasets().select('dataset_id, records_count'));
 ```
 
-The `Query` interface expose convenient parameters of an API request.
+The [`Query`](docs/classes/odsql.query.md) interface expose convenient parameters of an API request.
 
 ```javascript
 import {
@@ -195,25 +211,30 @@ Here are some samples to get you started.
 
 ### React
 
-**⚠️ FIXME :** Add CodeSandbox sample.
+**⚠️ FIXME:** Add CodeSandbox sample.
 
 ### Angular
 
-**⚠️ FIXME :** Add CodeSandbox sample.
+**⚠️ FIXME:** Add CodeSandbox sample.
 
 ### Vue
 
-**⚠️ FIXME :** Add CodeSandbox sample.
+**⚠️ FIXME:** Add CodeSandbox sample.
 
 ### Svelte
 
-**⚠️ FIXME :** Add CodeSandbox sample.
+**⚠️ FIXME:** Add CodeSandbox sample.
 
 ## Resources
 
-- [Api documentation](https://help.opendatasoft.com/apis/ods-search-v2/#search-api-v2)
-- [Data network api console](https://data.opendatasoft.com/api/v2/console)
+- [Opendatasoft's APIv2 documentation](https://help.opendatasoft.com/apis/ods-search-v2/#search-api-v2)
+- [API Client Reference](docs/globals.md)
+- [Data Network API Console](https://data.opendatasoft.com/api/v2/console)
 
-## How to contribute
+## Contributing
 
-Take a look at our [contribution guide](CONTRIBUTING.md) if you're interested in helping.
+This project welcomes contributions and suggestions! To do so, take a look at our [Contributing Guide](CONTRIBUTING.md). It contains setup instructions, tools and scripts that can be useful if you need to work on all packages at the same time.
+
+## License
+
+This project is licensed under the [MIT license](../../LICENSE).
