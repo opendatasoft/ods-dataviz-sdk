@@ -1,8 +1,8 @@
 import update from 'immutability-helper';
 
-export type StringOrUpdater = string | ((current: string) => string);
+export type StringOrUpdater = string | ((current: string) => string) | null | undefined;
 
-export type NumberOrUpdater = number | ((current: number) => number);
+export type NumberOrUpdater = number | ((current: number) => number) | null | undefined;
 
 export class Query {
     private readonly params: Record<string, string | string[]>;
@@ -48,7 +48,16 @@ export class Query {
         return new Query(this.path, newParams);
     }
 
+    unset(name: string): Query {
+        const newParams = update(this.params, { $unset: [name] });
+        if (newParams === this.params) return this;
+        return new Query(this.path, newParams);
+    }
+
     update(name: string, value: StringOrUpdater): Query {
+        if (value === undefined || value === null) {
+            return this;
+        }
         const current: string | string[] | undefined = this.params[name];
         let newValue = '';
         if (typeof value === 'string') newValue = value;
@@ -86,12 +95,18 @@ export class Query {
 
     limit(limit: NumberOrUpdater): Query {
         if (typeof limit === 'number') return this.set('limit', limit.toString());
-        return this.update('limit', (current: string) => limit(Number(current)).toString());
+        return this.update(
+            'limit',
+            limit && ((current: string) => limit(Number(current)).toString())
+        );
     }
 
     offset(offset: NumberOrUpdater): Query {
         if (typeof offset === 'number') return this.set('offset', offset.toString());
-        return this.update('offset', (current: string) => offset(Number(current)).toString());
+        return this.update(
+            'offset',
+            offset && ((current: string) => offset(Number(current)).toString())
+        );
     }
 
     facet(facet: string): Query {
@@ -114,16 +129,17 @@ export class Query {
 function root(source: string) {
     return () => ({
         itself: () => new Query(`${source}/`),
-        aggregates: () => new Query(`${source}/aggregates/`),
         facets: () => new Query(`${source}/facets/`),
         datasets: () => new Query(`${source}/datasets/`),
+        query: () => new Query(`${source}/query/`),
+        exports: (format: string) => new Query(`${source}/exports/${format}/`),
         dataset: (datasetId: string) => ({
             itself: () => new Query(`${source}/datasets/${datasetId}/`),
-            aggregates: () => new Query(`${source}/datasets/${datasetId}/aggregates/`),
             facets: () => new Query(`${source}/datasets/${datasetId}/facets/`),
             records: () => new Query(`${source}/datasets/${datasetId}/records/`),
+            query: () => new Query(`${source}/datasets/${datasetId}/query/`),
             exports: (format: string) =>
-                new Query(`${source}/datasets/${datasetId}/exports/${format}`),
+                new Query(`${source}/datasets/${datasetId}/exports/${format}/`),
         }),
     });
 }
@@ -142,8 +158,14 @@ export const dateTime = (date: Date) => `date'${date.toISOString()}'`;
 
 export const date = (date: Date) => `date'${date.toISOString().split('T')[0]}'`;
 
-export const all = (...conditions: string[]) =>
-    conditions.map(condition => `(${condition})`).join(' AND ');
+export const all = (...conditions: (string | undefined | null)[]) =>
+    conditions
+        .filter(Boolean)
+        .map(condition => `(${condition})`)
+        .join(' AND ');
 
-export const one = (...conditions: string[]) =>
-    conditions.map(condition => `(${condition})`).join(' OR ');
+export const one = (...conditions: (string | undefined | null)[]) =>
+    conditions
+        .filter(Boolean)
+        .map(condition => `(${condition})`)
+        .join(' OR ');
