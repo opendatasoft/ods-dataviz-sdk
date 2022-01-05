@@ -148,7 +148,7 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
                 callback: computeFormatTick(
                     defaultValue(options?.yAxis?.ticks?.display, true),
                     options?.yAxis?.type,
-                    defaultValue(options?.xAxis?.ticks?.format, defaultCompactNumberFormat)
+                    defaultValue(options?.yAxis?.ticks?.format, defaultCompactNumberFormat)
                 ),
             },
         } as _DeepPartialObject<CartesianScaleOptions>;
@@ -166,7 +166,7 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
                 callback: computeFormatTick(
                     defaultValue(options?.rAxis?.ticks?.display, true),
                     undefined,
-                    defaultValue(options?.xAxis?.ticks?.format, defaultCompactNumberFormat)
+                    defaultValue(options?.rAxis?.ticks?.format, defaultCompactNumberFormat)
                 ),
             },
             grid: {
