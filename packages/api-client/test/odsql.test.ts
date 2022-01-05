@@ -136,6 +136,16 @@ describe('ODSQL query builder', () => {
             );
         });
 
+        test('export geojson query', () => {
+            expect(
+                fromCatalog()
+                    .dataset('my_dataset')
+                    .exports('geojson')
+                    .limit(10000)
+                    .toString()
+            ).toEqual('catalog/datasets/my_dataset/exports/geojson?limit=10000');
+        });
+
         test('escaping', () => {
             expect(string('-"-\'-\\-p-')).toEqual('"-\\"-\'-\\\\-p-"');
             expect(field('`f')).toEqual('`\\`f`');
