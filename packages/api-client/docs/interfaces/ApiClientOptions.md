@@ -1,4 +1,4 @@
-[@opendatasoft/api-client](../README.md) / [Exports](../modules.md) / ApiClientOptions
+[@opendatasoft/api-client](../README.md) / ApiClientOptions
 
 # Interface: ApiClientOptions
 
@@ -20,7 +20,7 @@
 
 #### Defined in
 
-[src/client/index.ts:25](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/client/index.ts#L25)
+[src/client/index.ts:25](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/client/index.ts#L25)
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 #### Defined in
 
-[src/client/index.ts:24](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/client/index.ts#L24)
+[src/client/index.ts:24](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/client/index.ts#L24)
 
 ___
 
@@ -55,24 +55,24 @@ ___
 
 #### Defined in
 
-[src/client/index.ts:26](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/client/index.ts#L26)
+[src/client/index.ts:26](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/client/index.ts#L26)
 
 ___
 
 ### interceptRequest
 
-• `Optional` **interceptRequest**: [`RequestInterceptor`](../modules.md#requestinterceptor)
+• `Optional` **interceptRequest**: [`RequestInterceptor`](../README.md#requestinterceptor)
 
 #### Defined in
 
-[src/client/index.ts:27](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/client/index.ts#L27)
+[src/client/index.ts:27](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/client/index.ts#L27)
 
 ___
 
 ### interceptResponse
 
-• `Optional` **interceptResponse**: [`ResponseInterceptor`](../modules.md#responseinterceptor)
+• `Optional` **interceptResponse**: [`ResponseInterceptor`](../README.md#responseinterceptor)
 
 #### Defined in
 
-[src/client/index.ts:28](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/client/index.ts#L28)
+[src/client/index.ts:28](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/client/index.ts#L28)

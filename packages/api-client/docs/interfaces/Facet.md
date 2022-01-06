@@ -1,4 +1,4 @@
-[@opendatasoft/api-client](../README.md) / [Exports](../modules.md) / Facet
+[@opendatasoft/api-client](../README.md) / Facet
 
 # Interface: Facet
 
@@ -19,7 +19,7 @@
 
 #### Defined in
 
-[src/client/types.ts:5](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/client/types.ts#L5)
+[src/client/types.ts:5](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/client/types.ts#L5)
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 #### Defined in
 
-[src/client/types.ts:7](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/client/types.ts#L7)
+[src/client/types.ts:7](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/client/types.ts#L7)
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 #### Defined in
 
-[src/client/types.ts:4](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/client/types.ts#L4)
+[src/client/types.ts:4](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/client/types.ts#L4)
 
 ___
 
@@ -49,4 +49,4 @@ ___
 
 #### Defined in
 
-[src/client/types.ts:6](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/client/types.ts#L6)
+[src/client/types.ts:6](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/client/types.ts#L6)

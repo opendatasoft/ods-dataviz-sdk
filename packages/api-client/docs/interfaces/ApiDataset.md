@@ -1,4 +1,4 @@
-[@opendatasoft/api-client](../README.md) / [Exports](../modules.md) / ApiDataset
+[@opendatasoft/api-client](../README.md) / ApiDataset
 
 # Interface: ApiDataset
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/client/types.ts:57](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/client/types.ts#L57)
+[src/client/types.ts:57](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/client/types.ts#L57)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/client/types.ts:56](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/client/types.ts#L56)
+[src/client/types.ts:56](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/client/types.ts#L56)

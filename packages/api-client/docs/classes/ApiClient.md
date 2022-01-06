@@ -1,4 +1,4 @@
-[@opendatasoft/api-client](../README.md) / [Exports](../modules.md) / ApiClient
+[@opendatasoft/api-client](../README.md) / ApiClient
 
 # Class: ApiClient
 
@@ -32,7 +32,7 @@ Constructs an instance of [ApiClient](ApiClient.md)
 
 #### Defined in
 
-[src/client/index.ts:45](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/client/index.ts#L45)
+[src/client/index.ts:45](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/client/index.ts#L45)
 
 ## Properties
 
@@ -42,7 +42,7 @@ Constructs an instance of [ApiClient](ApiClient.md)
 
 #### Defined in
 
-[src/client/index.ts:40](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/client/index.ts#L40)
+[src/client/index.ts:40](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/client/index.ts#L40)
 
 ## Methods
 
@@ -69,4 +69,4 @@ Constructs an instance of [ApiClient](ApiClient.md)
 
 #### Defined in
 
-[src/client/index.ts:65](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/client/index.ts#L65)
+[src/client/index.ts:65](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/client/index.ts#L65)

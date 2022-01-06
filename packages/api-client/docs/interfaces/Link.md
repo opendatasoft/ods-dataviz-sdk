@@ -1,4 +1,4 @@
-[@opendatasoft/api-client](../README.md) / [Exports](../modules.md) / Link
+[@opendatasoft/api-client](../README.md) / Link
 
 # Interface: Link
 
@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[src/client/types.ts:11](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/client/types.ts#L11)
+[src/client/types.ts:11](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/client/types.ts#L11)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[src/client/types.ts:12](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/client/types.ts#L12)
+[src/client/types.ts:12](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/client/types.ts#L12)

@@ -1,240 +1,305 @@
-@opendatasoft/api-client / [Exports](modules.md)
+@opendatasoft/api-client
 
-# @opendatasoft/api-client ![CI status](https://github.com/opendatasoft/ods-dataviz-sdk/workflows/CI/badge.svg)
+# @opendatasoft/api-client
 
-This package implements a Typescript/Javascript client library for [Opendatasoft's Search APIv2](https://help.opendatasoft.com/apis/ods-search-v2/#search-api-v2).
+## Table of contents
 
-- [Installation](#installation)
-- [Get started](#get-started)
-- [Usage](#usage)
-  - [ApiClient](#ApiClient)
-  - [Query builder](#query-builder)
-- [Frameworks](#frameworks)
-- [Resources](#resources)
-- [Contributing](#contributing)
-- [License](#license)
+### Classes
 
-## Installation
+- [ApiClient](classes/ApiClient.md)
+- [AuthenticationError](classes/AuthenticationError.md)
+- [NotFoundError](classes/NotFoundError.md)
+- [Query](classes/Query.md)
+- [ServerError](classes/ServerError.md)
+- [UserError](classes/UserError.md)
 
-The client is available as an npm package.
+### Interfaces
 
-With npm:
+- [ApiClientConfiguration](interfaces/ApiClientConfiguration.md)
+- [ApiClientOptions](interfaces/ApiClientOptions.md)
+- [ApiDataset](interfaces/ApiDataset.md)
+- [ApiDatasets](interfaces/ApiDatasets.md)
+- [ApiFacets](interfaces/ApiFacets.md)
+- [ApiQuery](interfaces/ApiQuery.md)
+- [ApiRecord](interfaces/ApiRecord.md)
+- [ApiRecords](interfaces/ApiRecords.md)
+- [Facet](interfaces/Facet.md)
+- [Link](interfaces/Link.md)
+- [OdsDataset](interfaces/OdsDataset.md)
+- [OdsRecord](interfaces/OdsRecord.md)
 
-```shell
-npm install @opendatasoft/api-client
-```
+### Type aliases
 
-With yarn:
+- [NumberOrUpdater](README.md#numberorupdater)
+- [RequestInterceptor](README.md#requestinterceptor)
+- [ResponseInterceptor](README.md#responseinterceptor)
+- [StringOrUpdater](README.md#stringorupdater)
 
-```shell
-yarn add @opendatasoft/api-client
-```
+### Functions
 
-> ⚠️ **Warning**: You have to polyfill [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) in [older browsers](https://github.com/github/fetch) and [node](https://github.com/node-fetch/node-fetch). You can use [cross-fetch](https://github.com/lquixada/cross-fetch) to do both at once.
+- [all](README.md#all)
+- [date](README.md#date)
+- [dateTime](README.md#datetime)
+- [field](README.md#field)
+- [fromCatalog](README.md#fromcatalog)
+- [fromDataNetwork](README.md#fromdatanetwork)
+- [fromMonitoring](README.md#frommonitoring)
+- [one](README.md#one)
+- [string](README.md#string)
 
-## Get started
+## Type aliases
 
-Here is a quick example to get you started:
+### NumberOrUpdater
 
-```javascript
-import { ApiClient, fromCatalog } from '@opendatasoft/api-client';
+Ƭ **NumberOrUpdater**: `number` \| (`current`: `number`) => `number` \| ``null`` \| `undefined`
 
-// Initialize the Client by indicating the domain to request.
-const client = new ApiClient({ domain: "documentation-resources" });
+#### Defined in
 
-// Create the query to run.
-const query = fromCatalog() // From the domain catalog
-    .dataset("doc-geonames-cities-5000") // ... we'll use the dataset "doc-geonames-cities-5000"
-    .aggregates() // ... in order to make an aggregation.
-    .where("country_code:'FR'") // // Filter records where country_code === "FR".
-    .groupBy("name as city, population") // Select the fields "name" and "population".
-    .orderBy("-population") // Sort by population in descending order.
-    .limit(10) // But we only want the first 10 most populated cities.
-    .toString(); // Then finally, we convert our query into a string.
+[src/odsql/index.ts:5](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L5)
 
-// Now, run the query.
-client.get(query)
-    .then(response => console.log(response))
-    .catch(error => console.error(error));
-```
+___
 
-[CodeSandbox sample](https://codesandbox.io/s/api-clientget-started-be0xu?file=/src/index.js)
+### RequestInterceptor
 
-## Usage
+Ƭ **RequestInterceptor**: (`request`: `Request`) => `Promise`<`Request`\>
 
-### ApiClient
+#### Type declaration
 
-The [`ApiClient`](docs/classes/client.apiclient.md) class can be used to send API request and get back an API response.
+▸ (`request`): `Promise`<`Request`\>
 
-It takes an optional configuration object.
+##### Parameters
 
-```javascript
-import { ApiClient } from '@opendatasoft/api-client';
+| Name | Type |
+| :------ | :------ |
+| `request` | `Request` |
 
-const client = new ApiClient({
+##### Returns
 
-      /* (Optional) authenticate through an api key */
-      apiKey: 'secret',
+`Promise`<`Request`\>
 
-      /* (Optional) The Opendatasoft domain identifier or url.
-         If missing, in the browser, the client will use the current host. */
-      domain: 'public' || 'https://public.opendatasoft.com',
+#### Defined in
 
-      /* (Optional) A fetch-compatible API for making a request. */
-      fetch: window.fetch,
+[src/client/index.ts:20](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/client/index.ts#L20)
 
-      /* (Optional) Allow you to update the request before it is send. */
-      interceptRequest: async (request) => {
-            console.log(request);
-            request.headers.append('x-custom', 'custom');
-            return request;
-      },
+___
 
-      /* (Optional) Allow you to intercept the response before it is returned */
-      interceptResponse: async (response) => {
-            const apiResponse = await response.json();
-            delete apiResponse['links'];
-            return apiResponse;
-      }
-});
-```
+### ResponseInterceptor
 
-You can reuse client instances.
-
-Use the method `get` to call the api. It accepts an url or a query object. It return a promise containing the api response or throw an error.
-
-```javascript
-import { ApiClient } from '@opendatasoft/api-client';
-
-(async () => {
-      const client = new ApiClient();
-      const response = await client.get('catalog/datasets?limit=10');
-      console.log(response);
-      /*
-       {
-        total_count: 10,
-        links: [...],
-        datasets: [...]
-      }
-      */
-})();
-```
+Ƭ **ResponseInterceptor**: (`response`: `Response`) => `Promise`<`any`\>
 
-In case of failure, the Error returned will always be one of the following type.
+#### Type declaration
 
-```javascript
-import { AuthenticationError, NotFoundError, ServerError, UserError } from '@opendatasoft/api-client/client/error';
-```
+▸ (`response`): `Promise`<`any`\>
 
-You can use that to display a better error message.
+##### Parameters
 
-### Query builder
+| Name | Type |
+| :------ | :------ |
+| `response` | `Response` |
 
-The client also includes a query builder.
+##### Returns
 
-Start with one of the following entry points:
+`Promise`<`any`\>
 
-- `fromCatalog()`: access the domain catalog
+#### Defined in
 
-- `fromMonitoring()`: access monitoring datasets
+[src/client/index.ts:21](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/client/index.ts#L21)
 
-- `fromDataNetwork()`: access any datasets on [Opendatasoft's data network](https://data.opendatasoft.com/)
+___
 
-From there, your IDE should provide autocompletion. If not, you can always check the [the query builder reference](docs/modules/odsql.md).
+### StringOrUpdater
 
-```javascript
-import {
-    ApiClient,
-    fromCatalog,
-    fromDataNetwork,
-    fromMonitoring
-} from '@opendatasoft/api-client';
+Ƭ **StringOrUpdater**: `string` \| (`current`: `string`) => `string` \| ``null`` \| `undefined`
 
-const client = new ApiClient({
-      interceptRequest: async (request) => {
-            console.log(request.url); // Log the url
-            return request;
-      }
-});
+#### Defined in
 
-// ../monitoring/
-client.get(fromMonitoring().itself());
+[src/odsql/index.ts:3](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L3)
 
-// ../catalog/datasets/
-client.get(fromCatalog().datasets());
+## Functions
 
-// ../opendatasoft/datasets/sirene@data/facets/?lang=fr
-client.get(fromDataNetwork().dataset('sirene@data').facets().lang('fr'));
+### all
 
-// ../catalog/datasets/?select=dataset_id%2C+records_count
-client.get(fromCatalog().datasets().select('dataset_id, records_count'));
-```
+▸ `Const` **all**(...`conditions`): `string`
 
-The [`Query`](docs/classes/odsql.query.md) interface expose convenient parameters of an API request.
+#### Parameters
 
-```javascript
-import {
-    ApiClient,
-    fromCatalog,
-    field,
-    string,
-    dateTime,
-    date,
-    all,
-    one,
-} from '@opendatasoft/api-client';
+| Name | Type |
+| :------ | :------ |
+| `...conditions` | (`undefined` \| ``null`` \| `string`)[] |
 
-fromCatalog().aggregates()
-   .select("count(*), avg(f)") // You can select fields
-   .where("field2 > 2") // Add a where clause
-   .where("field3 > 3") // This replace the previous clause
-   .where(condition => condition + " AND field4: 4") // This combine both conditions
-   .where(filter => all(filter, "field4:4", "field5: 5")) // condition1 AND condition2...
-   .where(one("field4:4", "field5:5")) //condition1 OR condition2...
-   .where(`${field("name")}:${string("paul")}`) // string and field escaping
-   .where(`${field("day")} < ${date(new Date())}`) // format Date with date or dateTime
-   .groupBy(`${field("day")} , ${field("a")}+${field("b")}`) // Add a group by clause
-   .orderBy("count(*)") // Or and order by clause
-   .limit(10) // Set a limit
-   .offset(10) // Or an offset
-   .limit(currentLimit => currentLimit + 10) // useful for pagination
-   .refine("field:value") // Use facet refine for faceted navigation
-   .exclude("field:value") // Same for excluding
-   .lang("fr") // Force a language
-```
+#### Returns
 
-## Frameworks
+`string`
 
-You can use the client with any frontend frameworks.
+#### Defined in
 
-Here are some samples to get you started.
+[src/odsql/index.ts:161](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L161)
 
-### React
+___
 
-**⚠️ FIXME:** Add CodeSandbox sample.
+### date
 
-### Angular
+▸ `Const` **date**(`date`): `string`
 
-**⚠️ FIXME:** Add CodeSandbox sample.
+#### Parameters
 
-### Vue
+| Name | Type |
+| :------ | :------ |
+| `date` | `Date` |
 
-**⚠️ FIXME:** Add CodeSandbox sample.
+#### Returns
 
-### Svelte
+`string`
 
-**⚠️ FIXME:** Add CodeSandbox sample.
+#### Defined in
 
-## Resources
+[src/odsql/index.ts:159](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L159)
 
-- [Opendatasoft's APIv2 documentation](https://help.opendatasoft.com/apis/ods-search-v2/#search-api-v2)
-- [API Client Reference](docs/globals.md)
-- [Data Network API Console](https://data.opendatasoft.com/api/v2/console)
+___
 
-## Contributing
+### dateTime
 
-This project welcomes contributions and suggestions! To do so, take a look at our [Contributing Guide](CONTRIBUTING.md). It contains setup instructions, tools and scripts that can be useful if you need to work on all packages at the same time.
+▸ `Const` **dateTime**(`date`): `string`
 
-## License
+#### Parameters
 
-This project is licensed under the [MIT license](../../LICENSE).
+| Name | Type |
+| :------ | :------ |
+| `date` | `Date` |
+
+#### Returns
+
+`string`
+
+#### Defined in
+
+[src/odsql/index.ts:157](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L157)
+
+___
+
+### field
+
+▸ `Const` **field**(`fieldName`): `string`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `fieldName` | `string` |
+
+#### Returns
+
+`string`
+
+#### Defined in
+
+[src/odsql/index.ts:153](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L153)
+
+___
+
+### fromCatalog
+
+▸ `Const` **fromCatalog**(): `Object`
+
+#### Returns
+
+`Object`
+
+| Name | Type |
+| :------ | :------ |
+| `dataset` | (`datasetId`: `string`) => { `exports`: (`format`: `string`) => [`Query`](classes/Query.md) ; `facets`: () => [`Query`](classes/Query.md) ; `itself`: () => [`Query`](classes/Query.md) ; `query`: () => [`Query`](classes/Query.md) ; `records`: () => [`Query`](classes/Query.md)  } |
+| `datasets` | () => [`Query`](classes/Query.md) |
+| `exports` | (`format`: `string`) => [`Query`](classes/Query.md) |
+| `facets` | () => [`Query`](classes/Query.md) |
+| `itself` | () => [`Query`](classes/Query.md) |
+| `query` | () => [`Query`](classes/Query.md) |
+
+#### Defined in
+
+[src/odsql/index.ts:147](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L147)
+
+___
+
+### fromDataNetwork
+
+▸ `Const` **fromDataNetwork**(): `Object`
+
+#### Returns
+
+`Object`
+
+| Name | Type |
+| :------ | :------ |
+| `dataset` | (`datasetId`: `string`) => { `exports`: (`format`: `string`) => [`Query`](classes/Query.md) ; `facets`: () => [`Query`](classes/Query.md) ; `itself`: () => [`Query`](classes/Query.md) ; `query`: () => [`Query`](classes/Query.md) ; `records`: () => [`Query`](classes/Query.md)  } |
+| `datasets` | () => [`Query`](classes/Query.md) |
+| `exports` | (`format`: `string`) => [`Query`](classes/Query.md) |
+| `facets` | () => [`Query`](classes/Query.md) |
+| `itself` | () => [`Query`](classes/Query.md) |
+| `query` | () => [`Query`](classes/Query.md) |
+
+#### Defined in
+
+[src/odsql/index.ts:151](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L151)
+
+___
+
+### fromMonitoring
+
+▸ `Const` **fromMonitoring**(): `Object`
+
+#### Returns
+
+`Object`
+
+| Name | Type |
+| :------ | :------ |
+| `dataset` | (`datasetId`: `string`) => { `exports`: (`format`: `string`) => [`Query`](classes/Query.md) ; `facets`: () => [`Query`](classes/Query.md) ; `itself`: () => [`Query`](classes/Query.md) ; `query`: () => [`Query`](classes/Query.md) ; `records`: () => [`Query`](classes/Query.md)  } |
+| `datasets` | () => [`Query`](classes/Query.md) |
+| `exports` | (`format`: `string`) => [`Query`](classes/Query.md) |
+| `facets` | () => [`Query`](classes/Query.md) |
+| `itself` | () => [`Query`](classes/Query.md) |
+| `query` | () => [`Query`](classes/Query.md) |
+
+#### Defined in
+
+[src/odsql/index.ts:149](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L149)
+
+___
+
+### one
+
+▸ `Const` **one**(...`conditions`): `string`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `...conditions` | (`undefined` \| ``null`` \| `string`)[] |
+
+#### Returns
+
+`string`
+
+#### Defined in
+
+[src/odsql/index.ts:167](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L167)
+
+___
+
+### string
+
+▸ `Const` **string**(`value`): `string`
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `value` | `string` |
+
+#### Returns
+
+`string`
+
+#### Defined in
+
+[src/odsql/index.ts:155](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L155)

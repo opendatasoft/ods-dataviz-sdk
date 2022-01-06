@@ -1,5 +1,6 @@
 {
     "entryPoints": ["./src"],
     "out": "docs",
-    "excludePrivate": true
+    "excludePrivate": true,
+    "readme": "none"
 }

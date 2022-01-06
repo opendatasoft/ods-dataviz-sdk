@@ -1,4 +1,4 @@
-[@opendatasoft/api-client](../README.md) / [Exports](../modules.md) / AuthenticationError
+[@opendatasoft/api-client](../README.md) / AuthenticationError
 
 # Class: AuthenticationError
 
@@ -47,7 +47,7 @@
 
 #### Defined in
 
-[src/client/error.ts:7](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/client/error.ts#L7)
+[src/client/error.ts:7](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/client/error.ts#L7)
 
 ## Properties
 
@@ -61,7 +61,7 @@
 
 #### Defined in
 
-[src/client/error.ts:4](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/client/error.ts#L4)
+[src/client/error.ts:4](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/client/error.ts#L4)
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 #### Defined in
 
-[src/client/error.ts:5](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/client/error.ts#L5)
+[src/client/error.ts:5](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/client/error.ts#L5)
 
 ___
 

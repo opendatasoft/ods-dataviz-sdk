@@ -1,4 +1,4 @@
-[@opendatasoft/api-client](../README.md) / [Exports](../modules.md) / Query
+[@opendatasoft/api-client](../README.md) / Query
 
 # Class: Query
 
@@ -43,7 +43,7 @@
 
 #### Defined in
 
-[src/odsql/index.ts:12](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/odsql/index.ts#L12)
+[src/odsql/index.ts:12](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L12)
 
 ## Methods
 
@@ -64,7 +64,7 @@
 
 #### Defined in
 
-[src/odsql/index.ts:69](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/odsql/index.ts#L69)
+[src/odsql/index.ts:69](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L69)
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 #### Defined in
 
-[src/odsql/index.ts:120](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/odsql/index.ts#L120)
+[src/odsql/index.ts:120](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L120)
 
 ___
 
@@ -104,7 +104,7 @@ ___
 
 #### Defined in
 
-[src/odsql/index.ts:112](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/odsql/index.ts#L112)
+[src/odsql/index.ts:112](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L112)
 
 ___
 
@@ -118,7 +118,7 @@ ___
 
 #### Defined in
 
-[src/odsql/index.ts:17](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/odsql/index.ts#L17)
+[src/odsql/index.ts:17](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L17)
 
 ___
 
@@ -132,7 +132,7 @@ ___
 
 #### Defined in
 
-[src/odsql/index.ts:21](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/odsql/index.ts#L21)
+[src/odsql/index.ts:21](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L21)
 
 ___
 
@@ -144,7 +144,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `expressions` | [`StringOrUpdater`](../modules.md#stringorupdater) |
+| `expressions` | [`StringOrUpdater`](../README.md#stringorupdater) |
 
 #### Returns
 
@@ -152,7 +152,7 @@ ___
 
 #### Defined in
 
-[src/odsql/index.ts:88](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/odsql/index.ts#L88)
+[src/odsql/index.ts:88](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L88)
 
 ___
 
@@ -172,7 +172,7 @@ ___
 
 #### Defined in
 
-[src/odsql/index.ts:124](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/odsql/index.ts#L124)
+[src/odsql/index.ts:124](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L124)
 
 ___
 
@@ -184,7 +184,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `limit` | [`NumberOrUpdater`](../modules.md#numberorupdater) |
+| `limit` | [`NumberOrUpdater`](../README.md#numberorupdater) |
 
 #### Returns
 
@@ -192,7 +192,7 @@ ___
 
 #### Defined in
 
-[src/odsql/index.ts:96](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/odsql/index.ts#L96)
+[src/odsql/index.ts:96](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L96)
 
 ___
 
@@ -204,7 +204,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `offset` | [`NumberOrUpdater`](../modules.md#numberorupdater) |
+| `offset` | [`NumberOrUpdater`](../README.md#numberorupdater) |
 
 #### Returns
 
@@ -212,7 +212,7 @@ ___
 
 #### Defined in
 
-[src/odsql/index.ts:104](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/odsql/index.ts#L104)
+[src/odsql/index.ts:104](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L104)
 
 ___
 
@@ -224,7 +224,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `expressions` | [`StringOrUpdater`](../modules.md#stringorupdater) |
+| `expressions` | [`StringOrUpdater`](../README.md#stringorupdater) |
 
 #### Returns
 
@@ -232,7 +232,7 @@ ___
 
 #### Defined in
 
-[src/odsql/index.ts:92](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/odsql/index.ts#L92)
+[src/odsql/index.ts:92](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L92)
 
 ___
 
@@ -252,7 +252,7 @@ ___
 
 #### Defined in
 
-[src/odsql/index.ts:116](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/odsql/index.ts#L116)
+[src/odsql/index.ts:116](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L116)
 
 ___
 
@@ -264,7 +264,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `expressions` | [`StringOrUpdater`](../modules.md#stringorupdater) |
+| `expressions` | [`StringOrUpdater`](../README.md#stringorupdater) |
 
 #### Returns
 
@@ -272,7 +272,7 @@ ___
 
 #### Defined in
 
-[src/odsql/index.ts:80](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/odsql/index.ts#L80)
+[src/odsql/index.ts:80](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L80)
 
 ___
 
@@ -293,7 +293,7 @@ ___
 
 #### Defined in
 
-[src/odsql/index.ts:45](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/odsql/index.ts#L45)
+[src/odsql/index.ts:45](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L45)
 
 ___
 
@@ -307,7 +307,7 @@ ___
 
 #### Defined in
 
-[src/odsql/index.ts:39](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/odsql/index.ts#L39)
+[src/odsql/index.ts:39](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L39)
 
 ___
 
@@ -327,7 +327,7 @@ ___
 
 #### Defined in
 
-[src/odsql/index.ts:51](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/odsql/index.ts#L51)
+[src/odsql/index.ts:51](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L51)
 
 ___
 
@@ -340,7 +340,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `name` | `string` |
-| `value` | [`StringOrUpdater`](../modules.md#stringorupdater) |
+| `value` | [`StringOrUpdater`](../README.md#stringorupdater) |
 
 #### Returns
 
@@ -348,7 +348,7 @@ ___
 
 #### Defined in
 
-[src/odsql/index.ts:57](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/odsql/index.ts#L57)
+[src/odsql/index.ts:57](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L57)
 
 ___
 
@@ -360,7 +360,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `filters` | [`StringOrUpdater`](../modules.md#stringorupdater) |
+| `filters` | [`StringOrUpdater`](../README.md#stringorupdater) |
 
 #### Returns
 
@@ -368,4 +368,4 @@ ___
 
 #### Defined in
 
-[src/odsql/index.ts:84](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/odsql/index.ts#L84)
+[src/odsql/index.ts:84](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/odsql/index.ts#L84)

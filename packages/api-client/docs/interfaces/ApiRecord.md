@@ -1,4 +1,4 @@
-[@opendatasoft/api-client](../README.md) / [Exports](../modules.md) / ApiRecord
+[@opendatasoft/api-client](../README.md) / ApiRecord
 
 # Interface: ApiRecord<T\>
 
@@ -23,7 +23,7 @@
 
 #### Defined in
 
-[src/client/types.ts:45](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/client/types.ts#L45)
+[src/client/types.ts:45](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/client/types.ts#L45)
 
 ___
 
@@ -33,4 +33,4 @@ ___
 
 #### Defined in
 
-[src/client/types.ts:46](https://github.com/opendatasoft/ods-dataviz-sdk/blob/b7a8d5d/packages/api-client/src/client/types.ts#L46)
+[src/client/types.ts:46](https://github.com/opendatasoft/ods-dataviz-sdk/blob/de901ba/packages/api-client/src/client/types.ts#L46)
