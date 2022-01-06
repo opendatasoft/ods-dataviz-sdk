@@ -1,8 +1,8 @@
 import update from 'immutability-helper';
 
-export type StringOrUpdater = string | ((current: string) => string) | null | undefined;
+export type StringOrUpdater = string | ((current: string) => string) | null | undefined | false;
 
-export type NumberOrUpdater = number | ((current: number) => number) | null | undefined;
+export type NumberOrUpdater = number | ((current: number) => number) | null | undefined | false;
 
 export class Query {
     private readonly params: Record<string, string | string[]>;
@@ -55,7 +55,7 @@ export class Query {
     }
 
     update(name: string, value: StringOrUpdater): Query {
-        if (value === undefined || value === null) {
+        if (!value) {
             return this;
         }
         const current: string | string[] | undefined = this.params[name];
@@ -169,3 +169,5 @@ export const one = (...conditions: (string | undefined | null)[]) =>
         .filter(Boolean)
         .map(condition => `(${condition})`)
         .join(' OR ');
+
+export const list = (...values: (string | undefined | null)[]) => values.filter(Boolean).join(',');

@@ -13,6 +13,7 @@ import {
     date,
     all,
     one,
+    list,
 } from '../src/';
 import { expect, it, describe, test } from '@jest/globals';
 
@@ -89,6 +90,16 @@ describe('ODSQL query builder', () => {
                     .where(prev => all(prev, searchTerm && `search(${string(searchTerm)})`))
                     .toString()
             ).toEqual('catalog/query/?where=%28search%28%22my+search+term%22%29%29');
+        });
+
+        test('list helper', () => {
+            expect(
+                fromCatalog()
+                    .query()
+                    .select(prev => list(prev, 'a', 'b', 'c'))
+                    .select(prev => list(prev, 'd'))
+                    .toString()
+            ).toEqual(`catalog/query/?select=${encodeURIComponent('a,b,c,d')}`);
         });
 
         test('with where filter', () => {

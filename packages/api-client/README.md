@@ -43,7 +43,7 @@ const client = new ApiClient({ domain: 'documentation-resources' });
 // Create the query to run.
 const query = fromCatalog() // From the domain catalog
     .dataset('doc-geonames-cities-5000') // ... we'll use the dataset "doc-geonames-cities-5000"
-    .aggregates() // ... in order to make an aggregation.
+    .query() // call the query endpoint
     .where("country_code:'FR'") // // Filter records where country_code === "FR".
     .groupBy('name as city, population') // Select the fields "name" and "population".
     .orderBy('-population') // Sort by population in descending order.
@@ -192,8 +192,10 @@ import {
 } from '@opendatasoft/api-client';
 
 fromCatalog()
-    .aggregates()
+    .query()
     .select('count(*), avg(f)') // You can select fields
+    .select(list('f1', 'f2', 'avg(f3) as n')) // There is also a helper to select multiple fields
+    .select(previous => list(previous, 'avg(f4)')) // You can also reuse the previous value, list() will ignore it if it undefined
     .where('field2 > 2') // Add a where clause
     .where('field3 > 3') // This replace the previous clause
     .where(condition => condition + ' AND field4: 4') // This combine both conditions
@@ -201,6 +203,7 @@ fromCatalog()
     .where(one('field4:4', 'field5:5')) //condition1 OR condition2...
     .where(`${field('name')}:${string('paul')}`) // string and field escaping
     .where(`${field('day')} < ${date(new Date())}`) // format Date with date or dateTime
+    .where(searchTerm && `${field('name')}:${string(searchTerm)}`) // Each function ignore undefined or null values
     .groupBy(`${field('day')} , ${field('a')}+${field('b')}`) // Add a group by clause
     .orderBy('count(*)') // Or and order by clause
     .limit(10) // Set a limit
