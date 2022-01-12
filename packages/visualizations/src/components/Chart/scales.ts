@@ -87,6 +87,8 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
                           unit: options?.xAxis?.timeUnit,
                           tooltipFormat: getDateTooltipFormat(options?.xAxis?.timeUnit),
                       },
+                      min: options?.xAxis?.min,
+                      max: options?.xAxis?.max,
                   }
                 : {}),
             display: options?.xAxis?.display,
