@@ -43,6 +43,7 @@
         "@rollup/plugin-commonjs": "^19.0.0",
         "@rollup/plugin-json": "^4.1.0",
         "@rollup/plugin-node-resolve": "^10.0.0",
+        "@rollup/plugin-replace": "^3.0.1",
         "@rollup/plugin-typescript": "^6.1.0",
         "@tsconfig/svelte": "^1.0.10",
         "@types/luxon": "^2.0.5",
