@@ -1,11 +1,13 @@
 import * as ChartJs from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import zoomPlugin from 'chartjs-plugin-zoom';
 import type { ChartOptions, DataFrame } from '../types';
 import ChartImpl from './Chart.svelte';
 import SvelteImpl from '../SvelteImpl';
 import PieDataLabelsPlugin from './pieDataLabelsPlugin';
 
 ChartJs.Chart.register(...ChartJs.registerables);
+ChartJs.Chart.register(zoomPlugin);
 ChartJs.Chart.register(ChartDataLabels);
 ChartJs.Chart.register(PieDataLabelsPlugin);
 
