@@ -59,6 +59,10 @@ export interface TimeCartesianAxisConfiguration extends BaseCartesianAxisConfigu
         | 'minute'
         | 'second'
         | 'millisecond';
+    min?: number;
+    max?: number;
+    zoomPluginMin?: number;
+    zoomPluginMax?: number;
 }
 
 export interface CategoryCartesianAxisConfiguration extends BaseCartesianAxisConfiguration {
