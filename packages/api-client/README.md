@@ -63,7 +63,7 @@ client
 
 ### ApiClient
 
-The [`ApiClient`](docs/classes/ApiClient.md) class can be used to send API request and get back an API response.
+The `ApiClient` class can be used to send API request and get back an API response.
 
 It takes an optional configuration object.
 
@@ -143,7 +143,7 @@ Start with one of the following entry points:
 
 -   `fromDataNetwork()`: access any datasets on [Opendatasoft's data network](https://data.opendatasoft.com/)
 
-From there, your IDE should provide autocompletion. If not, you can always check the [the api client reference](docs/README.md).
+From there, your IDE should provide autocompletion.
 
 ```javascript
 import { ApiClient, fromCatalog, fromDataNetwork, fromMonitoring } from '@opendatasoft/api-client';
@@ -177,7 +177,7 @@ client.get(
 );
 ```
 
-The [`Query`](docs/classes/Query.md) interface expose convenient parameters of an API request.
+The `Query` interface expose convenient parameters of an API request.
 
 ```javascript
 import {
