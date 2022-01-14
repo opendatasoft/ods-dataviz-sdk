@@ -209,3 +209,5 @@ export interface KpiCardOptions {
     /** Custom formatting function for tooltips content */
     format?: (value: number) => string;
 }
+
+export interface MapOptions {}
