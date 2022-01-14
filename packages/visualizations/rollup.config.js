@@ -22,6 +22,7 @@ function basePlugins() {
             dev: !production,
             include: 'src/**/*.svelte',
             emitCss: true,
+            hydratable: true,
             preprocess: autoPreprocess({
                 scss: {
                     includePaths: ['src'],
