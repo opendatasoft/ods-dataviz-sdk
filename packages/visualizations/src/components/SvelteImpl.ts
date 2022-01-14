@@ -14,7 +14,6 @@ export default abstract class SvelteImpl<Data, Options> extends BaseComponent<Da
                 data: this.data,
                 options: this.options,
             },
-            hydrate: true,
         });
     }
 
