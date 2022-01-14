@@ -9,6 +9,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import { babel } from '@rollup/plugin-babel';
+import replace from '@rollup/plugin-replace';
 import { defineConfig } from 'rollup';
 import pkg from './package.json';
 
@@ -97,6 +98,12 @@ const umd = defineConfig({
         ...basePlugins(),
         // Minify umd bundle
         terser(),
+        // Replace process.env.NODE_ENV with 'production'
+        production &&
+            replace({
+                values: { 'process.env.NODE_ENV': JSON.stringify('production') },
+                preventAssignment: true,
+            }),
         // Visualize the generated bundle
         production &&
             visualizer({

@@ -1,9 +1,6 @@
 {
-    "inputFiles": [
-        "./src"
-    ],
-    "mode": "modules",
+    "entryPoints": ["./src"],
     "out": "docs",
     "excludePrivate": true,
-    "excludeNotExported": true
+    "readme": "none"
 }

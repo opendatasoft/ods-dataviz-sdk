@@ -3,5 +3,7 @@
  * @module @opendatasoft/api-client
  */
 
-export { ApiClient } from './client';
+export * from './client';
+export * from './client/error';
+export * from './client/types';
 export * from './odsql';

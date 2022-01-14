@@ -1,7 +1,6 @@
 import update from 'immutability-helper';
 import { Query } from '../odsql';
 import { AuthenticationError, NotFoundError, ServerError, UserError } from './error';
-import { ApiResponse } from './types';
 
 const API_KEY_AUTH_TYPE = 'ApiKey';
 
@@ -19,7 +18,7 @@ const _global: any =
         : {};
 
 export type RequestInterceptor = (request: Request) => Promise<Request>;
-export type ResponseInterceptor = (response: Response) => Promise<ApiResponse>;
+export type ResponseInterceptor = (response: Response) => Promise<any>;
 
 export interface ApiClientOptions {
     domain?: string;
@@ -63,7 +62,7 @@ export class ApiClient {
         });
     }
 
-    async get(query: string | Query, options?: ApiClientOptions): Promise<ApiResponse> {
+    async get<T>(query: string | Query, options?: ApiClientOptions): Promise<T> {
         const config = buildConfig(options, this.defaultConfig);
 
         // Build the URL
