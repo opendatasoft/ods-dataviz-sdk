@@ -1,7 +1,7 @@
 <script>
 import maplibregl from 'maplibre-gl';
 import { onMount } from 'svelte';
-import { computeBoundingBoxFromGeoJsonFeatures } from './utils';
+import { computeBoundingBoxFromGeoJsonFeatures, colorShapes } from './utils';
 
 let container;
 let map;
@@ -33,11 +33,12 @@ onMount(() => {
 */
 
 $: {
-    if (mapReady && options.shapes && data) {
+    if (mapReady && options.shapes && data && data.value) {
         const { shapes, parameters: { shapeKey, dataKey } } = options;
 
         // Compute the bounds
         const extent = computeBoundingBoxFromGeoJsonFeatures(shapes);
+        const coloredShapes = colorShapes(shapes, data.value);
 
         // Display shapes
         if (map.getLayer('shapes')) {
@@ -52,7 +53,7 @@ $: {
             type: 'geojson',
             data: {
                 "type": "FeatureCollection",
-                "features": shapes
+                "features": coloredShapes,
             },
         });
 
@@ -62,7 +63,7 @@ $: {
             'source': 'shapes',
             'layout': {},
             'paint': {
-                'fill-color': '#088',
+                'fill-color': ['get', 'color'],
                 'fill-opacity': 0.8,
                 'fill-outline-color': '#fff',
             }
