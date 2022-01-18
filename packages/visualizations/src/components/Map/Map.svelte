@@ -1,11 +1,88 @@
 <script>
+import maplibregl from 'maplibre-gl';
+import { onMount } from 'svelte';
+import { computeBoundingBoxFromGeoJsonFeatures } from './utils';
+
+let container;
+let map;
+let mapReady = false;
+
+export let data; // values, and the key to match
+export let options; // contains the shapes to display & match
+
+$: console.log('Options', options, 'Data', data);
+
+const accessToken = 'nK5vMtSYLFbxt5586mifz7kObCYUTwVwz1rME1nmbrGAiuFMyznkIyDFhVnHhNGr';
+
+onMount(() => {
+    map = new maplibregl.Map({
+        container,
+        style: `https://api.jawg.io/styles/jawg-light.json?access-token=${accessToken}`, // stylesheet location
+        center: [3.5, 46], // starting position [lng, lat]
+        zoom: 5 // starting zoom
+    });
+    map.on('load', () => {
+        mapReady = true;
+    })
+});
+
+/* TODO: 
+- Compute colors depending on values
+- Associate colors to shapes using the keys
+- Display shapes
+*/
+
+$: {
+    if (mapReady && options.shapes && data) {
+        const { shapes, parameters: { shapeKey, dataKey } } = options;
+
+        // Compute the bounds
+        const extent = computeBoundingBoxFromGeoJsonFeatures(shapes);
+
+        // Display shapes
+        if (map.getLayer('shapes')) {
+            map.removeLayer('shapes');
+        }
+
+        if (map.getSource('shapes')) {
+            map.removeSource('shapes');
+        }
+
+        map.addSource('shapes', {
+            type: 'geojson',
+            data: {
+                "type": "FeatureCollection",
+                "features": shapes
+            },
+        });
+
+        map.addLayer({
+            'id': 'shapes',
+            'type': 'fill',
+            'source': 'shapes',
+            'layout': {},
+            'paint': {
+                'fill-color': '#088',
+                'fill-opacity': 0.8,
+                'fill-outline-color': '#fff',
+            }
+        });
+
+        map.fitBounds(extent);
+    }
+}
 
 </script>
 
 <div class="map">
-    hello map
+    <div class="map-container" bind:this={container}></div>
 </div>
 
-<style>
+<!-- FIXME: Strategy to load the CSS, and ideally scope it to the component? (not that one...) -->
+<link href='https://unpkg.com/maplibre-gl@2.0.0/dist/maplibre-gl.css' rel='stylesheet' />
 
+<style>
+.map-container {
+    height: 400px;
+}
 </style>
