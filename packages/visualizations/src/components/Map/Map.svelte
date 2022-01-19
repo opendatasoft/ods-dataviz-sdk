@@ -45,16 +45,19 @@ $: {
             map.removeLayer('shapes');
         }
 
+        /*
+        if (map.getLayer('labels')) {
+            map.removeLayer('labels');
+        }
+        */
+
         if (map.getSource('shapes')) {
             map.removeSource('shapes');
         }
 
         map.addSource('shapes', {
             type: 'geojson',
-            data: {
-                "type": "FeatureCollection",
-                "features": coloredShapes,
-            },
+            data: coloredShapes,
         });
 
         map.addLayer({
@@ -68,6 +71,28 @@ $: {
                 'fill-outline-color': '#fff',
             }
         });
+
+        /*
+        map.addLayer({
+            'id': 'labels',
+            'type': 'symbol',
+            'source': 'shapes',
+            'layout': {
+                'text-field': [
+                    'format',
+                    ['get', 'key'],
+                    {
+                        'font-scale': 1,
+                        'text-color': '#000',
+                    }
+                ]
+            },
+            'paint': {
+                'text-halo-color': '#fff',
+                'text-halo-width': 1,
+            } 
+        });
+        */
 
         map.fitBounds(extent);
     }

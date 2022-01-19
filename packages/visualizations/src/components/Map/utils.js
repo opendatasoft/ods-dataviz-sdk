@@ -1,6 +1,6 @@
 import chroma from "chroma-js";
 
-export const computeBoundingBoxFromGeoJsonFeatures = geoJsonFeatures => {
+export const computeBoundingBoxFromGeoJsonFeatures = geoJson => {
     // From an array of geojson objects
     let bbox = [ 
         Number.POSITIVE_INFINITY,
@@ -9,7 +9,7 @@ export const computeBoundingBoxFromGeoJsonFeatures = geoJsonFeatures => {
         Number.NEGATIVE_INFINITY
     ];
 
-    geoJsonFeatures.forEach(feature => {
+    geoJson.features.forEach(feature => {
         // FIXME: supports only shapes for now
         if (feature.geometry.type !== 'Polygon') {
             return;
@@ -29,7 +29,7 @@ export const computeBoundingBoxFromGeoJsonFeatures = geoJsonFeatures => {
     return bbox;
 }
 
-export const colorShapes = (geoJsonFeatures, values) => {
+export const colorShapes = (geoJson, values) => {
     // Key in the values is "x"
     // Key in the shapes is "key"
     // We add a color property in the JSON
@@ -45,7 +45,7 @@ export const colorShapes = (geoJsonFeatures, values) => {
     })
 
     // Iterate shapes, compute color from matching value
-    const coloredShapes = geoJsonFeatures.map(feature => {
+    const coloredFeatures = geoJson.features.map(feature => {
         const shapeMapping = feature.properties.key;
         const value = dataMapping[shapeMapping]; // FIXME: beware of int/string differences in keys
         const color = scale(value).hex();
@@ -57,5 +57,8 @@ export const colorShapes = (geoJsonFeatures, values) => {
             }
         }
     })
-    return coloredShapes;
+    return {
+        type: 'FeatureCollection',
+        features: coloredFeatures,
+    };
 }
