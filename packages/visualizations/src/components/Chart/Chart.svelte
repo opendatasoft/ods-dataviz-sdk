@@ -121,7 +121,6 @@
         display: flex;
         flex-direction: column;
         margin: 0;
-        background-color: red;
     }
 
     figcaption {
