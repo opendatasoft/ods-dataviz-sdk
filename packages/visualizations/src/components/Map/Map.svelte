@@ -104,9 +104,6 @@ $: {
     <div class="map-container" bind:this={container}></div>
 </div>
 
-<!-- FIXME: Strategy to load the CSS, and ideally scope it to the component? (not that one...) -->
-<link href='https://unpkg.com/maplibre-gl@2.0.0/dist/maplibre-gl.css' rel='stylesheet' />
-
 <style>
 .map-container {
     height: 400px;
