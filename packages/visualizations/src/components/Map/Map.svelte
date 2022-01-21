@@ -21,6 +21,10 @@ onMount(() => {
         center: [3.5, 46], // starting position [lng, lat]
         zoom: 5 // starting zoom
     });
+
+    const nav = new maplibregl.NavigationControl();
+    map.addControl(nav, 'top-left');
+
     map.on('load', () => {
         mapReady = true;
     })
@@ -34,11 +38,11 @@ onMount(() => {
 
 $: {
     if (mapReady && options.shapes && data && data.value) {
-        const { shapes, parameters: { shapeKey, dataKey } } = options;
+        const { shapes, colorScale, parameters: { shapeKey, dataKey } } = options;
 
         // Compute the bounds
         const extent = computeBoundingBoxFromGeoJsonFeatures(shapes);
-        const coloredShapes = colorShapes(shapes, data.value);
+        const coloredShapes = colorShapes(shapes, data.value, colorScale);
 
         // Display shapes
         if (map.getLayer('shapes')) {

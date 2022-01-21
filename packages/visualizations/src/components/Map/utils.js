@@ -29,7 +29,7 @@ export const computeBoundingBoxFromGeoJsonFeatures = geoJson => {
     return bbox;
 }
 
-export const colorShapes = (geoJson, values) => {
+export const colorShapes = (geoJson, values, colorScale) => {
     // Key in the values is "x"
     // Key in the shapes is "key"
     // We add a color property in the JSON
@@ -37,7 +37,11 @@ export const colorShapes = (geoJson, values) => {
     const min = Math.min(...rawValues);
     const max = Math.max(...rawValues);
 
-    const scale = chroma.scale(['red', 'blue']).domain([min, max]);
+    // For now the colorscale is a single color, and we build a scale from it. TBD
+    const colorMin = chroma(colorScale).darken(4).hex();
+    const colorMax = chroma(colorScale).brighten(4).hex();
+
+    const scale = chroma.scale([colorMin, colorMax]).domain([min, max]);
 
     const dataMapping = {};
     values.forEach(v => {
@@ -49,6 +53,7 @@ export const colorShapes = (geoJson, values) => {
         const shapeMapping = feature.properties.key;
         const value = dataMapping[shapeMapping]; // FIXME: beware of int/string differences in keys
         const color = scale(value).hex();
+
         return {
             ...feature,
             properties: {
