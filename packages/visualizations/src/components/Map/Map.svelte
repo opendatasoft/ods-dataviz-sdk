@@ -2,6 +2,7 @@
 import maplibregl from 'maplibre-gl';
 import { onMount } from 'svelte';
 import { computeBoundingBoxFromGeoJsonFeatures, colorShapes } from './utils';
+import { BLANK } from './mapStyles';
 
 let container;
 let map;
@@ -12,12 +13,10 @@ export let options; // contains the shapes to display & match
 
 $: console.log('Options', options, 'Data', data);
 
-const accessToken = 'nK5vMtSYLFbxt5586mifz7kObCYUTwVwz1rME1nmbrGAiuFMyznkIyDFhVnHhNGr';
-
 onMount(() => {
     map = new maplibregl.Map({
         container,
-        style: `https://api.jawg.io/styles/jawg-light.json?access-token=${accessToken}`, // stylesheet location
+        style: options.basemapStyle || BLANK,
         center: [3.5, 46], // starting position [lng, lat]
         zoom: 5 // starting zoom
     });
