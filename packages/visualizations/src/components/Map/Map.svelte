@@ -7,16 +7,22 @@ import { BLANK } from './mapStyles';
 let container;
 let map;
 let mapReady = false;
+let currentStyle;
 
 export let data; // values, and the key to match
 export let options; // contains the shapes to display & match
 
 $: console.log('Options', options, 'Data', data);
 
+function basemapConfigToStyle(basemapStyle) {
+    return basemapStyle || BLANK;
+}
+
 onMount(() => {
+    currentStyle = basemapConfigToStyle(options.basemapStyle)
     map = new maplibregl.Map({
         container,
-        style: options.basemapStyle || BLANK,
+        style: currentStyle,
         center: [3.5, 46], // starting position [lng, lat]
         zoom: 5 // starting zoom
     });
@@ -29,30 +35,40 @@ onMount(() => {
     })
 });
 
-/* TODO: 
-- Compute colors depending on values
-- Associate colors to shapes using the keys
-- Display shapes
-*/
+$: {
+    if (map && mapReady) {
+        const newStyle = basemapConfigToStyle(options.basemapStyle);
+        // Smart comparison to write here...
+        // But for now we support two basemaps with different types, so...
+        if (typeof(newStyle) !== typeof(currentStyle)) {
+            mapReady = false;
+            map.once('styledata', (e) => {
+                // This event is called many times, so just reacting to the first one may be an issue
+                currentStyle = newStyle;
+                mapReady = true;
+            })
+            if (options.basemapStyle) {
+                map.setStyle(options.basemapStyle);
+            } else {
+                map.setStyle(BLANK);
+            }
+        }
+    }
+}
 
 $: {
     if (mapReady && options.shapes && data && data.value) {
-        const { shapes, colorScale, parameters: { shapeKey, dataKey } } = options;
+        console.log('refresh data');
+        //const { shapes, colorScale } = options;
 
         // Compute the bounds
-        const extent = computeBoundingBoxFromGeoJsonFeatures(shapes);
-        const coloredShapes = colorShapes(shapes, data.value, colorScale);
+        const extent = computeBoundingBoxFromGeoJsonFeatures(options.shapes);
+        const coloredShapes = colorShapes(options.shapes, data.value, options.colorScale);
 
         // Display shapes
         if (map.getLayer('shapes')) {
             map.removeLayer('shapes');
         }
-
-        /*
-        if (map.getLayer('labels')) {
-            map.removeLayer('labels');
-        }
-        */
 
         if (map.getSource('shapes')) {
             map.removeSource('shapes');
@@ -74,28 +90,6 @@ $: {
                 'fill-outline-color': '#fff',
             }
         });
-
-        /*
-        map.addLayer({
-            'id': 'labels',
-            'type': 'symbol',
-            'source': 'shapes',
-            'layout': {
-                'text-field': [
-                    'format',
-                    ['get', 'key'],
-                    {
-                        'font-scale': 1,
-                        'text-color': '#000',
-                    }
-                ]
-            },
-            'paint': {
-                'text-halo-color': '#fff',
-                'text-halo-width': 1,
-            } 
-        });
-        */
 
         map.fitBounds(extent);
     }
