@@ -32,38 +32,52 @@ onMount(() => {
 
     map.on('load', () => {
         mapReady = true;
+        // First load
+        refreshData(data?.value, options.shapes, options.colorScale);
     })
 });
 
 $: {
-    if (map && mapReady) {
-        const newStyle = basemapConfigToStyle(options.basemapStyle);
-        // Smart comparison to write here...
-        // But for now we support two basemaps with different types, so...
-        if (typeof(newStyle) !== typeof(currentStyle)) {
-            mapReady = false;
-            map.once('styledata', (e) => {
-                // This event is called many times, so just reacting to the first one may be an issue
-                currentStyle = newStyle;
-                mapReady = true;
-            })
-            if (options.basemapStyle) {
-                map.setStyle(options.basemapStyle);
-            } else {
-                map.setStyle(BLANK);
-            }
+    //console.log('reactive refresh style');
+    refreshStyle(options.basemapStyle);
+}
+
+function refreshStyle(basemapStyle) {
+    if (currentStyle !== basemapStyle) {
+        const newStyle = basemapConfigToStyle(basemapStyle);
+        if (mapReady) {
+            map.setStyle(newStyle);
+            // Changing the style resets the map
+            map.once('styledata', () => refreshData(data?.value, options.shapes, options.colorScale));
+            currentStyle = basemapStyle;
         }
     }
 }
 
+let currentData;
+let currentShapes;
+let currentColorScale;
+
 $: {
-    if (mapReady && options.shapes && data && data.value) {
+    // Detect situations where a redraw is necessary
+    // TODO: Why does Svelte's reactive stuff triggers even when the values don't seem to have changed? is it only on the base object and not
+    // on leafs?
+    //console.log('reactive refresh data'); 
+    if (data?.value !== currentData || options.shapes !== currentShapes || options.colorScale !== currentColorScale) {
+        refreshData(data?.value, options.shapes, options.colorScale);
+        currentData = data?.value;
+        currentShapes = options.shapes;
+        currentColorScale = options.colorScale;
+    }
+}
+
+function refreshData(newData, newShapes, colorScale) {
+    if (mapReady && newData && newShapes) {
         console.log('refresh data');
-        //const { shapes, colorScale } = options;
 
         // Compute the bounds
-        const extent = computeBoundingBoxFromGeoJsonFeatures(options.shapes);
-        const coloredShapes = colorShapes(options.shapes, data.value, options.colorScale);
+        const extent = computeBoundingBoxFromGeoJsonFeatures(newShapes);
+        const coloredShapes = colorShapes(newShapes, newData, colorScale);
 
         // Display shapes
         if (map.getLayer('shapes')) {
