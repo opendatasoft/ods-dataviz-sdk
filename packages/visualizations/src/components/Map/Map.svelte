@@ -1,8 +1,15 @@
+<svelte:options immutable={true} />
+
 <script>
 import maplibregl from 'maplibre-gl';
 import { onMount } from 'svelte';
 import { computeBoundingBoxFromGeoJsonFeatures, colorShapes } from './utils';
 import { BLANK } from './mapStyles';
+
+import { 
+    dataStore, optionsStore, 
+    shapeRenderingStore, basemapStyleStore, 
+    colorScaleStore, shapesStore } from './store';
 
 let container;
 let map;
@@ -13,6 +20,19 @@ export let data; // values, and the key to match
 export let options; // contains the shapes to display & match
 
 $: console.log('Options', options, 'Data', data);
+
+$: optionsStore.set(options);
+$: dataStore.set(data?.value);
+
+$: console.log('>> datastore', $dataStore);
+$: console.log('>> optionsStore', $optionsStore);
+
+$: console.log('>> basemapStyleStore', $basemapStyleStore);
+
+$: console.log('>> shapesStore', $shapesStore);
+$: console.log('>> colorScaleStore', $colorScaleStore);
+$: console.log('>> shapeRenderingStore', $shapeRenderingStore);
+
 
 function basemapConfigToStyle(basemapStyle) {
     return basemapStyle || BLANK;
@@ -33,27 +53,69 @@ onMount(() => {
     map.on('load', () => {
         mapReady = true;
         // First load
-        refreshData(data?.value, options.shapes, options.colorScale);
+        //updateShapeRendering($shapeRenderingStore);
+        updateShapeRendering($dataStore, $shapesStore, $colorScaleStore);
     })
 });
 
-$: {
-    //console.log('reactive refresh style');
-    refreshStyle(options.basemapStyle);
-}
+$: updateBasemapStyle($basemapStyleStore);
 
-function refreshStyle(basemapStyle) {
-    if (currentStyle !== basemapStyle) {
+function updateBasemapStyle(basemapStyle) {
+    if (mapReady) {
         const newStyle = basemapConfigToStyle(basemapStyle);
-        if (mapReady) {
-            map.setStyle(newStyle);
-            // Changing the style resets the map
-            map.once('styledata', () => refreshData(data?.value, options.shapes, options.colorScale));
-            currentStyle = basemapStyle;
-        }
+        map.setStyle(newStyle);
+        // Changing the style resets the map
+        //map.once('styledata', () => updateShapeRendering($shapeRenderingStore));
+        map.once('styledata', () => updateShapeRendering($dataStore, $shapesStore, $colorScaleStore));
     }
 }
 
+
+// $: updateShapeRendering($shapeRenderingStore);
+//function updateShapeRendering({values, shapes, colorScale}) {
+
+$: updateShapeRendering($dataStore, $shapesStore, $colorScaleStore);
+
+function updateShapeRendering(values, shapes, colorScale) {
+    console.log('updateShapeRendering', values, shapes, colorScale)
+    if (mapReady && values && shapes) {
+        console.log('refresh data');
+
+        // Compute the bounds
+        const extent = computeBoundingBoxFromGeoJsonFeatures(shapes);
+        const coloredShapes = colorShapes(shapes, values, colorScale);
+
+        // Display shapes
+        if (map.getLayer('shapes')) {
+            map.removeLayer('shapes');
+        }
+
+        if (map.getSource('shapes')) {
+            map.removeSource('shapes');
+        }
+
+        map.addSource('shapes', {
+            type: 'geojson',
+            data: coloredShapes,
+        });
+
+        map.addLayer({
+            'id': 'shapes',
+            'type': 'fill',
+            'source': 'shapes',
+            'layout': {},
+            'paint': {
+                'fill-color': ['get', 'color'],
+                'fill-opacity': 0.8,
+                'fill-outline-color': '#fff',
+            }
+        });
+
+        map.fitBounds(extent);
+    }
+}
+
+/*
 let currentData;
 let currentShapes;
 let currentColorScale;
@@ -108,7 +170,7 @@ function refreshData(newData, newShapes, colorScale) {
         map.fitBounds(extent);
     }
 }
-
+*/
 </script>
 
 <div class="map">
