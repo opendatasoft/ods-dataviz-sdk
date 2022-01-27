@@ -15,7 +15,7 @@ export let options; // contains the shapes to display & match
 
 $: console.log('Options', options, 'Data', data);
 
-let shapes, basemapStyle;
+let shapes, basemapStyle, colorScale;
 $: ({ shapes, basemapStyle, colorScale } = options);
 
 /*
