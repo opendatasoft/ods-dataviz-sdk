@@ -101,6 +101,8 @@ function updateShapeRendering(values, shapes, colorScale) {
         map.fitBounds(extent, {
             animate: false,
         });
+        // Restrict interactions to these bounds
+        map.setMaxBounds(map.getBounds());
     }
 }
 </script>
