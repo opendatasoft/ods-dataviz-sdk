@@ -68,7 +68,6 @@ function updateShapeRendering(values, shapes, colorScale) {
         console.log('refresh data');
 
         // Compute the bounds
-        const extent = computeBoundingBoxFromGeoJsonFeatures(shapes);
         const coloredShapes = colorShapes(shapes, values, colorScale);
 
         // Display shapes
@@ -97,7 +96,11 @@ function updateShapeRendering(values, shapes, colorScale) {
             }
         });
 
-        map.fitBounds(extent);
+        // TODO: This should happen whenever the drawn shapes are different, not when we just change the colors or values
+        const extent = computeBoundingBoxFromGeoJsonFeatures(shapes);
+        map.fitBounds(extent, {
+            animate: false,
+        });
     }
 }
 </script>
