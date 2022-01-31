@@ -3,7 +3,7 @@
 <script>
 import maplibregl from 'maplibre-gl';
 import { onMount } from 'svelte';
-import { computeBoundingBoxFromGeoJsonFeatures, colorShapes } from './utils';
+import { computeBoundingBoxFromGeoJsonFeatures, colorShapes, mapKeyToColor } from './utils';
 import { BLANK } from './mapStyles';
 
 let container;
@@ -64,7 +64,7 @@ function updateBasemapStyle(basemapStyle) {
 }
 
 function updateShapeRendering(values, shapes, colorScale) {
-    if (mapReady && values && shapes && (shapes.type === 'geojson' && shapes.geoJson)) {
+    if (mapReady && values && shapes && (shapes.type === 'geojson' && shapes.geoJson || shapes.type === 'vtiles' && shapes.url)) {
         console.log('refresh data');
 
         // Display shapes
@@ -95,18 +95,68 @@ function updateShapeRendering(values, shapes, colorScale) {
                     'fill-outline-color': '#fff',
                 }
             });
+        } else if (shapes.type === 'vtiles') {
+            map.addSource('shapes', {
+                type: 'vector',
+                tiles: [
+                    shapes.url
+                ]
+            });
+
+            const keyToColor = mapKeyToColor(values, colorScale);
+
+            const matchExpression = [
+                'match',
+                ['get', 'key'],
+            ];
+
+            Object.entries(keyToColor).forEach(e => matchExpression.push(...e));
+            matchExpression.push('#cccccc'); // Default fallback color
+
+            console.log('match', matchExpression);
+
+            map.addLayer({
+                'id': 'shapes',
+                'type': 'fill',
+                'source': 'shapes',
+                'source-layer': 'poc-communes-fr-for-vtiles-70dezo',
+                'layout': {},
+                'paint': {
+                    'fill-color': matchExpression,
+                    'fill-opacity': 0.8,
+                    'fill-outline-color': '#fff',
+                }
+            });
         }
 
         // TODO: This should happen whenever the drawn shapes are different, not when we just change the colors or values
-        const extent = shapes.type === 'geojson' ? computeBoundingBoxFromGeoJsonFeatures(shapes.geoJson) : null;
-        map.fitBounds(extent, {
-            animate: false,
-        });
-        // Restrict interactions to these bounds
-        map.setMaxBounds(map.getBounds());
-        // TODO: Restrict zoom:
-        // - either by computing the zoom that fits the smallest shape
-        // - any other idea?
+        // TODO: How to compute the extent for vtiles? We should compute it based on which shapes we colored, maybe using queryFeatures?
+        const sourceLoadingCallback = (e) => {
+            if (e.isSourceLoaded) {
+                // This gets all the drawn features; maybe in some cases we'd need a filter? (e.g. we show all cities
+                // but only color some of them, and want to fit on them)
+                const renderedFeatures = map.queryRenderedFeatures();
+
+                // Use the same code path for geojson and vtiles; maybe it's worth using directly the geojson source when available (to be
+                // benchmarked)
+                const extent = computeBoundingBoxFromGeoJsonFeatures({
+                    "type": "FeatureCollection",
+                    "features": renderedFeatures
+                });
+                map.fitBounds(extent, {
+                    animate: false,
+                });
+                // Restrict interactions to these bounds
+                map.setMaxBounds(map.getBounds());
+                        
+                // TODO: Restrict zoom max:
+                // - either by computing the zoom that fits the smallest shape
+                // - any other idea?
+
+                map.off('sourcedata', 'shapes', sourceLoadingCallback);
+            }
+        }
+        map.on('sourcedata', 'shapes', sourceLoadingCallback);
     }
 }
 </script>
