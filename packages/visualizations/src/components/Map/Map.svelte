@@ -64,11 +64,8 @@ function updateBasemapStyle(basemapStyle) {
 }
 
 function updateShapeRendering(values, shapes, colorScale) {
-    if (mapReady && values && shapes) {
+    if (mapReady && values && shapes && (shapes.type === 'geojson' && shapes.geoJson)) {
         console.log('refresh data');
-
-        // Compute the bounds
-        const coloredShapes = colorShapes(shapes, values, colorScale);
 
         // Display shapes
         if (map.getLayer('shapes')) {
@@ -79,25 +76,29 @@ function updateShapeRendering(values, shapes, colorScale) {
             map.removeSource('shapes');
         }
 
-        map.addSource('shapes', {
-            type: 'geojson',
-            data: coloredShapes,
-        });
+        if (shapes.type === 'geojson') {
+            const coloredShapes = colorShapes(shapes.geoJson, values, colorScale);
 
-        map.addLayer({
-            'id': 'shapes',
-            'type': 'fill',
-            'source': 'shapes',
-            'layout': {},
-            'paint': {
-                'fill-color': ['get', 'color'],
-                'fill-opacity': 0.8,
-                'fill-outline-color': '#fff',
-            }
-        });
+            map.addSource('shapes', {
+                type: 'geojson',
+                data: coloredShapes,
+            });
+
+            map.addLayer({
+                'id': 'shapes',
+                'type': 'fill',
+                'source': 'shapes',
+                'layout': {},
+                'paint': {
+                    'fill-color': ['get', 'color'],
+                    'fill-opacity': 0.8,
+                    'fill-outline-color': '#fff',
+                }
+            });
+        }
 
         // TODO: This should happen whenever the drawn shapes are different, not when we just change the colors or values
-        const extent = computeBoundingBoxFromGeoJsonFeatures(shapes);
+        const extent = shapes.type === 'geojson' ? computeBoundingBoxFromGeoJsonFeatures(shapes.geoJson) : null;
         map.fitBounds(extent, {
             animate: false,
         });
