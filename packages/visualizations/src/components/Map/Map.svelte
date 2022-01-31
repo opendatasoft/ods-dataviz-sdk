@@ -103,6 +103,9 @@ function updateShapeRendering(values, shapes, colorScale) {
         });
         // Restrict interactions to these bounds
         map.setMaxBounds(map.getBounds());
+        // TODO: Restrict zoom:
+        // - either by computing the zoom that fits the smallest shape
+        // - any other idea?
     }
 }
 </script>
