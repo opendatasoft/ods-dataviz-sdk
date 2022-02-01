@@ -3,7 +3,7 @@
 <script>
 import maplibregl from 'maplibre-gl';
 import { onMount } from 'svelte';
-import { computeBoundingBoxFromGeoJsonFeatures, colorShapes, mapKeyToColor } from './utils';
+import { computeBoundingBoxFromGeoJsonFeatures, computeMaxZoomFromGeoJsonFeatures, colorShapes, mapKeyToColor } from './utils';
 import { BLANK } from './mapStyles';
 
 let container;
@@ -113,8 +113,6 @@ function updateShapeRendering(values, shapes, colorScale) {
             Object.entries(keyToColor).forEach(e => matchExpression.push(...e));
             matchExpression.push('#cccccc'); // Default fallback color
 
-            console.log('match', matchExpression);
-
             map.addLayer({
                 'id': 'shapes',
                 'type': 'fill',
@@ -149,9 +147,10 @@ function updateShapeRendering(values, shapes, colorScale) {
                 // Restrict interactions to these bounds
                 map.setMaxBounds(map.getBounds());
                         
-                // TODO: Restrict zoom max:
-                // - either by computing the zoom that fits the smallest shape
-                // - any other idea?
+                // Restrict zoom max
+                // TODO test perfs
+                const maxZoom = computeMaxZoomFromGeoJsonFeatures(renderedFeatures);
+                map.setMaxZoom(maxZoom);
 
                 map.off('sourcedata', 'shapes', sourceLoadingCallback);
             }

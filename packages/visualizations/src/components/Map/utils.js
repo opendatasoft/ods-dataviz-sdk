@@ -1,4 +1,5 @@
 import chroma from "chroma-js";
+import geoViewport from "@mapbox/geo-viewport";
 
 export const computeBoundingBoxFromGeoJsonFeatures = geoJson => {
     // From an array of geojson objects
@@ -85,4 +86,34 @@ export const mapKeyToColor = (values, colorScale) => {
     });
 
     return mapping;
+}
+
+export const computeMaxZoomFromGeoJsonFeatures = features => {
+    let maxZoom = Number.NEGATIVE_INFINITY;
+    features.forEach(feature => {
+        // Compute extent first
+        // FIXME: This is already done in computeBoundingBoxFromGeoJsonFeatures, it needs to be mutualized
+        let bbox = [ 
+            Number.POSITIVE_INFINITY,
+            Number.POSITIVE_INFINITY,
+            Number.NEGATIVE_INFINITY,
+            Number.NEGATIVE_INFINITY
+        ];
+
+        feature.geometry.coordinates.forEach(coordsPath => {
+            bbox = coordsPath.reduce((current, coords) => {
+                return [
+                    Math.min(coords[0], current[0]),
+                    Math.min(coords[1], current[1]),
+                    Math.max(coords[0], current[2]),
+                    Math.max(coords[1], current[3])
+                ]
+            }, bbox);
+        });
+
+        // FIXME: passe the real dimensions of the map, not [500, 500]
+        // Vtiles = 512 tilesize
+        maxZoom = Math.max(geoViewport.viewport(bbox, [500, 500], undefined, undefined, 512, true).zoom, maxZoom);
+    });
+    return maxZoom;
 }
