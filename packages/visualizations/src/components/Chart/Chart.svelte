@@ -9,6 +9,7 @@
     import buildScales from './scales';
     import buildLegend from './legend';
     import SourceLink from '../utils/SourceLink.svelte';
+    import { Boundary} from '../utils/ErrorBoundary';
 
     export let data: Async<DataFrame>;
     export let options: ChartOptions;
@@ -16,6 +17,7 @@
     let dataFrame: DataFrame = [];
     let series: ChartSeries[] = [];
     let { labelColumn } = options;
+    const { setOnError } = options;
 
     // Hook to handle chart lifecycle
     function chartJs(node: HTMLCanvasElement, config: ChartConfiguration) {
@@ -87,34 +89,36 @@
     $: displaySubtitle = defaultValue(options?.subtitle?.display, !!options?.subtitle?.text);
 </script>
 
-{#if data.error}
-    Error : {JSON.stringify(data.error)}
-{:else if options}
-    <figure>
-        {#if displayTitle || displaySubtitle}
-            <figcaption>
-                {#if displayTitle}
-                    <h3>
-                        {options.title?.text}
-                    </h3>
-                {/if}
-                {#if displaySubtitle}
-                    <p>
-                        {options.subtitle?.text}
-                    </p>
-                {/if}
-            </figcaption>
-        {/if}
-        <div class="chart-container">
-            <canvas use:chartJs={chartConfig} role="img" aria-label={options.ariaLabel} />
-        </div>
-        {#if options.source}
-            <div class="source-link">
-                <SourceLink source={options.source} />
+<Boundary onError={() => setOnError?.(console.error?.toString())}>
+    {#if data.error}
+        Error : {JSON.stringify(data.error)}
+    {:else if options}
+        <figure>
+            {#if displayTitle || displaySubtitle}
+                <figcaption>
+                    {#if displayTitle}
+                        <h3>
+                            {options.title?.text}
+                        </h3>
+                    {/if}
+                    {#if displaySubtitle}
+                        <p>
+                            {options.subtitle?.text}
+                        </p>
+                    {/if}
+                </figcaption>
+            {/if}
+            <div class="chart-container">
+                <canvas use:chartJs={chartConfig} role="img" aria-label={options.ariaLabel} />
             </div>
-        {/if}
-    </figure>
-{/if}
+            {#if options.source}
+                <div class="source-link">
+                    <SourceLink source={options.source} />
+                </div>
+            {/if}
+        </figure>
+    {/if}
+</Boundary>
 
 <style>
     figure {
