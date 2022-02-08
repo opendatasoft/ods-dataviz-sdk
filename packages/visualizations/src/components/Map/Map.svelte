@@ -4,7 +4,7 @@
 import maplibregl from 'maplibre-gl';
 import { onMount } from 'svelte';
 import { computeBoundingBoxFromGeoJsonFeatures, computeMaxZoomFromGeoJsonFeatures, colorShapes, mapKeyToColor } from './utils';
-import { BLANK } from './mapStyles';
+import { BLANK, RASTER_OSM_TEST } from './mapStyles';
 
 let container;
 let map;
