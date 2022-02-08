@@ -211,3 +211,5 @@ export interface KpiCardOptions {
 }
 
 export interface MapOptions {}
+
+export interface ChoroplethOptions {}
