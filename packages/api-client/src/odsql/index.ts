@@ -178,4 +178,6 @@ export const one = (...conditions: (string | undefined | null)[]) =>
         .map(condition => `(${condition})`)
         .join(' OR ');
 
+export const not = (condition: (string | undefined | null)) => Boolean(condition) ? `not (${condition})` : null;
+
 export const list = (...values: (string | undefined | null)[]) => values.filter(Boolean).join(',');
