@@ -32,7 +32,6 @@ $: ({ shapes, basemapStyle, colorScale, boundingBoxes } = options);
 let style;
 let layer;
 let source;
-let bboxes;
 
 function computeStyle(basemap) {
     style = basemapConfigToStyle(basemap);
@@ -58,9 +57,7 @@ function computeSourceLayerAndBboxes(values, shapes, colorScale) {
         };
 
         layer = {
-            'id': 'shapes',
             'type': 'fill',
-            'source': 'shapes',
             'layout': {},
             'paint': {
                 'fill-color': ['get', 'color'],
@@ -87,9 +84,7 @@ function computeSourceLayerAndBboxes(values, shapes, colorScale) {
         matchExpression.push('#cccccc'); // Default fallback color
 
         layer = {
-            'id': 'shapes',
             'type': 'fill',
-            'source': 'shapes',
             'source-layer': 'poc-communes-fr-for-vtiles-70dezo',
             'layout': {},
             'paint': {
@@ -107,10 +102,17 @@ $: computeSourceLayerAndBboxes(data.value, shapes, colorScale);
 </script>
 
 <div>
-{#if !bboxes || bboxes.length <= 1}
-<MapRender style={style} source={source} layer={layer} bbox={bboxes ? bboxes[0] : null} />
+{#if !boundingBoxes || boundingBoxes.length <= 1}
+<MapRender size="single" style={style} source={source} layer={layer} bbox={boundingBoxes ? boundingBoxes[0] : null} />
 {:else}
-Multiple maps not implemented
+<div style="position: relative">
+    <MapRender size="main" style={style} source={source} layer={layer} bbox={boundingBoxes[0]} />
+    <div style="display: flex">
+        {#each boundingBoxes.slice(1) as bbox}
+        <MapRender size="side" style={style} source={source} layer={layer} bbox={bbox} />
+        {/each}
+    </div>
+</div>
 {/if}
 </div>
 

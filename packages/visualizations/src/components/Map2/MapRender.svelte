@@ -11,7 +11,7 @@ TODO:
 */
 import maplibregl from 'maplibre-gl';
 import { onMount } from 'svelte';
-import { computeBoundingBoxFromGeoJsonFeatures, computeMaxZoomFromGeoJsonFeatures } from './utils';
+import { computeBoundingBoxFromGeoJsonFeatures, computeMaxZoomFromGeoJsonFeatures, getStartingPointForMap } from './utils';
 
 // bounding box to start from, and restrict to it
 export let bbox;
@@ -24,44 +24,65 @@ export let layer;
 // single, main, side
 export let size;
 
-$: console.log('MapRender >', {
-    bbox, style, source, layer, size,
-})
 
 let container;
 let map;
 let mapReady = false;
+let mapId = Math.floor(Math.random() * 1000);
+let sourceId = 'shape-source-' + mapId;
+let layerId = 'shape-layer-' + mapId;
+
+$: console.log(mapId, 'MapRender >', {
+    bbox, style, source, layer, size,
+});
+
 
 function initializeMap() {
+    let start;
+    if (bbox) {
+        start = getStartingPointForMap(container, bbox);
+        console.log('start', start);
+    } else {
+        start = {
+            center: [3.5, 46],
+            zoom: 5
+        };
+    }
+    
     map = new maplibregl.Map({
         container,
         style,
-        center: [3.5, 46], // starting position [lng, lat]
-        zoom: 5 // starting zoom
+        ...start,
     });
 
     const nav = new maplibregl.NavigationControl();
-    map.addControl(nav, 'top-left');
+    //map.addControl(nav, 'top-left');
 
     map.on('load', () => {
+        console.log(mapId, 'Map ready')
         mapReady = true;
     })
 }
 
 function updateSourceAndLayer(source, layer) {
     if (source && layer) {
-        if (map.getLayer('shapes')) {
-            map.removeLayer('shapes');
+        console.log(mapId, 'updateSourceAndLayer', {source, layer})
+        if (map.getLayer(layerId)) {
+            map.removeLayer(layerId);
         }
 
-        if (map.getSource('shapes')) {
-            map.removeSource('shapes');
+        if (map.getSource(sourceId)) {
+            map.removeSource(sourceId);
         }
-        // FIXME add id and source so that the hardcoded name "shape" is the responsability of the component
-        map.addSource('shapes', source);
-        map.addLayer(layer);
 
-        map.on('sourcedata', 'shapes', sourceLoadingCallback);
+        map.addSource(sourceId, source);
+        map.addLayer({
+            ...layer,
+            id: layerId,
+            source: sourceId,
+        });
+console.log('binding on', sourceId);
+        map.on('sourcedata', sourceLoadingCallback);
     }
 }
 
@@ -74,24 +95,32 @@ function updateStyle(newStyle) {
 }
 
 function sourceLoadingCallback(e) {
-    if (e.isSourceLoaded) {
-        // FIXME: use the bbox
-        const renderedFeatures = map.queryRenderedFeatures();
+    if (e.isSourceLoaded && e.sourceId === sourceId) {
+        console.log(mapId, 'sourceLoadingCallback');
+        const renderedFeatures = map.queryRenderedFeatures(bbox, {
+            layers: [layerId],
+        });
         if (!bbox) {
             bbox = computeBoundingBoxFromGeoJsonFeatures(renderedFeatures);
+
+            map.fitBounds(bbox, {
+                animate: false,
+            }).once('moveend', () => {
+                // Restrict interactions to these bounds
+                map.setMaxBounds(map.getBounds());
+            });
+        } else {
+            map.setMaxBounds(map.getBounds());
         }
-        map.fitBounds(bbox, {
-            animate: false,
-        });
-        // Restrict interactions to these bounds
-        map.setMaxBounds(map.getBounds());
                 
         // Restrict zoom max
         // TODO test perfs
-        const maxZoom = computeMaxZoomFromGeoJsonFeatures(renderedFeatures);
-        map.setMaxZoom(maxZoom);
+        if (renderedFeatures.length) {
+            const maxZoom = computeMaxZoomFromGeoJsonFeatures(container, renderedFeatures);
+            map.setMaxZoom(maxZoom);
+        }
 
-        map.off('sourcedata', 'shapes', sourceLoadingCallback);
+        map.off('sourcedata', sourceLoadingCallback);
     }
 }
 
@@ -108,12 +137,24 @@ $: updateStyle(style);
 
 </script>
 
-<div>
-    <div id="map" bind:this={container}></div>
-</div>
+<div id="map" class={`map--size-${size}`} bind:this={container}></div>
 
 <style>
 #map {
+
+}
+
+.map--size-single {
     height: 400px;
+}
+
+.map--size-main {
+    height: 400px;
+}
+
+.map--size-side {
+    height: 160px;
+    border: solid 5px white;
+    flex-grow: 1;
 }
 </style>

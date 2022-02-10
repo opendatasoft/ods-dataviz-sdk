@@ -93,7 +93,7 @@ export const computeBoundingBoxFromGeoJsonFeatures = features => {
     return bbox;
 }
 
-export const computeMaxZoomFromGeoJsonFeatures = features => {
+export const computeMaxZoomFromGeoJsonFeatures = (mapContainer, features) => {
     let maxZoom = Number.NEGATIVE_INFINITY;
     features.forEach(feature => {
         // Compute extent first
@@ -117,7 +117,11 @@ export const computeMaxZoomFromGeoJsonFeatures = features => {
 
         // FIXME: passe the real dimensions of the map, not [500, 500]
         // Vtiles = 512 tilesize
-        maxZoom = Math.max(geoViewport.viewport(bbox, [500, 500], undefined, undefined, 512, true).zoom, maxZoom);
+        maxZoom = Math.max(geoViewport.viewport(bbox, [mapContainer.clientWidth, mapContainer.clientHeight], undefined, undefined, 512, true).zoom, maxZoom);
     });
     return maxZoom;
+}
+
+export const getStartingPointForMap = (mapContainer, bbox) => {
+    return geoViewport.viewport(bbox, [mapContainer.clientWidth, mapContainer.clientHeight], undefined, undefined, 512, true);
 }
