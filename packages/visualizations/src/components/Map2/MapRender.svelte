@@ -95,11 +95,12 @@ function updateStyle(newStyle) {
 }
 
 function sourceLoadingCallback(e) {
-    if (e.isSourceLoaded && e.sourceId === sourceId) {
+    if (e.isSourceLoaded && e.sourceId === sourceId && e.sourceDataType !== "metadata") {
         console.log(mapId, 'sourceLoadingCallback');
         const renderedFeatures = map.queryRenderedFeatures(bbox, {
             layers: [layerId],
         });
+
         if (!bbox) {
             bbox = computeBoundingBoxFromGeoJsonFeatures(renderedFeatures);
 
