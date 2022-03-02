@@ -93,6 +93,8 @@ function computeSourceLayerAndBboxes(values, shapes, colorScale) {
                 'fill-outline-color': '#fff',
             }
         };
+
+        console.log(layer);
     }
 }
 

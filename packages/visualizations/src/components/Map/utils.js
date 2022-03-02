@@ -1,33 +1,9 @@
+import { BLANK } from './mapStyles';
 import chroma from "chroma-js";
 import geoViewport from "@mapbox/geo-viewport";
 
-export const computeBoundingBoxFromGeoJsonFeatures = geoJson => {
-    // From an array of geojson objects
-    let bbox = [ 
-        Number.POSITIVE_INFINITY,
-        Number.POSITIVE_INFINITY,
-        Number.NEGATIVE_INFINITY,
-        Number.NEGATIVE_INFINITY
-    ];
-
-    geoJson.features.forEach(feature => {
-        // FIXME: supports only shapes for now
-        if (feature.geometry.type !== 'Polygon') {
-            return;
-        }
-        feature.geometry.coordinates.forEach(coordsPath => {
-            bbox = coordsPath.reduce((current, coords) => {
-                return [
-                    Math.min(coords[0], current[0]),
-                    Math.min(coords[1], current[1]),
-                    Math.max(coords[0], current[2]),
-                    Math.max(coords[1], current[3])
-                ]
-            }, bbox);
-        });
-    });
-
-    return bbox;
+export function basemapConfigToStyle(basemapStyle) {
+    return basemapStyle || BLANK;
 }
 
 export const colorShapes = (geoJson, values, colorScale) => {
@@ -88,11 +64,39 @@ export const mapKeyToColor = (values, colorScale) => {
     return mapping;
 }
 
-export const computeMaxZoomFromGeoJsonFeatures = features => {
+export const computeBoundingBoxFromGeoJsonFeatures = features => {
+    // From an array of geojson objects
+    let bbox = [ 
+        Number.POSITIVE_INFINITY,
+        Number.POSITIVE_INFINITY,
+        Number.NEGATIVE_INFINITY,
+        Number.NEGATIVE_INFINITY
+    ];
+
+    features.forEach(feature => {
+        // FIXME: supports only shapes for now
+        if (feature.geometry.type !== 'Polygon') {
+            return;
+        }
+        feature.geometry.coordinates.forEach(coordsPath => {
+            bbox = coordsPath.reduce((current, coords) => {
+                return [
+                    Math.min(coords[0], current[0]),
+                    Math.min(coords[1], current[1]),
+                    Math.max(coords[0], current[2]),
+                    Math.max(coords[1], current[3])
+                ]
+            }, bbox);
+        });
+    });
+
+    return bbox;
+}
+
+export const computeMaxZoomFromGeoJsonFeatures = (mapContainer, features) => {
     let maxZoom = Number.NEGATIVE_INFINITY;
     features.forEach(feature => {
         // Compute extent first
-        // FIXME: This is already done in computeBoundingBoxFromGeoJsonFeatures, it needs to be mutualized
         let bbox = [ 
             Number.POSITIVE_INFINITY,
             Number.POSITIVE_INFINITY,
@@ -113,7 +117,11 @@ export const computeMaxZoomFromGeoJsonFeatures = features => {
 
         // FIXME: passe the real dimensions of the map, not [500, 500]
         // Vtiles = 512 tilesize
-        maxZoom = Math.max(geoViewport.viewport(bbox, [500, 500], undefined, undefined, 512, true).zoom, maxZoom);
+        maxZoom = Math.max(geoViewport.viewport(bbox, [mapContainer.clientWidth, mapContainer.clientHeight], undefined, undefined, 512, true).zoom, maxZoom);
     });
     return maxZoom;
+}
+
+export const getStartingPointForMap = (mapContainer, bbox) => {
+    return geoViewport.viewport(bbox, [mapContainer.clientWidth, mapContainer.clientHeight], undefined, undefined, 512, true);
 }

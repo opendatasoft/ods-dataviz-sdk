@@ -1,12 +1,11 @@
-import type { MapOptions } from '../types';
-import MapImpl from './Map.svelte';
+import type { ChoroplethOptions } from '../types';
+import ChoroplethImpl from './Choropleth.svelte';
 import SvelteImpl from '../SvelteImpl';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
-// TODO Import maplibre CSS
 
-export default class Map extends SvelteImpl<string, MapOptions> {
-    protected getSvelteComponentClass(): typeof MapImpl {
-        return MapImpl;
+export default class Choropleth extends SvelteImpl<string, ChoroplethOptions> {
+    protected getSvelteComponentClass(): typeof ChoroplethImpl {
+        return ChoroplethImpl;
     }
 }

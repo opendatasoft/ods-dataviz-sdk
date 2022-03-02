@@ -210,6 +210,4 @@ export interface KpiCardOptions {
     format?: (value: number) => string;
 }
 
-export interface MapOptions {}
-
 export interface ChoroplethOptions {}
