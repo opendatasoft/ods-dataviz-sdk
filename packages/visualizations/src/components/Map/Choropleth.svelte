@@ -13,7 +13,7 @@ $: console.log('Choropleth >', {
 })
 
 let shapes, colorScale;
-$: ({ shapes, colorScale } = options);
+$: ({ shapes, colorScale, aspectRatio } = options);
 
 // Choropleth is always display over a blank map, for readability purposes
 const style = BLANK;
@@ -66,7 +66,7 @@ $: computeSourceLayerAndBboxes(data.value, shapes, colorScale);
 </script>
 
 <div>
-<MapRender style={style} source={source} layer={layer} />
+<MapRender style={style} source={source} layer={layer} aspectRatio={aspectRatio}/>
 </div>
 
 <style>

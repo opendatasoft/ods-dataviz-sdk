@@ -20,6 +20,14 @@ export let source;
 // maplibre layer config
 export let layer;
 
+// aspect ratio based on width, by default equal to 1
+export let aspectRatio = 1;
+
+$: console.log('aspectRatio >', {
+    aspectRatio,
+})
+
+$: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
 
 let container;
 let map;
@@ -42,7 +50,7 @@ function initializeMap() {
         center: [3.5, 46],
         zoom: 5
     };
-    
+
     map = new maplibregl.Map({
         container,
         style,
@@ -102,7 +110,7 @@ function sourceLoadingCallback(e) {
 
         // Rest min zoom and movement
         map.setMaxBounds(map.getBounds());
-                
+
         // Restrict zoom max
         if (renderedFeatures.length) {
             const maxZoom = computeMaxZoomFromGeoJsonFeatures(container, renderedFeatures);
@@ -126,10 +134,11 @@ $: updateStyle(style);
 
 </script>
 
-<div id="map" bind:this={container}></div>
+<div id="map" bind:this={container} style={cssVarStyles}></div>
 
 <style>
 #map {
-    height: 400px;
+    aspect-ratio: var(--aspect-ratio);
+    /* height: 400px; */
 }
 </style>
