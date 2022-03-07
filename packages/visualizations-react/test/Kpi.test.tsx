@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { KpiCardOptions } from '@opendatasoft/visualizations';
 import { KpiCard } from '../src';
@@ -51,3 +51,17 @@ test('KPI accepts custom link label', () => {
     const sourceLink = screen.getByText('Explore data');
     expect(sourceLink).toBeInTheDocument();
 });
+
+
+test('Tooltip is displayed with 3 digits', async () => {
+    render(<KpiCard data={{ value: 42.897654 }} options={options} />);
+    const kpiValue = screen.getByText(/43/i);
+    const mouseenter = new MouseEvent("mouseenter", {
+        bubbles: false,
+        cancelable: false
+      });
+    fireEvent(kpiValue, mouseenter);
+    const tooltip = screen.getByRole('tooltip');
+    expect(tooltip).toHaveTextContent('42,898'); 
+});
+
