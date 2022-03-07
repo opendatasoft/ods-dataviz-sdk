@@ -42,16 +42,23 @@
                     <h3 class="kpi-card__title">{options.title}</h3>
                 {/if}
                 <div class="kpi-card__value">
-                    {#if options.prefix}<span class="kpi-card__prefix">{options.prefix}</span
-                        >{/if}{#if data.loading}<span class="kpi-card__value-loading" />{:else}<span
+                    {#if options.prefix}<span class="kpi-card__prefix">{options.prefix}</span>{/if}
+                    {#if data.loading}
+                        <span class="kpi-card__value-loading" />
+                    {:else if tooltipValue !== displayValue}
+                        <span
                             use:tippy={{
                                 content: tooltipValue,
                             }}
                             aria-label={tooltipValue}
                             class="kpi-card__value-number">{displayValue}</span
-                        >{/if}{#if options.suffix}<span class="kpi-card__suffix"
-                            >{options.suffix}</span
-                        >{/if}
+                        >
+                    {:else}
+                        <span class="kpi-card__value-number">{displayValue}</span>
+                    {/if}
+                    {#if options.suffix}
+                        <span class="kpi-card__suffix">{options.suffix}</span>
+                    {/if}
                 </div>
                 {#if options.description}
                     <p class="kpi-card__description">{options.description}</p>
