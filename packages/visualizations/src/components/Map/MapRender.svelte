@@ -10,8 +10,9 @@ TODO:
 - Adapt display based on the size of the map (single, main, side)
 */
 import maplibregl from 'maplibre-gl';
-import { onMount } from 'svelte';
+import { onMount, onDestroy } from 'svelte';
 import { computeBoundingBoxFromGeoJsonFeatures, computeMaxZoomFromGeoJsonFeatures, getStartingPointForMap } from './utils';
+import  { debounce }  from 'lodash';
 
 // maplibre style (basemap)
 export let style;
@@ -22,17 +23,14 @@ export let layer;
 
 // aspect ratio based on width, by default equal to 1
 export let aspectRatio = 1;
-
-$: console.log('aspectRatio >', {
-    aspectRatio,
-})
-
 $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
 
 let container;
 let map;
 let bbox;
 let mapReady = false;
+// Used to add a listener to resize map on container changes, canceled on destroy
+let resizer;
 // Used in front of console messages to debug multiple maps on a same page
 let mapId = Math.floor(Math.random() * 1000);
 let sourceId = 'shape-source-' + mapId;
@@ -45,10 +43,9 @@ $: console.log(mapId, 'MapRender >', {
 
 function initializeMap() {
     let start;
-
     start = {
         center: [3.5, 46],
-        zoom: 5
+        zoom: 5,
     };
 
     map = new maplibregl.Map({
@@ -56,6 +53,13 @@ function initializeMap() {
         style,
         ...start,
     });
+
+    // Set a resizeObserver to resize map on container size changes
+    resizer = new ResizeObserver(debounce(() => {
+        map.resize()
+    }, 100));
+
+    resizer.observe(container);
 
     const nav = new maplibregl.NavigationControl();
     //map.addControl(nav, 'top-left');
@@ -132,6 +136,8 @@ $: {
 
 $: updateStyle(style);
 
+onDestroy(() => resizer?.disconnect());
+
 </script>
 
 <div id="map" bind:this={container} style={cssVarStyles}></div>
@@ -139,6 +145,5 @@ $: updateStyle(style);
 <style>
 #map {
     aspect-ratio: var(--aspect-ratio);
-    /* height: 400px; */
 }
 </style>
