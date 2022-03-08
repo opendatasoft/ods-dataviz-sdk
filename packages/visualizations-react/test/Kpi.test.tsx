@@ -52,7 +52,7 @@ test('KPI accepts custom link label', () => {
     expect(sourceLink).toBeInTheDocument();
 });
 
-test('Tooltip is displayed with 3 digits', async () => {
+test('Tooltip is displayed if it is different from data value', async () => {
     render(<KpiCard data={{ value: 42.897654 }} options={options} />);
     const kpiValue = screen.getByText(/43/i);
     const mouseenter = new MouseEvent('mouseenter', {
