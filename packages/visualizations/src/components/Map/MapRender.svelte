@@ -56,7 +56,16 @@ function initializeMap() {
 
     // Set a resizeObserver to resize map on container size changes
     resizer = new ResizeObserver(debounce(() => {
-        map.resize()
+        map.resize();
+        map.setMaxBounds(null);
+        if (bbox) {
+            map.fitBounds(bbox, {
+                animate: false,
+                padding: 20,
+            });
+        }
+        let bnds = map.getBounds();
+        map.setMaxBounds(bnds)
     }, 100));
 
     resizer.observe(container);
