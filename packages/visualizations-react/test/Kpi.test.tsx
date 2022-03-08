@@ -61,7 +61,7 @@ test('Tooltip is displayed with 3 digits', async () => {
       });
     fireEvent(kpiValue, mouseenter);
     const tooltip = screen.getByRole('tooltip');
-    expect(tooltip).toHaveTextContent('42,898'); 
+    expect(tooltip).toHaveTextContent(/42.898/i); 
 });
 
 test('Tooltip is not displayed if it is not different from data value', async () => {
