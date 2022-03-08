@@ -1,2 +1,2 @@
 // Used by MapLibre GL JS
-window.URL.createObjectURL = function() {};
+window.URL.createObjectURL = function () {};
