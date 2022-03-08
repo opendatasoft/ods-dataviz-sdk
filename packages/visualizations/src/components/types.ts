@@ -61,6 +61,7 @@ export interface TimeCartesianAxisConfiguration extends BaseCartesianAxisConfigu
         | 'minute'
         | 'second'
         | 'millisecond';
+    reverse?: boolean;
 }
 
 export interface CategoryCartesianAxisConfiguration extends BaseCartesianAxisConfiguration {
