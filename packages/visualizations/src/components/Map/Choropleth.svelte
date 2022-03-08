@@ -13,7 +13,8 @@
         options,
     });
 
-    let shapes; let colorScale;
+    let shapes;
+    let colorScale;
     $: ({ shapes, colorScale } = options);
 
     // Choropleth is always display over a blank map, for readability purposes

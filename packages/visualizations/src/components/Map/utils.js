@@ -113,7 +113,8 @@ export const computeMaxZoomFromGeoJsonFeatures = (mapContainer, features) => {
     return maxZoom;
 };
 
-export const getStartingPointForMap = (mapContainer, bbox) => geoViewport.viewport(
+export const getStartingPointForMap = (mapContainer, bbox) =>
+    geoViewport.viewport(
         bbox,
         [mapContainer.clientWidth, mapContainer.clientHeight],
         undefined,
