@@ -55,24 +55,23 @@ test('KPI accepts custom link label', () => {
 test('Tooltip is displayed with 3 digits', async () => {
     render(<KpiCard data={{ value: 42.897654 }} options={options} />);
     const kpiValue = screen.getByText(/43/i);
-    const mouseenter = new MouseEvent("mouseenter", {
+    const mouseenter = new MouseEvent('mouseenter', {
         bubbles: false,
-        cancelable: false
-      });
+        cancelable: false,
+    })
     fireEvent(kpiValue, mouseenter);
     const tooltip = screen.getByRole('tooltip');
-    expect(tooltip).toHaveTextContent(/42.898/i); 
+    expect(tooltip).toHaveTextContent(/42.898/i);
 });
 
 test('Tooltip is not displayed if it is not different from data value', async () => {
     render(<KpiCard data={{ value: 43 }} options={options} />);
     const kpiValue = screen.getByText(/43/i);
-    const mouseenter = new MouseEvent("mouseenter", {
+    const mouseenter = new MouseEvent('mouseenter', {
         bubbles: false,
-        cancelable: false
-      });
+        cancelable: false,
+      })
     fireEvent(kpiValue, mouseenter);
     const tooltip = screen.queryByRole('tooltip');
-    expect(tooltip).toBe(null); 
+    expect(tooltip).toBe(null);
 });
-
