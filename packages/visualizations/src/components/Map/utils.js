@@ -53,7 +53,6 @@ export const mapKeyToColor = (values, colorScale) => {
     const scale = chroma.scale([colorMin, colorMax]).domain([min, max]);
 
     const mapping = {};
-    
     values.forEach(v => {
         mapping[v.x] = scale(v.y).hex();
     });
@@ -63,55 +62,67 @@ export const mapKeyToColor = (values, colorScale) => {
 
 // This is a bound that can only be extended, and will take the value of the first bound that extends it
 const VOID_BOUNDS = [[
-    180, 
+    180,
     90,
 ], [
-    -180, 
+    -180,
     -90,
 ]];
 
 export const computeBoundingBoxFromGeoJsonFeatures = features => {
     // From an array of geojson objects
-    const bounds = new LngLatBounds(VOID_BOUNDS);
-
+    let bbox = [
+        Number.POSITIVE_INFINITY,
+        Number.POSITIVE_INFINITY,
+        Number.NEGATIVE_INFINITY,
+        Number.NEGATIVE_INFINITY
+    ];
     features.forEach(feature => {
         // FIXME: supports only shapes for now
         if (feature.geometry.type !== 'Polygon') {
             return;
         }
-        feature.geometry.coordinates.forEach(coordsPath => bounds.extend(coordsPath));
+        feature.geometry.coordinates.forEach(coordsPath => {
+            bbox = coordsPath.reduce((current, coords) => {
+                return [
+                    Math.min(coords[0], current[0]),
+                    Math.min(coords[1], current[1]),
+                    Math.max(coords[0], current[2]),
+                    Math.max(coords[1], current[3])
+                ]
+            }, bbox);
+        });
     });
-    return bounds;
+    return bbox;
 }
 
 export const computeMaxZoomFromGeoJsonFeatures = (mapContainer, features) => {
     let maxZoom = Number.NEGATIVE_INFINITY;
     features.forEach(feature => {
         // Compute extent first
-        const bounds = new LngLatBounds(VOID_BOUNDS);
+        let bbox = [
+            Number.POSITIVE_INFINITY,
+            Number.POSITIVE_INFINITY,
+            Number.NEGATIVE_INFINITY,
+            Number.NEGATIVE_INFINITY
+        ];
         // FIXME: supports only shapes for now
         if (feature.geometry.type !== 'Polygon') {
             return;
         }
-        feature.geometry.coordinates.forEach(coordsPath => bounds.extend(coordsPath));
+        feature.geometry.coordinates.forEach(coordsPath => {
+            bbox = coordsPath.reduce((current, coords) => {
+                return [
+                    Math.min(coords[0], current[0]),
+                    Math.min(coords[1], current[1]),
+                    Math.max(coords[0], current[2]),
+                    Math.max(coords[1], current[3])
+                ]
+            }, bbox);
+        });
 
         // Vtiles = 512 tilesize
-        maxZoom = Math.max(
-            geoViewport.viewport([
-                // FIXME: West/East and South/North should already be min lat / max lat, min lng / max lng; this is weird
-                Math.min(bounds.getWest(), bounds.getEast()),
-                Math.min(bounds.getSouth(), bounds.getNorth()),
-                Math.max(bounds.getWest(), bounds.getEast()),
-                Math.max(bounds.getSouth(), bounds.getNorth()),
-            ], 
-                [mapContainer.clientWidth, mapContainer.clientHeight], 
-                undefined, 
-                undefined, 
-                512, 
-                true)
-            .zoom, 
-            maxZoom
-        );
+        maxZoom = Math.max(geoViewport.viewport(bbox, [mapContainer.clientWidth, mapContainer.clientHeight], undefined, undefined, 512, true).zoom, maxZoom);
     });
     return maxZoom;
 }

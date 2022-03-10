@@ -27,7 +27,10 @@ $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
 
 let container;
 let map;
+
+// bounding box to start from, and restrict to it
 let bbox;
+
 let mapReady = false;
 // Used to add a listener to resize map on container changes, canceled on destroy
 let resizer;
@@ -57,15 +60,15 @@ function initializeMap() {
     // Set a resizeObserver to resize map on container size changes
     resizer = new ResizeObserver(debounce(() => {
         map.resize();
+        // Cancel saved Max Bound to properly fitBounds
         map.setMaxBounds(null);
         if (bbox) {
             map.fitBounds(bbox, {
                 animate: false,
-                padding: 20,
+                padding: 10,
             });
         }
-        let bnds = map.getBounds();
-        map.setMaxBounds(bnds)
+        map.setMaxBounds(map.getBounds());
     }, 100));
 
     resizer.observe(container);
@@ -110,15 +113,14 @@ function updateStyle(newStyle) {
 function sourceLoadingCallback(e) {
     if (e.isSourceLoaded && e.sourceId === sourceId && e.sourceDataType !== "metadata") {
         console.log(mapId, 'sourceLoadingCallback');
-        const renderedFeatures = map.queryRenderedFeatures({
-            layers: [layerId],
-        });
-
+        const renderedFeatures = map.querySourceFeatures(sourceId, {sourceLayer : layerId});
         // Compute the bounding box of things currently displayed
         bbox = computeBoundingBoxFromGeoJsonFeatures(renderedFeatures);
-
+        // Cancel saved Max Bound to properly fitBounds
+        map.setMaxBounds(null);
         map.fitBounds(bbox, {
             animate: false,
+            padding: 10,
         });
 
         // Rest min zoom and movement
