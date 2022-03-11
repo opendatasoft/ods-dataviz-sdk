@@ -60,7 +60,7 @@ function initializeMap() {
     // Set a resizeObserver to resize map on container size changes
     resizer = new ResizeObserver(debounce(() => {
         map.resize();
-        // Cancel saved Max Bound to properly fitBounds
+        // Cancel saved max bounds to properly fitBounds
         map.setMaxBounds(null);
         if (bbox) {
             map.fitBounds(bbox, {
@@ -116,7 +116,7 @@ function sourceLoadingCallback(e) {
         const renderedFeatures = map.querySourceFeatures(sourceId, {sourceLayer : layerId});
         // Compute the bounding box of things currently displayed
         bbox = computeBoundingBoxFromGeoJsonFeatures(renderedFeatures);
-        // Cancel saved Max Bound to properly fitBounds
+        // Cancel saved max bounds to properly fitBounds
         map.setMaxBounds(null);
         map.fitBounds(bbox, {
             animate: false,

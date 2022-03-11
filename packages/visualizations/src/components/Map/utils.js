@@ -52,6 +52,7 @@ export const mapKeyToColor = (values, colorScale) => {
     const scale = chroma.scale([colorMin, colorMax]).domain([min, max]);
 
     const mapping = {};
+
     values.forEach(v => {
         mapping[v.x] = scale(v.y).hex();
     });
