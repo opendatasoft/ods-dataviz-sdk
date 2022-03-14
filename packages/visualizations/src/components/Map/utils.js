@@ -68,14 +68,14 @@ const VOID_BOUNDS = [
 ];
 
 function computeBboxFromCoords(coordsPath, bbox) {
-    return coordsPath.reduce((current, coords) => {
-        return [
+    return coordsPath.reduce((current, coords) =>
+        [
             Math.min(coords[0], current[0]),
             Math.min(coords[1], current[1]),
             Math.max(coords[0], current[2]),
             Math.max(coords[1], current[3]),
         ]
-    }, bbox);
+    , bbox);
 }
 
 // Because features come from tiled vector data, feature geometries may be split
@@ -86,12 +86,12 @@ function computeBboxFromCoords(coordsPath, bbox) {
 function mergeBboxFromFeaturesWithSameKey(features) {
     const uniqueIds = [];
     const mergedBboxesArray = [];
-    for (const feature of features) {
+    features.forEach((feature) => {
         // FIXME: supports only shapes for now
         if (feature.geometry.type === 'Polygon') {
             // Compute extent first
             let bbox = VOID_BOUNDS;
-            const id = feature.properties['key'];
+            const id = feature.properties.key;
             if (!uniqueIds.includes(id)) {
                 uniqueIds.push(id);
                 feature.geometry.coordinates.forEach(coordsPath => {
@@ -102,7 +102,7 @@ function mergeBboxFromFeaturesWithSameKey(features) {
                 feature.geometry.coordinates.forEach(coordsPath => {
                     bbox = computeBboxFromCoords(coordsPath, bbox);
                 });
-                let storedBbox = mergedBboxesArray[uniqueIds.indexOf(id)]
+                const storedBbox = mergedBboxesArray[uniqueIds.indexOf(id)]
                 const mergedBbox = [
                     Math.min(bbox[0], storedBbox[0]),
                     Math.min(bbox[1], storedBbox[1]),
@@ -113,7 +113,7 @@ function mergeBboxFromFeaturesWithSameKey(features) {
                 mergedBboxesArray[uniqueIds.indexOf(id)] = mergedBbox;
             }
         }
-    }
+    });
     return mergedBboxesArray;
 }
 

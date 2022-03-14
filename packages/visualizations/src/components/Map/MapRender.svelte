@@ -11,11 +11,11 @@ TODO:
 */
     import maplibregl from 'maplibre-gl';
     import { onMount, onDestroy } from 'svelte';
+    import { debounce } from 'lodash';
     import {
         computeBoundingBoxFromGeoJsonFeatures,
         computeMaxZoomFromGeoJsonFeatures,
     } from './utils';
-    import { debounce } from 'lodash';
 
     // maplibre style (basemap)
     export let style;
