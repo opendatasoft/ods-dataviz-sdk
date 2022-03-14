@@ -153,11 +153,12 @@ TODO:
 
 <style>
     #map {
-        aspect-ratio: var(--aspect-ratio);
+        height: 400px;
     }
-    @supports not (aspect-ratio: auto) {
+    @supports (aspect-ratio: auto) {
         #map {
-            height: 400px;
+            height: auto;
+            aspect-ratio: var(--aspect-ratio);
         }
     }
 </style>
