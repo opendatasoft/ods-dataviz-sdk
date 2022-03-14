@@ -46,6 +46,17 @@ TODO:
         layer,
     });
 
+    function fitMapToBbox(newBbox) {
+        // Cancel saved max bounds to properly fitBounds
+        map.setMaxBounds(null);
+        map.fitBounds(newBbox, {
+            animate: false,
+            padding: 10,
+        });
+        // Rest min zoom and movement
+        map.setMaxBounds(map.getBounds());
+    };
+
     function initializeMap() {
         const start = {
             center: [3.5, 46],
@@ -61,15 +72,9 @@ TODO:
         // Set a resizeObserver to resize map on container size changes
         resizer = new ResizeObserver(debounce(() => {
             map.resize();
-            // Cancel saved max bounds to properly fitBounds
-            map.setMaxBounds(null);
             if (bbox) {
-                map.fitBounds(bbox, {
-                    animate: false,
-                    padding: 10,
-                });
+                fitMapToBbox(bbox);
             }
-            map.setMaxBounds(map.getBounds());
         }, 100));
 
         resizer.observe(container);
@@ -88,16 +93,7 @@ TODO:
             const renderedFeatures = map.querySourceFeatures(sourceId, {sourceLayer : layerId});
             // Compute the bounding box of things currently displayed
             bbox = computeBoundingBoxFromGeoJsonFeatures(renderedFeatures);
-
-            // Cancel saved max bounds to properly fitBounds
-            map.setMaxBounds(null);
-            map.fitBounds(bbox, {
-                animate: false,
-                padding: 10,
-            });
-
-            // Rest min zoom and movement
-            map.setMaxBounds(map.getBounds());
+            fitMapToBbox(bbox);
 
             // Restrict zoom max
             if (renderedFeatures.length) {
