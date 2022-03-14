@@ -1,5 +1,5 @@
-import chroma from "chroma-js";
-import geoViewport from "@mapbox/geo-viewport";
+import chroma from 'chroma-js';
+import geoViewport from '@mapbox/geo-viewport';
 
 export const colorShapes = (geoJson, values, colorScale) => {
     // Key in the values is "x"

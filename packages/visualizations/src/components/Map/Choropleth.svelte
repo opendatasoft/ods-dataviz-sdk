@@ -13,7 +13,6 @@
         options,
     });
 
-
     let shapes;
     let colorScale;
     let aspectRatio;

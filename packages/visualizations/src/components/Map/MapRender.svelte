@@ -36,9 +36,9 @@ TODO:
     // Used to add a listener to resize map on container changes, canceled on destroy
     let resizer;
     // Used in front of console messages to debug multiple maps on a same page
-    let mapId = Math.floor(Math.random() * 1000);
-    let sourceId = `shape-source-${mapId}`;
-    let layerId = `shape-layer-${mapId}`;
+    const mapId = Math.floor(Math.random() * 1000);
+    const sourceId = `shape-source-${mapId}`;
+    const layerId = `shape-layer-${mapId}`;
 
     $: console.log(mapId, 'MapRender >', {
         style,
@@ -83,11 +83,12 @@ TODO:
     }
 
     function sourceLoadingCallback(e) {
-        if (e.isSourceLoaded && e.sourceId === sourceId && e.sourceDataType !== "metadata") {
+        if (e.isSourceLoaded && e.sourceId === sourceId && e.sourceDataType !== 'metadata') {
             console.log(mapId, 'sourceLoadingCallback');
             const renderedFeatures = map.querySourceFeatures(sourceId, {sourceLayer : layerId});
             // Compute the bounding box of things currently displayed
             bbox = computeBoundingBoxFromGeoJsonFeatures(renderedFeatures);
+
             // Cancel saved max bounds to properly fitBounds
             map.setMaxBounds(null);
             map.fitBounds(bbox, {
@@ -103,6 +104,7 @@ TODO:
                 const maxZoom = computeMaxZoomFromGeoJsonFeatures(container, renderedFeatures);
                 map.setMaxZoom(maxZoom);
             }
+
             map.off('sourcedata', sourceLoadingCallback);
         }
     }
