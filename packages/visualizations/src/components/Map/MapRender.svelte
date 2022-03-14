@@ -1,7 +1,7 @@
 <svelte:options immutable={true} />
 
 <script>
-/*
+    /*
 TODO:
 - Restrict movement:
     - Block minZoom to the initial one after fitting the bbox
@@ -9,152 +9,152 @@ TODO:
 - Display the map based on style, source, layer, refresh when one changes
 - Adapt display based on the size of the map (single, main, side)
 */
-import maplibregl from 'maplibre-gl';
-import { onMount, onDestroy } from 'svelte';
-import { computeBoundingBoxFromGeoJsonFeatures, computeMaxZoomFromGeoJsonFeatures, getStartingPointForMap } from './utils';
-import  { debounce }  from 'lodash';
+    import maplibregl from 'maplibre-gl';
+    import { onMount, onDestroy } from 'svelte';
+    import {
+        computeBoundingBoxFromGeoJsonFeatures,
+        computeMaxZoomFromGeoJsonFeatures,
+    } from './utils';
+    import { debounce } from 'lodash';
 
-// maplibre style (basemap)
-export let style;
-// maplibre source config
-export let source;
-// maplibre layer config
-export let layer;
+    // maplibre style (basemap)
+    export let style;
+    // maplibre source config
+    export let source;
+    // maplibre layer config
+    export let layer;
 
-// aspect ratio based on width, by default equal to 1
-export let aspectRatio = 1;
-$: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
+    // aspect ratio based on width, by default equal to 1
+    export let aspectRatio = 1;
+    $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
 
-let container;
-let map;
+    let container;
+    let map;
+    // bounding box to start from, and restrict to it
+    let bbox;
+    let mapReady = false;
+    // Used to add a listener to resize map on container changes, canceled on destroy
+    let resizer;
+    // Used in front of console messages to debug multiple maps on a same page
+    let mapId = Math.floor(Math.random() * 1000);
+    let sourceId = `shape-source-${mapId}`;
+    let layerId = `shape-layer-${mapId}`;
 
-// bounding box to start from, and restrict to it
-let bbox;
-
-let mapReady = false;
-// Used to add a listener to resize map on container changes, canceled on destroy
-let resizer;
-// Used in front of console messages to debug multiple maps on a same page
-let mapId = Math.floor(Math.random() * 1000);
-let sourceId = 'shape-source-' + mapId;
-let layerId = 'shape-layer-' + mapId;
-
-$: console.log(mapId, 'MapRender >', {
-    style, source, layer,
-});
-
-
-function initializeMap() {
-    let start;
-    start = {
-        center: [3.5, 46],
-        zoom: 5,
-    };
-
-    map = new maplibregl.Map({
-        container,
+    $: console.log(mapId, 'MapRender >', {
         style,
-        ...start,
+        source,
+        layer,
     });
 
-    // Set a resizeObserver to resize map on container size changes
-    resizer = new ResizeObserver(debounce(() => {
-        map.resize();
-        // Cancel saved max bounds to properly fitBounds
-        map.setMaxBounds(null);
-        if (bbox) {
+    function initializeMap() {
+        const start = {
+            center: [3.5, 46],
+            zoom: 5,
+        };
+
+        map = new maplibregl.Map({
+            container,
+            style,
+            ...start,
+        });
+
+        // Set a resizeObserver to resize map on container size changes
+        resizer = new ResizeObserver(debounce(() => {
+            map.resize();
+            // Cancel saved max bounds to properly fitBounds
+            map.setMaxBounds(null);
+            if (bbox) {
+                map.fitBounds(bbox, {
+                    animate: false,
+                    padding: 10,
+                });
+            }
+            map.setMaxBounds(map.getBounds());
+        }, 100));
+
+        resizer.observe(container);
+
+        const nav = new maplibregl.NavigationControl();
+        map.addControl(nav, 'top-left');
+
+        map.on('load', () => {
+            mapReady = true;
+        });
+    }
+
+    function sourceLoadingCallback(e) {
+        if (e.isSourceLoaded && e.sourceId === sourceId && e.sourceDataType !== "metadata") {
+            console.log(mapId, 'sourceLoadingCallback');
+            const renderedFeatures = map.querySourceFeatures(sourceId, {sourceLayer : layerId});
+            // Compute the bounding box of things currently displayed
+            bbox = computeBoundingBoxFromGeoJsonFeatures(renderedFeatures);
+            // Cancel saved max bounds to properly fitBounds
+            map.setMaxBounds(null);
             map.fitBounds(bbox, {
                 animate: false,
                 padding: 10,
             });
+
+            // Rest min zoom and movement
+            map.setMaxBounds(map.getBounds());
+
+            // Restrict zoom max
+            if (renderedFeatures.length) {
+                const maxZoom = computeMaxZoomFromGeoJsonFeatures(container, renderedFeatures);
+                map.setMaxZoom(maxZoom);
+            }
+            map.off('sourcedata', sourceLoadingCallback);
         }
-        map.setMaxBounds(map.getBounds());
-    }, 100));
+    }
 
-    resizer.observe(container);
+    function updateSourceAndLayer(newSource, newLayer) {
+        if (newSource && newLayer) {
+            if (map.getLayer(layerId)) {
+                map.removeLayer(layerId);
+            }
 
-    const nav = new maplibregl.NavigationControl();
-    //map.addControl(nav, 'top-left');
+            if (map.getSource(sourceId)) {
+                map.removeSource(sourceId);
+            }
 
-    map.on('load', () => {
-        mapReady = true;
-    })
-}
+            map.addSource(sourceId, newSource);
+            map.addLayer({
+                ...newLayer,
+                id: layerId,
+                source: sourceId,
+            });
 
-function updateSourceAndLayer(source, layer) {
-    if (source && layer) {
-        if (map.getLayer(layerId)) {
-            map.removeLayer(layerId);
+            map.on('sourcedata', sourceLoadingCallback);
         }
+    }
 
-        if (map.getSource(sourceId)) {
-            map.removeSource(sourceId);
+    function updateStyle(newStyle) {
+        if (mapReady) {
+            map.setStyle(newStyle);
+            // Changing the style resets the map
+            map.once('styledata', () => updateSourceAndLayer(source, layer));
         }
-
-        map.addSource(sourceId, source);
-        map.addLayer({
-            ...layer,
-            id: layerId,
-            source: sourceId,
-        });
-
-        map.on('sourcedata', sourceLoadingCallback);
     }
-}
 
-function updateStyle(newStyle) {
-    if (mapReady) {
-        map.setStyle(newStyle);
-        // Changing the style resets the map
-        map.once('styledata', () => updateSourceAndLayer(source, layer));
-    }
-}
+    // Lifecycle
+    onMount(initializeMap);
 
-function sourceLoadingCallback(e) {
-    if (e.isSourceLoaded && e.sourceId === sourceId && e.sourceDataType !== "metadata") {
-        console.log(mapId, 'sourceLoadingCallback');
-        const renderedFeatures = map.querySourceFeatures(sourceId, {sourceLayer : layerId});
-        // Compute the bounding box of things currently displayed
-        bbox = computeBoundingBoxFromGeoJsonFeatures(renderedFeatures);
-        // Cancel saved max bounds to properly fitBounds
-        map.setMaxBounds(null);
-        map.fitBounds(bbox, {
-            animate: false,
-            padding: 10,
-        });
-
-        // Rest min zoom and movement
-        map.setMaxBounds(map.getBounds());
-
-        // Restrict zoom max
-        if (renderedFeatures.length) {
-            const maxZoom = computeMaxZoomFromGeoJsonFeatures(container, renderedFeatures);
-            map.setMaxZoom(maxZoom);
+    $: {
+        if (mapReady) {
+            updateSourceAndLayer(source, layer);
         }
-
-        map.off('sourcedata', sourceLoadingCallback);
     }
-}
 
-// Lifecycle
-onMount(initializeMap);
+    $: updateStyle(style);
 
-$: {
-    if (mapReady) {
-        updateSourceAndLayer(source, layer);
-    }
-}
-
-$: updateStyle(style);
-
-onDestroy(() => resizer?.disconnect());
+    onDestroy(() => resizer?.disconnect());
 
 </script>
 
-<div id="map" bind:this={container} style={cssVarStyles}></div>
+<div id="map" bind:this={container} style={cssVarStyles} />
 
 <style>
-#map {
-    aspect-ratio: var(--aspect-ratio);
-}
+    #map {
+        aspect-ratio: var(--aspect-ratio);
+    }
 </style>
