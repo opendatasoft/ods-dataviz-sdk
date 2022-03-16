@@ -70,18 +70,6 @@ TODO:
             ...start,
         });
 
-        // Set a resizeObserver to resize map on container size changes
-        resizer = new ResizeObserver(
-            debounce(() => {
-                map.resize();
-                if (bbox) {
-                    fitMapToBbox(bbox);
-                }
-            }, 100)
-        );
-
-        resizer.observe(container);
-
         const nav = new maplibregl.NavigationControl();
         map.addControl(nav, 'top-left');
 
@@ -139,6 +127,21 @@ TODO:
 
     // Lifecycle
     onMount(initializeMap);
+    onMount(function initializeResizer () {
+        // Set a resizeObserver to resize map on container size changes
+        resizer = new ResizeObserver(
+            debounce(() => {
+                map.resize();
+                if (bbox) {
+                    fitMapToBbox(bbox);
+                }
+            }, 100)
+        );
+
+        resizer.observe(container);
+        // Disconnect the resize onDestroy
+        return () => resizer?.disconnect();
+    })
 
     $: {
         if (mapReady) {
@@ -147,8 +150,6 @@ TODO:
     }
 
     $: updateStyle(style);
-
-    onDestroy(() => resizer?.disconnect());
 </script>
 
 <div id="map" bind:this={container} style={cssVarStyles} />
