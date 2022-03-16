@@ -78,7 +78,7 @@ TODO:
         });
     }
 
-    function initializeResizer () {
+    function initializeResizer() {
         // Set a resizeObserver to resize map on container size changes
         resizer = new ResizeObserver(
             debounce(() => {
