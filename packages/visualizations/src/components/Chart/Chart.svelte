@@ -9,6 +9,7 @@
     import buildScales from './scales';
     import buildLegend from './legend';
     import SourceLink from '../utils/SourceLink.svelte';
+    import { defaultNumberFormat } from '../utils/formatter';
 
     export let data: Async<DataFrame>;
     export let options: ChartOptions;
@@ -66,7 +67,16 @@
                 display: false,
             },
             tooltip: {
-                enabled: true,
+                enabled: defaultValue(options?.tooltip?.display, true),
+                callbacks: {
+                    label(context) {
+                        const format = options?.tooltip?.label;
+                        if (format) return format(context.dataIndex);
+                        const rawValue = context.raw;
+                        if (typeof rawValue === 'number') return defaultNumberFormat(rawValue);
+                        return context.formattedValue;
+                    },
+                },
             },
             subtitle: {
                 display: false,
