@@ -10,7 +10,7 @@ TODO:
 - Adapt display based on the size of the map (single, main, side)
 */
     import maplibregl from 'maplibre-gl';
-    import { onMount, onDestroy } from 'svelte';
+    import { onMount } from 'svelte';
     import { debounce } from 'lodash';
     import {
         computeBoundingBoxFromGeoJsonFeatures,
@@ -78,6 +78,22 @@ TODO:
         });
     }
 
+    function initializeResizer () {
+        // Set a resizeObserver to resize map on container size changes
+        resizer = new ResizeObserver(
+            debounce(() => {
+                map.resize();
+                if (bbox) {
+                    fitMapToBbox(bbox);
+                }
+            }, 100)
+        );
+
+        resizer.observe(container);
+        // Disconnect the resize onDestroy
+        return () => resizer?.disconnect();
+    }
+
     function sourceLoadingCallback(e) {
         if (e.isSourceLoaded && e.sourceId === sourceId && e.sourceDataType !== 'metadata') {
             console.log(mapId, 'sourceLoadingCallback');
@@ -127,21 +143,7 @@ TODO:
 
     // Lifecycle
     onMount(initializeMap);
-    onMount(function initializeResizer () {
-        // Set a resizeObserver to resize map on container size changes
-        resizer = new ResizeObserver(
-            debounce(() => {
-                map.resize();
-                if (bbox) {
-                    fitMapToBbox(bbox);
-                }
-            }, 100)
-        );
-
-        resizer.observe(container);
-        // Disconnect the resize onDestroy
-        return () => resizer?.disconnect();
-    })
+    onMount(initializeResizer);
 
     $: {
         if (mapReady) {
