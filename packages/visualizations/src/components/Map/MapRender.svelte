@@ -55,7 +55,7 @@ TODO:
         });
         // Rest min zoom and movement
         map.setMaxBounds(map.getBounds());
-    };
+    }
 
     function initializeMap() {
         const start = {
@@ -70,12 +70,14 @@ TODO:
         });
 
         // Set a resizeObserver to resize map on container size changes
-        resizer = new ResizeObserver(debounce(() => {
-            map.resize();
-            if (bbox) {
-                fitMapToBbox(bbox);
-            }
-        }, 100));
+        resizer = new ResizeObserver(
+            debounce(() => {
+                map.resize();
+                if (bbox) {
+                    fitMapToBbox(bbox);
+                }
+            }, 100)
+        );
 
         resizer.observe(container);
 
@@ -90,7 +92,7 @@ TODO:
     function sourceLoadingCallback(e) {
         if (e.isSourceLoaded && e.sourceId === sourceId && e.sourceDataType !== 'metadata') {
             console.log(mapId, 'sourceLoadingCallback');
-            const renderedFeatures = map.querySourceFeatures(sourceId, {sourceLayer : layerId});
+            const renderedFeatures = map.querySourceFeatures(sourceId, { sourceLayer: layerId });
             // Compute the bounding box of things currently displayed
             bbox = computeBoundingBoxFromGeoJsonFeatures(renderedFeatures);
             fitMapToBbox(bbox);
@@ -146,7 +148,6 @@ TODO:
     $: updateStyle(style);
 
     onDestroy(() => resizer?.disconnect());
-
 </script>
 
 <div id="map" bind:this={container} style={cssVarStyles} />
