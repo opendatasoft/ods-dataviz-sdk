@@ -33,6 +33,8 @@ TODO:
     // bounding box to start from, and restrict to it
     let bbox;
     let mapReady = false;
+    // Used to add a listener to resize map on container changes, canceled on destroy
+    let resizer;
 
     // Used in front of console messages to debug multiple maps on a same page
     const mapId = Math.floor(Math.random() * 1000);
@@ -69,7 +71,7 @@ TODO:
         });
 
         // Set a resizeObserver to resize map on container size changes
-        const resizer = new ResizeObserver(
+        resizer = new ResizeObserver(
             debounce(() => {
                 map.resize();
                 if (bbox) {
