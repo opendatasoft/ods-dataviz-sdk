@@ -80,37 +80,36 @@ function computeBboxFromCoords(coordsPath, bbox) {
 // To prevent looping on duplicated features in computeMaxZoomFromGeoJsonFeatures we merge
 // bounding boxes of same key features
 function mergeBboxFromFeaturesWithSameKey(features) {
-    const uniqueIds = [];
-    const mergedBboxesArray = [];
+    const mergedBboxes = {};
     features.forEach((feature) => {
         // FIXME: supports only shapes for now
         if (feature.geometry.type === 'Polygon') {
             // Compute extent first
             let bbox = VOID_BOUNDS;
+            feature.geometry.coordinates.forEach((coordsPath) => {
+                bbox = computeBboxFromCoords(coordsPath, bbox);
+            });
             const id = feature.properties.key;
-            if (!uniqueIds.includes(id)) {
-                uniqueIds.push(id);
-                feature.geometry.coordinates.forEach((coordsPath) => {
-                    bbox = computeBboxFromCoords(coordsPath, bbox);
-                });
-                mergedBboxesArray.push(bbox);
+            if (!mergedBboxes[id]) {
+                mergedBboxes[id] = {
+                    bbox,
+                };
             } else {
-                feature.geometry.coordinates.forEach((coordsPath) => {
-                    bbox = computeBboxFromCoords(coordsPath, bbox);
-                });
-                const storedBbox = mergedBboxesArray[uniqueIds.indexOf(id)];
+                const storedBbox = mergedBboxes[id].bbox;
                 const mergedBbox = [
                     Math.min(bbox[0], storedBbox[0]),
                     Math.min(bbox[1], storedBbox[1]),
                     Math.max(bbox[2], storedBbox[2]),
                     Math.max(bbox[3], storedBbox[3]),
                 ];
-                // Replace the Features at the right index by the merged bbox
-                mergedBboxesArray[uniqueIds.indexOf(id)] = mergedBbox;
+                // Replace the Features at the right id by the merged bbox
+                mergedBboxes[id] = {
+                    bbox: mergedBbox,
+                };
             }
         }
     });
-    return mergedBboxesArray;
+    return mergedBboxes;
 }
 
 export const computeBoundingBoxFromGeoJsonFeatures = (features) => {
@@ -131,12 +130,12 @@ export const computeBoundingBoxFromGeoJsonFeatures = (features) => {
 
 export const computeMaxZoomFromGeoJsonFeatures = (mapContainer, features) => {
     let maxZoom = 0; // maxZoom lowest value possible
-    const FilteredBboxes = mergeBboxFromFeaturesWithSameKey(features);
-    FilteredBboxes.forEach((boundingBox) => {
+    const FilteredBboxesBis = mergeBboxFromFeaturesWithSameKey(features);
+    Object.entries(FilteredBboxesBis).forEach(([, value]) => {
         // Vtiles = 512 tilesize
         maxZoom = Math.max(
             geoViewport.viewport(
-                boundingBox,
+                value.bbox,
                 [mapContainer.clientWidth, mapContainer.clientHeight],
                 undefined,
                 undefined,
