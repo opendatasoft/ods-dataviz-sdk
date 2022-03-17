@@ -125,6 +125,7 @@ export const computeBoundingBoxFromGeoJsonFeatures = (features) => {
     return bbox;
 };
 
+// We're calculating the maximum zoom required to fit the smallest feature we're displaying, to prevent people from zooming "too far" by accident
 export const computeMaxZoomFromGeoJsonFeatures = (mapContainer, features) => {
     let maxZoom = 0; // maxZoom lowest value possible
     const filteredBboxes = mergeBboxFromFeaturesWithSameKey(features);
