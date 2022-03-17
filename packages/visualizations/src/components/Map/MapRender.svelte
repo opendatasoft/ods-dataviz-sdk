@@ -95,7 +95,8 @@ TODO:
     }
 
     function sourceLoadingCallback(e) {
-        if (e.isSourceLoaded && e.sourceId === sourceId && e.sourceDataType !== 'metadata') {
+        // sourceDataType can be "visibility" or "metadata", in which case it's not about the data itself
+        if (e.isSourceLoaded && e.sourceId === sourceId && !e.sourceDataType) {
             console.log(mapId, 'sourceLoadingCallback');
             const renderedFeatures = map.querySourceFeatures(sourceId, { sourceLayer: layerId });
             // Compute the bounding box of things currently displayed
