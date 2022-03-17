@@ -130,8 +130,8 @@ export const computeBoundingBoxFromGeoJsonFeatures = (features) => {
 
 export const computeMaxZoomFromGeoJsonFeatures = (mapContainer, features) => {
     let maxZoom = 0; // maxZoom lowest value possible
-    const FilteredBboxesBis = mergeBboxFromFeaturesWithSameKey(features);
-    Object.entries(FilteredBboxesBis).forEach(([, value]) => {
+    const filteredBboxesBis = mergeBboxFromFeaturesWithSameKey(features);
+    Object.entries(filteredBboxesBis).forEach(([, value]) => {
         // Vtiles = 512 tilesize
         maxZoom = Math.max(
             geoViewport.viewport(
