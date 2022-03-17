@@ -76,6 +76,8 @@ TODO:
         map.on('load', () => {
             mapReady = true;
         });
+
+        return () => map.remove();
     }
 
     function initializeResizer() {
