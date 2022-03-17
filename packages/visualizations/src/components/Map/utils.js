@@ -74,11 +74,8 @@ function computeBboxFromCoords(coordsPath, bbox) {
     );
 }
 
-// Because features come from tiled vector data, feature geometries may be split
-// or duplicated across tile boundaries. As a result, features may appear
-// multiple times in query results.
-// To prevent looping on duplicated features in computeMaxZoomFromGeoJsonFeatures we merge
-// bounding boxes of same key features
+// The features given by querySourceFeatures are cut based on a tile representation
+// but we need the bounding box of the features themselves, so we need to build them again
 function mergeBboxFromFeaturesWithSameKey(features) {
     const mergedBboxes = {};
     features.forEach((feature) => {
