@@ -19,6 +19,8 @@ export interface ChartOptions {
     title?: TitleConfiguration;
     /** Configure subtitle */
     subtitle?: TitleConfiguration;
+    /** Configure tooltip */
+    tooltip?: TooltipConfiguration;
     /** Accessibility */
     ariaLabel: string;
     /** Link button to source */
@@ -94,6 +96,10 @@ export interface LegendConfiguration {
     labels?: LegendLabelsConfiguration;
 }
 
+export interface TooltipConfiguration {
+    display?: boolean;
+    label?: (index: number) => string | string[];
+}
 export interface FontConfiguration {
     size?: number;
     weight?: string;
