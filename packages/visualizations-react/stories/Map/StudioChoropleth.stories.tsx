@@ -18,7 +18,6 @@ const Template = (args: Props<string, ChoroplethOptions>) => (
             minWidth: '100px',
             margin: 'auto',
             border: '1px solid black',
-
         }}
     >
         <Choropleth {...args} />
@@ -29,12 +28,15 @@ const StudioChoroplethArgs: Props<DataFrame, ChoroplethOptions> = {
     data: {
         error: undefined,
         loading: false,
-        value: [{x: 'France', y: 35}, {x: 'Corsica', y: 95}],
+        value: [
+            { x: 'France', y: 35 },
+            { x: 'Corsica', y: 95 },
+        ],
     },
     options: {
         style: {
             something: true,
-            color: "#222222",
+            color: '#222222',
         },
         parameters: {},
         shapes,
