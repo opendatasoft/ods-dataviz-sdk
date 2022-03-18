@@ -1,6 +1,5 @@
 import chroma from 'chroma-js';
 import geoViewport from '@mapbox/geo-viewport';
-import { LngLatBounds } from 'maplibre-gl';
 
 export const colorShapes = (geoJson, values, colorScale) => {
     // Key in the values is "x"
@@ -60,47 +59,81 @@ export const mapKeyToColor = (values, colorScale) => {
     return mapping;
 };
 
-// This is a bound that can only be extended, and will take the value of the first bound that extends it
-const VOID_BOUNDS = [
-    [180, 90],
-    [-180, -90],
-];
+// This is a default bound that will be extended
+const VOID_BOUNDS = [180, 90, -180, -90];
+
+function computeBboxFromCoords(coordsPath, bbox) {
+    return coordsPath.reduce(
+        (current, coords) => [
+            Math.min(coords[0], current[0]),
+            Math.min(coords[1], current[1]),
+            Math.max(coords[0], current[2]),
+            Math.max(coords[1], current[3]),
+        ],
+        bbox
+    );
+}
+
+// The features given by querySourceFeatures are cut based on a tile representation
+// but we need the bounding box of the features themselves, so we need to build them again
+function mergeBboxFromFeaturesWithSameKey(features) {
+    const mergedBboxes = {};
+    features.forEach((feature) => {
+        // FIXME: supports only shapes for now
+        if (feature.geometry.type === 'Polygon') {
+            // Compute extent first
+            let bbox = VOID_BOUNDS;
+            feature.geometry.coordinates.forEach((coordsPath) => {
+                bbox = computeBboxFromCoords(coordsPath, bbox);
+            });
+            const id = feature.properties.key;
+            if (!mergedBboxes[id]) {
+                mergedBboxes[id] = {
+                    bbox,
+                };
+            } else {
+                const storedBbox = mergedBboxes[id].bbox;
+                const mergedBbox = [
+                    Math.min(bbox[0], storedBbox[0]),
+                    Math.min(bbox[1], storedBbox[1]),
+                    Math.max(bbox[2], storedBbox[2]),
+                    Math.max(bbox[3], storedBbox[3]),
+                ];
+                // Replace the Features at the right id by the merged bbox
+                mergedBboxes[id] = {
+                    bbox: mergedBbox,
+                };
+            }
+        }
+    });
+    return mergedBboxes;
+}
 
 export const computeBoundingBoxFromGeoJsonFeatures = (features) => {
     // From an array of geojson objects
-    const bounds = new LngLatBounds(VOID_BOUNDS);
+    let bbox = VOID_BOUNDS;
 
     features.forEach((feature) => {
         // FIXME: supports only shapes for now
         if (feature.geometry.type !== 'Polygon') {
             return;
         }
-        feature.geometry.coordinates.forEach((coordsPath) => bounds.extend(coordsPath));
+        feature.geometry.coordinates.forEach((coordsPath) => {
+            bbox = computeBboxFromCoords(coordsPath, bbox);
+        });
     });
-    return bounds;
+    return bbox;
 };
 
+// We're calculating the maximum zoom required to fit the smallest feature we're displaying, to prevent people from zooming "too far" by accident
 export const computeMaxZoomFromGeoJsonFeatures = (mapContainer, features) => {
-    let maxZoom = Number.NEGATIVE_INFINITY;
-    features.forEach((feature) => {
-        // Compute extent first
-        const bounds = new LngLatBounds(VOID_BOUNDS);
-        // FIXME: supports only shapes for now
-        if (feature.geometry.type !== 'Polygon') {
-            return;
-        }
-        feature.geometry.coordinates.forEach((coordsPath) => bounds.extend(coordsPath));
-
+    let maxZoom = 0; // maxZoom lowest value possible
+    const filteredBboxes = mergeBboxFromFeaturesWithSameKey(features);
+    Object.values(filteredBboxes).forEach((value) => {
         // Vtiles = 512 tilesize
         maxZoom = Math.max(
             geoViewport.viewport(
-                [
-                    // FIXME: West/East and South/North should already be min lat / max lat, min lng / max lng; this is weird
-                    Math.min(bounds.getWest(), bounds.getEast()),
-                    Math.min(bounds.getSouth(), bounds.getNorth()),
-                    Math.max(bounds.getWest(), bounds.getEast()),
-                    Math.max(bounds.getSouth(), bounds.getNorth()),
-                ],
+                value.bbox,
                 [mapContainer.clientWidth, mapContainer.clientHeight],
                 undefined,
                 undefined,
