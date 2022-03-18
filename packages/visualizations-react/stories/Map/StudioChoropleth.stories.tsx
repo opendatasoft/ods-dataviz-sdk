@@ -26,7 +26,6 @@ const Template = (args: Props<string, ChoroplethOptions>) => (
 export const StudioChoropleth = Template.bind({});
 const StudioChoroplethArgs: Props<DataFrame, ChoroplethOptions> = {
     data: {
-        error: undefined,
         loading: false,
         value: [
             { x: 'France', y: 35 },
@@ -34,15 +33,11 @@ const StudioChoroplethArgs: Props<DataFrame, ChoroplethOptions> = {
         ],
     },
     options: {
-        style: {
-            something: true,
-            color: '#222222',
-        },
+        style: {},
         parameters: {},
         shapes,
         colorScale: '#222222',
         aspectRatio: 1,
-        mapType: 'choropleth',
     },
 };
 StudioChoropleth.args = StudioChoroplethArgs;
