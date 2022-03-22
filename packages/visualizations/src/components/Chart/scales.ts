@@ -123,6 +123,7 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
     // Y Axis
     if (options.yAxis) {
         scales.y = {
+            stacked: !!defaultValue(options.yAxis?.stacked, false),
             type: options?.yAxis?.type,
             display: options?.yAxis?.display,
             title: {

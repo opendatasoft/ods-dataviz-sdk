@@ -40,19 +40,27 @@ export default function buildLegend(
         ...(options.series[0]?.type === 'pie' && { onHover: handleHoverPieChart }),
         ...(options.series[0]?.type === 'pie' && { onLeave: handleLeavePieChart }),
         labels: {
+            boxWidth: 20,
+            boxHeight: defaultValue(options?.legend?.boxStyle, 'rect') === 'rect' ? 16 : 0,
             filter: (item) => {
+                /* eslint-disable no-param-reassign */
                 const text = options?.legend?.labels?.text;
                 if (text) {
                     const index =
                         typeof (item as any).index === 'number'
                             ? (item as any).index
                             : item.datasetIndex;
-                    // eslint-disable-next-line no-param-reassign
                     item.text = text(index);
                 }
-                // eslint-disable-next-line no-param-reassign
                 item.text = assureMaxLength(item.text, LEGEND_MAX_LENGTH);
+                if (options?.legend?.boxStyle === 'dash') {
+                    item.lineWidth = 1;
+                    item.lineDash = [4, 2];
+                } else if (options?.legend?.boxStyle === 'rect') {
+                    item.borderRadius = 3;
+                }
                 return true;
+                /* eslint-enable no-param-reassign */
             },
         },
     };

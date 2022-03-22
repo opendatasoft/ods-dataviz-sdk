@@ -47,6 +47,7 @@ export interface BaseCartesianAxisConfiguration {
     title?: AxisTitleConfiguration;
     gridLines?: GridLinesConfiguration;
     ticks?: TicksConfiguration;
+    stacked?: boolean;
 }
 
 export interface TimeCartesianAxisConfiguration extends BaseCartesianAxisConfiguration {
@@ -95,6 +96,7 @@ export interface LegendConfiguration {
     position?: 'top' | 'left' | 'bottom' | 'right';
     align?: 'start' | 'center' | 'end';
     labels?: LegendLabelsConfiguration;
+    boxStyle?: 'rect' | 'line' | 'dash';
 }
 
 export interface TooltipConfiguration {
