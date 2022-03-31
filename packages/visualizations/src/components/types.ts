@@ -7,12 +7,16 @@ export interface ChartOptions {
     aspectRatio?: number;
     /** Chart padding */
     padding?: number;
-    /** Configure xAxis */
-    xAxis?: CartesianAxisConfiguration;
-    /** Configure default yAxis */
-    yAxis?: CartesianAxisConfiguration;
-    /** Configure default radial axis */
-    rAxis?: RadialAxisConfiguration;
+    axis?: {
+        /** Configure x axis */
+        x?: CartesianAxisConfiguration;
+        /** Configure default y axis */
+        y?: CartesianAxisConfiguration;
+        /** Configure default radial axis */
+        r?: RadialAxisConfiguration;
+        /** Configure axis assemblage */
+        assemblage?: AssemblageAxisConfiguration;
+    },
     /** Configure legend */
     legend?: LegendConfiguration;
     /** Configure title */
@@ -47,7 +51,6 @@ export interface BaseCartesianAxisConfiguration {
     title?: AxisTitleConfiguration;
     gridLines?: GridLinesConfiguration;
     ticks?: TicksConfiguration;
-    stacked?: boolean;
 }
 
 export interface TimeCartesianAxisConfiguration extends BaseCartesianAxisConfiguration {
@@ -85,6 +88,11 @@ export interface RadialAxisConfiguration {
     beginAtZero?: boolean;
     ticks?: TicksConfiguration;
     gridLines?: GridLinesConfiguration;
+}
+
+export interface AssemblageAxisConfiguration {
+    stacked?: boolean;
+    percentaged?: boolean;
 }
 
 export interface LegendLabelsConfiguration {

@@ -53,26 +53,28 @@ export const AreaTitleAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions
                 },
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'x',
-                align: 'center',
+                type: 'linear',
+                title: {
+                    display: true,
+                    text: 'x',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
-            gridLines: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            title: {
+            y: {
                 display: true,
-                text: 'hello',
-            },
-            gridLines: {
-                display: true,
+                title: {
+                    display: true,
+                    text: 'hello',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
         },
         title: {
@@ -103,27 +105,29 @@ export const AreaAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions>>(Sa
                 },
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'x',
-                align: 'center',
+                type: 'linear',
+                title: {
+                    display: true,
+                    text: 'x',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
-            gridLines: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            title: {
+            y: {
                 display: true,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: true,
+                title: {
+                    display: true,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
         },
     },
@@ -152,27 +156,29 @@ export const AreaTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(S
                 },
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'x',
-                align: 'center',
+                type: 'linear',
+                title: {
+                    display: true,
+                    text: 'x',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
-            gridLines: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            title: {
+            y: {
                 display: true,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: true,
+                title: {
+                    display: true,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
         },
         title: {
@@ -204,27 +210,29 @@ export const AreaTitleSubtitleGrid = storyWithArgs<Props<DataFrame, ChartOptions
                 },
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            title: {
-                display: false,
-                text: 'x',
-                align: 'center',
-            },
-            gridLines: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            title: {
-                display: false,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
+        axis: {
+            x: {
                 display: true,
+                type: 'linear',
+                title: {
+                    display: false,
+                    text: 'x',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
+            },
+            y: {
+                display: true,
+                title: {
+                    display: false,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
         },
         title: {
@@ -277,26 +285,29 @@ export const AreaTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>
                 },
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'x',
-                align: 'center',
+                type: 'linear',
+                title: {
+                    display: true,
+                    text: 'x',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
-            gridLines: {
-                display: false,
+            y: {
+                display: true,
+                gridLines: {
+                    display: 'single',
+                },
+                ticks: {
+                    display: 'single',
+                },
             },
-        },
-        yAxis: {
-            display: true,
-            gridLines: {
-                display: 'single',
-            },
-            ticks: {
-                display: 'single',
-            },
+
         },
         title: {
             text: 'Area chart with title and data values on axis',
@@ -345,25 +356,27 @@ export const AreaDataValuesOnly = storyWithArgs<Props<DataFrame, ChartOptions>>(
                 },
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'x',
-                align: 'center',
+                type: 'linear',
+                title: {
+                    display: true,
+                    text: 'x',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
-            gridLines: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            gridLines: {
-                display: 'single',
-            },
-            ticks: {
-                display: 'single',
+            y: {
+                display: true,
+                gridLines: {
+                    display: 'single',
+                },
+                ticks: {
+                    display: 'single',
+                },
             },
         },
     },

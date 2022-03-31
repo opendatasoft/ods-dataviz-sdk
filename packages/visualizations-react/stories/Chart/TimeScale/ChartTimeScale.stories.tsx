@@ -35,13 +35,15 @@ const AreaChartYearsArgs: Props<DataFrame, ChartOptions> = {
                 fill: { mode: 'origin' },
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'time',
-            timeUnit: 'year',
-        },
-        yAxis: {
-            display: true,
+        axis: {
+            x: {
+                display: true,
+                type: 'time',
+                timeUnit: 'year',
+            },
+            y: {
+                display: true,
+            },
         },
         title: {
             text: 'Years',
@@ -79,13 +81,15 @@ const LineChartYearsWithGapArgs: Props<DataFrame, ChartOptions> = {
                 spanGaps: 1000 * 60 * 60 * 24 * 366, // 1 year
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'time',
-            timeUnit: 'year',
-        },
-        yAxis: {
-            display: true,
+        axis: {
+            x: {
+                display: true,
+                type: 'time',
+                timeUnit: 'year',
+            },
+            y: {
+                display: true,
+            },
         },
         title: {
             text: 'Years with gap',
@@ -116,13 +120,15 @@ const LineChartMonthsArgs: Props<DataFrame, ChartOptions> = {
                 borderColor: COLORS.blue,
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'time',
-            timeUnit: 'month',
-        },
-        yAxis: {
-            display: true,
+        axis: {
+            x: {
+                display: true,
+                type: 'time',
+                timeUnit: 'month',
+            },
+            y: {
+                display: true,
+            },
         },
         title: {
             text: 'Months',
@@ -154,13 +160,15 @@ const LineChartDaysArgs: Props<DataFrame, ChartOptions> = {
                 tension: 0.5,
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'time',
-            timeUnit: 'day',
-        },
-        yAxis: {
-            display: true,
+        axis: {
+            x: {
+                display: true,
+                type: 'time',
+                timeUnit: 'day',
+            },
+            y: {
+                display: true,
+            },
         },
         title: {
             text: 'Days',
@@ -191,13 +199,15 @@ const LineChartHoursArgs: Props<DataFrame, ChartOptions> = {
                 borderColor: COLORS.orange,
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'time',
-            timeUnit: 'hour',
-        },
-        yAxis: {
-            display: true,
+        axis: {
+            x: {
+                display: true,
+                type: 'time',
+                timeUnit: 'hour',
+            },
+            y: {
+                display: true,
+            },
         },
         title: {
             text: 'Hours',
@@ -228,13 +238,15 @@ const LineChartMinutesArgs: Props<DataFrame, ChartOptions> = {
                 borderColor: COLORS.red,
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'time',
-            timeUnit: 'minute',
-        },
-        yAxis: {
-            display: true,
+        axis: {
+            x: {
+                display: true,
+                type: 'time',
+                timeUnit: 'minute',
+            },
+            y: {
+                display: true,
+            },
         },
         title: {
             text: 'Minutes',
@@ -265,13 +277,15 @@ const BarChartSecondsArgs: Props<DataFrame, ChartOptions> = {
                 backgroundColor: COLORS.grey,
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'time',
-            timeUnit: 'second',
-        },
-        yAxis: {
-            display: true,
+        axis: {
+            x: {
+                display: true,
+                type: 'time',
+                timeUnit: 'second',
+            },
+            y: {
+                display: true,
+            },
         },
         title: {
             text: 'Seconds',

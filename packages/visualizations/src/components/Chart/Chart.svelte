@@ -81,6 +81,9 @@
             subtitle: {
                 display: false,
             },
+            stacked100: { // Enables the 100% percent stacking
+                enable: options?.axis?.assemblage?.percentaged,
+            },
         };
         chartConfig.options = chartOptions;
     }

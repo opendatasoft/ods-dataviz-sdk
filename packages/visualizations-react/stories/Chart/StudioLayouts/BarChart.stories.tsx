@@ -45,29 +45,31 @@ export const BarTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sa
                 label: 'User 2',
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            offset: false,
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'x',
-                align: 'center',
+                type: 'linear',
+                offset: false,
+                title: {
+                    display: true,
+                    text: 'x',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
-            gridLines: {
+            y: {
                 display: true,
-            },
-        },
-        yAxis: {
-            display: true,
-            type: 'category',
-            title: {
-                display: true,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: false,
+                type: 'category',
+                title: {
+                    display: true,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
         },
         title: {
@@ -104,29 +106,31 @@ export const BarAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample,
                 ],
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            offset: false,
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'x',
-                align: 'center',
+                type: 'linear',
+                offset: false,
+                title: {
+                    display: true,
+                    text: 'x',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
-            gridLines: {
+            y: {
                 display: true,
-            },
-        },
-        yAxis: {
-            display: true,
-            type: 'category',
-            title: {
-                display: true,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: false,
+                type: 'category',
+                title: {
+                    display: true,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
         },
     },
@@ -194,32 +198,34 @@ export const BarTitleAxisDataValues = storyWithArgs<Props<DataFrame, ChartOption
                 },
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            offset: false,
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'x',
-                align: 'center',
+                type: 'linear',
+                offset: false,
+                title: {
+                    display: true,
+                    text: 'x',
+                    align: 'center',
+                },
+                ticks: {
+                    display: 'single',
+                },
+                gridLines: {
+                    display: 'single',
+                },
             },
-            ticks: {
-                display: 'single',
-            },
-            gridLines: {
-                display: 'single',
-            },
-        },
-        yAxis: {
-            display: true,
-            type: 'category',
-            title: {
+            y: {
                 display: true,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: false,
+                type: 'category',
+                title: {
+                    display: true,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
         },
         title: {
@@ -280,32 +286,34 @@ export const BarAxisDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(S
                 },
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            offset: false,
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'x',
-                align: 'center',
+                type: 'linear',
+                offset: false,
+                title: {
+                    display: true,
+                    text: 'x',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: 'single',
+                },
+                ticks: {
+                    display: 'single',
+                },
             },
-            gridLines: {
-                display: 'single',
-            },
-            ticks: {
-                display: 'single',
-            },
-        },
-        yAxis: {
-            display: true,
-            type: 'category',
-            title: {
+            y: {
                 display: true,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: false,
+                type: 'category',
+                title: {
+                    display: true,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
         },
     },
@@ -344,28 +352,30 @@ export const BarTitleSubTitleGrid = storyWithArgs<Props<DataFrame, ChartOptions>
                 ],
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            title: {
-                display: false,
-                text: 'x',
-                align: 'center',
-            },
-            gridLines: {
+        axis: {
+            x: {
                 display: true,
+                type: 'linear',
+                title: {
+                    display: false,
+                    text: 'x',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
-        },
-        yAxis: {
-            display: true,
-            type: 'category',
-            title: {
+            y: {
                 display: true,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: false,
+                type: 'category',
+                title: {
+                    display: true,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
         },
         title: {
