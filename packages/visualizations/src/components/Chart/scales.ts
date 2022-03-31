@@ -118,7 +118,6 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
                     defaultValue(options?.axis?.x?.ticks?.format, defaultCompactNumberFormat)
                 ),
             },
-            reverse: options?.axis?.x?.type === 'time' ? options?.axis?.x?.reverse || false : false,
         } as _DeepPartialObject<CartesianScaleOptions>;
     }
 
