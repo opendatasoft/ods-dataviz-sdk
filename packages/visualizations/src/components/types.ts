@@ -6,7 +6,12 @@ export interface ChartOptions {
     /** Chart aspect ratio */
     aspectRatio?: number;
     /** Chart padding */
-    padding?: number;
+    padding?: number | {
+        top?: number;
+        bottom?: number;
+        left?: number;
+        right?: number;
+    };
     axis?: {
         /** Configure x axis */
         x?: CartesianAxisConfiguration;
@@ -34,6 +39,7 @@ export interface ChartOptions {
 export interface Source {
     href: string;
     label?: string;
+    style?: string;
 }
 
 export interface GridLinesConfiguration {
