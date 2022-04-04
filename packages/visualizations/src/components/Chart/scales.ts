@@ -82,6 +82,7 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
     if (options.axis?.x) {
         scales.x = {
             stacked: options.axis?.assemblage?.stacked,
+            max: options?.axis?.x?.type === 'linear' && options.axis?.assemblage?.percentaged ? 100 : undefined,
             type: options?.axis?.x?.type,
             ...(options?.axis?.x?.type === 'time'
                 ? {
@@ -125,6 +126,7 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
     if (options.axis?.y) {
         scales.y = {
             stacked: options.axis?.assemblage?.stacked,
+            max: options?.axis?.y?.type === 'linear' && options.axis?.assemblage?.percentaged ? 100 : undefined,
             type: options?.axis?.y?.type,
             display: options?.axis?.y?.display,
             title: {
