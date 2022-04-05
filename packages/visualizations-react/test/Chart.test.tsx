@@ -41,27 +41,29 @@ const options: ChartOptions = {
             borderColor: 'rgb(119, 73, 54)',
         },
     ],
-    xAxis: {
-        display: true,
-        type: 'linear',
-        title: {
+    axis: {
+        x: {
             display: true,
-            text: 'Date de plantation',
-            align: 'center',
+            type: 'linear',
+            title: {
+                display: true,
+                text: 'Date de plantation',
+                align: 'center',
+            },
+            gridLines: {
+                display: false,
+            },
         },
-        gridLines: {
-            display: false,
-        },
-    },
-    yAxis: {
-        display: true,
-        title: {
+        y: {
             display: true,
-            text: 'Moyenne de la hauteur en CM',
-            align: 'center',
-        },
-        gridLines: {
-            display: true,
+            title: {
+                display: true,
+                text: 'Moyenne de la hauteur en CM',
+                align: 'center',
+            },
+            gridLines: {
+                display: true,
+            },
         },
     },
     title: {
