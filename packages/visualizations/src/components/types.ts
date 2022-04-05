@@ -6,12 +6,14 @@ export interface ChartOptions {
     /** Chart aspect ratio */
     aspectRatio?: number;
     /** Chart padding */
-    padding?: number | {
-        top?: number;
-        bottom?: number;
-        left?: number;
-        right?: number;
-    };
+    padding?:
+        | number
+        | {
+              top?: number;
+              bottom?: number;
+              left?: number;
+              right?: number;
+          };
     axis?: {
         /** Configure x axis */
         x?: CartesianAxisConfiguration;
@@ -21,7 +23,7 @@ export interface ChartOptions {
         r?: RadialAxisConfiguration;
         /** Configure axis assemblage */
         assemblage?: AssemblageAxisConfiguration;
-    },
+    };
     /** Configure legend */
     legend?: LegendConfiguration;
     /** Configure title */

@@ -64,7 +64,6 @@ export const HistogramTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOption
                     display: true,
                 },
             },
-
         },
         title: {
             text: 'Histogram chart with title, axis and grid',
@@ -116,7 +115,6 @@ export const HistogramAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(S
                     display: true,
                 },
             },
-
         },
     },
 });
@@ -187,7 +185,6 @@ export const HistogramTitleDataValues = storyWithArgs<Props<DataFrame, ChartOpti
                     display: 'single',
                 },
             },
-
         },
         title: {
             text: 'Histogram chart with title, subtitle and data values',
@@ -263,7 +260,6 @@ export const HistogramDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>
                     display: 'single',
                 },
             },
-
         },
     },
 });
@@ -336,7 +332,6 @@ export const HistogramAxisDataValues = storyWithArgs<Props<DataFrame, ChartOptio
                     display: 'single',
                 },
             },
-
         },
     },
 });
@@ -394,7 +389,6 @@ export const HistogramTitleAxisGridNegative = storyWithArgs<Props<DataFrame, Cha
                         display: true,
                     },
                 },
-
             },
             title: {
                 text: 'Histogram chart with title, axis and grid',

@@ -82,7 +82,10 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
     if (options.axis?.x) {
         scales.x = {
             stacked: options.axis?.assemblage?.stacked,
-            max: options?.axis?.x?.type === 'linear' && options.axis?.assemblage?.percentaged ? 100 : undefined,
+            max:
+                options?.axis?.x?.type === 'linear' && options.axis?.assemblage?.percentaged
+                    ? 100
+                    : undefined,
             type: options?.axis?.x?.type,
             ...(options?.axis?.x?.type === 'time'
                 ? {
@@ -108,7 +111,9 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
                 display: !!defaultValue(options.axis?.x?.gridLines?.display, true),
                 offset: false,
                 drawBorder: false,
-                color: computeGridLineColor(defaultValue(options.axis?.x?.gridLines?.display, true)),
+                color: computeGridLineColor(
+                    defaultValue(options.axis?.x?.gridLines?.display, true)
+                ),
             },
             ticks: {
                 display: !!defaultValue(options?.axis?.x?.ticks?.display, true),
@@ -126,7 +131,10 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
     if (options.axis?.y) {
         scales.y = {
             stacked: options.axis?.assemblage?.stacked,
-            max: options?.axis?.y?.type === 'linear' && options.axis?.assemblage?.percentaged ? 100 : undefined,
+            max:
+                options?.axis?.y?.type === 'linear' && options.axis?.assemblage?.percentaged
+                    ? 100
+                    : undefined,
             type: options?.axis?.y?.type,
             display: options?.axis?.y?.display,
             title: {
@@ -142,7 +150,9 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
             grid: {
                 display: !!defaultValue(options.axis?.y?.gridLines?.display, true),
                 drawBorder: false,
-                color: computeGridLineColor(defaultValue(options.axis?.y?.gridLines?.display, true)),
+                color: computeGridLineColor(
+                    defaultValue(options.axis?.y?.gridLines?.display, true)
+                ),
             },
             ticks: {
                 display: !!defaultValue(options?.axis?.y?.ticks?.display, true),
@@ -178,7 +188,9 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
                 display: defaultValue(options.axis?.r?.gridLines?.display, true),
                 drawBorder: false,
                 offset: false,
-                color: computeGridLineColor(defaultValue(options.axis?.r?.gridLines?.display, true)),
+                color: computeGridLineColor(
+                    defaultValue(options.axis?.r?.gridLines?.display, true)
+                ),
             },
         } as _DeepPartialObject<RadialLinearScaleOptions>;
     }

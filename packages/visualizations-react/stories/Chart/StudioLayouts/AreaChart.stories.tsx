@@ -307,7 +307,6 @@ export const AreaTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>
                     display: 'single',
                 },
             },
-
         },
         title: {
             text: 'Area chart with title and data values on axis',
