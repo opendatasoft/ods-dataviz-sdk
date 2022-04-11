@@ -114,7 +114,7 @@ const StudioChoroplethCustomPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
             customLabels: {
                 '0': { start: 'From ', middle: ' to ' },
                 '1': { start: 'From ', middle: ' to ', end: ' !' },
-                '3': { start: 'From ', middle: ' to the last ' },
+                '3': { start: 'From ', middle: ' to ', end:  ' and a very long text because not everyone can be a legend'},
             },
         },
     },
