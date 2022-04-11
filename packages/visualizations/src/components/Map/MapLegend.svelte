@@ -8,7 +8,6 @@
     export let colorMode;
 
     function customLegendLabel(min, max, colorScale, index, customLabels) {
-        console.log(customLabels[index])
         let leftScale;
         let rightScale;
         const startLabel = customLabels[index]?.start || "";

@@ -15,7 +15,6 @@ export const colorShapes = (geoJson, values, colorScale, colorMode) => {
     if (colorMode === 'palette') {
         const tresholdArray = [];
         colorScale.forEach((color, i) => {
-            console.log(i)
             if (i === 0) {
                 tresholdArray.push(min)
                 tresholdArray.push(min + ((max - min) / colorScale.length))
