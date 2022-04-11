@@ -62,7 +62,7 @@ const StudioChoroplethGradientArgs: Props<DataFrame, ChoroplethOptions> = {
         colorMode: 'gradient',
         aspectRatio: 1,
         legend: {
-            title: "I Am Legend",
+            title: 'I Am Legend',
         },
     },
 };
@@ -86,7 +86,7 @@ const StudioChoroplethPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
         colorMode: 'palette',
         aspectRatio: 1,
         legend: {
-            title: "I Am Legend",
+            title: 'I Am Legend',
         },
     },
 };
@@ -110,12 +110,12 @@ const StudioChoroplethCustomPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
         colorMode: 'palette',
         aspectRatio: 1,
         legend: {
-            title: "I Am Legend",
+            title: 'I Am Legend',
             customLabels: {
-                '0': {start:"From ", middle:" to "},
-                '1': {start:"From ", middle:" to ", end: " !"},
-                '3': {start:"From ", middle:" to the last "},
-            }
+                '0': { start: 'From ', middle: ' to ' },
+                '1': { start: 'From ', middle: ' to ', end: ' !' },
+                '3': { start: 'From ', middle: ' to the last ' },
+            },
         },
     },
 };

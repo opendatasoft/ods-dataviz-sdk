@@ -16,16 +16,15 @@ export const colorShapes = (geoJson, values, colorScale, colorMode) => {
         const tresholdArray = [];
         colorScale.forEach((color, i) => {
             if (i === 0) {
-                tresholdArray.push(min)
-                tresholdArray.push(min + ((max - min) / colorScale.length))
+                tresholdArray.push(min);
+                tresholdArray.push(min + (max - min) / colorScale.length);
             } else if (i === colorScale.length - 1) {
-                tresholdArray.push(max)
+                tresholdArray.push(max);
             } else {
-                tresholdArray.push(min +((max - min) / colorScale.length) * (i + 1))
+                tresholdArray.push(min + ((max - min) / colorScale.length) * (i + 1));
             }
-        })
-        scale = chroma.scale(colorScale).classes(tresholdArray)
-
+        });
+        scale = chroma.scale(colorScale).classes(tresholdArray);
     } else {
         // Default is gradient
         if (Array.isArray(colorScale)) {
@@ -60,14 +59,14 @@ export const colorShapes = (geoJson, values, colorScale, colorMode) => {
         };
     });
     return {
-        geoJson : {
+        geoJson: {
             type: 'FeatureCollection',
             features: coloredFeatures,
         },
         steps: {
             min,
             max,
-        }
+        },
     };
 };
 

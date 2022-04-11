@@ -7,28 +7,28 @@
     export let colorScale;
     export let colorMode;
 
-    function customLegendLabel(min, max, colorScale, index, customLabels) {
+    function customLegendLabels(min, max, colorScale, index, customLabels) {
         let leftScale;
         let rightScale;
-        const startLabel = customLabels[index]?.start || "";
-        const middleLabel = customLabels[index]?.middle || " - ";
-        const endLabel = customLabels[index]?.end || "";
+        const startLabel = customLabels[index]?.start || '';
+        const middleLabel = customLabels[index]?.middle || ' - ';
+        const endLabel = customLabels[index]?.end || '';
 
-        switch(index) {
+        switch (index) {
             case 0:
                 leftScale = min;
-                rightScale =  min + (max - min) / colorScale.length - 1;
+                rightScale = min + (max - min) / colorScale.length - 1;
                 break;
-            case (colorScale.length - 1):
-                leftScale = min + (max - min) / colorScale.length * index;
+            case colorScale.length - 1:
+                leftScale = min + ((max - min) / colorScale.length) * index;
                 rightScale = max;
                 break;
             default:
-                leftScale = min + (max - min) / colorScale.length * index;
-                rightScale = min + (max - min) / colorScale.length * (index +1) - 1;
+                leftScale = min + ((max - min) / colorScale.length) * index;
+                rightScale = min + ((max - min) / colorScale.length) * (index + 1) - 1;
                 break;
         }
-        return `${startLabel}${leftScale}${middleLabel}${rightScale}${endLabel}`
+        return `${startLabel}${leftScale}${middleLabel}${rightScale}${endLabel}`;
     }
 
     $: cssLegendVarStyles = `--legend-color:linear-gradient(to right, ${colorScale});`;
@@ -56,7 +56,13 @@
                             style="--box-color: {color}"
                         />
                         <div>
-                            {customLegendLabel(colorStepper.min, colorStepper.max, colorScale, i, options.legend.customLabels)}
+                            {customLegendLabels(
+                                colorStepper.min,
+                                colorStepper.max,
+                                colorScale,
+                                i,
+                                options.legend.customLabels
+                            )}
                         </div>
                     </div>
                 {/each}
@@ -78,18 +84,14 @@
                             <div>{colorStepper.min}</div>
                             <div>
                                 {colorStepper.min +
-                                    Math.round(
-                                        (colorStepper.max - colorStepper.min) / colorScale.length
-                                    )}
+                                    (colorStepper.max - colorStepper.min) / colorScale.length}
                             </div>
                         {:else if i === colorScale.length - 1}
                             <div>{colorStepper.max}</div>
                         {:else}
                             <div>
                                 {colorStepper.min +
-                                    Math.round(
-                                        (colorStepper.max - colorStepper.min) / colorScale.length
-                                    ) *
+                                    ((colorStepper.max - colorStepper.min) / colorScale.length) *
                                         (i + 1)}
                             </div>
                         {/if}
