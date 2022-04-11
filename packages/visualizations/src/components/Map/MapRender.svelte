@@ -16,6 +16,7 @@ TODO:
         computeBoundingBoxFromGeoJsonFeatures,
         computeMaxZoomFromGeoJsonFeatures,
     } from './utils';
+    import MapLegend from './MapLegend.svelte';
 
     // maplibre style (basemap)
     export let style;
@@ -23,6 +24,13 @@ TODO:
     export let source;
     // maplibre layer config
     export let layer;
+    // maplibre color config
+    export let colorScale;
+    // maplibre color mode
+    export let colorMode
+
+    // options to customize the component
+    export let options;
 
     // aspect ratio based on width, by default equal to 1
     export let aspectRatio = 1;
@@ -36,6 +44,8 @@ TODO:
     // Used to add a listener to resize map on container changes, canceled on destroy
     let resizer;
 
+    export let colorStepper;
+
     // Used in front of console messages to debug multiple maps on a same page
     const mapId = Math.floor(Math.random() * 1000);
     const sourceId = `shape-source-${mapId}`;
@@ -45,6 +55,10 @@ TODO:
         style,
         source,
         layer,
+        colorScale,
+        colorMode,
+        colorStepper,
+        options,
     });
 
     function fitMapToBbox(newBbox) {
@@ -156,8 +170,12 @@ TODO:
 
     $: updateStyle(style);
 </script>
-
-<div id="map" bind:this={container} style={cssVarStyles} />
+<figure class="map-card" style={cssVarStyles}>
+    <div id="map" bind:this={container} />
+    {#if options.legend}
+        <MapLegend {colorStepper} {colorScale} {options} {colorMode} />
+    {/if}
+</figure>
 
 <style>
     #map {
@@ -168,5 +186,11 @@ TODO:
             height: auto;
             aspect-ratio: var(--aspect-ratio);
         }
+    }
+    .map-card {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        position:relative;
     }
 </style>

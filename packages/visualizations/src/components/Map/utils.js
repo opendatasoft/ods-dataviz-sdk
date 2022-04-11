@@ -1,19 +1,45 @@
 import chroma from 'chroma-js';
 import geoViewport from '@mapbox/geo-viewport';
 
-export const colorShapes = (geoJson, values, colorScale) => {
+export const colorShapes = (geoJson, values, colorScale, colorMode) => {
     // Key in the values is "x"
     // Key in the shapes is "key"
     // We add a color property in the JSON
     const rawValues = values.map((v) => v.y);
     const min = Math.min(...rawValues);
     const max = Math.max(...rawValues);
+    let colorMin;
+    let colorMax;
+    let scale;
 
-    // For now the colorscale is a single color, and we build a scale from it. TBD
-    const colorMin = chroma(colorScale).darken(4).hex();
-    const colorMax = chroma(colorScale).brighten(4).hex();
+    if (colorMode === 'palette') {
+        const tresholdArray = [];
+        colorScale.forEach((color, i) => {
+            console.log(i)
+            if (i === 0) {
+                tresholdArray.push(min)
+                tresholdArray.push(min + ((max - min) / colorScale.length))
+            } else if (i === colorScale.length - 1) {
+                tresholdArray.push(max)
+            } else {
+                tresholdArray.push(min +((max - min) / colorScale.length) * (i + 1))
+            }
+        })
+        scale = chroma.scale(colorScale).classes(tresholdArray)
 
-    const scale = chroma.scale([colorMin, colorMax]).domain([min, max]);
+    } else {
+        // Default is gradient
+        if (Array.isArray(colorScale)) {
+            // Array of colors we take the two extreme colors
+            colorMin = chroma(colorScale[0]).hex();
+            colorMax = chroma(colorScale[colorScale.length - 1]).hex();
+        } else {
+            // Single color
+            colorMin = chroma(colorScale).darken(4).hex();
+            colorMax = chroma(colorScale).brighten(4).hex();
+        }
+        scale = chroma.scale([colorMin, colorMax]).domain([min, max]);
+    }
 
     const dataMapping = {};
     values.forEach((v) => {
@@ -35,8 +61,14 @@ export const colorShapes = (geoJson, values, colorScale) => {
         };
     });
     return {
-        type: 'FeatureCollection',
-        features: coloredFeatures,
+        geoJson : {
+            type: 'FeatureCollection',
+            features: coloredFeatures,
+        },
+        steps: {
+            min,
+            max,
+        }
     };
 };
 
