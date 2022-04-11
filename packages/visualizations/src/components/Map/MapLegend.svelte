@@ -161,8 +161,8 @@
         display: flex;
     }
     .map-card__legend-color-box-palette-vertical {
-        height: 18px;
-        width: 40px;
+        min-height: 18px;
+        min-width: 40px;
         background: var(--box-color);
         border-radius: 3px;
         margin: 3px 0;
