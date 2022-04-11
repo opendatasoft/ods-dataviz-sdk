@@ -39,7 +39,7 @@
         <div class="map-card__legend-title">{options.legend.title}</div>
     {/if}
     {#if colorMode === 'gradient'}
-        <!-- Gradient color box, non custom legend only taking min and max -->
+        <!-- Gradient color boxex, no custom labels, only displaying min and max -->
         <div class="map-card__legend-color-box" />
         <div class="map-card__legend-values">
             <div>{colorStepper.min}</div>
@@ -47,7 +47,7 @@
         </div>
     {:else if colorMode === 'palette'}
         {#if options.legend.customLabels}
-            <!-- Palette color boxes, column display, non custom legend only taking palettes steps -->
+            <!-- Palette color boxes with custom labels, switch to column display -->
             <div class="map-card__legend-palette-container">
                 {#each colorScale as color, i}
                     <div class="map-card__legend-palette-container-row-vertical">
@@ -68,7 +68,7 @@
                 {/each}
             </div>
         {:else}
-            <!-- Palette color boxes, row display, non custom legend only taking palettes steps -->
+            <!-- Palette color boxes, row display, no labels only displaying palettes steps -->
             <div class="map-card__legend-palette-container">
                 <div class="map-card__legend-palette-container-row">
                     {#each colorScale as color}
