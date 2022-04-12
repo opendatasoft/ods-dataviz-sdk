@@ -16,7 +16,7 @@
     let shapes;
     let colorScale;
     let aspectRatio;
-    $: ({ shapes, colorScale, aspectRatio } = options);
+    $: ({ shapes, colorScale, aspectRatio, initialBoundingBox: bbox } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
     const style = BLANK;
@@ -87,7 +87,7 @@ shapes: {
 </script>
 
 <div>
-    <MapRender {style} {source} {layer} {aspectRatio} />
+    <MapRender {style} {source} {layer} {aspectRatio} {bbox} />
 </div>
 
 <style>

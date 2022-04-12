@@ -23,6 +23,8 @@ TODO:
     export let source;
     // maplibre layer config
     export let layer;
+    // bounding box to start from, and restrict to it
+    export let bbox;
 
     // aspect ratio based on width, by default equal to 1
     export let aspectRatio = 1;
@@ -30,8 +32,7 @@ TODO:
 
     let container;
     let map;
-    // bounding box to start from, and restrict to it
-    let bbox;
+
     let mapReady = false;
     // Used to add a listener to resize map on container changes, canceled on destroy
     let resizer;
@@ -45,6 +46,7 @@ TODO:
         style,
         source,
         layer,
+        bbox,
     });
 
     function fitMapToBbox(newBbox) {
@@ -100,15 +102,23 @@ TODO:
         // sourceDataType can be "visibility" or "metadata", in which case it's not about the data itself
         if (e.isSourceLoaded && e.sourceId === sourceId && !e.sourceDataType) {
             console.log(mapId, 'sourceLoadingCallback');
-            const renderedFeatures = map.querySourceFeatures(sourceId, { sourceLayer: layerId });
-            // Compute the bounding box of things currently displayed
-            bbox = computeBoundingBoxFromGeoJsonFeatures(renderedFeatures);
-            fitMapToBbox(bbox);
 
-            // Restrict zoom max
-            if (renderedFeatures.length) {
-                const maxZoom = computeMaxZoomFromGeoJsonFeatures(container, renderedFeatures);
-                map.setMaxZoom(maxZoom);
+            if (source.type == 'geojson') {
+                // GeoJSON: we compute everything from the data itself
+                const renderedFeatures = map.querySourceFeatures(sourceId, { sourceLayer: layerId });
+                // Compute the bounding box of things currently displayed
+                bbox = computeBoundingBoxFromGeoJsonFeatures(renderedFeatures);
+                fitMapToBbox(bbox);
+
+                // Restrict zoom max
+                if (renderedFeatures.length) {
+                    const maxZoom = computeMaxZoomFromGeoJsonFeatures(container, renderedFeatures);
+                    map.setMaxZoom(maxZoom);
+                }
+            } else {
+                // Vector tiles: we just use the given bbox
+                // Due to the way vector tiles work, we can't compute things from the source data, because we don't have it all from the start
+                fitMapToBbox(bbox);
             }
 
             map.off('sourcedata', sourceLoadingCallback);
