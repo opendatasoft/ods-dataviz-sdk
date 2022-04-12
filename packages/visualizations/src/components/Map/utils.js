@@ -40,6 +40,40 @@ export const colorShapes = (geoJson, values, colorScale) => {
     };
 };
 
+export const colorVectorLayer = (values, colorScale, keyField) => {
+    const rawValues = values.map((v) => v.y);
+    const min = Math.min(...rawValues);
+    const max = Math.max(...rawValues);
+
+    // For now the colorscale is a single color, and we build a scale from it. TBD
+    const colorMin = chroma(colorScale).darken(4).hex();
+    const colorMax = chroma(colorScale).brighten(4).hex();
+
+    const scale = chroma.scale([colorMin, colorMax]).domain([min, max]);
+
+    const dataMapping = {};
+    values.forEach((v) => {
+        dataMapping[v.x] = scale(v.y).hex();
+    });
+
+    const matchExpression = [
+        'match',
+        ['get', keyField],
+    ];
+    Object.entries(dataMapping).forEach(e => matchExpression.push(...e));
+    matchExpression.push('#ffffff'); // Default fallback color
+
+    return {
+        type: 'fill',
+        layout: {},
+        paint: {
+            'fill-color': matchExpression,
+            'fill-opacity': 0.8,
+            'fill-outline-color': '#000',
+        }
+    }
+}
+
 export const mapKeyToColor = (values, colorScale) => {
     const rawValues = values.map((v) => v.y);
     const min = Math.min(...rawValues);

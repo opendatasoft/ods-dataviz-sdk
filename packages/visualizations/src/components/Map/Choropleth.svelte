@@ -3,7 +3,7 @@
 <script>
     import MapRender from './MapRender.svelte';
     import { BLANK } from './mapStyles';
-    import { colorShapes } from './utils';
+    import { colorShapes, colorVectorLayer } from './utils';
 
     export let data; // values, and the key to match
     export let options; // contains the shapes to display & match
@@ -35,8 +35,17 @@ shapes: {
 }
 */
     function computeSourceLayerAndBboxes(values, newShapes, newColorScale) {
-        if ((newShapes.type === 'geojson' && !newShapes.geoJson) || !values) {
+        if (newShapes.type === 'geojson' && !newShapes.geoJson) {
             // We don't have everything we need yet
+            return;
+        }
+
+        if (newShapes.type === 'vtiles' && (!newShapes.url || !newShapes.sourceLayer || !newShapes.keyField)) {
+            // We don't have everything we need yet
+            return;
+        }
+
+        if (!values) {
             return;
         }
 
@@ -57,6 +66,18 @@ shapes: {
                     'fill-outline-color': '#fff',
                 },
             };
+        } else if (newShapes.type === 'vtiles') {
+            source = {
+                type: 'vector',
+                tiles: [
+                    newShapes.url,
+                ]
+            };
+
+            layer = {
+                ...colorVectorLayer(values, newColorScale, newShapes.keyField),
+                "source-layer": newShapes.sourceLayer,
+            }
         } else {
             console.error('Unknown shapes type', newShapes.type);
         }
