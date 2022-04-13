@@ -18,6 +18,8 @@ TODO:
     } from './utils';
     import Legend from './Legend.svelte';
 
+	let clientWidth;
+
     // maplibre style (basemap)
     export let style;
     // maplibre source config
@@ -170,10 +172,10 @@ TODO:
 
     $: updateStyle(style);
 </script>
-<figure class="map-card" style={cssVarStyles}>
+<figure class="map-card" style={cssVarStyles} bind:clientWidth>
     <div id="map" bind:this={container} />
     {#if options.legend}
-        <Legend {colorStepper} {colorScale} {options} {colorMode} />
+        <Legend {colorStepper} {colorScale} {options} {colorMode} {clientWidth} />
     {/if}
 </figure>
 
