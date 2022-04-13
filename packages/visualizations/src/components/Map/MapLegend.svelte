@@ -25,12 +25,12 @@
     {:else if colorMode === 'palette'}
         <!-- Palette color boxes, row display, no labels only displaying palettes steps -->
         <div class="map-card__legend-container-palette">
-            <div class="map-card__legend-row-palette">
+            <div class="map-card__legend-row-color-box-palette">
                 {#each colorScale as color}
                     <div class="map-card__legend-color-box-palette" style="--box-color: {color}" />
                 {/each}
             </div>
-            <div class="map-card__legend-row-palette">
+            <div class="map-card__legend-row-values-palette">
                 {#each colorScale as color, i}
                     {#if i === 0}
                         <div>{colorStepper.min}</div>
@@ -87,7 +87,8 @@
         display: flex;
         flex-direction: column;
     }
-    .map-card__legend-row-palette {
+    .map-card__legend-row-color-box-palette,
+    .map-card__legend-row-values-palette {
         display: flex;
         justify-content: space-between;
         flex-wrap: nowrap;
@@ -99,7 +100,13 @@
         display: flex;
         margin-bottom: 3px;
     }
+    .map-card__legend-color-box-palette:first-child {
+        margin-left: 3px;
+    }
     .map-card__legend-color-box-palette:not(:last-child) {
         margin-right: 1px;
+    }
+    .map-card__legend-row-values-palette {
+        min-width: 206px;
     }
 </style>
