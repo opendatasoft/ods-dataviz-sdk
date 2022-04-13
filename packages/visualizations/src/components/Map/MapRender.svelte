@@ -16,7 +16,7 @@ TODO:
         computeBoundingBoxFromGeoJsonFeatures,
         computeMaxZoomFromGeoJsonFeatures,
     } from './utils';
-    import MapLegend from './MapLegend.svelte';
+    import Legend from './Legend.svelte';
 
     // maplibre style (basemap)
     export let style;
@@ -173,7 +173,7 @@ TODO:
 <figure class="map-card" style={cssVarStyles}>
     <div id="map" bind:this={container} />
     {#if options.legend}
-        <MapLegend {colorStepper} {colorScale} {options} {colorMode} />
+        <Legend {colorStepper} {colorScale} {options} {colorMode} />
     {/if}
 </figure>
 

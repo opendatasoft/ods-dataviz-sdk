@@ -224,7 +224,7 @@ interface Feature {
     type: 'Feature';
 }
 
-export interface MapLegendOptions {
+export interface LegendOptions {
     aspectRatio: number;
     colorMode?: 'palette' | 'gradient';
     colorScale?: string | string[];
