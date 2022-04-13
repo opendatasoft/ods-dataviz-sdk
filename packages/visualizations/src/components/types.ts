@@ -217,3 +217,27 @@ export interface KpiCardOptions {
 }
 
 export interface ChoroplethOptions {}
+
+interface Feature {
+    geometry: { coordinates: string[]; type: 'Polygon' };
+    properties: { key: string };
+    type: 'Feature';
+}
+
+export interface MapLegendOptions {
+    aspectRatio: number;
+    colorMode?: 'palette' | 'gradient';
+    colorScale?: string | string[];
+    legend?: {
+        title?: string;
+    };
+    parameters?: {};
+    shapes: {
+        geoJson: {
+            type: 'FeatureCollection';
+            features: Feature[];
+        };
+        type: 'geojson';
+    };
+    style?: {};
+}

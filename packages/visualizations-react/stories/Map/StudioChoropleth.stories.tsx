@@ -13,7 +13,7 @@ export default meta;
 const Template = (args: Props<DataFrame, ChoroplethOptions>) => (
     <div
         style={{
-            width: '60%',
+            width: '50%',
             minHeight: '100px',
             minWidth: '100px',
             margin: 'auto',
@@ -91,32 +91,3 @@ const StudioChoroplethPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
     },
 };
 StudioChoroplethPalette.args = StudioChoroplethPaletteArgs;
-
-export const StudioChoroplethCustomPalette = Template.bind({});
-const StudioChoroplethCustomPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
-    data: {
-        loading: false,
-        value: [
-            { x: 'France', y: 60 },
-            { x: 'IDF', y: 35 },
-            { x: 'Corsica', y: 95 },
-        ],
-    },
-    options: {
-        style: {},
-        parameters: {},
-        shapes,
-        colorScale: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
-        colorMode: 'palette',
-        aspectRatio: 1,
-        legend: {
-            title: 'I Am Legend',
-            customLabels: {
-                '0': { start: 'From ', middle: ' to ' },
-                '1': { start: 'From ', middle: ' to ', end: ' !' },
-                '3': { start: 'From ', middle: ' to ', end:  ' and a very long text because not everyone can be a legend'},
-            },
-        },
-    },
-};
-StudioChoroplethCustomPalette.args = StudioChoroplethCustomPaletteArgs;
