@@ -38,7 +38,7 @@ const StudioChoroplethArgs: Props<DataFrame, ChoroplethOptions> = {
         style: {},
         parameters: {},
         shapes,
-        colorScale: '#222222',
+        // colorScale: '#222222',
         aspectRatio: 1,
     },
 };
@@ -58,8 +58,13 @@ const StudioChoroplethGradientArgs: Props<DataFrame, ChoroplethOptions> = {
         style: {},
         parameters: {},
         shapes,
-        colorScale: ['#bcf5f9', '#0229bf'],
-        colorMode: 'gradient',
+        colorsScale : {
+            type: "gradient",
+            colors: {
+                start: '#bcf5f9',
+                end: '#0229bf',
+            },
+        },
         aspectRatio: 1,
         legend: {
             title: 'I Am Legend',
@@ -82,8 +87,10 @@ const StudioChoroplethPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
         style: {},
         parameters: {},
         shapes,
-        colorScale: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
-        colorMode: 'palette',
+        colorsScale: {
+            type: "palette",
+            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf', ],
+        },
         aspectRatio: 1,
         legend: {
             title: 'I Am Legend',

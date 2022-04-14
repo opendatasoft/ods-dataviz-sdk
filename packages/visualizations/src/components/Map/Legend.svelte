@@ -3,48 +3,47 @@
 <script lang="ts">
     import type { LegendOptions } from '../types';
     // options to customize the component
-    export let options: LegendOptions;
-    export let colorStepper: { min: number; max: number };
-    export let colorScale: string | string[];
-    export let colorMode: string;
+    export let dataBounds: { min: number; max: number };
+    export let colorsScale: any;
     export let clientWidth: number;
+    export let title: string;
 
-    $: cssLegendVarStyles = `--legend-color:linear-gradient(to right, ${colorScale});`;
+    $: cssLegendVarStyles = `--legend-color:linear-gradient(to right, ${colorsScale.colors.start}, ${colorsScale.colors.end});`;
 </script>
 
 <div class="{clientWidth <= 375 ? 'legend--small' : 'legend'}" style={cssLegendVarStyles}>
-    {#if options?.legend?.title}
-        <div class="legend-title">{options.legend.title}</div>
+    {#if title}
+        <div class="legend-title">{title}</div>
     {/if}
-    {#if colorMode === 'gradient'}
+    {#if colorsScale.type === 'gradient'}
         <!-- Gradient color boxex, no custom labels, only displaying min and max -->
         <div class="legend-color-box-gradient" />
         <div class="legend-values">
-            <div>{colorStepper.min}</div>
-            <div>{colorStepper.max}</div>
+            <div>{dataBounds.min}</div>
+            <div>{dataBounds.max}</div>
         </div>
-    {:else if colorMode === 'palette'}
+    {:else if colorsScale.type === 'palette'}
         <!-- Palette color boxes, row display, no labels only displaying palettes steps -->
         <div class="legend-container-palette">
             <div class="legend-row-color-box-palette">
-                {#each colorScale as color}
+                {#each colorsScale.colors as color}
                     <div class="legend-color-box-palette" style="--box-color: {color}" />
                 {/each}
             </div>
             <div class="legend-row-values-palette">
-                {#each colorScale as color, i}
+                {#each colorsScale.colors as color, i}
                     {#if i === 0}
-                        <div>{colorStepper.min}</div>
+                        <div>{dataBounds.min}</div>
                         <div>
-                            {colorStepper.min +
-                                (colorStepper.max - colorStepper.min) / colorScale.length}
+                            {dataBounds.min +
+                                (dataBounds.max - dataBounds.min) / colorsScale.colors.length}
                         </div>
-                    {:else if i === colorScale.length - 1}
-                        <div>{colorStepper.max}</div>
+                    {:else if i === colorsScale.colors.length - 1}
+                        <div>{dataBounds.max}</div>
                     {:else}
                         <div>
-                            {colorStepper.min +
-                                ((colorStepper.max - colorStepper.min) / colorScale.length) *
+                            {dataBounds.min +
+                                ((dataBounds.max - dataBounds.min) / colorsScale.colors.length) *
                                     (i + 1)}
                         </div>
                     {/if}
@@ -90,8 +89,10 @@
         min-height: 16px;
         border-radius: 3px;
         background: var(--legend-color);
-        margin-left: 3px;
         margin-bottom: 3px;
+    }
+    .legend .legend-color-box-gradient {
+        margin-left: 3px;
     }
     /* Specific CSS for palette */
     .legend-container-palette {
@@ -111,7 +112,7 @@
         display: flex;
         margin-bottom: 3px;
     }
-    .legend-color-box-palette:first-child {
+    .legend .legend-color-box-palette:first-child {
         margin-left: 3px;
     }
     .legend-color-box-palette:not(:last-child) {

@@ -14,16 +14,16 @@
     });
 
     let shapes;
-    let colorScale;
-    let colorMode;
+    let colorsScale;
+
     let aspectRatio;
-    $: ({ shapes, colorScale, aspectRatio, colorMode } = options);
+    $: ({ shapes, colorsScale, aspectRatio } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
     const style = BLANK;
     let layer;
     let source;
-    let colorStepper;
+    let dataBounds;
 
     /*
 shapes: {
@@ -43,9 +43,9 @@ shapes: {
         }
 
         if (newShapes.type === 'geojson') {
-            const computeColors = colorShapes(newShapes.geoJson, values, newColorScale, colorMode);
+            const computeColors = colorShapes(newShapes.geoJson, values, newColorScale);
             const coloredShapes = computeColors.geoJson;
-            colorStepper = computeColors.steps;
+            dataBounds = computeColors.bounds;
 
             source = {
                 type: 'geojson',
@@ -66,11 +66,11 @@ shapes: {
         }
     }
 
-    $: computeSourceLayerAndBboxes(data.value, shapes, colorScale);
+    $: computeSourceLayerAndBboxes(data.value, shapes, colorsScale);
 </script>
 
 <div>
-    <MapRender {style} {source} {layer} {aspectRatio} {colorScale} {colorStepper} {options} {colorMode} />
+    <MapRender {style} {source} {layer} {aspectRatio} {colorsScale} {dataBounds} {options} />
 </div>
 
 <style>

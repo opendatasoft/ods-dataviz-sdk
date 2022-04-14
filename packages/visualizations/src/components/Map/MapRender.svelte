@@ -27,9 +27,7 @@ TODO:
     // maplibre layer config
     export let layer;
     // maplibre color config
-    export let colorScale;
-    // maplibre color mode
-    export let colorMode
+    export let colorsScale;
 
     // options to customize the component
     export let options;
@@ -46,7 +44,7 @@ TODO:
     // Used to add a listener to resize map on container changes, canceled on destroy
     let resizer;
 
-    export let colorStepper;
+    export let dataBounds;
 
     // Used in front of console messages to debug multiple maps on a same page
     const mapId = Math.floor(Math.random() * 1000);
@@ -57,9 +55,8 @@ TODO:
         style,
         source,
         layer,
-        colorScale,
-        colorMode,
-        colorStepper,
+        colorsScale,
+        dataBounds,
         options,
     });
 
@@ -175,7 +172,7 @@ TODO:
 <figure class="map-card" style={cssVarStyles} bind:clientWidth>
     <div id="map" bind:this={container} />
     {#if options.legend}
-        <Legend {colorStepper} {colorScale} {options} {colorMode} {clientWidth} />
+        <Legend {dataBounds} {colorsScale} {clientWidth} title={options.legend.title}/>
     {/if}
 </figure>
 

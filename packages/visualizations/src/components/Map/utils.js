@@ -1,10 +1,11 @@
 import chroma from 'chroma-js';
 import geoViewport from '@mapbox/geo-viewport';
 
-export const colorShapes = (geoJson, values, colorScale, colorMode) => {
+export const colorShapes = (geoJson, values, colorsScale) => {
     // Key in the values is "x"
     // Key in the shapes is "key"
     // We add a color property in the JSON
+    // FIXME Do we always want to take y or accept other keys
     const rawValues = values.map((v) => v.y);
     const min = Math.min(...rawValues);
     const max = Math.max(...rawValues);
@@ -12,31 +13,27 @@ export const colorShapes = (geoJson, values, colorScale, colorMode) => {
     let colorMax;
     let scale;
 
-    if (colorMode === 'palette') {
+    if (colorsScale?.type === 'palette') {
         const tresholdArray = [];
-        colorScale.forEach((color, i) => {
+        colorsScale.colors.forEach((color, i) => {
             if (i === 0) {
                 tresholdArray.push(min);
-                tresholdArray.push(min + (max - min) / colorScale.length);
-            } else if (i === colorScale.length - 1) {
+                tresholdArray.push(min + (max - min) / colorsScale.colors.length);
+            } else if (i === colorsScale.colors.length - 1) {
                 tresholdArray.push(max);
             } else {
-                tresholdArray.push(min + ((max - min) / colorScale.length) * (i + 1));
+                tresholdArray.push(min + ((max - min) / colorsScale.colors.length) * (i + 1));
             }
         });
-        scale = chroma.scale(colorScale).classes(tresholdArray);
-    } else {
-        // Default is gradient
-        if (Array.isArray(colorScale)) {
-            // Array of colors we take the two extreme colors
-            colorMin = chroma(colorScale[0]).hex();
-            colorMax = chroma(colorScale[colorScale.length - 1]).hex();
-        } else {
-            // Single color
-            colorMin = chroma(colorScale).darken(4).hex();
-            colorMax = chroma(colorScale).brighten(4).hex();
-        }
+        scale = chroma.scale(colorsScale.colors).classes(tresholdArray);
+    } else if (colorsScale?.type === 'gradient') {
+        colorMin = chroma(colorsScale.colors.start).hex();
+        colorMax = chroma(colorsScale.colors.end).hex();
         scale = chroma.scale([colorMin, colorMax]).domain([min, max]);
+    } else {
+        // Default is basic grey color
+        const uniqueColor = chroma("#CBD2DB").hex();
+        scale = chroma.scale([uniqueColor, uniqueColor]).domain([min, max]);
     }
 
     const dataMapping = {};
@@ -63,14 +60,14 @@ export const colorShapes = (geoJson, values, colorScale, colorMode) => {
             type: 'FeatureCollection',
             features: coloredFeatures,
         },
-        steps: {
+        bounds: {
             min,
             max,
         },
     };
 };
 
-export const mapKeyToColor = (values, colorScale) => {
+export const mapKeyToColor = (values, colorsScale) => {
     const rawValues = values.map((v) => v.y);
     const min = Math.min(...rawValues);
     const max = Math.max(...rawValues);
