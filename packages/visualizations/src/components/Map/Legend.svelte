@@ -14,7 +14,7 @@
         <div class="legend-title">{title}</div>
     {/if}
     {#if colorsScale.type === 'gradient'}
-        <!-- Gradient color boxex, no custom labels, only displaying min and max -->
+        <!-- Gradient color boxes, no custom labels, only displaying min and max -->
         <div
             class="legend-color-box-gradient"
             style="--legend-color:linear-gradient(to right, {colorsScale.colors.start}, {colorsScale

@@ -67,7 +67,7 @@ export const colorShapes = (geoJson, values, colorsScale) => {
     };
 };
 
-export const mapKeyToColor = (values, colorsScale) => {
+export const mapKeyToColor = (values, colorScale) => {
     const rawValues = values.map((v) => v.y);
     const min = Math.min(...rawValues);
     const max = Math.max(...rawValues);
