@@ -27,9 +27,9 @@ TODO:
     // maplibre layer config
     export let layer;
 
-    // options to customize the component
-    export let options;
-
+    // options to display legend
+    export let legend;
+    export let colorsScale;
     export let dataBounds;
 
     // aspect ratio based on width, by default equal to 1
@@ -53,7 +53,6 @@ TODO:
         style,
         source,
         layer,
-        options,
     });
 
     function fitMapToBbox(newBbox) {
@@ -167,8 +166,8 @@ TODO:
 </script>
 <figure class="map-card" style={cssVarStyles} bind:clientWidth>
     <div id="map" bind:this={container} />
-    {#if options.legend}
-        <Legend {dataBounds} colorsScale={options.colorsScale} {clientWidth} title={options.legend.title}/>
+    {#if legend}
+        <Legend {dataBounds} {colorsScale} {clientWidth} title={legend.title}/>
     {/if}
 </figure>
 

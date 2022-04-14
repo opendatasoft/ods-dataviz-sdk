@@ -17,7 +17,7 @@
     let colorsScale;
 
     let aspectRatio;
-    $: ({ shapes, colorsScale, aspectRatio } = options);
+    $: ({ shapes, colorsScale, legend, aspectRatio } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
     const style = BLANK;
@@ -70,7 +70,7 @@ shapes: {
 </script>
 
 <div>
-    <MapRender {style} {source} {layer} {aspectRatio} {dataBounds} {options} />
+    <MapRender {style} {source} {layer} {aspectRatio} {dataBounds} {colorsScale} {legend} />
 </div>
 
 <style>
