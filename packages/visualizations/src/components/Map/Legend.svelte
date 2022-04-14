@@ -11,7 +11,7 @@
     $: cssLegendVarStyles = `--legend-color:linear-gradient(to right, ${colorsScale.colors.start}, ${colorsScale.colors.end});`;
 </script>
 
-<div class="{clientWidth <= 375 ? 'legend--small' : 'legend'}" style={cssLegendVarStyles}>
+<div class="{clientWidth <= 375 ? 'legend--fluid' : 'legend--fixed'}" style={cssLegendVarStyles}>
     {#if title}
         <div class="legend-title">{title}</div>
     {/if}
@@ -54,7 +54,7 @@
 </div>
 
 <style>
-    .legend {
+    .legend--fixed {
         display: flex;
         flex-direction: column;
         width: 20%;
@@ -62,7 +62,7 @@
         min-width: 200px;
         font-size: 0.8rem;
     }
-    .legend--small {
+    .legend--fluid {
         display: flex;
         flex-direction: column;
         width: 90%;
@@ -80,7 +80,7 @@
         width: 100%;
         min-height: 16px;
     }
-    .legend .legend-values {
+    .legend--fixed .legend-values {
         min-width: 206px;
     }
     /* Specific CSS for gradient */
@@ -91,7 +91,7 @@
         background: var(--legend-color);
         margin-bottom: 3px;
     }
-    .legend .legend-color-box-gradient {
+    .legend--fixed .legend-color-box-gradient {
         margin-left: 3px;
     }
     /* Specific CSS for palette */
@@ -112,13 +112,13 @@
         display: flex;
         margin-bottom: 3px;
     }
-    .legend .legend-color-box-palette:first-child {
+    .legend--fixed .legend-color-box-palette:first-child {
         margin-left: 3px;
     }
     .legend-color-box-palette:not(:last-child) {
         margin-right: 1px;
     }
-    .legend .legend-row-values-palette {
+    .legend--fixed .legend-row-values-palette {
         min-width: 206px;
     }
 </style>
