@@ -38,7 +38,6 @@ const StudioChoroplethArgs: Props<DataFrame, ChoroplethOptions> = {
         style: {},
         parameters: {},
         shapes,
-        // colorScale: '#222222',
         aspectRatio: 1,
     },
 };
