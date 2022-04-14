@@ -1,23 +1,21 @@
 <svelte:options immutable={true} />
 
 <script lang="ts">
-    import type { LegendOptions } from '../types';
+    import type { DataBounds, ColorsScale } from '../types';
     // options to customize the component
-    export let dataBounds: { min: number; max: number };
-    export let colorsScale: any;
+    export let dataBounds: DataBounds;
+    export let colorsScale: ColorsScale;
     export let clientWidth: number;
     export let title: string;
-
-    $: cssLegendVarStyles = `--legend-color:linear-gradient(to right, ${colorsScale.colors.start}, ${colorsScale.colors.end});`;
 </script>
 
-<div class="legend {clientWidth <= 375 ? 'legend--fluid' : 'legend--fixed'}" style={cssLegendVarStyles}>
+<div class="legend {clientWidth <= 375 ? 'legend--fluid' : 'legend--fixed'}" >
     {#if title}
         <div class="legend-title">{title}</div>
     {/if}
     {#if colorsScale.type === 'gradient'}
         <!-- Gradient color boxex, no custom labels, only displaying min and max -->
-        <div class="legend-color-box-gradient" />
+        <div class="legend-color-box-gradient" style="--legend-color:linear-gradient(to right, {colorsScale.colors.start}, {colorsScale.colors.end})" />
         <div class="legend-values">
             <div>{dataBounds.min}</div>
             <div>{dataBounds.max}</div>
