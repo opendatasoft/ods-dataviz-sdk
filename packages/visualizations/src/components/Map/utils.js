@@ -32,7 +32,7 @@ export const colorShapes = (geoJson, values, colorsScale) => {
         scale = chroma.scale([colorMin, colorMax]).domain([min, max]);
     } else {
         // Default is basic grey color
-        const uniqueColor = chroma("#CBD2DB").hex();
+        const uniqueColor = chroma('#CBD2DB').hex();
         scale = chroma.scale([uniqueColor, uniqueColor]).domain([min, max]);
     }
 

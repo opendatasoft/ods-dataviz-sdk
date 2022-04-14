@@ -18,7 +18,7 @@ TODO:
     } from './utils';
     import Legend from './Legend.svelte';
 
-	let clientWidth;
+    let clientWidth;
 
     // maplibre style (basemap)
     export let style;
@@ -164,10 +164,11 @@ TODO:
 
     $: updateStyle(style);
 </script>
+
 <figure class="map-card" style={cssVarStyles} bind:clientWidth>
     <div id="map" bind:this={container} />
     {#if legend}
-        <Legend {dataBounds} {colorsScale} {clientWidth} title={legend.title}/>
+        <Legend {dataBounds} {colorsScale} {clientWidth} title={legend.title} />
     {/if}
 </figure>
 
@@ -185,6 +186,6 @@ TODO:
         display: flex;
         flex-direction: column;
         margin: 0;
-        position:relative;
+        position: relative;
     }
 </style>

@@ -223,17 +223,17 @@ export interface DataBounds {
     max: number;
 }
 
-export type ColorsScale = GradientScale | PaletteScale
+export type ColorsScale = GradientScale | PaletteScale;
 
 type GradientScale = {
-    type: 'gradient',
+    type: 'gradient';
     colors: {
-        start: string,
-        end: string,
-    },
+        start: string;
+        end: string;
+    };
 };
 
 type PaletteScale = {
-    type: 'palette',
-    colors: string[],
+    type: 'palette';
+    colors: string[];
 };

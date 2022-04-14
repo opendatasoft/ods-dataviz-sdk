@@ -9,13 +9,17 @@
     export let title: string;
 </script>
 
-<div class="legend {clientWidth <= 375 ? 'legend--fluid' : 'legend--fixed'}" >
+<div class="legend {clientWidth <= 375 ? 'legend--fluid' : 'legend--fixed'}">
     {#if title}
         <div class="legend-title">{title}</div>
     {/if}
     {#if colorsScale.type === 'gradient'}
         <!-- Gradient color boxex, no custom labels, only displaying min and max -->
-        <div class="legend-color-box-gradient" style="--legend-color:linear-gradient(to right, {colorsScale.colors.start}, {colorsScale.colors.end})" />
+        <div
+            class="legend-color-box-gradient"
+            style="--legend-color:linear-gradient(to right, {colorsScale.colors.start}, {colorsScale
+                .colors.end})"
+        />
         <div class="legend-values">
             <div>{dataBounds.min}</div>
             <div>{dataBounds.max}</div>

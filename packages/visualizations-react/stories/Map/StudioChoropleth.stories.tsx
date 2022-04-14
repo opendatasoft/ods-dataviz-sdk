@@ -57,8 +57,8 @@ const StudioChoroplethGradientArgs: Props<DataFrame, ChoroplethOptions> = {
         style: {},
         parameters: {},
         shapes,
-        colorsScale : {
-            type: "gradient",
+        colorsScale: {
+            type: 'gradient',
             colors: {
                 start: '#bcf5f9',
                 end: '#0229bf',
@@ -87,8 +87,8 @@ const StudioChoroplethPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
         parameters: {},
         shapes,
         colorsScale: {
-            type: "palette",
-            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf', ],
+            type: 'palette',
+            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
         },
         aspectRatio: 1,
         legend: {
