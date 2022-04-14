@@ -218,26 +218,22 @@ export interface KpiCardOptions {
 
 export interface ChoroplethOptions {}
 
-interface Feature {
-    geometry: { coordinates: string[]; type: 'Polygon' };
-    properties: { key: string };
-    type: 'Feature';
+export interface DataBounds {
+    min: number;
+    max: number;
 }
 
-export interface LegendOptions {
-    aspectRatio: number;
-    colorMode?: 'palette' | 'gradient';
-    colorScale?: string | string[];
-    legend?: {
-        title?: string;
-    };
-    parameters?: {};
-    shapes: {
-        geoJson: {
-            type: 'FeatureCollection';
-            features: Feature[];
-        };
-        type: 'geojson';
-    };
-    style?: {};
-}
+export type ColorsScale = GradientScale | PaletteScale
+
+type GradientScale = {
+    type: 'gradient',
+    colors: {
+        start: string,
+        end: string,
+    },
+};
+
+type PaletteScale = {
+    type: 'palette',
+    colors: string[],
+};
