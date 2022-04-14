@@ -70,7 +70,7 @@ shapes: {
 </script>
 
 <div>
-    <MapRender {style} {source} {layer} {aspectRatio} {colorsScale} {dataBounds} {options} />
+    <MapRender {style} {source} {layer} {aspectRatio} {dataBounds} {options} />
 </div>
 
 <style>

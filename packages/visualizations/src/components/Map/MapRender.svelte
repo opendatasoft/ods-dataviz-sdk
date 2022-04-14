@@ -26,11 +26,11 @@ TODO:
     export let source;
     // maplibre layer config
     export let layer;
-    // maplibre color config
-    export let colorsScale;
 
     // options to customize the component
     export let options;
+
+    export let dataBounds;
 
     // aspect ratio based on width, by default equal to 1
     export let aspectRatio = 1;
@@ -44,8 +44,6 @@ TODO:
     // Used to add a listener to resize map on container changes, canceled on destroy
     let resizer;
 
-    export let dataBounds;
-
     // Used in front of console messages to debug multiple maps on a same page
     const mapId = Math.floor(Math.random() * 1000);
     const sourceId = `shape-source-${mapId}`;
@@ -55,8 +53,6 @@ TODO:
         style,
         source,
         layer,
-        colorsScale,
-        dataBounds,
         options,
     });
 
@@ -172,7 +168,7 @@ TODO:
 <figure class="map-card" style={cssVarStyles} bind:clientWidth>
     <div id="map" bind:this={container} />
     {#if options.legend}
-        <Legend {dataBounds} {colorsScale} {clientWidth} title={options.legend.title}/>
+        <Legend {dataBounds} colorsScale={options.colorsScale} {clientWidth} title={options.legend.title}/>
     {/if}
 </figure>
 
