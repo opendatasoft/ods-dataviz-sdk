@@ -82,8 +82,7 @@ export const LineLongDataLabels = storyWithArgs<Props<DataFrame, ChartOptions>>(
 
 const pieDataFrame = [
     {
-        x:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla optio unde porro incidunt provident quis amet saepe voluptas explicabo maiores. Voluptatum itaque dolores consectetur assumenda repellendus accusamus laudantium vero deleniti.',
+        x: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla optio unde porro incidunt provident quis amet saepe voluptas explicabo maiores. Voluptatum itaque dolores consectetur assumenda repellendus accusamus laudantium vero deleniti.',
         y: 1000000,
     },
     { x: 'Beta', y: -5000000 },

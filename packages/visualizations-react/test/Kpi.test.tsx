@@ -5,8 +5,7 @@ import { KpiCardOptions } from '@opendatasoft/visualizations';
 import { KpiCard } from '../src';
 
 const source = {
-    href:
-        'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+    href: 'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
 };
 
 const options: KpiCardOptions = {
