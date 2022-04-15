@@ -41,14 +41,20 @@
                 {#if options.title}
                     <h3 class="kpi-card__title">{options.title}</h3>
                 {/if}
+                <!-- the weird syntax is to avoid any space at all between the value and the prefix or suffix 
+                The reason is that you want to support units that "stick" the value without any space, such as $45 or 45€
+                If you want to have a space (45 Cars), the prefix or suffix itself has to contain the space -->
                 <div class="kpi-card__value">
                     {#if options.prefix}<span class="kpi-card__prefix">{options.prefix}</span
-                        >{/if}{#if data.loading}<span class="kpi-card__value-loading" />{:else}<span
+                        >{/if}{#if data.loading}<span
+                            class="kpi-card__value-loading"
+                        />{:else if tooltipValue !== displayValue}<span
                             use:tippy={{
                                 content: tooltipValue,
                             }}
                             aria-label={tooltipValue}
                             class="kpi-card__value-number">{displayValue}</span
+                        >{:else}<span class="kpi-card__value-number">{displayValue}</span
                         >{/if}{#if options.suffix}<span class="kpi-card__suffix"
                             >{options.suffix}</span
                         >{/if}

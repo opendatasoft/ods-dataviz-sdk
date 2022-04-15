@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { KpiCardOptions } from '@opendatasoft/visualizations';
 import { KpiCard } from '../src';
@@ -50,4 +50,28 @@ test('KPI accepts custom link label', () => {
     render(<KpiCard data={{ value: 42 }} options={customOptions} />);
     const sourceLink = screen.getByText('Explore data');
     expect(sourceLink).toBeInTheDocument();
+});
+
+test('Tooltip is displayed if it is different from data value', async () => {
+    render(<KpiCard data={{ value: 42.897654 }} options={options} />);
+    const kpiValue = screen.getByText(/43/i);
+    const mouseenter = new MouseEvent('mouseenter', {
+        bubbles: false,
+        cancelable: false,
+    });
+    fireEvent(kpiValue, mouseenter);
+    const tooltip = screen.getByRole('tooltip');
+    expect(tooltip).toHaveTextContent(/42.898/i);
+});
+
+test('Tooltip is not displayed if it is not different from data value', async () => {
+    render(<KpiCard data={{ value: 43 }} options={options} />);
+    const kpiValue = screen.getByText(/43/i);
+    const mouseenter = new MouseEvent('mouseenter', {
+        bubbles: false,
+        cancelable: false,
+    });
+    fireEvent(kpiValue, mouseenter);
+    const tooltip = screen.queryByRole('tooltip');
+    expect(tooltip).toBe(null);
 });
