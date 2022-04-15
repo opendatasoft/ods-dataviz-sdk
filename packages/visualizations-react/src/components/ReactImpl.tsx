@@ -6,11 +6,8 @@ import { Props } from './Props';
 // FIXME: Test the wrap method
 
 // Represent one of our component class's constructor like Chart
-type ComponentConstructor<
-    Data,
-    Options,
-    ComponentClass extends BaseComponent<Data, Options>
-> = new (container: HTMLElement, data: Async<Data>, options: Options) => ComponentClass;
+type ComponentConstructor<Data, Options, ComponentClass extends BaseComponent<Data, Options>> =
+    new (container: HTMLElement, data: Async<Data>, options: Options) => ComponentClass;
 
 // The wrapper build a function component for the given component class
 export function wrap<Data, Options, ComponentClass extends BaseComponent<Data, Options>>(
