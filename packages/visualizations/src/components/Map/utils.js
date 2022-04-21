@@ -53,7 +53,9 @@ export const colorVectorLayer = (values, colorScale, keyField) => {
 
     const dataMapping = {};
     values.forEach((v) => {
-        dataMapping[v.x] = scale(v.y).hex();
+        // FIXME: We don't have georef_uid in the tiles yet, so we keep the last part which maps to the code
+        const x = v.x.split('_')[2];
+        dataMapping[x] = scale(v.y).hex();
     });
 
     const matchExpression = [
