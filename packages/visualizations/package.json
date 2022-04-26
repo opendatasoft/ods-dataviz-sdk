@@ -76,6 +76,7 @@
     },
     "dependencies": {
         "@mapbox/geo-viewport": "^0.5.0",
+        "@turf/bbox": "^6.5.0",
         "chart.js": "^3.5.1",
         "chartjs-adapter-luxon": "^1.1.0",
         "chartjs-plugin-datalabels": "^2.0.0-rc.1",

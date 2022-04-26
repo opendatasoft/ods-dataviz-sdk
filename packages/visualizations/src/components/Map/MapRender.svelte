@@ -12,8 +12,8 @@ TODO:
     import maplibregl from 'maplibre-gl';
     import { onMount } from 'svelte';
     import { debounce } from 'lodash';
+    import turfBbox from '@turf/bbox';
     import {
-        computeBoundingBoxFromGeoJsonFeatures,
         computeMaxZoomFromGeoJsonFeatures,
     } from './utils';
 
@@ -102,7 +102,10 @@ TODO:
             console.log(mapId, 'sourceLoadingCallback');
             const renderedFeatures = map.querySourceFeatures(sourceId, { sourceLayer: layerId });
             // Compute the bounding box of things currently displayed
-            bbox = computeBoundingBoxFromGeoJsonFeatures(renderedFeatures);
+            bbox = turfBbox({
+                type: 'FeatureCollection',
+                features: renderedFeatures
+            });
             fitMapToBbox(bbox);
 
             // Restrict zoom max

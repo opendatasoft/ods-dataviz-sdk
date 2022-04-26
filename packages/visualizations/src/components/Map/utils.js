@@ -109,22 +109,6 @@ function mergeBboxFromFeaturesWithSameKey(features) {
     return mergedBboxes;
 }
 
-export const computeBoundingBoxFromGeoJsonFeatures = (features) => {
-    // From an array of geojson objects
-    let bbox = VOID_BOUNDS;
-
-    features.forEach((feature) => {
-        // FIXME: supports only shapes for now
-        if (feature.geometry.type !== 'Polygon') {
-            return;
-        }
-        feature.geometry.coordinates.forEach((coordsPath) => {
-            bbox = computeBboxFromCoords(coordsPath, bbox);
-        });
-    });
-    return bbox;
-};
-
 // We're calculating the maximum zoom required to fit the smallest feature we're displaying, to prevent people from zooming "too far" by accident
 export const computeMaxZoomFromGeoJsonFeatures = (mapContainer, features) => {
     let maxZoom = 0; // maxZoom lowest value possible
