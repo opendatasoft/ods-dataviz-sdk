@@ -121,7 +121,7 @@
 {#if data.error}
     Error : {JSON.stringify(data.error)}
 {:else if options}
-    <figure bind:clientWidth class="chart-figure {legendPosition}">
+    <figure bind:clientWidth class="chart-figure legend--{legendPosition}">
         {#if displayTitle || displaySubtitle}
             <figcaption class="chart-header-container">
                 {#if displayTitle}
@@ -164,7 +164,7 @@
         margin: 0;
     }
 
-    .bottom {
+    .legend--bottom {
         grid:
             [row1-start] 'header header header' auto [row1-end]
             [row2-start] 'chart chart chart' auto [row2-end]
@@ -173,7 +173,7 @@
             / 1fr 1fr 1fr;
     }
 
-    .right {
+    .legend--right {
         grid:
             [row1-start] 'header header header' auto [row1-end]
             [row2-start] 'chart chart legend' auto [row2-end]
