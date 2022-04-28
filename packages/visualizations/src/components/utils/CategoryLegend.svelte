@@ -10,7 +10,6 @@
     }
 </script>
 
-<!-- Legend representing category color boxes or lines, row display with labels -->
 <div class="legend-container-category legend--{align}">
     {#each legendOptions.items as item, i}
         <div
@@ -52,7 +51,6 @@
 <style>
     .legend-container-category {
         display: flex;
-        font-size: 0.8rem;
     }
     .legend-container-category.legend--horizontal {
         flex-direction: row;
