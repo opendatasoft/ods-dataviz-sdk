@@ -233,3 +233,18 @@ export interface KpiCardOptions {
     /** Custom formatting function for tooltips content */
     format?: (value: number) => string;
 }
+
+type CategoryItem = {
+    color?: Color;
+    borderColor?: Color;
+    borderDashed?: boolean;
+    label: LegendLabelsConfiguration;
+    onClick: (index: number) => boolean;
+    onHover?(index: number): void;
+    onLeave?(): void;
+};
+
+export type CategoryLegend = {
+    type: 'category';
+    items: CategoryItem[];
+};

@@ -32,6 +32,7 @@ export const LineTitleAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions
         series: [
             {
                 type: 'line',
+                label: 'Serie 1',
                 valueColumn: 'y',
                 tension: 0,
                 borderColor: 'rgb(22, 161, 145)',
@@ -39,6 +40,7 @@ export const LineTitleAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions
             },
             {
                 type: 'line',
+                label: 'Serie 2',
                 valueColumn: 'z',
                 tension: 0,
                 borderColor: 'rgb(119, 73, 54)',
@@ -71,6 +73,9 @@ export const LineTitleAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions
         },
         title: {
             text: 'Line chart with title, axis, grid and dots',
+        },
+        legend: {
+            display: true,
         },
     },
 });

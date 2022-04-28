@@ -3,16 +3,24 @@
     import { Chart } from 'chart.js';
     import 'chartjs-adapter-luxon';
     import type { Async } from '../../types';
-    import type { ChartOptions, ChartSeries, DataFrame } from '../types';
+    import type {
+        ChartOptions,
+        ChartSeries,
+        DataFrame,
+        CategoryLegend as CategoryLegendType,
+    } from '../types';
     import { defaultValue } from './utils';
     import toDataset from './datasets';
     import buildScales from './scales';
     import buildLegend from './legend';
     import SourceLink from '../utils/SourceLink.svelte';
     import { defaultNumberFormat } from '../utils/formatter';
+    import CategoryLegend from '../utils/CategoryLegend.svelte';
 
     export let data: Async<DataFrame>;
     export let options: ChartOptions;
+
+    let clientWidth: number;
 
     let dataFrame: DataFrame = [];
     let series: ChartSeries[] = [];
@@ -62,7 +70,7 @@
             padding: defaultValue(options?.padding, 12),
         };
         chartOptions.plugins = {
-            legend: buildLegend(options),
+            legend: { display: false },
             title: {
                 display: false,
             },
@@ -95,6 +103,15 @@
         chartConfig.data.datasets = series.map((s) => toDataset(dataFrame, s));
     }
 
+    // Legend related variables
+    let legendPosition: string;
+    $: legendPosition =
+        clientWidth <= 375 ? 'bottom' : defaultValue(options?.legend?.position, 'bottom');
+    let legendAlign: 'vertical' | 'horizontal';
+    $: legendAlign = clientWidth <= 375 || legendPosition === 'right' ? 'vertical' : 'horizontal';
+    let legendOptions: CategoryLegendType;
+    $: legendOptions = buildLegend(series, chartConfig, options, Chart);
+
     let displayTitle: boolean;
     let displaySubtitle: boolean;
     $: displayTitle = defaultValue(options?.title?.display, !!options?.title?.text);
@@ -104,9 +121,9 @@
 {#if data.error}
     Error : {JSON.stringify(data.error)}
 {:else if options}
-    <figure>
+    <figure bind:clientWidth class="chart-figure {legendPosition}">
         {#if displayTitle || displaySubtitle}
-            <figcaption>
+            <figcaption class="chart-header-container">
                 {#if displayTitle}
                     <h3>
                         {options.title?.text}
@@ -120,29 +137,74 @@
             </figcaption>
         {/if}
         <div class="chart-container">
-            <canvas use:chartJs={chartConfig} role="img" aria-label={options.ariaLabel} />
+            <canvas
+                use:chartJs={chartConfig}
+                role="img"
+                aria-label={options.ariaLabel}
+                id="canvas-id"
+            />
         </div>
-        {#if options.source}
-            <SourceLink source={options.source} />
-        {/if}
+        <div class="chart-source-container">
+            {#if options.source}
+                <hr width={100} size={1} color={'#E2E6EE'} />
+                <SourceLink source={options.source} />
+            {/if}
+        </div>
+        <figcaption class="chart-legend-container">
+            {#if options?.legend?.display}
+                <CategoryLegend {legendOptions} align={legendAlign} />
+            {/if}
+        </figcaption>
     </figure>
 {/if}
 
 <style>
-    figure {
-        display: flex;
-        flex-direction: column;
+    .chart-figure {
+        display: grid;
         margin: 0;
     }
 
-    figcaption {
+    .bottom {
+        grid:
+            [row1-start] 'header header header' auto [row1-end]
+            [row2-start] 'chart chart chart' auto [row2-end]
+            [row3-start] 'legend legend legend' auto [row3-end]
+            [row4-start] 'source source source' auto [row4-end]
+            / 1fr 1fr 1fr;
+    }
+
+    .right {
+        grid:
+            [row1-start] 'header header header' auto [row1-end]
+            [row2-start] 'chart chart legend' auto [row2-end]
+            [row3-start] 'source source source' auto [row3-end]
+            / 1fr 1fr 1fr;
+    }
+
+    .chart-header-container {
         width: 100%;
         margin: 0;
+        grid-area: header;
     }
 
     .chart-container {
         position: relative;
         width: 100%;
-        flex-grow: 1;
+        grid-area: chart;
+    }
+
+    .chart-legend-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin: auto;
+        grid-area: legend;
+    }
+
+    .chart-source-container {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        grid-area: source;
     }
 </style>

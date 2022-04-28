@@ -75,6 +75,9 @@ export const BarTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sa
         title: {
             text: 'Bar chart with title, axis and grid',
         },
+        legend: {
+            display: true,
+        },
     },
 });
 
