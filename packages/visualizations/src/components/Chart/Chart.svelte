@@ -25,12 +25,13 @@
     let dataFrame: DataFrame = [];
     let series: ChartSeries[] = [];
     let { labelColumn } = options;
+    let chart: Chart;
 
     // Hook to handle chart lifecycle
     function chartJs(node: HTMLCanvasElement, config: ChartConfiguration) {
         const ctx = node.getContext('2d');
         if (!ctx) throw new Error('Failed to get canvas context');
-        const chart = new Chart(ctx, config);
+        chart = new Chart(ctx, config);
         return {
             update() {
                 chart.update();
@@ -110,7 +111,7 @@
     let legendAlign: 'vertical' | 'horizontal';
     $: legendAlign = clientWidth <= 375 || legendPosition === 'right' ? 'vertical' : 'horizontal';
     let legendOptions: CategoryLegendType;
-    $: legendOptions = buildLegend(series, chartConfig, options, Chart);
+    $: legendOptions = buildLegend(series, chartConfig, options, chart);
 
     let displayTitle: boolean;
     let displaySubtitle: boolean;
@@ -141,7 +142,6 @@
                 use:chartJs={chartConfig}
                 role="img"
                 aria-label={options.ariaLabel}
-                id="canvas-id"
             />
         </div>
         <div class="chart-source-container">
@@ -175,10 +175,10 @@
 
     .legend--right {
         grid:
-            [row1-start] 'header header header' auto [row1-end]
-            [row2-start] 'chart chart legend' auto [row2-end]
-            [row3-start] 'source source source' auto [row3-end]
-            / 1fr 1fr 1fr;
+            [row1-start] 'header header header header header' auto [row1-end]
+            [row2-start] 'chart chart chart chart legend' auto [row2-end]
+            [row3-start] 'source source source source source' auto [row3-end]
+            / 1fr 1fr 1fr 1fr 1fr;
     }
 
     .chart-header-container {

@@ -59,9 +59,9 @@
         padding: 13px;
     }
     .legend-container-category.legend--vertical {
-        padding: 13px;
+        padding: 6px;
         flex-direction: column;
-        margin: auto;
+        margin: auto 0;
         justify-content: center;
         align-items: start;
     }
@@ -70,6 +70,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+    .legend-container-category.legend--vertical .legend-color-item-category {
+        margin: 0 0px 6px 0px;
     }
     .legend-color-item-category:hover {
         cursor: pointer;

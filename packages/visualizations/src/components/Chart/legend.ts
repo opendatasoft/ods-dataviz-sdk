@@ -1,12 +1,9 @@
 import type {
-    ChartTypeRegistry,
     ChartConfiguration,
-    ScatterDataPoint,
-    BubbleDataPoint,
     Chart,
 } from 'chart.js';
 import type { _DeepPartialObject } from 'chart.js/types/utils';
-import type { ChartOptions, ChartSeries, CategoryLegend } from '../types';
+import type { ChartOptions, ChartSeries, CategoryLegend, Color } from '../types';
 import { assureMaxLength } from '../utils/formatter';
 import { defaultValue } from './utils';
 
@@ -16,48 +13,47 @@ function buildLegendLabels(
     index: number,
     options: ChartOptions,
     chartConfig: ChartConfiguration
-): string | unknown {
-    /* eslint-disable no-param-reassign */
+): string {
     const text = options?.legend?.labels?.text;
     if (text) {
         return assureMaxLength(text(index), LEGEND_MAX_LENGTH);
     } else {
-        return chartConfig.data.labels?.[index];
+        return `${chartConfig.data.labels?.[index]}`;
     }
-    /* eslint-enable no-param-reassign */
+}
+
+function computeBackgroundColor(serie: ChartSeries): Color | undefined {
+    if (serie.backgroundColor) {
+        return serie.backgroundColor;
+    } else if (serie.type === 'line' && !serie.backgroundColor) {
+        return serie.fill?.above || serie.fill?.below;
+    } else {
+        return undefined;
+    }
 }
 
 export default function buildLegend(
     series: ChartSeries[],
     chartConfig: ChartConfiguration,
     options: ChartOptions,
-    Chart: _DeepPartialObject<
-        Chart<
-            keyof ChartTypeRegistry,
-            (number | ScatterDataPoint | BubbleDataPoint | null)[],
-            unknown
-        >
-    >
+    chart: Chart
 ): CategoryLegend {
     let legendOptions;
     if (series.length === 1 && series[0].type === 'pie') {
         legendOptions = {
-            type: 'category',
-            items: chartConfig.data.datasets[0].data.map((data, i) => ({
-                color: chartConfig.data.datasets[0].backgroundColor[i],
-                borderColor: chartConfig.data.datasets[0].borderColor?.[i] || 'transparent',
+            type: 'category' as const,
+            items: chartConfig.data.datasets[0].data.map((_data, i) => ({
+                color: chartConfig.data.datasets[0].backgroundColor?.[i],
+                borderColor: chartConfig.data.datasets[0].borderColor?.[i],
                 borderDashed: false,
                 label: buildLegendLabels(i, options, chartConfig) || '',
                 onClick: (index: number) => {
-                    const chart = Chart.getChart('canvas-id');
                     if (chart) {
-                        const meta = chart.getDatasetMeta(0);
-                        const visible = !meta.data[index].hidden;
-                        visible ? chart.hide(0, index) : chart.show(0, index);
+                        chart.toggleDataVisibility(index);
+                        chart.update();
                     }
                 },
                 onHover: (index: number) => {
-                    const chart = Chart.getChart('canvas-id');
                     const { tooltip, chartArea } = chart;
                     if (tooltip) {
                         // FIXME: `TooltipModel` doesn't have a `setActiveElements` method.
@@ -77,10 +73,9 @@ export default function buildLegend(
                     chart.update();
                 },
                 onLeave: () => {
-                    const chart = Chart.getChart('canvas-id');
                     const { tooltip } = chart;
                     if (tooltip) {
-                        tooltip.setActiveElements([]);
+                        tooltip.setActiveElements([], { x: 0, y: 0 });
                     }
                     chart.update();
                 },
@@ -88,15 +83,14 @@ export default function buildLegend(
         };
     } else {
         legendOptions = {
-            type: 'category',
+            type: 'category' as const,
             items: series.map((serie) => ({
-                color: serie.backgroundColor || serie.fill?.above || serie.fill?.below,
+                color: computeBackgroundColor(serie),
                 borderColor:
                     serie.type !== 'pie' ? serie.borderColor || 'transparent' : 'transparent',
-                borderDashed: Boolean(serie?.borderDash),
+                ...(serie.type === 'line' && { borderDashed: Boolean(serie?.borderDash) }),
                 label: serie.label,
                 onClick: (index: number) => {
-                    const chart = Chart.getChart('canvas-id');
                     chartConfig.data.datasets[index].hidden =
                         !chartConfig.data.datasets[index].hidden;
                     chart.update();
