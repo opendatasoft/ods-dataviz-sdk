@@ -43,10 +43,9 @@ export default function buildLegend(
         legendOptions = {
             type: 'category' as const,
             items: chartConfig.data.datasets[0].data.map((_data, i) => ({
-                color: chartConfig.data.datasets[0].backgroundColor?.[i],
-                borderColor: chartConfig.data.datasets[0].borderColor?.[i],
+                color: series[0].backgroundColor?.[i],
                 borderDashed: false,
-                label: buildLegendLabels(i, options, chartConfig) || '',
+                label: buildLegendLabels(i, options, chartConfig),
                 onClick: (index: number) => {
                     if (chart) {
                         chart.toggleDataVisibility(index);
@@ -56,8 +55,7 @@ export default function buildLegend(
                 onHover: (index: number) => {
                     const { tooltip, chartArea } = chart;
                     if (tooltip) {
-                        // FIXME: `TooltipModel` doesn't have a `setActiveElements` method.
-                        (tooltip as any).setActiveElements(
+                        tooltip.setActiveElements(
                             [
                                 {
                                     datasetIndex: 0,
