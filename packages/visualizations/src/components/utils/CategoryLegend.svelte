@@ -32,7 +32,8 @@
         >
             {#if item.color}
                 <div
-                    class="legend-color-box-category" class:refined={refinedSeries[i]}
+                    class="legend-color-box-category"
+                    class:refined={refinedSeries[i]}
                     style="--box-color: {item.color}; --border-color:{item.borderColor}"
                 />
             {:else}
