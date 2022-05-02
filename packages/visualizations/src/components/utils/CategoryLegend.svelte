@@ -73,6 +73,7 @@
     }
     .legend-container-category.legend--vertical .legend-color-item-category {
         margin: 0 0px 6px 0px;
+        align-items: start;
     }
     .legend-color-item-category:hover {
         cursor: pointer;
