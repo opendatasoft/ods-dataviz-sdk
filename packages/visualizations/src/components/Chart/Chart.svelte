@@ -175,10 +175,10 @@
 
     .legend--right {
         grid:
-            [row1-start] 'header header header header header' auto [row1-end]
-            [row2-start] 'chart chart chart chart legend' auto [row2-end]
-            [row3-start] 'source source source source source' auto [row3-end]
-            / 1fr 1fr 1fr 1fr 1fr;
+            [row1-start] 'header header header header header header header header' auto [row1-end]
+            [row2-start] 'chart chart chart chart chart chart chart legend' auto [row2-end]
+            [row3-start] 'source source source source source source source source' auto [row3-end]
+            / 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     }
 
     .chart-header-container {

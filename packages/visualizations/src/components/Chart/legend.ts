@@ -1,11 +1,6 @@
-import type {
-    ChartConfiguration,
-    Chart,
-} from 'chart.js';
-import type { _DeepPartialObject } from 'chart.js/types/utils';
+import type { ChartConfiguration, Chart } from 'chart.js';
 import type { ChartOptions, ChartSeries, CategoryLegend, Color } from '../types';
 import { assureMaxLength } from '../utils/formatter';
-import { defaultValue } from './utils';
 
 const LEGEND_MAX_LENGTH = 50;
 
@@ -17,9 +12,8 @@ function buildLegendLabels(
     const text = options?.legend?.labels?.text;
     if (text) {
         return assureMaxLength(text(index), LEGEND_MAX_LENGTH);
-    } else {
-        return `${chartConfig.data.labels?.[index]}`;
     }
+    return `${chartConfig.data.labels?.[index]}`;
 }
 
 function computeBackgroundColor(serie: ChartSeries): Color | undefined {
@@ -27,9 +21,8 @@ function computeBackgroundColor(serie: ChartSeries): Color | undefined {
         return serie.backgroundColor;
     } else if (serie.type === 'line' && !serie.backgroundColor) {
         return serie.fill?.above || serie.fill?.below;
-    } else {
-        return undefined;
     }
+    return undefined;
 }
 
 export default function buildLegend(
