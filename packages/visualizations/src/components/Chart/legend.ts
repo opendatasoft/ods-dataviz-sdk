@@ -19,7 +19,8 @@ function buildLegendLabels(
 function computeBackgroundColor(serie: ChartSeries): Color | undefined {
     if (serie.backgroundColor) {
         return serie.backgroundColor;
-    } else if (serie.type === 'line' && !serie.backgroundColor) {
+    }
+    if (serie.type === 'line' && !serie.backgroundColor) {
         return serie.fill?.above || serie.fill?.below;
     }
     return undefined;
@@ -52,7 +53,7 @@ export default function buildLegend(
                             [
                                 {
                                     datasetIndex: 0,
-                                    index: index,
+                                    index,
                                 },
                             ],
                             {
@@ -82,8 +83,10 @@ export default function buildLegend(
                 ...(serie.type === 'line' && { borderDashed: Boolean(serie?.borderDash) }),
                 label: serie.label,
                 onClick: (index: number) => {
+                    /* eslint-disable no-param-reassign */
                     chartConfig.data.datasets[index].hidden =
                         !chartConfig.data.datasets[index].hidden;
+                    /* eslint-enable no-param-reassign */
                     chart.update();
                 },
             })),

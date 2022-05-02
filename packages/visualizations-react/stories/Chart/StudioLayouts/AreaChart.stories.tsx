@@ -13,11 +13,11 @@ export default meta;
 
 const df = [
     { x: 0, y: 2400, z: 1021, a: 523 },
-    { x: 1, y: -140, z: 2424, a: 298},
-    { x: 2, y: 2000, z: 3222, a: 248},
-    { x: 3, y: 3, z: 1255, a: 1200},
-    { x: 4, y: 180.47, z: 1424, a: 1200},
-    { x: 5, y: 778, z: 12, a: 2000},
+    { x: 1, y: -140, z: 2424, a: 298 },
+    { x: 2, y: 2000, z: 3222, a: 248 },
+    { x: 3, y: 3, z: 1255, a: 1200 },
+    { x: 4, y: 180.47, z: 1424, a: 1200 },
+    { x: 5, y: 778, z: 12, a: 2000 },
 ];
 
 export const AreaTitleAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
