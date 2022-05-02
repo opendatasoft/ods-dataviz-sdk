@@ -2,6 +2,7 @@
 
 <script lang="ts">
     import type { CategoryLegend } from '../types';
+
     export let legendOptions: CategoryLegend;
     export let align: 'horizontal' | 'vertical';
     let refinedSeries: boolean[];
