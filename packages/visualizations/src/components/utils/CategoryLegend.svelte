@@ -32,7 +32,7 @@
         >
             {#if item.color}
                 <div
-                    class="legend-color-box-category"
+                    class="legend-color-box-category" class:refined={refinedSeries[i]}
                     style="--box-color: {item.color}; --border-color:{item.borderColor}"
                 />
             {:else}
@@ -56,18 +56,17 @@
     .legend-container-category.legend--horizontal {
         flex-direction: row;
         justify-content: center;
-        align-items: center;
-        padding: 13px;
+        align-items: start;
+        margin: auto;
     }
     .legend-container-category.legend--vertical {
-        padding: 6px;
         flex-direction: column;
-        margin: auto 0;
+        margin: auto;
         justify-content: center;
         align-items: start;
     }
     .legend-color-item-category {
-        margin: 0 26px 6px 26px;
+        margin: 3px 13px 3px 13px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -80,6 +79,7 @@
     }
     .refined {
         text-decoration: line-through;
+        opacity: 50%;
     }
     .legend-container-category {
         display: flex;
@@ -89,15 +89,15 @@
     }
     .legend-color-box-category {
         min-height: 16px;
-        min-width: 20px;
+        min-width: 28px;
         border-radius: 3px;
         background: var(--box-color);
         border: 1px solid var(--border-color);
-        margin-right: 3px;
+        margin-right: 6px;
     }
     .legend-color-line-category {
         min-height: 16px;
-        min-width: 20px;
+        min-width: 28px;
         margin-right: 3px;
         background: linear-gradient(var(--border-color), var(--border-color)) no-repeat center/100%
             2px;
@@ -107,7 +107,7 @@
         background: repeating-linear-gradient(
                 to right,
                 transparent 0 3px,
-                var(--border-color) 3px 6px
+                var(--border-color) 3px 9px
             )
             no-repeat center/100% 2px;
         background-position-x: calc(50% - 3px);

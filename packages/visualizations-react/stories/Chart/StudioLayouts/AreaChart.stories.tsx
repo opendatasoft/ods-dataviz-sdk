@@ -45,7 +45,7 @@ export const AreaTitleAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions
             {
                 type: 'line',
                 valueColumn: 'z',
-                label: 'Consommation de gaz en GWh',
+                label: 'Serie 3',
                 tension: 0.3,
                 borderColor: 'rgb(119, 73, 54)',
                 fill: {
@@ -57,7 +57,7 @@ export const AreaTitleAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions
             {
                 type: 'line',
                 valueColumn: 'a',
-                label: 'Serie 2',
+                label: 'Consommation de gaz en GWh',
                 tension: 0.3,
                 borderColor: 'rgb(239, 155, 30)',
                 fill: {
