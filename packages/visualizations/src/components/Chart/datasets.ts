@@ -30,7 +30,7 @@ function chartJsDataLabels(dataLabels: DataLabelsConfiguration | undefined): Dat
     };
 }
 
-export default function toDataset(df: DataFrame, s: ChartSeries): ChartDataset {
+export default function toDataset(df: DataFrame, s: ChartSeries, yAxisID?: string): ChartDataset {
     if (s.type === 'bar') {
         return {
             type: 'bar',
@@ -62,6 +62,7 @@ export default function toDataset(df: DataFrame, s: ChartSeries): ChartDataset {
             borderDash: defaultValue(s.borderDash, []),
             borderWidth: defaultValue(s.borderWidth, 2),
             spanGaps: defaultValue(s.spanGaps, true),
+            yAxisID,
         };
     }
 
