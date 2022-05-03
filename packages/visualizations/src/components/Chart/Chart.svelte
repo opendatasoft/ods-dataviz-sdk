@@ -138,15 +138,10 @@
             </figcaption>
         {/if}
         <div class="chart-container">
-            <canvas
-                use:chartJs={chartConfig}
-                role="img"
-                aria-label={options.ariaLabel}
-            />
+            <canvas use:chartJs={chartConfig} role="img" aria-label={options.ariaLabel} />
         </div>
         <div class="chart-source-container">
             {#if options.source}
-                <hr width={100} size={1} color={'#E2E6EE'} />
                 <SourceLink source={options.source} />
             {/if}
         </div>
