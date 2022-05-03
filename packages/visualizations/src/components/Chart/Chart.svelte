@@ -64,7 +64,8 @@
         // Reactively update chart configuration
         chartConfig.type = defaultValue(options.series[0]?.type, 'line'); // Will set chartJs default value accordingly
         const chartOptions = chartConfig.options || {};
-        chartOptions.aspectRatio = defaultValue(options.aspectRatio, 4 / 3);
+        chartOptions.aspectRatio =
+            options.series[0]?.type === 'pie' ? 1 : defaultValue(options.aspectRatio, 4 / 3);
         chartOptions.maintainAspectRatio = true;
         chartOptions.scales = buildScales(options);
         chartOptions.layout = {
@@ -140,14 +141,14 @@
         <div class="chart-container">
             <canvas use:chartJs={chartConfig} role="img" aria-label={options.ariaLabel} />
         </div>
-        <div class="chart-source-container">
+        <figcaption class="chart-footer-container">
+            {#if options?.legend?.display}
+                <div class="chart-legend">
+                    <CategoryLegend {legendOptions} align={legendAlign} />
+                </div>
+            {/if}
             {#if options.source}
                 <SourceLink source={options.source} />
-            {/if}
-        </div>
-        <figcaption class="chart-legend-container">
-            {#if options?.legend?.display}
-                <CategoryLegend {legendOptions} align={legendAlign} />
             {/if}
         </figcaption>
     </figure>
@@ -163,17 +164,17 @@
         grid:
             [row1-start] 'header header header' auto [row1-end]
             [row2-start] 'chart chart chart' auto [row2-end]
-            [row3-start] 'legend legend legend' auto [row3-end]
-            [row4-start] 'source source source' auto [row4-end]
+            [row3-start] 'chart chart chart' auto [row3-end]
+            [row4-start] 'footer footer footer' auto [row4-end]
             / 1fr 1fr 1fr;
     }
 
     .legend--right {
         grid:
-            [row1-start] 'header header header header header header header header' auto [row1-end]
-            [row2-start] 'chart chart chart chart chart chart chart legend' auto [row2-end]
-            [row3-start] 'source source source source source source source source' auto [row3-end]
-            / 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+            [row1-start] 'header header header' auto [row1-end]
+            [row2-start] 'chart chart footer' auto [row2-end]
+            [row3-start] 'chart chart footer' auto [row3-end]
+            / 1fr 1fr 1.5fr;
     }
 
     .chart-header-container {
@@ -188,18 +189,15 @@
         grid-area: chart;
     }
 
-    .chart-legend-container {
+    .chart-footer-container {
         display: flex;
         flex-direction: column;
+        align-items: center;
         width: 100%;
         margin: auto;
-        grid-area: legend;
+        grid-area: footer;
     }
-
-    .chart-source-container {
-        display: flex;
-        flex-direction: column;
-        align-self: center;
-        grid-area: source;
+    .chart-legend {
+        margin-bottom: 6px;
     }
 </style>
