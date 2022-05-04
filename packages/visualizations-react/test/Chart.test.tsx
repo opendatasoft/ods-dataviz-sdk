@@ -18,8 +18,7 @@ const data = {
 };
 
 const source = {
-    href:
-        'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+    href: 'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
 };
 
 const options: ChartOptions = {
