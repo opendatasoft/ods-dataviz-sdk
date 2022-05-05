@@ -41,7 +41,12 @@
             datasets: [],
         },
         options: {},
-        plugins: [],
+        plugins: {
+            // Enables the 100% percent stacking
+            stacked100: {
+                enable: options?.axis?.assemblage?.percentaged,
+            },
+        } as any,
     };
 
     $: {
@@ -81,10 +86,6 @@
             subtitle: {
                 display: false,
             },
-            stacked100: {
-                // Enables the 100% percent stacking
-                enable: options?.axis?.assemblage?.percentaged,
-            },
         };
         chartConfig.options = chartOptions;
     }
@@ -92,9 +93,9 @@
     $: {
         // Use a separate block to only update datasets if there are new data
         chartConfig.data.labels = dataFrame.map((entry) => entry[labelColumn]);
-        chartConfig.data.datasets = series.map((s, i) => toDataset(
-            dataFrame, s, options.axis?.y?.distinctAxis ? `y${i}` : undefined,
-        ));
+        chartConfig.data.datasets = series.map((s, i) =>
+            toDataset(dataFrame, s, options.axis?.y?.distinctAxis ? `y${i}` : undefined)
+        );
     }
 
     let displayTitle: boolean;
