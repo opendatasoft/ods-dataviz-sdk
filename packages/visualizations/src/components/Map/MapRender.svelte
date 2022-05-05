@@ -152,7 +152,7 @@ TODO:
                 map.on('mousemove', `${layerId}`, function (e) {
                     if (!clickPopup.isOpen()) {
                         const description = renderTooltipDescription(e.features[0].properties.key);
-                        hoverPopup.setHTML(description).addTo(map);
+                        hoverPopup.setLngLat(e.lngLat).setHTML(description).addTo(map);
                     }
                 });
 
