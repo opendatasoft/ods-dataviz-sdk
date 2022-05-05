@@ -9,6 +9,12 @@ const meta: Meta = {
     component: Choropleth,
 };
 
+const df = [
+    { x: 'France', y: 60 },
+    { x: 'IDF', y: 35 },
+    { x: 'Corsica', y: 95 },
+];
+
 export default meta;
 const Template = (args: Props<DataFrame, ChoroplethOptions>) => (
     <div
@@ -77,9 +83,9 @@ const StudioChoroplethPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
     data: {
         loading: false,
         value: [
-            { x: 'France', y: 60 },
+            { x: 'France', y: 60.04854 },
             { x: 'IDF', y: 35 },
-            { x: 'Corsica', y: 95 },
+            { x: 'Corsica', y: 95.054 },
         ],
     },
     options: {
@@ -88,7 +94,7 @@ const StudioChoroplethPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
         shapes,
         colorsScale: {
             type: 'palette',
-            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf', '#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
         },
         aspectRatio: 1,
         legend: {
@@ -97,3 +103,28 @@ const StudioChoroplethPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
     },
 };
 StudioChoroplethPalette.args = StudioChoroplethPaletteArgs;
+
+export const StudioChoroplethCustomTooltip = Template.bind({});
+const StudioChoroplethCustomTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
+    data: {
+        loading: false,
+        value: df,
+    },
+    options: {
+        style: {},
+        parameters: {},
+        shapes,
+        colorsScale: {
+            type: 'palette',
+            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf', '#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+        },
+        aspectRatio: 1,
+        legend: {
+            title: 'I Am Legend',
+        },
+        tooltip: {
+            label: (featureName) => {return `Hello I'm <div style="color: red">${featureName}</div> and my value is <div style="color: red">${df.find(item => item.x === featureName).y}</div>`}
+        }
+    },
+};
+StudioChoroplethCustomTooltip.args = StudioChoroplethCustomTooltipArgs;

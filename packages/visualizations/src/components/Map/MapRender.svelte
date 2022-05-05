@@ -32,6 +32,9 @@ TODO:
     export let colorsScale;
     export let dataBounds;
 
+    // Used to render a tooltip on hover and on click
+    export let renderTooltipDescription;
+
     // aspect ratio based on width, by default equal to 1
     export let aspectRatio = 1;
     $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
@@ -139,6 +142,37 @@ TODO:
                 id: layerId,
                 source: sourceId,
             });
+
+            if (renderTooltipDescription) {
+                const hoverPopup = new maplibregl.Popup({
+                    closeOnClick: true,
+                    closeButton: false,
+                }).trackPointer();
+
+                map.on('mousemove', `${layerId}`, function (e) {
+                    if (!clickPopup.isOpen()) {
+                        const description = renderTooltipDescription(e.features[0].properties.key);
+                        hoverPopup.setHTML(description).addTo(map);
+                    }
+                });
+
+                map.on('mouseleave', `${layerId}`, function () {
+                    hoverPopup.remove();
+                });
+
+                const clickPopup = new maplibregl.Popup({
+                    closeOnClick: true,
+                    closeButton: false,
+                    isOpen: false,
+                });
+
+                map.on('click', `${layerId}`, function (e) {
+                    hoverPopup.remove();
+                    const coordinates = e.lngLat;
+                    const description = renderTooltipDescription(e.features[0].properties.key);
+                    clickPopup.setLngLat(coordinates).setHTML(description).addTo(map);
+                });
+            }
 
             map.on('sourcedata', sourceLoadingCallback);
         }
