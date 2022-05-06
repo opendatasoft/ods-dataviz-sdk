@@ -2,6 +2,7 @@
 
 <script lang="ts">
     import type { DataBounds, ColorsScale } from '../types';
+    import { defaultCompactLegendNumberFormat } from '../utils/formatter';
     // options to customize the component
     export let dataBounds: DataBounds;
     export let colorsScale: ColorsScale;
@@ -17,12 +18,12 @@
         <!-- Gradient color boxes, no custom labels, only displaying min and max -->
         <div
             class="legend-colors-color-box-gradient"
-            style="--legend-colors-color:linear-gradient(to right, {colorsScale.colors.start}, {colorsScale
-                .colors.end})"
+            style="--legend-color:linear-gradient(to right, {colorsScale.colors
+                .start}, {colorsScale.colors.end})"
         />
         <div class="legend-colors-values">
-            <div>{dataBounds.min}</div>
-            <div>{dataBounds.max}</div>
+            <div>{defaultCompactLegendNumberFormat(dataBounds.min)}</div>
+            <div>{defaultCompactLegendNumberFormat(dataBounds.max)}</div>
         </div>
     {:else if colorsScale.type === 'palette'}
         <!-- Palette color boxes, row display, no labels only displaying palettes steps -->
@@ -35,18 +36,23 @@
             <div class="legend-colors-row-values-palette">
                 {#each colorsScale.colors as color, i}
                     {#if i === 0}
-                        <div>{dataBounds.min}</div>
+                        <div>{defaultCompactLegendNumberFormat(dataBounds.min)}</div>
                         <div>
-                            {dataBounds.min +
-                                (dataBounds.max - dataBounds.min) / colorsScale.colors.length}
+                            {defaultCompactLegendNumberFormat(
+                                dataBounds.min +
+                                    (dataBounds.max - dataBounds.min) / colorsScale.colors.length
+                            )}
                         </div>
                     {:else if i === colorsScale.colors.length - 1}
-                        <div>{dataBounds.max}</div>
+                        <div>{defaultCompactLegendNumberFormat(dataBounds.max)}</div>
                     {:else}
                         <div>
-                            {dataBounds.min +
-                                ((dataBounds.max - dataBounds.min) / colorsScale.colors.length) *
-                                    (i + 1)}
+                            {defaultCompactLegendNumberFormat(
+                                dataBounds.min +
+                                    ((dataBounds.max - dataBounds.min) /
+                                        colorsScale.colors.length) *
+                                        (i + 1)
+                            )}
                         </div>
                     {/if}
                 {/each}
