@@ -16,7 +16,7 @@ TODO:
         computeBoundingBoxFromGeoJsonFeatures,
         computeMaxZoomFromGeoJsonFeatures,
     } from './utils';
-    import Legend from './Legend.svelte';
+    import ColorsLegend from '../utils/ColorsLegend.svelte';
 
     let clientWidth;
 
@@ -202,7 +202,7 @@ TODO:
 <figure class="map-card" style={cssVarStyles} bind:clientWidth>
     <div id="map" bind:this={container} />
     {#if legend}
-        <Legend {dataBounds} {colorsScale} {clientWidth} title={legend.title} />
+        <ColorsLegend {dataBounds} {colorsScale} {clientWidth} title={legend.title} />
     {/if}
 </figure>
 
