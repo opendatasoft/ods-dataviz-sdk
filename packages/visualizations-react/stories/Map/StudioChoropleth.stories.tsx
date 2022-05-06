@@ -3,15 +3,18 @@ import { Meta } from '@storybook/react';
 import { Choropleth, Props } from '../../src';
 import { ChoroplethOptions, DataFrame } from '@opendatasoft/visualizations';
 import { shapes } from './shapes';
+import { IMAGES } from '../utils';
 
 const meta: Meta = {
     title: 'Map/Choropleth',
     component: Choropleth,
 };
 
+console.log(IMAGES.rocket);
+
 const df = [
     { x: 'France', y: 60 },
-    { x: 'IDF', y: 35 },
+    { x: 'Ile de France', y: 35 },
     { x: 'Corsica', y: 95 },
 ];
 
@@ -36,7 +39,7 @@ const StudioChoroplethArgs: Props<DataFrame, ChoroplethOptions> = {
         loading: false,
         value: [
             { x: 'France', y: 60 },
-            { x: 'IDF', y: 35 },
+            { x: 'Ile de France', y: 35 },
             { x: 'Corsica', y: 95 },
         ],
     },
@@ -55,7 +58,7 @@ const StudioChoroplethGradientArgs: Props<DataFrame, ChoroplethOptions> = {
         loading: false,
         value: [
             { x: 'France', y: 6000 },
-            { x: 'IDF', y: 3500 },
+            { x: 'Ile de France', y: 3500 },
             { x: 'Corsica', y: 9500 },
         ],
     },
@@ -84,7 +87,7 @@ const StudioChoroplethPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
         loading: false,
         value: [
             { x: 'France', y: 60.04854 },
-            { x: 'IDF', y: 35 },
+            { x: 'Ile de France', y: 35 },
             { x: 'Corsica', y: 95.054 },
         ],
     },
@@ -94,7 +97,7 @@ const StudioChoroplethPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
         shapes,
         colorsScale: {
             type: 'palette',
-            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf', '#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
         },
         aspectRatio: 1,
         legend: {
@@ -116,15 +119,58 @@ const StudioChoroplethCustomTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
         shapes,
         colorsScale: {
             type: 'palette',
-            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf', '#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
         },
         aspectRatio: 1,
         legend: {
             title: 'I Am Legend',
         },
         tooltip: {
-            label: (featureName) => {return `Hello I'm <div style="color: red">${featureName}</div> and my value is <div style="color: red">${df.find(item => item.x === featureName).y}</div>`}
-        }
+            label: (featureName) => {
+                return `Hello I'm <div style="color: red">${featureName}</div> and my value is <div style="color: red">${
+                    df.find((item) => item.x === featureName).y
+                }</div>`;
+            },
+        },
     },
 };
 StudioChoroplethCustomTooltip.args = StudioChoroplethCustomTooltipArgs;
+
+export const StudioChoroplethComplexTooltip = Template.bind({});
+
+const computeHtmlTooltip = (featureName) => {
+    return `
+    <div style="display: flex; flex-direction: column; justify-items: center; align-items: center">
+        <h2 style="border-bottom: 1px solid lightgrey">${featureName}</h2>
+        <img src="${IMAGES.rocket}" style="margin-bottom: 15px"></img>
+        <div style="margin-bottom: 15px">Number of space rockets: ${
+            df.find((item) => item.x === featureName).y
+        }</div>
+    </div>
+    `;
+};
+const StudioChoroplethComplexTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
+    data: {
+        loading: false,
+        value: df,
+    },
+    options: {
+        style: {},
+        parameters: {},
+        shapes,
+        colorsScale: {
+            type: 'palette',
+            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+        },
+        aspectRatio: 1,
+        legend: {
+            title: 'I Am Legend',
+        },
+        tooltip: {
+            label: (featureName) => {
+                return computeHtmlTooltip(featureName);
+            },
+        },
+    },
+};
+StudioChoroplethComplexTooltip.args = StudioChoroplethComplexTooltipArgs;
