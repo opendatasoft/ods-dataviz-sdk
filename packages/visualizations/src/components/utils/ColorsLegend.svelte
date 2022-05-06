@@ -18,8 +18,8 @@
         <!-- Gradient color boxes, no custom labels, only displaying min and max -->
         <div
             class="legend-colors-color-box-gradient"
-            style="--legend-color:linear-gradient(to right, {colorsScale.colors
-                .start}, {colorsScale.colors.end})"
+            style="--legend-color:linear-gradient(to right, {colorsScale.colors.start}, {colorsScale
+                .colors.end})"
         />
         <div class="legend-colors-values">
             <div>{defaultCompactLegendNumberFormat(dataBounds.min)}</div>
