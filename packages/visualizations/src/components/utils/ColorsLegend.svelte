@@ -2,7 +2,7 @@
 
 <script lang="ts">
     import type { DataBounds, ColorsScale } from '../types';
-    import { defaultCompactLegendNumberFormat } from '../utils/formatter';
+    import { defaultCompactLegendNumberFormat } from './formatter';
     // options to customize the component
     export let dataBounds: DataBounds;
     export let colorsScale: ColorsScale;
