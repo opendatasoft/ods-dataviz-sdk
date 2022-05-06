@@ -9,30 +9,30 @@
     export let title: string;
 </script>
 
-<div class="legend {clientWidth <= 375 ? 'legend--fluid' : 'legend--fixed'}">
+<div class="legend-colors {clientWidth <= 375 ? 'legend-colors--fluid' : 'legend-colors--fixed'}">
     {#if title}
-        <div class="legend-title">{title}</div>
+        <div class="legend-colors-title">{title}</div>
     {/if}
     {#if colorsScale.type === 'gradient'}
         <!-- Gradient color boxes, no custom labels, only displaying min and max -->
         <div
-            class="legend-color-box-gradient"
-            style="--legend-color:linear-gradient(to right, {colorsScale.colors.start}, {colorsScale
+            class="legend-colors-color-box-gradient"
+            style="--legend-colors-color:linear-gradient(to right, {colorsScale.colors.start}, {colorsScale
                 .colors.end})"
         />
-        <div class="legend-values">
+        <div class="legend-colors-values">
             <div>{dataBounds.min}</div>
             <div>{dataBounds.max}</div>
         </div>
     {:else if colorsScale.type === 'palette'}
         <!-- Palette color boxes, row display, no labels only displaying palettes steps -->
-        <div class="legend-container-palette">
-            <div class="legend-row-color-box-palette">
+        <div class="legend-colors-container-palette">
+            <div class="legend-colors-row-color-box-palette">
                 {#each colorsScale.colors as color}
-                    <div class="legend-color-box-palette" style="--box-color: {color}" />
+                    <div class="legend-colors-color-box-palette" style="--box-color: {color}" />
                 {/each}
             </div>
-            <div class="legend-row-values-palette">
+            <div class="legend-colors-row-values-palette">
                 {#each colorsScale.colors as color, i}
                     {#if i === 0}
                         <div>{dataBounds.min}</div>
@@ -56,31 +56,31 @@
 </div>
 
 <style>
-    .legend {
+    .legend-colors {
         display: flex;
         flex-direction: column;
         font-size: 0.8rem;
     }
-    .legend--fixed {
+    .legend-colors--fixed {
         padding: 13px;
         width: 200px;
     }
-    .legend--fluid {
+    .legend-colors--fluid {
         width: 90%;
         padding: 6px;
         margin: auto;
     }
-    .legend-title {
+    .legend-colors-title {
         font-weight: 700;
         margin-bottom: 3px;
     }
-    .legend-values {
+    .legend-colors-values {
         display: flex;
         justify-content: space-between;
         min-height: 16px;
     }
     /* Specific CSS for gradient */
-    .legend-color-box-gradient {
+    .legend-colors-color-box-gradient {
         width: 100%;
         min-height: 16px;
         border-radius: 3px;
@@ -88,24 +88,24 @@
         margin-bottom: 3px;
     }
     /* Specific CSS for palette */
-    .legend-container-palette {
+    .legend-colors-container-palette {
         display: flex;
         flex-direction: column;
     }
-    .legend-row-color-box-palette,
-    .legend-row-values-palette {
+    .legend-colors-row-color-box-palette,
+    .legend-colors-row-values-palette {
         display: flex;
         justify-content: space-between;
         flex-wrap: nowrap;
     }
-    .legend-color-box-palette {
+    .legend-colors-color-box-palette {
         min-height: 16px;
         width: 100%;
         background: var(--box-color);
         display: flex;
         margin-bottom: 3px;
     }
-    .legend-color-box-palette:not(:last-child) {
+    .legend-colors-color-box-palette:not(:last-child) {
         margin-right: 1px;
     }
 </style>
