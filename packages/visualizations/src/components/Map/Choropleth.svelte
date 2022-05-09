@@ -50,11 +50,11 @@ shapes: {
             dataBounds = computeColors.bounds;
 
             renderTooltipDescription = (hoveredFeatureName) => {
-                const hoveredFeatureValue = values.find(item => item.x === hoveredFeatureName).y;
+                const hoveredFeatureValue = values.find((item) => item.x === hoveredFeatureName).y;
                 const format = options?.tooltip?.label;
-                    if (format) return format(hoveredFeatureName);
+                if (format) return format(hoveredFeatureName);
                 return `${hoveredFeatureName} - ${hoveredFeatureValue}`;
-            }
+            };
 
             source = {
                 type: 'geojson',
@@ -79,7 +79,16 @@ shapes: {
 </script>
 
 <div>
-    <MapRender {style} {source} {layer} {aspectRatio} {dataBounds} {colorsScale} {legend} {renderTooltipDescription} />
+    <MapRender
+        {style}
+        {source}
+        {layer}
+        {aspectRatio}
+        {dataBounds}
+        {colorsScale}
+        {legend}
+        {renderTooltipDescription}
+    />
 </div>
 
 <style>
