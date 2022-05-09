@@ -10,8 +10,6 @@ const meta: Meta = {
     component: Choropleth,
 };
 
-console.log(IMAGES.rocket);
-
 const df = [
     { x: 'France', y: 60 },
     { x: 'Ile de France', y: 35 },
