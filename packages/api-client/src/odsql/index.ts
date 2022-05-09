@@ -164,7 +164,8 @@ export const string = (value: string) => JSON.stringify(value);
 
 export const dateTime = (date: Date) => `date'${date.toISOString()}'`;
 
-export const date = (date: Date) => `date'${date.toISOString().split('T')[0]}'`;
+export const date = (year: number, month?: number, day?: number) =>
+    `date'${year}${month !== undefined ? `-${month}` : ''}${day !== undefined ? `-${day}` : ''}'`;
 
 export const all = (...conditions: (string | undefined | null)[]) =>
     conditions

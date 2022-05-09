@@ -141,7 +141,7 @@ describe('ODSQL query builder', () => {
                     .query()
                     .groupBy('x, y')
                     .where(`${field('my_field')}:${string("this will be' escaped")}`)
-                    .where(filter => one(filter, `${field('my_field')} < ${date(new Date(0))}`))
+                    .where(filter => one(filter, `${field('my_field')} < ${date(1970, 1, 1)}`))
                     .where(filter =>
                         all(filter, 'not_escaped in [0..10] and other is true', 'len(f) = 2')
                     )
@@ -149,7 +149,7 @@ describe('ODSQL query builder', () => {
                     .select(selected => selected + ', b')
                     .toString()
             ).toEqual(
-                'catalog/datasets/my_dataset/query/?group_by=x%2C+y&select=a%2C+b&where=%28%28%60my_field%60%3A%22this+will+be%27+escaped%22%29+OR+%28%60my_field%60+%3C+date%271970-01-01%27%29%29+AND+%28not_escaped+in+%5B0..10%5D+and+other+is+true%29+AND+%28len%28f%29+%3D+2%29'
+                'catalog/datasets/my_dataset/query/?group_by=x%2C+y&select=a%2C+b&where=%28%28%60my_field%60%3A%22this+will+be%27+escaped%22%29+OR+%28%60my_field%60+%3C+date%271970-1-1%27%29%29+AND+%28not_escaped+in+%5B0..10%5D+and+other+is+true%29+AND+%28len%28f%29+%3D+2%29'
             );
 
             expect(
