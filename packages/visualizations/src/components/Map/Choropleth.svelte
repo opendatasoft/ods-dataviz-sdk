@@ -50,7 +50,9 @@ shapes: {
             dataBounds = computeColors.bounds;
 
             renderTooltipDescription = (hoveredFeatureName) => {
-                const hoveredFeatureValue = values.find((item) => (item.x).toString() === hoveredFeatureName).y;
+                const hoveredFeatureValue = values.find(
+                    (item) => item.x.toString() === hoveredFeatureName
+                ).y;
                 const format = options?.tooltip?.label;
                 if (format) return format(hoveredFeatureName);
                 return `${hoveredFeatureName} - ${hoveredFeatureValue}`;
