@@ -129,7 +129,7 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
 
     // Y Axis
     if (options.axis?.y) {
-        scales.y0 = {
+        scales.y = {
             stacked: options.axis?.assemblage?.stacked,
             max:
                 options?.axis?.y?.type === 'linear' && options.axis?.assemblage?.percentaged
@@ -167,17 +167,6 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
                 ),
             },
         } as _DeepPartialObject<CartesianScaleOptions>;
-
-        if (defaultValue(options.axis?.y?.distinctAxis, false)) {
-            scales.y1 = {
-                ...scales.y0,
-                title: undefined,
-                position: 'right',
-                grid: {
-                    drawOnChartArea: false, // We only want display grid lines for the first axis.
-                },
-            } as _DeepPartialObject<CartesianScaleOptions>;
-        }
     } else {
         scales.y = { display: false };
     }

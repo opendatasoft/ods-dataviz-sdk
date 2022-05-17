@@ -93,9 +93,7 @@
     $: {
         // Use a separate block to only update datasets if there are new data
         chartConfig.data.labels = dataFrame.map((entry) => entry[labelColumn]);
-        chartConfig.data.datasets = series.map((s, i) =>
-            toDataset(dataFrame, s, options.axis?.y?.distinctAxis ? `y${i}` : undefined)
-        );
+        chartConfig.data.datasets = series.map((s) => toDataset(dataFrame, s));
     }
 
     let displayTitle: boolean;

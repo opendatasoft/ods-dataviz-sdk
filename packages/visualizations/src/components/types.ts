@@ -59,7 +59,6 @@ export interface BaseCartesianAxisConfiguration {
     title?: AxisTitleConfiguration;
     gridLines?: GridLinesConfiguration;
     ticks?: TicksConfiguration;
-    distinctAxis?: boolean;
 }
 
 export interface TimeCartesianAxisConfiguration extends BaseCartesianAxisConfiguration {
