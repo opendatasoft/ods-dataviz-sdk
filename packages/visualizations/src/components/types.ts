@@ -223,7 +223,7 @@ export interface DataBounds {
     max: number;
 }
 
-export type LegendVariant =  'fluid' | 'fixed';
+export type LegendVariant = 'fluid' | 'fixed';
 
 export type ColorsScale = GradientScale | PaletteScale;
 
