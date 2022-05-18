@@ -5,7 +5,6 @@ export const colorShapes = (geoJson, values, colorsScale) => {
     // Key in the values is "x"
     // Key in the shapes is "key"
     // We add a color property in the JSON
-    // FIXME Do we always want to take y or accept other keys
     const rawValues = values.map((v) => v.y);
     const min = Math.min(...rawValues);
     const max = Math.max(...rawValues);
