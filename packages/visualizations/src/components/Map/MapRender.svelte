@@ -31,7 +31,7 @@ TODO:
     export let dataBounds;
     let clientWidth;
     let legendVariant;
-    $: clientWidth <= 375 ? legendVariant= 'fluid' : legendVariant = 'fixed';
+    $: clientWidth <= 375 ? (legendVariant = 'fluid') : (legendVariant = 'fixed');
 
     // aspect ratio based on width, by default equal to 1
     export let aspectRatio = 1;
