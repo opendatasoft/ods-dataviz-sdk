@@ -34,7 +34,7 @@
                 {/each}
             </div>
             <div class="legend-colors-row-values-palette">
-                {#each colorsScale.colors as color, i}
+                {#each colorsScale.colors as _color, i}
                     {#if i === 0}
                         <div>{defaultCompactLegendNumberFormat(dataBounds.min)}</div>
                         <div>
