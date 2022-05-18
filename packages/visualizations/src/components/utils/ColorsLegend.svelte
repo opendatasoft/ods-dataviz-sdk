@@ -1,16 +1,16 @@
 <svelte:options immutable={true} />
 
 <script lang="ts">
-    import type { DataBounds, ColorsScale } from '../types';
+    import type { DataBounds, ColorsScale, LegendVariant } from '../types';
     import { defaultCompactLegendNumberFormat } from './formatter';
     // options to customize the component
     export let dataBounds: DataBounds;
     export let colorsScale: ColorsScale;
-    export let clientWidth: number;
+    export let variant: LegendVariant;
     export let title: string;
 </script>
 
-<div class="legend-colors {clientWidth <= 375 ? 'legend-colors--fluid' : 'legend-colors--fixed'}">
+<div class={`legend-colors legend-colors--${variant}`}>
     {#if title}
         <div class="legend-colors-title">{title}</div>
     {/if}

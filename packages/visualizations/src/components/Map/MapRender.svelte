@@ -18,8 +18,6 @@ TODO:
     } from './utils';
     import ColorsLegend from '../utils/ColorsLegend.svelte';
 
-    let clientWidth;
-
     // maplibre style (basemap)
     export let style;
     // maplibre source config
@@ -31,6 +29,9 @@ TODO:
     export let legend;
     export let colorsScale;
     export let dataBounds;
+    let clientWidth;
+    let legendVariant;
+    $: clientWidth <= 375 ? legendVariant= 'fluid' : legendVariant = 'fixed';
 
     // aspect ratio based on width, by default equal to 1
     export let aspectRatio = 1;
@@ -168,7 +169,7 @@ TODO:
 <figure class="map-card" style={cssVarStyles} bind:clientWidth>
     <div id="map" bind:this={container} />
     {#if legend}
-        <ColorsLegend {dataBounds} {colorsScale} {clientWidth} title={legend.title} />
+        <ColorsLegend {dataBounds} {colorsScale} variant={legendVariant} title={legend.title} />
     {/if}
 </figure>
 
