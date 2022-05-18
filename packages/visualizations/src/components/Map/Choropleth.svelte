@@ -21,7 +21,7 @@
         colors: {
             start: LIGHT_GREY,
             end: DARK_GREY,
-        }
+        },
     };
 
     let aspectRatio;
