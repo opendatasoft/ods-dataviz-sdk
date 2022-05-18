@@ -1,6 +1,9 @@
 import chroma from 'chroma-js';
 import geoViewport from '@mapbox/geo-viewport';
 
+export const LIGHT_GREY = '#CBD2DB';
+export const DARK_GREY = '#515457';
+
 export const colorShapes = (geoJson, values, colorsScale) => {
     // Key in the values is "x"
     // Key in the shapes is "key"
@@ -14,7 +17,7 @@ export const colorShapes = (geoJson, values, colorsScale) => {
 
     if (colorsScale?.type === 'palette') {
         const thresholdArray = [];
-        colorsScale.colors.forEach((color, i) => {
+        colorsScale.colors.forEach((_color, i) => {
             if (i === 0) {
                 thresholdArray.push(min);
                 thresholdArray.push(min + (max - min) / colorsScale.colors.length);
@@ -29,10 +32,6 @@ export const colorShapes = (geoJson, values, colorsScale) => {
         colorMin = chroma(colorsScale.colors.start).hex();
         colorMax = chroma(colorsScale.colors.end).hex();
         scale = chroma.scale([colorMin, colorMax]).domain([min, max]);
-    } else {
-        // Default is basic grey color
-        const uniqueColor = chroma('#CBD2DB').hex();
-        scale = chroma.scale([uniqueColor, uniqueColor]).domain([min, max]);
     }
 
     const dataMapping = {};

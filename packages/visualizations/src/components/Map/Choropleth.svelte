@@ -3,7 +3,7 @@
 <script>
     import MapRender from './MapRender.svelte';
     import { BLANK } from './mapStyles';
-    import { colorShapes } from './utils';
+    import { colorShapes, LIGHT_GREY, DARK_GREY } from './utils';
 
     export let data; // values, and the key to match
     export let options; // contains the shapes to display & match
@@ -16,8 +16,16 @@
     let shapes;
     let colorsScale;
 
+    const defaultColorsScale = {
+        type: 'gradient',
+        colors: {
+            start: LIGHT_GREY,
+            end: DARK_GREY,
+        }
+    };
+
     let aspectRatio;
-    $: ({ shapes, colorsScale, legend, aspectRatio } = options);
+    $: ({ shapes, colorsScale = defaultColorsScale, legend, aspectRatio } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
     const style = BLANK;
