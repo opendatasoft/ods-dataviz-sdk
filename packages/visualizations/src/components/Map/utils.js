@@ -14,18 +14,18 @@ export const colorShapes = (geoJson, values, colorsScale) => {
     let scale;
 
     if (colorsScale?.type === 'palette') {
-        const tresholdArray = [];
+        const thresholdArray = [];
         colorsScale.colors.forEach((color, i) => {
             if (i === 0) {
-                tresholdArray.push(min);
-                tresholdArray.push(min + (max - min) / colorsScale.colors.length);
+                thresholdArray.push(min);
+                thresholdArray.push(min + (max - min) / colorsScale.colors.length);
             } else if (i === colorsScale.colors.length - 1) {
-                tresholdArray.push(max);
+                thresholdArray.push(max);
             } else {
-                tresholdArray.push(min + ((max - min) / colorsScale.colors.length) * (i + 1));
+                thresholdArray.push(min + ((max - min) / colorsScale.colors.length) * (i + 1));
             }
         });
-        scale = chroma.scale(colorsScale.colors).classes(tresholdArray);
+        scale = chroma.scale(colorsScale.colors).classes(thresholdArray);
     } else if (colorsScale?.type === 'gradient') {
         colorMin = chroma(colorsScale.colors.start).hex();
         colorMax = chroma(colorsScale.colors.end).hex();
