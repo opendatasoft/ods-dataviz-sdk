@@ -1,11 +1,13 @@
 import chroma from 'chroma-js';
 import geoViewport from '@mapbox/geo-viewport';
 
+export const LIGHT_GREY = '#CBD2DB';
+export const DARK_GREY = '#515457';
+
 export const colorShapes = (geoJson, values, colorsScale) => {
     // Key in the values is "x"
     // Key in the shapes is "key"
     // We add a color property in the JSON
-    // FIXME Do we always want to take y or accept other keys
     const rawValues = values.map((v) => v.y);
     const min = Math.min(...rawValues);
     const max = Math.max(...rawValues);
@@ -14,26 +16,22 @@ export const colorShapes = (geoJson, values, colorsScale) => {
     let scale;
 
     if (colorsScale?.type === 'palette') {
-        const tresholdArray = [];
-        colorsScale.colors.forEach((color, i) => {
+        const thresholdArray = [];
+        colorsScale.colors.forEach((_color, i) => {
             if (i === 0) {
-                tresholdArray.push(min);
-                tresholdArray.push(min + (max - min) / colorsScale.colors.length);
+                thresholdArray.push(min);
+                thresholdArray.push(min + (max - min) / colorsScale.colors.length);
             } else if (i === colorsScale.colors.length - 1) {
-                tresholdArray.push(max);
+                thresholdArray.push(max);
             } else {
-                tresholdArray.push(min + ((max - min) / colorsScale.colors.length) * (i + 1));
+                thresholdArray.push(min + ((max - min) / colorsScale.colors.length) * (i + 1));
             }
         });
-        scale = chroma.scale(colorsScale.colors).classes(tresholdArray);
+        scale = chroma.scale(colorsScale.colors).classes(thresholdArray);
     } else if (colorsScale?.type === 'gradient') {
         colorMin = chroma(colorsScale.colors.start).hex();
         colorMax = chroma(colorsScale.colors.end).hex();
         scale = chroma.scale([colorMin, colorMax]).domain([min, max]);
-    } else {
-        // Default is basic grey color
-        const uniqueColor = chroma('#CBD2DB').hex();
-        scale = chroma.scale([uniqueColor, uniqueColor]).domain([min, max]);
     }
 
     const dataMapping = {};

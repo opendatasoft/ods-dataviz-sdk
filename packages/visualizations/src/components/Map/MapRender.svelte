@@ -16,9 +16,7 @@ TODO:
         computeBoundingBoxFromGeoJsonFeatures,
         computeMaxZoomFromGeoJsonFeatures,
     } from './utils';
-    import Legend from './Legend.svelte';
-
-    let clientWidth;
+    import ColorsLegend from '../utils/ColorsLegend.svelte';
 
     // maplibre style (basemap)
     export let style;
@@ -31,6 +29,9 @@ TODO:
     export let legend;
     export let colorsScale;
     export let dataBounds;
+    let clientWidth;
+    let legendVariant;
+    $: legendVariant = clientWidth <= 375 ? 'fluid' : 'fixed';
 
     // Used to render a tooltip on hover and on click
     export let renderTooltipDescription;
@@ -202,7 +203,7 @@ TODO:
 <figure class="map-card" style={cssVarStyles} bind:clientWidth>
     <div id="map" bind:this={container} />
     {#if legend}
-        <Legend {dataBounds} {colorsScale} {clientWidth} title={legend.title} />
+        <ColorsLegend {dataBounds} {colorsScale} variant={legendVariant} title={legend.title} />
     {/if}
 </figure>
 

@@ -54,9 +54,9 @@ const StudioChoroplethGradientArgs: Props<DataFrame, ChoroplethOptions> = {
     data: {
         loading: false,
         value: [
-            { x: 'France', y: 60 },
-            { x: 'IDF', y: 35 },
-            { x: 'Corsica', y: 95 },
+            { x: 'France', y: 6000 },
+            { x: 'IDF', y: 3500 },
+            { x: 'Corsica', y: 9500 },
         ],
     },
     options: {
