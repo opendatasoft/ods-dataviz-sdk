@@ -168,7 +168,7 @@ TODO:
 
 <figure class="map-card" style={cssVarStyles} bind:clientWidth>
     <div id="map" bind:this={container} />
-    {#if legend}
+    {#if legend && dataBounds}
         <ColorsLegend {dataBounds} {colorsScale} variant={legendVariant} title={legend.title} />
     {/if}
 </figure>
