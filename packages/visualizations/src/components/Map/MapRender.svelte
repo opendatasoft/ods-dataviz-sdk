@@ -148,26 +148,28 @@ TODO:
                 const hoverPopup = new maplibregl.Popup({
                     closeOnClick: true,
                     closeButton: false,
+                    className: 'tooltip',
                 }).trackPointer();
 
-                map.on('mousemove', `${layerId}`, function (e) {
+                const clickPopup = new maplibregl.Popup({
+                    closeOnClick: true,
+                    closeButton: false,
+                    isOpen: false,
+                    className: 'tooltip',
+                });
+
+                map.on('mousemove', `${layerId}`, (e) => {
                     if (!clickPopup.isOpen()) {
                         const description = renderTooltipDescription(e.features[0].properties.key);
                         hoverPopup.setLngLat(e.lngLat).setHTML(description).addTo(map);
                     }
                 });
 
-                map.on('mouseleave', `${layerId}`, function () {
+                map.on('mouseleave', `${layerId}`, () => {
                     hoverPopup.remove();
                 });
 
-                const clickPopup = new maplibregl.Popup({
-                    closeOnClick: true,
-                    closeButton: false,
-                    isOpen: false,
-                });
-
-                map.on('click', `${layerId}`, function (e) {
+                map.on('click', `${layerId}`, (e) => {
                     hoverPopup.remove();
                     const coordinates = e.lngLat;
                     const description = renderTooltipDescription(e.features[0].properties.key);
@@ -222,5 +224,11 @@ TODO:
         flex-direction: column;
         margin: 0;
         position: relative;
+    }
+    /* To add classes programmatically in svelte we will use a global selector. We place it inside a local selector to obtain some encapsulation and avoid side effects */
+    .map-card :global(.tooltip > .maplibregl-popup-content) {
+        border-radius: 6px;
+        box-shadow: 0px 6px 13px rgba(0, 0, 0, 0.26);
+        padding: 13px;
     }
 </style>
