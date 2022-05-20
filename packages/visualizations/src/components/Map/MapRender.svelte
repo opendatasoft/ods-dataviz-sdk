@@ -158,8 +158,10 @@ TODO:
                     className: 'tooltip-on-click',
                 });
 
+                let tooltipDelay;
+
                 map.on('mousemove', layerId, (e) => {
-                    if (!clickPopup.isOpen()) {
+                    if (!clickPopup.isOpen() || !tooltipDelay) {
                         const description = renderTooltipDescription(e.features[0].properties.key);
                         hoverPopup.setLngLat(e.lngLat).setHTML(description).addTo(map);
                     }
@@ -170,10 +172,22 @@ TODO:
                 });
 
                 map.on('click', layerId, (e) => {
+                    if (!clickPopup.isOpen()) {
+                        const coordinates = e.lngLat;
+                        const description = renderTooltipDescription(e.features[0].properties.key);
+                        if (e.originalEvent.detail === 1) {
+                            tooltipDelay = setTimeout(() => {
+                                clickPopup.setLngLat(coordinates).setHTML(description).addTo(map);
+                            }, 200);
+                        }
+                        if (e.originalEvent.detail === 2) {
+                            clearTimeout(tooltipDelay);
+                        }
+                    }
+                });
+
+                clickPopup.on('open', () => {
                     hoverPopup.remove();
-                    const coordinates = e.lngLat;
-                    const description = renderTooltipDescription(e.features[0].properties.key);
-                    clickPopup.setLngLat(coordinates).setHTML(description).addTo(map);
                 });
             }
 
