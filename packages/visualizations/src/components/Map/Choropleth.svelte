@@ -64,7 +64,7 @@ shapes: {
                 }
                 const format = options?.tooltip?.label;
                 if (format) return format(hoveredFeatureName);
-                return `${hoveredFeatureName} - ${hoveredFeatureValue}`;
+                return `${hoveredFeatureName} &mdash; ${hoveredFeatureValue}`;
             };
 
             source = {
