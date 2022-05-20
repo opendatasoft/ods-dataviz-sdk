@@ -126,7 +126,9 @@ const StudioChoroplethCustomTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
         tooltip: {
             label: (featureName) => {
                 return `Hello I'm <div style="color: red">${featureName}</div> and my value is <div style="color: red">${
-                    df.find((item) => item.x === featureName).y
+                    df.find((item) => item.x === featureName)
+                        ? df.find((item) => item.x === featureName).y
+                        : ''
                 }</div>`;
             },
         },
@@ -159,7 +161,9 @@ const StudioChoroplethComplexTooltipArgs: Props<DataFrame, ChoroplethOptions> = 
                         <h2 style="border-bottom: 1px solid lightgrey">${featureName}</h2>
                         <img src="${IMAGES.rocket}" style="margin-bottom: 15px"></img>
                         <div style="margin-bottom: 15px">Number of space rockets: ${
-                            df.find((item) => item.x === featureName).y
+                            df.find((item) => item.x === featureName)
+                                ? df.find((item) => item.x === featureName).y
+                                : ''
                         }</div>
                     </div>`;
             },
