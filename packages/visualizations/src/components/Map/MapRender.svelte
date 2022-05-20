@@ -12,10 +12,7 @@ TODO:
     import maplibregl from 'maplibre-gl';
     import { onMount } from 'svelte';
     import { debounce } from 'lodash';
-    import turfBbox from '@turf/bbox';
-    import {
-        computeMaxZoomFromGeoJsonFeatures,
-    } from './utils';
+    import { computeMaxZoomFromGeoJsonFeatures } from './utils';
 
     // maplibre style (basemap)
     export let style;
@@ -23,6 +20,8 @@ TODO:
     export let source;
     // maplibre layer config
     export let layer;
+    // bounding box to start from, and restrict to it
+    export let bbox;
 
     // aspect ratio based on width, by default equal to 1
     export let aspectRatio = 1;
@@ -30,8 +29,7 @@ TODO:
 
     let container;
     let map;
-    // bounding box to start from, and restrict to it
-    let bbox;
+
     let mapReady = false;
     // Used to add a listener to resize map on container changes, canceled on destroy
     let resizer;
@@ -82,12 +80,11 @@ TODO:
 
     function initializeResizer() {
         // Set a resizeObserver to resize map on container size changes
+        // TODO: Do we really want to reset to the initial bbox each time?
         resizer = new ResizeObserver(
             debounce(() => {
                 map.resize();
-                if (bbox) {
-                    fitMapToBbox(bbox);
-                }
+                fitMapToBbox(bbox);
             }, 100)
         );
 
@@ -101,14 +98,10 @@ TODO:
         if (e.isSourceLoaded && e.sourceId === sourceId && !e.sourceDataType) {
             console.log(mapId, 'sourceLoadingCallback');
             const renderedFeatures = map.querySourceFeatures(sourceId, { sourceLayer: layerId });
-            // Compute the bounding box of things currently displayed
-            bbox = turfBbox({
-                type: 'FeatureCollection',
-                features: renderedFeatures
-            });
-            fitMapToBbox(bbox);
 
             // Restrict zoom max
+            // TODO: We may not catch the smaller shapes if Maplibre discarded them for rendering reasons, so it's a bit risky. Is it worth it?
+            // A low-cost approach could be to restrict the zoom scale to an arbitrary value (e.g. only 4 from the max zoom)... or not restrict at all.
             if (renderedFeatures.length) {
                 const maxZoom = computeMaxZoomFromGeoJsonFeatures(container, renderedFeatures);
                 map.setMaxZoom(maxZoom);
@@ -158,6 +151,12 @@ TODO:
     }
 
     $: updateStyle(style);
+    $: {
+        // Move the map to the bbox if it is set
+        if (mapReady && bbox) {
+            fitMapToBbox(bbox);
+        }
+    }
 </script>
 
 <div id="map" bind:this={container} style={cssVarStyles} />
