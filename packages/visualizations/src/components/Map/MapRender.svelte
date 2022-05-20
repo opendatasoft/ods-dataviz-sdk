@@ -148,14 +148,14 @@ TODO:
                 const hoverPopup = new maplibregl.Popup({
                     closeOnClick: true,
                     closeButton: false,
-                    className: 'tooltip',
+                    className: 'tooltip-on-hover',
                 }).trackPointer();
 
                 const clickPopup = new maplibregl.Popup({
                     closeOnClick: true,
                     closeButton: false,
                     isOpen: false,
-                    className: 'tooltip',
+                    className: 'tooltip-on-click',
                 });
 
                 map.on('mousemove', `${layerId}`, (e) => {
@@ -226,9 +226,13 @@ TODO:
         position: relative;
     }
     /* To add classes programmatically in svelte we will use a global selector. We place it inside a local selector to obtain some encapsulation and avoid side effects */
-    .map-card :global(.tooltip > .maplibregl-popup-content) {
+    .map-card :global(.tooltip-on-hover > .maplibregl-popup-content),
+    .map-card :global(.tooltip-on-click > .maplibregl-popup-content) {
         border-radius: 6px;
         box-shadow: 0px 6px 13px rgba(0, 0, 0, 0.26);
         padding: 13px;
+    }
+    .map-card :global(.tooltip-on-hover .maplibregl-popup-tip) {
+        border-top-color: transparent;
     }
 </style>
