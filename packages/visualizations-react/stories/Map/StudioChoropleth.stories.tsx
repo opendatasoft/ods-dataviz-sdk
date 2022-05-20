@@ -12,7 +12,7 @@ const meta: Meta = {
 
 const df = [
     { x: 'France', y: 60 },
-    { x: 'Ile de France', y: 35 },
+    { x: 'Île de France', y: 35 },
     { x: 'Corsica', y: 95 },
 ];
 
@@ -37,7 +37,7 @@ const StudioChoroplethArgs: Props<DataFrame, ChoroplethOptions> = {
         loading: false,
         value: [
             { x: 'France', y: 60 },
-            { x: 'Ile de France', y: 35 },
+            { x: 'Île de France', y: 35 },
             { x: 'Corsica', y: 95 },
         ],
     },
@@ -56,7 +56,7 @@ const StudioChoroplethGradientArgs: Props<DataFrame, ChoroplethOptions> = {
         loading: false,
         value: [
             { x: 'France', y: 6000 },
-            { x: 'Ile de France', y: 3500 },
+            { x: 'Île de France', y: 3500 },
             { x: 'Corsica', y: 9500 },
         ],
     },
@@ -85,7 +85,7 @@ const StudioChoroplethPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
         loading: false,
         value: [
             { x: 'France', y: 60.04854 },
-            { x: 'Ile de France', y: 35 },
+            { x: 'Île de France', y: 35 },
             { x: 'Corsica', y: 95.054 },
         ],
     },
