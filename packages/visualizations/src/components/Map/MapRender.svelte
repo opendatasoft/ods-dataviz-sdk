@@ -158,18 +158,18 @@ TODO:
                     className: 'tooltip-on-click',
                 });
 
-                map.on('mousemove', `${layerId}`, (e) => {
+                map.on('mousemove', layerId, (e) => {
                     if (!clickPopup.isOpen()) {
                         const description = renderTooltipDescription(e.features[0].properties.key);
                         hoverPopup.setLngLat(e.lngLat).setHTML(description).addTo(map);
                     }
                 });
 
-                map.on('mouseleave', `${layerId}`, () => {
+                map.on('mouseleave', layerId, () => {
                     hoverPopup.remove();
                 });
 
-                map.on('click', `${layerId}`, (e) => {
+                map.on('click', layerId, (e) => {
                     hoverPopup.remove();
                     const coordinates = e.lngLat;
                     const description = renderTooltipDescription(e.features[0].properties.key);
