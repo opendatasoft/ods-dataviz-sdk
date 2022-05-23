@@ -84,7 +84,9 @@ TODO:
         resizer = new ResizeObserver(
             debounce(() => {
                 map.resize();
-                fitMapToBbox(bbox);
+                if (mapReady && bbox) {
+                    fitMapToBbox(bbox);
+                }
             }, 100)
         );
 
