@@ -1,6 +1,7 @@
 <svelte:options immutable={true} />
 
 <script>
+    import turfBbox from '@turf/bbox';
     import MapRender from './MapRender.svelte';
     import { BLANK } from './mapStyles';
     import { colorShapes } from './utils';
@@ -16,6 +17,7 @@
     let shapes;
     let colorScale;
     let aspectRatio;
+    let bbox;
     $: ({ shapes, colorScale, aspectRatio } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
@@ -57,6 +59,8 @@ shapes: {
                     'fill-outline-color': '#fff',
                 },
             };
+
+            bbox = turfBbox(newShapes.geoJson);
         } else {
             console.error('Unknown shapes type', newShapes.type);
         }
@@ -66,7 +70,7 @@ shapes: {
 </script>
 
 <div>
-    <MapRender {style} {source} {layer} {aspectRatio} />
+    <MapRender {style} {source} {layer} {aspectRatio} {bbox} />
 </div>
 
 <style>
