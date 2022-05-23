@@ -4,7 +4,7 @@
     import turfBbox from '@turf/bbox';
     import MapRender from './MapRender.svelte';
     import { BLANK } from './mapStyles';
-    import { colorShapes } from './utils';
+    import { colorShapes, LIGHT_GREY, DARK_GREY } from './utils';
 
     export let data; // values, and the key to match
     export let options; // contains the shapes to display & match
@@ -15,15 +15,25 @@
     });
 
     let shapes;
-    let colorScale;
+    let colorsScale;
+
+    const defaultColorsScale = {
+        type: 'gradient',
+        colors: {
+            start: LIGHT_GREY,
+            end: DARK_GREY,
+        },
+    };
+
     let aspectRatio;
     let bbox;
-    $: ({ shapes, colorScale, aspectRatio } = options);
+    $: ({ shapes, colorsScale = defaultColorsScale, legend, aspectRatio } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
     const style = BLANK;
     let layer;
     let source;
+    let dataBounds;
 
     /*
 shapes: {
@@ -43,7 +53,9 @@ shapes: {
         }
 
         if (newShapes.type === 'geojson') {
-            const coloredShapes = colorShapes(newShapes.geoJson, values, newColorScale);
+            const computeColors = colorShapes(newShapes.geoJson, values, newColorScale);
+            const coloredShapes = computeColors.geoJson;
+            dataBounds = computeColors.bounds;
 
             source = {
                 type: 'geojson',
@@ -66,11 +78,11 @@ shapes: {
         }
     }
 
-    $: computeSourceLayerAndBboxes(data.value, shapes, colorScale);
+    $: computeSourceLayerAndBboxes(data.value, shapes, colorsScale);
 </script>
 
 <div>
-    <MapRender {style} {source} {layer} {aspectRatio} {bbox} />
+    <MapRender {style} {source} {layer} {aspectRatio} {dataBounds} {colorsScale} {legend} {bbox} />
 </div>
 
 <style>

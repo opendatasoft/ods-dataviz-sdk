@@ -1,19 +1,38 @@
 import chroma from 'chroma-js';
 import geoViewport from '@mapbox/geo-viewport';
 
-export const colorShapes = (geoJson, values, colorScale) => {
+export const LIGHT_GREY = '#CBD2DB';
+export const DARK_GREY = '#515457';
+
+export const colorShapes = (geoJson, values, colorsScale) => {
     // Key in the values is "x"
     // Key in the shapes is "key"
     // We add a color property in the JSON
     const rawValues = values.map((v) => v.y);
     const min = Math.min(...rawValues);
     const max = Math.max(...rawValues);
+    let colorMin;
+    let colorMax;
+    let scale;
 
-    // For now the colorscale is a single color, and we build a scale from it. TBD
-    const colorMin = chroma(colorScale).darken(4).hex();
-    const colorMax = chroma(colorScale).brighten(4).hex();
-
-    const scale = chroma.scale([colorMin, colorMax]).domain([min, max]);
+    if (colorsScale?.type === 'palette') {
+        const thresholdArray = [];
+        colorsScale.colors.forEach((_color, i) => {
+            if (i === 0) {
+                thresholdArray.push(min);
+                thresholdArray.push(min + (max - min) / colorsScale.colors.length);
+            } else if (i === colorsScale.colors.length - 1) {
+                thresholdArray.push(max);
+            } else {
+                thresholdArray.push(min + ((max - min) / colorsScale.colors.length) * (i + 1));
+            }
+        });
+        scale = chroma.scale(colorsScale.colors).classes(thresholdArray);
+    } else if (colorsScale?.type === 'gradient') {
+        colorMin = chroma(colorsScale.colors.start).hex();
+        colorMax = chroma(colorsScale.colors.end).hex();
+        scale = chroma.scale([colorMin, colorMax]).domain([min, max]);
+    }
 
     const dataMapping = {};
     values.forEach((v) => {
@@ -35,8 +54,14 @@ export const colorShapes = (geoJson, values, colorScale) => {
         };
     });
     return {
-        type: 'FeatureCollection',
-        features: coloredFeatures,
+        geoJson: {
+            type: 'FeatureCollection',
+            features: coloredFeatures,
+        },
+        bounds: {
+            min,
+            max,
+        },
     };
 };
 

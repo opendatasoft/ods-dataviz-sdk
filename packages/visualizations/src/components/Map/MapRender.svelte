@@ -13,6 +13,7 @@ TODO:
     import { onMount } from 'svelte';
     import { debounce } from 'lodash';
     import { computeMaxZoomFromGeoJsonFeatures } from './utils';
+    import ColorsLegend from '../utils/ColorsLegend.svelte';
 
     // maplibre style (basemap)
     export let style;
@@ -22,6 +23,14 @@ TODO:
     export let layer;
     // bounding box to start from, and restrict to it
     export let bbox;
+
+    // options to display legend
+    export let legend;
+    export let colorsScale;
+    export let dataBounds;
+    let clientWidth;
+    let legendVariant;
+    $: legendVariant = clientWidth <= 375 ? 'fluid' : 'fixed';
 
     // aspect ratio based on width, by default equal to 1
     export let aspectRatio = 1;
@@ -161,7 +170,12 @@ TODO:
     }
 </script>
 
-<div id="map" bind:this={container} style={cssVarStyles} />
+<figure class="map-card" style={cssVarStyles} bind:clientWidth>
+    <div id="map" bind:this={container} />
+    {#if legend && dataBounds}
+        <ColorsLegend {dataBounds} {colorsScale} variant={legendVariant} title={legend.title} />
+    {/if}
+</figure>
 
 <style>
     #map {
@@ -172,5 +186,11 @@ TODO:
             height: auto;
             aspect-ratio: var(--aspect-ratio);
         }
+    }
+    .map-card {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        position: relative;
     }
 </style>

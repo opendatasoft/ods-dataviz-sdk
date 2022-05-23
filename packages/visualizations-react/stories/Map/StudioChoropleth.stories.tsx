@@ -10,10 +10,10 @@ const meta: Meta = {
 };
 
 export default meta;
-const Template = (args: Props<string, ChoroplethOptions>) => (
+const Template = (args: Props<DataFrame, ChoroplethOptions>) => (
     <div
         style={{
-            width: '60%',
+            width: '50%',
             minHeight: '100px',
             minWidth: '100px',
             margin: 'auto',
@@ -23,12 +23,14 @@ const Template = (args: Props<string, ChoroplethOptions>) => (
         <Choropleth {...args} />
     </div>
 );
+
 export const StudioChoropleth = Template.bind({});
 const StudioChoroplethArgs: Props<DataFrame, ChoroplethOptions> = {
     data: {
         loading: false,
         value: [
-            { x: 'France', y: 35 },
+            { x: 'France', y: 60 },
+            { x: 'IDF', y: 35 },
             { x: 'Corsica', y: 95 },
         ],
     },
@@ -36,8 +38,62 @@ const StudioChoroplethArgs: Props<DataFrame, ChoroplethOptions> = {
         style: {},
         parameters: {},
         shapes,
-        colorScale: '#222222',
         aspectRatio: 1,
     },
 };
 StudioChoropleth.args = StudioChoroplethArgs;
+
+export const StudioChoroplethGradient = Template.bind({});
+const StudioChoroplethGradientArgs: Props<DataFrame, ChoroplethOptions> = {
+    data: {
+        loading: false,
+        value: [
+            { x: 'France', y: 6000 },
+            { x: 'IDF', y: 3500 },
+            { x: 'Corsica', y: 9500 },
+        ],
+    },
+    options: {
+        style: {},
+        parameters: {},
+        shapes,
+        colorsScale: {
+            type: 'gradient',
+            colors: {
+                start: '#bcf5f9',
+                end: '#0229bf',
+            },
+        },
+        aspectRatio: 1,
+        legend: {
+            title: 'I Am Legend',
+        },
+    },
+};
+StudioChoroplethGradient.args = StudioChoroplethGradientArgs;
+
+export const StudioChoroplethPalette = Template.bind({});
+const StudioChoroplethPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
+    data: {
+        loading: false,
+        value: [
+            { x: 'France', y: 60 },
+            { x: 'IDF', y: 35 },
+            { x: 'Corsica', y: 95 },
+        ],
+    },
+    options: {
+        style: {},
+        parameters: {},
+        shapes,
+        colorsScale: {
+            type: 'palette',
+            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+        },
+        aspectRatio: 1,
+        legend: {
+            title: 'I Am Legend',
+        },
+    },
+};
+StudioChoroplethPalette.args = StudioChoroplethPaletteArgs;
