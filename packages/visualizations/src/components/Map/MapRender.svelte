@@ -13,6 +13,7 @@ TODO:
     import { onMount } from 'svelte';
     import { debounce } from 'lodash';
     import { computeMaxZoomFromGeoJsonFeatures } from './utils';
+    import turfBbox from '@turf/bbox';
     import ColorsLegend from '../utils/ColorsLegend.svelte';
 
     // maplibre style (basemap)
@@ -34,6 +35,8 @@ TODO:
 
     // Used to render a tooltip on hover and on click
     export let renderTooltipDescription;
+    // Used to select shapes to activate a tooltip on render
+    export let activeShapes;
 
     // aspect ratio based on width, by default equal to 1
     export let aspectRatio = 1;
@@ -41,6 +44,7 @@ TODO:
 
     let container;
     let map;
+    let renderedFeatures;
 
     let mapReady = false;
     // Used to add a listener to resize map on container changes, canceled on destroy
@@ -111,14 +115,46 @@ TODO:
         // sourceDataType can be "visibility" or "metadata", in which case it's not about the data itself
         if (e.isSourceLoaded && e.sourceId === sourceId && !e.sourceDataType) {
             console.log(mapId, 'sourceLoadingCallback');
-            const renderedFeatures = map.querySourceFeatures(sourceId, { sourceLayer: layerId });
+            renderedFeatures = map.querySourceFeatures(sourceId, { sourceLayer: layerId });
 
-            // Restrict zoom max
-            // TODO: We may not catch the smaller shapes if Maplibre discarded them for rendering reasons, so it's a bit risky. Is it worth it?
-            // A low-cost approach could be to restrict the zoom scale to an arbitrary value (e.g. only 4 from the max zoom)... or not restrict at all.
             if (renderedFeatures.length) {
+                // Restrict zoom max
+                // TODO: We may not catch the smaller shapes if Maplibre discarded them for rendering reasons, so it's a bit risky. Is it worth it?
+                // A low-cost approach could be to restrict the zoom scale to an arbitrary value (e.g. only 4 from the max zoom)... or not restrict at all.
                 const maxZoom = computeMaxZoomFromGeoJsonFeatures(container, renderedFeatures);
                 map.setMaxZoom(maxZoom);
+
+                // Activate tooltips for selected shapes on render
+                if (activeShapes?.length > 0) {
+                    activeShapes.forEach((shape) => {
+                        const matchedFeature = renderedFeatures.find(
+                            (feature) => feature.properties.key === shape
+                        );
+                        if (matchedFeature) {
+                            const featureBbox = turfBbox(matchedFeature.geometry);
+                            const centerLatitude =
+                                (Math.min(featureBbox[1], featureBbox[3]) +
+                                    Math.max(featureBbox[1], featureBbox[3])) /
+                                2;
+                            const centerLongitude =
+                                (Math.min(featureBbox[0], featureBbox[2]) +
+                                    Math.max(featureBbox[0], featureBbox[2])) /
+                                2;
+                            const description = renderTooltipDescription(
+                                matchedFeature.properties.key
+                            );
+                            const fixedHoverPopup = new maplibregl.Popup({
+                                closeOnClick: false,
+                                closeButton: false,
+                                className: 'tooltip-on-hover',
+                            });
+                            fixedHoverPopup
+                                .setLngLat([centerLongitude, centerLatitude])
+                                .setHTML(description)
+                                .addTo(map);
+                        }
+                    });
+                }
             }
 
             map.off('sourcedata', sourceLoadingCallback);
@@ -252,5 +288,6 @@ TODO:
     }
     .map-card :global(.tooltip-on-hover .maplibregl-popup-tip) {
         border-top-color: transparent;
+        border-bottom-color: transparent;
     }
 </style>
