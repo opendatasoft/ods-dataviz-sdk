@@ -197,9 +197,12 @@ TODO:
 
                 map.on('mousemove', layerId, (e) => {
                     if (!clickPopup.isOpen() || !tooltipDelay) {
-                        hoverPopup.remove();
                         const description = renderTooltipDescription(e.features[0].properties.key);
-                        hoverPopup.setLngLat(e.lngLat).setHTML(description).addTo(map);
+                        if (hoverPopup.isOpen()) {
+                            hoverPopup.setLngLat(e.lngLat).setHTML(description);
+                        } else {
+                            hoverPopup.setLngLat(e.lngLat).setHTML(description).addTo(map);
+                        }
                     }
                 });
 
