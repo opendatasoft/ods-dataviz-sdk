@@ -46,7 +46,7 @@ const DefaultTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
         parameters: {},
         shapes,
         aspectRatio: 1,
-        activeShapes: ['France'],
+        activeShapes: ['France', 'Corsica'],
     },
 };
 DefaultTooltip.args = DefaultTooltipArgs;

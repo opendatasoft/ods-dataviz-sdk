@@ -46,6 +46,8 @@ TODO:
         isOpen: false,
         className: 'tooltip-on-click',
     });
+    // Used to store fixed tooltips displayed on render
+    const fixedPopupsList = [];
     // Used to select shapes to activate a tooltip on render
     export let activeShapes;
 
@@ -136,6 +138,7 @@ TODO:
 
                 // Activate tooltips for selected shapes on render
                 if (activeShapes?.length > 0) {
+                    fixedPopupsList.forEach((popup) => popup.remove());
                     activeShapes.forEach((shape) => {
                         const matchedFeature = renderedFeatures.find(
                             (feature) => feature.properties.key === shape
@@ -158,6 +161,7 @@ TODO:
                                 closeButton: false,
                                 className: 'tooltip-on-hover',
                             });
+                            fixedPopupsList.push(fixedHoverPopup);
                             fixedHoverPopup
                                 .setLngLat([centerLongitude, centerLatitude])
                                 .setHTML(description)
