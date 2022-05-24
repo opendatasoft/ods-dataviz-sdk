@@ -196,7 +196,7 @@ TODO:
                 let tooltipDelay;
 
                 map.on('mousemove', layerId, (e) => {
-                    if (!clickPopup.isOpen() || !tooltipDelay) {
+                    if (!clickPopup.isOpen() && !tooltipDelay) {
                         const description = renderTooltipDescription(e.features[0].properties.key);
                         if (hoverPopup.isOpen()) {
                             hoverPopup.setLngLat(e.lngLat).setHTML(description);
@@ -227,6 +227,7 @@ TODO:
 
                 clickPopup.on('open', () => {
                     hoverPopup.remove();
+                    tooltipDelay = null;
                 });
             }
 
