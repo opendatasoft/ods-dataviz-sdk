@@ -44,7 +44,6 @@ TODO:
 
     let container;
     let map;
-    let renderedFeatures;
 
     let mapReady = false;
     // Used to add a listener to resize map on container changes, canceled on destroy
@@ -115,7 +114,7 @@ TODO:
         // sourceDataType can be "visibility" or "metadata", in which case it's not about the data itself
         if (e.isSourceLoaded && e.sourceId === sourceId && !e.sourceDataType) {
             console.log(mapId, 'sourceLoadingCallback');
-            renderedFeatures = map.querySourceFeatures(sourceId, { sourceLayer: layerId });
+            const renderedFeatures = map.querySourceFeatures(sourceId, { sourceLayer: layerId });
 
             if (renderedFeatures.length) {
                 // Restrict zoom max
