@@ -12,8 +12,8 @@ TODO:
     import maplibregl from 'maplibre-gl';
     import { onMount } from 'svelte';
     import { debounce } from 'lodash';
-    import { computeMaxZoomFromGeoJsonFeatures } from './utils';
     import turfBbox from '@turf/bbox';
+    import { computeMaxZoomFromGeoJsonFeatures } from './utils';
     import ColorsLegend from '../utils/ColorsLegend.svelte';
 
     // maplibre style (basemap)
