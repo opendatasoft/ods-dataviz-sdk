@@ -33,8 +33,19 @@ TODO:
     let legendVariant;
     $: legendVariant = clientWidth <= 375 ? 'fluid' : 'fixed';
 
-    // Used to render a tooltip on hover and on click
+    // Used to render tooltips on hover and on click
     export let renderTooltipDescription;
+    const hoverPopup = new maplibregl.Popup({
+        closeOnClick: true,
+        closeButton: false,
+        className: 'tooltip-on-hover',
+    }).trackPointer();
+    const clickPopup = new maplibregl.Popup({
+        closeOnClick: true,
+        closeButton: false,
+        isOpen: false,
+        className: 'tooltip-on-click',
+    });
     // Used to select shapes to activate a tooltip on render
     export let activeShapes;
 
@@ -178,23 +189,11 @@ TODO:
             });
 
             if (renderTooltipDescription) {
-                const hoverPopup = new maplibregl.Popup({
-                    closeOnClick: true,
-                    closeButton: false,
-                    className: 'tooltip-on-hover',
-                }).trackPointer();
-
-                const clickPopup = new maplibregl.Popup({
-                    closeOnClick: true,
-                    closeButton: false,
-                    isOpen: false,
-                    className: 'tooltip-on-click',
-                });
-
                 let tooltipDelay;
 
                 map.on('mousemove', layerId, (e) => {
                     if (!clickPopup.isOpen() || !tooltipDelay) {
+                        hoverPopup.remove();
                         const description = renderTooltipDescription(e.features[0].properties.key);
                         hoverPopup.setLngLat(e.lngLat).setHTML(description).addTo(map);
                     }
