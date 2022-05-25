@@ -560,7 +560,7 @@ export const shapes = {
                     ],
                 },
                 properties: {
-                    key: 'IDF',
+                    key: 'Île de France',
                 },
             },
         ],

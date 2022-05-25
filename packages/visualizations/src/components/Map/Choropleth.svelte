@@ -26,8 +26,10 @@
     };
 
     let aspectRatio;
+    let renderTooltip;
     let bbox;
-    $: ({ shapes, colorsScale = defaultColorsScale, legend, aspectRatio } = options);
+    let activeShapes;
+    $: ({ shapes, colorsScale = defaultColorsScale, legend, aspectRatio, activeShapes } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
     const style = BLANK;
@@ -57,6 +59,17 @@ shapes: {
             const coloredShapes = computeColors.geoJson;
             dataBounds = computeColors.bounds;
 
+            renderTooltip = (hoveredFeatureName) => {
+                let hoveredFeatureValue = '';
+                const matchedFeature = values.find((item) => String(item.x) === hoveredFeatureName);
+                if (matchedFeature) {
+                    hoveredFeatureValue = matchedFeature.y;
+                }
+                const format = options?.tooltip?.label;
+                if (format) return format(hoveredFeatureName);
+                return `${hoveredFeatureName} &mdash; ${hoveredFeatureValue}`;
+            };
+
             source = {
                 type: 'geojson',
                 data: coloredShapes,
@@ -82,7 +95,18 @@ shapes: {
 </script>
 
 <div>
-    <MapRender {style} {source} {layer} {aspectRatio} {dataBounds} {colorsScale} {legend} {bbox} />
+    <MapRender
+        {style}
+        {source}
+        {layer}
+        {aspectRatio}
+        {dataBounds}
+        {colorsScale}
+        {legend}
+        {renderTooltip}
+        {bbox}
+        {activeShapes}
+    />
 </div>
 
 <style>

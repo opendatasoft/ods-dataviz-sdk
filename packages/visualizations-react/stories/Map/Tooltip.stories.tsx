@@ -2,11 +2,11 @@ import React from 'react';
 import { Meta } from '@storybook/react';
 import { Choropleth, Props } from '../../src';
 import { ChoroplethOptions, DataFrame } from '@opendatasoft/visualizations';
-import { shapes } from './shapes';
 import { IMAGES } from '../utils';
+import { shapes } from './shapes';
 
 const meta: Meta = {
-    title: 'Map/Choropleth',
+    title: 'Map/Tooltip',
     component: Choropleth,
 };
 
@@ -31,8 +31,8 @@ const Template = (args: Props<DataFrame, ChoroplethOptions>) => (
     </div>
 );
 
-export const StudioChoropleth = Template.bind({});
-const StudioChoroplethArgs: Props<DataFrame, ChoroplethOptions> = {
+export const DefaultTooltip = Template.bind({});
+const DefaultTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
     data: {
         loading: false,
         value: [
@@ -46,83 +46,27 @@ const StudioChoroplethArgs: Props<DataFrame, ChoroplethOptions> = {
         parameters: {},
         shapes,
         aspectRatio: 1,
+        activeShapes: ['France', 'Corsica'],
     },
 };
-StudioChoropleth.args = StudioChoroplethArgs;
+DefaultTooltip.args = DefaultTooltipArgs;
 
-export const StudioChoroplethGradient = Template.bind({});
-const StudioChoroplethGradientArgs: Props<DataFrame, ChoroplethOptions> = {
+export const CustomSimpleTooltip = Template.bind({});
+const CustomSimpleTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
     data: {
         loading: false,
         value: [
-            { x: 'France', y: 6000 },
-            { x: 'Île de France', y: 3500 },
-            { x: 'Corsica', y: 9500 },
-        ],
-    },
-    options: {
-        style: {},
-        parameters: {},
-        shapes,
-        colorsScale: {
-            type: 'gradient',
-            colors: {
-                start: '#bcf5f9',
-                end: '#0229bf',
-            },
-        },
-        aspectRatio: 1,
-        legend: {
-            title: 'I Am Legend',
-        },
-    },
-};
-StudioChoroplethGradient.args = StudioChoroplethGradientArgs;
-
-export const StudioChoroplethPalette = Template.bind({});
-const StudioChoroplethPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
-    data: {
-        loading: false,
-        value: [
-            { x: 'France', y: 60.04854 },
+            { x: 'France', y: 60 },
             { x: 'Île de France', y: 35 },
-            { x: 'Corsica', y: 95.054 },
+            { x: 'Corsica', y: 95 },
         ],
     },
     options: {
         style: {},
         parameters: {},
         shapes,
-        colorsScale: {
-            type: 'palette',
-            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
-        },
         aspectRatio: 1,
-        legend: {
-            title: 'I Am Legend',
-        },
-    },
-};
-StudioChoroplethPalette.args = StudioChoroplethPaletteArgs;
-
-export const StudioChoroplethCustomTooltip = Template.bind({});
-const StudioChoroplethCustomTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
-    data: {
-        loading: false,
-        value: df,
-    },
-    options: {
-        style: {},
-        parameters: {},
-        shapes,
-        colorsScale: {
-            type: 'palette',
-            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
-        },
-        aspectRatio: 1,
-        legend: {
-            title: 'I Am Legend',
-        },
+        activeShapes: ['Corsica'],
         tooltip: {
             label: (featureName) => {
                 return `Hello I'm <div style="color: red">${featureName}</div> and my value is <div style="color: red">${
@@ -134,27 +78,24 @@ const StudioChoroplethCustomTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
         },
     },
 };
-StudioChoroplethCustomTooltip.args = StudioChoroplethCustomTooltipArgs;
+CustomSimpleTooltip.args = CustomSimpleTooltipArgs;
 
-export const StudioChoroplethComplexTooltip = Template.bind({});
-
-const StudioChoroplethComplexTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
+export const CustomComplexTooltip = Template.bind({});
+const CustomComplexTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
     data: {
         loading: false,
-        value: df,
+        value: [
+            { x: 'France', y: 60 },
+            { x: 'Île de France', y: 35 },
+            { x: 'Corsica', y: 95 },
+        ],
     },
     options: {
         style: {},
         parameters: {},
         shapes,
-        colorsScale: {
-            type: 'palette',
-            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
-        },
         aspectRatio: 1,
-        legend: {
-            title: 'I Am Legend',
-        },
+        activeShapes: ['Île de France'],
         tooltip: {
             label: (featureName) => {
                 return `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center">
@@ -170,4 +111,4 @@ const StudioChoroplethComplexTooltipArgs: Props<DataFrame, ChoroplethOptions> = 
         },
     },
 };
-StudioChoroplethComplexTooltip.args = StudioChoroplethComplexTooltipArgs;
+CustomComplexTooltip.args = CustomComplexTooltipArgs;
