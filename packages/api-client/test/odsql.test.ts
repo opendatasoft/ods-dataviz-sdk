@@ -102,6 +102,14 @@ describe('ODSQL query builder', () => {
             ).toEqual(`catalog/query/?select=${encodeURIComponent('a,b,c,d')}`);
         });
 
+        test('date helper', () => {
+            expect(date(2017)).toEqual("date'2017'");
+            expect(date(2017, 1)).toEqual("date'2017-01'");
+            expect(date(2017, 12)).toEqual("date'2017-12'");
+            expect(date(2017, 1, 1)).toEqual("date'2017-01-01'");
+            expect(date(2017, 12, 31)).toEqual("date'2017-12-31'");
+        });
+
         test('with where filter', () => {
             const query = fromCatalog()
                 .dataset('my_dataset')
@@ -149,7 +157,7 @@ describe('ODSQL query builder', () => {
                     .select(selected => selected + ', b')
                     .toString()
             ).toEqual(
-                'catalog/datasets/my_dataset/query/?group_by=x%2C+y&select=a%2C+b&where=%28%28%60my_field%60%3A%22this+will+be%27+escaped%22%29+OR+%28%60my_field%60+%3C+date%271970-1-1%27%29%29+AND+%28not_escaped+in+%5B0..10%5D+and+other+is+true%29+AND+%28len%28f%29+%3D+2%29'
+                'catalog/datasets/my_dataset/query/?group_by=x%2C+y&select=a%2C+b&where=%28%28%60my_field%60%3A%22this+will+be%27+escaped%22%29+OR+%28%60my_field%60+%3C+date%271970-01-01%27%29%29+AND+%28not_escaped+in+%5B0..10%5D+and+other+is+true%29+AND+%28len%28f%29+%3D+2%29'
             );
 
             expect(

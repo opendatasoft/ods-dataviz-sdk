@@ -164,8 +164,14 @@ export const string = (value: string) => JSON.stringify(value);
 
 export const dateTime = (date: Date) => `date'${date.toISOString()}'`;
 
+function inlineMonthOrDay(value?: number) {
+    if (value === undefined) return '';
+    if (value < 10) return `-0${value}`;
+    return `-${value}`;
+}
+
 export const date = (year: number, month?: number, day?: number) =>
-    `date'${year}${month !== undefined ? `-${month}` : ''}${day !== undefined ? `-${day}` : ''}'`;
+    `date'${year}${inlineMonthOrDay(month)}${inlineMonthOrDay(day)}'`;
 
 export const all = (...conditions: (string | undefined | null)[]) =>
     conditions
