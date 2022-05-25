@@ -167,6 +167,19 @@ TODO:
         }
     }
 
+    function addTooltip(e) {
+        const description = renderTooltip(e.features[0].properties.key);
+        if (hoverPopup.isOpen()) {
+            hoverPopup.setLngLat(e.lngLat).setHTML(description);
+        } else {
+            hoverPopup.setLngLat(e.lngLat).setHTML(description).addTo(map);
+        }
+    }
+
+    function removeTooltip() {
+        hoverPopup.remove();
+    }
+
     function updateSourceAndLayer(newSource, newLayer) {
         if (newSource && newLayer) {
             if (map.getLayer(layerId)) {
@@ -184,19 +197,12 @@ TODO:
                 source: sourceId,
             });
 
-            if (renderTooltip) {
-                map.on('mousemove', layerId, (e) => {
-                    const description = renderTooltip(e.features[0].properties.key);
-                    if (hoverPopup.isOpen()) {
-                        hoverPopup.setLngLat(e.lngLat).setHTML(description);
-                    } else {
-                        hoverPopup.setLngLat(e.lngLat).setHTML(description).addTo(map);
-                    }
-                });
+            map.off('mousemove', layerId, addTooltip);
+            map.off('mouseleave', layerId, removeTooltip);
 
-                map.on('mouseleave', layerId, () => {
-                    hoverPopup.remove();
-                });
+            if (renderTooltip) {
+                map.on('mousemove', layerId, addTooltip);
+                map.on('mouseleave', layerId, removeTooltip);
             }
 
             map.on('sourcedata', sourceLoadingCallback);
