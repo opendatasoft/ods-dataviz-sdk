@@ -295,5 +295,7 @@ TODO:
     .map-card :global(.tooltip-on-hover .maplibregl-popup-tip) {
         border-top-color: transparent;
         border-bottom-color: transparent;
+        border-left-color: transparent;
+        border-right-color: transparent;
     }
 </style>
