@@ -153,9 +153,7 @@ TODO:
                                 (Math.min(featureBbox[0], featureBbox[2]) +
                                     Math.max(featureBbox[0], featureBbox[2])) /
                                 2;
-                            const description = renderTooltip(
-                                matchedFeature.properties.key
-                            );
+                            const description = renderTooltip(matchedFeature.properties.key);
                             const fixedHoverPopup = new maplibregl.Popup({
                                 closeOnClick: false,
                                 closeButton: false,
