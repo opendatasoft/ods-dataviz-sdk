@@ -33,19 +33,13 @@ TODO:
     let legendVariant;
     $: legendVariant = clientWidth <= 375 ? 'fluid' : 'fixed';
 
-    // Used to render tooltips on hover and on click
+    // Used to render tooltips on hover
     export let renderTooltip;
     const hoverPopup = new maplibregl.Popup({
-        closeOnClick: true,
+        closeOnClick: false,
         closeButton: false,
         className: 'tooltip-on-hover',
     }).trackPointer();
-    const clickPopup = new maplibregl.Popup({
-        closeOnClick: true,
-        closeButton: false,
-        isOpen: false,
-        className: 'tooltip-on-click',
-    });
     // Used to store fixed tooltips displayed on render
     const fixedPopupsList = [];
     // Used to select shapes to activate a tooltip on render
@@ -191,41 +185,17 @@ TODO:
             });
 
             if (renderTooltip) {
-                let tooltipDelay;
-
                 map.on('mousemove', layerId, (e) => {
-                    if (!clickPopup.isOpen() && !tooltipDelay) {
-                        const description = renderTooltip(e.features[0].properties.key);
-                        if (hoverPopup.isOpen()) {
-                            hoverPopup.setLngLat(e.lngLat).setHTML(description);
-                        } else {
-                            hoverPopup.setLngLat(e.lngLat).setHTML(description).addTo(map);
-                        }
+                    const description = renderTooltip(e.features[0].properties.key);
+                    if (hoverPopup.isOpen()) {
+                        hoverPopup.setLngLat(e.lngLat).setHTML(description);
+                    } else {
+                        hoverPopup.setLngLat(e.lngLat).setHTML(description).addTo(map);
                     }
                 });
 
                 map.on('mouseleave', layerId, () => {
                     hoverPopup.remove();
-                });
-
-                map.on('click', layerId, (e) => {
-                    if (!clickPopup.isOpen()) {
-                        const coordinates = e.lngLat;
-                        const description = renderTooltip(e.features[0].properties.key);
-                        if (e.originalEvent.detail === 1) {
-                            tooltipDelay = setTimeout(() => {
-                                clickPopup.setLngLat(coordinates).setHTML(description).addTo(map);
-                            }, 200);
-                        }
-                        if (e.originalEvent.detail === 2) {
-                            clearTimeout(tooltipDelay);
-                        }
-                    }
-                });
-
-                clickPopup.on('open', () => {
-                    hoverPopup.remove();
-                    tooltipDelay = null;
                 });
             }
 
@@ -284,8 +254,7 @@ TODO:
         position: relative;
     }
     /* To add classes programmatically in svelte we will use a global selector. We place it inside a local selector to obtain some encapsulation and avoid side effects */
-    .map-card :global(.tooltip-on-hover > .maplibregl-popup-content),
-    .map-card :global(.tooltip-on-click > .maplibregl-popup-content) {
+    .map-card :global(.tooltip-on-hover > .maplibregl-popup-content) {
         border-radius: 6px;
         box-shadow: 0px 6px 13px rgba(0, 0, 0, 0.26);
         padding: 13px;
