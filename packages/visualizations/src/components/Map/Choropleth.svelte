@@ -26,7 +26,7 @@
     };
 
     let aspectRatio;
-    let renderTooltipDescription;
+    let renderTooltip;
     let bbox;
     let activeShapes;
     $: ({ shapes, colorsScale = defaultColorsScale, legend, aspectRatio, activeShapes } = options);
@@ -59,7 +59,7 @@ shapes: {
             const coloredShapes = computeColors.geoJson;
             dataBounds = computeColors.bounds;
 
-            renderTooltipDescription = (hoveredFeatureName) => {
+            renderTooltip = (hoveredFeatureName) => {
                 let hoveredFeatureValue = '';
                 const matchedFeature = values.find((item) => String(item.x) === hoveredFeatureName);
                 if (matchedFeature) {
@@ -103,7 +103,7 @@ shapes: {
         {dataBounds}
         {colorsScale}
         {legend}
-        {renderTooltipDescription}
+        {renderTooltip}
         {bbox}
         {activeShapes}
     />

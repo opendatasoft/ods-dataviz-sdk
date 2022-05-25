@@ -34,7 +34,7 @@ TODO:
     $: legendVariant = clientWidth <= 375 ? 'fluid' : 'fixed';
 
     // Used to render tooltips on hover and on click
-    export let renderTooltipDescription;
+    export let renderTooltip;
     const hoverPopup = new maplibregl.Popup({
         closeOnClick: true,
         closeButton: false,
@@ -137,7 +137,7 @@ TODO:
                 map.setMaxZoom(maxZoom);
 
                 // Activate tooltips for selected shapes on render
-                if (activeShapes?.length > 0) {
+                if (activeShapes?.length > 0 && renderTooltip) {
                     fixedPopupsList.forEach((popup) => popup.remove());
                     activeShapes.forEach((shape) => {
                         const matchedFeature = renderedFeatures.find(
@@ -153,7 +153,7 @@ TODO:
                                 (Math.min(featureBbox[0], featureBbox[2]) +
                                     Math.max(featureBbox[0], featureBbox[2])) /
                                 2;
-                            const description = renderTooltipDescription(
+                            const description = renderTooltip(
                                 matchedFeature.properties.key
                             );
                             const fixedHoverPopup = new maplibregl.Popup({
@@ -192,12 +192,12 @@ TODO:
                 source: sourceId,
             });
 
-            if (renderTooltipDescription) {
+            if (renderTooltip) {
                 let tooltipDelay;
 
                 map.on('mousemove', layerId, (e) => {
                     if (!clickPopup.isOpen() && !tooltipDelay) {
-                        const description = renderTooltipDescription(e.features[0].properties.key);
+                        const description = renderTooltip(e.features[0].properties.key);
                         if (hoverPopup.isOpen()) {
                             hoverPopup.setLngLat(e.lngLat).setHTML(description);
                         } else {
@@ -213,7 +213,7 @@ TODO:
                 map.on('click', layerId, (e) => {
                     if (!clickPopup.isOpen()) {
                         const coordinates = e.lngLat;
-                        const description = renderTooltipDescription(e.features[0].properties.key);
+                        const description = renderTooltip(e.features[0].properties.key);
                         if (e.originalEvent.detail === 1) {
                             tooltipDelay = setTimeout(() => {
                                 clickPopup.setLngLat(coordinates).setHTML(description).addTo(map);
