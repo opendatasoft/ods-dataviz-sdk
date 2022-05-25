@@ -181,4 +181,4 @@ export const one = (...conditions: (string | undefined | null)[]) =>
 export const list = (...values: (string | undefined | null)[]) => values.filter(Boolean).join(',');
 
 export const not = (condition: string | undefined | null) =>
-    Boolean(condition) ? `not (${condition})` : condition;
+    Boolean(condition) ? `not (${condition})` : '';
