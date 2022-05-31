@@ -1,6 +1,7 @@
 <svelte:options immutable={true} />
 
 <script lang="ts">
+    import { onDestroy, beforeUpdate } from 'svelte';
     import type { DataBounds, ColorsScale, LegendVariant } from '../types';
     import { defaultCompactLegendNumberFormat } from './formatter';
     // options to customize the component
@@ -8,6 +9,38 @@
     export let colorsScale: ColorsScale;
     export let variant: LegendVariant;
     export let title: string;
+
+    // the part below is related to labels rotation
+    let legendWidth: number;
+    let colorBoxWidth: number;
+    const labelsWidth: number[] = [];
+    let maxLabelsSize: number;
+    let numberOfLabels: number;
+    let availableWidthPerLabel: number;
+    let displayVertical: boolean;
+    // eslint-disable-next-line
+    let labelRotationTimer: NodeJS.Timeout;
+    const handleLabelRotation = (): void => {
+        availableWidthPerLabel = legendWidth / numberOfLabels - 3;
+        colorBoxWidth = legendWidth / numberOfLabels - 2;
+        numberOfLabels = colorsScale.type === 'palette' ? colorsScale.colors.length + 1 : 2;
+        maxLabelsSize = labelsWidth.reduce((a, b) => Math.max(a, b));
+        if (availableWidthPerLabel < maxLabelsSize) {
+            displayVertical = true;
+        } else {
+            displayVertical = false;
+        }
+    };
+    beforeUpdate(() => {
+        if (colorsScale.type === 'palette' && labelsWidth.length !== 0) {
+            clearTimeout(labelRotationTimer);
+            labelRotationTimer = setTimeout(() => {
+                handleLabelRotation();
+            }, 100);
+        }
+    });
+    // Clearing the setTimeout on destroy
+    onDestroy(() => clearTimeout(labelRotationTimer));
 </script>
 
 <div class={`legend-colors legend-colors--${variant}`}>
@@ -27,26 +60,50 @@
         </div>
     {:else if colorsScale.type === 'palette'}
         <!-- Palette color boxes, row display, no labels only displaying palettes steps -->
-        <div class="legend-colors-container-palette">
+        <div class="legend-colors-container-palette" bind:clientWidth={legendWidth}>
             <div class="legend-colors-row-color-box-palette">
                 {#each colorsScale.colors as color}
                     <div class="legend-colors-color-box-palette" style="--box-color: {color}" />
                 {/each}
             </div>
-            <div class="legend-colors-row-values-palette">
+            <div
+                class="legend-colors-row-values-palette {displayVertical
+                    ? 'vertical-labels-container'
+                    : ''}"
+            >
                 {#each colorsScale.colors as _color, i}
                     {#if i === 0}
-                        <div>{defaultCompactLegendNumberFormat(dataBounds.min)}</div>
-                        <div>
+                        <div
+                            bind:clientWidth={labelsWidth[i]}
+                            class:vertical-label={displayVertical}
+                            style="--label-row-width: {colorBoxWidth}px"
+                        >
+                            {defaultCompactLegendNumberFormat(dataBounds.min)}
+                        </div>
+                        <div
+                            bind:clientWidth={labelsWidth[i]}
+                            class:vertical-label={displayVertical}
+                            style="--label-row-width: {colorBoxWidth}px"
+                        >
                             {defaultCompactLegendNumberFormat(
                                 dataBounds.min +
                                     (dataBounds.max - dataBounds.min) / colorsScale.colors.length
                             )}
                         </div>
                     {:else if i === colorsScale.colors.length - 1}
-                        <div>{defaultCompactLegendNumberFormat(dataBounds.max)}</div>
+                        <div
+                            bind:clientWidth={labelsWidth[i]}
+                            class:vertical-label={displayVertical}
+                            style="--label-row-width: {colorBoxWidth}px"
+                        >
+                            {defaultCompactLegendNumberFormat(dataBounds.max)}
+                        </div>
                     {:else}
-                        <div>
+                        <div
+                            bind:clientWidth={labelsWidth[i]}
+                            class:vertical-label={displayVertical}
+                            style="--label-row-width: {colorBoxWidth}px"
+                        >
                             {defaultCompactLegendNumberFormat(
                                 dataBounds.min +
                                     ((dataBounds.max - dataBounds.min) /
@@ -113,5 +170,19 @@
     }
     .legend-colors-color-box-palette:not(:last-child) {
         margin-right: 1px;
+    }
+    /* Handle labels rotation */
+    .vertical-labels-container {
+        min-height: fit-content;
+        padding: 3px;
+        margin-top: 13px;
+        margin-left: -6px;
+        margin-right: -4px;
+        margin-bottom: 3px;
+    }
+    .vertical-labels-container > .vertical-label {
+        transform: rotate(270deg);
+        width: var(--label-row-width);
+        margin: auto;
     }
 </style>

@@ -171,3 +171,29 @@ const StudioChoroplethComplexTooltipArgs: Props<DataFrame, ChoroplethOptions> = 
     },
 };
 StudioChoroplethComplexTooltip.args = StudioChoroplethComplexTooltipArgs;
+
+export const StudioChoroplethLongLabels = Template.bind({});
+const StudioChoroplethLongLabelsArgs: Props<DataFrame, ChoroplethOptions> = {
+    data: {
+        loading: false,
+        value: [
+            { x: 'France', y: 600.05 },
+            { x: 'Île de France', y: 350.05 },
+            { x: 'Corsica', y: 950000.05 },
+        ],
+    },
+    options: {
+        style: {},
+        parameters: {},
+        shapes,
+        colorsScale: {
+            type: 'palette',
+            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#1e03fd', '#0229bf'],
+        },
+        aspectRatio: 1,
+        legend: {
+            title: 'I Am Legend',
+        },
+    },
+};
+StudioChoroplethLongLabels.args = StudioChoroplethLongLabelsArgs;
