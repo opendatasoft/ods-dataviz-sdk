@@ -2,9 +2,10 @@
 
 <script lang="ts">
     import { onDestroy, beforeUpdate } from 'svelte';
+    import { debounce } from 'lodash';
     import type { DataBounds, ColorsScale, LegendVariant } from '../types';
     import { defaultCompactLegendNumberFormat } from './formatter';
-    import { debounce } from 'lodash';
+
     // options to customize the component
     export let dataBounds: DataBounds;
     export let colorsScale: ColorsScale;
@@ -32,10 +33,10 @@
     const rotationDebounce = debounce(handleLabelRotation, 200);
     beforeUpdate(() => {
         if (colorsScale.type === 'palette' && labelsWidth.length !== 0) {
-            rotationDebounce()
+            rotationDebounce();
         }
     });
-    onDestroy(() => rotationDebounce.cancel)
+    onDestroy(() => rotationDebounce.cancel);
 </script>
 
 <div class={`legend-colors legend-colors--${variant}`}>
