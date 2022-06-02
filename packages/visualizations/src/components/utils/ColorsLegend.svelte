@@ -20,7 +20,7 @@
     // eslint-disable-next-line
     let labelRotationTimer: NodeJS.Timeout;
     const handleLabelRotation = (): void => {
-        let availableWidthPerLabel: number = legendWidth / numberOfLabels - 3;
+        const availableWidthPerLabel: number = legendWidth / numberOfLabels - 3;
         colorBoxWidth = legendWidth / numberOfLabels - 2;
         numberOfLabels = colorsScale.type === 'palette' ? colorsScale.colors.length + 1 : 2;
         maxLabelsSize = labelsWidth.reduce((a, b) => Math.max(a, b));
