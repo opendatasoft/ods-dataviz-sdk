@@ -4,6 +4,7 @@
     import { onDestroy, beforeUpdate } from 'svelte';
     import type { DataBounds, ColorsScale, LegendVariant } from '../types';
     import { defaultCompactLegendNumberFormat } from './formatter';
+    import { debounce } from 'lodash';
     // options to customize the component
     export let dataBounds: DataBounds;
     export let colorsScale: ColorsScale;
@@ -17,8 +18,6 @@
     let maxLabelsSize: number;
     let numberOfLabels: number;
     let displayVertical: boolean;
-    // eslint-disable-next-line
-    let labelRotationTimer: NodeJS.Timeout;
     const handleLabelRotation = (): void => {
         const availableWidthPerLabel: number = legendWidth / numberOfLabels - 3;
         colorBoxWidth = legendWidth / numberOfLabels - 2;
@@ -30,16 +29,13 @@
             displayVertical = false;
         }
     };
+    const rotationDebounce = debounce(handleLabelRotation, 200);
     beforeUpdate(() => {
         if (colorsScale.type === 'palette' && labelsWidth.length !== 0) {
-            clearTimeout(labelRotationTimer);
-            labelRotationTimer = setTimeout(() => {
-                handleLabelRotation();
-            }, 200);
+            rotationDebounce()
         }
     });
-    // Clearing the setTimeout on destroy
-    onDestroy(() => clearTimeout(labelRotationTimer));
+    onDestroy(() => rotationDebounce.cancel)
 </script>
 
 <div class={`legend-colors legend-colors--${variant}`}>
