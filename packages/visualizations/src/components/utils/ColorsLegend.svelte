@@ -16,12 +16,11 @@
     const labelsWidth: number[] = [];
     let maxLabelsSize: number;
     let numberOfLabels: number;
-    let availableWidthPerLabel: number;
     let displayVertical: boolean;
     // eslint-disable-next-line
     let labelRotationTimer: NodeJS.Timeout;
     const handleLabelRotation = (): void => {
-        availableWidthPerLabel = legendWidth / numberOfLabels - 3;
+        let availableWidthPerLabel: number = legendWidth / numberOfLabels - 3;
         colorBoxWidth = legendWidth / numberOfLabels - 2;
         numberOfLabels = colorsScale.type === 'palette' ? colorsScale.colors.length + 1 : 2;
         maxLabelsSize = labelsWidth.reduce((a, b) => Math.max(a, b));
@@ -36,7 +35,7 @@
             clearTimeout(labelRotationTimer);
             labelRotationTimer = setTimeout(() => {
                 handleLabelRotation();
-            }, 100);
+            }, 200);
         }
     });
     // Clearing the setTimeout on destroy
@@ -126,7 +125,7 @@
     }
     .legend-colors--fixed {
         padding: 13px;
-        width: 200px;
+        width: 250px;
     }
     .legend-colors--fluid {
         width: 90%;
@@ -173,16 +172,14 @@
     }
     /* Handle labels rotation */
     .vertical-labels-container {
-        min-height: fit-content;
-        padding: 3px;
-        margin-top: 13px;
-        margin-left: -6px;
-        margin-right: -4px;
-        margin-bottom: 3px;
+        margin: 6px -6px;
     }
-    .vertical-labels-container > .vertical-label {
+    .vertical-label {
         transform: rotate(270deg);
-        width: var(--label-row-width);
+        height: var(--label-row-width);
+        min-width: var(--label-row-width);
+        line-height: var(--label-row-width);
         margin: auto;
+        text-align: right;
     }
 </style>
