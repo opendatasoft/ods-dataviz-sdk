@@ -34,8 +34,13 @@
     };
     const rotationDebounce = debounce(handleLabelRotation, 200);
     onMount(() => handleLabelRotation());
-    $: legendWidth, rotationDebounce();
-    $: colorsScale, rotationDebounce();
+    // Makes rotationDebounce reactive to legendWith and colorScale changes
+    $: if (legendWidth) {
+        rotationDebounce();
+    }
+    $: if (colorsScale) {
+        rotationDebounce();
+    }
     onDestroy(() => rotationDebounce.cancel);
 </script>
 
