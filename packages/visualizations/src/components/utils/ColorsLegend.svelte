@@ -1,7 +1,7 @@
 <svelte:options immutable={true} />
 
 <script lang="ts">
-    import { onDestroy, beforeUpdate } from 'svelte';
+    import { onDestroy, onMount } from 'svelte';
     import { debounce } from 'lodash';
     import type { DataBounds, ColorsScale, LegendVariant } from '../types';
     import { defaultCompactLegendNumberFormat } from './formatter';
@@ -20,22 +20,22 @@
     let numberOfLabels: number;
     let displayVertical: boolean;
     const handleLabelRotation = (): void => {
-        const availableWidthPerLabel: number = legendWidth / numberOfLabels - 3;
-        colorBoxWidth = legendWidth / numberOfLabels - 2;
-        numberOfLabels = colorsScale.type === 'palette' ? colorsScale.colors.length + 1 : 2;
-        maxLabelsSize = labelsWidth.reduce((a, b) => Math.max(a, b));
-        if (availableWidthPerLabel < maxLabelsSize) {
-            displayVertical = true;
-        } else {
-            displayVertical = false;
+        if (colorsScale.type === 'palette' && labelsWidth.length !== 0) {
+            const availableWidthPerLabel: number = legendWidth / numberOfLabels - 3;
+            colorBoxWidth = legendWidth / numberOfLabels;
+            numberOfLabels = colorsScale.type === 'palette' ? colorsScale.colors.length + 1 : 2;
+            maxLabelsSize = labelsWidth.reduce((a, b) => Math.max(a, b));
+            if (availableWidthPerLabel < maxLabelsSize) {
+                displayVertical = true;
+            } else {
+                displayVertical = false;
+            }
         }
     };
     const rotationDebounce = debounce(handleLabelRotation, 200);
-    beforeUpdate(() => {
-        if (colorsScale.type === 'palette' && labelsWidth.length !== 0) {
-            rotationDebounce();
-        }
-    });
+    onMount(() => handleLabelRotation());
+    $: legendWidth, rotationDebounce();
+    $: colorsScale, rotationDebounce();
     onDestroy(() => rotationDebounce.cancel);
 </script>
 
