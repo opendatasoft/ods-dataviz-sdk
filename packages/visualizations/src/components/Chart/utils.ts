@@ -5,12 +5,12 @@ export function defaultValue<T>(value: T | undefined, fallback: T): T {
     return value;
 }
 
-export function singleChartJsColor(color?: Color) {
+export function singleChartJsColor(color?: Color | Color[]) {
     if (color === undefined) return undefined;
     if (typeof color === 'string') return color;
     return color[0];
 }
 
-export function multipleChartJsColors(color?: Color) {
+export function multipleChartJsColors(color?: Color | Color[]) {
     return color;
 }

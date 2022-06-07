@@ -14,6 +14,9 @@ module.exports = {
         {
             files: ['*.svelte'],
             processor: 'svelte3/svelte3',
+            settings: {
+                'import/core-modules': ['svelte'],
+            },
             rules: {
                 // Allowed in svelte
                 'import/first': 'off',
