@@ -56,16 +56,10 @@ TODO:
     // Used to add a listener to resize map on container changes, canceled on destroy
     let resizer;
 
-    // Used in front of console messages to debug multiple maps on a same page
+    // Used in front of console and error messages to debug multiple maps on a same page
     const mapId = Math.floor(Math.random() * 1000);
     const sourceId = `shape-source-${mapId}`;
     const layerId = `shape-layer-${mapId}`;
-
-    $: console.log(mapId, 'MapRender >', {
-        style,
-        source,
-        layer,
-    });
 
     function fitMapToBbox(newBbox) {
         // Cancel saved max bounds to properly fitBounds
@@ -120,7 +114,6 @@ TODO:
     function sourceLoadingCallback(e) {
         // sourceDataType can be "visibility" or "metadata", in which case it's not about the data itself
         if (e.isSourceLoaded && e.sourceId === sourceId && !e.sourceDataType) {
-            console.log(mapId, 'sourceLoadingCallback');
             const renderedFeatures = map.querySourceFeatures(sourceId, { sourceLayer: layerId });
 
             if (renderedFeatures.length) {

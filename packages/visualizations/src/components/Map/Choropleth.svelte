@@ -9,11 +9,6 @@
     export let data; // values, and the key to match
     export let options; // contains the shapes to display & match
 
-    $: console.log('Choropleth >', {
-        data,
-        options,
-    });
-
     let shapes;
     let colorsScale;
 
