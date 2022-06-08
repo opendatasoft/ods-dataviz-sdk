@@ -68,9 +68,8 @@
                 {/each}
             </div>
             <div
-                class="legend-colors-row-values-palette {displayVertical
-                    ? 'vertical-labels-container'
-                    : ''}"
+                class="legend-colors-row-values-palette"
+                class:vertical-labels-container={displayVertical}
             >
                 {#each colorsScale.colors as _color, i}
                     {#if i === 0}
