@@ -33,7 +33,7 @@
         }
     };
     const rotationDebounce = debounce(handleLabelRotation, 200);
-    onMount(() => handleLabelRotation());
+    onMount(handleLabelRotation);
     // Makes rotationDebounce reactive to legendWith and colorScale changes
     $: if (legendWidth) {
         rotationDebounce();
@@ -41,7 +41,7 @@
     $: if (colorsScale) {
         rotationDebounce();
     }
-    onDestroy(() => rotationDebounce.cancel);
+    onDestroy(rotationDebounce.cancel);
 </script>
 
 <div class={`legend-colors legend-colors--${variant}`}>
