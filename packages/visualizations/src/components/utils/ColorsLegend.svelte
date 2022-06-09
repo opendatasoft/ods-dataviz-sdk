@@ -40,7 +40,7 @@
         }
     };
 
-    let rotationDebounce = debounce(handleLabelRotation, 200);
+    const rotationDebounce = debounce(handleLabelRotation, 200);
     const handleRotationLifecycle = (
         legendW: number,
         labelW: number[],
