@@ -1,7 +1,7 @@
 <svelte:options immutable={true} />
 
 <script lang="ts">
-    import { onDestroy, onMount } from 'svelte';
+    import { onDestroy } from 'svelte';
     import { debounce } from 'lodash';
     import type { DataBounds, ColorsScale, LegendVariant } from '../types';
     import { defaultCompactLegendNumberFormat } from './formatter';
@@ -18,29 +18,42 @@
     const labelsWidth: number[] = [];
     let maxLabelsSize: number;
     let numberOfLabels: number;
-    let displayVertical: boolean;
-    const handleLabelRotation = (): void => {
-        if (colorsScale.type === 'palette' && labelsWidth.length !== 0) {
-            const availableWidthPerLabel: number = legendWidth / numberOfLabels - 3;
-            colorBoxWidth = legendWidth / numberOfLabels;
-            numberOfLabels = colorsScale.type === 'palette' ? colorsScale.colors.length + 1 : 2;
-            maxLabelsSize = labelsWidth.reduce((a, b) => Math.max(a, b));
-            if (availableWidthPerLabel < maxLabelsSize) {
-                displayVertical = true;
-            } else {
-                displayVertical = false;
-            }
+    let displayVertical: boolean | undefined;
+    let isFirstRotation: boolean = true;
+
+    const handleLabelRotation = (
+        legendW: number,
+        labelW: number[],
+        colorsScl: ColorsScale
+    ): void => {
+        const isPaletteLegend = colorsScl.type === 'palette';
+        const isDomReady = labelW.length !== 0 && legendW;
+        const checkForRotation = isPaletteLegend && isDomReady;
+
+        if (checkForRotation) {
+            isFirstRotation = false;
+            numberOfLabels = colorsScl.colors.length + 1;
+            const availableWidthPerLabel: number = legendW / numberOfLabels - 3;
+            colorBoxWidth = legendW / numberOfLabels;
+            maxLabelsSize = Math.max(...labelW);
+            displayVertical = availableWidthPerLabel < maxLabelsSize;
         }
     };
-    const rotationDebounce = debounce(handleLabelRotation, 200);
-    onMount(handleLabelRotation);
-    // Makes rotationDebounce reactive to legendWith and colorScale changes
-    $: if (legendWidth) {
-        rotationDebounce();
-    }
-    $: if (colorsScale) {
-        rotationDebounce();
-    }
+
+    let rotationDebounce = debounce(handleLabelRotation, 200);
+    const handleRotationLifecycle = (
+        legendW: number,
+        labelW: number[],
+        colorsScl: ColorsScale
+    ): void => {
+        if (isFirstRotation) {
+            handleLabelRotation(legendW, labelW, colorsScl);
+        } else {
+            rotationDebounce(legendW, labelW, colorsScl);
+        }
+    };
+
+    $: handleRotationLifecycle(legendWidth, labelsWidth, colorsScale);
     onDestroy(rotationDebounce.cancel);
 </script>
 
