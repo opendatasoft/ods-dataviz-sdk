@@ -30,7 +30,6 @@ TODO:
     export let colorsScale;
     export let dataBounds;
     let clientWidth;
-    let legendVariant;
     $: legendVariant = clientWidth <= 375 ? 'fluid' : 'fixed';
 
     // Used to render tooltips on hover
@@ -238,7 +237,7 @@ TODO:
 
 <figure class="map-card" style={cssVarStyles} bind:clientWidth>
     <div id="map" bind:this={container} />
-    {#if legend && dataBounds}
+    {#if legend && dataBounds && clientWidth && mapReady}
         <ColorsLegend {dataBounds} {colorsScale} variant={legendVariant} title={legend.title} />
     {/if}
 </figure>
