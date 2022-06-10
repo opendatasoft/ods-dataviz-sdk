@@ -141,7 +141,9 @@ TODO:
                                     Math.max(featureBbox[0], featureBbox[2])) /
                                 2;
                             // If a label property exists we're using it, otherwise we fallback on the key
-                            const description = renderTooltip(matchedFeature.properties.label || matchedFeature.properties.key);
+                            const description = renderTooltip(
+                                matchedFeature.properties.label || matchedFeature.properties.key
+                            );
                             const fixedHoverPopup = new maplibregl.Popup({
                                 closeOnClick: false,
                                 closeButton: false,
@@ -163,7 +165,9 @@ TODO:
 
     function addTooltip(e) {
         // If a label property exists we're using it, otherwise we fallback on the key
-        const description = renderTooltip(e.features[0].properties.label || e.features[0].properties.key);
+        const description = renderTooltip(
+            e.features[0].properties.label || e.features[0].properties.key
+        );
         if (hoverPopup.isOpen()) {
             hoverPopup.setLngLat(e.lngLat).setHTML(description);
         } else {
