@@ -16,6 +16,7 @@
     let legendWidth: number;
     let colorBoxWidth: number;
     const labelsWidth: number[] = [];
+    const labelsHeight: number[] = [];
     let maxLabelsSize: number;
     let numberOfLabels: number;
     let displayVertical: boolean | undefined;
@@ -24,6 +25,7 @@
     const handleLabelRotation = (
         legendW: number,
         labelW: number[],
+        labelH: number[],
         colorsScl: ColorsScale
     ): void => {
         const isPaletteLegend = colorsScl.type === 'palette';
@@ -35,7 +37,7 @@
             numberOfLabels = colorsScl.colors.length + 1;
             const availableWidthPerLabel: number = legendW / numberOfLabels - 3;
             colorBoxWidth = legendW / numberOfLabels;
-            maxLabelsSize = Math.max(...labelW);
+            maxLabelsSize = displayVertical ? Math.max(...labelH) : Math.max(...labelW);
             displayVertical = availableWidthPerLabel < maxLabelsSize;
         }
     };
@@ -44,16 +46,17 @@
     const handleRotationLifecycle = (
         legendW: number,
         labelW: number[],
+        labelH: number[],
         colorsScl: ColorsScale
     ): void => {
         if (isFirstRotation) {
-            handleLabelRotation(legendW, labelW, colorsScl);
+            handleLabelRotation(legendW, labelW, labelH, colorsScl);
         } else {
-            rotationDebounce(legendW, labelW, colorsScl);
+            rotationDebounce(legendW, labelW, labelH, colorsScl);
         }
     };
 
-    $: handleRotationLifecycle(legendWidth, labelsWidth, colorsScale);
+    $: handleRotationLifecycle(legendWidth, labelsWidth, labelsHeight, colorsScale);
     onDestroy(rotationDebounce.cancel);
 </script>
 
@@ -79,6 +82,7 @@
                 {#each colorsScale.colors as color}
                     <div class="legend-colors-color-box-palette" style="--box-color: {color}" />
                 {/each}
+                <div class="legend-colors-color-box-palette" style="--box-color: {'transparent'}" />
             </div>
             <div
                 class="legend-colors-row-values-palette"
@@ -86,43 +90,52 @@
             >
                 {#each colorsScale.colors as _color, i}
                     {#if i === 0}
-                        <div
-                            bind:clientWidth={labelsWidth[i]}
-                            class:vertical-label={displayVertical}
-                            style="--label-row-width: {colorBoxWidth}px"
-                        >
-                            {defaultCompactLegendNumberFormat(dataBounds.min)}
+                        <div class="label-container">
+                            <span
+                                bind:clientWidth={labelsWidth[i]}
+                                bind:clientHeight={labelsHeight[i]}
+                                class:vertical-label={displayVertical}
+                            >
+                                {defaultCompactLegendNumberFormat(dataBounds.min)}
+                            </span>
                         </div>
-                        <div
-                            bind:clientWidth={labelsWidth[i]}
-                            class:vertical-label={displayVertical}
-                            style="--label-row-width: {colorBoxWidth}px"
-                        >
-                            {defaultCompactLegendNumberFormat(
-                                dataBounds.min +
-                                    (dataBounds.max - dataBounds.min) / colorsScale.colors.length
-                            )}
+                        <div class="label-container">
+                            <span
+                                bind:clientWidth={labelsWidth[i]}
+                                bind:clientHeight={labelsHeight[i]}
+                                class:vertical-label={displayVertical}
+                            >
+                                {defaultCompactLegendNumberFormat(
+                                    dataBounds.min +
+                                        (dataBounds.max - dataBounds.min) /
+                                            colorsScale.colors.length
+                                )}
+                            </span>
                         </div>
                     {:else if i === colorsScale.colors.length - 1}
-                        <div
-                            bind:clientWidth={labelsWidth[i]}
-                            class:vertical-label={displayVertical}
-                            style="--label-row-width: {colorBoxWidth}px"
-                        >
-                            {defaultCompactLegendNumberFormat(dataBounds.max)}
+                        <div class="label-container">
+                            <span
+                                bind:clientWidth={labelsWidth[i]}
+                                bind:clientHeight={labelsHeight[i]}
+                                class:vertical-label={displayVertical}
+                            >
+                                {defaultCompactLegendNumberFormat(dataBounds.max)}
+                            </span>
                         </div>
                     {:else}
-                        <div
-                            bind:clientWidth={labelsWidth[i]}
-                            class:vertical-label={displayVertical}
-                            style="--label-row-width: {colorBoxWidth}px"
-                        >
-                            {defaultCompactLegendNumberFormat(
-                                dataBounds.min +
-                                    ((dataBounds.max - dataBounds.min) /
-                                        colorsScale.colors.length) *
-                                        (i + 1)
-                            )}
+                        <div class="label-container">
+                            <span
+                                bind:clientWidth={labelsWidth[i]}
+                                bind:clientHeight={labelsHeight[i]}
+                                class:vertical-label={displayVertical}
+                            >
+                                {defaultCompactLegendNumberFormat(
+                                    dataBounds.min +
+                                        ((dataBounds.max - dataBounds.min) /
+                                            colorsScale.colors.length) *
+                                            (i + 1)
+                                )}
+                            </span>
                         </div>
                     {/if}
                 {/each}
@@ -173,27 +186,29 @@
         display: flex;
         justify-content: space-between;
         flex-wrap: nowrap;
+        line-height: 1em; /* for easier alignement */
     }
     .legend-colors-color-box-palette {
         min-height: 16px;
         width: 100%;
         background: var(--box-color);
         display: flex;
-        margin-bottom: 3px;
+        margin-bottom: 6px;
     }
     .legend-colors-color-box-palette:not(:last-child) {
         margin-right: 1px;
     }
-    /* Handle labels rotation */
-    .vertical-labels-container {
-        margin: 6px -6px;
+    .label-container {
+        flex: 1 1 auto;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+    .label-container span {
+        margin-left: calc(-50% - 1em);
     }
     .vertical-label {
-        transform: rotate(270deg);
-        height: var(--label-row-width);
-        min-width: var(--label-row-width);
-        line-height: var(--label-row-width);
-        margin: auto;
-        text-align: right;
+        writing-mode: vertical-lr; /* ensure parent height */
+        transform: rotate(180deg);
     }
 </style>
