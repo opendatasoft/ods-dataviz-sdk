@@ -4,7 +4,7 @@
     import turfBbox from '@turf/bbox';
     import MapRender from './MapRender.svelte';
     import { BLANK } from './mapStyles';
-    import { colorShapes, LIGHT_GREY, DARK_GREY } from './utils';
+    import { colorShapes, createRenderTooltip, LIGHT_GREY, DARK_GREY } from './utils';
 
     export let data; // values, and the key to match
     export let options; // contains the shapes to display & match
@@ -21,7 +21,6 @@
     };
 
     let aspectRatio;
-    let renderTooltip;
     let bbox;
     let activeShapes;
     $: ({ shapes, colorsScale = defaultColorsScale, legend, aspectRatio, activeShapes } = options);
@@ -31,7 +30,6 @@
     let layer;
     let source;
     let dataBounds;
-
     /*
 shapes: {
     type: 'geojson',
@@ -43,27 +41,17 @@ shapes: {
     url: ''
 }
 */
+
     function computeSourceLayerAndBboxes(values, newShapes, newColorScale) {
-        if ((newShapes.type === 'geojson' && !newShapes.geoJson) || !values) {
-            // We don't have everything we need yet
+        if (newShapes.type === 'geojson' && !newShapes.geoJson) {
             return;
         }
 
         if (newShapes.type === 'geojson') {
-            const computeColors = colorShapes(newShapes.geoJson, values, newColorScale);
+            const colorValues = values || newShapes.geoJson.features.map(() => ({ y: 0 }));
+            const computeColors = colorShapes(newShapes.geoJson, colorValues, newColorScale);
             const coloredShapes = computeColors.geoJson;
             dataBounds = computeColors.bounds;
-
-            renderTooltip = (hoveredFeatureName) => {
-                let hoveredFeatureValue = '';
-                const matchedFeature = values.find((item) => String(item.x) === hoveredFeatureName);
-                if (matchedFeature) {
-                    hoveredFeatureValue = matchedFeature.y;
-                }
-                const format = options?.tooltip?.label;
-                if (format) return format(hoveredFeatureName);
-                return `${hoveredFeatureName} &mdash; ${hoveredFeatureValue}`;
-            };
 
             source = {
                 type: 'geojson',
@@ -87,22 +75,21 @@ shapes: {
     }
 
     $: computeSourceLayerAndBboxes(data.value, shapes, colorsScale);
+    $: renderTooltip = createRenderTooltip(data?.value, options);
 </script>
 
-<div>
-    <MapRender
-        {style}
-        {source}
-        {layer}
-        {aspectRatio}
-        {dataBounds}
-        {colorsScale}
-        {legend}
-        {renderTooltip}
-        {bbox}
-        {activeShapes}
-    />
-</div>
+<MapRender
+    {style}
+    {source}
+    {layer}
+    {aspectRatio}
+    {dataBounds}
+    {colorsScale}
+    {legend}
+    {renderTooltip}
+    {bbox}
+    {activeShapes}
+/>
 
 <style>
 </style>

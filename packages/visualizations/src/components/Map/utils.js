@@ -134,6 +134,23 @@ function mergeBboxFromFeaturesWithSameKey(features) {
     return mergedBboxes;
 }
 
+export const createRenderTooltip = (values, options) => {
+    if (!values) { return null }
+    
+    return (hoveredFeatureName) => {
+    
+        let hoveredFeatureValue = '';
+        const matchedFeature = values.find((item) => String(item.x) === hoveredFeatureName);
+        if (matchedFeature) {
+            hoveredFeatureValue = matchedFeature.y;
+        }
+        const format = options?.tooltip?.label;
+        if (format) return format(hoveredFeatureName);
+        return `${hoveredFeatureName} &mdash; ${hoveredFeatureValue}`;
+    }
+};
+
+
 // We're calculating the maximum zoom required to fit the smallest feature we're displaying, to prevent people from zooming "too far" by accident
 export const computeMaxZoomFromGeoJsonFeatures = (mapContainer, features) => {
     let maxZoom = 0; // maxZoom lowest value possible
