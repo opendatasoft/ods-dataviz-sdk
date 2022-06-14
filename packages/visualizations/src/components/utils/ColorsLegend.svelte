@@ -29,7 +29,7 @@
         colorsScl: ColorsScale
     ): void => {
         const isPaletteLegend = colorsScl.type === 'palette';
-        const isDomReady = labelW.length !== 0 && legendW;
+        const isDomReady = labelH.length !== 0 && labelW.length !== 0 && legendW;
         const checkForRotation = isPaletteLegend && isDomReady;
 
         if (checkForRotation) {
