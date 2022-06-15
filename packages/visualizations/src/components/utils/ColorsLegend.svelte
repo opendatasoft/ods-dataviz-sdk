@@ -42,21 +42,10 @@
         }
     };
 
-    const rotationDebounce = debounce(handleLabelRotation, 200);
-    const handleRotationLifecycle = (
-        legendW: number,
-        labelW: number[],
-        labelH: number[],
-        colorsScl: ColorsScale
-    ): void => {
-        if (isFirstRotation) {
-            handleLabelRotation(legendW, labelW, labelH, colorsScl);
-        } else {
-            rotationDebounce(legendW, labelW, labelH, colorsScl);
-        }
-    };
-
-    $: handleRotationLifecycle(legendWidth, labelsWidth, labelsHeight, colorsScale);
+    const rotationDebounce = debounce(handleLabelRotation, 200, { leading: true });
+    $: if (labelsWidth.length > 0 && labelsHeight.length > 0) {
+        rotationDebounce(legendWidth, labelsWidth, labelsHeight, colorsScale);
+    }
     onDestroy(rotationDebounce.cancel);
 </script>
 
