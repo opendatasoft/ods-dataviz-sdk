@@ -25,6 +25,9 @@ TODO:
     // bounding box to start from, and restrict to it
     export let bbox;
 
+    // option to disable map interactions
+    export let interactive;
+
     // options to display legend
     export let legend;
     export let colorsScale;
@@ -81,11 +84,14 @@ TODO:
         map = new maplibregl.Map({
             container,
             style,
+            interactive,
             ...start,
         });
 
         const nav = new maplibregl.NavigationControl();
-        map.addControl(nav, 'top-left');
+        if (interactive) {
+            map.addControl(nav, 'top-left');
+        };
 
         map.on('load', () => {
             mapReady = true;
@@ -196,12 +202,14 @@ TODO:
                 source: sourceId,
             });
 
-            map.off('mousemove', layerId, addTooltip);
-            map.off('mouseleave', layerId, removeTooltip);
+            if (interactive) {
+                map.off('mousemove', layerId, addTooltip);
+                map.off('mouseleave', layerId, removeTooltip);
 
-            if (renderTooltip) {
-                map.on('mousemove', layerId, addTooltip);
-                map.on('mouseleave', layerId, removeTooltip);
+                if (renderTooltip) {
+                    map.on('mousemove', layerId, addTooltip);
+                    map.on('mouseleave', layerId, removeTooltip);
+                }
             }
 
             map.on('sourcedata', sourceLoadingCallback);

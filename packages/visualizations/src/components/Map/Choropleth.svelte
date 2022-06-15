@@ -24,7 +24,15 @@
     let renderTooltip;
     let bbox;
     let activeShapes;
-    $: ({ shapes, colorsScale = defaultColorsScale, legend, aspectRatio, activeShapes } = options);
+    let defaultInteractive = true;
+    $: ({
+        shapes,
+        colorsScale = defaultColorsScale,
+        legend,
+        aspectRatio,
+        activeShapes,
+        interactive = defaultInteractive,
+    } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
     const style = BLANK;
@@ -101,6 +109,7 @@ shapes: {
         {renderTooltip}
         {bbox}
         {activeShapes}
+        {interactive}
     />
 </div>
 
