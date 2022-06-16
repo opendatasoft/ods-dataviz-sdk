@@ -87,7 +87,7 @@ export interface AxisTitleConfiguration {
     display?: boolean;
     align?: 'start' | 'center' | 'end';
     text?: string;
-    color?: Color;
+    color?: Color | Color[];
     font?: FontConfiguration;
 }
 
@@ -125,7 +125,7 @@ export interface FontConfiguration {
 
 export interface TicksConfiguration {
     display?: boolean | 'single';
-    color?: Color;
+    color?: Color | Color[];
     format?: (value: number) => string;
 }
 
@@ -140,8 +140,8 @@ export interface DataLabelsConfiguration {
         index: number
     ) => 'bottom' | 'center' | 'end' | 'left' | 'right' | 'start' | 'top' | number;
     anchor?: (index: number) => 'center' | 'end' | 'start';
-    backgroundColor?: Color;
-    color?: Color;
+    backgroundColor?: Color | Color[];
+    color?: Color | Color[];
     borderRadius?: number;
     offset?: number;
     text?: (index: number) => string | string[];
@@ -154,13 +154,13 @@ export interface Line {
     type: 'line';
     valueColumn: string;
     label?: string;
-    backgroundColor?: Color;
-    borderColor?: Color;
+    backgroundColor?: Color | Color[];
+    borderColor?: Color | Color[];
     fill?: FillConfiguration;
     dataLabels?: DataLabelsConfiguration;
     tension?: number;
     pointRadius?: number;
-    pointBackgroundColor?: Color;
+    pointBackgroundColor?: Color | Color[];
     borderWidth?: number;
     borderDash?: number[];
     spanGaps?: boolean | number;
@@ -170,8 +170,8 @@ export interface Bar {
     type: 'bar';
     valueColumn: string;
     label?: string;
-    backgroundColor?: Color;
-    borderColor?: Color;
+    backgroundColor?: Color | Color[];
+    borderColor?: Color | Color[];
     borderWidth?: number;
     borderRadius?: number;
     indexAxis?: 'x' | 'y';
@@ -184,7 +184,7 @@ export interface Pie {
     type: 'pie';
     valueColumn: string;
     label?: string;
-    backgroundColor?: Color;
+    backgroundColor?: Color | Color[];
     dataLabels?: DataLabelsConfiguration;
     indexAxis?: 'x' | 'y';
 }
@@ -193,11 +193,11 @@ export interface Radar {
     type: 'radar';
     valueColumn: string;
     label?: string;
-    backgroundColor?: Color;
-    borderColor?: Color;
+    backgroundColor?: Color | Color[];
+    borderColor?: Color | Color[];
     dataLabels?: DataLabelsConfiguration;
     pointRadius?: number;
-    pointBackgroundColor?: Color;
+    pointBackgroundColor?: Color | Color[];
     borderWidth?: number;
 }
 
@@ -205,11 +205,11 @@ export type FillMode = false | number | string | { value: number };
 
 export interface FillConfiguration {
     mode?: FillMode;
-    above?: Color;
-    below?: Color;
+    above?: Color | Color[];
+    below?: Color | Color[];
 }
 
-export type Color = string | string[];
+export type Color = string;
 
 export type DataFrame = Record<string, any>[];
 
@@ -221,7 +221,7 @@ export interface KpiCardOptions {
     title?: string;
     description?: string;
     imgSrc?: string;
-    color?: string;
+    color?: Color;
     prefix?: string;
     suffix?: string;
     header?: string;
@@ -233,3 +233,27 @@ export interface KpiCardOptions {
     /** Custom formatting function for tooltips content */
     format?: (value: number) => string;
 }
+
+export interface ChoroplethOptions {}
+
+export interface DataBounds {
+    min: number;
+    max: number;
+}
+
+export type LegendVariant = 'fluid' | 'fixed';
+
+export type ColorsScale = GradientScale | PaletteScale;
+
+type GradientScale = {
+    type: 'gradient';
+    colors: {
+        start: Color;
+        end: Color;
+    };
+};
+
+type PaletteScale = {
+    type: 'palette';
+    colors: Color[];
+};
