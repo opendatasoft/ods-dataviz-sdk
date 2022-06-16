@@ -84,14 +84,8 @@ TODO:
         map = new maplibregl.Map({
             container,
             style,
-            interactive,
             ...start,
         });
-
-        const nav = new maplibregl.NavigationControl();
-        if (interactive) {
-            map.addControl(nav, 'top-left');
-        };
 
         map.on('load', () => {
             mapReady = true;
@@ -202,15 +196,7 @@ TODO:
                 source: sourceId,
             });
 
-            if (interactive) {
-                map.off('mousemove', layerId, addTooltip);
-                map.off('mouseleave', layerId, removeTooltip);
-
-                if (renderTooltip) {
-                    map.on('mousemove', layerId, addTooltip);
-                    map.on('mouseleave', layerId, removeTooltip);
-                }
-            }
+            addInteractivity(interactive);
 
             map.on('sourcedata', sourceLoadingCallback);
         }
@@ -221,6 +207,22 @@ TODO:
             map.setStyle(newStyle);
             // Changing the style resets the map
             map.once('styledata', () => updateSourceAndLayer(source, layer));
+        }
+    }
+
+    function addInteractivity(isInteractive) {
+        map.interactive = isInteractive;
+        if (isInteractive) {
+            const nav = new maplibregl.NavigationControl();
+            map.addControl(nav, 'top-left');
+
+            map.off('mousemove', layerId, addTooltip);
+            map.off('mouseleave', layerId, removeTooltip);
+
+            if (renderTooltip) {
+                map.on('mousemove', layerId, addTooltip);
+                map.on('mouseleave', layerId, removeTooltip);
+            }
         }
     }
 
