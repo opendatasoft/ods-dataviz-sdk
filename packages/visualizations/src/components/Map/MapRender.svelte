@@ -84,6 +84,7 @@ TODO:
         map = new maplibregl.Map({
             container,
             style,
+            interactive,
             ...start,
         });
 
@@ -211,7 +212,6 @@ TODO:
     }
 
     function addInteractivity(isInteractive) {
-        map.interactive = isInteractive;
         if (isInteractive) {
             const nav = new maplibregl.NavigationControl();
             map.addControl(nav, 'top-left');
