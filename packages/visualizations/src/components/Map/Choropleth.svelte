@@ -24,6 +24,10 @@
     let renderTooltip;
     let bbox;
     let activeShapes;
+
+    // Used to apply a chosen color for shapes without values (default: #cccccc)
+    let defaultEmptyValueColor;
+
     const defaultInteractive = true;
     $: ({
         shapes,
@@ -32,6 +36,7 @@
         aspectRatio,
         activeShapes,
         interactive = defaultInteractive,
+        defaultEmptyValueColor,
     } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
@@ -58,7 +63,7 @@ shapes: {
         }
 
         if (newShapes.type === 'geojson') {
-            const computeColors = colorShapes(newShapes.geoJson, values, newColorScale);
+            const computeColors = colorShapes(newShapes.geoJson, values, newColorScale, defaultEmptyValueColor);
             const coloredShapes = computeColors.geoJson;
             dataBounds = computeColors.bounds;
 

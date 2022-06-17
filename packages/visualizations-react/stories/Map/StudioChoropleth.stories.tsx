@@ -50,6 +50,25 @@ const StudioChoroplethArgs: Props<DataFrame, ChoroplethOptions> = {
 };
 StudioChoropleth.args = StudioChoroplethArgs;
 
+export const StudioChoroplethEmptyValue = Template.bind({});
+const StudioChoroplethEmptyValueArgs: Props<DataFrame, ChoroplethOptions> = {
+    data: {
+        loading: false,
+        value: [
+            { x: 'France', y: 60 },
+            { x: 'Corsica', y: 95 },
+        ],
+    },
+    options: {
+        style: {},
+        parameters: {},
+        shapes,
+        defaultEmptyValueColor: '#f29d9d',
+        aspectRatio: 1,
+    },
+};
+StudioChoroplethEmptyValue.args = StudioChoroplethEmptyValueArgs;
+
 export const StudioChoroplethGradient = Template.bind({});
 const StudioChoroplethGradientArgs: Props<DataFrame, ChoroplethOptions> = {
     data: {
