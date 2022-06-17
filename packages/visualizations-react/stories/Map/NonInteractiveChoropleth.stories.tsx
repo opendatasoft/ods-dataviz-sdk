@@ -2,19 +2,12 @@ import React from 'react';
 import { Meta } from '@storybook/react';
 import { Choropleth, Props } from '../../src';
 import { ChoroplethOptions, DataFrame } from '@opendatasoft/visualizations';
-import { IMAGES } from '../utils';
 import { shapes } from './shapes';
 
 const meta: Meta = {
     title: 'Map/Non Interactive Choropleth',
     component: Choropleth,
 };
-
-const df = [
-    { x: 'France', y: 60 },
-    { x: 'Île de France', y: 35 },
-    { x: 'Corsica', y: 95 },
-];
 
 export default meta;
 const Template = (args: Props<DataFrame, ChoroplethOptions>) => (
