@@ -63,7 +63,12 @@ shapes: {
         }
 
         if (newShapes.type === 'geojson') {
-            const computeColors = colorShapes(newShapes.geoJson, values, newColorScale, defaultEmptyValueColor);
+            const computeColors = colorShapes(
+                newShapes.geoJson,
+                values,
+                newColorScale,
+                defaultEmptyValueColor
+            );
             const coloredShapes = computeColors.geoJson;
             dataBounds = computeColors.bounds;
 
