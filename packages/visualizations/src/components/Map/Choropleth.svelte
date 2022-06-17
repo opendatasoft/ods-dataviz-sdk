@@ -24,7 +24,7 @@
     let renderTooltip;
     let bbox;
     let activeShapes;
-    let defaultInteractive = true;
+    const defaultInteractive = true;
     $: ({
         shapes,
         colorsScale = defaultColorsScale,
