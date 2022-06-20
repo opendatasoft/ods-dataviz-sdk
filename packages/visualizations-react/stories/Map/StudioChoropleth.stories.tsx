@@ -63,7 +63,7 @@ const StudioChoroplethEmptyValueArgs: Props<DataFrame, ChoroplethOptions> = {
         style: {},
         parameters: {},
         shapes,
-        defaultEmptyValueColor: '#f29d9d',
+        emptyValueColor: '#f29d9d',
         aspectRatio: 1,
     },
 };

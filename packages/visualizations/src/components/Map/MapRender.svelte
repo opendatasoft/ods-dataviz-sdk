@@ -248,8 +248,6 @@ TODO:
                 source: sourceId,
             });
 
-            handleInteractivity(interactive);
-
             map.on('sourcedata', sourceLoadingCallback);
         }
     }
@@ -270,6 +268,10 @@ TODO:
         if (mapReady) {
             updateSourceAndLayer(source, layer);
         }
+    }
+
+    $: if (mapReady) {
+        handleInteractivity(interactive);
     }
 
     $: updateStyle(style);

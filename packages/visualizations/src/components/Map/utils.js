@@ -4,7 +4,7 @@ import geoViewport from '@mapbox/geo-viewport';
 export const LIGHT_GREY = '#CBD2DB';
 export const DARK_GREY = '#515457';
 
-export const colorShapes = (geoJson, values, colorsScale, defaultEmptyValueColor) => {
+export const colorShapes = (geoJson, values, colorsScale, emptyValueColor) => {
     // Key in the values is "x"
     // Key in the shapes is "key"
     // We add a color property in the JSON
@@ -43,13 +43,7 @@ export const colorShapes = (geoJson, values, colorsScale, defaultEmptyValueColor
     const coloredFeatures = geoJson.features.map((feature) => {
         const shapeMapping = feature.properties.key;
         const value = dataMapping[shapeMapping]; // FIXME: beware of int/string differences in keys
-        let color;
-        const applyDifferentEmptyValueColor = !value && defaultEmptyValueColor;
-        if (applyDifferentEmptyValueColor) {
-            color = chroma(defaultEmptyValueColor).hex();
-        } else {
-            color = scale(value).hex();
-        }
+        const color = value ? scale(value).hex() : emptyValueColor;
 
         return {
             ...feature,
