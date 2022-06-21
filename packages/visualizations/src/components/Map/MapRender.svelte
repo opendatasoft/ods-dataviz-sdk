@@ -183,7 +183,7 @@ TODO:
         hoverPopup.remove();
     }
 
-    function handleInteractivity(isInteractive) {
+    function handleInteractivity(isInteractive, tooltipRenderer) {
         if (isInteractive) {
             // Enable all user interaction handlers
             // Another way to disable all user handlers is to pass the option interactive = false on map creation
@@ -206,7 +206,7 @@ TODO:
             map.off('mousemove', layerId, addTooltip);
             map.off('mouseleave', layerId, removeTooltip);
 
-            if (renderTooltip) {
+            if (tooltipRenderer) {
                 map.on('mousemove', layerId, addTooltip);
                 map.on('mouseleave', layerId, removeTooltip);
             }
@@ -271,9 +271,8 @@ TODO:
     }
 
     $: if (mapReady) {
-        handleInteractivity(interactive);
+        handleInteractivity(interactive, renderTooltip);
     }
-
     $: updateStyle(style);
     $: {
         // Move the map to the bbox if it is set
