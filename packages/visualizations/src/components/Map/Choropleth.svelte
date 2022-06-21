@@ -20,10 +20,25 @@
         },
     };
 
+    const defaultEmptyValueColor = '#cccccc';
+
     let aspectRatio;
     let bbox;
     let activeShapes;
-    $: ({ shapes, colorsScale = defaultColorsScale, legend, aspectRatio, activeShapes } = options);
+
+    // Used to apply a chosen color for shapes without values (default: #cccccc)
+    let emptyValueColor;
+
+    const defaultInteractive = true;
+    $: ({
+        shapes,
+        colorsScale = defaultColorsScale,
+        legend,
+        aspectRatio,
+        activeShapes,
+        interactive = defaultInteractive,
+        emptyValueColor = defaultEmptyValueColor,
+    } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
     const style = BLANK;
@@ -49,7 +64,12 @@ shapes: {
 
         if (newShapes.type === 'geojson') {
             const colorValues = values || newShapes.geoJson.features.map(() => ({ y: 0 }));
-            const computeColors = colorShapes(newShapes.geoJson, colorValues, newColorScale);
+            const computeColors = colorShapes(
+                newShapes.geoJson,
+                colorValues,
+                newColorScale,
+                emptyValueColor
+            );
             const coloredShapes = computeColors.geoJson;
             dataBounds = computeColors.bounds;
 
@@ -89,6 +109,7 @@ shapes: {
     {renderTooltip}
     {bbox}
     {activeShapes}
+    {interactive}
 />
 
 <style>
