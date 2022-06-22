@@ -58,8 +58,8 @@ shapes: {
     url: ''
 }
 */
-    function computeSourceLayerAndBboxes(values, newShapes, newColorScale) {
-        if ((newShapes.type === 'geojson' && !newShapes.geoJson) || !values) {
+    function computeSourceLayerAndBboxes(values = [], newShapes, newColorScale) {
+        if (newShapes.type === 'geojson' && !newShapes.geoJson) {
             // We don't have everything we need yet
             return;
         }
