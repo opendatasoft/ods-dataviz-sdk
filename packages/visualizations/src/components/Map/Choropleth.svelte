@@ -46,7 +46,9 @@
     let layer;
     let source;
     let dataBounds;
+
     /*
+shapes: {
     type: 'geojson',
     geoJson: {}
 }
