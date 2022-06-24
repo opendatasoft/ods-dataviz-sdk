@@ -72,17 +72,6 @@ shapes: {
             const coloredShapes = computeColors.geoJson;
             dataBounds = computeColors.bounds;
 
-            renderTooltip = (hoveredFeatureName) => {
-                let hoveredFeatureValue = '';
-                const matchedFeature = values.find((item) => String(item.x) === hoveredFeatureName);
-                if (matchedFeature) {
-                    hoveredFeatureValue = matchedFeature.y;
-                }
-                const format = options?.tooltip?.label;
-                if (format) return format(hoveredFeatureName);
-                return `${hoveredFeatureName} &mdash; ${hoveredFeatureValue}`;
-            };
-
             source = {
                 type: 'geojson',
                 data: coloredShapes,
@@ -105,6 +94,22 @@ shapes: {
     }
 
     $: computeSourceLayerAndBboxes(data.value, shapes, colorsScale);
+    $: renderTooltip = (hoveredFeature) => {
+        const values = data.value || [];
+        let hoveredFeatureValue = '';
+        const hoveredFeatureName = hoveredFeature.properties.label || hoveredFeature.properties.key;
+        const matchedFeature = values.find(
+            (item) => String(item.x) === hoveredFeature.properties.key
+        );
+        if (matchedFeature) {
+            hoveredFeatureValue = matchedFeature.y;
+        }
+        const format = options?.tooltip?.label;
+        if (format) return format(hoveredFeatureName);
+        return hoveredFeatureValue
+            ? `${hoveredFeatureName} &mdash; ${hoveredFeatureValue}`
+            : hoveredFeatureName;
+    };
 </script>
 
 <div>

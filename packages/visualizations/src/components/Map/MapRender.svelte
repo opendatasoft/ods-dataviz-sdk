@@ -12,8 +12,7 @@ TODO:
     import maplibregl from 'maplibre-gl';
     import { onMount } from 'svelte';
     import { debounce } from 'lodash';
-    import turfBbox from '@turf/bbox';
-    import { computeMaxZoomFromGeoJsonFeatures } from './utils';
+    import { computeMaxZoomFromGeoJsonFeatures, getFixedTooltips } from './utils';
     import ColorsLegend from '../utils/ColorsLegend.svelte';
 
     // maplibre style (basemap)
@@ -44,7 +43,7 @@ TODO:
         className: 'tooltip-on-hover',
     }).trackPointer();
     // Used to store fixed tooltips displayed on render
-    const fixedPopupsList = [];
+    let fixedPopupsList = [];
     // Used to select shapes to activate a tooltip on render
     export let activeShapes;
 
@@ -126,40 +125,12 @@ TODO:
                 // A low-cost approach could be to restrict the zoom scale to an arbitrary value (e.g. only 4 from the max zoom)... or not restrict at all.
                 const maxZoom = computeMaxZoomFromGeoJsonFeatures(container, renderedFeatures);
                 map.setMaxZoom(maxZoom);
-
-                // Activate tooltips for selected shapes on render
                 if (activeShapes?.length > 0 && renderTooltip) {
-                    fixedPopupsList.forEach((popup) => popup.remove());
-                    activeShapes.forEach((shape) => {
-                        const matchedFeature = renderedFeatures.find(
-                            (feature) => feature.properties.key === shape
-                        );
-                        if (matchedFeature) {
-                            const featureBbox = turfBbox(matchedFeature.geometry);
-                            const centerLatitude =
-                                (Math.min(featureBbox[1], featureBbox[3]) +
-                                    Math.max(featureBbox[1], featureBbox[3])) /
-                                2;
-                            const centerLongitude =
-                                (Math.min(featureBbox[0], featureBbox[2]) +
-                                    Math.max(featureBbox[0], featureBbox[2])) /
-                                2;
-                            // If a label property exists we're using it, otherwise we fallback on the key
-                            const description = renderTooltip(
-                                matchedFeature.properties.label || matchedFeature.properties.key
-                            );
-                            const fixedHoverPopup = new maplibregl.Popup({
-                                closeOnClick: false,
-                                closeButton: false,
-                                className: 'tooltip-on-hover',
-                            });
-                            fixedPopupsList.push(fixedHoverPopup);
-                            fixedHoverPopup
-                                .setLngLat([centerLongitude, centerLatitude])
-                                .setHTML(description)
-                                .addTo(map);
-                        }
-                    });
+                    fixedPopupsList = getFixedTooltips(
+                        activeShapes,
+                        renderedFeatures,
+                        renderTooltip
+                    );
                 }
             }
 
@@ -168,10 +139,7 @@ TODO:
     }
 
     function addTooltip(e) {
-        // If a label property exists we're using it, otherwise we fallback on the key
-        const description = renderTooltip(
-            e.features[0].properties.label || e.features[0].properties.key
-        );
+        const description = renderTooltip(e.features[0]);
         if (hoverPopup.isOpen()) {
             hoverPopup.setLngLat(e.lngLat).setHTML(description);
         } else {
@@ -264,23 +232,23 @@ TODO:
     onMount(initializeMap);
     onMount(initializeResizer);
 
-    $: {
-        if (mapReady) {
-            updateSourceAndLayer(source, layer);
-        }
+    $: if (mapReady) {
+        updateSourceAndLayer(source, layer);
     }
-
     $: if (mapReady) {
         handleInteractivity(interactive);
     }
-
     $: updateStyle(style);
-    $: {
-        // Move the map to the bbox if it is set
-        if (mapReady && bbox) {
-            fitMapToBbox(bbox);
-        }
+    $: if (mapReady && bbox) {
+        fitMapToBbox(bbox);
     }
+    $: if (fixedPopupsList?.length > 0 && (activeShapes?.length === 0 || !activeShapes)) {
+        fixedPopupsList.forEach((fixedPopup) => fixedPopup.popup.remove());
+    }
+    $: fixedPopupsList.forEach((fixedPopup) => {
+        const { center, description, popup } = fixedPopup;
+        popup.setLngLat(center).setHTML(description).addTo(map);
+    });
 </script>
 
 <figure class="map-card" style={cssVarStyles} bind:clientWidth>
