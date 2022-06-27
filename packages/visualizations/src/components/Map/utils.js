@@ -10,7 +10,7 @@ export const colorShapes = (geoJson, values, colorsScale, emptyValueColor) => {
     // Key in the values is "x"
     // Key in the shapes is "key"
     // We add a color property in the JSON
-    const rawValues = values.map(v => v.y);
+    const rawValues = values.map((v) => v.y);
     const min = Math.min(...rawValues);
     const max = Math.max(...rawValues);
     let colorMin;
@@ -37,12 +37,12 @@ export const colorShapes = (geoJson, values, colorsScale, emptyValueColor) => {
     }
 
     const dataMapping = {};
-    values.forEach(v => {
+    values.forEach((v) => {
         dataMapping[v.x] = v.y;
     });
 
     // Iterate shapes, compute color from matching value
-    const coloredFeatures = geoJson.features.map(feature => {
+    const coloredFeatures = geoJson.features.map((feature) => {
         const shapeMapping = feature.properties.key;
         const value = dataMapping[shapeMapping]; // FIXME: beware of int/string differences in keys
         const color = value ? scale(value).hex() : emptyValueColor;
@@ -68,22 +68,18 @@ export const colorShapes = (geoJson, values, colorsScale, emptyValueColor) => {
 };
 
 export const mapKeyToColor = (values, colorScale) => {
-    const rawValues = values.map(v => v.y);
+    const rawValues = values.map((v) => v.y);
     const min = Math.min(...rawValues);
     const max = Math.max(...rawValues);
 
-    const colorMin = chroma(colorScale)
-        .darken(4)
-        .hex();
-    const colorMax = chroma(colorScale)
-        .brighten(4)
-        .hex();
+    const colorMin = chroma(colorScale).darken(4).hex();
+    const colorMax = chroma(colorScale).brighten(4).hex();
 
     const scale = chroma.scale([colorMin, colorMax]).domain([min, max]);
 
     const mapping = {};
 
-    values.forEach(v => {
+    values.forEach((v) => {
         mapping[v.x] = scale(v.y).hex();
     });
 
@@ -109,12 +105,12 @@ function computeBboxFromCoords(coordsPath, bbox) {
 // but we need the bounding box of the features themselves, so we need to build them again
 function mergeBboxFromFeaturesWithSameKey(features) {
     const mergedBboxes = {};
-    features.forEach(feature => {
+    features.forEach((feature) => {
         // FIXME: supports only shapes for now
         if (feature.geometry.type === 'Polygon') {
             // Compute extent first
             let bbox = VOID_BOUNDS;
-            feature.geometry.coordinates.forEach(coordsPath => {
+            feature.geometry.coordinates.forEach((coordsPath) => {
                 bbox = computeBboxFromCoords(coordsPath, bbox);
             });
             const id = feature.properties.key;
@@ -144,7 +140,7 @@ function mergeBboxFromFeaturesWithSameKey(features) {
 export const computeMaxZoomFromGeoJsonFeatures = (mapContainer, features) => {
     let maxZoom = 0; // maxZoom lowest value possible
     const filteredBboxes = mergeBboxFromFeaturesWithSameKey(features);
-    Object.values(filteredBboxes).forEach(value => {
+    Object.values(filteredBboxes).forEach((value) => {
         // Vtiles = 512 tilesize
         maxZoom = Math.max(
             geoViewport.viewport(
@@ -161,7 +157,7 @@ export const computeMaxZoomFromGeoJsonFeatures = (mapContainer, features) => {
     return maxZoom;
 };
 
-const getShapeCenter = feature => {
+const getShapeCenter = (feature) => {
     const featureBbox = turfBbox(feature.geometry);
     const centerLatitude = (featureBbox[1] + featureBbox[3]) / 2;
     const centerLongitude = (featureBbox[0] + featureBbox[2]) / 2;
@@ -169,8 +165,8 @@ const getShapeCenter = feature => {
 };
 
 export const getFixedTooltips = (shapeKeys, features, renderTooltip) => {
-    const popups = shapeKeys.map(shapeKey => {
-        const matchedFeature = features.find(feature => feature.properties.key === shapeKey);
+    const popups = shapeKeys.map((shapeKey) => {
+        const matchedFeature = features.find((feature) => feature.properties.key === shapeKey);
         if (matchedFeature) {
             const center = getShapeCenter(matchedFeature);
             const description = renderTooltip(matchedFeature);
