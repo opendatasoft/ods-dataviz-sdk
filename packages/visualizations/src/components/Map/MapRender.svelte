@@ -25,6 +25,9 @@ TODO:
     // bounding box to start from, and restrict to it
     export let bbox;
 
+    // option to disable map interactions
+    export let interactive;
+
     // options to display legend
     export let legend;
     export let colorsScale;
@@ -51,6 +54,8 @@ TODO:
 
     let container;
     let map;
+    // Used to add navigation control to map
+    let nav;
 
     let mapReady = false;
     // Used to add a listener to resize map on container changes, canceled on destroy
@@ -84,8 +89,7 @@ TODO:
             ...start,
         });
 
-        const nav = new maplibregl.NavigationControl();
-        map.addControl(nav, 'top-left');
+        nav = new maplibregl.NavigationControl();
 
         map.on('load', () => {
             mapReady = true;
@@ -179,6 +183,54 @@ TODO:
         hoverPopup.remove();
     }
 
+    function handleInteractivity(isInteractive, tooltipRenderer) {
+        if (isInteractive) {
+            // Enable all user interaction handlers
+            // Another way to disable all user handlers is to pass the option interactive = false on map creation
+            // But it doesn't allow to change it afterwards
+            // Id est it forces you to recreate another map if you want to change that option
+            map.boxZoom.enable();
+            map.doubleClickZoom.enable();
+            map.dragPan.enable();
+            map.dragRotate.enable();
+            map.keyboard.enable();
+            map.scrollZoom.enable();
+            map.touchZoomRotate.enable();
+
+            // Add navigation control to map
+            if (!map.hasControl(nav)) {
+                map.addControl(nav, 'top-left');
+            }
+
+            // Handle tooltip display
+            map.off('mousemove', layerId, addTooltip);
+            map.off('mouseleave', layerId, removeTooltip);
+
+            if (tooltipRenderer) {
+                map.on('mousemove', layerId, addTooltip);
+                map.on('mouseleave', layerId, removeTooltip);
+            }
+        } else {
+            // Disable all user interaction handlers
+            map.boxZoom.disable();
+            map.doubleClickZoom.disable();
+            map.dragPan.disable();
+            map.dragRotate.disable();
+            map.keyboard.disable();
+            map.scrollZoom.disable();
+            map.touchZoomRotate.disable();
+
+            // Remove tooltip
+            map.off('mousemove', layerId, addTooltip);
+            map.off('mouseleave', layerId, removeTooltip);
+
+            // Remove navigation control from map
+            if (map.hasControl(nav)) {
+                map.removeControl(nav, 'top-left');
+            }
+        }
+    }
+
     function updateSourceAndLayer(newSource, newLayer) {
         if (newSource && newLayer) {
             if (map.getLayer(layerId)) {
@@ -195,14 +247,6 @@ TODO:
                 id: layerId,
                 source: sourceId,
             });
-
-            map.off('mousemove', layerId, addTooltip);
-            map.off('mouseleave', layerId, removeTooltip);
-
-            if (renderTooltip) {
-                map.on('mousemove', layerId, addTooltip);
-                map.on('mouseleave', layerId, removeTooltip);
-            }
 
             map.on('sourcedata', sourceLoadingCallback);
         }
@@ -226,6 +270,9 @@ TODO:
         }
     }
 
+    $: if (mapReady) {
+        handleInteractivity(interactive, renderTooltip);
+    }
     $: updateStyle(style);
     $: {
         // Move the map to the bbox if it is set
