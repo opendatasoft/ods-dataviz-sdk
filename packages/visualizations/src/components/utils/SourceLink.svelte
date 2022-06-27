@@ -5,7 +5,7 @@
     const { href, label = 'View source' } = source;
 </script>
 
-<a {href} target="_blank" rel="noopener norefer" role="link">
+<a {href} target="_blank" rel="noopener norefer">
     {label}
 </a>
 
