@@ -194,8 +194,11 @@
         align-items: flex-start;
     }
     .label-container span {
-        margin-left: calc(-50% - 1em);
+        margin-left: -100%;
     }
+    /* .vertical-label {
+        margin-left: -100%;
+    } */
     .vertical-label {
         writing-mode: vertical-lr; /* ensure parent height */
         transform: rotate(180deg);
