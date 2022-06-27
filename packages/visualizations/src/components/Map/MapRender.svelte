@@ -55,16 +55,10 @@ TODO:
     // Used to add a listener to resize map on container changes, canceled on destroy
     let resizer;
 
-    // Used in front of console messages to debug multiple maps on a same page
+    // Used in front of console and error messages to debug multiple maps on a same page
     const mapId = Math.floor(Math.random() * 1000);
     const sourceId = `shape-source-${mapId}`;
     const layerId = `shape-layer-${mapId}`;
-
-    $: console.log(mapId, 'MapRender >', {
-        style,
-        source,
-        layer,
-    });
 
     function fitMapToBbox(newBbox) {
         // Cancel saved max bounds to properly fitBounds
@@ -119,7 +113,6 @@ TODO:
     function sourceLoadingCallback(e) {
         // sourceDataType can be "visibility" or "metadata", in which case it's not about the data itself
         if (e.isSourceLoaded && e.sourceId === sourceId && !e.sourceDataType) {
-            console.log(mapId, 'sourceLoadingCallback');
             const renderedFeatures = map.querySourceFeatures(sourceId, { sourceLayer: layerId });
 
             if (renderedFeatures.length) {
@@ -146,7 +139,10 @@ TODO:
                                 (Math.min(featureBbox[0], featureBbox[2]) +
                                     Math.max(featureBbox[0], featureBbox[2])) /
                                 2;
-                            const description = renderTooltip(matchedFeature.properties.key);
+                            // If a label property exists we're using it, otherwise we fallback on the key
+                            const description = renderTooltip(
+                                matchedFeature.properties.label || matchedFeature.properties.key
+                            );
                             const fixedHoverPopup = new maplibregl.Popup({
                                 closeOnClick: false,
                                 closeButton: false,
@@ -167,7 +163,10 @@ TODO:
     }
 
     function addTooltip(e) {
-        const description = renderTooltip(e.features[0].properties.key);
+        // If a label property exists we're using it, otherwise we fallback on the key
+        const description = renderTooltip(
+            e.features[0].properties.label || e.features[0].properties.key
+        );
         if (hoverPopup.isOpen()) {
             hoverPopup.setLngLat(e.lngLat).setHTML(description);
         } else {

@@ -14,6 +14,7 @@ import {
     all,
     one,
     list,
+    not,
 } from '../src/';
 import { expect, it, describe, test } from '@jest/globals';
 
@@ -180,6 +181,21 @@ describe('ODSQL query builder', () => {
         test('escaping', () => {
             expect(string('-"-\'-\\-p-')).toEqual('"-\\"-\'-\\\\-p-"');
             expect(field('`f')).toEqual('`\\`f`');
+        });
+
+        test('not helper', () => {
+            expect(
+                fromCatalog()
+                    .query()
+                    .where(not('x = 1'))
+                    .toString()
+            ).toEqual('catalog/query/?where=not+%28x+%3D+1%29');
+            expect(
+                fromCatalog()
+                    .query()
+                    .where(not(undefined))
+                    .toString()
+            ).toEqual('catalog/query/');
         });
     });
 });
