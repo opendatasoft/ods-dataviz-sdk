@@ -71,7 +71,6 @@
                 {#each colorsScale.colors as color}
                     <div class="legend-colors-color-box-palette" style="--box-color: {color}" />
                 {/each}
-                <div class="legend-colors-color-box-palette" style="--box-color: {'transparent'}" />
             </div>
             <div
                 class="legend-colors-row-values-palette"
@@ -141,7 +140,7 @@
     }
     .legend-colors--fixed {
         padding: 13px;
-        width: 250px;
+        width: 276px;
     }
     .legend-colors--fluid {
         width: 90%;
@@ -187,18 +186,11 @@
     .legend-colors-color-box-palette:not(:last-child) {
         margin-right: 1px;
     }
-    .label-container {
-        flex: 1 1 auto;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
+    .legend-colors-container-palette .label-container {
+       display: flex;
+       justify-content: space-between;
+       align-items: flex-start;
     }
-    .label-container span {
-        margin-left: -100%;
-    }
-    /* .vertical-label {
-        margin-left: -100%;
-    } */
     .vertical-label {
         writing-mode: vertical-lr; /* ensure parent height */
         transform: rotate(180deg);
