@@ -14,13 +14,11 @@
 
     // the part below is related to labels rotation
     let legendWidth: number;
-    let colorBoxWidth: number;
     const labelsWidth: number[] = [];
     const labelsHeight: number[] = [];
     let maxLabelsSize: number;
     let numberOfLabels: number;
     let displayVertical: boolean | undefined;
-    let isFirstRotation: boolean = true;
 
     const handleLabelRotation = (
         legendW: number,
@@ -33,10 +31,8 @@
         const checkForRotation = isPaletteLegend && isDomReady;
 
         if (checkForRotation) {
-            isFirstRotation = false;
             numberOfLabels = colorsScl.colors.length + 1;
             const availableWidthPerLabel: number = legendW / numberOfLabels - 3;
-            colorBoxWidth = legendW / numberOfLabels;
             maxLabelsSize = displayVertical ? Math.max(...labelH) : Math.max(...labelW);
             displayVertical = availableWidthPerLabel < maxLabelsSize;
         }
@@ -187,9 +183,9 @@
         margin-right: 1px;
     }
     .legend-colors-container-palette .label-container {
-       display: flex;
-       justify-content: space-between;
-       align-items: flex-start;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
     }
     .vertical-label {
         writing-mode: vertical-lr; /* ensure parent height */
