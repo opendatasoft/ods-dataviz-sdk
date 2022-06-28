@@ -43,7 +43,7 @@
     };
 
     const rotationDebounce = debounce(handleLabelRotation, 200, { leading: true });
-    $: if (labelsWidth.length > 0 && labelsHeight.length > 0) {
+    $: if (labelsWidth.length > 0 && labelsHeight.length > 0 && dataBounds) {
         rotationDebounce(legendWidth, labelsWidth, labelsHeight, colorsScale);
     }
     onDestroy(rotationDebounce.cancel);
