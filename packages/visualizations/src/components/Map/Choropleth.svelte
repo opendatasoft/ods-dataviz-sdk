@@ -20,11 +20,26 @@
         },
     };
 
+    const defaultEmptyValueColor = '#cccccc';
+
     let aspectRatio;
     let renderTooltip;
     let bbox;
     let activeShapes;
-    $: ({ shapes, colorsScale = defaultColorsScale, legend, aspectRatio, activeShapes } = options);
+
+    // Used to apply a chosen color for shapes without values (default: #cccccc)
+    let emptyValueColor;
+
+    const defaultInteractive = true;
+    $: ({
+        shapes,
+        colorsScale = defaultColorsScale,
+        legend,
+        aspectRatio,
+        activeShapes,
+        interactive = defaultInteractive,
+        emptyValueColor = defaultEmptyValueColor,
+    } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
     const style = BLANK;
@@ -43,27 +58,21 @@ shapes: {
     url: ''
 }
 */
-    function computeSourceLayerAndBboxes(values, newShapes, newColorScale) {
-        if ((newShapes.type === 'geojson' && !newShapes.geoJson) || !values) {
+    function computeSourceLayerAndBboxes(values = [], newShapes, newColorScale) {
+        if (newShapes.type === 'geojson' && !newShapes.geoJson) {
             // We don't have everything we need yet
             return;
         }
 
         if (newShapes.type === 'geojson') {
-            const computeColors = colorShapes(newShapes.geoJson, values, newColorScale);
+            const computeColors = colorShapes(
+                newShapes.geoJson,
+                values,
+                newColorScale,
+                emptyValueColor
+            );
             const coloredShapes = computeColors.geoJson;
             dataBounds = computeColors.bounds;
-
-            renderTooltip = (hoveredFeatureName) => {
-                let hoveredFeatureValue = '';
-                const matchedFeature = values.find((item) => String(item.x) === hoveredFeatureName);
-                if (matchedFeature) {
-                    hoveredFeatureValue = matchedFeature.y;
-                }
-                const format = options?.tooltip?.label;
-                if (format) return format(hoveredFeatureName);
-                return `${hoveredFeatureName} &mdash; ${hoveredFeatureValue}`;
-            };
 
             source = {
                 type: 'geojson',
@@ -87,6 +96,22 @@ shapes: {
     }
 
     $: computeSourceLayerAndBboxes(data.value, shapes, colorsScale);
+    $: renderTooltip = (hoveredFeature) => {
+        const values = data.value || [];
+        let hoveredFeatureValue = '';
+        const hoveredFeatureName = hoveredFeature.properties.label || hoveredFeature.properties.key;
+        const matchedFeature = values.find(
+            (item) => String(item.x) === hoveredFeature.properties.key
+        );
+        if (matchedFeature) {
+            hoveredFeatureValue = matchedFeature.y;
+        }
+        const format = options?.tooltip?.label;
+        if (format) return format(hoveredFeatureName);
+        return hoveredFeatureValue
+            ? `${hoveredFeatureName} &mdash; ${hoveredFeatureValue}`
+            : hoveredFeatureName;
+    };
 </script>
 
 <div>
@@ -101,6 +126,7 @@ shapes: {
         {renderTooltip}
         {bbox}
         {activeShapes}
+        {interactive}
     />
 </div>
 
