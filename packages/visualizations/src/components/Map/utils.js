@@ -1,10 +1,12 @@
 import chroma from 'chroma-js';
+import turfBbox from '@turf/bbox';
+import maplibregl from 'maplibre-gl';
 import geoViewport from '@mapbox/geo-viewport';
 
 export const LIGHT_GREY = '#CBD2DB';
 export const DARK_GREY = '#515457';
 
-export const colorShapes = (geoJson, values, colorsScale) => {
+export const colorShapes = (geoJson, values, colorsScale, emptyValueColor) => {
     // Key in the values is "x"
     // Key in the shapes is "key"
     // We add a color property in the JSON
@@ -43,7 +45,7 @@ export const colorShapes = (geoJson, values, colorsScale) => {
     const coloredFeatures = geoJson.features.map((feature) => {
         const shapeMapping = feature.properties.key;
         const value = dataMapping[shapeMapping]; // FIXME: beware of int/string differences in keys
-        const color = scale(value).hex();
+        const color = value ? scale(value).hex() : emptyValueColor;
 
         return {
             ...feature,
@@ -153,4 +155,30 @@ export const computeMaxZoomFromGeoJsonFeatures = (mapContainer, features) => {
         );
     });
     return maxZoom;
+};
+
+const getShapeCenter = (feature) => {
+    const featureBbox = turfBbox(feature.geometry);
+    const centerLatitude = (featureBbox[1] + featureBbox[3]) / 2;
+    const centerLongitude = (featureBbox[0] + featureBbox[2]) / 2;
+    return [centerLongitude, centerLatitude];
+};
+
+export const getFixedTooltips = (shapeKeys, features, renderTooltip) => {
+    const popups = shapeKeys.map((shapeKey) => {
+        const matchedFeature = features.find((feature) => feature.properties.key === shapeKey);
+        if (matchedFeature) {
+            const center = getShapeCenter(matchedFeature);
+            const description = renderTooltip(matchedFeature);
+            const popup = new maplibregl.Popup({
+                closeOnClick: false,
+                closeButton: false,
+                className: 'tooltip-on-hover',
+            });
+            return { center, description, popup };
+        }
+        return null;
+    });
+
+    return popups;
 };
