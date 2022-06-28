@@ -179,11 +179,12 @@
     }
     .legend-colors-container-palette .label-container {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: flex-start;
     }
     .vertical-label {
         writing-mode: vertical-lr; /* ensure parent height */
         transform: rotate(180deg);
+        height: fit-content;
     }
 </style>
