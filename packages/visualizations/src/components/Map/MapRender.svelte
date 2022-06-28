@@ -12,8 +12,7 @@ TODO:
     import maplibregl from 'maplibre-gl';
     import { onMount } from 'svelte';
     import { debounce } from 'lodash';
-    import turfBbox from '@turf/bbox';
-    import { computeMaxZoomFromGeoJsonFeatures } from './utils';
+    import { computeMaxZoomFromGeoJsonFeatures, getFixedTooltips } from './utils';
     import ColorsLegend from '../utils/ColorsLegend.svelte';
 
     // maplibre style (basemap)
@@ -24,6 +23,9 @@ TODO:
     export let layer;
     // bounding box to start from, and restrict to it
     export let bbox;
+
+    // option to disable map interactions
+    export let interactive;
 
     // options to display legend
     export let legend;
@@ -40,7 +42,7 @@ TODO:
         className: 'tooltip-on-hover',
     }).trackPointer();
     // Used to store fixed tooltips displayed on render
-    const fixedPopupsList = [];
+    let fixedPopupsList = [];
     // Used to select shapes to activate a tooltip on render
     export let activeShapes;
 
@@ -50,6 +52,8 @@ TODO:
 
     let container;
     let map;
+    // Used to add navigation control to map
+    let nav;
 
     let mapReady = false;
     // Used to add a listener to resize map on container changes, canceled on destroy
@@ -83,8 +87,7 @@ TODO:
             ...start,
         });
 
-        const nav = new maplibregl.NavigationControl();
-        map.addControl(nav, 'top-left');
+        nav = new maplibregl.NavigationControl();
 
         map.on('load', () => {
             mapReady = true;
@@ -121,40 +124,12 @@ TODO:
                 // A low-cost approach could be to restrict the zoom scale to an arbitrary value (e.g. only 4 from the max zoom)... or not restrict at all.
                 const maxZoom = computeMaxZoomFromGeoJsonFeatures(container, renderedFeatures);
                 map.setMaxZoom(maxZoom);
-
-                // Activate tooltips for selected shapes on render
                 if (activeShapes?.length > 0 && renderTooltip) {
-                    fixedPopupsList.forEach((popup) => popup.remove());
-                    activeShapes.forEach((shape) => {
-                        const matchedFeature = renderedFeatures.find(
-                            (feature) => feature.properties.key === shape
-                        );
-                        if (matchedFeature) {
-                            const featureBbox = turfBbox(matchedFeature.geometry);
-                            const centerLatitude =
-                                (Math.min(featureBbox[1], featureBbox[3]) +
-                                    Math.max(featureBbox[1], featureBbox[3])) /
-                                2;
-                            const centerLongitude =
-                                (Math.min(featureBbox[0], featureBbox[2]) +
-                                    Math.max(featureBbox[0], featureBbox[2])) /
-                                2;
-                            // If a label property exists we're using it, otherwise we fallback on the key
-                            const description = renderTooltip(
-                                matchedFeature.properties.label || matchedFeature.properties.key
-                            );
-                            const fixedHoverPopup = new maplibregl.Popup({
-                                closeOnClick: false,
-                                closeButton: false,
-                                className: 'tooltip-on-hover',
-                            });
-                            fixedPopupsList.push(fixedHoverPopup);
-                            fixedHoverPopup
-                                .setLngLat([centerLongitude, centerLatitude])
-                                .setHTML(description)
-                                .addTo(map);
-                        }
-                    });
+                    fixedPopupsList = getFixedTooltips(
+                        activeShapes,
+                        renderedFeatures,
+                        renderTooltip
+                    );
                 }
             }
 
@@ -163,10 +138,7 @@ TODO:
     }
 
     function addTooltip(e) {
-        // If a label property exists we're using it, otherwise we fallback on the key
-        const description = renderTooltip(
-            e.features[0].properties.label || e.features[0].properties.key
-        );
+        const description = renderTooltip(e.features[0]);
         if (hoverPopup.isOpen()) {
             hoverPopup.setLngLat(e.lngLat).setHTML(description);
         } else {
@@ -176,6 +148,54 @@ TODO:
 
     function removeTooltip() {
         hoverPopup.remove();
+    }
+
+    function handleInteractivity(isInteractive, tooltipRenderer) {
+        if (isInteractive) {
+            // Enable all user interaction handlers
+            // Another way to disable all user handlers is to pass the option interactive = false on map creation
+            // But it doesn't allow to change it afterwards
+            // Id est it forces you to recreate another map if you want to change that option
+            map.boxZoom.enable();
+            map.doubleClickZoom.enable();
+            map.dragPan.enable();
+            map.dragRotate.enable();
+            map.keyboard.enable();
+            map.scrollZoom.enable();
+            map.touchZoomRotate.enable();
+
+            // Add navigation control to map
+            if (!map.hasControl(nav)) {
+                map.addControl(nav, 'top-left');
+            }
+
+            // Handle tooltip display
+            map.off('mousemove', layerId, addTooltip);
+            map.off('mouseleave', layerId, removeTooltip);
+
+            if (tooltipRenderer) {
+                map.on('mousemove', layerId, addTooltip);
+                map.on('mouseleave', layerId, removeTooltip);
+            }
+        } else {
+            // Disable all user interaction handlers
+            map.boxZoom.disable();
+            map.doubleClickZoom.disable();
+            map.dragPan.disable();
+            map.dragRotate.disable();
+            map.keyboard.disable();
+            map.scrollZoom.disable();
+            map.touchZoomRotate.disable();
+
+            // Remove tooltip
+            map.off('mousemove', layerId, addTooltip);
+            map.off('mouseleave', layerId, removeTooltip);
+
+            // Remove navigation control from map
+            if (map.hasControl(nav)) {
+                map.removeControl(nav, 'top-left');
+            }
+        }
     }
 
     function updateSourceAndLayer(newSource, newLayer) {
@@ -195,14 +215,6 @@ TODO:
                 source: sourceId,
             });
 
-            map.off('mousemove', layerId, addTooltip);
-            map.off('mouseleave', layerId, removeTooltip);
-
-            if (renderTooltip) {
-                map.on('mousemove', layerId, addTooltip);
-                map.on('mouseleave', layerId, removeTooltip);
-            }
-
             map.on('sourcedata', sourceLoadingCallback);
         }
     }
@@ -219,19 +231,23 @@ TODO:
     onMount(initializeMap);
     onMount(initializeResizer);
 
-    $: {
-        if (mapReady) {
-            updateSourceAndLayer(source, layer);
-        }
+    $: if (mapReady) {
+        updateSourceAndLayer(source, layer);
     }
-
+    $: if (mapReady) {
+        handleInteractivity(interactive, renderTooltip);
+    }
     $: updateStyle(style);
-    $: {
-        // Move the map to the bbox if it is set
-        if (mapReady && bbox) {
-            fitMapToBbox(bbox);
-        }
+    $: if (mapReady && bbox) {
+        fitMapToBbox(bbox);
     }
+    $: if (fixedPopupsList?.length > 0 && (activeShapes?.length === 0 || !activeShapes)) {
+        fixedPopupsList.forEach((fixedPopup) => fixedPopup.popup.remove());
+    }
+    $: fixedPopupsList.forEach((fixedPopup) => {
+        const { center, description, popup } = fixedPopup;
+        popup.setLngLat(center).setHTML(description).addTo(map);
+    });
 </script>
 
 <figure class="map-card" style={cssVarStyles} bind:clientWidth>
