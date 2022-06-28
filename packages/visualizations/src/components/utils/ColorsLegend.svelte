@@ -74,52 +74,47 @@
             >
                 {#each colorsScale.colors as _color, i}
                     {#if i === 0}
-                        <div class="label-container">
-                            <span
-                                bind:clientWidth={labelsWidth[i]}
-                                bind:clientHeight={labelsHeight[i]}
-                                class:vertical-label={displayVertical}
-                            >
-                                {defaultCompactLegendNumberFormat(dataBounds.min)}
-                            </span>
+                        <div
+                            class="label-container"
+                            bind:clientWidth={labelsWidth[i]}
+                            bind:clientHeight={labelsHeight[i]}
+                            class:vertical-label={displayVertical}
+                        >
+                            {defaultCompactLegendNumberFormat(dataBounds.min)}
                         </div>
-                        <div class="label-container">
-                            <span
-                                bind:clientWidth={labelsWidth[i]}
-                                bind:clientHeight={labelsHeight[i]}
-                                class:vertical-label={displayVertical}
-                            >
-                                {defaultCompactLegendNumberFormat(
-                                    dataBounds.min +
-                                        (dataBounds.max - dataBounds.min) /
-                                            colorsScale.colors.length
-                                )}
-                            </span>
+                        <div
+                            class="label-container"
+                            bind:clientWidth={labelsWidth[i]}
+                            bind:clientHeight={labelsHeight[i]}
+                            class:vertical-label={displayVertical}
+                        >
+                            {defaultCompactLegendNumberFormat(
+                                dataBounds.min +
+                                    (dataBounds.max - dataBounds.min) / colorsScale.colors.length
+                            )}
                         </div>
                     {:else if i === colorsScale.colors.length - 1}
-                        <div class="label-container">
-                            <span
-                                bind:clientWidth={labelsWidth[i]}
-                                bind:clientHeight={labelsHeight[i]}
-                                class:vertical-label={displayVertical}
-                            >
-                                {defaultCompactLegendNumberFormat(dataBounds.max)}
-                            </span>
+                        <div
+                            class="label-container"
+                            bind:clientWidth={labelsWidth[i]}
+                            bind:clientHeight={labelsHeight[i]}
+                            class:vertical-label={displayVertical}
+                        >
+                            {defaultCompactLegendNumberFormat(dataBounds.max)}
                         </div>
                     {:else}
-                        <div class="label-container">
-                            <span
-                                bind:clientWidth={labelsWidth[i]}
-                                bind:clientHeight={labelsHeight[i]}
-                                class:vertical-label={displayVertical}
-                            >
-                                {defaultCompactLegendNumberFormat(
-                                    dataBounds.min +
-                                        ((dataBounds.max - dataBounds.min) /
-                                            colorsScale.colors.length) *
-                                            (i + 1)
-                                )}
-                            </span>
+                        <div
+                            class="label-container"
+                            bind:clientWidth={labelsWidth[i]}
+                            bind:clientHeight={labelsHeight[i]}
+                            class:vertical-label={displayVertical}
+                        >
+                            {defaultCompactLegendNumberFormat(
+                                dataBounds.min +
+                                    ((dataBounds.max - dataBounds.min) /
+                                        colorsScale.colors.length) *
+                                        (i + 1)
+                            )}
                         </div>
                     {/if}
                 {/each}
