@@ -198,7 +198,7 @@ TODO:
             // Reset map zoom
             if (mapReady && bbox) {
                 fitMapToBbox(bbox);
-            };
+            }
         }
     }
 
