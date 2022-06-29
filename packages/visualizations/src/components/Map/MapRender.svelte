@@ -195,6 +195,10 @@ TODO:
             if (map.hasControl(nav)) {
                 map.removeControl(nav, 'top-left');
             }
+            // Reset map zoom
+            if (mapReady && bbox) {
+                fitMapToBbox(bbox);
+            };
         }
     }
 
