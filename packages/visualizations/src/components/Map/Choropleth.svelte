@@ -97,8 +97,7 @@ shapes: {
 
     $: computeSourceLayerAndBboxes(data.value, shapes, colorsScale);
 
-    const defaultFormat = ({ value, label, shapeKey }) =>
-        value ? `${label} &mdash; ${value}` : label;
+    const defaultFormat = ({ value, label }) => (value ? `${label} &mdash; ${value}` : label);
 
     $: renderTooltip = (hoveredFeature) => {
         const values = data.value || [];
