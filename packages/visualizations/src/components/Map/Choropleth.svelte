@@ -108,7 +108,7 @@ shapes: {
         const tooltipRawValues = {
             value: matchedFeature?.y,
             label: hoveredFeature.properties.label || hoveredFeature.properties.key,
-            shapeKey: hoveredFeature.properties.key,
+            key: hoveredFeature.properties.key, // === matchedFeature.x
         };
         const format = options?.tooltip?.label;
 
