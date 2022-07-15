@@ -96,21 +96,23 @@ shapes: {
     }
 
     $: computeSourceLayerAndBboxes(data.value, shapes, colorsScale);
+
+    const defaultFormat = ({ value, label }) => (value ? `${label} &mdash; ${value}` : label);
+
     $: renderTooltip = (hoveredFeature) => {
         const values = data.value || [];
-        let hoveredFeatureValue = '';
-        const hoveredFeatureName = hoveredFeature.properties.label || hoveredFeature.properties.key;
         const matchedFeature = values.find(
             (item) => String(item.x) === hoveredFeature.properties.key
         );
-        if (matchedFeature) {
-            hoveredFeatureValue = matchedFeature.y;
-        }
+
+        const tooltipRawValues = {
+            value: matchedFeature?.y,
+            label: hoveredFeature.properties.label || hoveredFeature.properties.key,
+            key: hoveredFeature.properties.key, // === matchedFeature.x
+        };
         const format = options?.tooltip?.label;
-        if (format) return format(hoveredFeatureName);
-        return hoveredFeatureValue
-            ? `${hoveredFeatureName} &mdash; ${hoveredFeatureValue}`
-            : hoveredFeatureName;
+
+        return format ? format(tooltipRawValues) : defaultFormat(tooltipRawValues);
     };
 </script>
 
