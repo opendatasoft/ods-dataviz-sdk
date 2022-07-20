@@ -41,7 +41,6 @@
             datasets: [],
         },
         options: {},
-        plugins: [],
     };
 
     $: {
@@ -81,6 +80,10 @@
             subtitle: {
                 display: false,
             },
+            stacked100: {
+                // Enables the 100% percent stacking
+                enable: options?.axis?.assemblage?.percentaged,
+            },
         };
         chartConfig.options = chartOptions;
     }
@@ -119,9 +122,7 @@
             <canvas use:chartJs={chartConfig} role="img" aria-label={options.ariaLabel} />
         </div>
         {#if options.source}
-            <div class="source-link">
-                <SourceLink source={options.source} />
-            </div>
+            <SourceLink source={options.source} />
         {/if}
     </figure>
 {/if}
@@ -136,11 +137,6 @@
     figcaption {
         width: 100%;
         margin: 0;
-    }
-
-    .source-link {
-        flex-shrink: 1;
-        align-self: center;
     }
 
     .chart-container {

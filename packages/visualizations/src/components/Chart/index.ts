@@ -1,5 +1,6 @@
 import * as ChartJs from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import Stacked100Plugin from 'chartjs-plugin-stacked100';
 import type { ChartOptions, DataFrame } from '../types';
 import ChartImpl from './Chart.svelte';
 import SvelteImpl from '../SvelteImpl';
@@ -8,6 +9,7 @@ import PieDataLabelsPlugin from './pieDataLabelsPlugin';
 ChartJs.Chart.register(...ChartJs.registerables);
 ChartJs.Chart.register(ChartDataLabels);
 ChartJs.Chart.register(PieDataLabelsPlugin);
+ChartJs.Chart.register(Stacked100Plugin);
 
 ChartJs.defaults.animation = false;
 

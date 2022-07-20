@@ -45,27 +45,29 @@ const LineLongLegendArgs: Props<DataFrame, ChartOptions> = {
         legend: {
             display: true,
         },
-        xAxis: {
-            display: true,
-            type: 'linear',
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'Date de plantation',
-                align: 'center',
+                type: 'linear',
+                title: {
+                    display: true,
+                    text: 'Date de plantation',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
-            gridLines: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            title: {
+            y: {
                 display: true,
-                text: 'Moyenne de la hauteur en CM',
-                align: 'center',
-            },
-            gridLines: {
-                display: true,
+                title: {
+                    display: true,
+                    text: 'Moyenne de la hauteur en CM',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
         },
         title: {
@@ -166,9 +168,11 @@ const RadarLongLegendArgs: Props<DataFrame, ChartOptions> = {
         title: {
             text: 'Radar chart with long legend',
         },
-        rAxis: {
-            ticks: {
-                display: true,
+        axis: {
+            r: {
+                ticks: {
+                    display: true,
+                },
             },
         },
     },

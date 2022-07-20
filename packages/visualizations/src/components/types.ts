@@ -6,13 +6,24 @@ export interface ChartOptions {
     /** Chart aspect ratio */
     aspectRatio?: number;
     /** Chart padding */
-    padding?: number;
-    /** Configure xAxis */
-    xAxis?: CartesianAxisConfiguration;
-    /** Configure default yAxis */
-    yAxis?: CartesianAxisConfiguration;
-    /** Configure default radial axis */
-    rAxis?: RadialAxisConfiguration;
+    padding?:
+        | number
+        | {
+              top?: number;
+              bottom?: number;
+              left?: number;
+              right?: number;
+          };
+    axis?: {
+        /** Configure x axis */
+        x?: CartesianAxisConfiguration;
+        /** Configure default y axis */
+        y?: CartesianAxisConfiguration;
+        /** Configure default radial axis */
+        r?: RadialAxisConfiguration;
+        /** Configure axis assemblage */
+        assemblage?: AssemblageAxisConfiguration;
+    };
     /** Configure legend */
     legend?: LegendConfiguration;
     /** Configure title */
@@ -30,6 +41,7 @@ export interface ChartOptions {
 export interface Source {
     href: string;
     label?: string;
+    style?: string;
 }
 
 export interface GridLinesConfiguration {
@@ -85,6 +97,11 @@ export interface RadialAxisConfiguration {
     gridLines?: GridLinesConfiguration;
 }
 
+export interface AssemblageAxisConfiguration {
+    stacked?: boolean;
+    percentaged?: boolean;
+}
+
 export interface LegendLabelsConfiguration {
     text?: (legendIndex: number) => string;
 }
@@ -94,6 +111,7 @@ export interface LegendConfiguration {
     position?: 'top' | 'left' | 'bottom' | 'right';
     align?: 'start' | 'center' | 'end';
     labels?: LegendLabelsConfiguration;
+    boxStyle?: 'rect' | 'line' | 'dash';
 }
 
 export interface TooltipConfiguration {

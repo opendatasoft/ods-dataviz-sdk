@@ -53,8 +53,10 @@ export const RadarTitleScale = storyWithArgs<Props<DataFrame, ChartOptions>>(Sam
         legend: {
             display: true,
         },
-        rAxis: {
-            gridLines: {},
+        axis: {
+            r: {
+                gridLines: {},
+            },
         },
         title: {
             text: 'Radar chart with title and scale',
@@ -98,9 +100,11 @@ export const RadarTitleScaleNegativePositive = storyWithArgs<Props<DataFrame, Ch
             legend: {
                 display: true,
             },
-            rAxis: {
-                gridLines: {
-                    display: true,
+            axis: {
+                r: {
+                    gridLines: {
+                        display: true,
+                    },
                 },
             },
             title: {
@@ -141,8 +145,10 @@ export const RadarTitle = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, 
         title: {
             text: 'Radar chart with title',
         },
-        rAxis: {
-            ticks: { display: false },
+        axis: {
+            r: {
+                ticks: { display: false },
+            },
         },
     },
 });
@@ -196,8 +202,10 @@ export const RadarTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>
         title: {
             text: 'Radar chart with title and data values',
         },
-        rAxis: {
-            ticks: { display: false },
+        axis: {
+            r: {
+                ticks: { display: false },
+            },
         },
     },
 });

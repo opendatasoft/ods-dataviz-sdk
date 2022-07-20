@@ -90,27 +90,29 @@ const LongTicksFixedArgs: Props<DataFrame, ChartOptions> = {
                 borderColor: 'rgb(119, 73, 54)',
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'category',
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'Unités de production',
-                align: 'center',
+                type: 'category',
+                title: {
+                    display: true,
+                    text: 'Unités de production',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
-            gridLines: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            title: {
+            y: {
                 display: true,
-                text: 'CA des ventes en €',
-                align: 'center',
-            },
-            gridLines: {
-                display: true,
+                title: {
+                    display: true,
+                    text: 'CA des ventes en €',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
         },
         title: {
@@ -167,29 +169,31 @@ const BarLongTicksArgs: Props<DataFrame, ChartOptions> = {
                 borderWidth: 2,
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            offset: false,
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'x',
-                align: 'center',
+                type: 'linear',
+                offset: false,
+                title: {
+                    display: true,
+                    text: 'x',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
-            gridLines: {
+            y: {
                 display: true,
-            },
-        },
-        yAxis: {
-            display: true,
-            type: 'category',
-            title: {
-                display: true,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: false,
+                type: 'category',
+                title: {
+                    display: true,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
         },
         title: {
@@ -253,28 +257,30 @@ const ColumnLongTicksArgs: Props<DataFrame, ChartOptions> = {
                 borderWidth: 2,
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'category',
-            offset: true,
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'x',
-                align: 'center',
+                type: 'category',
+                offset: true,
+                title: {
+                    display: true,
+                    text: 'x',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
-            gridLines: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            title: {
+            y: {
                 display: true,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: true,
+                title: {
+                    display: true,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
         },
         title: {
@@ -322,9 +328,11 @@ const RadarLongTicksArgs: Props<DataFrame, ChartOptions> = {
         title: {
             text: 'Radar chart with long ticks',
         },
-        rAxis: {
-            ticks: {
-                display: true,
+        axis: {
+            r: {
+                ticks: {
+                    display: true,
+                },
             },
         },
     },

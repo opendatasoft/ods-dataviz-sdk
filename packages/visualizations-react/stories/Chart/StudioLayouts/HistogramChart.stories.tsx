@@ -39,28 +39,30 @@ export const HistogramTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOption
                 borderColor: 'rgba(50,50,225)',
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'category',
-            offset: true,
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'x',
-                align: 'center',
+                type: 'category',
+                offset: true,
+                title: {
+                    display: true,
+                    text: 'x',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
-            gridLines: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            title: {
+            y: {
                 display: true,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: true,
+                title: {
+                    display: true,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
         },
         title: {
@@ -88,28 +90,30 @@ export const HistogramAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(S
                 borderColor: 'rgba(50,50,225)',
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'category',
-            offset: true,
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'x',
-                align: 'center',
+                type: 'category',
+                offset: true,
+                title: {
+                    display: true,
+                    text: 'x',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
-            gridLines: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            title: {
+            y: {
                 display: true,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: true,
+                title: {
+                    display: true,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
         },
     },
@@ -152,32 +156,34 @@ export const HistogramTitleDataValues = storyWithArgs<Props<DataFrame, ChartOpti
                 },
             },
         ],
-        xAxis: {
-            display: false,
-            type: 'category',
-            offset: true,
-            title: {
+        axis: {
+            x: {
                 display: false,
-                text: 'x',
-                align: 'center',
+                type: 'category',
+                offset: true,
+                title: {
+                    display: false,
+                    text: 'x',
+                    align: 'center',
+                },
+                ticks: {
+                    display: false,
+                },
             },
-            ticks: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            type: 'category',
-            title: {
-                display: false,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: 'single',
-            },
-            ticks: {
-                display: 'single',
+            y: {
+                display: true,
+                type: 'category',
+                title: {
+                    display: false,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: 'single',
+                },
+                ticks: {
+                    display: 'single',
+                },
             },
         },
         title: {
@@ -226,31 +232,33 @@ export const HistogramDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>
                 },
             },
         ],
-        xAxis: {
-            display: false,
-            type: 'category',
-            offset: true,
-            title: {
+        axis: {
+            x: {
                 display: false,
-                text: 'x',
-                align: 'center',
+                type: 'category',
+                offset: true,
+                title: {
+                    display: false,
+                    text: 'x',
+                    align: 'center',
+                },
+                ticks: {
+                    display: false,
+                },
             },
-            ticks: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            title: {
-                display: false,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: 'single',
-            },
-            ticks: {
-                display: 'single',
+            y: {
+                display: true,
+                title: {
+                    display: false,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: 'single',
+                },
+                ticks: {
+                    display: 'single',
+                },
             },
         },
     },
@@ -293,34 +301,36 @@ export const HistogramAxisDataValues = storyWithArgs<Props<DataFrame, ChartOptio
                 },
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'category',
-            offset: true,
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'x',
-                align: 'center',
+                type: 'category',
+                offset: true,
+                title: {
+                    display: true,
+                    text: 'x',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
+                ticks: {
+                    display: true,
+                },
             },
-            gridLines: {
-                display: false,
-            },
-            ticks: {
+            y: {
                 display: true,
-            },
-        },
-        yAxis: {
-            display: true,
-            title: {
-                display: true,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: 'single',
-            },
-            ticks: {
-                display: 'single',
+                title: {
+                    display: true,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: 'single',
+                },
+                ticks: {
+                    display: 'single',
+                },
             },
         },
     },
@@ -354,28 +364,30 @@ export const HistogramTitleAxisGridNegative = storyWithArgs<Props<DataFrame, Cha
                     borderColor: 'rgba(50,50,225)',
                 },
             ],
-            xAxis: {
-                display: true,
-                type: 'category',
-                offset: true,
-                title: {
+            axis: {
+                x: {
                     display: true,
-                    text: 'x',
-                    align: 'center',
+                    type: 'category',
+                    offset: true,
+                    title: {
+                        display: true,
+                        text: 'x',
+                        align: 'center',
+                    },
+                    gridLines: {
+                        display: false,
+                    },
                 },
-                gridLines: {
-                    display: false,
-                },
-            },
-            yAxis: {
-                display: true,
-                title: {
+                y: {
                     display: true,
-                    text: 'y',
-                    align: 'center',
-                },
-                gridLines: {
-                    display: true,
+                    title: {
+                        display: true,
+                        text: 'y',
+                        align: 'center',
+                    },
+                    gridLines: {
+                        display: true,
+                    },
                 },
             },
             title: {

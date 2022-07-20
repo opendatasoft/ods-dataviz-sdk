@@ -56,25 +56,27 @@ export const LineLongDataLabels = storyWithArgs<Props<DataFrame, ChartOptions>>(
                 },
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'Date de plantation',
-                align: 'center',
+                type: 'linear',
+                title: {
+                    display: true,
+                    text: 'Date de plantation',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
-            gridLines: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            gridLines: {
-                display: 'single',
-            },
-            ticks: {
-                display: 'single',
+            y: {
+                display: true,
+                gridLines: {
+                    display: 'single',
+                },
+                ticks: {
+                    display: 'single',
+                },
             },
         },
     },
@@ -179,8 +181,10 @@ export const RadarLongDataLabels = storyWithArgs<Props<DataFrame, ChartOptions>>
         title: {
             text: 'Radar chart with long data labels',
         },
-        rAxis: {
-            ticks: { display: false },
+        axis: {
+            r: {
+                ticks: { display: false },
+            },
         },
     },
 });
