@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta } from '@storybook/react';
 import { Choropleth, Props } from '../../src';
 import { ChoroplethOptions, DataFrame } from '@opendatasoft/visualizations';
-import { shapes } from './shapes';
+import { shapes, multiPolygonShapes } from './shapes';
 import { IMAGES } from '../utils';
 
 const meta: Meta = {
@@ -49,6 +49,24 @@ const StudioChoroplethArgs: Props<DataFrame, ChoroplethOptions> = {
     },
 };
 StudioChoropleth.args = StudioChoroplethArgs;
+
+export const StudioChoroplethMultiPolygon = Template.bind({});
+const StudioChoroplethMultiPolygonArgs: Props<DataFrame, ChoroplethOptions> = {
+    data: {
+        loading: false,
+        value: [
+            { x: 'France & Corsica', y: 60 },
+            { x: 'Île de France', y: 35 },
+        ],
+    },
+    options: {
+        style: {},
+        parameters: {},
+        shapes: multiPolygonShapes,
+        aspectRatio: 1,
+    },
+};
+StudioChoroplethMultiPolygon.args = StudioChoroplethMultiPolygonArgs;
 
 export const StudioChoroplethEmptyValue = Template.bind({});
 const StudioChoroplethEmptyValueArgs: Props<DataFrame, ChoroplethOptions> = {
