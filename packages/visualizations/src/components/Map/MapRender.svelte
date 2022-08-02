@@ -1,73 +1,84 @@
 <svelte:options immutable={true} />
 
-<script>
-    /*
-TODO:
-- Restrict movement:
-    - Block minZoom to the initial one after fitting the bbox
-    - Compute maxZoom based on the smallest extent when using queryFeature restricted to this bbox
-- Display the map based on style, source, layer, refresh when one changes
-- Adapt display based on the size of the map (single, main, side)
-*/
-    import maplibregl from 'maplibre-gl';
+<script lang="ts">
+    import maplibregl, {
+        Map,
+        SourceSpecification,
+        StyleSpecification,
+        NavigationControl,
+        LngLatBoundsLike,
+        MapSourceDataEvent,
+        MapMouseEvent,
+        LngLatLike,
+    } from 'maplibre-gl';
     import { onMount } from 'svelte';
     import { debounce } from 'lodash';
+    // eslint-disable-next-line import/no-unresolved
+    import type { BBox } from 'geojson';
     import { computeMaxZoomFromGeoJsonFeatures, getFixedTooltips } from './utils';
     import ColorsLegend from '../utils/ColorsLegend.svelte';
+    import type { ColorsScale, DataBounds, LegendVariant } from '../types';
+    import type {
+        ChoroplethFixedTooltipDescription,
+        ChoroplethLayer,
+        ChoroplethRenderTooltipFunction,
+        MapLegend,
+    } from './types';
 
     // maplibre style (basemap)
-    export let style;
+    export let style: StyleSpecification;
     // maplibre source config
-    export let source;
+    export let source: SourceSpecification;
     // maplibre layer config
-    export let layer;
+    export let layer: ChoroplethLayer;
     // bounding box to start from, and restrict to it
-    export let bbox;
-
+    export let bbox: BBox;
     // option to disable map interactions
-    export let interactive;
-
+    export let interactive: boolean;
     // options to display legend
-    export let legend;
-    export let colorsScale;
-    export let dataBounds;
-    let clientWidth;
+    export let legend: MapLegend | undefined;
+    export let colorsScale: ColorsScale;
+    export let dataBounds: DataBounds;
+    // Used to render tooltips on hover
+    export let renderTooltip: ChoroplethRenderTooltipFunction;
+    // Used to select shapes to activate a tooltip on render
+    export let activeShapes: string[] | undefined;
+    // aspect ratio based on width, by default equal to 1
+    export let aspectRatio = 1;
+
+    let clientWidth: number;
+    let legendVariant: LegendVariant;
     $: legendVariant = clientWidth <= 375 ? 'fluid' : 'fixed';
 
-    // Used to render tooltips on hover
-    export let renderTooltip;
+    // Used to store fixed tooltips displayed on render
+    let fixedPopupsList: ChoroplethFixedTooltipDescription[] = [];
+
+    $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
+
+    let container: HTMLElement;
+    let map: Map;
+    // Used to add navigation control to map
+    let nav: NavigationControl;
+
+    let mapReady = false;
+    // Used to add a listener to resize map on container changes, canceled on destroy
+    let resizer: ResizeObserver;
+
     const hoverPopup = new maplibregl.Popup({
         closeOnClick: false,
         closeButton: false,
         className: 'tooltip-on-hover',
     }).trackPointer();
-    // Used to store fixed tooltips displayed on render
-    let fixedPopupsList = [];
-    // Used to select shapes to activate a tooltip on render
-    export let activeShapes;
-
-    // aspect ratio based on width, by default equal to 1
-    export let aspectRatio = 1;
-    $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
-
-    let container;
-    let map;
-    // Used to add navigation control to map
-    let nav;
-
-    let mapReady = false;
-    // Used to add a listener to resize map on container changes, canceled on destroy
-    let resizer;
 
     // Used in front of console and error messages to debug multiple maps on a same page
     const mapId = Math.floor(Math.random() * 1000);
     const sourceId = `shape-source-${mapId}`;
     const layerId = `shape-layer-${mapId}`;
 
-    function fitMapToBbox(newBbox) {
+    function fitMapToBbox(newBbox: BBox) {
         // Cancel saved max bounds to properly fitBounds
         map.setMaxBounds(null);
-        map.fitBounds(newBbox, {
+        map.fitBounds(newBbox as LngLatBoundsLike, {
             animate: false,
             padding: 10,
         });
@@ -76,8 +87,9 @@ TODO:
     }
 
     function initializeMap() {
+        const defaultCenter: LngLatLike = [3.5, 46];
         const start = {
-            center: [3.5, 46],
+            center: defaultCenter,
             zoom: 5,
         };
 
@@ -87,7 +99,7 @@ TODO:
             ...start,
         });
 
-        nav = new maplibregl.NavigationControl();
+        nav = new maplibregl.NavigationControl({});
 
         map.on('load', () => {
             mapReady = true;
@@ -113,9 +125,10 @@ TODO:
         return () => resizer?.disconnect();
     }
 
-    function sourceLoadingCallback(e) {
+    function sourceLoadingCallback(e: MapSourceDataEvent) {
         // sourceDataType can be "visibility" or "metadata", in which case it's not about the data itself
         if (e.isSourceLoaded && e.sourceId === sourceId && !e.sourceDataType) {
+            // @ts-ignore // The type forces you to pass a filter parameter in the option, but it's not required by the real code
             const renderedFeatures = map.querySourceFeatures(sourceId, { sourceLayer: layerId });
 
             if (renderedFeatures.length) {
@@ -124,7 +137,7 @@ TODO:
                 // A low-cost approach could be to restrict the zoom scale to an arbitrary value (e.g. only 4 from the max zoom)... or not restrict at all.
                 const maxZoom = computeMaxZoomFromGeoJsonFeatures(container, renderedFeatures);
                 map.setMaxZoom(maxZoom);
-                if (activeShapes?.length > 0 && renderTooltip) {
+                if (activeShapes && activeShapes.length > 0 && renderTooltip) {
                     fixedPopupsList = getFixedTooltips(
                         activeShapes,
                         renderedFeatures,
@@ -137,7 +150,8 @@ TODO:
         }
     }
 
-    function addTooltip(e) {
+    function addTooltip(e: MapMouseEvent) {
+        // @ts-ignore // Somehow `features` isn't part of the type, but exists in the object at runtime
         const description = renderTooltip(e.features[0]);
         if (hoverPopup.isOpen()) {
             hoverPopup.setLngLat(e.lngLat).setHTML(description);
@@ -150,7 +164,10 @@ TODO:
         hoverPopup.remove();
     }
 
-    function handleInteractivity(isInteractive, tooltipRenderer) {
+    function handleInteractivity(
+        isInteractive: boolean,
+        tooltipRenderer?: ChoroplethRenderTooltipFunction
+    ) {
         if (isInteractive) {
             // Enable all user interaction handlers
             // Another way to disable all user handlers is to pass the option interactive = false on map creation
@@ -193,7 +210,7 @@ TODO:
 
             // Remove navigation control from map
             if (map.hasControl(nav)) {
-                map.removeControl(nav, 'top-left');
+                map.removeControl(nav);
             }
             // Reset map zoom
             if (mapReady && bbox) {
@@ -202,7 +219,7 @@ TODO:
         }
     }
 
-    function updateSourceAndLayer(newSource, newLayer) {
+    function updateSourceAndLayer(newSource: SourceSpecification, newLayer: ChoroplethLayer) {
         if (newSource && newLayer) {
             if (map.getLayer(layerId)) {
                 map.removeLayer(layerId);
@@ -223,7 +240,7 @@ TODO:
         }
     }
 
-    function updateStyle(newStyle) {
+    function updateStyle(newStyle: StyleSpecification) {
         if (mapReady) {
             map.setStyle(newStyle);
             // Changing the style resets the map
@@ -250,7 +267,10 @@ TODO:
     }
     $: fixedPopupsList.forEach((fixedPopup) => {
         const { center, description, popup } = fixedPopup;
-        popup.setLngLat(center).setHTML(description).addTo(map);
+        popup
+            .setLngLat(center as LngLatLike)
+            .setHTML(description)
+            .addTo(map);
     });
 </script>
 

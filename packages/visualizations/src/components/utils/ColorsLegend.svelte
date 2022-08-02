@@ -10,7 +10,7 @@
     export let dataBounds: DataBounds;
     export let colorsScale: ColorsScale;
     export let variant: LegendVariant;
-    export let title: string;
+    export let title: string | undefined;
 
     // the part below is related to labels rotation
     let legendWidth: number;

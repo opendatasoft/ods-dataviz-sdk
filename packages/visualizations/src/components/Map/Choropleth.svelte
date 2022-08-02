@@ -1,18 +1,31 @@
 <svelte:options immutable={true} />
 
-<script>
+<script lang="ts">
     import turfBbox from '@turf/bbox';
+    import type { SourceSpecification } from 'maplibre-gl';
+    // eslint-disable-next-line import/no-unresolved
+    import type { BBox, FeatureCollection } from 'geojson';
+    import type { ColorsScale, DataBounds, Color } from '../types';
     import MapRender from './MapRender.svelte';
     import { BLANK } from './mapStyles';
     import { colorShapes, LIGHT_GREY, DARK_GREY } from './utils';
+    import type {
+        ChoroplethDataValue,
+        ChoroplethLayer,
+        ChoroplethOptions,
+        ChoroplethRenderTooltipFunction,
+        ChoroplethShapeValue,
+        ChoroplethTooltipFormatter,
+        MapLegend,
+    } from './types';
 
-    export let data; // values, and the key to match
-    export let options; // contains the shapes to display & match
+    export let data: { value: ChoroplethDataValue[] }; // values, and the key to match
+    export let options: ChoroplethOptions; // contains the shapes to display & match
 
-    let shapes;
-    let colorsScale;
+    let shapes: ChoroplethShapeValue;
+    let colorsScale: ColorsScale;
 
-    const defaultColorsScale = {
+    const defaultColorsScale: ColorsScale = {
         type: 'gradient',
         colors: {
             start: LIGHT_GREY,
@@ -22,13 +35,15 @@
 
     const defaultEmptyValueColor = '#cccccc';
 
-    let aspectRatio;
-    let renderTooltip;
-    let bbox;
-    let activeShapes;
+    let aspectRatio: number;
+    let renderTooltip: ChoroplethRenderTooltipFunction;
+    let bbox: BBox;
+    let activeShapes: string[] | undefined;
+    let interactive: boolean;
+    let legend: MapLegend | undefined;
 
     // Used to apply a chosen color for shapes without values (default: #cccccc)
-    let emptyValueColor;
+    let emptyValueColor: Color;
 
     const defaultInteractive = true;
     $: ({
@@ -43,22 +58,15 @@
 
     // Choropleth is always display over a blank map, for readability purposes
     const style = BLANK;
-    let layer;
-    let source;
-    let dataBounds;
+    let layer: ChoroplethLayer;
+    let source: SourceSpecification;
+    let dataBounds: DataBounds;
 
-    /*
-shapes: {
-    type: 'geojson',
-    geoJson: {}
-}
-later
-shapes: {
-    type: 'vtiles',
-    url: ''
-}
-*/
-    function computeSourceLayerAndBboxes(values = [], newShapes, newColorScale) {
+    function computeSourceLayerAndBboxes(
+        values: ChoroplethDataValue[] = [],
+        newShapes: ChoroplethShapeValue,
+        newColorScale: ColorsScale
+    ) {
         if (newShapes.type === 'geojson' && !newShapes.geoJson) {
             // We don't have everything we need yet
             return;
@@ -66,7 +74,7 @@ shapes: {
 
         if (newShapes.type === 'geojson') {
             const computeColors = colorShapes(
-                newShapes.geoJson,
+                newShapes.geoJson as FeatureCollection,
                 values,
                 newColorScale,
                 emptyValueColor
@@ -91,24 +99,26 @@ shapes: {
 
             bbox = turfBbox(newShapes.geoJson);
         } else {
+            // eslint-disable-next-line no-console
             console.error('Unknown shapes type', newShapes.type);
         }
     }
 
     $: computeSourceLayerAndBboxes(data.value, shapes, colorsScale);
 
-    const defaultFormat = ({ value, label }) => (value ? `${label} &mdash; ${value}` : label);
+    const defaultFormat: ChoroplethTooltipFormatter = ({ value, label }) =>
+        value ? `${label} &mdash; ${value}` : label;
 
     $: renderTooltip = (hoveredFeature) => {
         const values = data.value || [];
         const matchedFeature = values.find(
-            (item) => String(item.x) === hoveredFeature.properties.key
+            (item) => String(item.x) === hoveredFeature.properties?.key
         );
 
-        const tooltipRawValues = {
+        const tooltipRawValues: { value?: number; label: string; key: string } = {
             value: matchedFeature?.y,
-            label: hoveredFeature.properties.label || hoveredFeature.properties.key,
-            key: hoveredFeature.properties.key, // === matchedFeature.x
+            label: hoveredFeature.properties?.label || hoveredFeature.properties?.key,
+            key: hoveredFeature.properties?.key, // === matchedFeature.x
         };
         const format = options?.tooltip?.label;
 
