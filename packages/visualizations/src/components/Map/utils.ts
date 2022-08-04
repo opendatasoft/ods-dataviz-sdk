@@ -8,7 +8,7 @@ import type { Color, ColorsScale } from '../types';
 import type {
     ChoroplethDataValue,
     ChoroplethFixedTooltipDescription,
-    ChoroplethRenderTooltipFunction,
+    MapRenderTooltipFunction,
 } from './types';
 
 export const LIGHT_GREY: Color = '#CBD2DB';
@@ -166,7 +166,7 @@ const getShapeCenter = (feature: Feature) => {
 export const getFixedTooltips = (
     shapeKeys: string[],
     features: Feature[],
-    renderTooltip: ChoroplethRenderTooltipFunction
+    renderTooltip: MapRenderTooltipFunction
 ): ChoroplethFixedTooltipDescription[] => {
     const popups = shapeKeys.map((shapeKey) => {
         const matchedFeature = features.find((feature) => feature.properties?.key === shapeKey);

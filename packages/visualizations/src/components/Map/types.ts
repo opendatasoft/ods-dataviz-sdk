@@ -64,6 +64,8 @@ export interface ChoroplethFixedTooltipDescription {
     popup: Popup;
 }
 
-export type ChoroplethRenderTooltipFunction = (f: Feature) => string;
+export type MapRenderTooltipFunction = (f: Feature) => string;
 
 export type ChoroplethLayer = Omit<FillLayerSpecification, 'id' | 'source'>;
+
+export type MapLayer = ChoroplethLayer;

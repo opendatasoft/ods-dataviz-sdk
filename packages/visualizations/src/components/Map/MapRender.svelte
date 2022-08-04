@@ -20,8 +20,8 @@
     import type { ColorsScale, DataBounds, LegendVariant } from '../types';
     import type {
         ChoroplethFixedTooltipDescription,
-        ChoroplethLayer,
-        ChoroplethRenderTooltipFunction,
+        MapLayer,
+        MapRenderTooltipFunction,
         MapLegend,
     } from './types';
 
@@ -30,7 +30,7 @@
     // maplibre source config
     export let source: SourceSpecification;
     // maplibre layer config
-    export let layer: ChoroplethLayer;
+    export let layer: MapLayer;
     // bounding box to start from, and restrict to it
     export let bbox: BBox;
     // option to disable map interactions
@@ -40,7 +40,7 @@
     export let colorsScale: ColorsScale;
     export let dataBounds: DataBounds;
     // Used to render tooltips on hover
-    export let renderTooltip: ChoroplethRenderTooltipFunction;
+    export let renderTooltip: MapRenderTooltipFunction;
     // Used to select shapes to activate a tooltip on render
     export let activeShapes: string[] | undefined;
     // aspect ratio based on width, by default equal to 1
@@ -51,6 +51,7 @@
     $: legendVariant = clientWidth <= 375 ? 'fluid' : 'fixed';
 
     // Used to store fixed tooltips displayed on render
+    // FIXME: This may not be useful anymore, and is very tied to Choropleth right now
     let fixedPopupsList: ChoroplethFixedTooltipDescription[] = [];
 
     $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
@@ -166,7 +167,7 @@
 
     function handleInteractivity(
         isInteractive: boolean,
-        tooltipRenderer?: ChoroplethRenderTooltipFunction
+        tooltipRenderer?: MapRenderTooltipFunction
     ) {
         if (isInteractive) {
             // Enable all user interaction handlers
@@ -219,7 +220,7 @@
         }
     }
 
-    function updateSourceAndLayer(newSource: SourceSpecification, newLayer: ChoroplethLayer) {
+    function updateSourceAndLayer(newSource: SourceSpecification, newLayer: MapLayer) {
         if (newSource && newLayer) {
             if (map.getLayer(layerId)) {
                 map.removeLayer(layerId);

@@ -13,7 +13,7 @@
         ChoroplethDataValue,
         ChoroplethLayer,
         ChoroplethOptions,
-        ChoroplethRenderTooltipFunction,
+        MapRenderTooltipFunction,
         ChoroplethShapeValue,
         ChoroplethTooltipFormatter,
         MapLegend,
@@ -36,7 +36,7 @@
     const defaultEmptyValueColor = '#cccccc';
 
     let aspectRatio: number;
-    let renderTooltip: ChoroplethRenderTooltipFunction;
+    let renderTooltip: MapRenderTooltipFunction;
     let bbox: BBox;
     let activeShapes: string[] | undefined;
     let interactive: boolean;
