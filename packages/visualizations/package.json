@@ -83,6 +83,7 @@
         "chartjs-plugin-datalabels": "^2.0.0-rc.1",
         "chartjs-plugin-stacked100": "^1.2.0",
         "chroma-js": "^2.1.2",
+        "geojson-to-svg": "^1.1.4",
         "lodash": "^4.17.21",
         "luxon": "^2.0.2",
         "maplibre-gl": "2.1.9",
