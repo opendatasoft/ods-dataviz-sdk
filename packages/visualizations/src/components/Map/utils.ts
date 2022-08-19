@@ -19,7 +19,13 @@ export const colorShapes = (
     values: ChoroplethDataValue[],
     colorsScale: ColorsScale,
     emptyValueColor: Color
-) => {
+): {
+    geoJson: FeatureCollection;
+    bounds: {
+        min: number;
+        max: number;
+    };
+} => {
     // Key in the values is "x"
     // Key in the shapes is "key"
     // We add a color property in the JSON
@@ -140,7 +146,7 @@ function mergeBboxFromFeaturesWithSameKey(features: Feature[]) {
 export const computeMaxZoomFromGeoJsonFeatures = (
     mapContainer: HTMLElement,
     features: Feature[]
-) => {
+): number => {
     let maxZoom = 0; // maxZoom lowest value possible
     const filteredBboxes = mergeBboxFromFeaturesWithSameKey(features);
     Object.values(filteredBboxes).forEach((value: any) => {

@@ -8,7 +8,7 @@
         NavigationControl,
         LngLatBoundsLike,
         MapSourceDataEvent,
-        MapMouseEvent,
+        MapLayerMouseEvent,
         LngLatLike,
     } from 'maplibre-gl';
     import { onMount } from 'svelte';
@@ -129,7 +129,9 @@
     function sourceLoadingCallback(e: MapSourceDataEvent) {
         // sourceDataType can be "visibility" or "metadata", in which case it's not about the data itself
         if (e.isSourceLoaded && e.sourceId === sourceId && !e.sourceDataType) {
-            // @ts-ignore // The type forces you to pass a filter parameter in the option, but it's not required by the real code
+            // The type forces you to pass a filter parameter in the option, but it's not required by the real code
+            // https://github.com/maplibre/maplibre-gl-js/issues/1393
+            // @ts-ignore
             const renderedFeatures = map.querySourceFeatures(sourceId, { sourceLayer: layerId });
 
             if (renderedFeatures.length) {
@@ -151,7 +153,7 @@
         }
     }
 
-    function addTooltip(e: MapMouseEvent) {
+    function addTooltip(e: MapLayerMouseEvent) {
         // @ts-ignore // Somehow `features` isn't part of the type, but exists in the object at runtime
         const description = renderTooltip(e.features[0]);
         if (hoverPopup.isOpen()) {
