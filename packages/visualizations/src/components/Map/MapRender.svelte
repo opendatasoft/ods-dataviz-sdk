@@ -154,12 +154,13 @@
     }
 
     function addTooltip(e: MapLayerMouseEvent) {
-        // @ts-ignore // Somehow `features` isn't part of the type, but exists in the object at runtime
-        const description = renderTooltip(e.features[0]);
-        if (hoverPopup.isOpen()) {
-            hoverPopup.setLngLat(e.lngLat).setHTML(description);
-        } else {
-            hoverPopup.setLngLat(e.lngLat).setHTML(description).addTo(map);
+        if (e.features) {
+            const description = renderTooltip(e.features[0]);
+            if (hoverPopup.isOpen()) {
+                hoverPopup.setLngLat(e.lngLat).setHTML(description);
+            } else {
+                hoverPopup.setLngLat(e.lngLat).setHTML(description).addTo(map);
+            }
         }
     }
 
