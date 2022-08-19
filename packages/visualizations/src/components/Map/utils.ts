@@ -32,7 +32,7 @@ export const colorShapes = (
 
     if (colorsScale?.type === 'palette') {
         const thresholdArray: number[] = [];
-        colorsScale.colors.forEach((_color, i: number) => {
+        colorsScale.colors.forEach((_color, i) => {
             if (i === 0) {
                 thresholdArray.push(min);
                 thresholdArray.push(min + (max - min) / colorsScale.colors.length);
@@ -49,7 +49,7 @@ export const colorShapes = (
         scale = chroma.scale([colorMin, colorMax]).domain([min, max]);
     }
 
-    const dataMapping: any = {};
+    const dataMapping: { [key: ChoroplethDataValue['x']]: ChoroplethDataValue['y'] } = {};
     values.forEach((v) => {
         dataMapping[v.x] = v.y;
     });
@@ -100,7 +100,11 @@ function computeBboxFromCoords(coordsPath: CoordsPath, bbox: BBox): BBox {
 // The features given by querySourceFeatures are cut based on a tile representation
 // but we need the bounding box of the features themselves, so we need to build them again
 function mergeBboxFromFeaturesWithSameKey(features: Feature[]) {
-    const mergedBboxes: any = {};
+    const mergedBboxes: {
+        [key: string]: {
+            bbox: BBox
+        }
+    } = {};
     features.forEach((feature) => {
         // FIXME: supports only shapes for now
         if (feature.geometry.type === 'Polygon') {
@@ -116,7 +120,7 @@ function mergeBboxFromFeaturesWithSameKey(features: Feature[]) {
                 };
             } else {
                 const storedBbox = mergedBboxes[id].bbox;
-                const mergedBbox = [
+                const mergedBbox: BBox = [
                     Math.min(bbox[0], storedBbox[0]),
                     Math.min(bbox[1], storedBbox[1]),
                     Math.max(bbox[2], storedBbox[2]),
@@ -183,5 +187,5 @@ export const getFixedTooltips = (
         return null;
     });
 
-    return popups.filter(Boolean) as ChoroplethFixedTooltipDescription[];
+    return popups.filter((item): item is NonNullable<ChoroplethFixedTooltipDescription> => Boolean(item)) as ChoroplethFixedTooltipDescription[];
 };
