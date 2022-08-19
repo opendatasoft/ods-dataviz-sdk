@@ -102,8 +102,8 @@ function computeBboxFromCoords(coordsPath: CoordsPath, bbox: BBox): BBox {
 function mergeBboxFromFeaturesWithSameKey(features: Feature[]) {
     const mergedBboxes: {
         [key: string]: {
-            bbox: BBox
-        }
+            bbox: BBox;
+        };
     } = {};
     features.forEach((feature) => {
         // FIXME: supports only shapes for now
@@ -187,5 +187,7 @@ export const getFixedTooltips = (
         return null;
     });
 
-    return popups.filter((item): item is NonNullable<ChoroplethFixedTooltipDescription> => Boolean(item)) as ChoroplethFixedTooltipDescription[];
+    return popups.filter((item): item is NonNullable<ChoroplethFixedTooltipDescription> =>
+        Boolean(item)
+    ) as ChoroplethFixedTooltipDescription[];
 };
