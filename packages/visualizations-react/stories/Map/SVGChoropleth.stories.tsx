@@ -1,5 +1,6 @@
 import React from 'react';
 import { Meta } from '@storybook/react';
+import { aip }
 import { SvgChoropleth } from '../../src';
 import { shapes, multiPolygonShapes } from './shapes';
 
@@ -29,20 +30,11 @@ SVGChoroplethStory.args = {
         shapes,
     },
 };
-// SVGChoroplethStory.args = {};
-//     data: {
-//         loading: false,
-//         value: [
-//             { x: 'France', y: 60 },
-//             { x: 'Île de France', y: 35 },
-//             { x: 'Corsica', y: 95 },
-//         ],
-//     },
-//     options: {
-//         style: {},
-//         parameters: {},
-//         shapes,
-//         aspectRatio: 1,
-//     },
-// };
-// SVGChoropleth.args = StudioChoroplethArgs;
+
+export const SVGChoroplethMultipolygonStory = Template.bind({});
+SVGChoroplethMultipolygonStory.args = {
+    options: {
+        shapes: multiPolygonShapes,
+    },
+};
+

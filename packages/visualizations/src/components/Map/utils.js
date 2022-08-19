@@ -89,7 +89,7 @@ export const mapKeyToColor = (values, colorScale) => {
 // This is a default bound that will be extended
 const VOID_BOUNDS = [180, 90, -180, -90];
 
-function computeBboxFromCoords(coordsPath, bbox) {
+export function computeBboxFromCoords(coordsPath, bbox) {
     return coordsPath.reduce(
         (current, coords) => [
             Math.min(coords[0], current[0]),
