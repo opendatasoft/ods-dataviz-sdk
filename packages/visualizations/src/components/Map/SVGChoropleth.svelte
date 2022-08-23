@@ -18,15 +18,6 @@
         return box;
     };
 
-    // const getShapesExtent = (gj) => {
-    //     return gj.features.reduce(
-    //         (extent, feature) => {
-    //             return feature.geometry.coordinates.flat().reduce(findBbox, extent);
-    //         },
-    //         [180, 90, -180, -90]
-    //     );
-    // };
-
     let extent = [180, 90, -180, -90];
 
     const getData = async (reg) => {
@@ -47,10 +38,13 @@
 
     const getShapes = async (reg) => {
         const pop = await getData(reg);
+        console.time('download');
         const res = await fetch(
             `https://data.opendatasoft.com/api/v2/catalog/datasets/georef-france-commune-arrondissement-municipal@public/exports/geojson?where=reg_name=%22${reg}%22`
         );
         const gj = await res.json();
+        console.timeEnd('download');
+        console.time('render');
         extent = bbox(gj);
         const converter = gj2Svg({
             mapExtent: {
@@ -67,6 +61,7 @@
                 svg: converter.convert(feature),
             };
         });
+        console.timeEnd('render');
         return shapes;
     };
 
