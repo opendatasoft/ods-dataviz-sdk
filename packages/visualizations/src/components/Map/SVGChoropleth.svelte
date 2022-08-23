@@ -27,11 +27,28 @@
     //     );
     // };
 
-    let downloading = true;
     let extent = [180, 90, -180, -90];
-    const getWorldShapes = async () => {
+
+    const getData = async (reg) => {
         const res = await fetch(
-            'https://data.opendatasoft.com/api/v2/catalog/datasets/georef-france-commune-arrondissement-municipal@public/exports/geojson?where=reg_name=%22Martinique%22'
+            `https://data.opendatasoft.com/api/v2/catalog/datasets/geoflar-communes-2015@public/records?rows=100&where=%22${reg}%22`
+        );
+        const data = await res.json();
+        const maxPop = Math.max(...data.records.map((record) => record.record.fields.population));
+
+        const pop = Object.fromEntries(
+            data.records.map((record) => [
+                record.record.fields.insee_com,
+                record.record.fields.population / maxPop,
+            ])
+        );
+        return pop;
+    };
+
+    const getShapes = async (reg) => {
+        const pop = await getData(reg);
+        const res = await fetch(
+            `https://data.opendatasoft.com/api/v2/catalog/datasets/georef-france-commune-arrondissement-municipal@public/exports/geojson?where=reg_name=%22${reg}%22`
         );
         const gj = await res.json();
         extent = bbox(gj);
@@ -42,81 +59,55 @@
                 right: extent[2],
                 top: extent[3],
             },
-            // mapExtent: {
-            //     left: -180,
-            //     bottom: -90,
-            //     right: 180,
-            //     top: 90,
-            // },
+            viewportSize: { height: 50, width: 50 },
         });
-        const svgStr = converter.convert(gj);
-        return svgStr;
+        const shapes = gj.features.map((feature) => {
+            return {
+                opacity: pop[feature.properties.com_code[0]],
+                svg: converter.convert(feature),
+            };
+        });
+        return shapes;
     };
 
-    let world = getWorldShapes();
-
-    $: ({ shapes } = options);
-    $: extent = shapes?.geoJson.features.reduce(
-        (extent, feature) => {
-            return feature.geometry.coordinates.flat().reduce(findBbox, extent);
-        },
-        [180, 90, -180, -90]
-    );
-    $: gjTosvg = geojsonToSvg()
-        // .projection(([x, y]) => [x, -y])
-        .data(shapes?.geoJson)
-        .extent(extent)
-        .render();
-    $: converter = gj2Svg({
-        attributes: ['properties.key'],
-        mapExtent: {
-            left: extent[0],
-            bottom: extent[1],
-            right: extent[2],
-            top: extent[3],
-        },
-    });
-    $: gjSvg = converter.convert(shapes?.geoJson);
+    let martinique = getShapes('Martinique');
+    let guadeloupe = getShapes('Guadeloupe');
+    let reunion = getShapes('La Réunion');
+    let guyanne = getShapes('Guyane');
+    const droms = [martinique, guadeloupe, guyanne, reunion];
 </script>
 
-<!-- <h1>geojson-to-svg</h1>
-{@html gjTosvg}
-
-<h1>geojson2svg</h1>
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    version="1.2"
-    style="stroke: black; stroke-width: 1px; fill: none"
->
-    {#each gjSvg as str}
-        {@html str}
+<h1>Pop DROM</h1>
+<div>
+    {#each droms as drom}
+        {#await drom}
+            <p>downloading</p>
+        {:then shapes}
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                style="stroke: black; stroke-width: 0.1px; fill: none;"
+                viewBox={`0 0 ${extent[2]} ${extent[3]}`}
+                preserveAspectRatio="xMidYMid meet"
+                height="50"
+                width="50"
+            >
+                {#each shapes as shape}
+                    <g fill="blue" style={`opacity: ${shape.opacity}`}>
+                        {@html shape.svg}
+                    </g>
+                {/each}
+            </svg>
+        {/await}
     {/each}
-</svg> -->
-
-<h1>world geojson2svg</h1>
-
-{#await world}
-    {#if downloading}
-        <p>downloading</p>
-    {:else}
-        <p>rendering</p>
-    {/if}
-{:then gjSvg}
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        version="1.2"
-        style="stroke: black; stroke-width: 0.1px; fill: none;"
-        height="600px"
-        width="800px"
-        viewBox={`0 0 ${extent[2]} ${extent[3]}`}
-    >
-        {#each gjSvg as str}
-            {@html str}
-        {/each}
-    </svg>
-{/await}
+</div>
 
 <style>
+    div {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    svg {
+        margin: 3px;
+    }
 </style>

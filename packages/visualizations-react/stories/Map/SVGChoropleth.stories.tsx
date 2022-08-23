@@ -1,6 +1,5 @@
 import React from 'react';
 import { Meta } from '@storybook/react';
-import { aip }
 import { SvgChoropleth } from '../../src';
 import { shapes, multiPolygonShapes } from './shapes';
 
