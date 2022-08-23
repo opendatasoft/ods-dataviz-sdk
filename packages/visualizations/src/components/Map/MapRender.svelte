@@ -2,7 +2,7 @@
 
 <script lang="ts">
     import maplibregl, {
-        Map,
+        Map as MapType,
         SourceSpecification,
         StyleSpecification,
         NavigationControl,
@@ -13,11 +13,10 @@
     } from 'maplibre-gl';
     import { onMount } from 'svelte';
     import { debounce } from 'lodash';
-    // eslint-disable-next-line import/no-unresolved
     import type { BBox } from 'geojson';
     import { computeMaxZoomFromGeoJsonFeatures, getFixedTooltips } from './utils';
     import ColorsLegend from '../utils/ColorsLegend.svelte';
-    import type { ColorsScale, DataBounds, LegendVariant } from '../types';
+    import type { ColorScales, DataBounds, LegendVariant } from '../types';
     import type {
         ChoroplethFixedTooltipDescription,
         MapLayer,
@@ -37,7 +36,7 @@
     export let interactive: boolean;
     // options to display legend
     export let legend: MapLegend | undefined;
-    export let colorsScale: ColorsScale;
+    export let colorsScale: ColorScales;
     export let dataBounds: DataBounds;
     // Used to render tooltips on hover
     export let renderTooltip: MapRenderTooltipFunction;
@@ -57,7 +56,7 @@
     $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
 
     let container: HTMLElement;
-    let map: Map;
+    let map: MapType;
     // Used to add navigation control to map
     let nav: NavigationControl;
 
@@ -75,6 +74,14 @@
     const mapId = Math.floor(Math.random() * 1000);
     const sourceId = `shape-source-${mapId}`;
     const layerId = `shape-layer-${mapId}`;
+
+    // eslint-disable-next-line no-console
+    $: console.log(`--> MapRender [${mapId}]:`, { // TOREMOVE
+        source,
+        layer,
+        style,
+        bbox,
+    });
 
     function fitMapToBbox(newBbox: BBox) {
         // Cancel saved max bounds to properly fitBounds
@@ -129,12 +136,19 @@
     function sourceLoadingCallback(e: MapSourceDataEvent) {
         // sourceDataType can be "visibility" or "metadata", in which case it's not about the data itself
         if (e.isSourceLoaded && e.sourceId === sourceId && !e.sourceDataType) {
-            // The type forces you to pass a filter parameter in the option, but it's not required by the real code
-            // https://github.com/maplibre/maplibre-gl-js/issues/1393
-            // @ts-ignore
-            const renderedFeatures = map.querySourceFeatures(sourceId, { sourceLayer: layerId });
+            const renderedFeatures = map.querySourceFeatures(
+                sourceId,
+                // The type forces you to pass a filter parameter in the option, but it's not required by the real code
+                // https://github.com/maplibre/maplibre-gl-js/issues/1393
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                {
+                    sourceLayer: layer['source-layer'] || layerId, // FIXME: This may not the best way to do it
+                },
+            );
 
             if (renderedFeatures.length) {
+                console.log(`--> MapRender [${mapId}]:`, 'source loaded', renderedFeatures); // TOREMOVE
                 // Restrict zoom max
                 // TODO: We may not catch the smaller shapes if Maplibre discarded them for rendering reasons, so it's a bit risky. Is it worth it?
                 // A low-cost approach could be to restrict the zoom scale to an arbitrary value (e.g. only 4 from the max zoom)... or not restrict at all.

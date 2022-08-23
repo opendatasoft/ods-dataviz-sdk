@@ -1,10 +1,10 @@
 import type { Feature, FeatureCollection, Position } from 'geojson';
 import type { FillLayerSpecification, Popup } from 'maplibre-gl';
-import type { Color, ColorsScale } from '../types';
+import type { Color, ColorScales } from '../types';
 
 export interface ChoroplethOptions {
     shapes: ChoroplethShapeValue;
-    colorsScale?: ColorsScale;
+    colorsScale?: ColorScales;
     legend?: MapLegend;
     aspectRatio: number;
     activeShapes?: string[];
@@ -51,6 +51,8 @@ export interface ChoroplethShapeGeoJsonValue {
 export interface ChoroplethShapeVectorTilesValue {
     type: 'vtiles';
     url: string;
+    sourceLayer: string;
+    key: string;
 }
 
 /** Structure containing everything necessary for a Choropleth to render shapes visually.

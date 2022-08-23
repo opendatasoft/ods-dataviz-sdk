@@ -211,6 +211,7 @@ export interface FillConfiguration {
 
 export type Color = string;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type DataFrame = Record<string, any>[];
 
 export interface MarkdownTextOptions {
@@ -241,17 +242,22 @@ export interface DataBounds {
 
 export type LegendVariant = 'fluid' | 'fixed';
 
-export type ColorsScale = GradientScale | PaletteScale;
+export enum ColorScaleTypes {
+    Gradient = 'gradient',
+    Palette = 'palette',
+}
 
-type GradientScale = {
-    type: 'gradient';
+export type GradientScale = {
+    type: ColorScaleTypes.Gradient;
     colors: {
         start: Color;
         end: Color;
     };
 };
 
-type PaletteScale = {
-    type: 'palette';
+export type PaletteScale = {
+    type: ColorScaleTypes.Palette;
     colors: Color[];
 };
+
+export type ColorScales = GradientScale | PaletteScale;
