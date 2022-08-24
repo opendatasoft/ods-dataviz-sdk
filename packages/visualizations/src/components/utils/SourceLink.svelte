@@ -6,7 +6,7 @@
 </script>
 
 <div class="source-link" {style}>
-    <a {href} target="_blank" rel="noopener norefer" role="link">
+    <a {href} target="_blank" rel="noopener norefer">
         {label}
     </a>
 </div>
