@@ -37,13 +37,19 @@
     };
 
     const projection = geoEqualEarth();
-    let canvasElement;
+    let canvasElements = {};
+    let canvasdl = 0;
+    let canvasrender = 0;
 
     const d3canvas = async (reg) => {
+        const dl0 = performance.now();
         const gj = rewind(await getShapes(reg), true);
         const pop = await getData(reg);
+        const dl1 = performance.now();
+        canvasdl += dl1 - dl0;
 
-        const ctx = canvasElement.getContext('2d');
+        const render0 = performance.now();
+        const ctx = canvasElements[reg].getContext('2d');
         ctx.strokeStyle = 'black';
         ctx.lineWidth = 0.1;
         ctx.fillStyle = 'blue';
@@ -56,25 +62,41 @@
             ctx.fill();
             ctx.stroke();
         });
+        const render1 = performance.now();
+        canvasrender += render1 - render0;
     };
 
+    let pathdl = 0;
+    let pathrender = 0;
     const d3path = async (reg) => {
         // const gj = await getShapes(reg);
+        const dl0 = performance.now();
         const gj = rewind(await getShapes(reg), true);
         const pop = await getData(reg);
+        const dl1 = performance.now();
+        pathdl += dl1 - dl0;
 
+        const render0 = performance.now();
         const makePath = geoPath(projection.fitSize([100, 100], gj));
         const paths = gj.features.map((f) => ({
             path: makePath(f),
             opacity: pop[f.properties.com_code[0]],
         }));
+        const render1 = performance.now();
+        pathrender += render1 - render0;
         return paths;
     };
 
+    let g2sdl = 0;
+    let g2srender = 0;
     const g2svg = async (reg) => {
+        const dl0 = performance.now();
         const gj = await getShapes(reg);
         const pop = await getData(reg);
+        const dl1 = performance.now();
+        g2sdl += dl1 - dl0;
 
+        const render0 = performance.now();
         extent = bbox(gj);
         const converter = gj2Svg({
             mapExtent: {
@@ -83,7 +105,7 @@
                 right: extent[2],
                 top: extent[3],
             },
-            viewportSize: { height: 50, width: 50 },
+            viewportSize: { height: 100, width: 100 },
         });
         const shapes = gj.features.map((feature) => {
             return {
@@ -91,28 +113,36 @@
                 svg: converter.convert(feature),
             };
         });
-        console.timeEnd('convert render');
+        const render1 = performance.now();
+        g2srender += render1 - render0;
         return shapes;
     };
 
-    $: d3canvas('Martinique');
-    // let d3s = Promise.all([d3path('Martinique'), d3path('Guadeloupe'), d3path('Guyane')]);
-    // let g2s = Promise.all([g2svg('Martinique'), g2svg('Guadeloupe'), g2svg('Guyane')]);
+    const droms = ['Martinique', 'Guadeloupe', 'La Réunion', 'Guyane', 'Mayotte'];
+    const renderDroms = (renderFn) => Promise.all(droms.map(renderFn));
+
+    let d3s = renderDroms(d3path);
+    let g2s = renderDroms(g2svg);
+    renderDroms(d3canvas);
 </script>
 
 <h1>d3-geo canvas</h1>
-<canvas
-    height={DPR * 100}
-    width={DPR * 100}
-    style="width: 100px; height: 100px"
-    bind:this={canvasElement}
-/>
+<p>DL: {canvasdl}ms, render: {canvasrender}ms</p>
 
-<!-- <h1>d3-geo svg</h1>
+{#each droms as drom}
+    <canvas
+        height={DPR * 100}
+        width={DPR * 100}
+        style="width: 100px; height: 100px"
+        bind:this={canvasElements[drom]}
+    />
+{/each}
+
+<h1>d3-geo svg</h1>
+<p>DL: {pathdl}ms, render: {pathrender}ms</p>
 {#await d3s then droms}
     {#each droms as shapes}
         <svg
-            class="d3"
             xmlns="http://www.w3.org/2000/svg"
             height="100"
             width="100"
@@ -126,33 +156,28 @@
     {/each}
 {/await}
 
-<h1>Pop DROM</h1>
-<div>
-    {#await g2s then droms}
-        {#each droms as shapes}
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                style="stroke: black; stroke-width: 0.1px; fill: none;"
-                viewBox={`0 0 ${extent[2]} ${extent[3]}`}
-                preserveAspectRatio="xMidYMid meet"
-                height="50"
-                width="50"
-            >
-                {#each shapes as shape}
-                    <g fill="blue" style={`opacity: ${shape.opacity}`}>
-                        {@html shape.svg}
-                    </g>
-                {/each}
-            </svg>
-        {/each}
-    {/await}
-</div> -->
-<style>
-    div {
-        display: flex;
-        justify-content: flex-start;
-    }
+<h1>geojson2svg</h1>
+<p>DL: {g2sdl}ms, render: {g2srender}ms</p>
+{#await g2s then droms}
+    {#each droms as shapes}
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            style="stroke: black; stroke-width: 0.1px; fill: none;"
+            viewBox={`0 0 ${extent[2]} ${extent[3]}`}
+            preserveAspectRatio="xMidYMid meet"
+            height="100"
+            width="100"
+        >
+            {#each shapes as shape}
+                <g fill="blue" style={`opacity: ${shape.opacity}`}>
+                    {@html shape.svg}
+                </g>
+            {/each}
+        </svg>
+    {/each}
+{/await}
 
+<style>
     svg {
         margin: 3px;
     }
