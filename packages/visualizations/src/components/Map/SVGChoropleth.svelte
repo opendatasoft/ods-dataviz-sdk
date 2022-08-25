@@ -2,6 +2,7 @@
     import gj2Svg from 'geojson2svg';
     import bbox from '@turf/bbox';
     import rewind from '@mapbox/geojson-rewind';
+    import reproject from 'reproject-spherical-mercator';
 
     import { geoEqualEarth, geoPath } from 'd3-geo';
 
@@ -91,7 +92,7 @@
     let g2srender = 0;
     const g2svg = async (reg) => {
         const dl0 = performance.now();
-        const gj = await getShapes(reg);
+        const gj = reproject(await getShapes(reg));
         const pop = await getData(reg);
         const dl1 = performance.now();
         g2sdl += dl1 - dl0;
@@ -121,8 +122,8 @@
     const droms = ['Martinique', 'Guadeloupe', 'La Réunion', 'Guyane', 'Mayotte'];
     const renderDroms = (renderFn) => Promise.all(droms.map(renderFn));
 
-    let d3s = renderDroms(d3path);
     let g2s = renderDroms(g2svg);
+    let d3s = renderDroms(d3path);
     renderDroms(d3canvas);
 </script>
 
