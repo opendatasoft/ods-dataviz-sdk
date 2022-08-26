@@ -1,7 +1,12 @@
 import React from 'react';
 import { Meta } from '@storybook/react';
 import { Choropleth, Props } from '../../src';
-import { ColorScaleTypes, DataFrame, ChoroplethOptions, ChoroplethTooltipFormatter } from '@opendatasoft/visualizations';
+import {
+    ColorScaleTypes,
+    DataFrame,
+    ChoroplethOptions,
+    ChoroplethTooltipFormatter,
+} from '@opendatasoft/visualizations';
 import { shapes, multiPolygonShapes } from './shapes';
 import { IMAGES } from '../utils';
 
@@ -16,7 +21,8 @@ const df = [
     { x: 'Corsica', y: 95 },
 ];
 
-const defaultLabelCallback: ChoroplethTooltipFormatter = ({ label, value }) => `<b>${label}:</b> ${value}`;
+const defaultLabelCallback: ChoroplethTooltipFormatter = ({ label, value }) =>
+    `<b>${label}:</b> ${value}`;
 
 export default meta;
 const Template = (args: Props<DataFrame, ChoroplethOptions>) => (
@@ -241,7 +247,6 @@ const StudioChoroplethLongLabelsArgs: Props<DataFrame, ChoroplethOptions> = {
     },
 };
 StudioChoroplethLongLabels.args = StudioChoroplethLongLabelsArgs;
-
 
 export const StudioVectorTilesChoropleth = Template.bind({});
 const StudioVectorTilesChoroplethArgs: Props<DataFrame, ChoroplethOptions> = {

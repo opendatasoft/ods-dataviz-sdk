@@ -58,18 +58,18 @@
         newColorScales: ColorScales
     ) {
         if (
-            (newShapes.type === 'geojson' && !newShapes.geoJson)
-            || (newShapes.type === 'vtiles' && !newShapes.url)
-            || !values
+            (newShapes.type === 'geojson' && !newShapes.geoJson) ||
+            (newShapes.type === 'vtiles' && !newShapes.url) ||
+            !values
         ) {
             // We don't have everything we need yet
             return;
         }
 
-        if (newShapes.type === 'geojson' && newShapes.geoJson) {
-            dataBounds = getDataBounds(values);
-            const colors = mapKeyToColor(values, dataBounds, newColorScales, emptyValueColor);
+        dataBounds = getDataBounds(values);
+        const colors = mapKeyToColor(values, dataBounds, newColorScales, emptyValueColor);
 
+        if (newShapes.type === 'geojson' && newShapes.geoJson) {
             // Iterate shapes, compute color from matching value
             const coloredFeatures = newShapes.geoJson.features.map((feature) => ({
                 ...feature,
@@ -99,27 +99,21 @@
 
             bbox = turfBbox(newShapes.geoJson);
         } else if (newShapes.type === 'vtiles') {
-            dataBounds = getDataBounds(values);
             source = {
                 type: 'vector',
                 tiles: [newShapes.url],
             };
 
-            const colors = mapKeyToColor(values, dataBounds, newColorScales, emptyValueColor);
+            const matchExpression = ['match', ['get', newShapes.key]];
 
-            const matchExpression = [
-                'match',
-                ['get', newShapes.key],
-            ];
-
-            Object.entries(colors).forEach(e => matchExpression.push(...e));
+            Object.entries(colors).forEach((e) => matchExpression.push(...e));
             matchExpression.push(DEFAULT_COLORS.Default); // Default fallback color
 
             layer = {
-                'type': 'fill',
+                type: 'fill',
                 'source-layer': newShapes.sourceLayer,
-                'layout': {},
-                'paint': {
+                layout: {},
+                paint: {
                     'fill-color': matchExpression,
                     'fill-outline-color': DEFAULT_COLORS.ShapeOutline,
                     'fill-opacity': [
@@ -128,7 +122,7 @@
                         1,
                         0.5,
                     ],
-                }
+                },
             };
         }
     }

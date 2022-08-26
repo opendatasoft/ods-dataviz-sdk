@@ -16,9 +16,7 @@ import type {
     ChoroplethShapeVectorTilesValue,
 } from './types';
 
-export function getDataBounds(
-    values: ChoroplethDataValue[],
-): DataBounds {
+export function getDataBounds(values: ChoroplethDataValue[]): DataBounds {
     const rawValues = values.map((v) => v.y);
     const min = Math.min(...rawValues);
     const max = Math.max(...rawValues);
@@ -29,7 +27,7 @@ export const mapKeyToColor = (
     values: ChoroplethDataValue[],
     dataBounds: DataBounds,
     colorsScale: ColorScales,
-    emptyValueColor: Color = DEFAULT_COLORS.Default,
+    emptyValueColor: Color = DEFAULT_COLORS.Default
 ): { [s: string]: string } => {
     const { min, max } = dataBounds;
     let colorMin: Color;
@@ -68,7 +66,7 @@ export const mapKeyToColor = (
     });
 
     return dataMapping;
-}
+};
 
 // This is a default bound that will be extended
 const VOID_BOUNDS: BBox = [180, 90, -180, -90];
@@ -163,7 +161,9 @@ export const getFixedTooltips = (
     renderTooltip: MapRenderTooltipFunction
 ): ChoroplethFixedTooltipDescription[] => {
     const popups = shapeKeys.map((shapeKey) => {
-        const matchedFeature = features.find((feature) => feature.properties?.reg_code === shapeKey);
+        const matchedFeature = features.find(
+            (feature) => feature.properties?.reg_code === shapeKey
+        );
         if (matchedFeature) {
             const center = getShapeCenter(matchedFeature);
             const description = renderTooltip(matchedFeature);
@@ -182,7 +182,8 @@ export const getFixedTooltips = (
     ) as ChoroplethFixedTooltipDescription[];
 };
 
-export const isVectorTile = (shape: ChoroplethShapeValue): shape is ChoroplethShapeVectorTilesValue => (
-    (shape as ChoroplethShapeVectorTilesValue).sourceLayer !== undefined
-    && (shape as ChoroplethShapeVectorTilesValue).key !== undefined
-);
+export const isVectorTile = (
+    shape: ChoroplethShapeValue
+): shape is ChoroplethShapeVectorTilesValue =>
+    (shape as ChoroplethShapeVectorTilesValue).sourceLayer !== undefined &&
+    (shape as ChoroplethShapeVectorTilesValue).key !== undefined;
