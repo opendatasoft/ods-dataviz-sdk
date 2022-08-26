@@ -27,7 +27,8 @@
 
     let aspectRatio: number;
     let renderTooltip: MapRenderTooltipFunction;
-    let bbox: BBox;
+    let bbox: BBox | undefined;
+    let fixedBbox: BBox | undefined;
     let activeShapes: string[] | undefined;
     let interactive: boolean;
     let legend: MapLegend | undefined;
@@ -44,6 +45,7 @@
         activeShapes,
         interactive = defaultInteractive,
         emptyValueColor = DEFAULT_COLORS.Default,
+        fixedBbox,
     } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
@@ -75,7 +77,7 @@
                 ...feature,
                 properties: {
                     ...feature.properties,
-                    color: colors[feature.properties?.key],
+                    color: colors[feature.properties?.key] || emptyValueColor,
                 },
             }));
 
@@ -97,7 +99,7 @@
                 },
             };
 
-            bbox = turfBbox(newShapes.geoJson);
+            bbox = fixedBbox ? fixedBbox : turfBbox(newShapes.geoJson);
         } else if (newShapes.type === 'vtiles') {
             source = {
                 type: 'vector',
@@ -107,7 +109,9 @@
             const matchExpression = ['match', ['get', newShapes.key]];
 
             Object.entries(colors).forEach((e) => matchExpression.push(...e));
-            matchExpression.push(DEFAULT_COLORS.Default); // Default fallback color
+            matchExpression.push(emptyValueColor); // Default fallback color
+
+            bbox = fixedBbox;
 
             layer = {
                 type: 'fill',
@@ -161,6 +165,7 @@
         {legend}
         {renderTooltip}
         {bbox}
+        {fixedBbox}
         {activeShapes}
         {interactive}
     />

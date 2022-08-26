@@ -31,7 +31,7 @@
     // maplibre layer config
     export let layer: MapLayer;
     // bounding box to start from, and restrict to it
-    export let bbox: BBox;
+    export let bbox: BBox | undefined;
     // option to disable map interactions
     export let interactive: boolean;
     // options to display legend
@@ -44,6 +44,8 @@
     export let activeShapes: string[] | undefined;
     // aspect ratio based on width, by default equal to 1
     export let aspectRatio = 1;
+    // Used to force a fixed Bbox to display map
+    export let fixedBbox: BBox | undefined;
 
     let clientWidth: number;
     let legendVariant: LegendVariant;
@@ -75,14 +77,6 @@
     const sourceId = `shape-source-${mapId}`;
     const layerId = `shape-layer-${mapId}`;
 
-    // eslint-disable-next-line no-console
-    $: console.log(`--> MapRender [${mapId}]:`, { // TOREMOVE
-        source,
-        layer,
-        style,
-        bbox,
-    });
-
     function fitMapToBbox(newBbox: BBox) {
         // Cancel saved max bounds to properly fitBounds
         map.setMaxBounds(null);
@@ -99,6 +93,7 @@
         const start = {
             center: defaultCenter,
             zoom: 5,
+            antialias: true,
         };
 
         map = new maplibregl.Map({
@@ -143,12 +138,11 @@
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 {
-                    sourceLayer: layer['source-layer'] || layerId, // FIXME: This may not the best way to do it
+                    sourceLayer: layerId,
                 },
             );
 
             if (renderedFeatures.length) {
-                console.log(`--> MapRender [${mapId}]:`, 'source loaded', renderedFeatures); // TOREMOVE
                 // Restrict zoom max
                 // TODO: We may not catch the smaller shapes if Maplibre discarded them for rendering reasons, so it's a bit risky. Is it worth it?
                 // A low-cost approach could be to restrict the zoom scale to an arbitrary value (e.g. only 4 from the max zoom)... or not restrict at all.

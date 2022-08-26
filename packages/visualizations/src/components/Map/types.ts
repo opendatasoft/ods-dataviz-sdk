@@ -1,6 +1,7 @@
 import type { Feature, FeatureCollection, Position } from 'geojson';
 import type { FillLayerSpecification, Popup } from 'maplibre-gl';
 import type { Color, ColorScales } from '../types';
+import type { BBox } from 'geojson';
 
 export interface ChoroplethOptions {
     shapes: ChoroplethShapeValue;
@@ -11,6 +12,7 @@ export interface ChoroplethOptions {
     interactive?: boolean;
     emptyValueColor: Color;
     tooltip: { label: ChoroplethTooltipFormatter };
+    fixedBbox?: BBox | undefined;
 }
 
 export interface MapLegend {
