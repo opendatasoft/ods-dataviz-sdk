@@ -10,11 +10,12 @@ const handleHoverPieChart: LegendOptions<'pie'>['onHover'] = (_, item, legend) =
     const { tooltip, chartArea } = legend.chart;
     if (tooltip) {
         // FIXME: `TooltipModel` doesn't have a `setActiveElements` method.
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (tooltip as any).setActiveElements(
             [
                 {
                     datasetIndex: 0,
-                    index: (item as any).index,
+                    index: (item as any).index, // eslint-disable-line @typescript-eslint/no-explicit-any
                 },
             ],
             {
@@ -47,8 +48,8 @@ export default function buildLegend(
                 const text = options?.legend?.labels?.text;
                 if (text) {
                     const index =
-                        typeof (item as any).index === 'number'
-                            ? (item as any).index
+                        typeof (item as any).index === 'number' // eslint-disable-line @typescript-eslint/no-explicit-any
+                            ? (item as any).index // eslint-disable-line @typescript-eslint/no-explicit-any
                             : item.datasetIndex;
                     item.text = text(index);
                 }

@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import update from 'immutability-helper';
 
 export type StringOrUpdater = string | ((current: string) => string) | null | undefined | false;
@@ -6,10 +7,12 @@ export type NumberOrUpdater = number | ((current: number) => number) | null | un
 
 export class Query {
     private readonly params: Record<string, string | string[]>;
+
     private readonly path: string;
+
     private searchParams: URLSearchParams | undefined = undefined;
 
-    constructor(path: string = '', init?: Record<string, string | string[]>) {
+    constructor(path = '', init?: Record<string, string | string[]>) {
         this.params = init ? { ...init } : {};
         this.path = path;
     }
@@ -21,11 +24,13 @@ export class Query {
     getSearchParams(): URLSearchParams {
         if (this.searchParams === undefined) {
             this.searchParams = new URLSearchParams();
+            // eslint-disable-next-line no-restricted-syntax, guard-for-in
             for (const name in this.params) {
                 const value = this.params[name];
                 if (typeof value === 'string') {
                     this.searchParams.set(name, value);
                 } else {
+                    // eslint-disable-next-line no-restricted-syntax
                     for (const itValue of [...value].sort()) {
                         this.searchParams.append(name, itValue);
                     }
@@ -38,7 +43,7 @@ export class Query {
 
     toString(): string {
         let searchParams = this.getSearchParams().toString();
-        if (searchParams) searchParams = '?' + searchParams;
+        if (searchParams) searchParams = `?${searchParams}`;
         return `${this.getPath()}${searchParams}`;
     }
 
@@ -162,23 +167,23 @@ export const field = (fieldName: string) => `\`${fieldName.replace(/`/g, '\\`')}
 
 export const string = (value: string) => JSON.stringify(value);
 
-export const dateTime = (date: Date) => `date'${date.toISOString()}'`;
+export const dateTime = (d: Date) => `date'${d.toISOString()}'`;
 
-export const date = (date: Date) => `date'${date.toISOString().split('T')[0]}'`;
+export const date = (d: Date) => `date'${d.toISOString().split('T')[0]}'`;
 
 export const all = (...conditions: (string | undefined | null)[]) =>
     conditions
         .filter(Boolean)
-        .map(condition => `(${condition})`)
+        .map((condition) => `(${condition})`)
         .join(' AND ');
 
 export const one = (...conditions: (string | undefined | null)[]) =>
     conditions
         .filter(Boolean)
-        .map(condition => `(${condition})`)
+        .map((condition) => `(${condition})`)
         .join(' OR ');
 
 export const list = (...values: (string | undefined | null)[]) => values.filter(Boolean).join(',');
 
 export const not = (condition: string | undefined | null) =>
-    Boolean(condition) ? `not (${condition})` : '';
+    condition ? `not (${condition})` : '';

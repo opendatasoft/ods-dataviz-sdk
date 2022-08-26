@@ -22,7 +22,7 @@ const pieDataLabelsPlugin: Plugin<'pie'> = {
             labels?.forEach((_, i) => {
                 // FIXME: Why do we have to use `as any` instead of `as ArcElement` to type `acr`, even tho
                 // ... `arc instanceof ArcElement` returns true?
-                const arc = chart.getDatasetMeta(0).data[i] as any;
+                const arc = chart.getDatasetMeta(0).data[i] as any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
                 // Get the center of the chart and the center point of the slice to determine the angle
                 const centerPoint = arc.getCenterPoint();
