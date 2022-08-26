@@ -84,7 +84,8 @@ describe('Api client', () => {
             /* (Optional) Allow you to intercept the response before it is returned */
             interceptResponse: async (response) => {
                 const apiResponse = await response.text();
-                return `${apiResponse}_intercepted`;
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                return `${apiResponse}_intercepted` as any;
             },
         });
 
