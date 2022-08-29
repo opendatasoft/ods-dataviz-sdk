@@ -13,6 +13,7 @@ export interface ChoroplethOptions {
     emptyValueColor: Color;
     tooltip: { label: ChoroplethTooltipFormatter };
     fixedBbox?: BBox | undefined;
+    filter?: string[] | number[] | undefined;
 }
 
 export interface MapLegend {

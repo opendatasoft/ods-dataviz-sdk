@@ -33,13 +33,12 @@ const dataF: any = [
     { x: 94, y: 123 },
 ];
 
-
 const shapes: any = {
-	type: "vtiles",
-    url: "https://static.opendatasoft.com/vector-tiles/fr_40_region_2021/{z}/{x}/{y}.pbf",
-	sourceLayer: "fr_40_region_2021",
-    key: "reg_code",
-    label: "reg_code",
+    type: 'vtiles',
+    url: 'https://static.opendatasoft.com/vector-tiles/fr_40_region_2021/{z}/{x}/{y}.pbf',
+    sourceLayer: 'fr_40_region_2021',
+    key: 'reg_code',
+    label: 'reg_code',
 };
 
 const defaultLabelCallback: ChoroplethTooltipFormatter = ({ label, value }) =>
@@ -81,7 +80,7 @@ const StudioChoroplethVectorGradientArgs: Props<DataFrame, ChoroplethOptions> = 
         aspectRatio: 1,
         activeShapes: ['11', '93'],
         emptyValueColor: 'red',
-        fixedBbox: [-180,-85.051129,180,85.051129],
+        fixedBbox: [-180, -85.051129, 180, 85.051129],
         tooltip: {
             label: defaultLabelCallback,
         },
@@ -106,7 +105,7 @@ const StudioChoroplethVectorPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
         },
         aspectRatio: 1,
         emptyValueColor: 'red',
-        fixedBbox: [-17.529298,38.797760,23.889159,52.836618],
+        fixedBbox: [-17.529298, 38.79776, 23.889159, 52.836618],
         tooltip: {
             label: defaultLabelCallback,
         },
@@ -131,10 +130,11 @@ const StudioChoroplethVectorFilterArgs: Props<DataFrame, ChoroplethOptions> = {
         },
         emptyValueColor: '#FFFFFF',
         aspectRatio: 1,
-        fixedBbox: [-5.637513,45.500521,1.382751,49.219343],
+        fixedBbox: [-5.637513, 45.500521, 1.382751, 49.219343],
         tooltip: {
             label: defaultLabelCallback,
         },
+        filter: [52, 53],
     },
 };
 StudioChoroplethVectorFilter.args = StudioChoroplethVectorFilterArgs;

@@ -32,6 +32,8 @@
     let activeShapes: string[] | undefined;
     let interactive: boolean;
     let legend: MapLegend | undefined;
+    let filter: (string|number)[] | undefined;
+    let filterExpression: (string|string[])[] | undefined;
 
     // Used to apply a chosen color for shapes without values (default: #cccccc)
     let emptyValueColor: Color;
@@ -46,6 +48,7 @@
         interactive = defaultInteractive,
         emptyValueColor = DEFAULT_COLORS.Default,
         fixedBbox,
+        filter,
     } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
@@ -67,7 +70,9 @@
             // We don't have everything we need yet
             return;
         }
-
+        if (filter) {
+            values = values.filter(value => filter?.includes(value.x))
+        };
         dataBounds = getDataBounds(values);
         const colors = mapKeyToColor(values, dataBounds, newColorScales, emptyValueColor);
 
@@ -152,6 +157,22 @@
 
         return format ? format(tooltipRawValues) : defaultFormat(tooltipRawValues);
     };
+
+    function computeFilterExpression(filterArray: (string | number)[]) {
+        const key = isVectorTile(shapes) ? shapes.key : 'key';
+        const filterMatchExpression: (string | string[])[] = ['all'];
+        const filterArgument: string[] = ['in', key];
+        filterArray.forEach((value) => {
+            filterArgument.push(value.toString())
+        });
+        filterMatchExpression.push(filterArgument);
+        return filterMatchExpression;
+
+    };
+
+    $: if (filter) {filterExpression = computeFilterExpression(filter)}
+
+    // $: const filterToMapRender = computeFilterExpression(filter);
 </script>
 
 <div>
@@ -165,9 +186,9 @@
         {legend}
         {renderTooltip}
         {bbox}
-        {fixedBbox}
         {activeShapes}
         {interactive}
+        {filterExpression}
     />
 </div>
 

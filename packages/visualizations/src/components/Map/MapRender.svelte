@@ -10,6 +10,7 @@
         MapSourceDataEvent,
         MapLayerMouseEvent,
         LngLatLike,
+        FilterSpecification,
     } from 'maplibre-gl';
     import { onMount } from 'svelte';
     import { debounce } from 'lodash';
@@ -44,8 +45,8 @@
     export let activeShapes: string[] | undefined;
     // aspect ratio based on width, by default equal to 1
     export let aspectRatio = 1;
-    // Used to force a fixed Bbox to display map
-    export let fixedBbox: BBox | undefined;
+    // Used to filter the rendered features
+    export let filterExpression: FilterSpecification | undefined;
 
     let clientWidth: number;
     let legendVariant: LegendVariant;
@@ -247,7 +248,9 @@
                 id: layerId,
                 source: sourceId,
             });
-
+            if (filterExpression) {
+                map.setFilter(layerId, filterExpression);
+            };
             map.on('sourcedata', sourceLoadingCallback);
         }
     }
