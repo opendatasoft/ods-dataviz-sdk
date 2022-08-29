@@ -38,6 +38,9 @@
     // Used to apply a chosen color for shapes without values (default: #cccccc)
     let emptyValueColor: Color;
 
+    // Used to determine the shapes key
+    let matchKey: string;
+
     const defaultInteractive = true;
     $: ({
         shapes,
@@ -141,17 +144,18 @@
     const defaultFormat: ChoroplethTooltipFormatter = ({ value, label }) =>
         value ? `${label} &mdash; ${value}` : label;
 
+    $: matchKey = isVectorTile(shapes) ? shapes.key : 'key';
+
     $: renderTooltip = (hoveredFeature) => {
-        const key = isVectorTile(shapes) ? shapes.key : 'key';
         const values = data.value || [];
         const matchedFeature = values.find(
-            (item) => String(item.x) === hoveredFeature.properties?.[key]
+            (item) => String(item.x) === hoveredFeature.properties?.[matchKey]
         );
 
         const tooltipRawValues: { value?: number; label: string; key: string } = {
             value: matchedFeature?.y,
-            label: hoveredFeature.properties?.label || hoveredFeature.properties?.[key],
-            key: hoveredFeature.properties?.[key], // === matchedFeature.x
+            label: hoveredFeature.properties?.label || hoveredFeature.properties?.[matchKey],
+            key: hoveredFeature.properties?.[matchKey], // === matchedFeature.x
         };
         const format = options?.tooltip?.label;
 
@@ -159,9 +163,8 @@
     };
 
     function computeFilterExpression(filterArray: (string | number)[]) {
-        const key = isVectorTile(shapes) ? shapes.key : 'key';
         const filterMatchExpression: (string | string[])[] = ['all'];
-        const filterArgument: string[] = ['in', key];
+        const filterArgument: string[] = ['in', matchKey];
         filterArray.forEach((value) => {
             filterArgument.push(value.toString())
         });
@@ -171,8 +174,6 @@
     };
 
     $: if (filter) {filterExpression = computeFilterExpression(filter)}
-
-    // $: const filterToMapRender = computeFilterExpression(filter);
 </script>
 
 <div>
