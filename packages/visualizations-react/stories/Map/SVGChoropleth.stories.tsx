@@ -5,7 +5,7 @@ import { shapes } from './shapes';
 
 
 const meta: Meta = {
-    title: 'Map/SVGChoropleth',
+    title: 'Map/SvsChoropleth',
     component: SvgChoropleth,
 };
 
@@ -13,10 +13,10 @@ export default meta;
 const Template = (args) => (
     <div
         style={{
-            height: '100px',
-            width: '100px',
             margin: 'auto',
             border: '1px solid black',
+            padding: '13px',
+            display: 'inline-block',
         }}
     >
         <SvgChoropleth {...args} style={{ height: '100px', width: '100px' }} />
@@ -27,5 +27,12 @@ export const SvgChoroplethStory = Template.bind({});
 SvgChoroplethStory.args = {
     options: {
         geoJson: shapes,
-    }
-}
+    },
+    data: {
+        value: [
+            { x: 'France', y: 60 },
+            { x: 'Île de France', y: 35 },
+            { x: 'Corsica', y: 95 },
+        ],
+    },
+};
