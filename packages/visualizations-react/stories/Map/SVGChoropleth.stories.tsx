@@ -1,7 +1,8 @@
 import React from 'react';
 import { Meta } from '@storybook/react';
 import { SvgChoropleth } from '../../src';
-import { shapes, multiPolygonShapes } from './shapes';
+import { shapes } from './shapes';
+
 
 const meta: Meta = {
     title: 'Map/SVGChoropleth',
@@ -12,28 +13,19 @@ export default meta;
 const Template = (args) => (
     <div
         style={{
-            width: '90%',
-            minHeight: '100px',
-            minWidth: '100px',
+            height: '100px',
+            width: '100px',
             margin: 'auto',
             border: '1px solid black',
         }}
     >
-        <SvgChoropleth {...args} />
+        <SvgChoropleth {...args} style={{ height: '100px', width: '100px' }} />
     </div>
 );
 
-export const SVGChoroplethStory = Template.bind({});
-SVGChoroplethStory.args = {
+export const SvgChoroplethStory = Template.bind({});
+SvgChoroplethStory.args = {
     options: {
-        shapes,
-    },
-};
-
-export const SVGChoroplethMultipolygonStory = Template.bind({});
-SVGChoroplethMultipolygonStory.args = {
-    options: {
-        shapes: multiPolygonShapes,
-    },
-};
-
+        geoJson: shapes,
+    }
+}

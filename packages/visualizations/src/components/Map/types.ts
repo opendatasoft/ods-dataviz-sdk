@@ -13,6 +13,11 @@ export interface ChoroplethOptions {
     tooltip: { label: ChoroplethTooltipFormatter };
 }
 
+export interface SvgChoroplethOptions {
+    geoJson: ChoroplethShapeGeoJsonValue;
+    emptyValueColor?: Color;
+}
+
 export interface MapLegend {
     title?: string;
 }
