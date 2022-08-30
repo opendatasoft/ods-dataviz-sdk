@@ -36,6 +36,8 @@ module.exports = {
         'svelte3/typescript': true,
     },
     rules: {
+        semi: ['error', 'always'],
+        '@typescript-eslint/semi': ['error', 'always'],
         'max-len': [
             'error',
             {
