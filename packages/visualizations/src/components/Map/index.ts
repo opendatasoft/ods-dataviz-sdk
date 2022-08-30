@@ -1,4 +1,5 @@
-import type { ChoroplethOptions, DataFrame } from '../types';
+import type { DataFrame } from '../types';
+import type { ChoroplethOptions } from './types';
 import ChoroplethImpl from './Choropleth.svelte';
 import SVGChoroplethImpl from './SVGChoropleth.svelte';
 import SvelteImpl from '../SvelteImpl';

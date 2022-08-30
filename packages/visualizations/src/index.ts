@@ -4,3 +4,4 @@ export { default as KpiCard } from './components/KpiCard';
 export { default as Choropleth, SVGChoropleth } from './components/Map';
 export * from './types';
 export * from './components/types';
+export * from './components/Map/types';

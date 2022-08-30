@@ -234,8 +234,6 @@ export interface KpiCardOptions {
     format?: (value: number) => string;
 }
 
-export interface ChoroplethOptions {}
-
 export interface DataBounds {
     min: number;
     max: number;

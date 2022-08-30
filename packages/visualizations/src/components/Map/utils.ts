@@ -2,23 +2,42 @@ import chroma from 'chroma-js';
 import turfBbox from '@turf/bbox';
 import maplibregl from 'maplibre-gl';
 import geoViewport from '@mapbox/geo-viewport';
+import type { FeatureCollection, Feature, Position, BBox } from 'geojson';
+import type { Scale } from 'chroma-js';
+import type { Color, ColorsScale } from '../types';
+import type {
+    ChoroplethDataValue,
+    ChoroplethFixedTooltipDescription,
+    MapRenderTooltipFunction,
+} from './types';
 
-export const LIGHT_GREY = '#CBD2DB';
-export const DARK_GREY = '#515457';
+export const LIGHT_GREY: Color = '#CBD2DB';
+export const DARK_GREY: Color = '#515457';
 
-export const colorShapes = (geoJson, values, colorsScale, emptyValueColor) => {
+export const colorShapes = (
+    geoJson: FeatureCollection,
+    values: ChoroplethDataValue[],
+    colorsScale: ColorsScale,
+    emptyValueColor: Color
+): {
+    geoJson: FeatureCollection;
+    bounds: {
+        min: number;
+        max: number;
+    };
+} => {
     // Key in the values is "x"
     // Key in the shapes is "key"
     // We add a color property in the JSON
     const rawValues = values.map((v) => v.y);
     const min = Math.min(...rawValues);
     const max = Math.max(...rawValues);
-    let colorMin;
-    let colorMax;
-    let scale;
+    let colorMin: Color;
+    let colorMax: Color;
+    let scale: Scale;
 
     if (colorsScale?.type === 'palette') {
-        const thresholdArray = [];
+        const thresholdArray: number[] = [];
         colorsScale.colors.forEach((_color, i) => {
             if (i === 0) {
                 thresholdArray.push(min);
@@ -36,15 +55,15 @@ export const colorShapes = (geoJson, values, colorsScale, emptyValueColor) => {
         scale = chroma.scale([colorMin, colorMax]).domain([min, max]);
     }
 
-    const dataMapping = {};
+    const dataMapping: { [key: ChoroplethDataValue['x']]: ChoroplethDataValue['y'] } = {};
     values.forEach((v) => {
         dataMapping[v.x] = v.y;
     });
 
     // Iterate shapes, compute color from matching value
     const coloredFeatures = geoJson.features.map((feature) => {
-        const shapeMapping = feature.properties.key;
-        const value = dataMapping[shapeMapping]; // FIXME: beware of int/string differences in keys
+        const shapeMapping: string = feature.properties?.key;
+        const value: number = dataMapping[shapeMapping]; // FIXME: beware of int/string differences in keys
         const color = value ? scale(value).hex() : emptyValueColor;
 
         return {
@@ -67,31 +86,14 @@ export const colorShapes = (geoJson, values, colorsScale, emptyValueColor) => {
     };
 };
 
-export const mapKeyToColor = (values, colorScale) => {
-    const rawValues = values.map((v) => v.y);
-    const min = Math.min(...rawValues);
-    const max = Math.max(...rawValues);
-
-    const colorMin = chroma(colorScale).darken(4).hex();
-    const colorMax = chroma(colorScale).brighten(4).hex();
-
-    const scale = chroma.scale([colorMin, colorMax]).domain([min, max]);
-
-    const mapping = {};
-
-    values.forEach((v) => {
-        mapping[v.x] = scale(v.y).hex();
-    });
-
-    return mapping;
-};
-
 // This is a default bound that will be extended
-const VOID_BOUNDS = [180, 90, -180, -90];
+const VOID_BOUNDS: BBox = [180, 90, -180, -90];
 
-export function computeBboxFromCoords(coordsPath, bbox) {
-    return coordsPath.reduce(
-        (current, coords) => [
+type CoordsPath = Position[];
+
+function computeBboxFromCoords(coordsPath: CoordsPath, bbox: BBox): BBox {
+    return coordsPath.reduce<BBox>(
+        (current: BBox, coords: Position) => [
             Math.min(coords[0], current[0]),
             Math.min(coords[1], current[1]),
             Math.max(coords[0], current[2]),
@@ -103,8 +105,12 @@ export function computeBboxFromCoords(coordsPath, bbox) {
 
 // The features given by querySourceFeatures are cut based on a tile representation
 // but we need the bounding box of the features themselves, so we need to build them again
-function mergeBboxFromFeaturesWithSameKey(features) {
-    const mergedBboxes = {};
+function mergeBboxFromFeaturesWithSameKey(features: Feature[]) {
+    const mergedBboxes: {
+        [key: string]: {
+            bbox: BBox;
+        };
+    } = {};
     features.forEach((feature) => {
         // FIXME: supports only shapes for now
         if (feature.geometry.type === 'Polygon') {
@@ -113,14 +119,14 @@ function mergeBboxFromFeaturesWithSameKey(features) {
             feature.geometry.coordinates.forEach((coordsPath) => {
                 bbox = computeBboxFromCoords(coordsPath, bbox);
             });
-            const id = feature.properties.key;
+            const id: string = feature.properties?.key;
             if (!mergedBboxes[id]) {
                 mergedBboxes[id] = {
                     bbox,
                 };
             } else {
                 const storedBbox = mergedBboxes[id].bbox;
-                const mergedBbox = [
+                const mergedBbox: BBox = [
                     Math.min(bbox[0], storedBbox[0]),
                     Math.min(bbox[1], storedBbox[1]),
                     Math.max(bbox[2], storedBbox[2]),
@@ -137,10 +143,13 @@ function mergeBboxFromFeaturesWithSameKey(features) {
 }
 
 // We're calculating the maximum zoom required to fit the smallest feature we're displaying, to prevent people from zooming "too far" by accident
-export const computeMaxZoomFromGeoJsonFeatures = (mapContainer, features) => {
+export const computeMaxZoomFromGeoJsonFeatures = (
+    mapContainer: HTMLElement,
+    features: Feature[]
+): number => {
     let maxZoom = 0; // maxZoom lowest value possible
     const filteredBboxes = mergeBboxFromFeaturesWithSameKey(features);
-    Object.values(filteredBboxes).forEach((value) => {
+    Object.values(filteredBboxes).forEach((value: any) => {
         // Vtiles = 512 tilesize
         maxZoom = Math.max(
             geoViewport.viewport(
@@ -157,16 +166,20 @@ export const computeMaxZoomFromGeoJsonFeatures = (mapContainer, features) => {
     return maxZoom;
 };
 
-const getShapeCenter = (feature) => {
+const getShapeCenter = (feature: Feature) => {
     const featureBbox = turfBbox(feature.geometry);
     const centerLatitude = (featureBbox[1] + featureBbox[3]) / 2;
     const centerLongitude = (featureBbox[0] + featureBbox[2]) / 2;
     return [centerLongitude, centerLatitude];
 };
 
-export const getFixedTooltips = (shapeKeys, features, renderTooltip) => {
+export const getFixedTooltips = (
+    shapeKeys: string[],
+    features: Feature[],
+    renderTooltip: MapRenderTooltipFunction
+): ChoroplethFixedTooltipDescription[] => {
     const popups = shapeKeys.map((shapeKey) => {
-        const matchedFeature = features.find((feature) => feature.properties.key === shapeKey);
+        const matchedFeature = features.find((feature) => feature.properties?.key === shapeKey);
         if (matchedFeature) {
             const center = getShapeCenter(matchedFeature);
             const description = renderTooltip(matchedFeature);
@@ -180,5 +193,7 @@ export const getFixedTooltips = (shapeKeys, features, renderTooltip) => {
         return null;
     });
 
-    return popups;
+    return popups.filter((item): item is NonNullable<ChoroplethFixedTooltipDescription> =>
+        Boolean(item)
+    ) as ChoroplethFixedTooltipDescription[];
 };
