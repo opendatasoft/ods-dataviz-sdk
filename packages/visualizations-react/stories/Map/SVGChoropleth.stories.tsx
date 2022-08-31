@@ -5,7 +5,7 @@ import { shapes } from './shapes';
 
 
 const meta: Meta = {
-    title: 'Map/SvsChoropleth',
+    title: 'Map/SvgChoropleth',
     component: SvgChoropleth,
 };
 

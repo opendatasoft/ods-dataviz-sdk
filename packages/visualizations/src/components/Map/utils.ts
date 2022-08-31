@@ -2,7 +2,7 @@ import chroma from 'chroma-js';
 import turfBbox from '@turf/bbox';
 import maplibregl from 'maplibre-gl';
 import geoViewport from '@mapbox/geo-viewport';
-import type { FeatureCollection, Feature, Position, BBox } from 'geojson';
+import type { FeatureCollection, Feature, Position, BBox, GeoJsonObject } from 'geojson';
 import type { Scale } from 'chroma-js';
 import type { Color, ColorsScale } from '../types';
 import type {
@@ -13,6 +13,22 @@ import type {
 
 export const LIGHT_GREY: Color = '#CBD2DB';
 export const DARK_GREY: Color = '#515457';
+export const EMPTY_GJ = {
+    type: 'geojson',
+    geoJson: {
+        type: 'featureCollection',
+        features: [],
+    },
+}
+
+
+export const DEFAULT_COLORSSCALE: ColorsScale = {
+    type: 'gradient',
+    colors: {
+        start: LIGHT_GREY,
+        end: DARK_GREY,
+    },
+};
 
 export const colorShapes = (
     geoJson: FeatureCollection,

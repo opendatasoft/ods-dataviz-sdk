@@ -15,6 +15,7 @@ export interface ChoroplethOptions {
 
 export interface SvgChoroplethOptions {
     geoJson: ChoroplethShapeGeoJsonValue;
+    colorsScale?: ColorsScale;
     emptyValueColor?: Color;
 }
 
