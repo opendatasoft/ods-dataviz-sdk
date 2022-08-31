@@ -190,6 +190,7 @@
         {activeShapes}
         {interactive}
         {filterExpression}
+        {matchKey}
     />
 </div>
 

@@ -87,7 +87,7 @@ function computeBboxFromCoords(coordsPath: CoordsPath, bbox: BBox): BBox {
 
 // The features given by querySourceFeatures are cut based on a tile representation
 // but we need the bounding box of the features themselves, so we need to build them again
-function mergeBboxFromFeaturesWithSameKey(features: Feature[]) {
+function mergeBboxFromFeaturesWithSameKey(features: Feature[], matchKey: string) {
     const mergedBboxes: {
         [key: string]: {
             bbox: BBox;
@@ -101,7 +101,7 @@ function mergeBboxFromFeaturesWithSameKey(features: Feature[]) {
             feature.geometry.coordinates.forEach((coordsPath) => {
                 bbox = computeBboxFromCoords(coordsPath, bbox);
             });
-            const id: string = feature.properties?.key;
+            const id: string = feature.properties?.[matchKey];
             if (!mergedBboxes[id]) {
                 mergedBboxes[id] = { bbox };
             } else {
@@ -125,10 +125,11 @@ function mergeBboxFromFeaturesWithSameKey(features: Feature[]) {
 // We're calculating the maximum zoom required to fit the smallest feature we're displaying, to prevent people from zooming "too far" by accident
 export const computeMaxZoomFromGeoJsonFeatures = (
     mapContainer: HTMLElement,
-    features: Feature[]
+    features: Feature[],
+    matchKey: string,
 ): number => {
     let maxZoom = 0; // maxZoom lowest value possible
-    const filteredBboxes = mergeBboxFromFeaturesWithSameKey(features);
+    const filteredBboxes = mergeBboxFromFeaturesWithSameKey(features, matchKey);
     // FIXME: any
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Object.values(filteredBboxes).forEach((value: any) => {
@@ -158,11 +159,12 @@ const getShapeCenter = (feature: Feature) => {
 export const getFixedTooltips = (
     shapeKeys: string[],
     features: Feature[],
-    renderTooltip: MapRenderTooltipFunction
+    renderTooltip: MapRenderTooltipFunction,
+    matchKey: string,
 ): ChoroplethFixedTooltipDescription[] => {
     const popups = shapeKeys.map((shapeKey) => {
         const matchedFeature = features.find(
-            (feature) => feature.properties?.reg_code === shapeKey
+            (feature) => feature.properties?.[matchKey] === shapeKey
         );
         if (matchedFeature) {
             const center = getShapeCenter(matchedFeature);
