@@ -60,7 +60,7 @@ export const mapKeyToColor = (
             assertUnreachable(colorsScale);
     }
 
-    const dataMapping: { [s: string]: Color } = {};
+    const dataMapping: { [s: ChoroplethDataValue['x']]: Color } = {};
     values.forEach(({ x, y }) => {
         dataMapping[x] = y ? scale(y).hex() : emptyValueColor;
     });
