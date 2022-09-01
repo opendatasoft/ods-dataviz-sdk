@@ -3,6 +3,16 @@ import { Meta } from '@storybook/react';
 import { SvgChoropleth } from '../../src';
 import { shapes } from './shapes';
 
+const scales = {
+    grey: undefined,
+    blue: {
+        type: 'gradient',
+        colors: {
+            start: '#bcf5f9',
+            end: '#0229bf',
+        }
+    }
+};
 
 const meta: Meta = {
     title: 'Map/SvgChoropleth',
@@ -10,24 +20,36 @@ const meta: Meta = {
 };
 
 export default meta;
-const Template = (args) => (
-    <div
-        style={{
-            margin: 'auto',
-            border: '1px solid black',
-            padding: '13px',
-            display: 'inline-block',
-        }}
-    >
-        <SvgChoropleth {...args} style={{ height: '100px', width: '100px' }} />
-    </div>
-);
+const Template = ({ height, width, colorsScale, ...args }) => {
+    const options = { colorsScale: scales[colorsScale], ...args.options };
+    return (
+        <div
+            style={{
+                margin: 'auto',
+                border: '1px solid black',
+                padding: '13px',
+                display: 'inline-block',
+                height,
+                width,
+            }}
+        >
+            <SvgChoropleth options={options} data={args.data} style={{height: '100%', width: '100%'}} />
+        </div>
+    )
+};
 
 export const SvgChoroplethStory = Template.bind({});
-SvgChoroplethStory.args = {
-    options: {
-        geoJson: shapes,
+SvgChoroplethStory.argTypes = {
+    colorsScale: {
+        options: ['grey', 'blue'],
+        control: { type: 'select' },
     },
+}
+SvgChoroplethStory.args = {
+    height: '100px',
+    width: '100px',
+    colorsScale: null,
+    options: { geoJson: shapes },
     data: {
         value: [
             { x: 'France', y: 60 },
