@@ -1,7 +1,6 @@
-import type { Feature, FeatureCollection, Position } from 'geojson';
+import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
 import type { FillLayerSpecification, Popup } from 'maplibre-gl';
 import type { Color, ColorScales } from '../types';
-import type { BBox } from 'geojson';
 
 export interface ChoroplethOptions {
     shapes: ChoroplethShapeValue;

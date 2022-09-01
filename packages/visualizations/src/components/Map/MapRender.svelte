@@ -142,21 +142,25 @@
                 // @ts-ignore
                 {
                     sourceLayer: layer['source-layer'] || layerId, // FIXME: This may not the best way to do it
-                },
+                }
             );
 
             if (renderedFeatures.length) {
                 // Restrict zoom max
                 // TODO: We may not catch the smaller shapes if Maplibre discarded them for rendering reasons, so it's a bit risky. Is it worth it?
                 // A low-cost approach could be to restrict the zoom scale to an arbitrary value (e.g. only 4 from the max zoom)... or not restrict at all.
-                const maxZoom = computeMaxZoomFromGeoJsonFeatures(container, renderedFeatures, matchKey);
+                const maxZoom = computeMaxZoomFromGeoJsonFeatures(
+                    container,
+                    renderedFeatures,
+                    matchKey
+                );
                 map.setMaxZoom(maxZoom);
                 if (activeShapes && activeShapes.length > 0 && renderTooltip) {
                     fixedPopupsList = getFixedTooltips(
                         activeShapes,
                         renderedFeatures,
                         renderTooltip,
-                        matchKey,
+                        matchKey
                     );
                 }
             }
@@ -253,7 +257,7 @@
             });
             if (filterExpression) {
                 map.setFilter(layerId, filterExpression);
-            };
+            }
             map.on('sourcedata', sourceLoadingCallback);
         }
     }

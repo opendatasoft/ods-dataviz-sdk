@@ -32,8 +32,8 @@
     let activeShapes: string[] | undefined;
     let interactive: boolean;
     let legend: MapLegend | undefined;
-    let filter: (string|number)[] | undefined;
-    let filterExpression: (string|string[])[] | undefined;
+    let filter: (string | number)[] | undefined;
+    let filterExpression: (string | string[])[] | undefined;
 
     // Used to apply a chosen color for shapes without values (default: #cccccc)
     let emptyValueColor: Color;
@@ -73,11 +73,13 @@
             // We don't have everything we need yet
             return;
         }
+        let filteredValues: ChoroplethDataValue[] = values;
         if (filter) {
-            values = values.filter(value => filter?.includes(value.x))
-        };
-        dataBounds = getDataBounds(values);
-        const colors = mapKeyToColor(values, dataBounds, newColorScales, emptyValueColor);
+            filteredValues = values.filter((value) => filter?.includes(value.x));
+        }
+
+        dataBounds = getDataBounds(filteredValues);
+        const colors = mapKeyToColor(filteredValues, dataBounds, newColorScales, emptyValueColor);
 
         if (newShapes.type === 'geojson' && newShapes.geoJson) {
             // Iterate shapes, compute color from matching value
@@ -85,7 +87,7 @@
                 ...feature,
                 properties: {
                     ...feature.properties,
-                    color: colors[feature.properties?.key] || emptyValueColor,
+                    color: colors[feature.properties?.key] || emptyValueColor,
                 },
             }));
 
@@ -107,7 +109,7 @@
                 },
             };
 
-            bbox = fixedBbox ? fixedBbox : turfBbox(newShapes.geoJson);
+            bbox = fixedBbox || turfBbox(newShapes.geoJson);
         } else if (newShapes.type === 'vtiles') {
             source = {
                 type: 'vector',
@@ -163,17 +165,18 @@
     };
 
     function computeFilterExpression(filterArray: (string | number)[]) {
-        const filterMatchExpression: (string | string[])[] = ['all'];
+        const filterMatchExpression: (string | string[])[] = ['all'];
         const filterArgument: string[] = ['in', matchKey];
         filterArray.forEach((value) => {
-            filterArgument.push(value.toString())
+            filterArgument.push(value.toString());
         });
         filterMatchExpression.push(filterArgument);
         return filterMatchExpression;
+    }
 
-    };
-
-    $: if (filter) {filterExpression = computeFilterExpression(filter)}
+    $: if (filter) {
+        filterExpression = computeFilterExpression(filter);
+    }
 </script>
 
 <div>

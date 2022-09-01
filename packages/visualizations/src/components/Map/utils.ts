@@ -126,7 +126,7 @@ function mergeBboxFromFeaturesWithSameKey(features: Feature[], matchKey: string)
 export const computeMaxZoomFromGeoJsonFeatures = (
     mapContainer: HTMLElement,
     features: Feature[],
-    matchKey: string,
+    matchKey: string
 ): number => {
     let maxZoom = 0; // maxZoom lowest value possible
     const filteredBboxes = mergeBboxFromFeaturesWithSameKey(features, matchKey);
@@ -160,7 +160,7 @@ export const getFixedTooltips = (
     shapeKeys: string[],
     features: Feature[],
     renderTooltip: MapRenderTooltipFunction,
-    matchKey: string,
+    matchKey: string
 ): ChoroplethFixedTooltipDescription[] => {
     const popups = shapeKeys.map((shapeKey) => {
         const matchedFeature = features.find(
