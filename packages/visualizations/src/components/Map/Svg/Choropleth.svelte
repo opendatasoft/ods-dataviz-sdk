@@ -10,7 +10,7 @@
     $: ({ geoJson, colorsScale = DEFAULT_COLORSSCALE, emptyValueColor = LIGHT_GREY } = options);
 
     $: coloredShapes =
-        geoJson?.geoJson && geoJson.type == 'geojson'
+        geoJson?.geoJson && geoJson.type === 'geojson'
             ? colorShapes(geoJson.geoJson, data.value, colorsScale, emptyValueColor)
             : EMPTY_GJ;
 </script>
