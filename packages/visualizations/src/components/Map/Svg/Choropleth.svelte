@@ -1,7 +1,7 @@
 <script lang="ts">
     import { geoEqualEarth } from 'd3-geo';
     import { colorShapes, LIGHT_GREY, DEFAULT_COLORSSCALE, EMPTY_GJ } from '../utils';
-    import SvgMap from './SvgMap.svelte';
+    import Map from './Map.svelte';
 
     import type { SvgChoroplethOptions, ChoroplethDataValue } from '../types';
 
@@ -15,7 +15,7 @@
             : EMPTY_GJ;
 </script>
 
-<SvgMap
+<Map
     projection={geoEqualEarth()}
     featureCollection={coloredShapes.geoJson}
     svgProps={{ fill: 'color' }}

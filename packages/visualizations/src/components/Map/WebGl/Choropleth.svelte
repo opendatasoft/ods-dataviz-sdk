@@ -5,10 +5,10 @@
     import type { SourceSpecification } from 'maplibre-gl';
     // eslint-disable-next-line import/no-unresolved
     import type { BBox, FeatureCollection } from 'geojson';
-    import type { ColorsScale, DataBounds, Color } from '../types';
+    import type { ColorsScale, DataBounds, Color } from '../../types';
     import MapRender from './MapRender.svelte';
-    import { BLANK } from './mapStyles';
-    import { colorShapes, LIGHT_GREY, DARK_GREY } from './utils';
+    import { BLANK } from '../mapStyles';
+    import { colorShapes, LIGHT_GREY, DARK_GREY } from '../utils';
     import type {
         ChoroplethDataValue,
         ChoroplethLayer,
@@ -17,7 +17,7 @@
         ChoroplethShapeValue,
         ChoroplethTooltipFormatter,
         MapLegend,
-    } from './types';
+    } from '../types';
 
     export let data: { value: ChoroplethDataValue[] }; // values, and the key to match
     export let options: ChoroplethOptions; // contains the shapes to display & match

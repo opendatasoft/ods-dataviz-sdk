@@ -15,15 +15,15 @@
     import { debounce } from 'lodash';
     // eslint-disable-next-line import/no-unresolved
     import type { BBox } from 'geojson';
-    import { computeMaxZoomFromGeoJsonFeatures, getFixedTooltips } from './utils';
-    import ColorsLegend from '../utils/ColorsLegend.svelte';
-    import type { ColorsScale, DataBounds, LegendVariant } from '../types';
+    import { computeMaxZoomFromGeoJsonFeatures, getFixedTooltips } from '../utils';
+    import ColorsLegend from '../../utils/ColorsLegend.svelte';
+    import type { ColorsScale, DataBounds, LegendVariant } from '../../types';
     import type {
         ChoroplethFixedTooltipDescription,
         MapLayer,
         MapRenderTooltipFunction,
         MapLegend,
-    } from './types';
+    } from '../types';
 
     // maplibre style (basemap)
     export let style: StyleSpecification;

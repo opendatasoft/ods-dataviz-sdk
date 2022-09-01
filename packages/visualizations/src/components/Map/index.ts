@@ -1,7 +1,7 @@
 import type { DataFrame } from '../types';
 import type { ChoroplethOptions } from './types';
-import ChoroplethImpl from './Choropleth.svelte';
-import SvgChoroplethImpl from './Svg/SvgChoropleth.svelte';
+import ChoroplethImpl from './WebGl/Choropleth.svelte';
+import SvgChoroplethImpl from './Svg/Choropleth.svelte';
 import SvelteImpl from '../SvelteImpl';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
