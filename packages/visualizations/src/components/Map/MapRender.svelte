@@ -96,7 +96,6 @@
         const start = {
             center: defaultCenter,
             zoom: 5,
-            antialias: true,
         };
 
         map = new maplibregl.Map({
@@ -172,10 +171,12 @@
     function addTooltip(e: MapLayerMouseEvent) {
         if (e.features) {
             const description = renderTooltip(e.features[0]);
-            if (hoverPopup.isOpen()) {
-                hoverPopup.setLngLat(e.lngLat).setHTML(description);
-            } else {
-                hoverPopup.setLngLat(e.lngLat).setHTML(description).addTo(map);
+            if (description) {
+                if (hoverPopup.isOpen()) {
+                    hoverPopup.setLngLat(e.lngLat).setHTML(description);
+                } else {
+                    hoverPopup.setLngLat(e.lngLat).setHTML(description).addTo(map);
+                }
             }
         }
     }

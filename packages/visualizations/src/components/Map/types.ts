@@ -1,5 +1,6 @@
 import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
 import type { FillLayerSpecification, Popup } from 'maplibre-gl';
+import type { DebouncedFunc } from 'lodash';
 import type { Color, ColorScales } from '../types';
 
 export interface ChoroplethOptions {
@@ -69,7 +70,7 @@ export interface ChoroplethFixedTooltipDescription {
     popup: Popup;
 }
 
-export type MapRenderTooltipFunction = (f: Feature) => string;
+export type MapRenderTooltipFunction = DebouncedFunc<(f: Feature) => string>;
 
 export type ChoroplethLayer = Omit<FillLayerSpecification, 'id' | 'source'>;
 

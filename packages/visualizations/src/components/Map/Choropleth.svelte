@@ -2,6 +2,7 @@
 
 <script lang="ts">
     import turfBbox from '@turf/bbox';
+    import { debounce } from 'lodash';
     import type { SourceSpecification } from 'maplibre-gl';
     import type { BBox } from 'geojson';
     import type { ColorScales, DataBounds, Color } from '../types';
@@ -148,7 +149,7 @@
 
     $: matchKey = isVectorTile(shapes) ? shapes.key : 'key';
 
-    $: renderTooltip = (hoveredFeature) => {
+    $: renderTooltip = debounce((hoveredFeature) => {
         const values = data.value || [];
         const matchedFeature = values.find(
             (item) => String(item.x) === hoveredFeature.properties?.[matchKey]
@@ -162,7 +163,7 @@
         const format = options?.tooltip?.labelFormatter;
 
         return format ? format(tooltipRawValues) : defaultFormat(tooltipRawValues);
-    };
+    }, 10);
 
     function computeFilterExpression(filterArray: (string | number)[]) {
         const filterMatchExpression: (string | string[])[] = ['all'];
