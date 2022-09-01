@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta } from '@storybook/react';
 import { Choropleth, Props } from '../../src';
-import { ChoroplethOptions, DataFrame } from '@opendatasoft/visualizations';
+import { ChoroplethOptions, DataFrame, ColorScaleTypes } from '@opendatasoft/visualizations';
 import { shapes } from './shapes';
 
 const meta: Meta = {
@@ -35,11 +35,9 @@ const ChoroplethLongLabelsArgs: Props<DataFrame, ChoroplethOptions> = {
         ],
     },
     options: {
-        style: {},
-        parameters: {},
         shapes,
         colorsScale: {
-            type: 'palette',
+            type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#1e03fd', '#0229bf'],
         },
         aspectRatio: 1,

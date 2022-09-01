@@ -36,8 +36,6 @@ const DefaultTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
         ],
     },
     options: {
-        style: {},
-        parameters: {},
         shapes,
         aspectRatio: 1,
         activeShapes: ['France', 'Corsica'],
@@ -56,13 +54,11 @@ const CustomSimpleTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
         ],
     },
     options: {
-        style: {},
-        parameters: {},
         shapes,
         aspectRatio: 1,
         activeShapes: ['Corsica'],
         tooltip: {
-            label: (feature) => {
+            labelFormatter: (feature) => {
                 return `Hello I'm <div style="color: red">${
                     feature.label
                 }</div> and my value is <div style="color: red">${feature.value || ''}</div>`;
@@ -83,13 +79,11 @@ const CustomComplexTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
         ],
     },
     options: {
-        style: {},
-        parameters: {},
         shapes,
         aspectRatio: 1,
         activeShapes: ['Île de France'],
         tooltip: {
-            label: (feature) => {
+            labelFormatter: (feature) => {
                 return `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center">
                         <h2 style="border-bottom: 1px solid lightgrey">${feature.label}</h2>
                         <img src="${IMAGES.rocket}" style="margin-bottom: 15px"></img>

@@ -35,8 +35,6 @@ const NonInteractiveChoroplethArgs: Props<DataFrame, ChoroplethOptions> = {
         ],
     },
     options: {
-        style: {},
-        parameters: {},
         shapes,
         aspectRatio: 1,
         activeShapes: ['France'],

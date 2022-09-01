@@ -159,7 +159,7 @@
             label: hoveredFeature.properties?.label || hoveredFeature.properties?.[matchKey],
             key: hoveredFeature.properties?.[matchKey], // === matchedFeature.x
         };
-        const format = options?.tooltip?.label;
+        const format = options?.tooltip?.labelFormatter;
 
         return format ? format(tooltipRawValues) : defaultFormat(tooltipRawValues);
     };

@@ -82,7 +82,7 @@ const StudioChoroplethVectorGradientArgs: Props<DataFrame, ChoroplethOptions> = 
         emptyValueColor: 'red',
         fixedBbox: [-180, -85.051129, 180, 85.051129],
         tooltip: {
-            label: defaultLabelCallback,
+            labelFormatter: defaultLabelCallback,
         },
     },
 };
@@ -107,7 +107,7 @@ const StudioChoroplethVectorPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
         emptyValueColor: 'red',
         fixedBbox: [-17.529298, 38.79776, 23.889159, 52.836618],
         tooltip: {
-            label: defaultLabelCallback,
+            labelFormatter: defaultLabelCallback,
         },
     },
 };
@@ -132,7 +132,7 @@ const StudioChoroplethVectorFilterArgs: Props<DataFrame, ChoroplethOptions> = {
         aspectRatio: 1,
         fixedBbox: [-5.637513, 45.500521, 1.382751, 49.219343],
         tooltip: {
-            label: defaultLabelCallback,
+            labelFormatter: defaultLabelCallback,
         },
         filter: [52, 53],
     },
