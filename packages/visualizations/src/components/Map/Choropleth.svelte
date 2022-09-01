@@ -125,7 +125,7 @@
 
             layer = {
                 type: 'fill',
-                'source-layer': newShapes.sourceLayer,
+                'source-layer': newShapes.layer,
                 layout: {},
                 paint: {
                     'fill-color': matchExpression,

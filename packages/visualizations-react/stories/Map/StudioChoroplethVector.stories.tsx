@@ -36,7 +36,7 @@ const dataF: any = [
 const shapes: any = {
     type: 'vtiles',
     url: 'https://static.opendatasoft.com/vector-tiles/fr_40_region_2021/{z}/{x}/{y}.pbf',
-    sourceLayer: 'fr_40_region_2021',
+    layer: 'fr_40_region_2021',
     key: 'reg_code',
     label: 'reg_code',
 };

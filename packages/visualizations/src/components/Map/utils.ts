@@ -187,5 +187,5 @@ export const getFixedTooltips = (
 export const isVectorTile = (
     shape: ChoroplethShapeValue
 ): shape is ChoroplethShapeVectorTilesValue =>
-    (shape as ChoroplethShapeVectorTilesValue).sourceLayer !== undefined &&
+    (shape as ChoroplethShapeVectorTilesValue).layer !== undefined &&
     (shape as ChoroplethShapeVectorTilesValue).key !== undefined;

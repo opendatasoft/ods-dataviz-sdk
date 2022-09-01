@@ -53,8 +53,9 @@ export interface ChoroplethShapeGeoJsonValue {
 export interface ChoroplethShapeVectorTilesValue {
     type: 'vtiles';
     url: string;
-    sourceLayer: string;
+    layer: string;
     key: string;
+    label?: string;
 }
 
 /** Structure containing everything necessary for a Choropleth to render shapes visually.
