@@ -163,7 +163,7 @@
         const format = options?.tooltip?.labelFormatter;
 
         return format ? format(tooltipRawValues) : defaultFormat(tooltipRawValues);
-    }, 10);
+    }, 10, { leading : true });
 
     function computeFilterExpression(filterArray: (string | number)[]) {
         const filterMatchExpression: (string | string[])[] = ['all'];
