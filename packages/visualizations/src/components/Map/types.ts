@@ -44,15 +44,20 @@ export interface ChoroplethDataValue {
     y: number;
 }
 
+export enum ChoroplethShapesTypes {
+    Geojson = 'geojson',
+    Vtiles = 'vtiles',
+}
+
 /** `ChoroplethShapeValue` implementation based on a GeoJSON FeatureCollection.  */
 export interface ChoroplethShapeGeoJsonValue {
-    type: 'geojson';
+    type: ChoroplethShapesTypes.Geojson;
     geoJson: FeatureCollection | null;
 }
 
 /** `ChoroplethShapeValue` implementation based on a Vector Tiles source URL.  */
 export interface ChoroplethShapeVectorTilesValue {
-    type: 'vtiles';
+    type: ChoroplethShapesTypes.Vtiles;
     url: string;
     layer: string;
     key: string;
@@ -70,7 +75,7 @@ export interface ChoroplethFixedTooltipDescription {
     popup: Popup;
 }
 
-export type MapRenderTooltipFunction = DebouncedFunc<(f: Feature) => string>;
+export type MapRenderTooltipFunction = (f: Feature) => string;
 
 export type ChoroplethLayer = Omit<FillLayerSpecification, 'id' | 'source'>;
 

@@ -6,6 +6,7 @@ import {
     DataFrame,
     ChoroplethOptions,
     ChoroplethTooltipFormatter,
+    ChoroplethShapesTypes,
 } from '@opendatasoft/visualizations';
 
 const meta: Meta = {
@@ -34,7 +35,7 @@ const dataF: any = [
 ];
 
 const shapes: any = {
-    type: 'vtiles',
+    type: ChoroplethShapesTypes.Vtiles,
     url: 'https://static.opendatasoft.com/vector-tiles/fr_40_region_2021/{z}/{x}/{y}.pbf',
     layer: 'fr_40_region_2021',
     key: 'reg_code',
