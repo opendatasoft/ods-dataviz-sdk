@@ -41,6 +41,8 @@
 
     // Used to determine the shapes key
     let matchKey: string;
+    // Used to determine the shapes label
+    let matchLabel: string = 'label';
 
     const defaultInteractive = true;
     $: ({
@@ -154,10 +156,12 @@
         const matchedFeature = values.find(
             (item) => String(item.x) === hoveredFeature.properties?.[matchKey]
         );
-
+        if (isVectorTile(shapes) && shapes.label) {
+            matchLabel = shapes.label
+        };
         const tooltipRawValues: { value?: number; label: string; key: string } = {
             value: matchedFeature?.y,
-            label: hoveredFeature.properties?.label || hoveredFeature.properties?.[matchKey],
+            label: hoveredFeature.properties?.[matchLabel] || hoveredFeature.properties?.[matchKey],
             key: hoveredFeature.properties?.[matchKey], // === matchedFeature.x
         };
         const format = options?.tooltip?.labelFormatter;
