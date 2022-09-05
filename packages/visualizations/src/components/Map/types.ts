@@ -1,7 +1,7 @@
 import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
 import type { FillLayerSpecification, Popup } from 'maplibre-gl';
 import type { DebouncedFunc } from 'lodash';
-import type { Color, ColorScales } from '../types';
+import type { ColorScales, Color } from '../types';
 
 export interface ChoroplethOptions {
     shapes: ChoroplethShapeValue;

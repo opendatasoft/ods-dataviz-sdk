@@ -1,6 +1,6 @@
 import type { LegendOptions, ChartTypeRegistry } from 'chart.js';
 import type { _DeepPartialObject } from 'chart.js/types/utils';
-import type { ChartOptions } from '../types';
+import type { ChartOptions } from './types';
 import { assureMaxLength } from '../utils/formatter';
 import { defaultValue } from './utils';
 

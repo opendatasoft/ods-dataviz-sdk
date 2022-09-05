@@ -1,6 +1,7 @@
 import type { ChartDataset } from 'chart.js';
 import type { Options as DataLabelsOptions } from 'chartjs-plugin-datalabels/types/options';
-import type { ChartSeries, DataFrame, DataLabelsConfiguration, FillConfiguration } from '../types';
+import type { ChartSeries, DataLabelsConfiguration, FillConfiguration } from './types';
+import type { DataFrame } from '../types';
 import { defaultCompactNumberFormat } from '../utils/formatter';
 import { defaultValue, singleChartJsColor, multipleChartJsColors } from './utils';
 

@@ -14,7 +14,7 @@ import type {
     GridLinesConfiguration,
     TicksConfiguration,
     TimeCartesianAxisConfiguration,
-} from '../types';
+} from './types';
 import { defaultValue, singleChartJsColor } from './utils';
 import { assureMaxLength, defaultCompactNumberFormat } from '../utils/formatter';
 

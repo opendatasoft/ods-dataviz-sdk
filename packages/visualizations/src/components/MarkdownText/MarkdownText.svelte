@@ -3,7 +3,7 @@
     import MarkdownItMark from 'markdown-it-mark';
     import mila from 'markdown-it-link-attributes';
     import type StateCore from 'markdown-it/lib/rules_core/state_core';
-    import type { MarkdownTextOptions } from '../types';
+    import type { MarkdownTextOptions } from './types';
     import type { Async } from '../../types';
 
     // This MarkdownIt plugin enforces lists to be displayed as tight, because we only want to support them
