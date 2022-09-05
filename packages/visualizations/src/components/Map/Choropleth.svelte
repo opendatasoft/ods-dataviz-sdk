@@ -36,6 +36,9 @@
     let filter: (string | number)[] | undefined;
     let filterExpression: (string | string[])[] | undefined;
 
+    /** Boolean to use label from data instead of label from features, default is false */
+    let useLabelFromData: boolean;
+
     // Used to apply a chosen color for shapes without values (default: #cccccc)
     let emptyValueColor: Color;
 
@@ -55,6 +58,7 @@
         emptyValueColor = DEFAULT_COLORS.Default,
         fixedBbox,
         filter,
+        useLabelFromData = false,
     } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
@@ -160,11 +164,16 @@
             if (isVectorTile(shapes) && shapes.label) {
                 matchLabel = shapes.label;
             }
-            const tooltipRawValues: { value?: number; label: string; key: string } = {
+            const tooltipRawValues: {
+                value?: number;
+                label: string;
+                key: string;
+            } = {
                 value: matchedFeature?.y,
-                label:
-                    hoveredFeature.properties?.[matchLabel] ||
-                    hoveredFeature.properties?.[matchKey],
+                label: useLabelFromData
+                    ? matchedFeature?.label
+                    : hoveredFeature.properties?.[matchLabel] ||
+                      hoveredFeature.properties?.[matchKey],
                 key: hoveredFeature.properties?.[matchKey], // === matchedFeature.x
             };
             const format = options?.tooltip?.labelFormatter;

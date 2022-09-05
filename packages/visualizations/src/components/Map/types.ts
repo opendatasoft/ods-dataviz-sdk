@@ -14,6 +14,8 @@ export interface ChoroplethOptions {
     tooltip?: { labelFormatter?: ChoroplethTooltipFormatter };
     fixedBbox?: BBox | undefined;
     filter?: string[] | number[] | undefined;
+    /** Boolean to use label from data instead of label from features */
+    useLabelFromData?: boolean;
 }
 
 export interface MapLegend {
@@ -42,6 +44,7 @@ export type ChoroplethTooltipFormatter = ({
 export interface ChoroplethDataValue {
     x: string;
     y: number;
+    label?: string;
 }
 
 export enum ChoroplethShapesTypes {

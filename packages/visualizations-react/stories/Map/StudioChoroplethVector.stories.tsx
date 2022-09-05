@@ -15,23 +15,23 @@ const meta: Meta = {
 };
 
 const dataF: any = [
-    { x: 1, y: 23 },
-    { x: 2, y: 43 },
-    { x: 3, y: 160 },
-    { x: 4, y: 180 },
-    { x: 6, y: 12 },
-    { x: 11, y: 384 },
-    { x: 24, y: 123 },
-    { x: 27, y: 23 },
-    { x: 28, y: 93 },
-    { x: 32, y: 25 },
-    { x: 44, y: 65 },
-    { x: 52, y: 234 },
-    { x: 53, y: 109 },
-    { x: 75, y: 21 },
-    { x: 84, y: 76 },
-    { x: 93, y: 200 },
-    { x: 94, y: 123 },
+    { x: 1, y: 23, label: 'label from data 23' },
+    { x: 2, y: 43, label : 'label from data 43' },
+    { x: 3, y: 160, label : 'label from data 160' },
+    { x: 4, y: 180, label : 'label from data 180' },
+    { x: 6, y: 12, label : 'label from data 12' },
+    { x: 11, y: 384, label : 'label from data 384' },
+    { x: 24, y: 123, label : 'label from data 123' },
+    { x: 27, y: 23, label : 'label from data 23' },
+    { x: 28, y: 93, label : 'label from data 93' },
+    { x: 32, y: 25, label : 'label from data 25' },
+    { x: 44, y: 65, label : 'label from data 65' },
+    { x: 52, y: 234, label : 'label from data 234' },
+    { x: 53, y: 109, label : 'label from data 109' },
+    { x: 75, y: 21, label : 'label from data 21' },
+    { x: 84, y: 76, label : 'label from data 76' },
+    { x: 93, y: 200, label : 'label from data 200' },
+    { x: 94, y: 123, label : 'label from data 123' },
 ];
 
 const shapes: any = {
@@ -138,3 +138,30 @@ const StudioChoroplethVectorFilterArgs: Props<DataFrame, ChoroplethOptions> = {
     },
 };
 StudioChoroplethVectorFilter.args = StudioChoroplethVectorFilterArgs;
+
+export const StudioChoroplethVectorLabelFromData = Template.bind({});
+const StudioChoroplethVectorLabelFromDataArgs: Props<DataFrame, ChoroplethOptions> = {
+    data: {
+        loading: false,
+        value: dataF,
+    },
+    options: {
+        shapes,
+        colorsScale: {
+            type: ColorScaleTypes.Palette,
+            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+        },
+        legend: {
+            title: 'I Am Legend',
+        },
+        emptyValueColor: '#FFFFFF',
+        aspectRatio: 1,
+        fixedBbox: [-5.637513, 45.500521, 1.382751, 49.219343],
+        tooltip: {
+            labelFormatter: defaultLabelCallback,
+        },
+        filter: [52, 53],
+        useLabelFromData: true,
+    },
+};
+StudioChoroplethVectorLabelFromData.args = StudioChoroplethVectorLabelFromDataArgs;
