@@ -8,7 +8,7 @@
     import type { ColorScales, DataBounds, Color } from '../types';
     import MapRender from './MapRender.svelte';
     import { BLANK } from './mapStyles';
-    import { getDataBounds, mapKeyToColor, isVectorTile } from './utils';
+    import { getDataBounds, mapKeyToColor, isVectorTile, VOID_BOUNDS } from './utils';
     import { DEFAULT_COLORS, DEFAULT_COLORS_SCALE } from './constants';
     import type {
         ChoroplethDataValue,
@@ -112,7 +112,7 @@
                 },
             };
 
-            bbox = fixedBbox || turfBbox(newShapes.geoJson);
+            bbox = fixedBbox || turfBbox(newShapes.geoJson) || VOID_BOUNDS;
         } else if (newShapes.type === 'vtiles') {
             source = {
                 type: 'vector',
@@ -124,7 +124,7 @@
             Object.entries(colors).forEach((e) => matchExpression.push(...e));
             matchExpression.push(emptyValueColor); // Default fallback color
 
-            bbox = fixedBbox;
+            bbox = fixedBbox || VOID_BOUNDS;
 
             layer = {
                 type: 'fill',

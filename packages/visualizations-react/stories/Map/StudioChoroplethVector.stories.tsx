@@ -81,7 +81,6 @@ const StudioChoroplethVectorGradientArgs: Props<DataFrame, ChoroplethOptions> = 
         aspectRatio: 1,
         activeShapes: ['11', '93'],
         emptyValueColor: 'red',
-        fixedBbox: [-180, -85.051129, 180, 85.051129],
         tooltip: {
             labelFormatter: defaultLabelCallback,
         },

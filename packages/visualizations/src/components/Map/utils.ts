@@ -69,7 +69,7 @@ export const mapKeyToColor = (
 };
 
 // This is a default bound that will be extended
-const VOID_BOUNDS: BBox = [180, 90, -180, -90];
+export const VOID_BOUNDS: BBox = [180, 90, -180, -90];
 
 type CoordsPath = Position[];
 
