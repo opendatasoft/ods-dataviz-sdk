@@ -169,6 +169,8 @@ export const getFixedTooltips = (
         if (matchedFeature) {
             const center = getShapeCenter(matchedFeature);
             const description = renderTooltip(matchedFeature);
+            // Cancel the debounce on activeShapes
+            renderTooltip.cancel();
             const popup = new maplibregl.Popup({
                 closeOnClick: false,
                 closeButton: false,
