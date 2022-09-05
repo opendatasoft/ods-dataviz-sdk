@@ -151,23 +151,29 @@
 
     $: matchKey = isVectorTile(shapes) ? shapes.key : 'key';
 
-    $: renderTooltip = debounce((hoveredFeature) => {
-        const values = data.value || [];
-        const matchedFeature = values.find(
-            (item) => String(item.x) === hoveredFeature.properties?.[matchKey]
-        );
-        if (isVectorTile(shapes) && shapes.label) {
-            matchLabel = shapes.label
-        };
-        const tooltipRawValues: { value?: number; label: string; key: string } = {
-            value: matchedFeature?.y,
-            label: hoveredFeature.properties?.[matchLabel] || hoveredFeature.properties?.[matchKey],
-            key: hoveredFeature.properties?.[matchKey], // === matchedFeature.x
-        };
-        const format = options?.tooltip?.labelFormatter;
+    $: renderTooltip = debounce(
+        (hoveredFeature) => {
+            const values = data.value || [];
+            const matchedFeature = values.find(
+                (item) => String(item.x) === hoveredFeature.properties?.[matchKey]
+            );
+            if (isVectorTile(shapes) && shapes.label) {
+                matchLabel = shapes.label;
+            }
+            const tooltipRawValues: { value?: number; label: string; key: string } = {
+                value: matchedFeature?.y,
+                label:
+                    hoveredFeature.properties?.[matchLabel] ||
+                    hoveredFeature.properties?.[matchKey],
+                key: hoveredFeature.properties?.[matchKey], // === matchedFeature.x
+            };
+            const format = options?.tooltip?.labelFormatter;
 
-        return format ? format(tooltipRawValues) : defaultFormat(tooltipRawValues);
-    }, 10, { leading : true });
+            return format ? format(tooltipRawValues) : defaultFormat(tooltipRawValues);
+        },
+        10,
+        { leading: true }
+    );
 
     function computeFilterExpression(filterArray: (string | number)[]) {
         const filterMatchExpression: (string | string[])[] = ['all'];
