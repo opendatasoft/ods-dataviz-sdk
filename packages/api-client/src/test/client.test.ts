@@ -85,7 +85,7 @@ describe('Api client', () => {
             interceptResponse: async (response) => {
                 const apiResponse = await response.text();
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                return `${apiResponse}_intercepted` as any;
+                return `${apiResponse}_intercepted`;
             },
         });
 
