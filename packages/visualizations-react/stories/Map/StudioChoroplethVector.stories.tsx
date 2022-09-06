@@ -26,7 +26,7 @@ const dataF: any = [
     { x: 28, y: 93, label: 'label from data 93' },
     { x: 32, y: 25, label: 'label from data 25' },
     { x: 44, y: 65, label: 'label from data 65' },
-    { x: 52, y: 234, label: 'label from data 234' },
+    { x: 52, y: 234 },
     { x: 53, y: 109, label: 'label from data 109' },
     { x: 75, y: 21, label: 'label from data 21' },
     { x: 84, y: 76, label: 'label from data 76' },
