@@ -1,16 +1,23 @@
 import React from 'react';
-import { Meta } from '@storybook/react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { ChoroplethOptions, DataFrame, TooltipParams } from '@opendatasoft/visualizations';
 import { Choropleth, Props } from '../../src';
-import { ChoroplethOptions, DataFrame } from '@opendatasoft/visualizations';
 import { shapes } from './shapes';
 
-const meta: Meta = {
+const meta: ComponentMeta<typeof Choropleth> = {
     title: 'Map/Non Interactive Choropleth',
     component: Choropleth,
 };
-
 export default meta;
-const Template = (args: Props<DataFrame, ChoroplethOptions>) => (
+
+const tooltip = {
+    label: (feature: TooltipParams) =>
+        `Hello I'm <div style="color: red">${
+            feature.label
+        }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
+};
+
+const Template: ComponentStory<typeof Choropleth> = (args: Props<DataFrame, ChoroplethOptions>) => (
     <div
         style={{
             width: '50%',
@@ -35,12 +42,12 @@ const NonInteractiveChoroplethArgs: Props<DataFrame, ChoroplethOptions> = {
         ],
     },
     options: {
-        style: {},
-        parameters: {},
         shapes,
         aspectRatio: 1,
         activeShapes: ['France'],
         interactive: false,
+        emptyValueColor: '#cccccc',
+        tooltip,
     },
 };
 NonInteractiveChoropleth.args = NonInteractiveChoroplethArgs;

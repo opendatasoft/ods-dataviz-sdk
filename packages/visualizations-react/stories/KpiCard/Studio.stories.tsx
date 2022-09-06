@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { Async, KpiCardOptions } from '@opendatasoft/visualizations';
-import { Meta } from '@storybook/react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { KpiCard, Props } from '../../src';
 import {
     IMAGES,
@@ -10,16 +10,27 @@ import {
     comparisonFormatter,
 } from '../utils';
 
-const meta: Meta = {
+const meta: ComponentMeta<typeof KpiCard> = {
     title: 'KPI Card/Studio Layouts',
 };
 
 export default meta;
 
-type KpiCardStoryProps = { [key: string]: Props<number, KpiCardOptions> };
+type KpiCardStoryProps = Props<number, KpiCardOptions> & { style?: CSSProperties };
 
-const Template = function (this: Props<number, KpiCardOptions>, args: KpiCardStoryProps) {
-    return (
+/* Makes the mapping easier to type as component stories */
+const DemoCards = (stories: { [key: string]: KpiCardStoryProps }) => (
+    <>
+        {Object.entries(stories).map(([title, args]) => (
+            <>
+                <h3>{title}</h3>
+                <KpiCard {...args} />
+            </>    
+        ))}
+    </>
+);
+
+const Template: ComponentStory<typeof DemoCards> = args => (
         <div
             style={{
                 display: 'grid',
@@ -28,26 +39,14 @@ const Template = function (this: Props<number, KpiCardOptions>, args: KpiCardSto
                 gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
                 gridTemplateRows: 'repeat(2, minmax(0, 1fr))',
                 gap: '1rem',
-                ['--kpi-card-value-color' as any]: '#198276',
-            }}
+                '--kpi-card-value-color': '#198276',
+            } as CSSProperties}
         >
-            {Object.keys(args).map((key) => {
-                const { data, options, style } = args[key];
-
-                return (
-                    <KpiCard
-                        data={data}
-                        options={{ ...this.options, ...options }}
-                        style={style}
-                        key={key}
-                    />
-                );
-            })}
+            <DemoCards {...args} />
         </div>
     );
-};
 
-function withData(data: Async<number>): KpiCardStoryProps {
+function withData(data: Async<number>) {
     return {
         'Context only': {
             data,
@@ -79,12 +78,12 @@ function withData(data: Async<number>): KpiCardStoryProps {
         'Title, picture': {
             data,
             style: {
-                ['--kpi-card-body-flex-direction' as any]: 'row',
-                ['--kpi-card-img-margin' as any]: '0 1rem 0 0',
-                ['--kpi-card-content-align-items' as any]: 'start',
-                ['--kpi-card-title-margin' as any]: '0 0 0.37rem 0',
-                ['--kpi-card-value-margin' as any]: '0',
-            },
+                '--kpi-card-body-flex-direction': 'row',
+                '--kpi-card-img-margin': '0 1rem 0 0',
+                '--kpi-card-content-align-items': 'start',
+                '--kpi-card-title-margin': '0 0 0.37rem 0',
+                '--kpi-card-value-margin': '0',
+            } as CSSProperties,
             options: {
                 title: "Chiffre d'affaires",
                 imgSrc: IMAGES.rocket,

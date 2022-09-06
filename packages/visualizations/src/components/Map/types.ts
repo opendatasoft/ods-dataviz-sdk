@@ -20,18 +20,16 @@ export interface MapLegend {
 /** Function used to render an HTML Tooltip depending on the shape the user
  * interacted with.
  */
-export type ChoroplethTooltipFormatter = ({
-    value,
-    label,
-    key,
-}: {
+export type TooltipParams = {
     /** Numeric value of the shape */
     value?: number;
     /** Label of the shape */
     label: string;
     /** Value of the key used to match shapes and numeric data */
     key?: string;
-}) => string;
+};
+
+export type ChoroplethTooltipFormatter = ({ value, label, key }: TooltipParams) => string;
 
 /** Structure containing the numerical data used by the Choropleth to compute
  * the legend and the color of the shapes it renders.

@@ -1,4 +1,6 @@
-export const shapes = {
+import type { ChoroplethShapeGeoJsonValue } from "@opendatasoft/visualizations";
+
+export const shapes: ChoroplethShapeGeoJsonValue = {
     type: 'geojson',
     geoJson: {
         type: 'FeatureCollection',
@@ -567,7 +569,7 @@ export const shapes = {
     },
 };
 
-export const multiPolygonShapes = {
+export const multiPolygonShapes: ChoroplethShapeGeoJsonValue = {
     type: 'geojson',
     geoJson: {
         type: 'FeatureCollection',

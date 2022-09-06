@@ -1,17 +1,28 @@
 import React from 'react';
-import { Meta } from '@storybook/react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type {
+    ChoroplethOptions,
+    DataFrame,
+    TooltipParams,
+} from '@opendatasoft/visualizations';
 import { Choropleth, Props } from '../../src';
-import { ChoroplethOptions, DataFrame } from '@opendatasoft/visualizations';
 import { IMAGES } from '../utils';
 import { shapes } from './shapes';
 
-const meta: Meta = {
+const meta: ComponentMeta<typeof Choropleth> = {
     title: 'Map/Tooltip',
     component: Choropleth,
 };
-
 export default meta;
-const Template = (args: Props<DataFrame, ChoroplethOptions>) => (
+
+const tooltip = {
+    label: (feature: TooltipParams) =>
+        `Hello I'm <div style="color: red">${
+            feature.label
+        }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
+};
+
+const Template: ComponentStory<typeof Choropleth> = (args: Props<DataFrame, ChoroplethOptions>) => (
     <div
         style={{
             width: '50%',
@@ -36,11 +47,11 @@ const DefaultTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
         ],
     },
     options: {
-        style: {},
-        parameters: {},
         shapes,
         aspectRatio: 1,
         activeShapes: ['France', 'Corsica'],
+        emptyValueColor: '#cccccc',
+        tooltip,
     },
 };
 DefaultTooltip.args = DefaultTooltipArgs;
@@ -56,18 +67,18 @@ const CustomSimpleTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
         ],
     },
     options: {
-        style: {},
-        parameters: {},
         shapes,
         aspectRatio: 1,
         activeShapes: ['Corsica'],
         tooltip: {
-            label: (feature) => {
-                return `Hello I'm <div style="color: red">${
+            label: (feature: TooltipParams) =>
+                `Hello I'm <div style="color: red">${
                     feature.label
-                }</div> and my value is <div style="color: red">${feature.value || ''}</div>`;
-            },
+                }</div> and my value is <div style="color: red">${
+                    feature.value || ''
+                }</div>`,
         },
+        emptyValueColor: '#cccccc',
     },
 };
 CustomSimpleTooltip.args = CustomSimpleTooltipArgs;
@@ -83,22 +94,21 @@ const CustomComplexTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
         ],
     },
     options: {
-        style: {},
-        parameters: {},
         shapes,
         aspectRatio: 1,
         activeShapes: ['Île de France'],
         tooltip: {
-            label: (feature) => {
-                return `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center">
+            label: (
+                feature: TooltipParams
+            ) => `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center">
                         <h2 style="border-bottom: 1px solid lightgrey">${feature.label}</h2>
                         <img src="${IMAGES.rocket}" style="margin-bottom: 15px"></img>
                         <div style="margin-bottom: 15px">Number of space rockets: ${
                             feature.value || ''
                         }</div>
-                    </div>`;
-            },
+                    </div>`,
         },
+        emptyValueColor: '#cccccc',
     },
 };
 CustomComplexTooltip.args = CustomComplexTooltipArgs;

@@ -19,7 +19,7 @@ function basePlugins() {
             sourceMap: true,
             declaration: true,
             declarationDir: 'dist',
-            rootDirs: ['src', 'test'],
+            rootDirs: ['src', 'test', 'stories'],
         }),
         nodeResolve(),
         commonjs(),
@@ -32,8 +32,8 @@ function basePlugins() {
         production &&
             babel({
                 babelHelpers: 'bundled',
-                extensions: ['.ts', '.mjs', '.js', '.svelte'],
-                include: ['src/**', 'node_modules/chart.js/**', 'node_modules/svelte/**'],
+                extensions: ['.ts', '.mjs', '.js', '.tsx', 'jsx'],
+                include: ['src/**'],
                 presets: ['@babel/preset-env'],
             }),
     ];
@@ -50,7 +50,7 @@ function onwarn(warning, warn) {
 }
 
 const esm = defineConfig({
-    input: 'src/index.ts',
+    input: 'src/index.tsx',
     // Externalize all dependencies
     external: (id) => Object.keys(pkg.dependencies).includes(id),
     output: {
@@ -72,7 +72,7 @@ const esm = defineConfig({
 });
 
 const umd = defineConfig({
-    input: 'src/index.ts',
+    input: 'src/index.tsx',
     output: {
         dir: 'dist',
         entryFileNames: '[name].umd.js',

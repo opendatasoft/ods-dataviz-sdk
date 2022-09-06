@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { KpiCardOptions } from '@opendatasoft/visualizations';
 import { KpiCard } from '../src';
 
@@ -12,7 +11,7 @@ const options: KpiCardOptions = {
     title: 'Tokyo Olympic Budget 2021',
     imgSrc: 'My-fake-image-source',
     prefix: '$',
-    source: source,
+    source,
 };
 
 describe('KPI Default Story', () => {

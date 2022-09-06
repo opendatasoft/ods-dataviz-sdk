@@ -1,28 +1,29 @@
 import React from 'react';
-import { Meta } from '@storybook/react';
-import { Chart, Props } from '../../src';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { Chart, Props } from '../../src';
 import { COLORS, defaultSource } from '../utils';
 
-const meta: Meta = {
+const meta: ComponentMeta<typeof Chart> = {
     title: 'Chart',
     component: Chart,
 };
 
 export default meta;
 
-const Template = (args: Props<DataFrame, ChartOptions>) => (
-    <div
-        style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-        }}
-    >
-        <Chart {...args} style={{ width: '60vw' }} />
-    </div>
-);
-export const Sample = Template.bind({});
+export const ChartTemplate: ComponentStory<typeof Chart> = (args: Props<DataFrame, ChartOptions>) => (
+        <div
+            style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}
+        >
+            <Chart {...args} style={{ width: '60vw' }} />
+        </div>
+    );
+
+export const Sample = ChartTemplate.bind({});
 const SampleArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
