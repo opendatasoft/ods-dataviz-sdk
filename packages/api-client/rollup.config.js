@@ -19,7 +19,7 @@ function basePlugins() {
             sourceMap: true,
             declaration: true,
             declarationDir: 'dist',
-            rootDirs: ['src', 'test'],
+            rootDir: 'src',
         }),
         nodeResolve(),
         commonjs(),
@@ -75,10 +75,10 @@ const umd = defineConfig({
     input: 'src/index.ts',
     output: {
         dir: 'dist',
-        entryFileNames: 'umd/[name].umd.js',
+        entryFileNames: '[name].umd.js',
         format: 'umd',
         sourcemap: true,
-        name: 'opendatasoft.apiclient',
+        name: 'opendatasoft.visualizations',
         plugins: [],
     },
     plugins: [

@@ -4,7 +4,7 @@
 
 /* eslint-disable no-new */
 import { describe, expect, it } from '@jest/globals';
-import { ApiClient } from '../src';
+import { ApiClient } from '..';
 
 describe('Api client in Node environment', () => {
     it('should warn when fetch is missing', () => {
