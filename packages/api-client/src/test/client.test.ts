@@ -4,8 +4,8 @@
 
 import { enableFetchMocks } from 'jest-fetch-mock';
 import { expect, it, beforeEach, describe } from '@jest/globals';
-import { ApiClient, field, fromCatalog } from '../src';
-import { AuthenticationError, NotFoundError, ServerError, UserError } from '../src/client/error';
+import { ApiClient, field, fromCatalog } from '..';
+import { AuthenticationError, NotFoundError, ServerError, UserError } from '../client/error';
 
 enableFetchMocks();
 

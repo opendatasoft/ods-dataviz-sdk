@@ -16,7 +16,7 @@ import {
     one,
     list,
     not,
-} from '../src';
+} from '..';
 
 describe('ODSQL query builder', () => {
     it('should build an empty query', () => {
