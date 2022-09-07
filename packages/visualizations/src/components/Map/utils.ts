@@ -12,7 +12,7 @@ import type {
     ChoroplethDataValue,
     ChoroplethFixedTooltipDescription,
     MapRenderTooltipFunction,
-    ChoroplethShapeValue,
+    ChoroplethShapeValues,
     ChoroplethShapeVectorTilesValue,
 } from './types';
 
@@ -187,7 +187,7 @@ export const getFixedTooltips = (
 };
 
 export const isVectorTile = (
-    shape: ChoroplethShapeValue
+    shape: ChoroplethShapeValues
 ): shape is ChoroplethShapeVectorTilesValue =>
     (shape as ChoroplethShapeVectorTilesValue).layer !== undefined &&
     (shape as ChoroplethShapeVectorTilesValue).key !== undefined;

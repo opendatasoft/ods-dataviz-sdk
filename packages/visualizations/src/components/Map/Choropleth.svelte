@@ -15,7 +15,7 @@
         ChoroplethLayer,
         ChoroplethOptions,
         MapRenderTooltipFunction,
-        ChoroplethShapeValue,
+        ChoroplethShapeValues,
         ChoroplethTooltipFormatter,
         MapLegend,
     } from './types';
@@ -23,7 +23,7 @@
     export let data: { value: ChoroplethDataValue[] }; // values, and the key to match
     export let options: ChoroplethOptions; // contains the shapes to display & match
 
-    let shapes: ChoroplethShapeValue;
+    let shapes: ChoroplethShapeValues;
     let colorsScale: ColorScales;
 
     let aspectRatio: number;
@@ -69,7 +69,7 @@
 
     function computeSourceLayerAndBboxes(
         values: ChoroplethDataValue[] = [],
-        newShapes: ChoroplethShapeValue,
+        newShapes: ChoroplethShapeValues,
         newColorScales: ColorScales
     ) {
         if (

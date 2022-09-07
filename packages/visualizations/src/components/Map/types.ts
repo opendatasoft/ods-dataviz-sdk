@@ -4,7 +4,7 @@ import type { DebouncedFunc } from 'lodash';
 import type { ColorScales, Color } from '../types';
 
 export interface ChoroplethOptions {
-    shapes: ChoroplethShapeValue;
+    shapes: ChoroplethShapeValues;
     colorsScale?: ColorScales;
     legend?: MapLegend;
     aspectRatio: number;
@@ -47,20 +47,20 @@ export interface ChoroplethDataValue {
     label?: string;
 }
 
-export enum ChoroplethShapesTypes {
-    Geojson = 'geojson',
+export enum ChoroplethShapeTypes {
+    GeoJson = 'geojson',
     Vtiles = 'vtiles',
 }
 
 /** `ChoroplethShapeValue` implementation based on a GeoJSON FeatureCollection.  */
 export interface ChoroplethShapeGeoJsonValue {
-    type: ChoroplethShapesTypes.Geojson;
+    type: ChoroplethShapeTypes.GeoJson;
     geoJson: FeatureCollection | null;
 }
 
 /** `ChoroplethShapeValue` implementation based on a Vector Tiles source URL.  */
 export interface ChoroplethShapeVectorTilesValue {
-    type: ChoroplethShapesTypes.Vtiles;
+    type: ChoroplethShapeTypes.Vtiles;
     url: string;
     layer: string;
     key: string;
@@ -70,7 +70,7 @@ export interface ChoroplethShapeVectorTilesValue {
 /** Structure containing everything necessary for a Choropleth to render shapes visually.
  * Supports different types of structures, such as GeoJSON features, or a Vector Tiles source.
  */
-export type ChoroplethShapeValue = ChoroplethShapeGeoJsonValue | ChoroplethShapeVectorTilesValue;
+export type ChoroplethShapeValues = ChoroplethShapeGeoJsonValue | ChoroplethShapeVectorTilesValue;
 
 export interface ChoroplethFixedTooltipDescription {
     center: Position;

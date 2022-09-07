@@ -1,7 +1,7 @@
-import { ChoroplethShapeGeoJsonValue, ChoroplethShapesTypes } from '@opendatasoft/visualizations';
+import { ChoroplethShapeGeoJsonValue, ChoroplethShapeTypes } from '@opendatasoft/visualizations';
 
 export const shapes: ChoroplethShapeGeoJsonValue = {
-    type: ChoroplethShapesTypes.Geojson,
+    type: ChoroplethShapeTypes.GeoJson,
     geoJson: {
         type: 'FeatureCollection',
         features: [
@@ -570,7 +570,7 @@ export const shapes: ChoroplethShapeGeoJsonValue = {
 };
 
 export const multiPolygonShapes: ChoroplethShapeGeoJsonValue = {
-    type: ChoroplethShapesTypes.Geojson,
+    type: ChoroplethShapeTypes.GeoJson,
     geoJson: {
         type: 'FeatureCollection',
         features: [
