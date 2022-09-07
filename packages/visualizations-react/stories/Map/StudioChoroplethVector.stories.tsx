@@ -7,6 +7,7 @@ import {
     ChoroplethOptions,
     ChoroplethTooltipFormatter,
     ChoroplethShapeTypes,
+    ChoroplethTooltipMatcherTypes,
 } from '@opendatasoft/visualizations';
 
 const meta: Meta = {
@@ -133,14 +134,18 @@ const StudioChoroplethVectorFilterArgs: Props<DataFrame, ChoroplethOptions> = {
         fixedBbox: [-5.637513, 45.500521, 1.382751, 49.219343],
         tooltip: {
             labelFormatter: defaultLabelCallback,
+            labelMatcher: {
+                type: ChoroplethTooltipMatcherTypes.KeyProperty,
+                key: 'reg_code',
+            },
         },
         filter: [52, 53],
     },
 };
 StudioChoroplethVectorFilter.args = StudioChoroplethVectorFilterArgs;
 
-export const StudioChoroplethVectorLabelFromData = Template.bind({});
-const StudioChoroplethVectorLabelFromDataArgs: Props<DataFrame, ChoroplethOptions> = {
+export const StudioChoroplethVectorCustomLabel = Template.bind({});
+const StudioChoroplethVectorCustomLabelArgs: Props<DataFrame, ChoroplethOptions> = {
     data: {
         loading: false,
         value: dataF,
@@ -159,9 +164,15 @@ const StudioChoroplethVectorLabelFromDataArgs: Props<DataFrame, ChoroplethOption
         fixedBbox: [-5.637513, 45.500521, 1.382751, 49.219343],
         tooltip: {
             labelFormatter: defaultLabelCallback,
+            labelMatcher: {
+                type: ChoroplethTooltipMatcherTypes.KeyMap,
+                mapping: {
+                    52: 'Pays de la Loire',
+                    53: 'Bretagne',
+                },
+            },
         },
         filter: [52, 53],
-        useLabelFromData: true,
     },
 };
-StudioChoroplethVectorLabelFromData.args = StudioChoroplethVectorLabelFromDataArgs;
+StudioChoroplethVectorCustomLabel.args = StudioChoroplethVectorCustomLabelArgs;

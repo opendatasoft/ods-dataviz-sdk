@@ -36,16 +36,11 @@
     let filter: (string | number)[] | undefined;
     let filterExpression: (string | string[])[] | undefined;
 
-    /** Boolean to use label from data instead of label from features, default is false */
-    let useLabelFromData: boolean;
-
     // Used to apply a chosen color for shapes without values (default: #cccccc)
     let emptyValueColor: Color;
 
     // Used to determine the shapes key
     let matchKey: string;
-    // Used to determine the shapes label
-    let matchLabel: string = 'label';
 
     $: matchKey = isVectorTile(shapes) ? shapes.key : 'key';
 
@@ -60,7 +55,6 @@
         emptyValueColor = DEFAULT_COLORS.Default,
         fixedBbox,
         filter,
-        useLabelFromData = false,
     } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
@@ -149,19 +143,29 @@
             const matchedFeature = values.find(
                 (item) => String(item.x) === hoveredFeature.properties?.[matchKey]
             );
-            if (isVectorTile(shapes) && shapes.label) {
-                matchLabel = shapes.label;
+
+            let tooltipLabel =
+                hoveredFeature.properties?.label || hoveredFeature.properties?.[matchKey];
+            const labelMatcher = options?.tooltip?.labelMatcher;
+
+            if (labelMatcher && matchedFeature) {
+                const { type } = labelMatcher;
+                if (type === 'keyProperty') {
+                    const { key } = labelMatcher;
+                    tooltipLabel = hoveredFeature.properties?.[key];
+                } else if (type === 'keyMap') {
+                    const { mapping } = labelMatcher;
+                    tooltipLabel = mapping[matchedFeature?.x];
+                }
             }
+
             const tooltipRawValues: {
                 value?: number;
                 label: string;
                 key: string;
             } = {
                 value: matchedFeature?.y,
-                label: useLabelFromData
-                    ? matchedFeature?.label
-                    : hoveredFeature.properties?.[matchLabel] ||
-                      hoveredFeature.properties?.[matchKey],
+                label: tooltipLabel,
                 key: hoveredFeature.properties?.[matchKey], // === matchedFeature.x
             };
             const format = options?.tooltip?.labelFormatter;

@@ -11,11 +11,12 @@ export interface ChoroplethOptions {
     activeShapes?: string[];
     interactive?: boolean;
     emptyValueColor?: Color;
-    tooltip?: { labelFormatter?: ChoroplethTooltipFormatter };
+    tooltip?: {
+        labelFormatter?: ChoroplethTooltipFormatter;
+        labelMatcher?: ChoroplethTooltipMatchers;
+    };
     fixedBbox?: BBox | undefined;
     filter?: string[] | number[] | undefined;
-    /** Boolean to use label from data instead of label from features */
-    useLabelFromData?: boolean;
 }
 
 export interface MapLegend {
@@ -37,6 +38,29 @@ export type ChoroplethTooltipFormatter = ({
     /** Value of the key used to match shapes and numeric data */
     key?: string;
 }) => string;
+
+export enum ChoroplethTooltipMatcherTypes {
+    KeyProperty = 'keyProperty',
+    KeyMap = 'keyMap',
+}
+
+/** `ChoroplethTooltipMatcher` based on a target feature property */
+export interface ChoroplethTooltipMatcherKeyProperty {
+    type: ChoroplethTooltipMatcherTypes.KeyProperty;
+    key: string;
+}
+
+/** `ChoroplethTooltipMatcher` based on an key-value object mapping  */
+export interface ChoroplethTooltipMatcherKeyMap {
+    type: ChoroplethTooltipMatcherTypes.KeyMap;
+    mapping: {
+        [key: string]: string;
+    };
+}
+
+export type ChoroplethTooltipMatchers =
+    | ChoroplethTooltipMatcherKeyProperty
+    | ChoroplethTooltipMatcherKeyMap;
 
 /** Structure containing the numerical data used by the Choropleth to compute
  * the legend and the color of the shapes it renders.
