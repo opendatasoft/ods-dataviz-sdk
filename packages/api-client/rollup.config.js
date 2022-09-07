@@ -19,7 +19,7 @@ function basePlugins() {
             sourceMap: true,
             declaration: true,
             declarationDir: 'dist',
-            rootDir: 'src',
+            rootDirs: ['src', 'test'],
         }),
         nodeResolve(),
         commonjs(),
