@@ -47,6 +47,8 @@
     // Used to determine the shapes label
     let matchLabel: string = 'label';
 
+    $: matchKey = isVectorTile(shapes) ? shapes.key : 'key';
+
     const defaultInteractive = true;
     $: ({
         shapes,
@@ -88,29 +90,22 @@
         dataBounds = getDataBounds(filteredValues);
         const colors = mapKeyToColor(filteredValues, dataBounds, newColorScales, emptyValueColor);
 
-        if (newShapes.type === 'geojson' && newShapes.geoJson) {
-            // Iterate shapes, compute color from matching value
-            const coloredFeatures = newShapes.geoJson.features.map((feature) => ({
-                ...feature,
-                properties: {
-                    ...feature.properties,
-                    color: colors[feature.properties?.key] || emptyValueColor,
-                },
-            }));
+        const matchExpression = ['match', ['get', matchKey]];
 
+        Object.entries(colors).forEach((e) => matchExpression.push(...e));
+        matchExpression.push(emptyValueColor); // Default fallback color
+
+        if (newShapes.type === 'geojson' && newShapes.geoJson) {
             source = {
                 type: 'geojson',
-                data: {
-                    type: 'FeatureCollection',
-                    features: coloredFeatures,
-                },
+                data: newShapes.geoJson,
             };
 
             layer = {
                 type: 'fill',
                 layout: {},
                 paint: {
-                    'fill-color': ['get', 'color'],
+                    'fill-color': matchExpression,
                     'fill-opacity': 0.8,
                     'fill-outline-color': DEFAULT_COLORS.ShapeOutline,
                 },
@@ -122,13 +117,6 @@
                 type: 'vector',
                 tiles: [newShapes.url],
             };
-
-            const matchExpression = ['match', ['get', newShapes.key]];
-
-            Object.entries(colors).forEach((e) => matchExpression.push(...e));
-            matchExpression.push(emptyValueColor); // Default fallback color
-
-            bbox = fixedBbox || VOID_BOUNDS;
 
             layer = {
                 type: 'fill',
@@ -145,6 +133,8 @@
                     ],
                 },
             };
+
+            bbox = fixedBbox || VOID_BOUNDS;
         }
     }
 
@@ -152,8 +142,6 @@
 
     const defaultFormat: ChoroplethTooltipFormatter = ({ value, label }) =>
         value ? `${label} &mdash; ${value}` : label;
-
-    $: matchKey = isVectorTile(shapes) ? shapes.key : 'key';
 
     $: renderTooltip = debounce(
         (hoveredFeature) => {
