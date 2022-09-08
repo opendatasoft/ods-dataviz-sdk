@@ -159,7 +159,7 @@ const StudioChoroplethVectorCustomLabelArgs: Props<DataFrame, ChoroplethOptions>
         legend: {
             title: 'I Am Legend',
         },
-        emptyValueColor: '#FFFFFF',
+        emptyValueColor: '#CBD2DB',
         aspectRatio: 1,
         fixedBbox: [-5.637513, 45.500521, 1.382751, 49.219343],
         tooltip: {
@@ -176,3 +176,36 @@ const StudioChoroplethVectorCustomLabelArgs: Props<DataFrame, ChoroplethOptions>
     },
 };
 StudioChoroplethVectorCustomLabel.args = StudioChoroplethVectorCustomLabelArgs;
+
+export const StudioChoroplethVectorEmptyData = Template.bind({});
+const StudioChoroplethVectorEmptyDataArgs: Props<DataFrame, ChoroplethOptions> = {
+    data: {
+        loading: false,
+        value: undefined,
+    },
+    options: {
+        shapes,
+        colorsScale: {
+            type: ColorScaleTypes.Palette,
+            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+        },
+        legend: {
+            title: 'I Am Legend',
+        },
+        emptyValueColor: '#CBD2DB',
+        aspectRatio: 1,
+        fixedBbox: [-5.637513, 45.500521, 1.382751, 49.219343],
+        tooltip: {
+            labelFormatter: defaultLabelCallback,
+            labelMatcher: {
+                type: ChoroplethTooltipMatcherTypes.KeyMap,
+                mapping: {
+                    52: 'Pays de la Loire',
+                    53: 'Bretagne',
+                },
+            },
+        },
+        filter: [52, 53],
+    },
+};
+StudioChoroplethVectorEmptyData.args = StudioChoroplethVectorEmptyDataArgs;

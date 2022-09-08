@@ -70,24 +70,27 @@
     ) {
         if (
             (newShapes.type === 'geojson' && !newShapes.geoJson) ||
-            (newShapes.type === 'vtiles' && !newShapes.url) ||
-            !values
+            (newShapes.type === 'vtiles' && !newShapes.url)
         ) {
             // We don't have everything we need yet
             return;
         }
-        let filteredValues: ChoroplethDataValue[] = values;
-        if (filter) {
-            filteredValues = values.filter((value) => filter?.includes(value.x));
+
+        let valuesToMatch: ChoroplethDataValue[] = values;
+        let colors;
+        let fillColor: string | (string | string[])[] = emptyValueColor;
+
+        if (valuesToMatch.length !== 0) {
+            if (filter) {
+                valuesToMatch = values.filter((value) => filter?.includes(value.x));
+            }
+            dataBounds = getDataBounds(valuesToMatch);
+            colors = mapKeyToColor(valuesToMatch, dataBounds, newColorScales, emptyValueColor);
+            const matchExpression = ['match', ['get', matchKey]];
+            Object.entries(colors).forEach((e) => matchExpression.push(...e));
+            matchExpression.push(emptyValueColor); // Default fallback color
+            fillColor = matchExpression;
         }
-
-        dataBounds = getDataBounds(filteredValues);
-        const colors = mapKeyToColor(filteredValues, dataBounds, newColorScales, emptyValueColor);
-
-        const matchExpression = ['match', ['get', matchKey]];
-
-        Object.entries(colors).forEach((e) => matchExpression.push(...e));
-        matchExpression.push(emptyValueColor); // Default fallback color
 
         if (newShapes.type === 'geojson' && newShapes.geoJson) {
             source = {
@@ -99,7 +102,7 @@
                 type: 'fill',
                 layout: {},
                 paint: {
-                    'fill-color': matchExpression,
+                    'fill-color': fillColor,
                     'fill-opacity': 0.8,
                     'fill-outline-color': DEFAULT_COLORS.ShapeOutline,
                 },
@@ -117,7 +120,7 @@
                 'source-layer': newShapes.layer,
                 layout: {},
                 paint: {
-                    'fill-color': matchExpression,
+                    'fill-color': fillColor,
                     'fill-outline-color': DEFAULT_COLORS.ShapeOutline,
                     'fill-opacity': [
                         'case',

@@ -248,3 +248,29 @@ const StudioChoroplethLongLabelsArgs: Props<DataFrame, ChoroplethOptions> = {
     },
 };
 StudioChoroplethLongLabels.args = StudioChoroplethLongLabelsArgs;
+
+export const StudioChoroplethEmptyData = Template.bind({});
+const StudioChoroplethEmptyDataArgs: Props<DataFrame, ChoroplethOptions> = {
+    data: {},
+    options: {
+        shapes: shapes,
+        emptyValueColor: 'grey',
+        colorsScale: {
+            type: ColorScaleTypes.Palette,
+            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+        },
+        aspectRatio: 1,
+        legend: {
+            title: 'I Am Legend',
+        },
+        tooltip: {
+            labelFormatter: (feature) => {
+                return `Hello I'm <div style="color: red">${
+                    feature.label
+                }</div> and my value is <div style="color: red">${feature.value || ''}</div>`;
+            },
+        },
+        filter: ['France', 'Corsica'],
+    },
+};
+StudioChoroplethEmptyData.args = StudioChoroplethEmptyDataArgs;
