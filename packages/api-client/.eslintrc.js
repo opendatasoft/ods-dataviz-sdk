@@ -13,28 +13,9 @@ module.exports = {
     parser: '@typescript-eslint/parser',
     parserOptions: {
         project: './tsconfig.json',
-        extraFileExtensions: ['.svelte'],
         tsconfigRootDir: __dirname,
     },
-    plugins: ['svelte3', '@typescript-eslint', 'prettier'],
-    overrides: [
-        {
-            files: ['*.svelte'],
-            processor: 'svelte3/svelte3',
-            settings: {
-                'import/core-modules': ['svelte'],
-            },
-            rules: {
-                // Allowed in svelte
-                'import/first': 'off',
-                'import/no-mutable-exports': 'off',
-                'import/prefer-default-export': 'off',
-            },
-        },
-    ],
-    settings: {
-        'svelte3/typescript': true,
-    },
+    plugins: ['@typescript-eslint', 'prettier'],
     rules: {
         semi: ['error', 'always'],
         '@typescript-eslint/semi': ['error', 'always'],
@@ -78,6 +59,9 @@ module.exports = {
             },
         ],
         'import/no-named-as-default': 'off',
-        'class-methods-use-this': 'off', // False positives with abstract methods
+        'import/no-extraneous-dependencies': [
+            'error',
+            { devDependencies: ['./**/*.test.ts', './**/*.spec.ts'] },
+        ],
     },
 };

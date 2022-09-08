@@ -64,9 +64,9 @@
     let dataBounds: DataBounds;
 
     function computeSourceLayerAndBboxes(
-        values: ChoroplethDataValue[] = [],
         newShapes: ChoroplethShapeValues,
-        newColorScales: ColorScales
+        newColorScales: ColorScales,
+        values: ChoroplethDataValue[] = [],
     ) {
         if (
             (newShapes.type === 'geojson' && !newShapes.geoJson) ||
@@ -135,7 +135,7 @@
         }
     }
 
-    $: computeSourceLayerAndBboxes(data.value, shapes, colorsScale);
+    $: computeSourceLayerAndBboxes(shapes, colorsScale, data.value);
 
     const defaultFormat: ChoroplethTooltipFormatter = ({ value, label }) =>
         value ? `${label} &mdash; ${value}` : label;

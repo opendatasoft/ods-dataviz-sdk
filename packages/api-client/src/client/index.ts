@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-globals */
+/* eslint-disable no-nested-ternary */
 import update from 'immutability-helper';
 import { Query } from '../odsql';
 import { AuthenticationError, NotFoundError, ServerError, UserError } from './error';
@@ -6,18 +8,18 @@ const API_KEY_AUTH_TYPE = 'ApiKey';
 
 // Using the UMD bundle in ObservableHQ, the error "ReferenceError: global is not defined" is returned.
 // ... I'm not sure why it behaves that way, but this fixes the issue:
+// eslint-disable-next-line no-underscore-dangle, @typescript-eslint/naming-convention, @typescript-eslint/no-explicit-any
 const _global: any =
     typeof global !== 'undefined'
         ? global
-        : // eslint-disable-next-line no-restricted-globals
-        typeof self !== 'undefined'
-        ? // eslint-disable-next-line no-restricted-globals
-          self
+        : typeof self !== 'undefined'
+        ? self
         : typeof window !== 'undefined'
         ? window
         : {};
 
 export type RequestInterceptor = (request: Request) => Promise<Request>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ResponseInterceptor = (response: Response) => Promise<any>;
 
 export interface ApiClientOptions {
@@ -34,6 +36,42 @@ export interface ApiClientConfiguration {
     fetch: WindowOrWorkerGlobalScope['fetch'];
     interceptRequest?: RequestInterceptor;
     interceptResponse?: ResponseInterceptor;
+}
+
+function computeBaseUrl(domain: string): string {
+    let baseUrl;
+    if (domain.startsWith('http://') || domain.startsWith('https://')) {
+        baseUrl = domain;
+    } else {
+        baseUrl = `https://${domain}.opendatasoft.com`;
+    }
+    if (!baseUrl.endsWith('/')) {
+        baseUrl += '/';
+    }
+    baseUrl += 'api/v2/';
+
+    return baseUrl;
+}
+
+function buildConfig(
+    apiClientOptions: ApiClientOptions | undefined,
+    defaultConfig: ApiClientConfiguration
+): ApiClientConfiguration {
+    if (!apiClientOptions) {
+        return defaultConfig;
+    }
+
+    const { domain, fetch, apiKey, interceptRequest, interceptResponse } = apiClientOptions;
+
+    const newConfig: Partial<ApiClientConfiguration> = {};
+
+    if (domain) newConfig.baseUrl = computeBaseUrl(domain);
+    if (apiKey) newConfig.apiKey = apiKey;
+    if (fetch) newConfig.fetch = fetch;
+    if (interceptRequest) newConfig.interceptRequest = interceptRequest;
+    if (interceptResponse) newConfig.interceptResponse = interceptResponse;
+
+    return update(defaultConfig, { $merge: newConfig });
 }
 
 export class ApiClient {
@@ -87,73 +125,38 @@ export class ApiClient {
         if (config.interceptRequest) request = await config.interceptRequest(request);
 
         // Send request
-        const fetch = config.fetch;
-        let fetchResponse = await fetch(request);
-        if (config.interceptResponse) return await config.interceptResponse(fetchResponse);
+        const { fetch } = config;
+        const fetchResponse = await fetch(request);
+        if (config.interceptResponse) return config.interceptResponse(fetchResponse);
 
         if (fetchResponse.ok) {
             const data = await fetchResponse.json();
             return data;
-        } else {
-            let errorData = undefined;
-            const response = await fetchResponse.text();
-            if (response) {
-                try {
-                    errorData = JSON.parse(response);
-                } catch (e) {}
-            }
-            if (!errorData && (response || fetchResponse.statusText)) {
-                errorData = {
-                    message: response || fetchResponse.statusText,
-                };
-            }
-
-            if (fetchResponse.status === 401) {
-                throw new AuthenticationError(fetchResponse, errorData || 'authentication-error');
-            }
-            if (fetchResponse.status === 404) {
-                throw new NotFoundError(fetchResponse, errorData || 'not-found');
-            }
-            if (fetchResponse.status < 500) {
-                throw new UserError(fetchResponse, errorData || 'user-error');
-            }
-            throw new ServerError(fetchResponse, errorData || 'server-error');
         }
+        let errorData;
+        const response = await fetchResponse.text();
+        if (response) {
+            try {
+                errorData = JSON.parse(response);
+            } catch (e) {
+                // Ignore
+            }
+        }
+        if (!errorData && (response || fetchResponse.statusText)) {
+            errorData = {
+                message: response || fetchResponse.statusText,
+            };
+        }
+
+        if (fetchResponse.status === 401) {
+            throw new AuthenticationError(fetchResponse, errorData || 'authentication-error');
+        }
+        if (fetchResponse.status === 404) {
+            throw new NotFoundError(fetchResponse, errorData || 'not-found');
+        }
+        if (fetchResponse.status < 500) {
+            throw new UserError(fetchResponse, errorData || 'user-error');
+        }
+        throw new ServerError(fetchResponse, errorData || 'server-error');
     }
-}
-
-function buildConfig(
-    apiClientOptions: ApiClientOptions | undefined,
-    defaultConfig: ApiClientConfiguration
-): ApiClientConfiguration {
-    if (!apiClientOptions) {
-        return defaultConfig;
-    }
-
-    const { domain, fetch, apiKey, interceptRequest, interceptResponse } = apiClientOptions;
-
-    const newConfig: Partial<ApiClientConfiguration> = {};
-
-    if (domain) newConfig.baseUrl = computeBaseUrl(domain);
-    if (apiKey) newConfig.apiKey = apiKey;
-    if (fetch) newConfig.fetch = fetch;
-    if (interceptRequest) newConfig.interceptRequest = interceptRequest;
-    if (interceptResponse) newConfig.interceptResponse = interceptResponse;
-
-    return update(defaultConfig, { $merge: newConfig });
-}
-
-function computeBaseUrl(domain: string): string {
-    let baseUrl;
-    if (domain.startsWith('http://') || domain.startsWith('https://')) {
-        baseUrl = domain;
-    } else {
-        baseUrl = `https://${domain}.opendatasoft.com`;
-    }
-    if (!baseUrl.endsWith('/')) {
-        baseUrl += '/';
-    }
-    baseUrl += 'api/v2/';
-
-    return baseUrl;
 }
