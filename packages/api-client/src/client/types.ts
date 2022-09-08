@@ -18,11 +18,13 @@ export interface OdsDataset {
     has_records?: boolean;
     data_visible?: boolean;
     features?: string[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     metas?: Record<string, any>;
     fields?: {
         name?: string;
         label?: string;
         type?: string;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         annotations?: any;
         description?: string;
     }[];

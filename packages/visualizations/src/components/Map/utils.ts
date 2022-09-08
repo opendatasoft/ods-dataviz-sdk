@@ -149,6 +149,7 @@ export const computeMaxZoomFromGeoJsonFeatures = (
 ): number => {
     let maxZoom = 0; // maxZoom lowest value possible
     const filteredBboxes = mergeBboxFromFeaturesWithSameKey(features);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Object.values(filteredBboxes).forEach((value: any) => {
         // Vtiles = 512 tilesize
         maxZoom = Math.max(
