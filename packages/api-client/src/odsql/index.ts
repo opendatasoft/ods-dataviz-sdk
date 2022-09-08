@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 import update from 'immutability-helper';
 
 export type StringOrUpdater = string | ((current: string) => string) | null | undefined | false;
@@ -24,18 +23,17 @@ export class Query {
     getSearchParams(): URLSearchParams {
         if (this.searchParams === undefined) {
             this.searchParams = new URLSearchParams();
-            // eslint-disable-next-line no-restricted-syntax, guard-for-in
-            for (const name in this.params) {
-                const value = this.params[name];
-                if (typeof value === 'string') {
-                    this.searchParams.set(name, value);
-                } else {
-                    // eslint-disable-next-line no-restricted-syntax
-                    for (const itValue of [...value].sort()) {
-                        this.searchParams.append(name, itValue);
+            Object.entries(this.params).forEach(([name, value]) => {
+                if (this.searchParams) {
+                    if (typeof value === 'string') {
+                        this.searchParams?.set(name, value);
+                    } else {
+                        [...value].sort().forEach((itValue) => {
+                            this.searchParams?.append(name, itValue);
+                        });
                     }
                 }
-            }
+            });
             this.searchParams.sort();
         }
         return this.searchParams;
@@ -73,12 +71,14 @@ export class Query {
 
     append(name: string, value: string): Query {
         const currentValue: string | string[] | undefined = this.params[name];
-        const newValue =
-            currentValue === undefined
-                ? [value]
-                : typeof currentValue === 'string'
-                ? [currentValue, value]
-                : [...currentValue, value];
+        let newValue = null;
+        if (currentValue === undefined) {
+            newValue = [value];
+        } else if (typeof currentValue === 'string') {
+            newValue = [currentValue, value];
+        } else {
+            newValue = [...currentValue, value];
+        }
         return this.set(name, newValue);
     }
 
