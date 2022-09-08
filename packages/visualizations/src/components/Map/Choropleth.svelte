@@ -66,7 +66,7 @@
     function computeSourceLayerAndBboxes(
         newShapes: ChoroplethShapeValues,
         newColorScales: ColorScales,
-        values: ChoroplethDataValue[] = [],
+        values: ChoroplethDataValue[] = []
     ) {
         if (
             (newShapes.type === 'geojson' && !newShapes.geoJson) ||
