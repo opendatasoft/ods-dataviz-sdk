@@ -36,7 +36,7 @@ const dataF: any = [
 ];
 
 const shapes: any = {
-    type: ChoroplethShapeTypes.Vtiles,
+    type: ChoroplethShapeTypes.VectorTiles,
     url: 'https://static.opendatasoft.com/vector-tiles/fr_40_region_2021/{z}/{x}/{y}.pbf',
     layer: 'fr_40_region_2021',
     key: 'reg_code',
