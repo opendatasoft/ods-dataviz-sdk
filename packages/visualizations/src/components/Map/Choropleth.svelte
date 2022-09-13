@@ -10,6 +10,7 @@
     import { BLANK } from './mapStyles';
     import { getDataBounds, mapKeyToColor, isVectorTile, VOID_BOUNDS } from './utils';
     import { DEFAULT_COLORS, DEFAULT_COLORS_SCALE } from './constants';
+    import { ChoroplethShapeTypes } from './types';
     import type {
         ChoroplethDataValue,
         ChoroplethLayer,
@@ -69,8 +70,8 @@
         values: ChoroplethDataValue[] = []
     ) {
         if (
-            (newShapes.type === 'geojson' && !newShapes.geoJson) ||
-            (newShapes.type === 'vtiles' && !newShapes.url)
+            (newShapes.type === ChoroplethShapeTypes.GeoJson && !newShapes.geoJson) ||
+            (newShapes.type === ChoroplethShapeTypes.VectorTiles && !newShapes.url)
         ) {
             // We don't have everything we need yet
             return;
@@ -92,7 +93,7 @@
             fillColor = matchExpression;
         }
 
-        if (newShapes.type === 'geojson' && newShapes.geoJson) {
+        if (newShapes.type === ChoroplethShapeTypes.GeoJson && newShapes.geoJson) {
             source = {
                 type: 'geojson',
                 data: newShapes.geoJson,
@@ -109,7 +110,7 @@
             };
 
             bbox = fixedBbox || turfBbox(newShapes.geoJson) || VOID_BOUNDS;
-        } else if (newShapes.type === 'vtiles') {
+        } else if (newShapes.type === ChoroplethShapeTypes.VectorTiles) {
             source = {
                 type: 'vector',
                 tiles: [newShapes.url],

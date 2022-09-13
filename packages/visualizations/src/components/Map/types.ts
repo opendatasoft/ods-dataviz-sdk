@@ -73,7 +73,7 @@ export interface ChoroplethDataValue {
 
 export enum ChoroplethShapeTypes {
     GeoJson = 'geojson',
-    Vtiles = 'vtiles',
+    VectorTiles = 'vtiles',
 }
 
 /** `ChoroplethShapeValue` implementation based on a GeoJSON FeatureCollection.  */
@@ -84,7 +84,7 @@ export interface ChoroplethShapeGeoJsonValue {
 
 /** `ChoroplethShapeValue` implementation based on a Vector Tiles source URL.  */
 export interface ChoroplethShapeVectorTilesValue {
-    type: ChoroplethShapeTypes.Vtiles;
+    type: ChoroplethShapeTypes.VectorTiles;
     url: string;
     layer: string;
     key: string;
