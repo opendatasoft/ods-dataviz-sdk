@@ -10,8 +10,6 @@ const meta: Meta = {
 
 export default meta;
 
-type Args = Props<DataFrame, ChartOptions>;
-
 export const AreaChartStacked = ChartTemplate.bind({});
 const AreaChartStackedArgs: Props<DataFrame, ChartOptions> = {
     data: {
