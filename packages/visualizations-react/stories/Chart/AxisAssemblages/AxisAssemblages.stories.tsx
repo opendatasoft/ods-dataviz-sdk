@@ -1,5 +1,5 @@
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
-import { Meta, Story } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import type { Props } from '../../../src';
 import { COLORS } from '../../utils';
 import { ChartTemplate } from '../Chart.stories';
@@ -12,7 +12,7 @@ export default meta;
 
 type Args = Props<DataFrame, ChartOptions>;
 
-export const AreaChartStacked: Story<Args> = ChartTemplate.bind({});
+export const AreaChartStacked = ChartTemplate.bind({});
 const AreaChartStackedArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -67,7 +67,7 @@ const AreaChartStackedArgs: Props<DataFrame, ChartOptions> = {
 };
 AreaChartStacked.args = AreaChartStackedArgs;
 
-export const AreaChartPercentage: Story<Args> = ChartTemplate.bind({});
+export const AreaChartPercentage = ChartTemplate.bind({});
 const AreaChartPercentageArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -122,7 +122,7 @@ const AreaChartPercentageArgs: Props<DataFrame, ChartOptions> = {
 };
 AreaChartPercentage.args = AreaChartPercentageArgs;
 
-export const LineChartStacked: Story<Args> = ChartTemplate.bind({});
+export const LineChartStacked = ChartTemplate.bind({});
 const LineChartStackedArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -179,7 +179,7 @@ const LineChartStackedArgs: Props<DataFrame, ChartOptions> = {
 };
 LineChartStacked.args = LineChartStackedArgs;
 
-export const LineChartPercentage: Story<Args> = ChartTemplate.bind({});
+export const LineChartPercentage = ChartTemplate.bind({});
 const LineChartPercentageArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -236,7 +236,7 @@ const LineChartPercentageArgs: Props<DataFrame, ChartOptions> = {
 };
 LineChartPercentage.args = LineChartPercentageArgs;
 
-export const BarChartStacked: Story<Args> = ChartTemplate.bind({});
+export const BarChartStacked = ChartTemplate.bind({});
 const BarChartStackedArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -309,7 +309,7 @@ const BarChartStackedArgs: Props<DataFrame, ChartOptions> = {
 };
 BarChartStacked.args = BarChartStackedArgs;
 
-export const BarChartPercentage: Story<Args> = ChartTemplate.bind({});
+export const BarChartPercentage = ChartTemplate.bind({});
 const BarChartPercentageArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -382,7 +382,7 @@ const BarChartPercentageArgs: Props<DataFrame, ChartOptions> = {
 };
 BarChartPercentage.args = BarChartPercentageArgs;
 
-export const ColumnChartStacked: Story<Args> = ChartTemplate.bind({});
+export const ColumnChartStacked = ChartTemplate.bind({});
 const ColumnChartStackedArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -454,7 +454,7 @@ const ColumnChartStackedArgs: Props<DataFrame, ChartOptions> = {
 };
 ColumnChartStacked.args = ColumnChartStackedArgs;
 
-export const ColumnChartPercentage: Story<Args> = ChartTemplate.bind({});
+export const ColumnChartPercentage = ChartTemplate.bind({});
 const ColumnChartPercentageArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
