@@ -1,17 +1,17 @@
 import React from 'react';
-import { Meta } from '@storybook/react';
-import { Choropleth, Props } from '../../src';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { ChoroplethOptions, DataFrame } from '@opendatasoft/visualizations';
+import { Choropleth, Props } from '../../src';
 import { IMAGES } from '../utils';
 import { shapes } from './shapes';
 
-const meta: Meta = {
+const meta: ComponentMeta<typeof Choropleth> = {
     title: 'Map/Tooltip',
     component: Choropleth,
 };
 
 export default meta;
-const Template = (args: Props<DataFrame, ChoroplethOptions>) => (
+const Template: ComponentStory<typeof Choropleth> = (args: Props<DataFrame, ChoroplethOptions>) => (
     <div
         style={{
             width: '50%',
@@ -62,11 +62,9 @@ const CustomSimpleTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
         aspectRatio: 1,
         activeShapes: ['Corsica'],
         tooltip: {
-            label: (feature) => {
-                return `Hello I'm <div style="color: red">${
+            label: (feature: { label: string; value: string }) => `Hello I'm <div style="color: red">${
                     feature.label
-                }</div> and my value is <div style="color: red">${feature.value || ''}</div>`;
-            },
+                }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
         },
     },
 };
@@ -89,15 +87,13 @@ const CustomComplexTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
         aspectRatio: 1,
         activeShapes: ['Île de France'],
         tooltip: {
-            label: (feature) => {
-                return `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center">
+            label: (feature: { label: string, value: string }) => `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center">
                         <h2 style="border-bottom: 1px solid lightgrey">${feature.label}</h2>
                         <img src="${IMAGES.rocket}" style="margin-bottom: 15px"></img>
                         <div style="margin-bottom: 15px">Number of space rockets: ${
                             feature.value || ''
                         }</div>
-                    </div>`;
-            },
+                    </div>`,
         },
     },
 };

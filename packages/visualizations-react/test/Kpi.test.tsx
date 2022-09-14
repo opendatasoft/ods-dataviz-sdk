@@ -11,7 +11,7 @@ const options: KpiCardOptions = {
     title: 'Tokyo Olympic Budget 2021',
     imgSrc: 'My-fake-image-source',
     prefix: '$',
-    source: source,
+    source,
 };
 
 describe('KPI Default Story', () => {

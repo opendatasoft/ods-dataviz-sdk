@@ -72,7 +72,7 @@ const esm = defineConfig({
 });
 
 const umd = defineConfig({
-    input: 'src/index.ts',
+    input: 'src/index.tsx',
     output: {
         dir: 'dist',
         entryFileNames: '[name].umd.js',

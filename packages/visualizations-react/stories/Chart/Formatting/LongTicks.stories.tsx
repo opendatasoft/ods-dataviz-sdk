@@ -2,7 +2,7 @@ import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
 import { defaultSource } from '../../utils';
-import { Sample } from '../Chart.stories';
+import { ChartTemplate } from '../Chart.stories';
 
 const meta: Meta = {
     title: 'Chart/Formatting/LongTicks',
@@ -120,7 +120,7 @@ const LongTicksFixedArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const LongTicksFixed = Sample.bind({});
+export const LongTicksFixed = ChartTemplate.bind({});
 LongTicksFixed.args = LongTicksFixedArgs;
 
 const BarLongTicksArgs: Props<DataFrame, ChartOptions> = {
@@ -201,7 +201,7 @@ const BarLongTicksArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const BarLongTicks = Sample.bind({});
+export const BarLongTicks = ChartTemplate.bind({});
 BarLongTicks.args = BarLongTicksArgs;
 
 const ColumnLongTicksArgs: Props<DataFrame, ChartOptions> = {
@@ -288,7 +288,7 @@ const ColumnLongTicksArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const ColumnLongTicks = Sample.bind({});
+export const ColumnLongTicks = ChartTemplate.bind({});
 ColumnLongTicks.args = ColumnLongTicksArgs;
 
 const RadarLongTicksArgs: Props<DataFrame, ChartOptions> = {
@@ -337,5 +337,5 @@ const RadarLongTicksArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const RadarLongTicks = Sample.bind({});
+export const RadarLongTicks = ChartTemplate.bind({});
 RadarLongTicks.args = RadarLongTicksArgs;

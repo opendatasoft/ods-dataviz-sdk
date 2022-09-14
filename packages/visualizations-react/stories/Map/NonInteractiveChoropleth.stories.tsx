@@ -1,16 +1,16 @@
 import React from 'react';
-import { Meta } from '@storybook/react';
-import { Choropleth, Props } from '../../src';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { ChoroplethOptions, DataFrame } from '@opendatasoft/visualizations';
+import { Choropleth, Props } from '../../src';
 import { shapes } from './shapes';
 
-const meta: Meta = {
+const meta: ComponentMeta<typeof Choropleth> = {
     title: 'Map/Non Interactive Choropleth',
     component: Choropleth,
 };
 
 export default meta;
-const Template = (args: Props<DataFrame, ChoroplethOptions>) => (
+const Template: ComponentStory<typeof Choropleth> = (args: Props<DataFrame, ChoroplethOptions>) => (
     <div
         style={{
             width: '50%',

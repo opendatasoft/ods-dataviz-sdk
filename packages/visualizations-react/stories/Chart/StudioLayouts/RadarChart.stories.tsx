@@ -2,8 +2,7 @@ import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
 import { defaultSource } from '../../utils';
-import { Sample } from '../Chart.stories';
-import { storyWithArgs } from '../../utils';
+import { ChartTemplate } from '../Chart.stories';
 
 const meta: Meta = {
     title: 'Chart/StudioLayouts/RadarChart',
@@ -19,7 +18,8 @@ const df = [
     { x: 'persuasion', y: 70, z: 2 },
 ];
 
-export const RadarTitleScale = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const RadarTitleScale = ChartTemplate.bind({});
+const RadarTitleScaleArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
@@ -62,59 +62,60 @@ export const RadarTitleScale = storyWithArgs<Props<DataFrame, ChartOptions>>(Sam
             text: 'Radar chart with title and scale',
         },
     },
-});
+};
+RadarTitleScale.args = RadarTitleScaleArgs;
 
-export const RadarTitleScaleNegativePositive = storyWithArgs<Props<DataFrame, ChartOptions>>(
-    Sample,
-    {
-        data: {
-            loading: false,
-            value: [
-                { x: 'speed', y: 100, z: 10 },
-                { x: 'strength', y: -50, z: 45 },
-                { x: 'magic', y: 80, z: -100 },
-                { x: 'luck', y: 30, z: 100 },
-                { x: 'persuasion', y: 70, z: 2 },
-            ],
+export const RadarTitleScaleNegativePositive = ChartTemplate.bind({});
+const RadarTitleScaleNegativePositiveArgs: Props<DataFrame, ChartOptions> = {
+    data: {
+        loading: false,
+        value: [
+            { x: 'speed', y: 100, z: 10 },
+            { x: 'strength', y: -50, z: 45 },
+            { x: 'magic', y: 80, z: -100 },
+            { x: 'luck', y: 30, z: 100 },
+            { x: 'persuasion', y: 70, z: 2 },
+        ],
+    },
+    options: {
+        labelColumn: 'x',
+        source: defaultSource,
+        ariaLabel: 'Radar chart',
+        series: [
+            {
+                type: 'radar',
+                valueColumn: 'y',
+                label: 'User 1',
+                backgroundColor: 'rgba(27,210,210,0.5)',
+                borderColor: 'rgb(27,210,210)',
+            },
+            {
+                type: 'radar',
+                valueColumn: 'z',
+                label: 'User 2',
+                backgroundColor: 'rgba(127,10,210,0.5)',
+                borderColor: 'rgb(127,10,210)',
+            },
+        ],
+        legend: {
+            display: true,
         },
-        options: {
-            labelColumn: 'x',
-            source: defaultSource,
-            ariaLabel: 'Radar chart',
-            series: [
-                {
-                    type: 'radar',
-                    valueColumn: 'y',
-                    label: 'User 1',
-                    backgroundColor: 'rgba(27,210,210,0.5)',
-                    borderColor: 'rgb(27,210,210)',
+        axis: {
+            r: {
+                gridLines: {
+                    display: true,
                 },
-                {
-                    type: 'radar',
-                    valueColumn: 'z',
-                    label: 'User 2',
-                    backgroundColor: 'rgba(127,10,210,0.5)',
-                    borderColor: 'rgb(127,10,210)',
-                },
-            ],
-            legend: {
-                display: true,
-            },
-            axis: {
-                r: {
-                    gridLines: {
-                        display: true,
-                    },
-                },
-            },
-            title: {
-                text: 'Radar chart with title and scale',
             },
         },
-    }
-);
+        title: {
+            text: 'Radar chart with title and scale',
+        },
+    },
+};
+RadarTitleScaleNegativePositive.args = RadarTitleScaleNegativePositiveArgs;
 
-export const RadarTitle = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const RadarTitle = ChartTemplate.bind({});
+const RadarTitleArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -151,9 +152,11 @@ export const RadarTitle = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, 
             },
         },
     },
-});
+};
+RadarTitle.args = RadarTitleArgs;
 
-export const RadarTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const RadarTitleDataValues = ChartTemplate.bind({});
+const RadarTitleDataValuesArg: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -184,10 +187,11 @@ export const RadarTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>
                 dataLabels: {
                     display: 'auto',
                     borderRadius: 4,
-                    align(index) {
+                    align(index: number) {
                         if (df[index].y > 0) {
                             return 'end';
-                        } else if (df[index].y === 0) {
+                        }
+                        if (df[index].y === 0) {
                             return 'center';
                         }
                         return 'start';
@@ -208,4 +212,5 @@ export const RadarTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>
             },
         },
     },
-});
+};
+RadarTitleDataValues.args = RadarTitleDataValuesArg;

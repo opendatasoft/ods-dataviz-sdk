@@ -1,14 +1,14 @@
 import React from 'react';
 import { MarkdownTextOptions } from '@opendatasoft/visualizations';
-import { Meta, Story } from '@storybook/react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 import type { Props } from '../src';
 import { MarkdownText } from '../src';
 
-const meta: Meta = {
+const meta: ComponentMeta<typeof MarkdownText> = {
     title: 'MarkdownText',
     component: MarkdownText,
     decorators: [
-        (Story) => (
+        Story => (
             <div>
                 <div
                     style={{
@@ -18,7 +18,7 @@ const meta: Meta = {
                         height: '90vh',
                     }}
                 >
-                    <Story />
+                    {Story()}
                 </div>
             </div>
         ),
@@ -27,9 +27,11 @@ const meta: Meta = {
 
 export default meta;
 
-const Template = (args: Props<string, MarkdownTextOptions>) => <MarkdownText {...args} />;
+const Template: ComponentStory<typeof MarkdownText> = (
+    args: Props<string, MarkdownTextOptions>
+) => <MarkdownText {...args} />;
 
-export const Default: Story<Props<string, MarkdownTextOptions>> = Template.bind({});
+export const Default = Template.bind({});
 
 const style = {
     width: '50%',

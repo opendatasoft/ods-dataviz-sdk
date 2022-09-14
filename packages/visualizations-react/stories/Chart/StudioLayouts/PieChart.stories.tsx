@@ -2,8 +2,7 @@ import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
 import { compactNumberFormatter, defaultSource } from '../../utils';
-import { Sample } from '../Chart.stories';
-import { storyWithArgs } from '../../utils';
+import { ChartTemplate } from '../Chart.stories';
 
 const meta: Meta = {
     title: 'Chart/StudioLayouts/PieChart',
@@ -18,32 +17,35 @@ const df = [
     { x: 'Delta', y: 30 },
 ];
 
-export const PieTitleSectorsName = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
-    data: {
-        loading: false,
-        value: df,
-    },
-    options: {
-        labelColumn: 'x',
-        source: defaultSource,
-        ariaLabel: 'Pie chart with title and sectors name',
-        series: [
-            {
-                type: 'pie',
-                valueColumn: 'y',
-                backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
-                dataLabels: {
-                    display: true,
+export const PieTitleSectorsName = ChartTemplate.bind({});
+const PieTitleSectorsNameArgs: Props<DataFrame,ChartOptions> = {
+            data: {
+                loading: false,
+                value: df,
+            },
+            options: {
+                labelColumn: 'x',
+                source: defaultSource,
+                ariaLabel: 'Pie chart with title and sectors name',
+                series: [
+                    {
+                        type: 'pie',
+                        valueColumn: 'y',
+                        backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
+                        dataLabels: {
+                            display: true,
+                        },
+                    },
+                ],
+                title: {
+                    text: 'Pie chart with title and sectors name',
                 },
             },
-        ],
-        title: {
-            text: 'Pie chart with title and sectors name',
-        },
-    },
-});
+};
+PieTitleSectorsName.args = PieTitleSectorsNameArgs;
 
-export const PieTitleSectorsNameValue = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const PieTitleSectorsNameValue = ChartTemplate.bind({});
+const PieTitleSectorsNameValueArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -59,7 +61,7 @@ export const PieTitleSectorsNameValue = storyWithArgs<Props<DataFrame, ChartOpti
                 backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
                 dataLabels: {
                     display: true,
-                    text: function (index) {
+                    text (index) {
                         const xData = df[index].x;
                         const yData = compactNumberFormatter.format(df[index].y);
                         return [xData, yData];
@@ -71,9 +73,11 @@ export const PieTitleSectorsNameValue = storyWithArgs<Props<DataFrame, ChartOpti
             text: 'Pie chart with title and sectors name with values',
         },
     },
-});
+};
+PieTitleSectorsNameValue.args = PieTitleSectorsNameValueArgs;
 
-export const PieTitleLegend = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const PieTitleLegend = ChartTemplate.bind({});
+const PieTitleLegendArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -97,9 +101,11 @@ export const PieTitleLegend = storyWithArgs<Props<DataFrame, ChartOptions>>(Samp
             text: 'Pie chart with title and legend',
         },
     },
-});
+};
+PieTitleLegend.args = PieTitleLegendArgs;
 
-export const PieTitleLegendValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const PieTitleLegendValues = ChartTemplate.bind({});
+const PieTitleLegendValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
@@ -124,7 +130,7 @@ export const PieTitleLegendValues = storyWithArgs<Props<DataFrame, ChartOptions>
             display: true,
             position: 'right',
             labels: {
-                text: function (index) {
+                text (index) {
                     const xData = df[index].x;
                     const yData = compactNumberFormatter.format(df[index].y);
                     return `${xData} - ${yData}`;
@@ -135,4 +141,5 @@ export const PieTitleLegendValues = storyWithArgs<Props<DataFrame, ChartOptions>
             text: 'Pie chart with title and legend with values',
         },
     },
-});
+};
+PieTitleLegendValues.args = PieTitleLegendValuesArgs;

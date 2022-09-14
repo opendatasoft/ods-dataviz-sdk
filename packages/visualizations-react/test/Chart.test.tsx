@@ -4,7 +4,6 @@ import { render, screen } from '@testing-library/react';
 import { ChartOptions } from '@opendatasoft/visualizations';
 import { Chart } from '../src';
 
-
 const data = {
     loading: false,
     value: [

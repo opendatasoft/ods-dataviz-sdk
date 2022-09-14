@@ -1,11 +1,12 @@
 import React from 'react';
-import { Meta } from '@storybook/react';
-import { Choropleth, Props } from '../../src';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Feature } from 'geojson';
 import { ChoroplethOptions, DataFrame } from '@opendatasoft/visualizations';
+import { Choropleth, Props } from '../../src';
 import { shapes, multiPolygonShapes } from './shapes';
 import { IMAGES } from '../utils';
 
-const meta: Meta = {
+const meta: ComponentMeta<typeof Choropleth> = {
     title: 'Map/Choropleth',
     component: Choropleth,
 };
@@ -17,7 +18,7 @@ const df = [
 ];
 
 export default meta;
-const Template = (args: Props<DataFrame, ChoroplethOptions>) => (
+const Template: ComponentStory<typeof Choropleth> = (args: Props<DataFrame, ChoroplethOptions>) => (
     <div
         style={{
             width: '50%',
@@ -161,11 +162,9 @@ const StudioChoroplethCustomTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
             title: 'I Am Legend',
         },
         tooltip: {
-            label: (feature) => {
-                return `Hello I'm <div style="color: red">${
-                    feature.label
-                }</div> and my value is <div style="color: red">${feature.value || ''}</div>`;
-            },
+            label: (feature: Feature) => `Hello I'm <div style="color: red">${
+                    feature?.properties?.label
+                }</div> and my value is <div style="color: red">${feature?.properties?.value || ''}</div>`,
         },
     },
 };
@@ -191,15 +190,13 @@ const StudioChoroplethComplexTooltipArgs: Props<DataFrame, ChoroplethOptions> = 
             title: 'I Am Legend',
         },
         tooltip: {
-            label: (feature) => {
-                return `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center">
-                        <h2 style="border-bottom: 1px solid lightgrey">${feature.label}</h2>
+            label: (feature: Feature) => `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center">
+                        <h2 style="border-bottom: 1px solid lightgrey">${feature?.properties?.label}</h2>
                         <img src="${IMAGES.rocket}" style="margin-bottom: 15px"></img>
                         <div style="margin-bottom: 15px">Number of space rockets: ${
-                            feature.value || ''
+                            feature?.properties?.value || ''
                         }</div>
-                    </div>`;
-            },
+                    </div>`,
         },
     },
 };
