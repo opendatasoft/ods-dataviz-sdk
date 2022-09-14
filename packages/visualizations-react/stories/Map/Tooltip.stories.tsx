@@ -1,4 +1,5 @@
 import React from 'react';
+import { Feature } from 'geojson'
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { ChoroplethOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Choropleth, Props } from '../../src';
@@ -62,9 +63,9 @@ const CustomSimpleTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
         aspectRatio: 1,
         activeShapes: ['Corsica'],
         tooltip: {
-            label: (feature: { label: string; value: string }) => `Hello I'm <div style="color: red">${
-                    feature.label
-                }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
+            label: (feature: Feature) => `Hello I'm <div style="color: red">${
+                    feature?.properties?.label
+                }</div> and my value is <div style="color: red">${feature?.properties?.value || ''}</div>`,
         },
     },
 };
@@ -87,11 +88,11 @@ const CustomComplexTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
         aspectRatio: 1,
         activeShapes: ['Île de France'],
         tooltip: {
-            label: (feature: { label: string, value: string }) => `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center">
-                        <h2 style="border-bottom: 1px solid lightgrey">${feature.label}</h2>
+            label: (feature: Feature) => `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center">
+                        <h2 style="border-bottom: 1px solid lightgrey">${feature?.properties?.label}</h2>
                         <img src="${IMAGES.rocket}" style="margin-bottom: 15px"></img>
                         <div style="margin-bottom: 15px">Number of space rockets: ${
-                            feature.value || ''
+                            feature?.properties?.value || ''
                         }</div>
                     </div>`,
         },
