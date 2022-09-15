@@ -15,7 +15,7 @@ export interface ChoroplethOptions {
         labelFormatter?: ChoroplethTooltipFormatter;
         labelMatcher?: ChoroplethTooltipMatchers;
     };
-    fixedBbox?: BBox | undefined;
+    bbox?: BBox | undefined;
     filter?: string[] | number[] | undefined;
 }
 

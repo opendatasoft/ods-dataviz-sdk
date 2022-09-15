@@ -30,7 +30,6 @@
     let aspectRatio: number;
     let renderTooltip: MapRenderTooltipFunction;
     let bbox: BBox | undefined;
-    let fixedBbox: BBox | undefined;
     let activeShapes: string[] | undefined;
     let interactive: boolean;
     let legend: MapLegend | undefined;
@@ -54,7 +53,7 @@
         activeShapes,
         interactive = defaultInteractive,
         emptyValueColor = DEFAULT_COLORS.Default,
-        fixedBbox,
+        bbox,
         filter,
     } = options);
 
@@ -109,7 +108,7 @@
                 },
             };
 
-            bbox = fixedBbox || turfBbox(newShapes.geoJson) || VOID_BOUNDS;
+            bbox = bbox || turfBbox(newShapes.geoJson) || VOID_BOUNDS;
         } else if (newShapes.type === ChoroplethShapeTypes.VectorTiles) {
             source = {
                 type: 'vector',
@@ -132,7 +131,7 @@
                 },
             };
 
-            bbox = fixedBbox || VOID_BOUNDS;
+            bbox = bbox || VOID_BOUNDS;
         }
     }
 

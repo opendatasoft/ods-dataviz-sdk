@@ -106,7 +106,7 @@ const StudioChoroplethVectorPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
         },
         aspectRatio: 1,
         emptyValueColor: 'red',
-        fixedBbox: [-17.529298, 38.79776, 23.889159, 52.836618],
+        bbox: [-17.529298, 38.79776, 23.889159, 52.836618],
         tooltip: {
             labelFormatter: defaultLabelCallback,
         },
@@ -131,7 +131,7 @@ const StudioChoroplethVectorFilterArgs: Props<DataFrame, ChoroplethOptions> = {
         },
         emptyValueColor: '#FFFFFF',
         aspectRatio: 1,
-        fixedBbox: [-5.637513, 45.500521, 1.382751, 49.219343],
+        bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
         tooltip: {
             labelFormatter: defaultLabelCallback,
             labelMatcher: {
@@ -161,7 +161,7 @@ const StudioChoroplethVectorCustomLabelArgs: Props<DataFrame, ChoroplethOptions>
         },
         emptyValueColor: '#CBD2DB',
         aspectRatio: 1,
-        fixedBbox: [-5.637513, 45.500521, 1.382751, 49.219343],
+        bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
         tooltip: {
             labelFormatter: defaultLabelCallback,
             labelMatcher: {
@@ -194,7 +194,7 @@ const StudioChoroplethVectorEmptyDataArgs: Props<DataFrame, ChoroplethOptions> =
         },
         emptyValueColor: '#CBD2DB',
         aspectRatio: 1,
-        fixedBbox: [-5.637513, 45.500521, 1.382751, 49.219343],
+        bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
         tooltip: {
             labelFormatter: defaultLabelCallback,
             labelMatcher: {
