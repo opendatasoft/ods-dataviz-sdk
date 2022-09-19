@@ -52,11 +52,11 @@
     },
     "size-limit": [
         {
-            "path": "dist/api-client.cjs.production.min.js",
+            "path": "dist/index.es.js",
             "limit": "10 KB"
         },
         {
-            "path": "dist/api-client.esm.js",
+            "path": "dist/index.umd.js",
             "limit": "10 KB"
         }
     ],
@@ -71,7 +71,7 @@
         "@rollup/plugin-node-resolve": "^10.0.0",
         "@rollup/plugin-replace": "^3.0.1",
         "@rollup/plugin-typescript": "^6.1.0",
-        "@size-limit/preset-small-lib": "^7.0.5",
+        "@size-limit/preset-small-lib": "^8.1.0",
         "@types/jest": "^29.0.0",
         "@typescript-eslint/eslint-plugin": "^5.7.0",
         "@typescript-eslint/parser": "^5.7.0",
@@ -95,7 +95,7 @@
         "rollup-plugin-svelte": "^6.1.0",
         "rollup-plugin-terser": "^7.0.2",
         "rollup-plugin-visualizer": "^4.2.0",
-        "size-limit": "^7.0.5",
+        "size-limit": "^8.1.0",
         "tslib": "^2.0.3",
         "typedoc": "^0.22.10",
         "typedoc-plugin-markdown": "^3.11.9",
