@@ -29,7 +29,7 @@ export type TooltipParams = {
     key?: string;
 };
 
-export type ChoroplethTooltipFormatter = ({ value,label,key }: TooltipParams ) => string;
+export type ChoroplethTooltipFormatter = ({ value, label, key }: TooltipParams) => string;
 
 /** Structure containing the numerical data used by the Choropleth to compute
  * the legend and the color of the shapes it renders.
