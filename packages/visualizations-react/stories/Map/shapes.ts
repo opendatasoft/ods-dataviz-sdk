@@ -1,4 +1,4 @@
-import { ChoroplethShapeGeoJsonValue } from "@opendatasoft/visualizations";
+import type { ChoroplethShapeGeoJsonValue } from "@opendatasoft/visualizations";
 
 export const shapes: ChoroplethShapeGeoJsonValue = {
     type: 'geojson',

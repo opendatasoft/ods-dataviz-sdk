@@ -1,6 +1,10 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ChoroplethOptions, DataFrame, TooltipParams } from '@opendatasoft/visualizations';
+import type {
+    ChoroplethOptions,
+    DataFrame,
+    TooltipParams,
+} from '@opendatasoft/visualizations';
 import { Choropleth, Props } from '../../src';
 import { IMAGES } from '../utils';
 import { shapes } from './shapes';
