@@ -13,10 +13,9 @@
         "JavaScript",
         "TypeScript"
     ],
-    "main": "dist/index.js",
-    "typings": "dist/index.d.ts",
-    "module": "dist/api-client.esm.js",
-    "unpkg": "dist/umd/opendatasoft.apiclient.umd.js",
+    "main": "dist/index.es.js",
+    "typings": "dist/src/index.d.ts",
+    "unpkg": "dist/umd/index.umd.js",
     "files": [
         "dist",
         "src",
