@@ -276,7 +276,7 @@ const StudioChoroplethEmptyDataArgs: Props<DataFrame, ChoroplethOptions> = {
         filter: {
             key: 'key',
             value: ['France', 'Corsica'],
-        }
+        },
     },
 };
 StudioChoroplethEmptyData.args = StudioChoroplethEmptyDataArgs;
