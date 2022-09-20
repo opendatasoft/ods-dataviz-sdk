@@ -75,7 +75,7 @@ const umd = defineConfig({
     input: 'src/index.ts',
     output: {
         dir: 'dist',
-        entryFileNames: '[name].umd.js',
+        entryFileNames: 'umd/[name].umd.js',
         format: 'umd',
         sourcemap: true,
         name: 'opendatasoft.visualizations',

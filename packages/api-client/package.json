@@ -16,7 +16,7 @@
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
     "module": "dist/api-client.esm.js",
-    "unpkg": "umd/opendatasoft.apiclient.umd.js",
+    "unpkg": "dist/umd/opendatasoft.apiclient.umd.js",
     "files": [
         "dist",
         "src",
