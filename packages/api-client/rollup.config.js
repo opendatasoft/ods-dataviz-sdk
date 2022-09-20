@@ -78,7 +78,7 @@ const umd = defineConfig({
         entryFileNames: 'umd/[name].umd.js',
         format: 'umd',
         sourcemap: true,
-        name: 'opendatasoft.visualizations',
+        name: 'opendatasoft.apiclient',
         plugins: [],
     },
     plugins: [
