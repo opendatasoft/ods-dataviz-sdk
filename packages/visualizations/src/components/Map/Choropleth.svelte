@@ -177,10 +177,10 @@
 
     function computeFilterExpression(filterConfig: MapFilter) {
         /** Transform a filter object from the options into a Maplibre filter expression */
-        const { key, value } = filterConfig;
+        const { key, value } = filterConfig;
         const filterMatchExpression: string[] = ['in', key];
-        (Array.isArray(value) ? value : [value]).forEach((value) => {
-            filterMatchExpression.push(value.toString());
+        (Array.isArray(value) ? value : [value]).forEach((filterValue) => {
+            filterMatchExpression.push(filterValue.toString());
         });
         return filterMatchExpression;
     }

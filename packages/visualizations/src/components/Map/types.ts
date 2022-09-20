@@ -4,25 +4,37 @@ import type { DebouncedFunc } from 'lodash';
 import type { ColorScales, Color } from '../types';
 
 export interface ChoroplethOptions {
+    /** Configuration for the shapes used as a visual support for the Choropleth rendering, which will be colored using the data. */
     shapes: ChoroplethShapeValues;
+    /** Configuration for the color scale used to color the choropleth shapes. */
     colorsScale?: ColorScales;
+    /** Configuration for the legend displayed for the choropleth */
     legend?: MapLegend;
+    /** Aspect ratio used to draw the map. The map will take he width available to it, and decide its height based on that ratio. */
     aspectRatio: number;
+    /** List of keys for which the map will have tooltip displayed from the start. May not work in some situation for VTiles maps (small or out of viewport shapes). */
     activeShapes?: string[];
+    /** Is the map interactive for the user (zoom, move, tooltips...)? */
     interactive?: boolean;
+    /** Color used to fill shapes that don't have any matching value in the data */
     emptyValueColor?: Color;
+    /** Configuration for the content of the tooltips that are displayed on hover/touch. */
     tooltip?: {
         labelFormatter?: ChoroplethTooltipFormatter;
+        /** Custom configuration to define how to get a label for each shapes.
+         *
+         * By default, the label will be taken from a `label` property in the shapes if it exists, or fallback to the key used to map the data and shapes. */
         labelMatcher?: ChoroplethTooltipMatchers;
     };
+    /** Initial position of the map when rendering. If undefined, with GeoJSON shapes the map will automatically zoom to fit all content, and on VTiles map, it will display the world. */
     bbox?: BBox | undefined;
     /** Only draw shapes that match the given filter */
     filter?: MapFilter;
 }
 
 export interface MapFilter {
-    key: string,
-    value: string | string[],
+    key: string;
+    value: string | string[];
 }
 
 export interface MapLegend {
