@@ -88,21 +88,23 @@
             fillColor = matchExpression;
         }
 
+        const baseLayer: ChoroplethLayer = {
+            type: 'fill',
+            layout: {},
+            paint: {
+                'fill-color': fillColor,
+                'fill-opacity': 0.8,
+                'fill-outline-color': DEFAULT_COLORS.ShapeOutline,
+            },
+        };
+
         if (newShapes.type === ChoroplethShapeTypes.GeoJson && newShapes.geoJson) {
             source = {
                 type: 'geojson',
                 data: newShapes.geoJson,
             };
 
-            layer = {
-                type: 'fill',
-                layout: {},
-                paint: {
-                    'fill-color': fillColor,
-                    'fill-opacity': 0.8,
-                    'fill-outline-color': DEFAULT_COLORS.ShapeOutline,
-                },
-            };
+            layer = baseLayer;
 
             bbox = bbox || turfBbox(newShapes.geoJson) || VOID_BOUNDS;
         } else if (newShapes.type === ChoroplethShapeTypes.VectorTiles) {
@@ -112,19 +114,8 @@
             };
 
             layer = {
-                type: 'fill',
+                ...baseLayer,
                 'source-layer': newShapes.layer,
-                layout: {},
-                paint: {
-                    'fill-color': fillColor,
-                    'fill-outline-color': DEFAULT_COLORS.ShapeOutline,
-                    'fill-opacity': [
-                        'case',
-                        ['boolean', ['feature-state', 'hover'], false],
-                        1,
-                        0.5,
-                    ],
-                },
             };
 
             bbox = bbox || VOID_BOUNDS;
