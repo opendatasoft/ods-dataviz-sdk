@@ -139,7 +139,10 @@ const StudioChoroplethVectorFilterArgs: Props<DataFrame, ChoroplethOptions> = {
                 key: 'reg_code',
             },
         },
-        filter: [52, 53],
+        filter: {
+            key: 'reg_code',
+            value: ['52', '53'],
+        },
     },
 };
 StudioChoroplethVectorFilter.args = StudioChoroplethVectorFilterArgs;
@@ -172,7 +175,10 @@ const StudioChoroplethVectorCustomLabelArgs: Props<DataFrame, ChoroplethOptions>
                 },
             },
         },
-        filter: [52, 53],
+        filter: {
+            key: 'reg_code',
+            value: ['52', '53'],
+        },
     },
 };
 StudioChoroplethVectorCustomLabel.args = StudioChoroplethVectorCustomLabelArgs;
@@ -205,7 +211,10 @@ const StudioChoroplethVectorEmptyDataArgs: Props<DataFrame, ChoroplethOptions> =
                 },
             },
         },
-        filter: [52, 53],
+        filter: {
+            key: 'reg_code',
+            value: ['52', '53'],
+        },
     },
 };
 StudioChoroplethVectorEmptyData.args = StudioChoroplethVectorEmptyDataArgs;

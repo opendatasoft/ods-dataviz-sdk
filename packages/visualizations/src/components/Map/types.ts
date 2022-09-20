@@ -16,7 +16,13 @@ export interface ChoroplethOptions {
         labelMatcher?: ChoroplethTooltipMatchers;
     };
     bbox?: BBox | undefined;
-    filter?: string[] | number[] | undefined;
+    /** Only draw shapes that match the given filter */
+    filter?: MapFilter;
+}
+
+export interface MapFilter {
+    key: string,
+    value: string | string[],
 }
 
 export interface MapLegend {

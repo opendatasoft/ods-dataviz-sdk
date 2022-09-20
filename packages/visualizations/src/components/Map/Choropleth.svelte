@@ -10,7 +10,7 @@
     import { BLANK } from './mapStyles';
     import { getDataBounds, mapKeyToColor, isVectorTile, VOID_BOUNDS } from './utils';
     import { DEFAULT_COLORS, DEFAULT_COLORS_SCALE } from './constants';
-    import { ChoroplethShapeTypes } from './types';
+    import { ChoroplethShapeTypes, MapFilter } from './types';
     import type {
         ChoroplethDataValue,
         ChoroplethLayer,
@@ -33,7 +33,7 @@
     let activeShapes: string[] | undefined;
     let interactive: boolean;
     let legend: MapLegend | undefined;
-    let filter: (string | number)[] | undefined;
+    let filter: MapFilter | undefined;
     let filterExpression: (string | string[])[] | undefined;
 
     // Used to apply a chosen color for shapes without values (default: #cccccc)
@@ -76,16 +76,12 @@
             return;
         }
 
-        let valuesToMatch: ChoroplethDataValue[] = values;
         let colors;
         let fillColor: string | (string | string[])[] = emptyValueColor;
 
-        if (valuesToMatch.length !== 0) {
-            if (filter) {
-                valuesToMatch = values.filter((value) => filter?.includes(value.x));
-            }
-            dataBounds = getDataBounds(valuesToMatch);
-            colors = mapKeyToColor(valuesToMatch, dataBounds, newColorScales, emptyValueColor);
+        if (values.length > 0) {
+            dataBounds = getDataBounds(values);
+            colors = mapKeyToColor(values, dataBounds, newColorScales, emptyValueColor);
             const matchExpression = ['match', ['get', matchKey]];
             Object.entries(colors).forEach((e) => matchExpression.push(...e));
             matchExpression.push(emptyValueColor); // Default fallback color
@@ -179,13 +175,13 @@
         { leading: true }
     );
 
-    function computeFilterExpression(filterArray: (string | number)[]) {
-        const filterMatchExpression: (string | string[])[] = ['all'];
-        const filterArgument: string[] = ['in', matchKey];
-        filterArray.forEach((value) => {
-            filterArgument.push(value.toString());
+    function computeFilterExpression(filterConfig: MapFilter) {
+        /** Transform a filter object from the options into a Maplibre filter expression */
+        const { key, value } = filterConfig;
+        const filterMatchExpression: string[] = ['in', key];
+        (Array.isArray(value) ? value : [value]).forEach((value) => {
+            filterMatchExpression.push(value.toString());
         });
-        filterMatchExpression.push(filterArgument);
         return filterMatchExpression;
     }
 
