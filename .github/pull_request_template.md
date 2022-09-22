@@ -2,7 +2,7 @@
 
 The goal for this PR is to ...
 
-Associated Shortcut ticket: [sc-](https://app.shortcut.com/opendatasoft/story/).
+(Internal for Opendatasoft only) Associated Shortcut ticket: [sc-](https://app.shortcut.com/opendatasoft/story/).
 
 ### Changes
 
