@@ -7,7 +7,6 @@
         "target": "ES2020",
         "module": "esnext",
         "lib": ["dom", "esnext"],
-        "types": ["jest"],
         "importHelpers": true,
         // output .d.ts declaration files for consumers
         "declaration": true,
