@@ -74,7 +74,7 @@ module.exports = {
         'import/no-named-as-default': 'off',
         'import/no-extraneous-dependencies': [
             'error',
-            { devDependencies: ['./**/*.test.ts', './**/*.spec.ts', './**/*.stories.tsx'] },
+            { devDependencies: ['./test/**', '/stories/**'] },
         ],
         'no-underscore-dangle': 0,
         'react/jsx-one-expression-per-line': 0,

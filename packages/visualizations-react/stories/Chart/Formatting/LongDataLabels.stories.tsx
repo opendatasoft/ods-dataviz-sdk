@@ -2,7 +2,7 @@ import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
 import { compactNumberFormatter, defaultSource } from '../../utils';
-import { ChartTemplate } from '../Chart.stories';
+import ChartTemplate from '../ChartTemplate';
 
 const meta: Meta = {
     title: 'Chart/Formatting/LongDataLabels',
@@ -100,6 +100,7 @@ const PieLongDataLabelrsArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
+        source: defaultSource,
         // source: defaultSource,
         ariaLabel: 'Pie chart with title and sectors name with values',
         series: [

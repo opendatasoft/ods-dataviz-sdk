@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { KpiCard } from '../../src';
-import { COLORS, CONTROLS, IMAGES } from '../utils';
+import { COLORS, CONTROLS, IMAGES, defaultSource } from '../utils';
 
 const meta: ComponentMeta<typeof KpiCard> = {
     title: 'KPI Card/Single',
@@ -109,6 +109,7 @@ FullCustom.args = {
         suffix: ' M',
         description: 'Description',
         footer: 'Footer',
+        source: defaultSource,
         // Kpi Card
     },
     style: {

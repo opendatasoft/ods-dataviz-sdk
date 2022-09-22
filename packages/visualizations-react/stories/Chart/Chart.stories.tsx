@@ -1,8 +1,8 @@
-import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { ComponentMeta } from '@storybook/react';
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Chart, Props } from '../../src';
 import { COLORS, defaultSource } from '../utils';
+import ChartTemplate from './ChartTemplate';
 
 const meta: ComponentMeta<typeof Chart> = {
     title: 'Chart',
@@ -10,18 +10,6 @@ const meta: ComponentMeta<typeof Chart> = {
 };
 
 export default meta;
-
-export const ChartTemplate: ComponentStory<typeof Chart> = (args: Props<DataFrame, ChartOptions>) => (
-        <div
-            style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}
-        >
-            <Chart {...args} style={{ width: '60vw' }} />
-        </div>
-    );
 
 export const Sample = ChartTemplate.bind({});
 const SampleArgs: Props<DataFrame, ChartOptions> = {
