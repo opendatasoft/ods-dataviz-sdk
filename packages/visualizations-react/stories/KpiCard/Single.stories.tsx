@@ -88,7 +88,7 @@ Default.args = {
         description: 'This is a description',
         prefix: '$',
         footer: 'Footer',
-        imgSrc: Object.keys(IMAGES)[0],
+        imgSrc: IMAGES.gov,
         source: defaultSource,
     },
     style: {
@@ -105,7 +105,7 @@ FullCustom.args = {
     },
     options: {
         header: 'Header',
-        imgSrc: 'gov',
+        imgSrc: IMAGES.gov,
         title: 'Title',
         prefix: '$',
         suffix: ' M',
