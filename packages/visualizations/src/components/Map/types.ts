@@ -9,8 +9,8 @@ export interface ChoroplethOptions {
     aspectRatio: number;
     activeShapes?: string[];
     interactive?: boolean;
-    emptyValueColor: Color;
-    tooltip: { label: ChoroplethTooltipFormatter };
+    emptyValueColor?: Color;
+    tooltip?: { label: ChoroplethTooltipFormatter };
 }
 
 export interface MapLegend {

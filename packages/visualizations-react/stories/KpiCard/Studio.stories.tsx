@@ -21,11 +21,8 @@ type KpiCardStoryProps = Props<number, KpiCardOptions> & { style?: CSSProperties
 /* Makes the mapping easier to type as component stories */
 const DemoCards = (stories: { [key: string]: KpiCardStoryProps }) => (
     <>
-        {Object.entries(stories).map(([title, args]) => (
-            <>
-                <h3>{title}</h3>
-                <KpiCard {...args} />
-            </>    
+        {Object.values(stories).map(args => (
+            <KpiCard {...args} />
         ))}
     </>
 );

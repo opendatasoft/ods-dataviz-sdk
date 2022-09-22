@@ -1,7 +1,7 @@
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import type { Props } from '../../../src';
-import { COLORS, defaultSource } from '../../utils';
+import { COLORS } from '../../utils';
 import ChartTemplate from '../ChartTemplate';
 
 const meta: Meta = {
@@ -29,7 +29,6 @@ const AreaChartStackedArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
         ariaLabel: 'Years',
         series: [
             {
@@ -85,7 +84,6 @@ const AreaChartPercentageArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
         ariaLabel: 'Years',
         series: [
             {
@@ -141,7 +139,6 @@ const LineChartStackedArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
         ariaLabel: 'Years',
         series: [
             {
@@ -199,7 +196,6 @@ const LineChartPercentageArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
         ariaLabel: 'Years',
         series: [
             {
@@ -256,7 +252,6 @@ const BarChartStackedArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
         ariaLabel: 'Test',
         title: {
             text: 'Bar Chart - Stacked',
@@ -330,7 +325,6 @@ const BarChartPercentageArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
         ariaLabel: 'Test',
         title: {
             text: 'Bar Chart - Percentage',
@@ -404,7 +398,6 @@ const ColumnChartStackedArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
         ariaLabel: 'Test',
         title: {
             text: 'Column Chart - Stacked',
@@ -477,7 +470,6 @@ const ColumnChartPercentageArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
         ariaLabel: 'Test',
         title: {
             text: 'Column Chart - Percentage',

@@ -88,6 +88,7 @@ Default.args = {
         prefix: '$',
         footer: 'Footer',
         imgSrc: Object.keys(IMAGES)[0],
+        source: defaultSource,
     },
     style: {
         height: 'auto',

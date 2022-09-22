@@ -1,7 +1,7 @@
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import type { Props } from '../../../src';
-import { COLORS, generateArrayOf, defaultSource } from '../../utils';
+import { COLORS, generateArrayOf } from '../../utils';
 import ChartTemplate from '../ChartTemplate';
 
 const meta: Meta = {
@@ -24,7 +24,6 @@ const AreaChartYearsArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
         ariaLabel: 'Years',
         series: [
             {
@@ -111,7 +110,6 @@ const LineChartMonthsArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
         ariaLabel: 'Months',
         series: [
             {
@@ -151,7 +149,6 @@ const LineChartDaysArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
         ariaLabel: 'Days',
         series: [
             {
@@ -192,7 +189,6 @@ const LineChartHoursArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
         ariaLabel: 'Hours',
         series: [
             {
@@ -232,7 +228,6 @@ const LineChartMinutesArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
         ariaLabel: 'Minutes',
         series: [
             {
@@ -272,7 +267,6 @@ const BarChartSecondsArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
         ariaLabel: 'Seconds',
         series: [
             {
