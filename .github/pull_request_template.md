@@ -37,4 +37,4 @@ _special cases that are not widely known_
 - [ ] Description is complete
 - [ ] 2 reviewers (1 if trivial)
 - [ ] Tests coverage has improved
-- [ ] Code is production ready
+- [ ] Code is ready for a release on NPM
