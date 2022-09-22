@@ -80,6 +80,7 @@ export const Default = Template.bind({});
 Default.args = {
     data: {
         loading: false,
+        value: 1000,
     },
     options: {
         header: 'Header',

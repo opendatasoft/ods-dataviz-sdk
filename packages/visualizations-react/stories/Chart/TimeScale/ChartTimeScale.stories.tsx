@@ -140,9 +140,9 @@ const LineChartDaysArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: generateArrayOf(
-            index => ({
+            (index: number) => ({
                 x: `2021-0${index + 1}-0${index + 1}`,
-                y: (index * 2) || (index + 1),
+                y: (index * 2) ^ (index + 1), // eslint-disable-line no-bitwise
             }),
             9
         ),
@@ -182,7 +182,7 @@ const LineChartHoursArgs: Props<DataFrame, ChartOptions> = {
         value: generateArrayOf(
             index => ({
                 x: index < 5 ? `2021-12-09T${index + 19}` : `2021-12-10T0${index - 5}`,
-                y: (index || (1 - index)) * 100,
+                y: (index ^ (1 - index)) * 100, // eslint-disable-line no-bitwise
             }),
             9
         ),
@@ -219,9 +219,9 @@ const LineChartMinutesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: generateArrayOf(
-            index => ({
+            (index: number) => ({
                 x: index < 5 ? `2021-01-01T10:${index + 55}` : `2021-01-01T11:0${index - 5}`,
-                y: (index || (1 + index)) * 100,
+                y: (index ^ (1 + index)) * 100, // eslint-disable-line no-bitwise
             }),
             9
         ),
