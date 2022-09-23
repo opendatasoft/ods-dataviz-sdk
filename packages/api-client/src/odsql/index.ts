@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import update from 'immutability-helper';
 
 export type StringOrUpdater = string | ((current: string) => string) | null | undefined | false;
