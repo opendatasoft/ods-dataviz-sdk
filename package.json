@@ -30,6 +30,7 @@
         "lint": "lerna run lint  --parallel --no-bail"
     },
     "devDependencies": {
-        "lerna": "^5.5.0"
+        "lerna": "^5.5.0",
+        "nx": "^14.7.11"
     }
 }
