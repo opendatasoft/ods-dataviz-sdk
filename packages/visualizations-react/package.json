@@ -22,7 +22,7 @@
         "src"
     ],
     "engines": {
-        "node": ">=10"
+        "node": ">=10 <18"
     },
     "scripts": {
         "watch": "tsdx watch --verbose",
