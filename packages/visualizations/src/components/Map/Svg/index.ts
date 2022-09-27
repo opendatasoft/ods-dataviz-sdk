@@ -1,0 +1,12 @@
+import type { DataFrame } from '../../types';
+import type { ChoroplethOptions } from '../types';
+import ChoroplethImpl from './SvgChoropleth.svelte';
+import SvelteImpl from '../../SvelteImpl';
+
+import 'maplibre-gl/dist/maplibre-gl.css';
+
+export default class SvgChoropleth extends SvelteImpl<DataFrame, ChoroplethOptions> {
+    protected getSvelteComponentClass(): typeof ChoroplethImpl {
+        return ChoroplethImpl;
+    }
+}

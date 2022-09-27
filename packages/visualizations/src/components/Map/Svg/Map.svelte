@@ -7,8 +7,8 @@
     export let style: string;
     export let svgProps: { [key: string]: string } = {};
 
-    let width: number = 0;
-    let height: number = 0;
+    let width = 0;
+    let height = 0;
 
     const extractProps = (f: Feature) => {
         const svgAttributes = Object.keys(svgProps);
@@ -17,6 +17,7 @@
             const getProperty = (attr: string) => [attr, properties[svgProps[attr]]];
             return Object.fromEntries(svgAttributes.map(getProperty));
         }
+        return {};
     };
 
     $: fittedProjection = projection.fitSize([height, width], featureCollection);
