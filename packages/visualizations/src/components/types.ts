@@ -211,6 +211,7 @@ export interface FillConfiguration {
 
 export type Color = string;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type DataFrame = Record<string, any>[];
 
 export interface MarkdownTextOptions {

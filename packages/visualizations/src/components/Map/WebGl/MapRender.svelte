@@ -131,6 +131,7 @@
         if (e.isSourceLoaded && e.sourceId === sourceId && !e.sourceDataType) {
             // The type forces you to pass a filter parameter in the option, but it's not required by the real code
             // https://github.com/maplibre/maplibre-gl-js/issues/1393
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             const renderedFeatures = map.querySourceFeatures(sourceId, { sourceLayer: layerId });
 

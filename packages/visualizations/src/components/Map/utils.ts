@@ -15,14 +15,13 @@ export const LIGHT_GREY: Color = '#CBD2DB';
 export const DARK_GREY: Color = '#515457';
 
 const emptyFeatureCollection: FeatureCollection = {
-        type: 'FeatureCollection',
-        features: [],
-    }
+    type: 'FeatureCollection',
+    features: [],
+};
 export const EMPTY_GJ = {
     type: 'geojson',
     geoJson: emptyFeatureCollection,
-}
-
+};
 
 export const DEFAULT_COLORSSCALE: ColorsScale = {
     type: 'gradient',
@@ -167,6 +166,7 @@ export const computeMaxZoomFromGeoJsonFeatures = (
 ): number => {
     let maxZoom = 0; // maxZoom lowest value possible
     const filteredBboxes = mergeBboxFromFeaturesWithSameKey(features);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Object.values(filteredBboxes).forEach((value: any) => {
         // Vtiles = 512 tilesize
         maxZoom = Math.max(
