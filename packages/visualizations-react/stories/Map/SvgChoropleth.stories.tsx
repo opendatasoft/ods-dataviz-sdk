@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta } from '@storybook/react';
-import { SvgChoropleth } from '../../src';
+import { SvgChoropleth, Choropleth } from '../../src';
 import { shapes } from './shapes';
 
 const scales = {
@@ -32,6 +32,21 @@ const dataSets = {
     },
 };
 
+const GLoptions = {
+    style: {},
+    parameters: {},
+    shapes,
+    colorsScale: {
+        type: 'palette',
+        colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+    },
+    aspectRatio: 1,
+    legend: {
+        title: 'I Am Legend',
+    },
+}
+
+
 const meta: Meta = {
     title: 'Map/SvgChoropleth',
     component: SvgChoropleth,
@@ -40,7 +55,6 @@ const meta: Meta = {
 export default meta;
 const Template = ({ height, width, colorsScale, dataSet, options }) => {
     const optionsWithScale = { colorsScale: scales[colorsScale], ...options };
-    console.log(dataSet, dataSets[dataSet]);
     return (
         <div
             style={{
@@ -61,6 +75,53 @@ const Template = ({ height, width, colorsScale, dataSet, options }) => {
     );
 };
 
+const PerfTemplate = ({ height, width, colorsScale, dataSet, options, numberOfMaps }) => {
+    const optionsWithScale = { colorsScale: scales[colorsScale], ...options };
+    return (
+        <>
+            <h1>SVG</h1>
+            {Array.from({ length: numberOfMaps }, (_, i) => i).map(() => (
+                <div
+                    style={{
+                        margin: 'auto',
+                        border: '1px solid black',
+                        padding: '13px',
+                        display: 'inline-block',
+                        height,
+                        width,
+                    }}
+                >
+                    <SvgChoropleth
+                        options={optionsWithScale}
+                        data={dataSets[dataSet]}
+                        style={{ height: '100%', width: '100%' }} // necessary to remove the wrapper div
+                    />
+                </div>
+            ))}
+
+            <h1>MapLibre</h1>
+            {Array.from({ length: numberOfMaps }, (_, i) => i).map(() => (
+                <div
+                    style={{
+                        margin: 'auto',
+                        border: '1px solid black',
+                        padding: '13px',
+                        display: 'inline-block',
+                        height,
+                        width,
+                    }}
+                >
+                    <Choropleth
+                        options={GLoptions}
+                        data={dataSets[dataSet]}
+                        style={{ height: '100%', width: '100%' }} // necessary to remove the wrapper div
+                    />
+                </div>
+            ))}
+        </>
+    );
+};
+
 export const SvgChoroplethStory = Template.bind({});
 SvgChoroplethStory.argTypes = {
     colorsScale: {
@@ -77,5 +138,28 @@ SvgChoroplethStory.args = {
     width: '100px',
     colorsScale: null,
     dataSet: 1,
+    options: { geoJson: shapes },
+};
+
+export const PerfSvgChoroplethStory = PerfTemplate.bind({});
+PerfSvgChoroplethStory.argTypes = {
+    colorsScale: {
+        options: ['grey', 'blue'],
+        control: { type: 'select' },
+    },
+    dataSet: {
+        options: [1, 2],
+        control: { type: 'select' },
+    },
+    numberOfMaps: {
+        control: { type: 'range', min: 5, max: 30, step: 1 }
+    }
+};
+PerfSvgChoroplethStory.args = {
+    height: '100px',
+    width: '100px',
+    colorsScale: null,
+    dataSet: 1,
+    numberOfMaps: 10,
     options: { geoJson: shapes },
 };
