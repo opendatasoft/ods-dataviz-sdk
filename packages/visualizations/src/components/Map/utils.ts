@@ -64,7 +64,6 @@ export const mapKeyToColor = (
     values.forEach(({ x, y }) => {
         dataMapping[x] = y ? scale(y).hex() : emptyValueColor;
     });
-
     return dataMapping;
 };
 

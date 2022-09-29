@@ -51,6 +51,7 @@
     },
     "devDependencies": {
         "@babel/core": "^7.12.10",
+        "@opendatasoft/api-client": "^0.4.4",
         "@size-limit/preset-small-lib": "^4.9.1",
         "@storybook/addon-essentials": "^6.4.22",
         "@storybook/addon-info": "^5.3.21",

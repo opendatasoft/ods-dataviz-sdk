@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meta } from '@storybook/react';
 import { Choropleth, Props } from '../../src';
+import { ApiClient, fromCatalog } from '@opendatasoft/api-client';
 import {
     ColorScaleTypes,
     DataFrame,
@@ -43,6 +44,14 @@ const shapes: any = {
     label: 'reg_code',
 };
 
+const irisShapes: any = {
+    type: ChoroplethShapeTypes.VectorTiles,
+    url: 'https://static.opendatasoft.com/vector-tiles/fr_80_commune_2021/{z}/{x}/{y}.pbf',
+    layer: 'fr_80_commune_2021',
+    key: 'com_code',
+    label: 'com_code',
+};
+
 const defaultLabelCallback: ChoroplethTooltipFormatter = ({ label, value }) =>
     `<b>${label}:</b> ${value}`;
 
@@ -58,6 +67,20 @@ const Template = (args: Props<DataFrame, ChoroplethOptions>) => (
         }}
     >
         <Choropleth {...args} />
+    </div>
+);
+
+const LoaderTemplate = (args: any, { loaded: { data }}) => (
+    <div
+        style={{
+            width: '50%',
+            minHeight: '100px',
+            minWidth: '100px',
+            margin: 'auto',
+            border: '1px solid black',
+        }}
+    >
+        <Choropleth {...args} {...data} />
     </div>
 );
 
@@ -218,3 +241,55 @@ const StudioChoroplethVectorEmptyDataArgs: Props<DataFrame, ChoroplethOptions> =
     },
 };
 StudioChoroplethVectorEmptyData.args = StudioChoroplethVectorEmptyDataArgs;
+
+export const StudioChoroplethVectorCom = LoaderTemplate.bind({});
+
+const apiClient: any= new ApiClient({ domain: 'public' });
+const query = fromCatalog()
+    .dataset('population-millesimee-communes-2016')
+    .exports('json')
+    .select('code_insee as x, population_totale as y');
+    
+const getValue = async () => {
+    const value: any= await apiClient.get(query);
+    return value
+}
+
+const StudioChoroplethVectorComLoader = [
+    async () => ({
+        data: {
+            data: {
+                isLoading: false,
+                value: await getValue(),
+            }
+        }
+    })
+];
+
+const StudioChoroplethVectorComArgs: Omit<Props<DataFrame, ChoroplethOptions>, 'data'> = {
+    options: {
+        shapes: irisShapes,
+        colorsScale: {
+            type: ColorScaleTypes.Gradient,
+            colors: {
+                start: '#bcf5f9',
+                end: '#0229bf',
+            },
+        },
+        legend: {
+            title: 'I Am Legend',
+        },
+        emptyValueColor: 'red',
+        aspectRatio: 1,
+        bbox: [-17.529298, 38.79776, 23.889159, 52.836618],
+        tooltip: {
+            labelFormatter: defaultLabelCallback,
+        },
+        // filter: {
+        //     key: 'reg_code',
+        //     value: ['52', '53'],
+        // },
+    },
+};
+StudioChoroplethVectorCom.args = StudioChoroplethVectorComArgs;
+StudioChoroplethVectorCom.loaders = StudioChoroplethVectorComLoader;

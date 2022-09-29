@@ -43,6 +43,7 @@
     let matchKey: string;
 
     $: matchKey = isVectorTile(shapes) ? shapes.key : 'key';
+    $: console.log(matchKey);
 
     const defaultInteractive = true;
     $: ({
