@@ -15,7 +15,7 @@
         "React"
     ],
     "main": "dist/index.js",
-    "typings": "dist/index.d.ts",
+    "typings": "dist/src/index.d.ts",
     "module": "dist/visualizations-react.esm.js",
     "files": [
         "dist",
