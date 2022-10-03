@@ -81,11 +81,6 @@ module.exports = {
         'arrow-parens': [2, 'as-needed', { requireForBlockBody: true }],
         'react/jsx-props-no-spreading': 0,
         'jsx-a11y/label-has-for': 0,
-        'jsx-a11y/label-has-associated-control': ['error', {
-            labelComponents: ['label'],
-            controlComponents: ['input', 'CheckboxInput', 'RadioInput', 'SelectInput', 'TextInput', 'SwitchInput'],
-            depth: 25,
-        }],
         'react-hooks/rules-of-hooks': 'error',
         'react-hooks/exhaustive-deps': 'warn',
         'object-curly-newline': ['error', {
