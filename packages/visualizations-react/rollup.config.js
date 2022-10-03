@@ -52,7 +52,10 @@ function onwarn(warning, warn) {
 const esm = defineConfig({
     input: 'src/index.tsx',
     // Externalize all dependencies
-    external: (id) => Object.keys(pkg.dependencies).includes(id),
+    external: (id) => {
+        // Both peer and regular dependencies can be imported from our files, but we don't want to package it
+        return Object.keys(pkg.dependencies).includes(id) || Object.keys(pkg.peerDependencies).includes(id)
+    },
     output: {
         dir: 'dist',
         entryFileNames: '[name].es.js',
