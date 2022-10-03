@@ -73,6 +73,7 @@
         }
 
         if (newShapes.type === 'geojson') {
+            console.log('newshapes', newShapes);
             const computeColors = colorShapes(
                 newShapes.geoJson as FeatureCollection,
                 values,

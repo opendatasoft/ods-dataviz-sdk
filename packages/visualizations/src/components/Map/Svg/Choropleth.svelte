@@ -11,7 +11,7 @@
 
     $: coloredShapes =
         geoJson?.geoJson && geoJson.type === 'geojson'
-            ? colorShapes(geoJson.geoJson, data.value, colorsScale, emptyValueColor)
+            ? colorShapes(geoJson.geoJson, data?.value, colorsScale, emptyValueColor)
             : EMPTY_GJ;
 </script>
 
