@@ -1,8 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { MarkdownText } from '../src';
-import './ResizeObserver.mock';
-import '@testing-library/jest-dom';
 
 describe('MarkdownText', () => {
     it('renders without crashing', () => {

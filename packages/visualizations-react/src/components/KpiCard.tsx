@@ -1,7 +1,7 @@
 import { KpiCard as _KpiCard, KpiCardOptions } from '@opendatasoft/visualizations';
 import { FC } from 'react';
 import { Props } from './Props';
-import { wrap } from './ReactImpl';
+import wrap from './ReactImpl';
 
 // Explicit name and type are needed for storybook
 const KpiCard: FC<Props<number, KpiCardOptions>> = wrap(_KpiCard);
