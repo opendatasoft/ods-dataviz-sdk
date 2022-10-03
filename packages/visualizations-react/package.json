@@ -14,7 +14,7 @@
         "TypeScript",
         "React"
     ],
-    "main": "dist/index.js",
+    "main": "dist/index.es.js",
     "typings": "dist/src/index.d.ts",
     "files": [
         "dist",
