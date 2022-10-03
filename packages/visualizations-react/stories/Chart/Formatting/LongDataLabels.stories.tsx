@@ -101,7 +101,6 @@ const PieLongDataLabelrsArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        // source: defaultSource,
         ariaLabel: 'Pie chart with title and sectors name with values',
         series: [
             {
