@@ -2,8 +2,7 @@ import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
 import { defaultSource } from '../../utils';
-import { Sample } from '../Chart.stories';
-import { storyWithArgs } from '../../utils';
+import ChartTemplate from '../ChartTemplate';
 
 const meta: Meta = {
     title: 'Chart/StudioLayouts/AreaChart',
@@ -20,7 +19,8 @@ const df = [
     { x: 5, y: 778, z: 12 },
 ];
 
-export const AreaTitleAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const AreaTitleAxisGridDots = ChartTemplate.bind({});
+const AreaTitleAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -81,9 +81,11 @@ export const AreaTitleAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions
             text: 'Area chart with title, axis, grid and dots',
         },
     },
-});
+};
+AreaTitleAxisGridDots.args = AreaTitleAxisGridDotsArgs;
 
-export const AreaAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const AreaAxisGridDots = ChartTemplate.bind({});
+const AreaAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -131,9 +133,11 @@ export const AreaAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions>>(Sa
             },
         },
     },
-});
+};
+AreaAxisGridDots.args = AreaAxisGridDotsArgs;
 
-export const AreaTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const AreaTitleAxisGrid = ChartTemplate.bind({});
+const AreaTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -185,9 +189,11 @@ export const AreaTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(S
             text: 'Area chart with title, axis and grid',
         },
     },
-});
+};
+AreaTitleAxisGrid.args = AreaTitleAxisGridArgs;
 
-export const AreaTitleSubtitleGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const AreaTitleSubtitleGrid = ChartTemplate.bind({});
+const AreaTitleSubtitleGridArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -242,9 +248,11 @@ export const AreaTitleSubtitleGrid = storyWithArgs<Props<DataFrame, ChartOptions
             text: 'Custom Chart Subtitle',
         },
     },
-});
+};
+AreaTitleSubtitleGrid.args = AreaTitleSubtitleGridArgs;
 
-export const AreaTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const AreaTitleDataValues = ChartTemplate.bind({});
+const AreaTitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -262,19 +270,17 @@ export const AreaTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
-                    align: function (index) {
+                    align(index) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
-                    anchor: function (index) {
+                    anchor(index) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
                     color: 'rgb(22, 161, 145)',
                 },
@@ -312,9 +318,11 @@ export const AreaTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>
             text: 'Area chart with title and data values on axis',
         },
     },
-});
+};
+AreaTitleDataValues.args = AreaTitleDataValuesArgs;
 
-export const AreaDataValuesOnly = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const AreaDataValuesOnly = ChartTemplate.bind({});
+const AreaDataValuesOnlyArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -337,19 +345,17 @@ export const AreaDataValuesOnly = storyWithArgs<Props<DataFrame, ChartOptions>>(
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
-                    align: function (index) {
+                    align(index) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
-                    anchor: function (index) {
+                    anchor(index) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
                     color: 'rgb(22, 161, 145)',
                 },
@@ -379,4 +385,5 @@ export const AreaDataValuesOnly = storyWithArgs<Props<DataFrame, ChartOptions>>(
             },
         },
     },
-});
+};
+AreaDataValuesOnly.args = AreaDataValuesOnlyArgs;
