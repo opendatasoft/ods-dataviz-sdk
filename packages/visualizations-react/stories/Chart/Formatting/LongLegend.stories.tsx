@@ -2,7 +2,7 @@ import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
 import { compactNumberFormatter, defaultSource } from '../../utils';
-import { Sample } from '../Chart.stories';
+import ChartTemplate from '../ChartTemplate';
 
 const meta: Meta = {
     title: 'Chart/Formatting/LongLegend',
@@ -75,7 +75,7 @@ const LineLongLegendArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const LineLongLegend = Sample.bind({});
+export const LineLongLegend = ChartTemplate.bind({});
 LineLongLegend.args = LineLongLegendArgs;
 
 const pieDf = [
@@ -128,7 +128,7 @@ const PieLongLegendArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const PieLongLegend = Sample.bind({});
+export const PieLongLegend = ChartTemplate.bind({});
 PieLongLegend.args = PieLongLegendArgs;
 
 const RadarLongLegendArgs: Props<DataFrame, ChartOptions> = {
@@ -177,5 +177,5 @@ const RadarLongLegendArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const RadarLongLegend = Sample.bind({});
+export const RadarLongLegend = ChartTemplate.bind({});
 RadarLongLegend.args = RadarLongLegendArgs;
