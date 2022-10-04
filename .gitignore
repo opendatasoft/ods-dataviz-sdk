@@ -1,5 +1,7 @@
-dist/
-node_modules/
+dist
+node_modules
 .DS_Store
-lerna-debug.log
 .vscode
+*.log
+gen
+.cache
