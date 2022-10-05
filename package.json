@@ -26,10 +26,11 @@
     "scripts": {
         "test": "lerna run test --parallel --no-bail",
         "bootstrap": "lerna bootstrap",
-        "watch": "lerna run watch --parallel",
+        "watch": "lerna run watch --parallel --stream",
         "lint": "lerna run lint  --parallel --no-bail"
     },
     "devDependencies": {
-        "lerna": "^3.22.1"
+        "lerna": "^5.5.0",
+        "nx": "^14.7.11"
     }
 }
