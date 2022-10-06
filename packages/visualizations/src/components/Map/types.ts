@@ -3,20 +3,22 @@ import type { FillLayerSpecification, Popup } from 'maplibre-gl';
 import type { Color, ColorsScale } from '../types';
 
 export interface ChoroplethOptions {
-    shapes: ChoroplethShapeValue;
+    shapes: ChoroplethShapeValue; // default, special options defined if we need to be specific
     colorsScale?: ColorsScale;
     legend?: MapLegend;
-    aspectRatio: number;
+    aspectRatio?: number;
     activeShapes?: string[];
     interactive?: boolean;
     emptyValueColor?: Color;
     tooltip?: { label: ChoroplethTooltipFormatter };
 }
 
-export interface SvgChoroplethOptions {
-    geoJson: ChoroplethShapeGeoJsonValue;
-    colorsScale?: ColorsScale;
-    emptyValueColor?: Color;
+export interface GeoJsonChoroplethOptions extends ChoroplethOptions {
+    shapes: ChoroplethShapeGeoJsonValue;
+}
+
+export interface VectorChoroplethOptions extends ChoroplethOptions {
+    shapes: ChoroplethShapeVectorTilesValue;
 }
 
 export interface MapLegend {

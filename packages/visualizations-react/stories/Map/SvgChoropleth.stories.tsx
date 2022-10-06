@@ -1,11 +1,10 @@
 import React from 'react';
-import { Meta } from '@storybook/react';
-import rewind from '@mapbox/geojson-rewind';
-import { ApiClient, fromCatalog } from '@opendatasoft/api-client';
-import { SvgChoropleth, Choropleth } from '../../src';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { ChoroplethOptions, ColorsScale } from '@opendatasoft/visualizations';
+import { SvgChoropleth } from '../../src';
 import { shapes } from './shapes';
 
-const scales = {
+const scales: { [key: string]: ColorsScale | undefined } = {
     none: undefined,
     blue: {
         type: 'gradient',
@@ -14,10 +13,17 @@ const scales = {
             end: '#0229bf',
         },
     },
+    grey: {
+        type: 'gradient',
+        colors: {
+            start: '#333333',
+            end: '#CCCCCC',
+        },
+    },
 };
 
 // I know data is plural already!
-const dataSets = {
+const datasets: { [key: number]: { value: Array<{ x: string; y: number }> } } = {
     1: {
         value: [
             { x: 'France', y: 60 },
@@ -34,16 +40,21 @@ const dataSets = {
     },
 };
 
-const droms = ['Martinique', 'Guadeloupe', 'Guyanne', 'La Réunion', 'Mayotte'];
-
-const meta: Meta = {
-    title: 'Map/SvgChoropleth',
-    component: SvgChoropleth,
-};
-
-export default meta;
-const Template = ({ height, width, colorsScale, dataSet, options }) => {
-    const optionsWithScale = { colorsScale: scales[colorsScale], ...options };
+const ChoroPlethWithSelect = ({
+    scale,
+    dataset,
+    height,
+    width,
+    options,
+}: {
+    scale: string;
+    dataset: number;
+    height: string;
+    width: string;
+    options: ChoroplethOptions;
+}) => {
+    const optionsWithScale = { colorsScale: scales[scale], ...options };
+    const selectedDataset = datasets[dataset];
     return (
         <div
             style={{
@@ -57,85 +68,29 @@ const Template = ({ height, width, colorsScale, dataSet, options }) => {
         >
             <SvgChoropleth
                 options={optionsWithScale}
-                data={dataSets[dataSet]}
-                style={{ height: '100%', width: '100%' }} // necessary to remove the wrapper div
+                data={selectedDataset}
+                style={{ height: '100%', width: '100%' }} // Necessary to remove storybook wrapper
             />
         </div>
     );
 };
 
-const MappingComponent = ({ shape, optionsWithScale, height, width, ChoroplethComponent }) => {
-    const geoJson = {
-        type: 'geojson',
-        geoJson: rewind(shape, true),
-    };
-    const options = {
-        ...optionsWithScale,
-        geoJson,
-    };
-
-    const value = shape.features.map((feat) => ({
-        x: feat.properties.key[0],
-        y: 1000 * Math.random(),
-    }));
-    const data = { isLoading: false, value };
-
-    return (
-        <div
-            style={{
-                margin: 'auto',
-                border: '1px solid black',
-                padding: '13px',
-                display: 'inline-block',
-                height,
-                width,
-            }}
-        >
-            <ChoroplethComponent
-                options={options}
-                data={data}
-                style={{ height: '100%', width: '100%' }} // necessary to remove the wrapper div
-            />
-        </div>
-    );
+const meta: ComponentMeta<typeof SvgChoropleth> = {
+    title: 'Map/SvgChoropleth',
+    component: SvgChoropleth,
 };
 
-const PerfTemplate = ({ height, width, colorsScale, options }, { loaded: { shapes } }) => {
-    const optionsWithScale = { colorsScale: scales[colorsScale], ...options };
-    return (
-        <>
-            <h1>SVG</h1>
-            {shapes.map((shape) => (
-                <MappingComponent
-                    shape={shape}
-                    optionsWithScale={optionsWithScale}
-                    height={height}
-                    width={width}
-                    ChoroplethComponent={SvgChoropleth}
-                />
-            ))}
-
-            <h1>MapLibre</h1>
-            {shapes.map((shape) => (
-                <MappingComponent
-                    shape={shape}
-                    optionsWithScale={optionsWithScale}
-                    height={height}
-                    width={width}
-                    ChoroplethComponent={Choropleth}
-                />
-            ))}
-        </>
-    );
-};
-
+export default meta;
+const Template: ComponentStory<typeof ChoroPlethWithSelect> = args => (
+        <ChoroPlethWithSelect {...args} />
+);
 export const SvgChoroplethStory = Template.bind({});
 SvgChoroplethStory.argTypes = {
-    colorsScale: {
+    scale: {
         options: ['grey', 'blue'],
         control: { type: 'select' },
     },
-    dataSet: {
+    dataset: {
         options: [1, 2],
         control: { type: 'select' },
     },
@@ -143,49 +98,9 @@ SvgChoroplethStory.argTypes = {
 SvgChoroplethStory.args = {
     height: '100px',
     width: '100px',
-    colorsScale: null,
-    dataSet: 1,
-    options: { geoJson: shapes },
+    dataset: 1,
+    scale: 'blue',
+    options: { shapes },
 };
 
-const client: any = new ApiClient({ domain: 'public' });
-const shapeQuery = (drom) =>
-    fromCatalog()
-        .dataset('georef-france-commune-arrondissement-municipal')
-        .exports('geojson')
-        .select('com_code as key')
-        .where(`reg_name='${drom}'`);
 
-const shapeLoader = async () => {
-    const shapes = await Promise.all(
-        droms.map(async (drom) => {
-            const query = shapeQuery(drom);
-            const data = await client.get(query);
-            return data;
-        })
-    );
-    return { shapes };
-};
-
-export const PerfSvgChoroplethStory = PerfTemplate.bind({});
-PerfSvgChoroplethStory.loaders = [shapeLoader];
-PerfSvgChoroplethStory.argTypes = {
-    colorsScale: {
-        options: ['grey', 'blue'],
-        control: { type: 'select' },
-    },
-    numberOfMaps: {
-        control: { type: 'range', min: 5, max: 30, step: 1 },
-    },
-};
-PerfSvgChoroplethStory.args = {
-    height: '100px',
-    width: '100px',
-    colorsScale: null,
-    dataSet: 1,
-    numberOfMaps: 10,
-    options: {
-        shapes,
-        emptyValueColor: '#f29d9d',
-    },
-};
