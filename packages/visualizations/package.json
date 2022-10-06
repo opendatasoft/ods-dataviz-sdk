@@ -1,6 +1,6 @@
 {
     "name": "@opendatasoft/visualizations",
-    "version": "0.9.0",
+    "version": "0.9.1",
     "license": "MIT",
     "author": "opendatasoft",
     "homepage": "https://github.com/opendatasoft/ods-dataviz-sdk",
@@ -14,6 +14,9 @@
         "TypeScript",
         "Svelte"
     ],
+    "engines": {
+        "node": ">=10 <18"
+    },
     "main": "dist/index.umd.js",
     "module": "dist/index.es.js",
     "typings": "dist/index.d.ts",
@@ -81,7 +84,7 @@
         "svelte-check": "^2.2.7",
         "svelte-preprocess": "^4.9.8",
         "tslib": "^2.0.3",
-        "typescript": "^4.0.5"
+        "typescript": "4.6"
     },
     "dependencies": {
         "@mapbox/geo-viewport": "^0.5.0",

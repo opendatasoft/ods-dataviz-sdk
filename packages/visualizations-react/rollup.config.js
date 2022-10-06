@@ -19,7 +19,7 @@ function basePlugins() {
             sourceMap: true,
             declaration: true,
             declarationDir: 'dist',
-            rootDirs: ['src', 'test'],
+            rootDirs: ['src', 'test', 'stories'],
         }),
         nodeResolve(),
         commonjs(),
@@ -32,8 +32,8 @@ function basePlugins() {
         production &&
             babel({
                 babelHelpers: 'bundled',
-                extensions: ['.ts', '.mjs', '.js', '.svelte'],
-                include: ['src/**', 'node_modules/chart.js/**', 'node_modules/svelte/**'],
+                extensions: ['.ts', '.mjs', '.js', '.tsx', 'jsx'],
+                include: ['src/**'],
                 presets: ['@babel/preset-env'],
             }),
     ];
@@ -50,9 +50,12 @@ function onwarn(warning, warn) {
 }
 
 const esm = defineConfig({
-    input: 'src/index.ts',
+    input: 'src/index.tsx',
     // Externalize all dependencies
-    external: (id) => Object.keys(pkg.dependencies).includes(id),
+    external: (id) => {
+        // Both peer and regular dependencies can be imported from our files, but we don't want to package it
+        return Object.keys(pkg.dependencies).includes(id) || Object.keys(pkg.peerDependencies).includes(id)
+    },
     output: {
         dir: 'dist',
         entryFileNames: '[name].es.js',
@@ -72,13 +75,13 @@ const esm = defineConfig({
 });
 
 const umd = defineConfig({
-    input: 'src/index.ts',
+    input: 'src/index.tsx',
     output: {
         dir: 'dist',
-        entryFileNames: 'umd/[name].umd.js',
+        entryFileNames: '[name].umd.js',
         format: 'umd',
         sourcemap: true,
-        name: 'opendatasoft.apiclient',
+        name: 'opendatasoft.visualizationsReact',
         plugins: [],
     },
     plugins: [

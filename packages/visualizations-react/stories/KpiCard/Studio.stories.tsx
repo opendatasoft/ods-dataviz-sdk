@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { Async, KpiCardOptions } from '@opendatasoft/visualizations';
-import { Meta } from '@storybook/react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { KpiCard, Props } from '../../src';
 import {
     IMAGES,
@@ -10,16 +10,24 @@ import {
     comparisonFormatter,
 } from '../utils';
 
-const meta: Meta = {
+const meta: ComponentMeta<typeof KpiCard> = {
     title: 'KPI Card/Studio Layouts',
 };
 
 export default meta;
 
-type KpiCardStoryProps = { [key: string]: Props<number, KpiCardOptions> };
+type KpiCardStoryProps = Props<number, KpiCardOptions> & { style?: CSSProperties };
 
-const Template = function (this: Props<number, KpiCardOptions>, args: KpiCardStoryProps) {
-    return (
+/* Makes the mapping easier to type as component stories */
+const DemoCards = (stories: { [key: string]: KpiCardStoryProps }) => (
+    <>
+        {Object.values(stories).map(args => (
+            <KpiCard {...args} />
+        ))}
+    </>
+);
+
+const Template: ComponentStory<typeof DemoCards> = args => (
         <div
             style={{
                 display: 'grid',
@@ -28,26 +36,14 @@ const Template = function (this: Props<number, KpiCardOptions>, args: KpiCardSto
                 gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
                 gridTemplateRows: 'repeat(2, minmax(0, 1fr))',
                 gap: '1rem',
-                ['--kpi-card-value-color' as any]: '#198276',
-            }}
+                '--kpi-card-value-color': '#198276',
+            } as CSSProperties}
         >
-            {Object.keys(args).map((key) => {
-                const { data, options, style } = args[key];
-
-                return (
-                    <KpiCard
-                        data={data}
-                        options={{ ...this.options, ...options }}
-                        style={style}
-                        key={key}
-                    />
-                );
-            })}
+            <DemoCards {...args} />
         </div>
     );
-};
 
-function withData(data: Async<number>): KpiCardStoryProps {
+function withDataOptions({data, options}: { data: Async<number>, options: KpiCardOptions}) {
     return {
         'Context only': {
             data,
@@ -56,6 +52,7 @@ function withData(data: Async<number>): KpiCardStoryProps {
                     'Chiffre d’affaires pour la catégorie Fruits et légumes sur l’année en cours',
                 suffix: ' EUR',
                 source: defaultSource,
+                ...options
             },
         },
         'Context, picture': {
@@ -66,6 +63,7 @@ function withData(data: Async<number>): KpiCardStoryProps {
                     'Chiffre d’affaires pour la catégorie Fruits et légumes sur l’année en cours',
                 suffix: ' EUR',
                 source: defaultSource,
+                ...options,
             },
         },
         'Title only': {
@@ -74,40 +72,56 @@ function withData(data: Async<number>): KpiCardStoryProps {
                 title: "Chiffre d'affaires",
                 suffix: ' EUR',
                 source: defaultSource,
+                ...options,
             },
         },
         'Title, picture': {
             data,
             style: {
-                ['--kpi-card-body-flex-direction' as any]: 'row',
-                ['--kpi-card-img-margin' as any]: '0 1rem 0 0',
-                ['--kpi-card-content-align-items' as any]: 'start',
-                ['--kpi-card-title-margin' as any]: '0 0 0.37rem 0',
-                ['--kpi-card-value-margin' as any]: '0',
-            },
+                '--kpi-card-body-flex-direction': 'row',
+                '--kpi-card-img-margin': '0 1rem 0 0',
+                '--kpi-card-content-align-items': 'start',
+                '--kpi-card-title-margin': '0 0 0.37rem 0',
+                '--kpi-card-value-margin': '0',
+            } as CSSProperties,
             options: {
                 title: "Chiffre d'affaires",
                 imgSrc: IMAGES.rocket,
                 suffix: ' EUR',
                 source: defaultSource,
+                ...options,
             },
         },
     };
 }
 
-export const Loading = Template.bind({ options: { formatCompact: simpleFormatter.format } });
-Loading.args = withData({ loading: true });
+export const Loading = Template.bind({});
+Loading.args = withDataOptions({
+    data: { loading: true },
+    options: { formatCompact: simpleFormatter.format },
+});
 
-export const ShortValue = Template.bind({ options: { formatCompact: simpleFormatter.format } });
-ShortValue.args = withData({ value: -42 });
+export const ShortValue = Template.bind({});
+ShortValue.args = withDataOptions({
+    data: { value: -42 },
+    options: { formatCompact: simpleFormatter.format },
+});
 
 export const LongValue = Template.bind({ options: { formatCompact: simpleFormatter.format } });
-LongValue.args = withData({ value: 42123456 });
+LongValue.args = withDataOptions({
+    data: { value: 42123456 }, 
+    options: { formatCompact: simpleFormatter.format }
+});
 
-export const RatioKPI = Template.bind({ options: { formatCompact: ratioFormatter.format } });
-RatioKPI.args = withData({ value: 0.42343953859 });
+export const RatioKPI = Template.bind({});
+RatioKPI.args = withDataOptions({
+    data: { value: 0.42343953859 },
+    options: { formatCompact: ratioFormatter.format },
+});
 
-export const ComparisonKPI = Template.bind({
+
+export const ComparisonKPI = Template.bind({});
+ComparisonKPI.args = withDataOptions({
+    data: { value: 42.9 },
     options: { formatCompact: comparisonFormatter.format },
 });
-ComparisonKPI.args = withData({ value: 42.9 });

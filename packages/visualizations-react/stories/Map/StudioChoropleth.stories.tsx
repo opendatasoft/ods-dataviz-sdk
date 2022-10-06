@@ -1,16 +1,11 @@
 import React from 'react';
-import { Meta } from '@storybook/react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { ChoroplethOptions, TooltipParams, DataFrame, ColorScaleTypes, ChoroplethTooltipFormatter } from '@opendatasoft/visualizations';
 import { Choropleth, Props } from '../../src';
-import {
-    ColorScaleTypes,
-    DataFrame,
-    ChoroplethOptions,
-    ChoroplethTooltipFormatter,
-} from '@opendatasoft/visualizations';
 import { shapes, multiPolygonShapes } from './shapes';
 import { IMAGES } from '../utils';
 
-const meta: Meta = {
+const meta: ComponentMeta<typeof Choropleth> = {
     title: 'Map/Choropleth',
     component: Choropleth,
 };
@@ -25,7 +20,8 @@ const defaultLabelCallback: ChoroplethTooltipFormatter = ({ label, value }) =>
     `<b>${label}:</b> ${value}`;
 
 export default meta;
-const Template = (args: Props<DataFrame, ChoroplethOptions>) => (
+
+const Template: ComponentStory<typeof Choropleth> = (args: Props<DataFrame, ChoroplethOptions>) => (
     <div
         style={{
             width: '50%',
@@ -56,6 +52,8 @@ const StudioChoroplethArgs: Props<DataFrame, ChoroplethOptions> = {
             labelFormatter: defaultLabelCallback,
         },
         aspectRatio: 1,
+        emptyValueColor: '#cccccc',
+        tooltip,
     },
 };
 StudioChoropleth.args = StudioChoroplethArgs;
@@ -76,6 +74,8 @@ const StudioChoroplethMultiPolygonArgs: Props<DataFrame, ChoroplethOptions> = {
             labelFormatter: defaultLabelCallback,
         },
         aspectRatio: 1,
+        emptyValueColor: '#cccccc',
+        tooltip,
     },
 };
 StudioChoroplethMultiPolygon.args = StudioChoroplethMultiPolygonArgs;
@@ -96,6 +96,7 @@ const StudioChoroplethEmptyValueArgs: Props<DataFrame, ChoroplethOptions> = {
             labelFormatter: defaultLabelCallback,
         },
         aspectRatio: 1,
+        tooltip,
     },
 };
 StudioChoroplethEmptyValue.args = StudioChoroplethEmptyValueArgs;
@@ -127,6 +128,8 @@ const StudioChoroplethGradientArgs: Props<DataFrame, ChoroplethOptions> = {
         legend: {
             title: 'I Am Legend',
         },
+        emptyValueColor: '#cccccc',
+        tooltip,
     },
 };
 StudioChoroplethGradient.args = StudioChoroplethGradientArgs;
@@ -155,6 +158,8 @@ const StudioChoroplethPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
         legend: {
             title: 'I Am Legend',
         },
+        emptyValueColor: '#cccccc',
+        tooltip,
     },
 };
 StudioChoroplethPalette.args = StudioChoroplethPaletteArgs;
@@ -209,6 +214,7 @@ const StudioChoroplethComplexTooltipArgs: Props<DataFrame, ChoroplethOptions> = 
         legend: {
             title: 'I Am Legend',
         },
+        emptyValueColor: '#cccccc',
         tooltip: {
             labelFormatter: (feature) => {
                 return `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center">
@@ -217,8 +223,7 @@ const StudioChoroplethComplexTooltipArgs: Props<DataFrame, ChoroplethOptions> = 
                         <div style="margin-bottom: 15px">Number of space rockets: ${
                             feature.value || ''
                         }</div>
-                    </div>`;
-            },
+                    </div>`,
         },
     },
 };
@@ -248,6 +253,8 @@ const StudioChoroplethLongLabelsArgs: Props<DataFrame, ChoroplethOptions> = {
         legend: {
             title: 'I Am Legend',
         },
+        emptyValueColor: '#cccccc',
+        tooltip,
     },
 };
 StudioChoroplethLongLabels.args = StudioChoroplethLongLabelsArgs;

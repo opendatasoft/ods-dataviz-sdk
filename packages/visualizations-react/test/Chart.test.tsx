@@ -1,9 +1,8 @@
+// @jest-environment jsdom
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { ChartOptions } from '@opendatasoft/visualizations';
 import { Chart } from '../src';
-import './ResizeObserver.mock';
-import '@testing-library/jest-dom';
 
 const data = {
     loading: false,
