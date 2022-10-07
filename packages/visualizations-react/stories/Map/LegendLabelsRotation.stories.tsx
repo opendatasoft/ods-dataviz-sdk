@@ -1,6 +1,11 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ChoroplethOptions, DataFrame, TooltipParams } from '@opendatasoft/visualizations';
+import {
+    ChoroplethOptions,
+    DataFrame,
+    TooltipParams,
+    ColorScaleTypes,
+} from '@opendatasoft/visualizations';
 import { Choropleth, Props } from '../../src';
 import { shapes } from './shapes';
 
@@ -11,7 +16,7 @@ const meta: ComponentMeta<typeof Choropleth> = {
 export default meta;
 
 const tooltip = {
-    label: (feature: TooltipParams) =>
+    labelFormatter: (feature: TooltipParams) =>
         `Hello I'm <div style="color: red">${
             feature.label
         }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
