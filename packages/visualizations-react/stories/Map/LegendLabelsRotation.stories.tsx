@@ -1,6 +1,11 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ChoroplethOptions, DataFrame, TooltipParams } from '@opendatasoft/visualizations';
+import {
+    ChoroplethOptions,
+    DataFrame,
+    TooltipParams,
+    ColorScaleTypes,
+} from '@opendatasoft/visualizations';
 import { Choropleth, Props } from '../../src';
 import { shapes } from './shapes';
 
@@ -11,7 +16,7 @@ const meta: ComponentMeta<typeof Choropleth> = {
 export default meta;
 
 const tooltip = {
-    label: (feature: TooltipParams) =>
+    labelFormatter: (feature: TooltipParams) =>
         `Hello I'm <div style="color: red">${
             feature.label
         }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
@@ -44,7 +49,7 @@ const ChoroplethLongLabelsArgs: Props<DataFrame, ChoroplethOptions> = {
     options: {
         shapes,
         colorsScale: {
-            type: 'palette',
+            type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#1e03fd', '#0229bf'],
         },
         aspectRatio: 1,

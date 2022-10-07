@@ -1,7 +1,7 @@
 <script lang="ts">
     import tippy from '../utils/tippy';
     import type { Async } from '../../types';
-    import type { KpiCardOptions } from '../types';
+    import type { KpiCardOptions } from './types';
     import SourceLink from '../utils/SourceLink.svelte';
     import { defaultCompactNumberFormat, defaultNumberFormat } from '../utils/formatter';
 
@@ -41,7 +41,7 @@
                 {#if options.title}
                     <h3 class="kpi-card__title">{options.title}</h3>
                 {/if}
-                <!-- the weird syntax is to avoid any space at all between the value and the prefix or suffix 
+                <!-- the weird syntax is to avoid any space at all between the value and the prefix or suffix
                 The reason is that you want to support units that "stick" the value without any space, such as $45 or 45€
                 If you want to have a space (45 Cars), the prefix or suffix itself has to contain the space -->
                 <div class="kpi-card__value">

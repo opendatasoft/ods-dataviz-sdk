@@ -2,7 +2,7 @@
 
 <script lang="ts">
     import maplibregl, {
-        Map,
+        Map as MapType,
         SourceSpecification,
         StyleSpecification,
         NavigationControl,
@@ -10,14 +10,14 @@
         MapSourceDataEvent,
         MapLayerMouseEvent,
         LngLatLike,
+        FilterSpecification,
     } from 'maplibre-gl';
     import { onMount } from 'svelte';
     import { debounce } from 'lodash';
-    // eslint-disable-next-line import/no-unresolved
     import type { BBox } from 'geojson';
     import { computeMaxZoomFromGeoJsonFeatures, getFixedTooltips } from '../utils';
     import ColorsLegend from '../../utils/ColorsLegend.svelte';
-    import type { ColorsScale, DataBounds, LegendVariant } from '../../types';
+    import type { ColorScale, DataBounds, LegendVariant } from '../../types';
     import type {
         ChoroplethFixedTooltipDescription,
         MapLayer,
@@ -32,12 +32,12 @@
     // maplibre layer config
     export let layer: MapLayer;
     // bounding box to start from, and restrict to it
-    export let bbox: BBox;
+    export let bbox: BBox | undefined;
     // option to disable map interactions
     export let interactive: boolean;
     // options to display legend
     export let legend: MapLegend | undefined;
-    export let colorsScale: ColorsScale;
+    export let colorsScale: ColorScale;
     export let dataBounds: DataBounds;
     // Used to render tooltips on hover
     export let renderTooltip: MapRenderTooltipFunction;
@@ -45,6 +45,10 @@
     export let activeShapes: string[] | undefined;
     // aspect ratio based on width, by default equal to 1
     export let aspectRatio = 1;
+    // Used to filter the rendered features
+    export let filterExpression: FilterSpecification | undefined;
+    // Used to determine on which key match data and shapes
+    export let matchKey: string;
 
     let clientWidth: number;
     let legendVariant: LegendVariant;
@@ -57,7 +61,7 @@
     $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
 
     let container: HTMLElement;
-    let map: Map;
+    let map: MapType;
     // Used to add navigation control to map
     let nav: NavigationControl;
 
@@ -129,23 +133,34 @@
     function sourceLoadingCallback(e: MapSourceDataEvent) {
         // sourceDataType can be "visibility" or "metadata", in which case it's not about the data itself
         if (e.isSourceLoaded && e.sourceId === sourceId && !e.sourceDataType) {
-            // The type forces you to pass a filter parameter in the option, but it's not required by the real code
-            // https://github.com/maplibre/maplibre-gl-js/issues/1393
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            const renderedFeatures = map.querySourceFeatures(sourceId, { sourceLayer: layerId });
-
+            const renderedFeatures = map.querySourceFeatures(
+                sourceId,
+                // The type forces you to pass a filter parameter in the option, but it's not required by the real code
+                // https://github.com/maplibre/maplibre-gl-js/issues/1393
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                {
+                    sourceLayer: layer['source-layer'] || layerId, // FIXME: This may not the best way to do it
+                }
+            );
             if (renderedFeatures.length) {
-                // Restrict zoom max
+                // Restrict zoom max only works for geojson for now
                 // TODO: We may not catch the smaller shapes if Maplibre discarded them for rendering reasons, so it's a bit risky. Is it worth it?
                 // A low-cost approach could be to restrict the zoom scale to an arbitrary value (e.g. only 4 from the max zoom)... or not restrict at all.
-                const maxZoom = computeMaxZoomFromGeoJsonFeatures(container, renderedFeatures);
-                map.setMaxZoom(maxZoom);
+                if (e.source.type === 'geojson') {
+                    const maxZoom = computeMaxZoomFromGeoJsonFeatures(
+                        container,
+                        renderedFeatures,
+                        matchKey
+                    );
+                    map.setMaxZoom(maxZoom);
+                }
                 if (activeShapes && activeShapes.length > 0 && renderTooltip) {
                     fixedPopupsList = getFixedTooltips(
                         activeShapes,
                         renderedFeatures,
-                        renderTooltip
+                        renderTooltip,
+                        matchKey
                     );
                 }
             }
@@ -157,10 +172,12 @@
     function addTooltip(e: MapLayerMouseEvent) {
         if (e.features) {
             const description = renderTooltip(e.features[0]);
-            if (hoverPopup.isOpen()) {
-                hoverPopup.setLngLat(e.lngLat).setHTML(description);
-            } else {
-                hoverPopup.setLngLat(e.lngLat).setHTML(description).addTo(map);
+            if (description) {
+                if (hoverPopup.isOpen()) {
+                    hoverPopup.setLngLat(e.lngLat).setHTML(description);
+                } else {
+                    hoverPopup.setLngLat(e.lngLat).setHTML(description).addTo(map);
+                }
             }
         }
     }
@@ -240,7 +257,9 @@
                 id: layerId,
                 source: sourceId,
             });
-
+            if (filterExpression) {
+                map.setFilter(layerId, filterExpression);
+            }
             map.on('sourcedata', sourceLoadingCallback);
         }
     }

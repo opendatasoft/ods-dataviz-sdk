@@ -2,25 +2,27 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import rewind from '@mapbox/geojson-rewind';
 import { Feature } from 'geojson';
-import {
+import { ChoroplethShapeTypes, ColorScaleTypes } from '@opendatasoft/visualizations';
+import type {
     GeoJsonChoroplethOptions,
     ChoroplethShapeGeoJsonValue,
-    ColorsScale,
+    ColorScale,
+    ChoroplethOptions
 } from '@opendatasoft/visualizations';
 import { ApiClient, fromCatalog } from '@opendatasoft/api-client';
 import { SvgChoropleth, Choropleth } from '../../src';
 
-const scales: { [key: string]: ColorsScale | undefined } = {
+const scales: { [key: string]: ColorScale | undefined } = {
     none: undefined,
     blue: {
-        type: 'gradient',
+        type: ColorScaleTypes.Gradient,
         colors: {
             start: '#bcf5f9',
             end: '#0229bf',
         },
     },
     grey: {
-        type: 'gradient',
+        type: ColorScaleTypes.Gradient,
         colors: {
             start: '#333333',
             end: '#CCCCCC',
@@ -42,7 +44,7 @@ const MappingComponent = ({
     ChoroplethComponent: typeof Choropleth | typeof SvgChoropleth;
     }) => {
     const shapes: ChoroplethShapeGeoJsonValue = {
-        type: 'geojson',
+        type: ChoroplethShapeTypes.GeoJson,
         geoJson: rewind(options.shapes, true),
     };
     const optionsWithShapes: ChoroplethOptions = {
@@ -118,7 +120,7 @@ const ChoroplethGrid = ({
 };
 
 const meta: ComponentMeta<typeof ChoroplethGrid> = {
-    title: 'Map/ChoroplethGrid',
+    title: 'Map/SvgChoropleth',
     component: ChoroplethGrid,
     argTypes: {
         scale: {
@@ -153,9 +155,9 @@ const shapeLoader = async () => {
     return { gridShapes };
 };
 
-export const PerfSvgChoroplethStory = PerfTemplate.bind({});
-PerfSvgChoroplethStory.loaders = [shapeLoader];
-PerfSvgChoroplethStory.args = {
+export const SvgGridChoroplethStory = PerfTemplate.bind({});
+SvgGridChoroplethStory.loaders = [shapeLoader];
+SvgGridChoroplethStory.args = {
     height: '100px',
     width: '100px',
     scale: 'blue',

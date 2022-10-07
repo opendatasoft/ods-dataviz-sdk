@@ -1,11 +1,12 @@
 <script lang="ts">
     import { geoPath, GeoProjection } from 'd3-geo';
     import type { Feature, FeatureCollection } from 'geojson';
+    import type { SvgPropertyMapping } from './types';
 
     export let projection: GeoProjection;
     export let featureCollection: FeatureCollection;
     export let style: string;
-    export let svgProps: { [key: string]: string } = {};
+    export let svgProps: SvgPropertyMapping = {};
 
     let width = 0;
     let height = 0;

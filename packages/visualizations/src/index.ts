@@ -5,4 +5,7 @@ export { default as Choropleth } from './components/Map/WebGl';
 export { default as SvgChoropleth } from './components/Map/Svg';
 export * from './types';
 export * from './components/types';
+export * from './components/Chart/types';
+export * from './components/KpiCard/types';
 export * from './components/Map/types';
+export * from './components/MarkdownText/types';

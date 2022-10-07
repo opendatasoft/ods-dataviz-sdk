@@ -1,20 +1,20 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ChoroplethOptions, ColorsScale } from '@opendatasoft/visualizations';
+import { ChoroplethOptions, ColorScale, ColorScaleTypes } from '@opendatasoft/visualizations';
 import { SvgChoropleth } from '../../src';
 import { shapes } from './shapes';
 
-const scales: { [key: string]: ColorsScale | undefined } = {
+const scales: { [key: string]: ColorScale | undefined } = {
     none: undefined,
     blue: {
-        type: 'gradient',
+        type: ColorScaleTypes.Gradient,
         colors: {
             start: '#bcf5f9',
             end: '#0229bf',
         },
     },
     grey: {
-        type: 'gradient',
+        type: ColorScaleTypes.Gradient,
         colors: {
             start: '#333333',
             end: '#CCCCCC',
