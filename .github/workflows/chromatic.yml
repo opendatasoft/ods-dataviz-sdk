@@ -33,3 +33,4 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_TOKEN }}
           workingDir: ./packages/visualizations-react
           storybookBuildDir: storybook-static
+          onlyChanged: true
