@@ -54,7 +54,7 @@
                             }}
                             aria-label={tooltipValue}
                             class="kpi-card__value-number">{displayValue}</span
-                        >{:else}<span class="kpi-card__value-number">{displayValue}</span
+                        >{:else}<span class="kpi-card__value-number">{displayValue} newtext</span
                         >{/if}{#if options.suffix}<span class="kpi-card__suffix"
                             >{options.suffix}</span
                         >{/if}
