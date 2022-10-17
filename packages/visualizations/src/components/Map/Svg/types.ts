@@ -1,4 +1,5 @@
-/** Maps geojson properties to SVG presentational atrtibutes
-For exemple if the "fill" attributes should get its value from "shapeColor" { fill: shapeColor }
+/** Maps GeoJSON properties to SVG presentational attributes.
+For exemple if the "fill" attributes should get its value from the "shapeColor"
+property: `{ fill: shapeColor }`
  */
 export type SvgPropertyMapping = { [key: string]: string };
