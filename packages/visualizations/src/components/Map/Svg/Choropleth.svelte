@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { geoEqualEarth } from 'd3-geo';
+    import { geoMercator } from 'd3-geo';
     import {
         mapKeyToColor,
         LIGHT_GREY,
@@ -32,7 +32,7 @@
 </script>
 
 <Map
-    projection={geoEqualEarth()}
+    projection={geoMercator()}
     featureCollection={coloredShapes}
     svgProps={{ fill: 'color' }}
     style="stroke: black; stroke-width: 0.1px; fill: none;"
