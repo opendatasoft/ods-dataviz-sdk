@@ -3,12 +3,12 @@
 <script lang="ts">
     import { onDestroy } from 'svelte';
     import { debounce } from 'lodash';
-    import type { DataBounds, ColorScales, LegendVariant } from '../types';
+    import type { DataBounds, ColorScale, LegendVariant } from '../types';
     import { defaultCompactLegendNumberFormat } from './formatter';
 
     // options to customize the component
     export let dataBounds: DataBounds;
-    export let colorsScale: ColorScales;
+    export let colorsScale: ColorScale;
     export let variant: LegendVariant;
     export let title: string | undefined;
 
@@ -24,7 +24,7 @@
         legendW: number,
         labelW: number[],
         labelH: number[],
-        colorsScl: ColorScales
+        colorsScl: ColorScale
     ): void => {
         const isPaletteLegend = colorsScl.type === 'palette';
         const isDomReady = labelH.length !== 0 && labelW.length !== 0 && legendW;

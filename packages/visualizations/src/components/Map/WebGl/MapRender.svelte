@@ -15,15 +15,15 @@
     import { onMount } from 'svelte';
     import { debounce } from 'lodash';
     import type { BBox } from 'geojson';
-    import { computeMaxZoomFromGeoJsonFeatures, getFixedTooltips } from './utils';
-    import ColorsLegend from '../utils/ColorsLegend.svelte';
-    import type { ColorScales, DataBounds, LegendVariant } from '../types';
+    import { computeMaxZoomFromGeoJsonFeatures, getFixedTooltips } from '../utils';
+    import ColorsLegend from '../../utils/ColorsLegend.svelte';
+    import type { ColorScale, DataBounds, LegendVariant } from '../../types';
     import type {
         ChoroplethFixedTooltipDescription,
         MapLayer,
         MapRenderTooltipFunction,
         MapLegend,
-    } from './types';
+    } from '../types';
 
     // maplibre style (basemap)
     export let style: StyleSpecification;
@@ -37,7 +37,7 @@
     export let interactive: boolean;
     // options to display legend
     export let legend: MapLegend | undefined;
-    export let colorsScale: ColorScales;
+    export let colorsScale: ColorScale;
     export let dataBounds: DataBounds;
     // Used to render tooltips on hover
     export let renderTooltip: MapRenderTooltipFunction;

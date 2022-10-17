@@ -34,4 +34,4 @@ export type PaletteScale = {
     colors: Color[];
 };
 
-export type ColorScales = GradientScale | PaletteScale;
+export type ColorScale = GradientScale | PaletteScale;

@@ -2,12 +2,12 @@ import chroma from 'chroma-js';
 import turfBbox from '@turf/bbox';
 import maplibregl from 'maplibre-gl';
 import geoViewport from '@mapbox/geo-viewport';
-import type { Feature, Position, BBox } from 'geojson';
+import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
 import type { Scale } from 'chroma-js';
 import { DEFAULT_COLORS } from './constants';
 import { assertUnreachable } from '../utils';
-import { ColorScaleTypes } from '../types';
-import type { Color, ColorScales, DataBounds } from '../types';
+import { ColorScaleTypes, GradientScale } from '../types';
+import type { Color, ColorScale, DataBounds } from '../types';
 import type {
     ChoroplethDataValue,
     ChoroplethFixedTooltipDescription,
@@ -16,6 +16,22 @@ import type {
     ChoroplethShapeVectorTilesValue,
 } from './types';
 
+export const LIGHT_GREY: Color = '#CBD2DB';
+export const DARK_GREY: Color = '#515457';
+
+export const EMPTY_FC: FeatureCollection = {
+    type: 'FeatureCollection',
+    features: [],
+};
+
+export const DEFAULT_COLORSSCALE: GradientScale = {
+    type: ColorScaleTypes.Gradient,
+    colors: {
+        start: LIGHT_GREY,
+        end: DARK_GREY,
+    },
+};
+
 export function getDataBounds(values: ChoroplethDataValue[]): DataBounds {
     const rawValues = values.map((v) => v.y);
     const min = Math.min(...rawValues);
@@ -23,10 +39,34 @@ export function getDataBounds(values: ChoroplethDataValue[]): DataBounds {
     return { min, max };
 }
 
+export const colorShapes = ({
+    featureCollection,
+    colorMapping,
+}: {
+    featureCollection: FeatureCollection;
+    colorMapping: { [key: string]: Color };
+}) => {
+    const coloredFeatures = featureCollection.features.map((feature: Feature) => {
+        const color = colorMapping[feature?.properties?.key];
+        return {
+            ...feature,
+            properties: {
+                ...feature.properties,
+                color,
+            },
+        };
+    });
+    const coloredShapes: FeatureCollection = {
+        type: 'FeatureCollection',
+        features: coloredFeatures,
+    };
+    return coloredShapes;
+};
+
 export const mapKeyToColor = (
     values: ChoroplethDataValue[],
     dataBounds: DataBounds,
-    colorsScale: ColorScales,
+    colorsScale: ColorScale,
     emptyValueColor: Color = DEFAULT_COLORS.Default
 ): { [s: string]: string } => {
     const { min, max } = dataBounds;
@@ -38,7 +78,7 @@ export const mapKeyToColor = (
     switch (colorsScale.type) {
         case ColorScaleTypes.Palette:
             const thresholdArray: number[] = []; // eslint-disable-line no-case-declarations
-            colorsScale.colors.forEach((_color, i) => {
+            colorsScale.colors.forEach((_color: Color, i: number) => {
                 if (i === 0) {
                     thresholdArray.push(min);
                     thresholdArray.push(min + (max - min) / colorsScale.colors.length);
@@ -55,9 +95,11 @@ export const mapKeyToColor = (
             colorMax = chroma(colorsScale.colors.end).hex();
             scale = chroma.scale([colorMin, colorMax]).domain([min, max]);
             break;
-        default:
+        default: {
             // This function should never be reached because of the exhaustive check (will throw a compilation error)
-            assertUnreachable(colorsScale);
+            const exhaustiveCheck: never = colorsScale;
+            assertUnreachable(exhaustiveCheck);
+        }
     }
 
     const dataMapping: { [s: ChoroplethDataValue['x']]: Color } = {};

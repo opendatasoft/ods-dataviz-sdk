@@ -1,5 +1,5 @@
 import { ColorScaleTypes } from '../types';
-import type { ColorScales, Color } from '../types';
+import type { ColorScale, Color } from '../types';
 
 export const DEFAULT_COLORS: Record<string, Color> = {
     Default: '#CCCCCC',
@@ -8,7 +8,7 @@ export const DEFAULT_COLORS: Record<string, Color> = {
     DarkGrey: '#515457',
 } as const;
 
-export const DEFAULT_COLORS_SCALE: ColorScales = {
+export const DEFAULT_COLORS_SCALE: ColorScale = {
     type: ColorScaleTypes.Gradient,
     colors: {
         start: DEFAULT_COLORS.LightGrey,

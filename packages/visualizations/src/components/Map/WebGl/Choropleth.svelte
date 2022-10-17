@@ -5,12 +5,12 @@
     import { debounce } from 'lodash';
     import type { SourceSpecification } from 'maplibre-gl';
     import type { BBox } from 'geojson';
-    import type { ColorScales, DataBounds, Color } from '../types';
+    import type { ColorScale, DataBounds, Color } from '../../types';
     import MapRender from './MapRender.svelte';
-    import { BLANK } from './mapStyles';
-    import { getDataBounds, mapKeyToColor, isVectorTile, VOID_BOUNDS } from './utils';
-    import { DEFAULT_COLORS, DEFAULT_COLORS_SCALE } from './constants';
-    import { ChoroplethShapeTypes, MapFilter } from './types';
+    import { BLANK } from '../mapStyles';
+    import { getDataBounds, mapKeyToColor, isVectorTile, VOID_BOUNDS } from '../utils';
+    import { DEFAULT_COLORS, DEFAULT_COLORS_SCALE } from '../constants';
+    import { ChoroplethShapeTypes } from '../types';
     import type {
         ChoroplethDataValue,
         ChoroplethLayer,
@@ -19,15 +19,16 @@
         ChoroplethShapeValues,
         ChoroplethTooltipFormatter,
         MapLegend,
-    } from './types';
+        MapFilter,
+    } from '../types';
 
     export let data: { value: ChoroplethDataValue[] }; // values, and the key to match
     export let options: ChoroplethOptions; // contains the shapes to display & match
 
     let shapes: ChoroplethShapeValues;
-    let colorsScale: ColorScales;
+    let colorsScale: ColorScale;
 
-    let aspectRatio: number;
+    let aspectRatio: number | undefined;
     let renderTooltip: MapRenderTooltipFunction;
     let bbox: BBox | undefined;
     let activeShapes: string[] | undefined;
@@ -43,7 +44,6 @@
     let matchKey: string;
 
     $: matchKey = isVectorTile(shapes) ? shapes.key : 'key';
-    $: console.log(matchKey);
 
     const defaultInteractive = true;
     $: ({
@@ -66,7 +66,7 @@
 
     function computeSourceLayerAndBboxes(
         newShapes: ChoroplethShapeValues,
-        newColorScales: ColorScales,
+        newColorScale: ColorScale,
         values: ChoroplethDataValue[] = []
     ) {
         if (
@@ -82,7 +82,7 @@
 
         if (values.length > 0) {
             dataBounds = getDataBounds(values);
-            colors = mapKeyToColor(values, dataBounds, newColorScales, emptyValueColor);
+            colors = mapKeyToColor(values, dataBounds, newColorScale, emptyValueColor);
             const matchExpression = ['match', ['get', matchKey]];
             Object.entries(colors).forEach((e) => matchExpression.push(...e));
             matchExpression.push(emptyValueColor); // Default fallback color
