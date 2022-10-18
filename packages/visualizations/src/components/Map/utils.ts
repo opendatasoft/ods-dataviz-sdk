@@ -12,8 +12,6 @@ import type {
     ChoroplethDataValue,
     ChoroplethFixedTooltipDescription,
     MapRenderTooltipFunction,
-    ChoroplethShapeValues,
-    ChoroplethShapeVectorTilesValue,
 } from './types';
 
 export const LIGHT_GREY: Color = '#CBD2DB';
@@ -227,8 +225,3 @@ export const getFixedTooltips = (
     ) as ChoroplethFixedTooltipDescription[];
 };
 
-export const isVectorTile = (
-    shape: ChoroplethShapeValues
-): shape is ChoroplethShapeVectorTilesValue =>
-    (shape as ChoroplethShapeVectorTilesValue).layer !== undefined &&
-    (shape as ChoroplethShapeVectorTilesValue).key !== undefined;

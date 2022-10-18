@@ -1,5 +1,5 @@
 import {
-    Choropleth as _Choropleth,
+    GeoJsonChoropleth as _GeoJsonChoropleth,
     ChoroplethOptions,
     DataFrame,
 } from '@opendatasoft/visualizations';
@@ -8,5 +8,5 @@ import { Props } from './Props';
 import wrap from './ReactImpl';
 
 // Explicit name and type are needed for storybook
-const Map: FC<Props<DataFrame, ChoroplethOptions>> = wrap(_Choropleth);
-export default Map;
+const GeoJsonChoropleth: FC<Props<DataFrame, ChoroplethOptions>> = wrap(_GeoJsonChoropleth);
+export default GeoJsonChoropleth;

@@ -1,17 +1,17 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import type { ChoroplethOptions, DataFrame, TooltipParams } from '@opendatasoft/visualizations';
-import { Choropleth, Props } from '../../src';
+import { GeoJsonChoropleth, Props } from '../../src';
 import { IMAGES } from '../utils';
 import { shapes } from './shapes';
 
-const meta: ComponentMeta<typeof Choropleth> = {
+const meta: ComponentMeta<typeof GeoJsonChoropleth> = {
     title: 'Map/Tooltip',
-    component: Choropleth,
+    component: GeoJsonChoropleth,
 };
 
 export default meta;
-const Template: ComponentStory<typeof Choropleth> = (args: Props<DataFrame, ChoroplethOptions>) => (
+const Template: ComponentStory<typeof GeoJsonChoropleth> = (args: Props<DataFrame, ChoroplethOptions>) => (
     <div
         style={{
             width: '50%',
@@ -21,7 +21,7 @@ const Template: ComponentStory<typeof Choropleth> = (args: Props<DataFrame, Chor
             border: '1px solid black',
         }}
     >
-        <Choropleth {...args} />
+        <GeoJsonChoropleth {...args} />
     </div>
 );
 

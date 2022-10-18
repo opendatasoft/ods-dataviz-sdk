@@ -1,31 +1,29 @@
 <svelte:options immutable={true} />
 
 <script lang="ts">
-    import turfBbox from '@turf/bbox';
     import { debounce } from 'lodash';
     import type { SourceSpecification } from 'maplibre-gl';
     import type { BBox } from 'geojson';
-    import type { ColorScale, DataBounds, Color } from '../../types';
-    import MapRender from './MapRender.svelte';
-    import { BLANK } from '../mapStyles';
-    import { getDataBounds, mapKeyToColor, isVectorTile, VOID_BOUNDS } from '../utils';
-    import { DEFAULT_COLORS, DEFAULT_COLORS_SCALE } from '../constants';
-    import { ChoroplethShapeTypes } from '../types';
+    import type { ColorScale, DataBounds, Color } from '../../../types';
+    import MapRender from '../MapRender.svelte';
+    import { BLANK } from '../../mapStyles';
+    import { getDataBounds, mapKeyToColor, VOID_BOUNDS } from '../../utils';
+    import { DEFAULT_COLORS, DEFAULT_COLORS_SCALE } from '../../constants';
     import type {
         ChoroplethDataValue,
         ChoroplethLayer,
-        ChoroplethOptions,
+        VectorChoroplethOptions,
         MapRenderTooltipFunction,
-        ChoroplethShapeValues,
+        ChoroplethShapeVectorTilesValue,
         ChoroplethTooltipFormatter,
         MapLegend,
         MapFilter,
-    } from '../types';
+    } from '../../types';
 
     export let data: { value: ChoroplethDataValue[] }; // values, and the key to match
-    export let options: ChoroplethOptions; // contains the shapes to display & match
+    export let options: VectorChoroplethOptions; // contains the shapes to display & match
 
-    let shapes: ChoroplethShapeValues;
+    let shapes: ChoroplethShapeVectorTilesValue;
     let colorScale: ColorScale;
 
     let aspectRatio: number | undefined;
@@ -43,7 +41,7 @@
     // Used to determine the shapes key
     let matchKey: string;
 
-    $: matchKey = isVectorTile(shapes) ? shapes.key : 'key';
+    $: matchKey = shapes.key;
 
     const defaultInteractive = true;
     $: ({
@@ -65,14 +63,11 @@
     let dataBounds: DataBounds;
 
     function computeSourceLayerAndBboxes(
-        newShapes: ChoroplethShapeValues,
+        newShapes: ChoroplethShapeVectorTilesValue,
         newColorScale: ColorScale,
         values: ChoroplethDataValue[] = []
     ) {
-        if (
-            (newShapes.type === ChoroplethShapeTypes.GeoJson && !newShapes.geoJson) ||
-            (newShapes.type === ChoroplethShapeTypes.VectorTiles && !newShapes.url)
-        ) {
+        if (!newShapes.url) {
             // We don't have everything we need yet
             return;
         }
@@ -99,28 +94,17 @@
             },
         };
 
-        if (newShapes.type === ChoroplethShapeTypes.GeoJson && newShapes.geoJson) {
-            source = {
-                type: 'geojson',
-                data: newShapes.geoJson,
-            };
+        source = {
+            type: 'vector',
+            tiles: [newShapes.url],
+        };
 
-            layer = baseLayer;
+        layer = {
+            ...baseLayer,
+            'source-layer': newShapes.layer,
+        };
 
-            bbox = bbox || turfBbox(newShapes.geoJson) || VOID_BOUNDS;
-        } else if (newShapes.type === ChoroplethShapeTypes.VectorTiles) {
-            source = {
-                type: 'vector',
-                tiles: [newShapes.url],
-            };
-
-            layer = {
-                ...baseLayer,
-                'source-layer': newShapes.layer,
-            };
-
-            bbox = bbox || VOID_BOUNDS;
-        }
+        bbox = bbox || VOID_BOUNDS;
     }
 
     $: computeSourceLayerAndBboxes(shapes, colorScale, data.value);

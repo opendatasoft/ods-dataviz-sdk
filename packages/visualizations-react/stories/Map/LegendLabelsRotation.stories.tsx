@@ -6,12 +6,12 @@ import {
     TooltipParams,
     ColorScaleTypes,
 } from '@opendatasoft/visualizations';
-import { Choropleth, Props } from '../../src';
+import { GeoJsonChoropleth, Props } from '../../src';
 import { shapes } from './shapes';
 
-const meta: ComponentMeta<typeof Choropleth> = {
+const meta: ComponentMeta<typeof GeoJsonChoropleth> = {
     title: 'Map/Legend',
-    component: Choropleth,
+    component: GeoJsonChoropleth,
 };
 export default meta;
 
@@ -22,7 +22,7 @@ const tooltip = {
         }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
 };
 
-const Template: ComponentStory<typeof Choropleth> = (args: Props<DataFrame, ChoroplethOptions>) => (
+const Template: ComponentStory<typeof GeoJsonChoropleth> = (args: Props<DataFrame, ChoroplethOptions>) => (
     <div
         style={{
             width: '180px',
@@ -32,7 +32,7 @@ const Template: ComponentStory<typeof Choropleth> = (args: Props<DataFrame, Chor
             border: '1px solid black',
         }}
     >
-        <Choropleth {...args} />
+        <GeoJsonChoropleth {...args} />
     </div>
 );
 
