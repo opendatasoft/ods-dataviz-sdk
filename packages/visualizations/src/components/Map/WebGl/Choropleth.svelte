@@ -26,7 +26,7 @@
     export let options: ChoroplethOptions; // contains the shapes to display & match
 
     let shapes: ChoroplethShapeValues;
-    let colorsScale: ColorScale;
+    let colorScale: ColorScale;
 
     let aspectRatio: number | undefined;
     let renderTooltip: MapRenderTooltipFunction;
@@ -48,7 +48,7 @@
     const defaultInteractive = true;
     $: ({
         shapes,
-        colorsScale = DEFAULT_COLORS_SCALE,
+        colorScale = DEFAULT_COLORS_SCALE,
         legend,
         aspectRatio,
         activeShapes,
@@ -123,7 +123,7 @@
         }
     }
 
-    $: computeSourceLayerAndBboxes(shapes, colorsScale, data.value);
+    $: computeSourceLayerAndBboxes(shapes, colorScale, data.value);
 
     const defaultFormat: ChoroplethTooltipFormatter = ({ value, label }) =>
         value ? `${label} &mdash; ${value}` : label;
@@ -189,7 +189,7 @@
         {layer}
         {aspectRatio}
         {dataBounds}
-        {colorsScale}
+        {colorScale}
         {legend}
         {renderTooltip}
         {bbox}

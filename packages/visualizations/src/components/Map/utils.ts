@@ -24,7 +24,7 @@ export const EMPTY_FC: FeatureCollection = {
     features: [],
 };
 
-export const DEFAULT_COLORSSCALE: GradientScale = {
+export const DEFAULT_COLORSCALE: GradientScale = {
     type: ColorScaleTypes.Gradient,
     colors: {
         start: LIGHT_GREY,
@@ -66,7 +66,7 @@ export const colorShapes = ({
 export const mapKeyToColor = (
     values: ChoroplethDataValue[],
     dataBounds: DataBounds,
-    colorsScale: ColorScale,
+    colorScale: ColorScale,
     emptyValueColor: Color = DEFAULT_COLORS.Default
 ): { [s: string]: string } => {
     const { min, max } = dataBounds;
@@ -75,29 +75,29 @@ export const mapKeyToColor = (
     let scale: Scale;
 
     // This is an exhaustive check, function must handle all color scale types
-    switch (colorsScale.type) {
+    switch (colorScale.type) {
         case ColorScaleTypes.Palette:
             const thresholdArray: number[] = []; // eslint-disable-line no-case-declarations
-            colorsScale.colors.forEach((_color: Color, i: number) => {
+            colorScale.colors.forEach((_color: Color, i: number) => {
                 if (i === 0) {
                     thresholdArray.push(min);
-                    thresholdArray.push(min + (max - min) / colorsScale.colors.length);
-                } else if (i === colorsScale.colors.length - 1) {
+                    thresholdArray.push(min + (max - min) / colorScale.colors.length);
+                } else if (i === colorScale.colors.length - 1) {
                     thresholdArray.push(max);
                 } else {
-                    thresholdArray.push(min + ((max - min) / colorsScale.colors.length) * (i + 1));
+                    thresholdArray.push(min + ((max - min) / colorScale.colors.length) * (i + 1));
                 }
             });
-            scale = chroma.scale(colorsScale.colors).classes(thresholdArray);
+            scale = chroma.scale(colorScale.colors).classes(thresholdArray);
             break;
         case ColorScaleTypes.Gradient:
-            colorMin = chroma(colorsScale.colors.start).hex();
-            colorMax = chroma(colorsScale.colors.end).hex();
+            colorMin = chroma(colorScale.colors.start).hex();
+            colorMax = chroma(colorScale.colors.end).hex();
             scale = chroma.scale([colorMin, colorMax]).domain([min, max]);
             break;
         default: {
             // This function should never be reached because of the exhaustive check (will throw a compilation error)
-            const exhaustiveCheck: never = colorsScale;
+            const exhaustiveCheck: never = colorScale;
             assertUnreachable(exhaustiveCheck);
         }
     }

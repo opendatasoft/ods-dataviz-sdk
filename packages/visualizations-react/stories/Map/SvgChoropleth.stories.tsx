@@ -53,7 +53,7 @@ const ChoroPlethWithSelect = ({
     width: string;
     options: ChoroplethOptions;
 }) => {
-    const optionsWithScale = { colorsScale: scales[scale], ...options };
+    const optionsWithScale = { colorScale: scales[scale], ...options };
     const selectedDataset = datasets[dataset];
     return (
         <div

@@ -37,7 +37,7 @@
     export let interactive: boolean;
     // options to display legend
     export let legend: MapLegend | undefined;
-    export let colorsScale: ColorScale;
+    export let colorScale: ColorScale;
     export let dataBounds: DataBounds;
     // Used to render tooltips on hover
     export let renderTooltip: MapRenderTooltipFunction;
@@ -301,7 +301,7 @@
 <figure class="map-card" style={cssVarStyles} bind:clientWidth>
     <div id="map" bind:this={container} />
     {#if legend && dataBounds && clientWidth && mapReady}
-        <ColorsLegend {dataBounds} {colorsScale} variant={legendVariant} title={legend.title} />
+        <ColorsLegend {dataBounds} {colorScale} variant={legendVariant} title={legend.title} />
     {/if}
 </figure>
 

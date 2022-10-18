@@ -72,7 +72,7 @@ const StudioChoroplethVectorGradientArgs: Props<DataFrame, ChoroplethOptions> = 
     },
     options: {
         shapes,
-        colorsScale: {
+        colorScale: {
             type: ColorScaleTypes.Gradient,
             colors: {
                 start: '#bcf5f9',
@@ -100,7 +100,7 @@ const StudioChoroplethVectorPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
     },
     options: {
         shapes,
-        colorsScale: {
+        colorScale: {
             type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
         },
@@ -125,7 +125,7 @@ const StudioChoroplethVectorFilterArgs: Props<DataFrame, ChoroplethOptions> = {
     },
     options: {
         shapes,
-        colorsScale: {
+        colorScale: {
             type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
         },
@@ -158,7 +158,7 @@ const StudioChoroplethVectorCustomLabelArgs: Props<DataFrame, ChoroplethOptions>
     },
     options: {
         shapes,
-        colorsScale: {
+        colorScale: {
             type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
         },
@@ -194,7 +194,7 @@ const StudioChoroplethVectorEmptyDataArgs: Props<DataFrame, ChoroplethOptions> =
     },
     options: {
         shapes,
-        colorsScale: {
+        colorScale: {
             type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
         },
@@ -244,7 +244,7 @@ StudioChoroplethVectorEmptyData.args = StudioChoroplethVectorEmptyDataArgs;
 //     .dataset('population-millesimee-communes-2016')
 //     .exports('json')
 //     .select('code_insee as x, population_totale as y');
-    
+
 // const getValue = async () => {
 //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
 //     const value: any = await apiClient.get(query);
@@ -265,7 +265,7 @@ StudioChoroplethVectorEmptyData.args = StudioChoroplethVectorEmptyDataArgs;
 // const StudioChoroplethVectorComArgs: Omit<Props<DataFrame, ChoroplethOptions>, 'data'> = {
 //     options: {
 //         shapes: irisShapes,
-//         colorsScale: {
+//         colorScale: {
 //             type: ColorScaleTypes.Gradient,
 //             colors: {
 //                 start: '#bcf5f9',

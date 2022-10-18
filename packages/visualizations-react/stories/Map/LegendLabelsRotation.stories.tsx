@@ -48,7 +48,7 @@ const ChoroplethLongLabelsArgs: Props<DataFrame, ChoroplethOptions> = {
     },
     options: {
         shapes,
-        colorsScale: {
+        colorScale: {
             type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#1e03fd', '#0229bf'],
         },

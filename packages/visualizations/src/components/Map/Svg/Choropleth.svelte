@@ -3,7 +3,7 @@
     import {
         mapKeyToColor,
         LIGHT_GREY,
-        DEFAULT_COLORSSCALE,
+        DEFAULT_COLORSCALE,
         EMPTY_FC,
         getDataBounds,
         colorShapes,
@@ -15,11 +15,11 @@
     export let data: { value: ChoroplethDataValue[] };
     export let options: GeoJsonChoroplethOptions;
 
-    $: ({ shapes, colorsScale = DEFAULT_COLORSSCALE, emptyValueColor = LIGHT_GREY } = options);
+    $: ({ shapes, colorScale = DEFAULT_COLORSCALE, emptyValueColor = LIGHT_GREY } = options);
     $: colorMapping = mapKeyToColor(
         data.value,
         getDataBounds(data.value),
-        colorsScale,
+        colorScale,
         emptyValueColor
     );
     $: coloredShapes =

@@ -118,7 +118,7 @@ const StudioChoroplethGradientArgs: Props<DataFrame, ChoroplethOptions> = {
         tooltip: {
             labelFormatter: defaultLabelCallback,
         },
-        colorsScale: {
+        colorScale: {
             type: ColorScaleTypes.Gradient,
             colors: {
                 start: '#bcf5f9',
@@ -149,7 +149,7 @@ const StudioChoroplethPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
         tooltip: {
             labelFormatter: defaultLabelCallback,
         },
-        colorsScale: {
+        colorScale: {
             type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
         },
@@ -170,7 +170,7 @@ const StudioChoroplethCustomTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
     options: {
         shapes,
         emptyValueColor: 'red',
-        colorsScale: {
+        colorScale: {
             type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
         },
@@ -202,7 +202,7 @@ const StudioChoroplethComplexTooltipArgs: Props<DataFrame, ChoroplethOptions> = 
     options: {
         shapes,
         emptyValueColor: 'red',
-        colorsScale: {
+        colorScale: {
             type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
         },
@@ -240,7 +240,7 @@ const StudioChoroplethLongLabelsArgs: Props<DataFrame, ChoroplethOptions> = {
         tooltip: {
             labelFormatter: defaultLabelCallback,
         },
-        colorsScale: {
+        colorScale: {
             type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#1e03fd', '#0229bf'],
         },
@@ -258,7 +258,7 @@ const StudioChoroplethEmptyDataArgs: Props<DataFrame, ChoroplethOptions> = {
     options: {
         shapes,
         emptyValueColor: 'grey',
-        colorsScale: {
+        colorScale: {
             type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
         },

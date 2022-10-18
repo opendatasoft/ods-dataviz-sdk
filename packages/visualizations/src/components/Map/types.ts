@@ -7,7 +7,7 @@ export interface ChoroplethOptions {
     /** Configuration for the shapes used as a visual support for the Choropleth rendering, which will be colored using the data. */
     shapes: ChoroplethShapeValues;
     /** Configuration for the color scale used to color the choropleth shapes. */
-    colorsScale?: ColorScale;
+    colorScale?: ColorScale;
     /** Configuration for the legend displayed for the choropleth */
     legend?: MapLegend;
     /** Aspect ratio used to draw the map. The map will take he width available to it, and decide its height based on that ratio. */
