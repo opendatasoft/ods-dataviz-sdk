@@ -15,6 +15,7 @@ import type {
     ChoroplethTooltipFormatter,
     MapRenderTooltipFunction,
     ComputeTooltipFunction,
+    ChoroplethLayer,
 } from './types';
 
 export const LIGHT_GREY: Color = '#CBD2DB';
@@ -276,3 +277,20 @@ export const computeTooltip: ComputeTooltipFunction =
 
         return format ? format(tooltipRawValues) : defaultFormat(tooltipRawValues);
     };
+
+export const computeBaseLayer = (fillColor: string | (string | string[])[], DefaultColor: Color): ChoroplethLayer => ({
+    type: 'fill',
+    layout: {},
+    paint: {
+        'fill-color': fillColor,
+        'fill-opacity': 0.8,
+        'fill-outline-color': DefaultColor,
+    },
+});
+
+export const computeMatchExpression = (colors: { [s: string]: string }, matchKey: string, emptyValueColor: Color) => {
+    const matchExpression = ['match', ['get', matchKey]];
+    Object.entries(colors).forEach((e) => matchExpression.push(...e));
+    matchExpression.push(emptyValueColor); // Default fallback color
+    return matchExpression;
+};

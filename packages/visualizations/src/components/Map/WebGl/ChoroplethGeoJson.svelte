@@ -8,7 +8,7 @@
     import type { ColorScale, DataBounds, Color } from '../../types';
     import MapRender from './MapRender.svelte';
     import { BLANK } from '../mapStyles';
-    import { getDataBounds, mapKeyToColor, VOID_BOUNDS, computeFilterExpression, computeTooltip } from '../utils';
+    import { getDataBounds, mapKeyToColor, VOID_BOUNDS, computeFilterExpression, computeTooltip, computeBaseLayer, computeMatchExpression } from '../utils';
     import { DEFAULT_COLORS, DEFAULT_COLORS_SCALE } from '../constants';
     import type {
         ChoroplethDataValue,
@@ -71,21 +71,11 @@
         if (values.length > 0) {
             dataBounds = getDataBounds(values);
             colors = mapKeyToColor(values, dataBounds, newColorScale, emptyValueColor);
-            const matchExpression = ['match', ['get', matchKey]];
-            Object.entries(colors).forEach((e) => matchExpression.push(...e));
-            matchExpression.push(emptyValueColor); // Default fallback color
-            fillColor = matchExpression;
+            fillColor = computeMatchExpression(colors, matchKey, emptyValueColor);
         }
 
-        const baseLayer: ChoroplethLayer = {
-            type: 'fill',
-            layout: {},
-            paint: {
-                'fill-color': fillColor,
-                'fill-opacity': 0.8,
-                'fill-outline-color': DEFAULT_COLORS.ShapeOutline,
-            },
-        };
+        const baseLayer = computeBaseLayer(fillColor, DEFAULT_COLORS.ShapeOutline);
+
         source = {
             type: 'geojson',
             data: newShapes.geoJson,
