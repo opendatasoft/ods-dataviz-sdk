@@ -11,9 +11,10 @@ import type { Color, ColorScale, DataBounds} from '../types';
 import type {
     ChoroplethDataValue,
     ChoroplethFixedTooltipDescription,
-    MapRenderTooltipFunction,
     MapFilter,
     ChoroplethTooltipFormatter,
+    MapRenderTooltipFunction,
+    ComputeTooltipFunction,
 } from './types';
 
 export const LIGHT_GREY: Color = '#CBD2DB';
@@ -240,4 +241,38 @@ export const computeFilterExpression = (filterConfig: MapFilter) => {
 export const defaultFormat: ChoroplethTooltipFormatter = ({ value, label }) =>
 value ? `${label} &mdash; ${value}` : label;
 
+export const computeTooltip: ComputeTooltipFunction =
+    (hoveredFeature, dataValues, options, matchKey) => {
+        const values = dataValues || [];
+        const matchedFeature = values.find(
+            (item: ChoroplethDataValue) => String(item.x) === hoveredFeature.properties?.[matchKey]
+        );
 
+        let tooltipLabel =
+            hoveredFeature.properties?.label || hoveredFeature.properties?.[matchKey];
+        const labelMatcher = options?.tooltip?.labelMatcher;
+
+        if (labelMatcher && matchedFeature) {
+            const { type } = labelMatcher;
+            if (type === 'keyProperty') {
+                const { key } = labelMatcher;
+                tooltipLabel = hoveredFeature.properties?.[key];
+            } else if (type === 'keyMap') {
+                const { mapping } = labelMatcher;
+                tooltipLabel = mapping[matchedFeature?.x];
+            }
+        }
+
+        const tooltipRawValues: {
+            value?: number;
+            label: string;
+            key: string;
+        } = {
+            value: matchedFeature?.y,
+            label: tooltipLabel,
+            key: hoveredFeature.properties?.[matchKey], // === matchedFeature.x
+        };
+        const format = options?.tooltip?.labelFormatter;
+
+        return format ? format(tooltipRawValues) : defaultFormat(tooltipRawValues);
+    };

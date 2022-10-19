@@ -188,7 +188,7 @@
 
     function handleInteractivity(
         isInteractive: boolean,
-        tooltipRenderer?: MapRenderTooltipFunction
+        computeTooltip?: MapRenderTooltipFunction
     ) {
         if (isInteractive) {
             // Enable all user interaction handlers
@@ -212,7 +212,7 @@
             map.off('mousemove', layerId, addTooltip);
             map.off('mouseleave', layerId, removeTooltip);
 
-            if (tooltipRenderer) {
+            if (computeTooltip) {
                 map.on('mousemove', layerId, addTooltip);
                 map.on('mouseleave', layerId, removeTooltip);
             }

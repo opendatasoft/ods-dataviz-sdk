@@ -128,6 +128,10 @@ export interface ChoroplethFixedTooltipDescription {
 
 export type MapRenderTooltipFunction = DebouncedFunc<(f: Feature) => string>;
 
+export type ComputeTooltipFunction = (
+    f: Feature, dataValues: ChoroplethDataValue[], options: ChoroplethOptions, matchKey: string
+) => string;
+
 export type ChoroplethLayer = Omit<FillLayerSpecification, 'id' | 'source'>;
 
 export type MapLayer = ChoroplethLayer;
