@@ -74,14 +74,12 @@
             fillColor = computeMatchExpression(colors, matchKey, emptyValueColor);
         }
 
-        const baseLayer = computeBaseLayer(fillColor, DEFAULT_COLORS.ShapeOutline);
-
         source = {
             type: 'geojson',
             data: newShapes.geoJson,
         };
 
-        layer = baseLayer;
+        layer = computeBaseLayer(fillColor, DEFAULT_COLORS.ShapeOutline);
 
         bbox = bbox || turfBbox(newShapes.geoJson) || VOID_BOUNDS;
     }
