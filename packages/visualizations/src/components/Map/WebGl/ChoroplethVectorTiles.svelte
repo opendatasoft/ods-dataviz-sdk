@@ -7,7 +7,15 @@
     import type { ColorScale, DataBounds, Color } from '../../types';
     import MapRender from './MapRender.svelte';
     import { BLANK } from '../mapStyles';
-    import { getDataBounds, mapKeyToColor, VOID_BOUNDS, computeFilterExpression, computeTooltip, computeBaseLayer, computeMatchExpression } from '../utils';
+    import {
+        getDataBounds,
+        mapKeyToColor,
+        VOID_BOUNDS,
+        computeFilterExpression,
+        computeTooltip,
+        computeBaseLayer,
+        computeMatchExpression,
+    } from '../utils';
     import { DEFAULT_COLORS, DEFAULT_COLORS_SCALE } from '../constants';
     import type {
         ChoroplethDataValue,
@@ -90,10 +98,14 @@
         bbox = bbox || VOID_BOUNDS;
     }
 
-    $: if (shapes.url) {computeSourceLayerAndBboxes(shapes, colorScale, data.value);}
+    $: if (shapes.url) {
+        computeSourceLayerAndBboxes(shapes, colorScale, data.value);
+    }
 
     $: renderTooltip = debounce(
-        (hoveredFeature) => computeTooltip(hoveredFeature, data.value, options, matchKey), 10, {leading: true}
+        (hoveredFeature) => computeTooltip(hoveredFeature, data.value, options, matchKey),
+        10,
+        { leading: true }
     );
 
     $: if (filter) {
