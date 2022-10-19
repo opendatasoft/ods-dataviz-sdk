@@ -7,11 +7,13 @@ import type { Scale } from 'chroma-js';
 import { DEFAULT_COLORS } from './constants';
 import { assertUnreachable } from '../utils';
 import { ColorScaleTypes, GradientScale } from '../types';
-import type { Color, ColorScale, DataBounds } from '../types';
+import type { Color, ColorScale, DataBounds} from '../types';
 import type {
     ChoroplethDataValue,
     ChoroplethFixedTooltipDescription,
     MapRenderTooltipFunction,
+    MapFilter,
+    ChoroplethTooltipFormatter,
 } from './types';
 
 export const LIGHT_GREY: Color = '#CBD2DB';
@@ -224,4 +226,18 @@ export const getFixedTooltips = (
         Boolean(item)
     ) as ChoroplethFixedTooltipDescription[];
 };
+
+export const computeFilterExpression = (filterConfig: MapFilter) => {
+    /** Transform a filter object from the options into a Maplibre filter expression */
+    const { key, value } = filterConfig;
+    const filterMatchExpression: string[] = ['in', key];
+    (Array.isArray(value) ? value : [value]).forEach((filterValue) => {
+        filterMatchExpression.push(filterValue.toString());
+    });
+    return filterMatchExpression;
+};
+
+export const defaultFormat: ChoroplethTooltipFormatter = ({ value, label }) =>
+value ? `${label} &mdash; ${value}` : label;
+
 

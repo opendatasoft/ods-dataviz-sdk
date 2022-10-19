@@ -4,21 +4,20 @@
     import { debounce } from 'lodash';
     import type { SourceSpecification } from 'maplibre-gl';
     import type { BBox } from 'geojson';
-    import type { ColorScale, DataBounds, Color } from '../../../types';
-    import MapRender from '../MapRender.svelte';
-    import { BLANK } from '../../mapStyles';
-    import { getDataBounds, mapKeyToColor, VOID_BOUNDS } from '../../utils';
-    import { DEFAULT_COLORS, DEFAULT_COLORS_SCALE } from '../../constants';
+    import type { ColorScale, DataBounds, Color } from '../../types';
+    import MapRender from './MapRender.svelte';
+    import { BLANK } from '../mapStyles';
+    import { getDataBounds, mapKeyToColor, VOID_BOUNDS, computeFilterExpression, defaultFormat } from '../utils';
+    import { DEFAULT_COLORS, DEFAULT_COLORS_SCALE } from '../constants';
     import type {
         ChoroplethDataValue,
         ChoroplethLayer,
         VectorChoroplethOptions,
         MapRenderTooltipFunction,
         ChoroplethShapeVectorTilesValue,
-        ChoroplethTooltipFormatter,
         MapLegend,
         MapFilter,
-    } from '../../types';
+    } from '../types';
 
     export let data: { value: ChoroplethDataValue[] }; // values, and the key to match
     export let options: VectorChoroplethOptions; // contains the shapes to display & match
@@ -67,6 +66,7 @@
         newColorScale: ColorScale,
         values: ChoroplethDataValue[] = []
     ) {
+        // Specific to move outside ? on Call ?
         if (!newShapes.url) {
             // We don't have everything we need yet
             return;
@@ -93,7 +93,7 @@
                 'fill-outline-color': DEFAULT_COLORS.ShapeOutline,
             },
         };
-
+        // Specific
         source = {
             type: 'vector',
             tiles: [newShapes.url],
@@ -103,14 +103,11 @@
             ...baseLayer,
             'source-layer': newShapes.layer,
         };
-
+        // Specific
         bbox = bbox || VOID_BOUNDS;
     }
 
     $: computeSourceLayerAndBboxes(shapes, colorScale, data.value);
-
-    const defaultFormat: ChoroplethTooltipFormatter = ({ value, label }) =>
-        value ? `${label} &mdash; ${value}` : label;
 
     $: renderTooltip = debounce(
         (hoveredFeature) => {
@@ -150,16 +147,6 @@
         10,
         { leading: true }
     );
-
-    function computeFilterExpression(filterConfig: MapFilter) {
-        /** Transform a filter object from the options into a Maplibre filter expression */
-        const { key, value } = filterConfig;
-        const filterMatchExpression: string[] = ['in', key];
-        (Array.isArray(value) ? value : [value]).forEach((filterValue) => {
-            filterMatchExpression.push(filterValue.toString());
-        });
-        return filterMatchExpression;
-    }
 
     $: if (filter) {
         filterExpression = computeFilterExpression(filter);
