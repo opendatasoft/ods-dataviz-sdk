@@ -7,7 +7,7 @@ import type { Scale } from 'chroma-js';
 import { DEFAULT_COLORS } from './constants';
 import { assertUnreachable } from '../utils';
 import { ColorScaleTypes, GradientScale } from '../types';
-import type { Color, ColorScale, DataBounds} from '../types';
+import type { Color, ColorScale, DataBounds } from '../types';
 import type {
     ChoroplethDataValue,
     ChoroplethFixedTooltipDescription,
@@ -240,45 +240,51 @@ export const computeFilterExpression = (filterConfig: MapFilter) => {
 };
 
 export const defaultFormat: ChoroplethTooltipFormatter = ({ value, label }) =>
-value ? `${label} &mdash; ${value}` : label;
+    value ? `${label} &mdash; ${value}` : label;
 
-export const computeTooltip: ComputeTooltipFunction =
-    (hoveredFeature, dataValues, options, matchKey) => {
-        const values = dataValues || [];
-        const matchedFeature = values.find(
-            (item: ChoroplethDataValue) => String(item.x) === hoveredFeature.properties?.[matchKey]
-        );
+export const computeTooltip: ComputeTooltipFunction = (
+    hoveredFeature,
+    dataValues,
+    options,
+    matchKey
+) => {
+    const values = dataValues || [];
+    const matchedFeature = values.find(
+        (item: ChoroplethDataValue) => String(item.x) === hoveredFeature.properties?.[matchKey]
+    );
 
-        let tooltipLabel =
-            hoveredFeature.properties?.label || hoveredFeature.properties?.[matchKey];
-        const labelMatcher = options?.tooltip?.labelMatcher;
+    let tooltipLabel = hoveredFeature.properties?.label || hoveredFeature.properties?.[matchKey];
+    const labelMatcher = options?.tooltip?.labelMatcher;
 
-        if (labelMatcher && matchedFeature) {
-            const { type } = labelMatcher;
-            if (type === 'keyProperty') {
-                const { key } = labelMatcher;
-                tooltipLabel = hoveredFeature.properties?.[key];
-            } else if (type === 'keyMap') {
-                const { mapping } = labelMatcher;
-                tooltipLabel = mapping[matchedFeature?.x];
-            }
+    if (labelMatcher && matchedFeature) {
+        const { type } = labelMatcher;
+        if (type === 'keyProperty') {
+            const { key } = labelMatcher;
+            tooltipLabel = hoveredFeature.properties?.[key];
+        } else if (type === 'keyMap') {
+            const { mapping } = labelMatcher;
+            tooltipLabel = mapping[matchedFeature?.x];
         }
+    }
 
-        const tooltipRawValues: {
-            value?: number;
-            label: string;
-            key: string;
-        } = {
-            value: matchedFeature?.y,
-            label: tooltipLabel,
-            key: hoveredFeature.properties?.[matchKey], // === matchedFeature.x
-        };
-        const format = options?.tooltip?.labelFormatter;
-
-        return format ? format(tooltipRawValues) : defaultFormat(tooltipRawValues);
+    const tooltipRawValues: {
+        value?: number;
+        label: string;
+        key: string;
+    } = {
+        value: matchedFeature?.y,
+        label: tooltipLabel,
+        key: hoveredFeature.properties?.[matchKey], // === matchedFeature.x
     };
+    const format = options?.tooltip?.labelFormatter;
 
-export const computeBaseLayer = (fillColor: string | (string | string[])[], DefaultColor: Color): ChoroplethLayer => ({
+    return format ? format(tooltipRawValues) : defaultFormat(tooltipRawValues);
+};
+
+export const computeBaseLayer = (
+    fillColor: string | (string | string[])[],
+    DefaultColor: Color
+): ChoroplethLayer => ({
     type: 'fill',
     layout: {},
     paint: {
@@ -288,7 +294,11 @@ export const computeBaseLayer = (fillColor: string | (string | string[])[], Defa
     },
 });
 
-export const computeMatchExpression = (colors: { [s: string]: string }, matchKey: string, emptyValueColor: Color) => {
+export const computeMatchExpression = (
+    colors: { [s: string]: string },
+    matchKey: string,
+    emptyValueColor: Color
+) => {
     const matchExpression = ['match', ['get', matchKey]];
     Object.entries(colors).forEach((e) => matchExpression.push(...e));
     matchExpression.push(emptyValueColor); // Default fallback color

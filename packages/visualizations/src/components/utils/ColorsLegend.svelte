@@ -111,8 +111,7 @@
                         >
                             {defaultCompactLegendNumberFormat(
                                 dataBounds.min +
-                                    ((dataBounds.max - dataBounds.min) /
-                                        colorScale.colors.length) *
+                                    ((dataBounds.max - dataBounds.min) / colorScale.colors.length) *
                                         (i + 1)
                             )}
                         </div>
