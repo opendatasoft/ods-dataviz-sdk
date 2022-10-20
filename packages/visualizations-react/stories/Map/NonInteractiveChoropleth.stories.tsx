@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ChoroplethOptions, DataFrame } from '@opendatasoft/visualizations';
+import { ChoroplethGeoJsonOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChoroplethGeoJson, Props } from '../../src';
 import { shapes } from './shapes';
 
@@ -10,7 +10,7 @@ const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
 };
 export default meta;
 
-const Template: ComponentStory<typeof ChoroplethGeoJson> = (args: Props<DataFrame, ChoroplethOptions>) => (
+const Template: ComponentStory<typeof ChoroplethGeoJson> = (args: Props<DataFrame, ChoroplethGeoJsonOptions>) => (
     <div
         style={{
             width: '50%',
@@ -25,7 +25,7 @@ const Template: ComponentStory<typeof ChoroplethGeoJson> = (args: Props<DataFram
 );
 
 export const NonInteractiveChoropleth = Template.bind({});
-const NonInteractiveChoroplethArgs: Props<DataFrame, ChoroplethOptions> = {
+const NonInteractiveChoroplethArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: [

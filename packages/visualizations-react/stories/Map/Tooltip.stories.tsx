@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import type { ChoroplethOptions, DataFrame, TooltipParams } from '@opendatasoft/visualizations';
+import type { ChoroplethGeoJsonOptions, DataFrame, TooltipParams } from '@opendatasoft/visualizations';
 import { ChoroplethGeoJson, Props } from '../../src';
 import { IMAGES } from '../utils';
 import { shapes } from './shapes';
@@ -11,7 +11,7 @@ const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
 };
 
 export default meta;
-const Template: ComponentStory<typeof ChoroplethGeoJson> = (args: Props<DataFrame, ChoroplethOptions>) => (
+const Template: ComponentStory<typeof ChoroplethGeoJson> = (args: Props<DataFrame, ChoroplethGeoJsonOptions>) => (
     <div
         style={{
             width: '50%',
@@ -26,7 +26,7 @@ const Template: ComponentStory<typeof ChoroplethGeoJson> = (args: Props<DataFram
 );
 
 export const DefaultTooltip = Template.bind({});
-const DefaultTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
+const DefaultTooltipArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: [
@@ -44,7 +44,7 @@ const DefaultTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
 DefaultTooltip.args = DefaultTooltipArgs;
 
 export const CustomSimpleTooltip = Template.bind({});
-const CustomSimpleTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
+const CustomSimpleTooltipArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: [
@@ -67,7 +67,7 @@ const CustomSimpleTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
 CustomSimpleTooltip.args = CustomSimpleTooltipArgs;
 
 export const CustomComplexTooltip = Template.bind({});
-const CustomComplexTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
+const CustomComplexTooltipArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: [

@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import {
     ColorScaleTypes,
     DataFrame,
-    ChoroplethOptions,
+    ChoroplethVectorTilesOptions,
     ChoroplethTooltipFormatter,
     ChoroplethShapeTypes,
     ChoroplethTooltipMatcherTypes,
@@ -50,7 +50,7 @@ const defaultLabelCallback: ChoroplethTooltipFormatter = ({ label, value }: Tool
     `<b>${label}:</b> ${value}`;
 
 export default meta;
-const Template: ComponentStory<typeof ChoroplethVectorTiles> = (args: Props<DataFrame, ChoroplethOptions>) => (
+const Template: ComponentStory<typeof ChoroplethVectorTiles> = (args: Props<DataFrame, ChoroplethVectorTilesOptions>) => (
     <div
         style={{
             width: '50%',
@@ -65,7 +65,7 @@ const Template: ComponentStory<typeof ChoroplethVectorTiles> = (args: Props<Data
 );
 
 export const StudioChoroplethVectorGradient = Template.bind({});
-const StudioChoroplethVectorGradientArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethVectorGradientArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
     data: {
         loading: false,
         value: dataF,
@@ -93,7 +93,7 @@ const StudioChoroplethVectorGradientArgs: Props<DataFrame, ChoroplethOptions> = 
 StudioChoroplethVectorGradient.args = StudioChoroplethVectorGradientArgs;
 
 export const StudioChoroplethVectorPalette = Template.bind({});
-const StudioChoroplethVectorPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethVectorPaletteArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
     data: {
         loading: false,
         value: dataF,
@@ -118,7 +118,7 @@ const StudioChoroplethVectorPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
 StudioChoroplethVectorPalette.args = StudioChoroplethVectorPaletteArgs;
 
 export const StudioChoroplethVectorFilter = Template.bind({});
-const StudioChoroplethVectorFilterArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethVectorFilterArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
     data: {
         loading: false,
         value: dataF,
@@ -151,7 +151,7 @@ const StudioChoroplethVectorFilterArgs: Props<DataFrame, ChoroplethOptions> = {
 StudioChoroplethVectorFilter.args = StudioChoroplethVectorFilterArgs;
 
 export const StudioChoroplethVectorCustomLabel = Template.bind({});
-const StudioChoroplethVectorCustomLabelArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethVectorCustomLabelArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
     data: {
         loading: false,
         value: dataF,
@@ -187,7 +187,7 @@ const StudioChoroplethVectorCustomLabelArgs: Props<DataFrame, ChoroplethOptions>
 StudioChoroplethVectorCustomLabel.args = StudioChoroplethVectorCustomLabelArgs;
 
 export const StudioChoroplethVectorEmptyData = Template.bind({});
-const StudioChoroplethVectorEmptyDataArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethVectorEmptyDataArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
     data: {
         loading: false,
         value: undefined,
@@ -262,7 +262,7 @@ StudioChoroplethVectorEmptyData.args = StudioChoroplethVectorEmptyDataArgs;
 //     })
 // ];
 
-// const StudioChoroplethVectorComArgs: Omit<Props<DataFrame, ChoroplethOptions>, 'data'> = {
+// const StudioChoroplethVectorComArgs: Omit<Props<DataFrame, ChoroplethVectorTilesOptions>, 'data'> = {
 //     options: {
 //         shapes: irisShapes,
 //         colorScale: {

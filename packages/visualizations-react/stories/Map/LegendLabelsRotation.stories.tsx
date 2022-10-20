@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import {
-    ChoroplethOptions,
+    ChoroplethGeoJsonOptions,
     DataFrame,
     TooltipParams,
     ColorScaleTypes,
@@ -22,7 +22,7 @@ const tooltip = {
         }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
 };
 
-const Template: ComponentStory<typeof ChoroplethGeoJson> = (args: Props<DataFrame, ChoroplethOptions>) => (
+const Template: ComponentStory<typeof ChoroplethGeoJson> = (args: Props<DataFrame, ChoroplethGeoJsonOptions>) => (
     <div
         style={{
             width: '180px',
@@ -37,7 +37,7 @@ const Template: ComponentStory<typeof ChoroplethGeoJson> = (args: Props<DataFram
 );
 
 export const ChoroplethLongLabels = Template.bind({});
-const ChoroplethLongLabelsArgs: Props<DataFrame, ChoroplethOptions> = {
+const ChoroplethLongLabelsArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: [

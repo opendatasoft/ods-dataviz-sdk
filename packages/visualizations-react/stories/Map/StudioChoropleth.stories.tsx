@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import {
-    ChoroplethOptions,
+    ChoroplethGeoJsonOptions,
     TooltipParams,
     DataFrame,
     ColorScaleTypes,
@@ -27,7 +27,7 @@ const defaultLabelCallback: ChoroplethTooltipFormatter = ({ label, value }: Tool
 
 export default meta;
 
-const Template: ComponentStory<typeof ChoroplethGeoJson> = (args: Props<DataFrame, ChoroplethOptions>) => (
+const Template: ComponentStory<typeof ChoroplethGeoJson> = (args: Props<DataFrame, ChoroplethGeoJsonOptions>) => (
     <div
         style={{
             width: '50%',
@@ -42,7 +42,7 @@ const Template: ComponentStory<typeof ChoroplethGeoJson> = (args: Props<DataFram
 );
 
 export const StudioChoropleth = Template.bind({});
-const StudioChoroplethArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: [
@@ -63,7 +63,7 @@ const StudioChoroplethArgs: Props<DataFrame, ChoroplethOptions> = {
 StudioChoropleth.args = StudioChoroplethArgs;
 
 export const StudioChoroplethMultiPolygon = Template.bind({});
-const StudioChoroplethMultiPolygonArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethMultiPolygonArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: [
@@ -83,7 +83,7 @@ const StudioChoroplethMultiPolygonArgs: Props<DataFrame, ChoroplethOptions> = {
 StudioChoroplethMultiPolygon.args = StudioChoroplethMultiPolygonArgs;
 
 export const StudioChoroplethEmptyValue = Template.bind({});
-const StudioChoroplethEmptyValueArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethEmptyValueArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: [
@@ -103,7 +103,7 @@ const StudioChoroplethEmptyValueArgs: Props<DataFrame, ChoroplethOptions> = {
 StudioChoroplethEmptyValue.args = StudioChoroplethEmptyValueArgs;
 
 export const StudioChoroplethGradient = Template.bind({});
-const StudioChoroplethGradientArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethGradientArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: [
@@ -134,7 +134,7 @@ const StudioChoroplethGradientArgs: Props<DataFrame, ChoroplethOptions> = {
 StudioChoroplethGradient.args = StudioChoroplethGradientArgs;
 
 export const StudioChoroplethPalette = Template.bind({});
-const StudioChoroplethPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethPaletteArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: [
@@ -162,7 +162,7 @@ const StudioChoroplethPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
 StudioChoroplethPalette.args = StudioChoroplethPaletteArgs;
 
 export const StudioChoroplethCustomTooltip = Template.bind({});
-const StudioChoroplethCustomTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethCustomTooltipArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: df,
@@ -190,7 +190,7 @@ StudioChoroplethCustomTooltip.args = StudioChoroplethCustomTooltipArgs;
 
 export const StudioChoroplethComplexTooltip = Template.bind({});
 
-const StudioChoroplethComplexTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethComplexTooltipArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: df,
@@ -221,7 +221,7 @@ const StudioChoroplethComplexTooltipArgs: Props<DataFrame, ChoroplethOptions> = 
 StudioChoroplethComplexTooltip.args = StudioChoroplethComplexTooltipArgs;
 
 export const StudioChoroplethLongLabels = Template.bind({});
-const StudioChoroplethLongLabelsArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethLongLabelsArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: [
@@ -249,7 +249,7 @@ const StudioChoroplethLongLabelsArgs: Props<DataFrame, ChoroplethOptions> = {
 StudioChoroplethLongLabels.args = StudioChoroplethLongLabelsArgs;
 
 export const StudioChoroplethEmptyData = Template.bind({});
-const StudioChoroplethEmptyDataArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethEmptyDataArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {},
     options: {
         shapes,
