@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ChoroplethOptions, ColorScale, ColorScaleTypes } from '@opendatasoft/visualizations';
+import { ChoroplethGeoJsonOptions, ColorScale, ColorScaleTypes } from '@opendatasoft/visualizations';
 import { ChoroplethSvg } from '../../src';
 import { shapes } from './shapes';
 
@@ -51,7 +51,7 @@ const ChoroPlethWithSelect = ({
     dataset: number;
     height: string;
     width: string;
-    options: ChoroplethOptions;
+    options: ChoroplethGeoJsonOptions;
 }) => {
     const optionsWithScale = { colorScale: scales[scale], ...options };
     const selectedDataset = datasets[dataset];

@@ -7,7 +7,7 @@ import {
     ChoroplethVectorTilesOptions,
     ChoroplethTooltipFormatter,
     ChoroplethTooltipMatcherTypes,
-    ChoroplethShapeValues,
+    ChoroplethShapeVectorTilesValue,
     TooltipParams,
 } from '@opendatasoft/visualizations';
 import { ChoroplethVectorTiles, Props } from '../../src';
@@ -37,7 +37,7 @@ const dataF = [
     { x: 94, y: 123, label: 'label from data 123' },
 ];
 
-const shapesTiles: ChoroplethShapeValues = {
+const shapesTiles: ChoroplethShapeVectorTilesValue = {
     url: 'https://static.opendatasoft.com/vector-tiles/fr_40_region_2021/{z}/{x}/{y}.pbf',
     layer: 'fr_40_region_2021',
     key: 'reg_code',
