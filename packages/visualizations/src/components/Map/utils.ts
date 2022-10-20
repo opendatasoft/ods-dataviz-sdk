@@ -239,7 +239,7 @@ export const computeFilterExpression = (filterConfig: MapFilter) => {
     return filterMatchExpression;
 };
 
-export const defaultFormat: ChoroplethTooltipFormatter = ({ value, label }) =>
+export const defaultTooltipFormat: ChoroplethTooltipFormatter = ({ value, label }) =>
     value ? `${label} &mdash; ${value}` : label;
 
 export const computeTooltip: ComputeTooltipFunction = (
@@ -278,7 +278,7 @@ export const computeTooltip: ComputeTooltipFunction = (
     };
     const format = options?.tooltip?.labelFormatter;
 
-    return format ? format(tooltipRawValues) : defaultFormat(tooltipRawValues);
+    return format ? format(tooltipRawValues) : defaultTooltipFormat(tooltipRawValues);
 };
 
 export const computeBaseLayer = (
