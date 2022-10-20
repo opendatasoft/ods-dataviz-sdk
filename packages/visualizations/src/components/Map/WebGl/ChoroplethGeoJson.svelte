@@ -3,7 +3,7 @@
 <script lang="ts">
     import turfBbox from '@turf/bbox';
     import type { FilterSpecification, SourceSpecification } from 'maplibre-gl';
-    import type { BBox } from 'geojson';
+    import type { BBox, FeatureCollection } from 'geojson';
     import { debounce } from 'lodash';
     import type { ColorScale, DataBounds, Color } from '../../types';
     import MapRender from './MapRender.svelte';
@@ -22,14 +22,13 @@
         ChoroplethLayer,
         ChoroplethGeoJsonOptions,
         MapRenderTooltipFunction,
-        ChoroplethShapeGeoJsonValue,
         MapLegend,
     } from '../types';
 
     export let data: { value: ChoroplethDataValue[] }; // values, and the key to match
     export let options: ChoroplethGeoJsonOptions; // contains the shapes to display & match
 
-    let shapes: ChoroplethShapeGeoJsonValue;
+    let shapes: FeatureCollection;
     let colorScale: ColorScale;
 
     let aspectRatio: number | undefined;
@@ -64,7 +63,7 @@
     let dataBounds: DataBounds;
 
     function computeSourceLayerAndBboxes(
-        newShapes: ChoroplethShapeGeoJsonValue,
+        newShapes: FeatureCollection,
         newColorScale: ColorScale,
         values: ChoroplethDataValue[] = []
     ) {
@@ -79,15 +78,15 @@
 
         source = {
             type: 'geojson',
-            data: newShapes.geoJson,
+            data: newShapes,
         };
 
         layer = computeBaseLayer(fillColor, DEFAULT_COLORS.ShapeOutline);
 
-        bbox = bbox || turfBbox(newShapes.geoJson) || VOID_BOUNDS;
+        bbox = bbox || turfBbox(newShapes) || VOID_BOUNDS;
     }
 
-    $: if (shapes.geoJson) {
+    $: if (shapes) {
         computeSourceLayerAndBboxes(shapes, colorScale, data.value);
     }
 

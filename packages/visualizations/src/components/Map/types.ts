@@ -4,8 +4,6 @@ import type { DebouncedFunc } from 'lodash';
 import type { ColorScale, Color } from '../types';
 
 export interface ChoroplethOptions {
-    /** Configuration for the shapes used as a visual support for the Choropleth rendering, which will be colored using the data. */
-    shapes: ChoroplethShapeValues;
     /** Configuration for the color scale used to color the choropleth shapes. */
     colorScale?: ColorScale;
     /** Configuration for the legend displayed for the choropleth */
@@ -36,11 +34,13 @@ export interface MapFilter {
 }
 
 export interface ChoroplethGeoJsonOptions extends ChoroplethOptions {
-    shapes: ChoroplethShapeGeoJsonValue;
+    /** Configuration for the shapes used as a visual support for the Choropleth rendering, which will be colored using the data. */
+    shapes: FeatureCollection;
 }
 
 export interface ChoroplethVectorTilesOptions extends ChoroplethOptions {
-    shapes: ChoroplethShapeVectorTilesValue;
+    /** Configuration for the shapes used as a visual support for the Choropleth rendering, which will be colored using the data. */
+    shapesTiles: ChoroplethShapeVectorTilesValue
     /** Only draw shapes that match the given filter */
     filter?: MapFilter;
 }
@@ -108,7 +108,6 @@ export interface ChoroplethShapeGeoJsonValue {
 
 /** `ChoroplethShapeValue` implementation based on a Vector Tiles source URL.  */
 export interface ChoroplethShapeVectorTilesValue {
-    type: ChoroplethShapeTypes.VectorTiles;
     url: string;
     layer: string;
     key: string;

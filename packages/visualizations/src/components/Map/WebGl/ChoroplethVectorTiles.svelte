@@ -30,7 +30,7 @@
     export let data: { value: ChoroplethDataValue[] }; // values, and the key to match
     export let options: ChoroplethVectorTilesOptions; // contains the shapes to display & match
 
-    let shapes: ChoroplethShapeVectorTilesValue;
+    let shapesTiles: ChoroplethShapeVectorTilesValue;
     let colorScale: ColorScale;
 
     let aspectRatio: number | undefined;
@@ -48,11 +48,11 @@
     // Used to determine the shapes key
     let matchKey: string;
 
-    $: matchKey = shapes.key;
+    $: matchKey = shapesTiles.key;
 
     const defaultInteractive = true;
     $: ({
-        shapes,
+        shapesTiles,
         colorScale = DEFAULT_COLORS_SCALE,
         legend,
         aspectRatio,
@@ -98,8 +98,8 @@
         bbox = bbox || VOID_BOUNDS;
     }
 
-    $: if (shapes.url) {
-        computeSourceLayerAndBboxes(shapes, colorScale, data.value);
+    $: if (shapesTiles.url) {
+        computeSourceLayerAndBboxes(shapesTiles, colorScale, data.value);
     }
 
     $: renderTooltip = debounce(

@@ -6,7 +6,6 @@ import {
     DataFrame,
     ChoroplethVectorTilesOptions,
     ChoroplethTooltipFormatter,
-    ChoroplethShapeTypes,
     ChoroplethTooltipMatcherTypes,
     ChoroplethShapeValues,
     TooltipParams,
@@ -38,8 +37,7 @@ const dataF = [
     { x: 94, y: 123, label: 'label from data 123' },
 ];
 
-const shapes: ChoroplethShapeValues = {
-    type: ChoroplethShapeTypes.VectorTiles,
+const shapesTiles: ChoroplethShapeValues = {
     url: 'https://static.opendatasoft.com/vector-tiles/fr_40_region_2021/{z}/{x}/{y}.pbf',
     layer: 'fr_40_region_2021',
     key: 'reg_code',
@@ -71,7 +69,7 @@ const StudioChoroplethVectorGradientArgs: Props<DataFrame, ChoroplethVectorTiles
         value: dataF,
     },
     options: {
-        shapes,
+        shapesTiles,
         colorScale: {
             type: ColorScaleTypes.Gradient,
             colors: {
@@ -99,7 +97,7 @@ const StudioChoroplethVectorPaletteArgs: Props<DataFrame, ChoroplethVectorTilesO
         value: dataF,
     },
     options: {
-        shapes,
+        shapesTiles,
         colorScale: {
             type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
@@ -124,7 +122,7 @@ const StudioChoroplethVectorFilterArgs: Props<DataFrame, ChoroplethVectorTilesOp
         value: dataF,
     },
     options: {
-        shapes,
+        shapesTiles,
         colorScale: {
             type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
@@ -157,7 +155,7 @@ const StudioChoroplethVectorCustomLabelArgs: Props<DataFrame, ChoroplethVectorTi
         value: dataF,
     },
     options: {
-        shapes,
+        shapesTiles,
         colorScale: {
             type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
@@ -193,7 +191,7 @@ const StudioChoroplethVectorEmptyDataArgs: Props<DataFrame, ChoroplethVectorTile
         value: undefined,
     },
     options: {
-        shapes,
+        shapesTiles,
         colorScale: {
             type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],

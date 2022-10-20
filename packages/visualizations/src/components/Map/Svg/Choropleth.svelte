@@ -23,9 +23,9 @@
         emptyValueColor
     );
     $: coloredShapes =
-        shapes?.geoJson && shapes?.type === 'geojson'
+        shapes
             ? colorShapes({
-                  featureCollection: shapes.geoJson,
+                  featureCollection: shapes,
                   colorMapping,
               })
             : EMPTY_FC;
