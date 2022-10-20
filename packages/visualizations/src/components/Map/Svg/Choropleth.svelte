@@ -10,10 +10,10 @@
     } from '../utils';
     import Map from './Map.svelte';
 
-    import type { GeoJsonChoroplethOptions, ChoroplethDataValue } from '../types';
+    import type { ChoroplethGeoJsonOptions, ChoroplethDataValue } from '../types';
 
     export let data: { value: ChoroplethDataValue[] };
-    export let options: GeoJsonChoroplethOptions;
+    export let options: ChoroplethGeoJsonOptions;
 
     $: ({ shapes, colorScale = DEFAULT_COLORSCALE, emptyValueColor = LIGHT_GREY } = options);
     $: colorMapping = mapKeyToColor(

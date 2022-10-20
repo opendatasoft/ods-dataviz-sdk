@@ -7,13 +7,13 @@ import {
     ColorScaleTypes,
     ChoroplethTooltipFormatter,
 } from '@opendatasoft/visualizations';
-import { GeoJsonChoropleth, Props } from '../../src';
+import { ChoroplethGeoJson, Props } from '../../src';
 import { shapes, multiPolygonShapes } from './shapes';
 import { IMAGES } from '../utils';
 
-const meta: ComponentMeta<typeof GeoJsonChoropleth> = {
+const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
     title: 'Map/Choropleth',
-    component: GeoJsonChoropleth,
+    component: ChoroplethGeoJson,
 };
 
 const df = [
@@ -27,7 +27,7 @@ const defaultLabelCallback: ChoroplethTooltipFormatter = ({ label, value }: Tool
 
 export default meta;
 
-const Template: ComponentStory<typeof GeoJsonChoropleth> = (args: Props<DataFrame, ChoroplethOptions>) => (
+const Template: ComponentStory<typeof ChoroplethGeoJson> = (args: Props<DataFrame, ChoroplethOptions>) => (
     <div
         style={{
             width: '50%',
@@ -37,7 +37,7 @@ const Template: ComponentStory<typeof GeoJsonChoropleth> = (args: Props<DataFram
             border: '1px solid black',
         }}
     >
-        <GeoJsonChoropleth {...args} />
+        <ChoroplethGeoJson {...args} />
     </div>
 );
 

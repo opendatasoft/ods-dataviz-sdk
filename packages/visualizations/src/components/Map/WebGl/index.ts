@@ -7,13 +7,13 @@ import SvelteImpl from '../../SvelteImpl';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
 
-export class GeoJsonChoropleth extends SvelteImpl<DataFrame, ChoroplethOptions> {
+export class ChoroplethGeoJson extends SvelteImpl<DataFrame, ChoroplethOptions> {
     protected getSvelteComponentClass(): typeof ChoroplethGeoJsonImpl {
         return ChoroplethGeoJsonImpl;
     }
 }
 
-export class VectorTilesChoropleth extends SvelteImpl<DataFrame, ChoroplethOptions> {
+export class ChoroplethVectorTiles extends SvelteImpl<DataFrame, ChoroplethOptions> {
     protected getSvelteComponentClass(): typeof ChoroplethVectorTilesImpl {
         return ChoroplethVectorTilesImpl;
     }

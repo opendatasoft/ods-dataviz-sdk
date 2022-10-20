@@ -21,7 +21,7 @@
     import type {
         ChoroplethDataValue,
         ChoroplethLayer,
-        GeoJsonChoroplethOptions,
+        ChoroplethGeoJsonOptions,
         MapRenderTooltipFunction,
         ChoroplethShapeGeoJsonValue,
         MapLegend,
@@ -29,7 +29,7 @@
     } from '../types';
 
     export let data: { value: ChoroplethDataValue[] }; // values, and the key to match
-    export let options: GeoJsonChoroplethOptions; // contains the shapes to display & match
+    export let options: ChoroplethGeoJsonOptions; // contains the shapes to display & match
 
     let shapes: ChoroplethShapeGeoJsonValue;
     let colorScale: ColorScale;

@@ -37,11 +37,11 @@ export interface MapFilter {
     value: string | string[];
 }
 
-export interface GeoJsonChoroplethOptions extends ChoroplethOptions {
+export interface ChoroplethGeoJsonOptions extends ChoroplethOptions {
     shapes: ChoroplethShapeGeoJsonValue;
 }
 
-export interface VectorChoroplethOptions extends ChoroplethOptions {
+export interface ChoroplethVectorTilesOptions extends ChoroplethOptions {
     shapes: ChoroplethShapeVectorTilesValue;
 }
 

@@ -11,11 +11,11 @@ import {
     ChoroplethShapeValues,
     TooltipParams,
 } from '@opendatasoft/visualizations';
-import { VectorTilesChoropleth, Props } from '../../src';
+import { ChoroplethVectorTiles, Props } from '../../src';
 
-const meta: ComponentMeta<typeof VectorTilesChoropleth> = {
+const meta: ComponentMeta<typeof ChoroplethVectorTiles> = {
     title: 'Map/ChoroplethVector',
-    component: VectorTilesChoropleth,
+    component: ChoroplethVectorTiles,
 };
 
 const dataF = [
@@ -50,7 +50,7 @@ const defaultLabelCallback: ChoroplethTooltipFormatter = ({ label, value }: Tool
     `<b>${label}:</b> ${value}`;
 
 export default meta;
-const Template: ComponentStory<typeof VectorTilesChoropleth> = (args: Props<DataFrame, ChoroplethOptions>) => (
+const Template: ComponentStory<typeof ChoroplethVectorTiles> = (args: Props<DataFrame, ChoroplethOptions>) => (
     <div
         style={{
             width: '50%',
@@ -60,7 +60,7 @@ const Template: ComponentStory<typeof VectorTilesChoropleth> = (args: Props<Data
             border: '1px solid black',
         }}
     >
-        <VectorTilesChoropleth {...args} />
+        <ChoroplethVectorTiles {...args} />
     </div>
 );
 

@@ -20,7 +20,7 @@
     import type {
         ChoroplethDataValue,
         ChoroplethLayer,
-        VectorChoroplethOptions,
+        ChoroplethVectorTilesOptions,
         ChoroplethShapeVectorTilesValue,
         MapLegend,
         MapFilter,
@@ -28,7 +28,7 @@
     } from '../types';
 
     export let data: { value: ChoroplethDataValue[] }; // values, and the key to match
-    export let options: VectorChoroplethOptions; // contains the shapes to display & match
+    export let options: ChoroplethVectorTilesOptions; // contains the shapes to display & match
 
     let shapes: ChoroplethShapeVectorTilesValue;
     let colorScale: ColorScale;
