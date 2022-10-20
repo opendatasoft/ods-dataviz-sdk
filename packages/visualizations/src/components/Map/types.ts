@@ -40,7 +40,7 @@ export interface ChoroplethGeoJsonOptions extends ChoroplethOptions {
 
 export interface ChoroplethVectorTilesOptions extends ChoroplethOptions {
     /** Configuration for the shapes used as a visual support for the Choropleth rendering, which will be colored using the data. */
-    shapesTiles: ChoroplethShapeVectorTilesValue
+    shapesTiles: ChoroplethShapeVectorTilesValue;
     /** Only draw shapes that match the given filter */
     filter?: MapFilter;
 }
@@ -95,17 +95,6 @@ export interface ChoroplethDataValue {
     label?: string;
 }
 
-export enum ChoroplethShapeTypes {
-    GeoJson = 'geojson',
-    VectorTiles = 'vtiles',
-}
-
-/** `ChoroplethShapeValue` implementation based on a GeoJSON FeatureCollection.  */
-export interface ChoroplethShapeGeoJsonValue {
-    type: ChoroplethShapeTypes.GeoJson;
-    geoJson: FeatureCollection | null;
-}
-
 /** `ChoroplethShapeValue` implementation based on a Vector Tiles source URL.  */
 export interface ChoroplethShapeVectorTilesValue {
     url: string;
@@ -113,11 +102,6 @@ export interface ChoroplethShapeVectorTilesValue {
     key: string;
     label?: string;
 }
-
-/** Structure containing everything necessary for a Choropleth to render shapes visually.
- * Supports different types of structures, such as GeoJSON features, or a Vector Tiles source.
- */
-export type ChoroplethShapeValues = ChoroplethShapeGeoJsonValue | ChoroplethShapeVectorTilesValue;
 
 export interface ChoroplethFixedTooltipDescription {
     center: Position;

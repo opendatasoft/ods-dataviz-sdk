@@ -22,13 +22,12 @@
         colorScale,
         emptyValueColor
     );
-    $: coloredShapes =
-        shapes
-            ? colorShapes({
-                  featureCollection: shapes,
-                  colorMapping,
-              })
-            : EMPTY_FC;
+    $: coloredShapes = shapes
+        ? colorShapes({
+              featureCollection: shapes,
+              colorMapping,
+          })
+        : EMPTY_FC;
 </script>
 
 <Map
