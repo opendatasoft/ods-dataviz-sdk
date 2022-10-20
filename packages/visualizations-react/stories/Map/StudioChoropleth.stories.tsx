@@ -184,10 +184,6 @@ const StudioChoroplethCustomTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
                     feature.label
                 }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
         },
-        filter: {
-            key: 'key',
-            value: ['France', 'Corsica'],
-        },
     },
 };
 StudioChoroplethCustomTooltip.args = StudioChoroplethCustomTooltipArgs;
@@ -271,10 +267,6 @@ const StudioChoroplethEmptyDataArgs: Props<DataFrame, ChoroplethOptions> = {
                 `Hello I'm <div style="color: red">${
                     feature.label
                 }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
-        },
-        filter: {
-            key: 'key',
-            value: ['France', 'Corsica'],
         },
     },
 };

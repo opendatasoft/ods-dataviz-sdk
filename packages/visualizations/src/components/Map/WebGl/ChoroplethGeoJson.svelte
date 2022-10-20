@@ -12,7 +12,6 @@
         getDataBounds,
         mapKeyToColor,
         VOID_BOUNDS,
-        computeFilterExpression,
         computeTooltip,
         computeBaseLayer,
         computeMatchExpression,
@@ -25,7 +24,6 @@
         MapRenderTooltipFunction,
         ChoroplethShapeGeoJsonValue,
         MapLegend,
-        MapFilter,
     } from '../types';
 
     export let data: { value: ChoroplethDataValue[] }; // values, and the key to match
@@ -40,8 +38,6 @@
     let activeShapes: string[] | undefined;
     let interactive: boolean;
     let legend: MapLegend | undefined;
-    let filter: MapFilter | undefined;
-    let filterExpression: (string | string[])[] | undefined;
 
     // Used to apply a chosen color for shapes without values (default: #cccccc)
     let emptyValueColor: Color;
@@ -59,7 +55,6 @@
         interactive = defaultInteractive,
         emptyValueColor = DEFAULT_COLORS.Default,
         bbox,
-        filter,
     } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
@@ -101,10 +96,6 @@
         10,
         { leading: true }
     );
-
-    $: if (filter) {
-        filterExpression = computeFilterExpression(filter);
-    }
 </script>
 
 <div>
@@ -120,7 +111,6 @@
         {bbox}
         {activeShapes}
         {interactive}
-        {filterExpression}
         {matchKey}
     />
 </div>

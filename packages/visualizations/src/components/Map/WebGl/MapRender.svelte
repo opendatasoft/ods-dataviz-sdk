@@ -46,7 +46,7 @@
     // aspect ratio based on width, by default equal to 1
     export let aspectRatio = 1;
     // Used to filter the rendered features
-    export let filterExpression: FilterSpecification | undefined;
+    export let filterExpression: FilterSpecification | undefined | null = null;
     // Used to determine on which key match data and shapes
     export let matchKey: string;
 
