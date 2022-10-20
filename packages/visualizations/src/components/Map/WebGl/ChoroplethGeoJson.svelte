@@ -2,7 +2,7 @@
 
 <script lang="ts">
     import turfBbox from '@turf/bbox';
-    import type { SourceSpecification } from 'maplibre-gl';
+    import type { FilterSpecification, SourceSpecification } from 'maplibre-gl';
     import type { BBox } from 'geojson';
     import { debounce } from 'lodash';
     import type { ColorScale, DataBounds, Color } from '../../types';
@@ -74,7 +74,7 @@
         values: ChoroplethDataValue[] = []
     ) {
         let colors;
-        let fillColor: string | (string | string[])[] = emptyValueColor;
+        let fillColor: string | (string | string[])[] | FilterSpecification = emptyValueColor;
 
         if (values.length > 0) {
             dataBounds = getDataBounds(values);

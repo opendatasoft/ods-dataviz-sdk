@@ -1,6 +1,6 @@
 import chroma from 'chroma-js';
 import turfBbox from '@turf/bbox';
-import maplibregl from 'maplibre-gl';
+import maplibregl, { FilterSpecification } from 'maplibre-gl';
 import geoViewport from '@mapbox/geo-viewport';
 import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
 import type { Scale } from 'chroma-js';
@@ -282,7 +282,7 @@ export const computeTooltip: ComputeTooltipFunction = (
 };
 
 export const computeBaseLayer = (
-    fillColor: string | (string | string[])[],
+    fillColor: string | (string | string[])[] | FilterSpecification,
     DefaultColor: Color
 ): ChoroplethLayer => ({
     type: 'fill',
@@ -298,7 +298,7 @@ export const computeMatchExpression = (
     colors: { [s: string]: string },
     matchKey: string,
     emptyValueColor: Color
-) => {
+): FilterSpecification => {
     const matchExpression = ['match', ['get', matchKey]];
     Object.entries(colors).forEach((e) => matchExpression.push(...e));
     matchExpression.push(emptyValueColor); // Default fallback color
