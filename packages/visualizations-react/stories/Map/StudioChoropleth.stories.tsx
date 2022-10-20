@@ -53,7 +53,7 @@ const StudioChoroplethArgs: Props<DataFrame, ChoroplethOptions> = {
     },
     options: {
         shapes,
-        emptyValueColor: 'blue',
+        emptyValueColor: 'red',
         tooltip: {
             labelFormatter: defaultLabelCallback,
         },
