@@ -95,7 +95,6 @@ export interface ChoroplethDataValue {
     label?: string;
 }
 
-/** `ChoroplethShapeValue` implementation based on a Vector Tiles source URL.  */
 export interface ChoroplethShapeVectorTilesValue {
     url: string;
     layer: string;
@@ -109,10 +108,10 @@ export interface ChoroplethFixedTooltipDescription {
     popup: Popup;
 }
 
-export type MapRenderTooltipFunction = DebouncedFunc<(f: Feature) => string>;
+export type MapRenderTooltipFunction = DebouncedFunc<(feature: Feature) => string>;
 
 export type ComputeTooltipFunction = (
-    f: Feature,
+    feature: Feature,
     dataValues: ChoroplethDataValue[],
     options: ChoroplethOptions,
     matchKey: string
