@@ -1,12 +1,12 @@
 import { FC } from 'react';
 import {
     DataFrame,
-    SvgChoropleth as _SvgChoropleth,
+    ChoroplethSvg as _ChoroplethSvg,
     ChoroplethOptions,
 } from '@opendatasoft/visualizations';
 import { Props } from './Props';
 import wrap from './ReactImpl';
 
 // Explicit name and type are needed for storybook
-const SvgChoropleth: FC<Props<DataFrame, ChoroplethOptions>> = wrap(_SvgChoropleth);
-export default SvgChoropleth;
+const ChoroplethSvg: FC<Props<DataFrame, ChoroplethOptions>> = wrap(_ChoroplethSvg);
+export default ChoroplethSvg;

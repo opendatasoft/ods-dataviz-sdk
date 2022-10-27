@@ -37,7 +37,7 @@
     export let interactive: boolean;
     // options to display legend
     export let legend: MapLegend | undefined;
-    export let colorsScale: ColorScale;
+    export let colorScale: ColorScale;
     export let dataBounds: DataBounds;
     // Used to render tooltips on hover
     export let renderTooltip: MapRenderTooltipFunction;
@@ -46,7 +46,7 @@
     // aspect ratio based on width, by default equal to 1
     export let aspectRatio = 1;
     // Used to filter the rendered features
-    export let filterExpression: FilterSpecification | undefined;
+    export let filterExpression: FilterSpecification | undefined | null = null;
     // Used to determine on which key match data and shapes
     export let matchKey: string;
 
@@ -188,7 +188,7 @@
 
     function handleInteractivity(
         isInteractive: boolean,
-        tooltipRenderer?: MapRenderTooltipFunction
+        computeTooltip?: MapRenderTooltipFunction
     ) {
         if (isInteractive) {
             // Enable all user interaction handlers
@@ -212,7 +212,7 @@
             map.off('mousemove', layerId, addTooltip);
             map.off('mouseleave', layerId, removeTooltip);
 
-            if (tooltipRenderer) {
+            if (computeTooltip) {
                 map.on('mousemove', layerId, addTooltip);
                 map.on('mouseleave', layerId, removeTooltip);
             }
@@ -301,7 +301,7 @@
 <figure class="map-card" style={cssVarStyles} bind:clientWidth>
     <div id="map" bind:this={container} />
     {#if legend && dataBounds && clientWidth && mapReady}
-        <ColorsLegend {dataBounds} {colorsScale} variant={legendVariant} title={legend.title} />
+        <ColorsLegend {dataBounds} {colorScale} variant={legendVariant} title={legend.title} />
     {/if}
 </figure>
 

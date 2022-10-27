@@ -4,18 +4,17 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import {
     ColorScaleTypes,
     DataFrame,
-    ChoroplethOptions,
+    ChoroplethVectorTilesOptions,
     ChoroplethTooltipFormatter,
-    ChoroplethShapeTypes,
     ChoroplethTooltipMatcherTypes,
-    ChoroplethShapeValues,
+    ChoroplethShapeVectorTilesValue,
     TooltipParams,
 } from '@opendatasoft/visualizations';
-import { Choropleth, Props } from '../../src';
+import { ChoroplethVectorTiles, Props } from '../../src';
 
-const meta: ComponentMeta<typeof Choropleth> = {
+const meta: ComponentMeta<typeof ChoroplethVectorTiles> = {
     title: 'Map/ChoroplethVector',
-    component: Choropleth,
+    component: ChoroplethVectorTiles,
 };
 
 const dataF = [
@@ -38,8 +37,7 @@ const dataF = [
     { x: 94, y: 123, label: 'label from data 123' },
 ];
 
-const shapes: ChoroplethShapeValues = {
-    type: ChoroplethShapeTypes.VectorTiles,
+const shapesTiles: ChoroplethShapeVectorTilesValue = {
     url: 'https://static.opendatasoft.com/vector-tiles/fr_40_region_2021/{z}/{x}/{y}.pbf',
     layer: 'fr_40_region_2021',
     key: 'reg_code',
@@ -50,7 +48,7 @@ const defaultLabelCallback: ChoroplethTooltipFormatter = ({ label, value }: Tool
     `<b>${label}:</b> ${value}`;
 
 export default meta;
-const Template: ComponentStory<typeof Choropleth> = (args: Props<DataFrame, ChoroplethOptions>) => (
+const Template: ComponentStory<typeof ChoroplethVectorTiles> = (args: Props<DataFrame, ChoroplethVectorTilesOptions>) => (
     <div
         style={{
             width: '50%',
@@ -60,19 +58,19 @@ const Template: ComponentStory<typeof Choropleth> = (args: Props<DataFrame, Chor
             border: '1px solid black',
         }}
     >
-        <Choropleth {...args} />
+        <ChoroplethVectorTiles {...args} />
     </div>
 );
 
 export const StudioChoroplethVectorGradient = Template.bind({});
-const StudioChoroplethVectorGradientArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethVectorGradientArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
     data: {
         loading: false,
         value: dataF,
     },
     options: {
-        shapes,
-        colorsScale: {
+        shapesTiles,
+        colorScale: {
             type: ColorScaleTypes.Gradient,
             colors: {
                 start: '#bcf5f9',
@@ -93,14 +91,14 @@ const StudioChoroplethVectorGradientArgs: Props<DataFrame, ChoroplethOptions> = 
 StudioChoroplethVectorGradient.args = StudioChoroplethVectorGradientArgs;
 
 export const StudioChoroplethVectorPalette = Template.bind({});
-const StudioChoroplethVectorPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethVectorPaletteArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
     data: {
         loading: false,
         value: dataF,
     },
     options: {
-        shapes,
-        colorsScale: {
+        shapesTiles,
+        colorScale: {
             type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
         },
@@ -118,14 +116,14 @@ const StudioChoroplethVectorPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
 StudioChoroplethVectorPalette.args = StudioChoroplethVectorPaletteArgs;
 
 export const StudioChoroplethVectorFilter = Template.bind({});
-const StudioChoroplethVectorFilterArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethVectorFilterArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
     data: {
         loading: false,
         value: dataF,
     },
     options: {
-        shapes,
-        colorsScale: {
+        shapesTiles,
+        colorScale: {
             type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
         },
@@ -151,14 +149,14 @@ const StudioChoroplethVectorFilterArgs: Props<DataFrame, ChoroplethOptions> = {
 StudioChoroplethVectorFilter.args = StudioChoroplethVectorFilterArgs;
 
 export const StudioChoroplethVectorCustomLabel = Template.bind({});
-const StudioChoroplethVectorCustomLabelArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethVectorCustomLabelArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
     data: {
         loading: false,
         value: dataF,
     },
     options: {
-        shapes,
-        colorsScale: {
+        shapesTiles,
+        colorScale: {
             type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
         },
@@ -187,14 +185,14 @@ const StudioChoroplethVectorCustomLabelArgs: Props<DataFrame, ChoroplethOptions>
 StudioChoroplethVectorCustomLabel.args = StudioChoroplethVectorCustomLabelArgs;
 
 export const StudioChoroplethVectorEmptyData = Template.bind({});
-const StudioChoroplethVectorEmptyDataArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethVectorEmptyDataArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
     data: {
         loading: false,
         value: undefined,
     },
     options: {
-        shapes,
-        colorsScale: {
+        shapesTiles,
+        colorScale: {
             type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
         },
@@ -244,7 +242,7 @@ StudioChoroplethVectorEmptyData.args = StudioChoroplethVectorEmptyDataArgs;
 //     .dataset('population-millesimee-communes-2016')
 //     .exports('json')
 //     .select('code_insee as x, population_totale as y');
-    
+
 // const getValue = async () => {
 //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
 //     const value: any = await apiClient.get(query);
@@ -262,10 +260,10 @@ StudioChoroplethVectorEmptyData.args = StudioChoroplethVectorEmptyDataArgs;
 //     })
 // ];
 
-// const StudioChoroplethVectorComArgs: Omit<Props<DataFrame, ChoroplethOptions>, 'data'> = {
+// const StudioChoroplethVectorComArgs: Omit<Props<DataFrame, ChoroplethVectorTilesOptions>, 'data'> = {
 //     options: {
 //         shapes: irisShapes,
-//         colorsScale: {
+//         colorScale: {
 //             type: ColorScaleTypes.Gradient,
 //             colors: {
 //                 start: '#bcf5f9',

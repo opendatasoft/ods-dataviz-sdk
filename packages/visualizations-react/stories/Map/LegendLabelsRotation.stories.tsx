@@ -1,17 +1,17 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import {
-    ChoroplethOptions,
+    ChoroplethGeoJsonOptions,
     DataFrame,
     TooltipParams,
     ColorScaleTypes,
 } from '@opendatasoft/visualizations';
-import { Choropleth, Props } from '../../src';
+import { ChoroplethGeoJson, Props } from '../../src';
 import { shapes } from './shapes';
 
-const meta: ComponentMeta<typeof Choropleth> = {
+const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
     title: 'Map/Legend',
-    component: Choropleth,
+    component: ChoroplethGeoJson,
 };
 export default meta;
 
@@ -22,7 +22,7 @@ const tooltip = {
         }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
 };
 
-const Template: ComponentStory<typeof Choropleth> = (args: Props<DataFrame, ChoroplethOptions>) => (
+const Template: ComponentStory<typeof ChoroplethGeoJson> = (args: Props<DataFrame, ChoroplethGeoJsonOptions>) => (
     <div
         style={{
             width: '180px',
@@ -32,12 +32,12 @@ const Template: ComponentStory<typeof Choropleth> = (args: Props<DataFrame, Chor
             border: '1px solid black',
         }}
     >
-        <Choropleth {...args} />
+        <ChoroplethGeoJson {...args} />
     </div>
 );
 
 export const ChoroplethLongLabels = Template.bind({});
-const ChoroplethLongLabelsArgs: Props<DataFrame, ChoroplethOptions> = {
+const ChoroplethLongLabelsArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: [
@@ -48,7 +48,7 @@ const ChoroplethLongLabelsArgs: Props<DataFrame, ChoroplethOptions> = {
     },
     options: {
         shapes,
-        colorsScale: {
+        colorScale: {
             type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#1e03fd', '#0229bf'],
         },

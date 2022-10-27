@@ -4,10 +4,8 @@ import type { DebouncedFunc } from 'lodash';
 import type { ColorScale, Color } from '../types';
 
 export interface ChoroplethOptions {
-    /** Configuration for the shapes used as a visual support for the Choropleth rendering, which will be colored using the data. */
-    shapes: ChoroplethShapeValues;
     /** Configuration for the color scale used to color the choropleth shapes. */
-    colorsScale?: ColorScale;
+    colorScale?: ColorScale;
     /** Configuration for the legend displayed for the choropleth */
     legend?: MapLegend;
     /** Aspect ratio used to draw the map. The map will take he width available to it, and decide its height based on that ratio. */
@@ -28,8 +26,6 @@ export interface ChoroplethOptions {
     };
     /** Initial position of the map when rendering. If undefined, with GeoJSON shapes the map will automatically zoom to fit all content, and on VTiles map, it will display the world. */
     bbox?: BBox | undefined;
-    /** Only draw shapes that match the given filter */
-    filter?: MapFilter;
 }
 
 export interface MapFilter {
@@ -37,12 +33,16 @@ export interface MapFilter {
     value: string | string[];
 }
 
-export interface GeoJsonChoroplethOptions extends ChoroplethOptions {
-    shapes: ChoroplethShapeGeoJsonValue;
+export interface ChoroplethGeoJsonOptions extends ChoroplethOptions {
+    /** Configuration for the shapes used as a visual support for the Choropleth rendering, which will be colored using the data. */
+    shapes: FeatureCollection;
 }
 
-export interface VectorChoroplethOptions extends ChoroplethOptions {
-    shapes: ChoroplethShapeVectorTilesValue;
+export interface ChoroplethVectorTilesOptions extends ChoroplethOptions {
+    /** Configuration for the shapes used as a visual support for the Choropleth rendering, which will be colored using the data. */
+    shapesTiles: ChoroplethShapeVectorTilesValue;
+    /** Only draw shapes that match the given filter */
+    filter?: MapFilter;
 }
 
 export interface MapLegend {
@@ -95,30 +95,12 @@ export interface ChoroplethDataValue {
     label?: string;
 }
 
-export enum ChoroplethShapeTypes {
-    GeoJson = 'geojson',
-    VectorTiles = 'vtiles',
-}
-
-/** `ChoroplethShapeValue` implementation based on a GeoJSON FeatureCollection.  */
-export interface ChoroplethShapeGeoJsonValue {
-    type: ChoroplethShapeTypes.GeoJson;
-    geoJson: FeatureCollection | null;
-}
-
-/** `ChoroplethShapeValue` implementation based on a Vector Tiles source URL.  */
 export interface ChoroplethShapeVectorTilesValue {
-    type: ChoroplethShapeTypes.VectorTiles;
     url: string;
     layer: string;
     key: string;
     label?: string;
 }
-
-/** Structure containing everything necessary for a Choropleth to render shapes visually.
- * Supports different types of structures, such as GeoJSON features, or a Vector Tiles source.
- */
-export type ChoroplethShapeValues = ChoroplethShapeGeoJsonValue | ChoroplethShapeVectorTilesValue;
 
 export interface ChoroplethFixedTooltipDescription {
     center: Position;
@@ -126,7 +108,14 @@ export interface ChoroplethFixedTooltipDescription {
     popup: Popup;
 }
 
-export type MapRenderTooltipFunction = DebouncedFunc<(f: Feature) => string>;
+export type MapRenderTooltipFunction = DebouncedFunc<(feature: Feature) => string>;
+
+export type ComputeTooltipFunction = (
+    feature: Feature,
+    dataValues: ChoroplethDataValue[],
+    options: ChoroplethOptions,
+    matchKey: string
+) => string;
 
 export type ChoroplethLayer = Omit<FillLayerSpecification, 'id' | 'source'>;
 

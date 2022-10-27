@@ -3,32 +3,31 @@
     import {
         mapKeyToColor,
         LIGHT_GREY,
-        DEFAULT_COLORSSCALE,
+        DEFAULT_COLORSCALE,
         EMPTY_FC,
         getDataBounds,
         colorShapes,
     } from '../utils';
     import Map from './Map.svelte';
 
-    import type { GeoJsonChoroplethOptions, ChoroplethDataValue } from '../types';
+    import type { ChoroplethGeoJsonOptions, ChoroplethDataValue } from '../types';
 
     export let data: { value: ChoroplethDataValue[] };
-    export let options: GeoJsonChoroplethOptions;
+    export let options: ChoroplethGeoJsonOptions;
 
-    $: ({ shapes, colorsScale = DEFAULT_COLORSSCALE, emptyValueColor = LIGHT_GREY } = options);
+    $: ({ shapes, colorScale = DEFAULT_COLORSCALE, emptyValueColor = LIGHT_GREY } = options);
     $: colorMapping = mapKeyToColor(
         data.value,
         getDataBounds(data.value),
-        colorsScale,
+        colorScale,
         emptyValueColor
     );
-    $: coloredShapes =
-        shapes?.geoJson && shapes?.type === 'geojson'
-            ? colorShapes({
-                  featureCollection: shapes.geoJson,
-                  colorMapping,
-              })
-            : EMPTY_FC;
+    $: coloredShapes = shapes
+        ? colorShapes({
+              featureCollection: shapes,
+              colorMapping,
+          })
+        : EMPTY_FC;
 </script>
 
 <Map

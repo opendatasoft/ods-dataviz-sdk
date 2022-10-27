@@ -1,19 +1,19 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import {
-    ChoroplethOptions,
+    ChoroplethGeoJsonOptions,
     TooltipParams,
     DataFrame,
     ColorScaleTypes,
     ChoroplethTooltipFormatter,
 } from '@opendatasoft/visualizations';
-import { Choropleth, Props } from '../../src';
+import { ChoroplethGeoJson, Props } from '../../src';
 import { shapes, multiPolygonShapes } from './shapes';
 import { IMAGES } from '../utils';
 
-const meta: ComponentMeta<typeof Choropleth> = {
+const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
     title: 'Map/Choropleth',
-    component: Choropleth,
+    component: ChoroplethGeoJson,
 };
 
 const df = [
@@ -27,7 +27,7 @@ const defaultLabelCallback: ChoroplethTooltipFormatter = ({ label, value }: Tool
 
 export default meta;
 
-const Template: ComponentStory<typeof Choropleth> = (args: Props<DataFrame, ChoroplethOptions>) => (
+const Template: ComponentStory<typeof ChoroplethGeoJson> = (args: Props<DataFrame, ChoroplethGeoJsonOptions>) => (
     <div
         style={{
             width: '50%',
@@ -37,12 +37,12 @@ const Template: ComponentStory<typeof Choropleth> = (args: Props<DataFrame, Chor
             border: '1px solid black',
         }}
     >
-        <Choropleth {...args} />
+        <ChoroplethGeoJson {...args} />
     </div>
 );
 
 export const StudioChoropleth = Template.bind({});
-const StudioChoroplethArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: [
@@ -63,7 +63,7 @@ const StudioChoroplethArgs: Props<DataFrame, ChoroplethOptions> = {
 StudioChoropleth.args = StudioChoroplethArgs;
 
 export const StudioChoroplethMultiPolygon = Template.bind({});
-const StudioChoroplethMultiPolygonArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethMultiPolygonArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: [
@@ -83,7 +83,7 @@ const StudioChoroplethMultiPolygonArgs: Props<DataFrame, ChoroplethOptions> = {
 StudioChoroplethMultiPolygon.args = StudioChoroplethMultiPolygonArgs;
 
 export const StudioChoroplethEmptyValue = Template.bind({});
-const StudioChoroplethEmptyValueArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethEmptyValueArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: [
@@ -103,7 +103,7 @@ const StudioChoroplethEmptyValueArgs: Props<DataFrame, ChoroplethOptions> = {
 StudioChoroplethEmptyValue.args = StudioChoroplethEmptyValueArgs;
 
 export const StudioChoroplethGradient = Template.bind({});
-const StudioChoroplethGradientArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethGradientArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: [
@@ -118,7 +118,7 @@ const StudioChoroplethGradientArgs: Props<DataFrame, ChoroplethOptions> = {
         tooltip: {
             labelFormatter: defaultLabelCallback,
         },
-        colorsScale: {
+        colorScale: {
             type: ColorScaleTypes.Gradient,
             colors: {
                 start: '#bcf5f9',
@@ -134,7 +134,7 @@ const StudioChoroplethGradientArgs: Props<DataFrame, ChoroplethOptions> = {
 StudioChoroplethGradient.args = StudioChoroplethGradientArgs;
 
 export const StudioChoroplethPalette = Template.bind({});
-const StudioChoroplethPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethPaletteArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: [
@@ -149,7 +149,7 @@ const StudioChoroplethPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
         tooltip: {
             labelFormatter: defaultLabelCallback,
         },
-        colorsScale: {
+        colorScale: {
             type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
         },
@@ -162,7 +162,7 @@ const StudioChoroplethPaletteArgs: Props<DataFrame, ChoroplethOptions> = {
 StudioChoroplethPalette.args = StudioChoroplethPaletteArgs;
 
 export const StudioChoroplethCustomTooltip = Template.bind({});
-const StudioChoroplethCustomTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethCustomTooltipArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: df,
@@ -170,7 +170,7 @@ const StudioChoroplethCustomTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
     options: {
         shapes,
         emptyValueColor: 'red',
-        colorsScale: {
+        colorScale: {
             type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
         },
@@ -184,17 +184,13 @@ const StudioChoroplethCustomTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
                     feature.label
                 }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
         },
-        filter: {
-            key: 'key',
-            value: ['France', 'Corsica'],
-        },
     },
 };
 StudioChoroplethCustomTooltip.args = StudioChoroplethCustomTooltipArgs;
 
 export const StudioChoroplethComplexTooltip = Template.bind({});
 
-const StudioChoroplethComplexTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethComplexTooltipArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: df,
@@ -202,7 +198,7 @@ const StudioChoroplethComplexTooltipArgs: Props<DataFrame, ChoroplethOptions> = 
     options: {
         shapes,
         emptyValueColor: 'red',
-        colorsScale: {
+        colorScale: {
             type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
         },
@@ -225,7 +221,7 @@ const StudioChoroplethComplexTooltipArgs: Props<DataFrame, ChoroplethOptions> = 
 StudioChoroplethComplexTooltip.args = StudioChoroplethComplexTooltipArgs;
 
 export const StudioChoroplethLongLabels = Template.bind({});
-const StudioChoroplethLongLabelsArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethLongLabelsArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: [
@@ -240,7 +236,7 @@ const StudioChoroplethLongLabelsArgs: Props<DataFrame, ChoroplethOptions> = {
         tooltip: {
             labelFormatter: defaultLabelCallback,
         },
-        colorsScale: {
+        colorScale: {
             type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#1e03fd', '#0229bf'],
         },
@@ -253,12 +249,12 @@ const StudioChoroplethLongLabelsArgs: Props<DataFrame, ChoroplethOptions> = {
 StudioChoroplethLongLabels.args = StudioChoroplethLongLabelsArgs;
 
 export const StudioChoroplethEmptyData = Template.bind({});
-const StudioChoroplethEmptyDataArgs: Props<DataFrame, ChoroplethOptions> = {
+const StudioChoroplethEmptyDataArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {},
     options: {
         shapes,
         emptyValueColor: 'grey',
-        colorsScale: {
+        colorScale: {
             type: ColorScaleTypes.Palette,
             colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
         },
@@ -271,10 +267,6 @@ const StudioChoroplethEmptyDataArgs: Props<DataFrame, ChoroplethOptions> = {
                 `Hello I'm <div style="color: red">${
                     feature.label
                 }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
-        },
-        filter: {
-            key: 'key',
-            value: ['France', 'Corsica'],
         },
     },
 };

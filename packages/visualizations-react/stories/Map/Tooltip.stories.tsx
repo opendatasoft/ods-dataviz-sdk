@@ -1,17 +1,17 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import type { ChoroplethOptions, DataFrame, TooltipParams } from '@opendatasoft/visualizations';
-import { Choropleth, Props } from '../../src';
+import type { ChoroplethGeoJsonOptions, DataFrame, TooltipParams } from '@opendatasoft/visualizations';
+import { ChoroplethGeoJson, Props } from '../../src';
 import { IMAGES } from '../utils';
 import { shapes } from './shapes';
 
-const meta: ComponentMeta<typeof Choropleth> = {
+const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
     title: 'Map/Tooltip',
-    component: Choropleth,
+    component: ChoroplethGeoJson,
 };
 
 export default meta;
-const Template: ComponentStory<typeof Choropleth> = (args: Props<DataFrame, ChoroplethOptions>) => (
+const Template: ComponentStory<typeof ChoroplethGeoJson> = (args: Props<DataFrame, ChoroplethGeoJsonOptions>) => (
     <div
         style={{
             width: '50%',
@@ -21,12 +21,12 @@ const Template: ComponentStory<typeof Choropleth> = (args: Props<DataFrame, Chor
             border: '1px solid black',
         }}
     >
-        <Choropleth {...args} />
+        <ChoroplethGeoJson {...args} />
     </div>
 );
 
 export const DefaultTooltip = Template.bind({});
-const DefaultTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
+const DefaultTooltipArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: [
@@ -44,7 +44,7 @@ const DefaultTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
 DefaultTooltip.args = DefaultTooltipArgs;
 
 export const CustomSimpleTooltip = Template.bind({});
-const CustomSimpleTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
+const CustomSimpleTooltipArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: [
@@ -67,7 +67,7 @@ const CustomSimpleTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
 CustomSimpleTooltip.args = CustomSimpleTooltipArgs;
 
 export const CustomComplexTooltip = Template.bind({});
-const CustomComplexTooltipArgs: Props<DataFrame, ChoroplethOptions> = {
+const CustomComplexTooltipArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: [

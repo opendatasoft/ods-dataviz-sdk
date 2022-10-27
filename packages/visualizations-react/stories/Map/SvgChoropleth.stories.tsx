@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ChoroplethOptions, ColorScale, ColorScaleTypes } from '@opendatasoft/visualizations';
-import { SvgChoropleth } from '../../src';
+import { ChoroplethGeoJsonOptions, ColorScale, ColorScaleTypes } from '@opendatasoft/visualizations';
+import { ChoroplethSvg } from '../../src';
 import { shapes } from './shapes';
 
 const scales: { [key: string]: ColorScale | undefined } = {
@@ -51,9 +51,9 @@ const ChoroPlethWithSelect = ({
     dataset: number;
     height: string;
     width: string;
-    options: ChoroplethOptions;
+    options: ChoroplethGeoJsonOptions;
 }) => {
-    const optionsWithScale = { colorsScale: scales[scale], ...options };
+    const optionsWithScale = { colorScale: scales[scale], ...options };
     const selectedDataset = datasets[dataset];
     return (
         <div
@@ -66,7 +66,7 @@ const ChoroPlethWithSelect = ({
                 width,
             }}
         >
-            <SvgChoropleth
+            <ChoroplethSvg
                 options={optionsWithScale}
                 data={selectedDataset}
                 style={{ height: '100%', width: '100%' }} // Necessary to remove storybook wrapper
@@ -75,17 +75,17 @@ const ChoroPlethWithSelect = ({
     );
 };
 
-const meta: ComponentMeta<typeof SvgChoropleth> = {
-    title: 'Map/SvgChoropleth',
-    component: SvgChoropleth,
+const meta: ComponentMeta<typeof ChoroplethSvg> = {
+    title: 'Map/ChoroplethSvg',
+    component: ChoroplethSvg,
 };
 
 export default meta;
 const Template: ComponentStory<typeof ChoroPlethWithSelect> = args => (
         <ChoroPlethWithSelect {...args} />
 );
-export const SvgChoroplethStory = Template.bind({});
-SvgChoroplethStory.argTypes = {
+export const ChoroplethSvgStory = Template.bind({});
+ChoroplethSvgStory.argTypes = {
     scale: {
         options: ['grey', 'blue'],
         control: { type: 'select' },
@@ -95,7 +95,7 @@ SvgChoroplethStory.argTypes = {
         control: { type: 'select' },
     },
 };
-SvgChoroplethStory.args = {
+ChoroplethSvgStory.args = {
     height: '100px',
     width: '100px',
     dataset: 1,

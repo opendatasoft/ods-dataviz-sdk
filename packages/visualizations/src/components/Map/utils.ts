@@ -1,6 +1,6 @@
 import chroma from 'chroma-js';
 import turfBbox from '@turf/bbox';
-import maplibregl from 'maplibre-gl';
+import maplibregl, { FilterSpecification } from 'maplibre-gl';
 import geoViewport from '@mapbox/geo-viewport';
 import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
 import type { Scale } from 'chroma-js';
@@ -11,9 +11,11 @@ import type { Color, ColorScale, DataBounds } from '../types';
 import type {
     ChoroplethDataValue,
     ChoroplethFixedTooltipDescription,
+    MapFilter,
+    ChoroplethTooltipFormatter,
     MapRenderTooltipFunction,
-    ChoroplethShapeValues,
-    ChoroplethShapeVectorTilesValue,
+    ComputeTooltipFunction,
+    ChoroplethLayer,
 } from './types';
 
 export const LIGHT_GREY: Color = '#CBD2DB';
@@ -24,7 +26,7 @@ export const EMPTY_FC: FeatureCollection = {
     features: [],
 };
 
-export const DEFAULT_COLORSSCALE: GradientScale = {
+export const DEFAULT_COLORSCALE: GradientScale = {
     type: ColorScaleTypes.Gradient,
     colors: {
         start: LIGHT_GREY,
@@ -66,7 +68,7 @@ export const colorShapes = ({
 export const mapKeyToColor = (
     values: ChoroplethDataValue[],
     dataBounds: DataBounds,
-    colorsScale: ColorScale,
+    colorScale: ColorScale,
     emptyValueColor: Color = DEFAULT_COLORS.Default
 ): { [s: string]: string } => {
     const { min, max } = dataBounds;
@@ -75,29 +77,29 @@ export const mapKeyToColor = (
     let scale: Scale;
 
     // This is an exhaustive check, function must handle all color scale types
-    switch (colorsScale.type) {
+    switch (colorScale.type) {
         case ColorScaleTypes.Palette:
             const thresholdArray: number[] = []; // eslint-disable-line no-case-declarations
-            colorsScale.colors.forEach((_color: Color, i: number) => {
+            colorScale.colors.forEach((_color: Color, i: number) => {
                 if (i === 0) {
                     thresholdArray.push(min);
-                    thresholdArray.push(min + (max - min) / colorsScale.colors.length);
-                } else if (i === colorsScale.colors.length - 1) {
+                    thresholdArray.push(min + (max - min) / colorScale.colors.length);
+                } else if (i === colorScale.colors.length - 1) {
                     thresholdArray.push(max);
                 } else {
-                    thresholdArray.push(min + ((max - min) / colorsScale.colors.length) * (i + 1));
+                    thresholdArray.push(min + ((max - min) / colorScale.colors.length) * (i + 1));
                 }
             });
-            scale = chroma.scale(colorsScale.colors).classes(thresholdArray);
+            scale = chroma.scale(colorScale.colors).classes(thresholdArray);
             break;
         case ColorScaleTypes.Gradient:
-            colorMin = chroma(colorsScale.colors.start).hex();
-            colorMax = chroma(colorsScale.colors.end).hex();
+            colorMin = chroma(colorScale.colors.start).hex();
+            colorMax = chroma(colorScale.colors.end).hex();
             scale = chroma.scale([colorMin, colorMax]).domain([min, max]);
             break;
         default: {
             // This function should never be reached because of the exhaustive check (will throw a compilation error)
-            const exhaustiveCheck: never = colorsScale;
+            const exhaustiveCheck: never = colorScale;
             assertUnreachable(exhaustiveCheck);
         }
     }
@@ -227,8 +229,78 @@ export const getFixedTooltips = (
     ) as ChoroplethFixedTooltipDescription[];
 };
 
-export const isVectorTile = (
-    shape: ChoroplethShapeValues
-): shape is ChoroplethShapeVectorTilesValue =>
-    (shape as ChoroplethShapeVectorTilesValue).layer !== undefined &&
-    (shape as ChoroplethShapeVectorTilesValue).key !== undefined;
+export const computeFilterExpression = (filterConfig: MapFilter) => {
+    /** Transform a filter object from the options into a Maplibre filter expression */
+    const { key, value } = filterConfig;
+    const filterMatchExpression: string[] = ['in', key];
+    (Array.isArray(value) ? value : [value]).forEach((filterValue) => {
+        filterMatchExpression.push(filterValue.toString());
+    });
+    return filterMatchExpression;
+};
+
+export const defaultTooltipFormat: ChoroplethTooltipFormatter = ({ value, label }) =>
+    value ? `${label} &mdash; ${value}` : label;
+
+export const computeTooltip: ComputeTooltipFunction = (
+    hoveredFeature,
+    dataValues,
+    options,
+    matchKey
+) => {
+    const values = dataValues || [];
+    const matchedFeature = values.find(
+        (item: ChoroplethDataValue) => String(item.x) === hoveredFeature.properties?.[matchKey]
+    );
+
+    let tooltipLabel = hoveredFeature.properties?.label || hoveredFeature.properties?.[matchKey];
+    const labelMatcher = options?.tooltip?.labelMatcher;
+
+    if (labelMatcher && matchedFeature) {
+        const { type } = labelMatcher;
+        if (type === 'keyProperty') {
+            const { key } = labelMatcher;
+            tooltipLabel = hoveredFeature.properties?.[key];
+        } else if (type === 'keyMap') {
+            const { mapping } = labelMatcher;
+            tooltipLabel = mapping[matchedFeature?.x];
+        }
+    }
+
+    const tooltipRawValues: {
+        value?: number;
+        label: string;
+        key: string;
+    } = {
+        value: matchedFeature?.y,
+        label: tooltipLabel,
+        key: hoveredFeature.properties?.[matchKey], // === matchedFeature.x
+    };
+    const format = options?.tooltip?.labelFormatter;
+
+    return format ? format(tooltipRawValues) : defaultTooltipFormat(tooltipRawValues);
+};
+
+export const computeBaseLayer = (
+    fillColor: string | (string | string[])[] | FilterSpecification,
+    DefaultColor: Color
+): ChoroplethLayer => ({
+    type: 'fill',
+    layout: {},
+    paint: {
+        'fill-color': fillColor,
+        'fill-opacity': 0.8,
+        'fill-outline-color': DefaultColor,
+    },
+});
+
+export const computeMatchExpression = (
+    colors: { [s: string]: string },
+    matchKey: string,
+    emptyValueColor: Color
+): FilterSpecification => {
+    const matchExpression = ['match', ['get', matchKey]];
+    Object.entries(colors).forEach((e) => matchExpression.push(...e));
+    matchExpression.push(emptyValueColor); // Default fallback color
+    return matchExpression;
+};
