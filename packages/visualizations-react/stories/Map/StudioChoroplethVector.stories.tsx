@@ -1,6 +1,5 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-// import { ApiClient, fromCatalog } from '@opendatasoft/api-client';
 import {
     ColorScaleTypes,
     DataFrame,
@@ -15,6 +14,12 @@ import { ChoroplethVectorTiles, Props } from '../../src';
 const meta: ComponentMeta<typeof ChoroplethVectorTiles> = {
     title: 'Map/ChoroplethVector',
     component: ChoroplethVectorTiles,
+    parameters: {
+        // Set a delay to make sure the Vector Tiles are loaded from their remote service, and avoid
+        // snapshotting a blank render.
+        // Current 2 seconds to be 100% sure and because we don't have too many stories.
+        chromatic: { delay: 2000 },
+    },
 };
 
 const dataF = [
