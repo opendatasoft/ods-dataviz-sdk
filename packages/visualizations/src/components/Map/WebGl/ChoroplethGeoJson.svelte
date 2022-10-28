@@ -37,6 +37,7 @@
     let activeShapes: string[] | undefined;
     let interactive: boolean;
     let legend: MapLegend | undefined;
+    let attribution: string | undefined;
 
     // Used to apply a chosen color for shapes without values (default: #cccccc)
     let emptyValueColor: Color;
@@ -54,6 +55,7 @@
         interactive = defaultInteractive,
         emptyValueColor = DEFAULT_COLORS.Default,
         bbox,
+        attribution,
     } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
@@ -111,6 +113,7 @@
         {activeShapes}
         {interactive}
         {matchKey}
+        {attribution}
     />
 </div>
 

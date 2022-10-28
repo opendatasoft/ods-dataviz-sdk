@@ -58,6 +58,7 @@ const StudioChoroplethArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
             labelFormatter: defaultLabelCallback,
         },
         aspectRatio: 1,
+        attribution: 'Testing attribution',
     },
 };
 StudioChoropleth.args = StudioChoroplethArgs;

@@ -39,6 +39,7 @@
     export let legend: MapLegend | undefined;
     export let colorScale: ColorScale;
     export let dataBounds: DataBounds;
+    export let attribution: string | undefined;
     // Used to render tooltips on hover
     export let renderTooltip: MapRenderTooltipFunction;
     // Used to select shapes to activate a tooltip on render
@@ -96,6 +97,7 @@
         const start = {
             center: defaultCenter,
             zoom: 5,
+            customAttribution: attribution,
         };
 
         map = new maplibregl.Map({

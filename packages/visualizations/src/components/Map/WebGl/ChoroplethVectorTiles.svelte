@@ -39,6 +39,7 @@
     let activeShapes: string[] | undefined;
     let interactive: boolean;
     let legend: MapLegend | undefined;
+    let attribution: string | undefined;
     let filter: MapFilter | undefined;
     let filterExpression: (string | string[])[] | undefined;
 
@@ -61,6 +62,7 @@
         emptyValueColor = DEFAULT_COLORS.Default,
         bbox,
         filter,
+        attribution,
     } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
@@ -128,6 +130,7 @@
         {interactive}
         {filterExpression}
         {matchKey}
+        {attribution}
     />
 </div>
 

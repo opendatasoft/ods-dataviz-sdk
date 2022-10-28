@@ -26,6 +26,8 @@ export interface ChoroplethOptions {
     };
     /** Initial position of the map when rendering. If undefined, with GeoJSON shapes the map will automatically zoom to fit all content, and on VTiles map, it will display the world. */
     bbox?: BBox | undefined;
+    /** Attribution to display on the map */
+    attribution?: string;
 }
 
 export interface MapFilter {
