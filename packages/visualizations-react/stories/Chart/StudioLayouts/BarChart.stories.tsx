@@ -2,8 +2,7 @@ import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
 import { defaultSource } from '../../utils';
-import { Sample } from '../Chart.stories';
-import { storyWithArgs } from '../../utils';
+import ChartTemplate from '../ChartTemplate';
 
 const meta: Meta = {
     title: 'Chart/StudioLayouts/BarChart',
@@ -18,7 +17,8 @@ const df = [
     { x: '04/01', y: 30, z: 20 },
 ];
 
-export const BarTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const BarTitleAxisGrid = ChartTemplate.bind({});
+const BarTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -45,38 +45,42 @@ export const BarTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sa
                 label: 'User 2',
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            offset: false,
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'x',
-                align: 'center',
+                type: 'linear',
+                offset: false,
+                title: {
+                    display: true,
+                    text: 'x',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
-            gridLines: {
+            y: {
                 display: true,
-            },
-        },
-        yAxis: {
-            display: true,
-            type: 'category',
-            title: {
-                display: true,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: false,
+                type: 'category',
+                title: {
+                    display: true,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
         },
         title: {
             text: 'Bar chart with title, axis and grid',
         },
     },
-});
+};
+BarTitleAxisGrid.args = BarTitleAxisGridArgs;
 
-export const BarAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const BarAxisGrid = ChartTemplate.bind({});
+const BarAxisGridArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -104,35 +108,39 @@ export const BarAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample,
                 ],
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            offset: false,
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'x',
-                align: 'center',
+                type: 'linear',
+                offset: false,
+                title: {
+                    display: true,
+                    text: 'x',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
-            gridLines: {
+            y: {
                 display: true,
-            },
-        },
-        yAxis: {
-            display: true,
-            type: 'category',
-            title: {
-                display: true,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: false,
+                type: 'category',
+                title: {
+                    display: true,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
         },
     },
-});
+};
+BarAxisGrid.args = BarAxisGridArgs;
 
-export const BarTitleAxisDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const BarTitleAxisDataValues = ChartTemplate.bind({});
+const BarTitleAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -151,19 +159,17 @@ export const BarTitleAxisDataValues = storyWithArgs<Props<DataFrame, ChartOption
                 borderColor: 'rgba(22, 161, 145)',
                 dataLabels: {
                     display: true,
-                    align: function (index) {
+                    align(index) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
-                    anchor: function (index) {
+                    anchor(index) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
                     color: 'rgba(22, 161, 145)',
                 },
@@ -176,59 +182,61 @@ export const BarTitleAxisDataValues = storyWithArgs<Props<DataFrame, ChartOption
                 borderColor: 'rgba(119, 73, 54)',
                 dataLabels: {
                     display: true,
-                    align: function (index) {
+                    align(index) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
-                    anchor: function (index) {
+                    anchor(index) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
                     color: 'rgba(119, 73, 54)',
                 },
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            offset: false,
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'x',
-                align: 'center',
+                type: 'linear',
+                offset: false,
+                title: {
+                    display: true,
+                    text: 'x',
+                    align: 'center',
+                },
+                ticks: {
+                    display: 'single',
+                },
+                gridLines: {
+                    display: 'single',
+                },
             },
-            ticks: {
-                display: 'single',
-            },
-            gridLines: {
-                display: 'single',
-            },
-        },
-        yAxis: {
-            display: true,
-            type: 'category',
-            title: {
+            y: {
                 display: true,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: false,
+                type: 'category',
+                title: {
+                    display: true,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
         },
         title: {
             text: 'Bar chart with title, axis and data values',
         },
     },
-});
+};
+BarTitleAxisDataValues.args = BarTitleAxisDataValuesArgs;
 
-export const BarAxisDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const BarAxisDataValues = ChartTemplate.bind({});
+const BarAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -260,16 +268,14 @@ export const BarAxisDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(S
                     align(index) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
                     anchor(index) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
                     color: [
                         'rgba(250,50,50)',
@@ -280,38 +286,42 @@ export const BarAxisDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(S
                 },
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            offset: false,
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'x',
-                align: 'center',
+                type: 'linear',
+                offset: false,
+                title: {
+                    display: true,
+                    text: 'x',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: 'single',
+                },
+                ticks: {
+                    display: 'single',
+                },
             },
-            gridLines: {
-                display: 'single',
-            },
-            ticks: {
-                display: 'single',
-            },
-        },
-        yAxis: {
-            display: true,
-            type: 'category',
-            title: {
+            y: {
                 display: true,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: false,
+                type: 'category',
+                title: {
+                    display: true,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
         },
     },
-});
+};
+BarAxisDataValues.args = BarAxisDataValuesArgs;
 
-export const BarTitleSubTitleGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const BarTitleSubTitleGrid = ChartTemplate.bind({});
+const BarTitleSubTitleGridArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
@@ -344,28 +354,30 @@ export const BarTitleSubTitleGrid = storyWithArgs<Props<DataFrame, ChartOptions>
                 ],
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            title: {
-                display: false,
-                text: 'x',
-                align: 'center',
-            },
-            gridLines: {
+        axis: {
+            x: {
                 display: true,
+                type: 'linear',
+                title: {
+                    display: false,
+                    text: 'x',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
-        },
-        yAxis: {
-            display: true,
-            type: 'category',
-            title: {
+            y: {
                 display: true,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: false,
+                type: 'category',
+                title: {
+                    display: true,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
         },
         title: {
@@ -375,4 +387,5 @@ export const BarTitleSubTitleGrid = storyWithArgs<Props<DataFrame, ChartOptions>
             text: 'Custom Chart Subtitle',
         },
     },
-});
+};
+BarTitleSubTitleGrid.args = BarTitleSubTitleGridArgs;

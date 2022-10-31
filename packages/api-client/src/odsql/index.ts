@@ -6,10 +6,12 @@ export type NumberOrUpdater = number | ((current: number) => number) | null | un
 
 export class Query {
     private readonly params: Record<string, string | string[]>;
+
     private readonly path: string;
+
     private searchParams: URLSearchParams | undefined = undefined;
 
-    constructor(path: string = '', init?: Record<string, string | string[]>) {
+    constructor(path = '', init?: Record<string, string | string[]>) {
         this.params = init ? { ...init } : {};
         this.path = path;
     }
@@ -21,16 +23,17 @@ export class Query {
     getSearchParams(): URLSearchParams {
         if (this.searchParams === undefined) {
             this.searchParams = new URLSearchParams();
-            for (const name in this.params) {
-                const value = this.params[name];
-                if (typeof value === 'string') {
-                    this.searchParams.set(name, value);
-                } else {
-                    for (const itValue of [...value].sort()) {
-                        this.searchParams.append(name, itValue);
+            Object.entries(this.params).forEach(([name, value]) => {
+                if (this.searchParams) {
+                    if (typeof value === 'string') {
+                        this.searchParams?.set(name, value);
+                    } else {
+                        [...value].sort().forEach((itValue) => {
+                            this.searchParams?.append(name, itValue);
+                        });
                     }
                 }
-            }
+            });
             this.searchParams.sort();
         }
         return this.searchParams;
@@ -38,7 +41,7 @@ export class Query {
 
     toString(): string {
         let searchParams = this.getSearchParams().toString();
-        if (searchParams) searchParams = '?' + searchParams;
+        if (searchParams) searchParams = `?${searchParams}`;
         return `${this.getPath()}${searchParams}`;
     }
 
@@ -68,12 +71,14 @@ export class Query {
 
     append(name: string, value: string): Query {
         const currentValue: string | string[] | undefined = this.params[name];
-        const newValue =
-            currentValue === undefined
-                ? [value]
-                : typeof currentValue === 'string'
-                ? [currentValue, value]
-                : [...currentValue, value];
+        let newValue = null;
+        if (currentValue === undefined) {
+            newValue = [value];
+        } else if (typeof currentValue === 'string') {
+            newValue = [currentValue, value];
+        } else {
+            newValue = [...currentValue, value];
+        }
         return this.set(name, newValue);
     }
 
@@ -176,13 +181,16 @@ export const date = (year: number, month?: number, day?: number) =>
 export const all = (...conditions: (string | undefined | null)[]) =>
     conditions
         .filter(Boolean)
-        .map(condition => `(${condition})`)
+        .map((condition) => `(${condition})`)
         .join(' AND ');
 
 export const one = (...conditions: (string | undefined | null)[]) =>
     conditions
         .filter(Boolean)
-        .map(condition => `(${condition})`)
+        .map((condition) => `(${condition})`)
         .join(' OR ');
 
 export const list = (...values: (string | undefined | null)[]) => values.filter(Boolean).join(',');
+
+export const not = (condition: string | undefined | null) =>
+    condition ? `not (${condition})` : '';

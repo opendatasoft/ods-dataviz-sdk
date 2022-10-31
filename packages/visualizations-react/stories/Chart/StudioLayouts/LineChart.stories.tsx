@@ -2,8 +2,7 @@ import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
 import { defaultSource } from '../../utils';
-import { Sample } from '../Chart.stories';
-import { storyWithArgs } from '../../utils';
+import ChartTemplate from '../ChartTemplate';
 
 const meta: Meta = {
     title: 'Chart/StudioLayouts/LineChart',
@@ -20,7 +19,8 @@ const df = [
     { x: 5, y: 778, z: 12 },
 ];
 
-export const LineTitleAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const LineTitleAxisGridDots = ChartTemplate.bind({});
+const LineTitleAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -44,36 +44,40 @@ export const LineTitleAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions
                 borderColor: 'rgb(119, 73, 54)',
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'Date de plantation',
-                align: 'center',
+                type: 'linear',
+                title: {
+                    display: true,
+                    text: 'Date de plantation',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
-            gridLines: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            title: {
+            y: {
                 display: true,
-                text: 'Moyenne de la hauteur en CM',
-                align: 'center',
-            },
-            gridLines: {
-                display: true,
+                title: {
+                    display: true,
+                    text: 'Moyenne de la hauteur en CM',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
         },
         title: {
             text: 'Line chart with title, axis, grid and dots',
         },
     },
-});
+};
+LineTitleAxisGridDots.args = LineTitleAxisGridDotsArgs;
 
-export const LineAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const LineAxisGridDots = ChartTemplate.bind({});
+const LineAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -97,33 +101,37 @@ export const LineAxisGridDots = storyWithArgs<Props<DataFrame, ChartOptions>>(Sa
                 borderColor: 'rgb(119, 73, 54)',
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'Date de plantation',
-                align: 'center',
+                type: 'linear',
+                title: {
+                    display: true,
+                    text: 'Date de plantation',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
-            gridLines: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            title: {
+            y: {
                 display: true,
-                text: 'Moyenne de la hauteur en CM',
-                align: 'center',
-            },
-            gridLines: {
-                display: true,
+                title: {
+                    display: true,
+                    text: 'Moyenne de la hauteur en CM',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
         },
     },
-});
+};
+LineAxisGridDots.args = LineAxisGridDotsArgs;
 
-export const LineTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const LineTitleAxisGrid = ChartTemplate.bind({});
+const LineTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
@@ -148,36 +156,40 @@ export const LineTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(S
                 pointRadius: 0,
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'Date de plantation',
-                align: 'center',
+                type: 'linear',
+                title: {
+                    display: true,
+                    text: 'Date de plantation',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
-            gridLines: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            title: {
+            y: {
                 display: true,
-                text: 'Moyenne de la hauteur en CM',
-                align: 'center',
-            },
-            gridLines: {
-                display: true,
+                title: {
+                    display: true,
+                    text: 'Moyenne de la hauteur en CM',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
         },
         title: {
             text: 'Line chart with title, axis and grid',
         },
     },
-});
+};
+LineTitleAxisGrid.args = LineTitleAxisGridArgs;
 
-export const LineTitleSubtitleGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const LineTitleSubtitleGrid = ChartTemplate.bind({});
+const LineTitleSubtitleGridArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
@@ -202,27 +214,29 @@ export const LineTitleSubtitleGrid = storyWithArgs<Props<DataFrame, ChartOptions
                 pointRadius: 0,
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            title: {
-                display: false,
-                text: 'Date de plantation',
-                align: 'center',
-            },
-            gridLines: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            title: {
-                display: false,
-                text: 'Moyenne de la hauteur en CM',
-                align: 'center',
-            },
-            gridLines: {
+        axis: {
+            x: {
                 display: true,
+                type: 'linear',
+                title: {
+                    display: false,
+                    text: 'Date de plantation',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
+            },
+            y: {
+                display: true,
+                title: {
+                    display: false,
+                    text: 'Moyenne de la hauteur en CM',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
         },
         title: {
@@ -232,9 +246,11 @@ export const LineTitleSubtitleGrid = storyWithArgs<Props<DataFrame, ChartOptions
             text: 'Custom Chart Subtitle',
         },
     },
-});
+};
+LineTitleSubtitleGrid.args = LineTitleSubtitleGridArgs;
 
-export const LineTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const LineTitleDataValues = ChartTemplate.bind({});
+const LineTitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
@@ -260,53 +276,56 @@ export const LineTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>
                 dataLabels: {
                     display: true,
                     color: 'rgb(22, 161, 145)',
-                    align: function (index) {
+                    align(index: number) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
-                    anchor: function (index) {
+                    anchor(index: number) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else if (df[index].y === 0) {
-                            return 'center';
-                        } else {
-                            return 'start';
                         }
+                        if (df[index].y === 0) {
+                            return 'center';
+                        }
+                        return 'start';
                     },
                 },
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'Date de plantation',
-                align: 'center',
+                type: 'linear',
+                title: {
+                    display: true,
+                    text: 'Date de plantation',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
-            gridLines: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            gridLines: {
-                display: 'single',
-            },
-            ticks: {
-                display: 'single',
+            y: {
+                display: true,
+                gridLines: {
+                    display: 'single',
+                },
+                ticks: {
+                    display: 'single',
+                },
             },
         },
         title: {
             text: 'Line chart with title and data values on axis',
         },
     },
-});
+};
+LineTitleDataValues.args = LineTitleDataValuesArgs;
 
-export const LineDataValuesOnly = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const LineDataValuesOnly = ChartTemplate.bind({});
+const LineDataValuesOnlyArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
@@ -331,49 +350,51 @@ export const LineDataValuesOnly = storyWithArgs<Props<DataFrame, ChartOptions>>(
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
-                    align: function (index) {
+                    align(index) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
-                    anchor: function (index) {
+                    anchor(index) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
                     color: 'rgb(22, 161, 145)',
                 },
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'Date de plantation',
-                align: 'center',
+                type: 'linear',
+                title: {
+                    display: true,
+                    text: 'Date de plantation',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
-            gridLines: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            gridLines: {
-                display: 'single',
-            },
-            ticks: {
-                display: 'single',
+            y: {
+                display: true,
+                gridLines: {
+                    display: 'single',
+                },
+                ticks: {
+                    display: 'single',
+                },
             },
         },
     },
-});
+};
+LineDataValuesOnly.args = LineDataValuesOnlyArgs;
 
-export const LineTitleAxisGridDotsNegative = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const LineTitleAxisGridDotsNegative = ChartTemplate.bind({});
+const LineTitleAxisGridDotsNegativeArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
@@ -397,31 +418,34 @@ export const LineTitleAxisGridDotsNegative = storyWithArgs<Props<DataFrame, Char
                 borderColor: 'rgb(22, 161, 145)',
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'Date de plantation',
-                align: 'center',
+                type: 'linear',
+                title: {
+                    display: true,
+                    text: 'Date de plantation',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
-            gridLines: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            title: {
+            y: {
                 display: true,
-                text: 'Hello / km',
-                align: 'center',
-            },
-            gridLines: {
-                display: true,
+                title: {
+                    display: true,
+                    text: 'Hello / km',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
         },
         title: {
             text: 'Line chart with title, axis, grid and dots',
         },
     },
-});
+};
+LineTitleAxisGridDotsNegative.args = LineTitleAxisGridDotsNegativeArgs;

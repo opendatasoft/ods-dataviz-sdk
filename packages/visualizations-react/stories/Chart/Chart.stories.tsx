@@ -1,28 +1,17 @@
-import React from 'react';
-import { Meta } from '@storybook/react';
-import { Chart, Props } from '../../src';
+import { ComponentMeta } from '@storybook/react';
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { Chart, Props } from '../../src';
 import { COLORS, defaultSource } from '../utils';
+import ChartTemplate from './ChartTemplate';
 
-const meta: Meta = {
+const meta: ComponentMeta<typeof Chart> = {
     title: 'Chart',
     component: Chart,
 };
 
 export default meta;
 
-const Template = (args: Props<DataFrame, ChartOptions>) => (
-    <div
-        style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-        }}
-    >
-        <Chart {...args} style={{ width: '60vw' }} />
-    </div>
-);
-export const Sample = Template.bind({});
+export const Sample = ChartTemplate.bind({});
 const SampleArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -55,27 +44,29 @@ const SampleArgs: Props<DataFrame, ChartOptions> = {
                 borderColor: COLORS.blue,
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'Date de plantation',
-                align: 'center',
+                type: 'linear',
+                title: {
+                    display: true,
+                    text: 'Date de plantation',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
-            gridLines: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            title: {
+            y: {
                 display: true,
-                text: 'Hello / km',
-                align: 'center',
-            },
-            gridLines: {
-                display: true,
+                title: {
+                    display: true,
+                    text: 'Hello / km',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
         },
         title: {

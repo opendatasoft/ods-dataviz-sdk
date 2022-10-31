@@ -2,8 +2,7 @@ import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
 import { compactNumberFormatter, defaultSource } from '../../utils';
-import { Sample } from '../Chart.stories';
-import { storyWithArgs } from '../../utils';
+import ChartTemplate from '../ChartTemplate';
 
 const meta: Meta = {
     title: 'Chart/Formatting/LongDataLabels',
@@ -20,7 +19,8 @@ const lineDataFrame = [
     { x: 5, y: 778000, z: 1 },
 ];
 
-export const LineLongDataLabels = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const LineLongDataLabels = ChartTemplate.bind({});
+const LineLongDataLabelsArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: lineDataFrame,
@@ -38,47 +38,49 @@ export const LineLongDataLabels = storyWithArgs<Props<DataFrame, ChartOptions>>(
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
-                    align: function (index) {
+                    align(index: number) {
                         if (lineDataFrame[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
-                    anchor: function (index) {
+                    anchor(index: number) {
                         if (lineDataFrame[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
                     color: 'rgb(22, 161, 145)',
                 },
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'linear',
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'Date de plantation',
-                align: 'center',
+                type: 'linear',
+                title: {
+                    display: true,
+                    text: 'Date de plantation',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
-            gridLines: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            gridLines: {
-                display: 'single',
-            },
-            ticks: {
-                display: 'single',
+            y: {
+                display: true,
+                gridLines: {
+                    display: 'single',
+                },
+                ticks: {
+                    display: 'single',
+                },
             },
         },
     },
-});
+};
+
+LineLongDataLabels.args = LineLongDataLabelsArgs;
 
 const pieDataFrame = [
     {
@@ -90,7 +92,8 @@ const pieDataFrame = [
     { x: 'Delta', y: 3000000 },
 ];
 
-export const PieLongDataLabels = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const PieLongDataLabels = ChartTemplate.bind({});
+const PieLongDataLabelrsArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: pieDataFrame,
@@ -106,7 +109,7 @@ export const PieLongDataLabels = storyWithArgs<Props<DataFrame, ChartOptions>>(S
                 backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
                 dataLabels: {
                     display: true,
-                    text(index) {
+                    text(index: number) {
                         return [
                             pieDataFrame[index].x,
                             compactNumberFormatter.format(pieDataFrame[index].y),
@@ -119,7 +122,8 @@ export const PieLongDataLabels = storyWithArgs<Props<DataFrame, ChartOptions>>(S
             text: 'Pie chart with long data labels',
         },
     },
-});
+};
+PieLongDataLabels.args = PieLongDataLabelrsArgs;
 
 const radarDataFrame = [
     { x: 'speed', y: 10000, z: 1740 },
@@ -129,7 +133,8 @@ const radarDataFrame = [
     { x: 'persuasion', y: 7000, z: 24 },
 ];
 
-export const RadarLongDataLabels = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const RadarLongDataLabels = ChartTemplate.bind({});
+    const RadarLongDataLabelsArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: radarDataFrame,
@@ -160,14 +165,13 @@ export const RadarLongDataLabels = storyWithArgs<Props<DataFrame, ChartOptions>>
                 dataLabels: {
                     display: 'auto',
                     borderRadius: 4,
-                    align: function (index) {
+                    align (index) {
                         if (radarDataFrame[index].y > 0) {
                             return 'end';
-                        } else if (radarDataFrame[index].y === 0) {
+                        } if (radarDataFrame[index].y === 0) {
                             return 'center';
-                        } else {
-                            return 'start';
                         }
+                            return 'start';
                     },
                     color: 'rgb(127,10,210)',
                 },
@@ -179,8 +183,11 @@ export const RadarLongDataLabels = storyWithArgs<Props<DataFrame, ChartOptions>>
         title: {
             text: 'Radar chart with long data labels',
         },
-        rAxis: {
-            ticks: { display: false },
+        axis: {
+            r: {
+                ticks: { display: false },
+            },
         },
     },
-});
+};
+RadarLongDataLabels.args = RadarLongDataLabelsArgs;

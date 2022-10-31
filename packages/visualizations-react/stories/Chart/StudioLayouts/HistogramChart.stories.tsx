@@ -2,8 +2,7 @@ import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
 import { defaultSource } from '../../utils';
-import { Sample } from '../Chart.stories';
-import { storyWithArgs } from '../../utils';
+import ChartTemplate from '../ChartTemplate';
 
 const meta: Meta = {
     title: 'Chart/StudioLayouts/HistogramChart',
@@ -20,7 +19,8 @@ const df = [
     { x: 5, y: 50 },
 ];
 
-export const HistogramTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const HistogramTitleAxisGrid = ChartTemplate.bind({});
+const HistogramTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -39,37 +39,41 @@ export const HistogramTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOption
                 borderColor: 'rgba(50,50,225)',
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'category',
-            offset: true,
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'x',
-                align: 'center',
+                type: 'category',
+                offset: true,
+                title: {
+                    display: true,
+                    text: 'x',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
-            gridLines: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            title: {
+            y: {
                 display: true,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: true,
+                title: {
+                    display: true,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
         },
         title: {
             text: 'Histogram chart with title, axis and grid',
         },
     },
-});
+};
+HistogramTitleAxisGrid.args = HistogramTitleAxisGridArgs;
 
-export const HistogramAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const HistogramAxisGrid = ChartTemplate.bind({});
+const HistogramAxisGridArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -88,34 +92,38 @@ export const HistogramAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(S
                 borderColor: 'rgba(50,50,225)',
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'category',
-            offset: true,
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'x',
-                align: 'center',
+                type: 'category',
+                offset: true,
+                title: {
+                    display: true,
+                    text: 'x',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
-            gridLines: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            title: {
+            y: {
                 display: true,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: true,
+                title: {
+                    display: true,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
         },
     },
-});
+};
+HistogramAxisGrid.args = HistogramAxisGridArgs;
 
-export const HistogramTitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const HistogramTitleDataValues = ChartTemplate.bind({});
+const HistogramTitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -134,50 +142,50 @@ export const HistogramTitleDataValues = storyWithArgs<Props<DataFrame, ChartOpti
                 borderColor: 'rgba(50,50,225)',
                 dataLabels: {
                     display: true,
-                    align: function (index) {
+                    align(index: number) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
-                    anchor: function (index) {
+                    anchor(index: number) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
                     color: 'rgba(50,50,225)',
                 },
             },
         ],
-        xAxis: {
-            display: false,
-            type: 'category',
-            offset: true,
-            title: {
+        axis: {
+            x: {
                 display: false,
-                text: 'x',
-                align: 'center',
+                type: 'category',
+                offset: true,
+                title: {
+                    display: false,
+                    text: 'x',
+                    align: 'center',
+                },
+                ticks: {
+                    display: false,
+                },
             },
-            ticks: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            type: 'category',
-            title: {
-                display: false,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: 'single',
-            },
-            ticks: {
-                display: 'single',
+            y: {
+                display: true,
+                type: 'category',
+                title: {
+                    display: false,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: 'single',
+                },
+                ticks: {
+                    display: 'single',
+                },
             },
         },
         title: {
@@ -187,9 +195,11 @@ export const HistogramTitleDataValues = storyWithArgs<Props<DataFrame, ChartOpti
             text: 'Custom Chart Subtitle',
         },
     },
-});
+};
+HistogramTitleDataValues.args = HistogramTitleDataValuesArgs;
 
-export const HistogramDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const HistogramDataValues = ChartTemplate.bind({});
+const HistogramDataValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -208,55 +218,57 @@ export const HistogramDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>
                 borderColor: 'rgba(50,50,225)',
                 dataLabels: {
                     display: true,
-                    align: function (index) {
+                    align(index) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
-                    anchor: function (index) {
+                    anchor(index) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
                     color: 'rgba(50,50,225)',
                 },
             },
         ],
-        xAxis: {
-            display: false,
-            type: 'category',
-            offset: true,
-            title: {
+        axis: {
+            x: {
                 display: false,
-                text: 'x',
-                align: 'center',
+                type: 'category',
+                offset: true,
+                title: {
+                    display: false,
+                    text: 'x',
+                    align: 'center',
+                },
+                ticks: {
+                    display: false,
+                },
             },
-            ticks: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            title: {
-                display: false,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: 'single',
-            },
-            ticks: {
-                display: 'single',
+            y: {
+                display: true,
+                title: {
+                    display: false,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: 'single',
+                },
+                ticks: {
+                    display: 'single',
+                },
             },
         },
     },
-});
+};
+HistogramDataValues.args = HistogramDataValuesArgs;
 
-export const HistogramAxisDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const HistogramAxisDataValues = ChartTemplate.bind({});
+const HistogramAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -275,86 +287,87 @@ export const HistogramAxisDataValues = storyWithArgs<Props<DataFrame, ChartOptio
                 borderColor: 'rgba(50,50,225)',
                 dataLabels: {
                     display: true,
-                    align: function (index) {
+                    align(index) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
-                    anchor: function (index) {
+                    anchor(index) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
                     color: 'rgba(50,50,225)',
                 },
             },
         ],
-        xAxis: {
-            display: true,
-            type: 'category',
-            offset: true,
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'x',
-                align: 'center',
+                type: 'category',
+                offset: true,
+                title: {
+                    display: true,
+                    text: 'x',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
+                ticks: {
+                    display: true,
+                },
             },
-            gridLines: {
-                display: false,
-            },
-            ticks: {
+            y: {
                 display: true,
-            },
-        },
-        yAxis: {
-            display: true,
-            title: {
-                display: true,
-                text: 'y',
-                align: 'center',
-            },
-            gridLines: {
-                display: 'single',
-            },
-            ticks: {
-                display: 'single',
+                title: {
+                    display: true,
+                    text: 'y',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: 'single',
+                },
+                ticks: {
+                    display: 'single',
+                },
             },
         },
     },
-});
+};
+HistogramAxisDataValues.args = HistogramAxisDataValuesArgs;
 
-export const HistogramTitleAxisGridNegative = storyWithArgs<Props<DataFrame, ChartOptions>>(
-    Sample,
-    {
-        data: {
-            loading: false,
-            value: [
-                { x: 0, y: -10000 },
-                { x: 1, y: -5000 },
-                { x: 2, y: -2000 },
-                { x: 3, y: -3000 },
-                { x: 4, y: -4000 },
-                { x: 5, y: -5000 },
-            ],
-        },
-        options: {
-            labelColumn: 'x',
-            source: defaultSource,
-            ariaLabel: 'Histogram series chart',
-            series: [
-                {
-                    type: 'bar',
-                    valueColumn: 'y',
-                    barPercentage: 1,
-                    categoryPercentage: 1,
-                    backgroundColor: 'rgba(50,50,225,0.5)',
-                    borderColor: 'rgba(50,50,225)',
-                },
-            ],
-            xAxis: {
+export const HistogramTitleAxisGridNegative = ChartTemplate.bind({});
+const HistogramTitleAxisGridNegativeArgs: Props<DataFrame, ChartOptions> = {
+    data: {
+        loading: false,
+        value: [
+            { x: 0, y: -10000 },
+            { x: 1, y: -5000 },
+            { x: 2, y: -2000 },
+            { x: 3, y: -3000 },
+            { x: 4, y: -4000 },
+            { x: 5, y: -5000 },
+        ],
+    },
+    options: {
+        labelColumn: 'x',
+        source: defaultSource,
+        ariaLabel: 'Histogram series chart',
+        series: [
+            {
+                type: 'bar',
+                valueColumn: 'y',
+                barPercentage: 1,
+                categoryPercentage: 1,
+                backgroundColor: 'rgba(50,50,225,0.5)',
+                borderColor: 'rgba(50,50,225)',
+            },
+        ],
+        axis: {
+            x: {
                 display: true,
                 type: 'category',
                 offset: true,
@@ -367,7 +380,7 @@ export const HistogramTitleAxisGridNegative = storyWithArgs<Props<DataFrame, Cha
                     display: false,
                 },
             },
-            yAxis: {
+            y: {
                 display: true,
                 title: {
                     display: true,
@@ -378,9 +391,10 @@ export const HistogramTitleAxisGridNegative = storyWithArgs<Props<DataFrame, Cha
                     display: true,
                 },
             },
-            title: {
-                text: 'Histogram chart with title, axis and grid',
-            },
         },
-    }
-);
+        title: {
+            text: 'Histogram chart with title, axis and grid',
+        },
+    },
+};
+HistogramTitleAxisGridNegative.args = HistogramTitleAxisGridNegativeArgs;

@@ -2,8 +2,7 @@ import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
 import { defaultSource } from '../../utils';
-import { Sample } from '../Chart.stories';
-import { storyWithArgs } from '../../utils';
+import ChartTemplate from '../ChartTemplate';
 
 const meta: Meta = {
     title: 'Chart/Formatting/Titles',
@@ -20,7 +19,8 @@ const df = [
     { x: 5, y: 778000, z: 1 },
 ];
 
-export const LineLongTitle = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const LineLongTitle = ChartTemplate.bind({});
+const LineLongTitleArgs: Props < DataFrame, ChartOptions > = {
     data: {
         loading: false,
         value: df,
@@ -38,19 +38,17 @@ export const LineLongTitle = storyWithArgs<Props<DataFrame, ChartOptions>>(Sampl
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
-                    align: function (index) {
+                    align (index: number) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                            return 'start';
                     },
-                    anchor: function (index) {
+                    anchor (index: number) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                            return 'start';
                     },
                     color: 'rgb(22, 161, 145)',
                 },
@@ -63,9 +61,11 @@ export const LineLongTitle = storyWithArgs<Props<DataFrame, ChartOptions>>(Sampl
             text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla optio unde porro incidunt provident quis amet saepe voluptas explicabo maiores. Voluptatum itaque dolores consectetur assumenda repellendus accusamus laudantium vero deleniti.',
         },
     },
-});
+};
+LineLongTitle.args = LineLongTitleArgs;
 
-export const LineNoTitle = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const LineNoTitle = ChartTemplate.bind({});
+const LineNoTitleArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -83,23 +83,22 @@ export const LineNoTitle = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample,
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
-                    align: function (index) {
+                    align (index: number) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                            return 'start';
                     },
-                    anchor: function (index) {
+                    anchor (index: number) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                            return 'start';
                     },
                     color: 'rgb(22, 161, 145)',
                 },
             },
         ],
     },
-});
+};
+LineNoTitle.args = LineNoTitleArgs;
