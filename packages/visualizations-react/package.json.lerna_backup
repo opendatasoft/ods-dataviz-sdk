@@ -1,0 +1,77 @@
+{
+    "name": "@opendatasoft/visualizations-react",
+    "version": "0.7.5",
+    "license": "MIT",
+    "author": "opendatasoft",
+    "homepage": "https://github.com/opendatasoft/ods-dataviz-sdk",
+    "description": "Opendatasoft's React wrapper for visualization components.",
+    "keywords": [
+        "Opendatasoft",
+        "ODS",
+        "Data visualization",
+        "Dataviz",
+        "JavaScript",
+        "TypeScript",
+        "React"
+    ],
+    "main": "dist/index.js",
+    "typings": "dist/index.d.ts",
+    "module": "dist/visualizations-react.esm.js",
+    "files": [
+        "dist",
+        "src"
+    ],
+    "engines": {
+        "node": ">=10"
+    },
+    "scripts": {
+        "watch": "tsdx watch --verbose",
+        "build": "tsdx build",
+        "test": "tsdx test --passWithNoTests",
+        "lint": "tsdx lint src test stories",
+        "prepare": "tsdx build",
+        "size": "size-limit",
+        "analyze": "size-limit --why",
+        "storybook": "start-storybook -p 6006",
+        "build-storybook": "build-storybook"
+    },
+    "peerDependencies": {
+        "react": ">=16"
+    },
+    "prettier": {
+        "printWidth": 100,
+        "tabWidth": 4,
+        "semi": true,
+        "singleQuote": true,
+        "trailingComma": "es5"
+    },
+    "dependencies": {
+        "@opendatasoft/visualizations": "^0.7.5",
+        "use-callback-ref": "^1.2.4"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.12.10",
+        "@size-limit/preset-small-lib": "^4.9.1",
+        "@storybook/addon-essentials": "^6.4.22",
+        "@storybook/addon-info": "^5.3.21",
+        "@storybook/addon-links": "^6.4.22",
+        "@storybook/addons": "^6.4.22",
+        "@storybook/react": "^6.4.22",
+        "@testing-library/jest-dom": "^5.11.9",
+        "@testing-library/react": "^11.2.5",
+        "@types/jest": "^26.0.20",
+        "@types/react": "^17.0.0",
+        "@types/react-dom": "^17.0.0",
+        "babel-loader": "^8.2.2",
+        "chromatic": "^5.7.1",
+        "husky": "^4.3.7",
+        "jest-canvas-mock": "^2.3.0",
+        "react": "^16.13.0",
+        "react-dom": "^16.13.0",
+        "react-is": "^16.13.0",
+        "size-limit": "^4.9.1",
+        "tsdx": "^0.14.1",
+        "tslib": "^2.1.0",
+        "typescript": "^4.1.3"
+    }
+}

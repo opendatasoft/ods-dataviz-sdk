@@ -1,0 +1,71 @@
+{
+    "name": "@opendatasoft/api-client",
+    "version": "0.4.1",
+    "license": "MIT",
+    "author": "opendatasoft",
+    "homepage": "https://github.com/opendatasoft/ods-dataviz-sdk",
+    "description": "Opendatasoft's API Client.",
+    "keywords": [
+        "Opendatasoft",
+        "ODS",
+        "API Client",
+        "Dataviz",
+        "JavaScript",
+        "TypeScript"
+    ],
+    "main": "dist/index.js",
+    "typings": "dist/index.d.ts",
+    "module": "dist/api-client.esm.js",
+    "unpkg": "umd/opendatasoft.apiclient.umd.js",
+    "files": [
+        "dist",
+        "src",
+        "umd"
+    ],
+    "engines": {
+        "node": ">=10"
+    },
+    "scripts": {
+        "watch": "tsdx watch --verbose",
+        "build": "tsdx build --format cjs,esm,umd --name 'opendatasoft.apiClient'",
+        "docs": "typedoc",
+        "test": "tsdx test",
+        "lint": "tsdx lint src test",
+        "lint:fix": "tsdx lint src test --fix",
+        "prepare": "tsdx build",
+        "size": "size-limit",
+        "analyze": "size-limit --why",
+        "test:watch": "tsdx test --watch",
+        "test:coverage": "tsdx test --coverage"
+    },
+    "prettier": {
+        "printWidth": 100,
+        "tabWidth": 4,
+        "semi": true,
+        "singleQuote": true,
+        "trailingComma": "es5"
+    },
+    "size-limit": [
+        {
+            "path": "dist/api-client.cjs.production.min.js",
+            "limit": "10 KB"
+        },
+        {
+            "path": "dist/api-client.esm.js",
+            "limit": "10 KB"
+        }
+    ],
+    "devDependencies": {
+        "@size-limit/preset-small-lib": "^7.0.5",
+        "jest-fetch-mock": "^3.0.3",
+        "size-limit": "^7.0.5",
+        "tsdx": "^0.14.1",
+        "tslib": "^2.0.3",
+        "typedoc": "^0.22.10",
+        "typedoc-plugin-markdown": "^3.11.9",
+        "typescript": "^4.5.4"
+    },
+    "dependencies": {
+        "immutability-helper": "^3.1.1"
+    }
+}
