@@ -175,8 +175,13 @@ function inlineMonthOrDay(value?: number) {
     return `-${value}`;
 }
 
-export const date = (year: number, month?: number, day?: number) =>
-    `date'${year}${inlineMonthOrDay(month)}${inlineMonthOrDay(day)}'`;
+export const date = (d: Date) => {
+    const year = d.getFullYear();
+    const month = inlineMonthOrDay(d.getMonth() + 1); // Month are 0 based
+    const day = inlineMonthOrDay(d.getDate());
+    return `date'${year}${month}${day}'`;
+}
+    ;
 
 export const all = (...conditions: (string | undefined | null)[]) =>
     conditions
