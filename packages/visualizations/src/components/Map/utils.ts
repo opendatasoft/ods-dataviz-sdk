@@ -17,6 +17,7 @@ import type {
     ComputeTooltipFunction,
     ChoroplethLayer,
 } from './types';
+import { ChoroplethTooltipMatcherTypes } from './types';
 
 export const LIGHT_GREY: Color = '#CBD2DB';
 export const DARK_GREY: Color = '#515457';
@@ -258,10 +259,10 @@ export const computeTooltip: ComputeTooltipFunction = (
 
     if (labelMatcher && matchedFeature) {
         const { type } = labelMatcher;
-        if (type === 'keyProperty') {
+        if (type === ChoroplethTooltipMatcherTypes.KeyProperty) {
             const { key } = labelMatcher;
             tooltipLabel = hoveredFeature.properties?.[key];
-        } else if (type === 'keyMap') {
+        } else if (type === ChoroplethTooltipMatcherTypes.KeyMap) {
             const { mapping } = labelMatcher;
             tooltipLabel = mapping[matchedFeature?.x];
         }
