@@ -257,12 +257,12 @@ export const computeTooltip: ComputeTooltipFunction = (
     let tooltipLabel = hoveredFeature.properties?.label || hoveredFeature.properties?.[matchKey];
     const labelMatcher = options?.tooltip?.labelMatcher;
 
-    if (labelMatcher && matchedFeature) {
+    if (labelMatcher) {
         const { type } = labelMatcher;
         if (type === ChoroplethTooltipMatcherTypes.KeyProperty) {
             const { key } = labelMatcher;
             tooltipLabel = hoveredFeature.properties?.[key];
-        } else if (type === ChoroplethTooltipMatcherTypes.KeyMap) {
+        } else if (type === ChoroplethTooltipMatcherTypes.KeyMap && matchedFeature) {
             const { mapping } = labelMatcher;
             tooltipLabel = mapping[matchedFeature?.x];
         }
