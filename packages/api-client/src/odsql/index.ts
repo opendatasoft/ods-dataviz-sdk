@@ -169,19 +169,8 @@ export const string = (value: string) => JSON.stringify(value);
 
 export const dateTime = (date: Date) => `date'${date.toISOString()}'`;
 
-function inlineMonthOrDay(value?: number) {
-    if (value === undefined) return '';
-    if (value < 10) return `-0${value}`;
-    return `-${value}`;
-}
-
-export const date = (d: Date) => {
-    const year = d.getFullYear();
-    const month = inlineMonthOrDay(d.getMonth() + 1); // Month are 0 based
-    const day = inlineMonthOrDay(d.getDate());
-    return `date'${year}${month}${day}'`;
-}
-    ;
+/** Format a date into the right API call. Expect two digit strings as in YYYY-MM-DD for month and day */
+export const date = ({ year, month, day}: { year: string, month: string, day: string}) => `date'${year}${month}${day}'`;
 
 export const all = (...conditions: (string | undefined | null)[]) =>
     conditions

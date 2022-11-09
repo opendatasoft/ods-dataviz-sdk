@@ -82,11 +82,11 @@ describe('ODSQL query builder', () => {
         });
 
         test('date helper', () => {
-            expect(date(2017)).toEqual("date'2017'");
-            expect(date(2017, 1)).toEqual("date'2017-01'");
-            expect(date(2017, 12)).toEqual("date'2017-12'");
-            expect(date(2017, 1, 1)).toEqual("date'2017-01-01'");
-            expect(date(2017, 12, 31)).toEqual("date'2017-12-31'");
+            expect(date({ year: '2017')).toEqual("date'2017'");
+            expect(date({ year: '2017', month: '01')).toEqual("date'2017-01'");
+            expect(date({ year: '2017', month: '12')).toEqual("date'2017-12'");
+            expect(date({ year: '2017', month: '01', day: '01')).toEqual("date'2017-01-01'");
+            expect(date({ year: '2017', month: '12', day: '31')).toEqual("date'2017-12-31'");
         });
 
         test('with where filter', () => {
@@ -126,8 +126,8 @@ describe('ODSQL query builder', () => {
                     .query()
                     .groupBy('x, y')
                     .where(`${field('my_field')}:${string("this will be' escaped")}`)
-                    .where(filter => one(filter, `${field('my_field')} < ${date(1970, 1, 1)}`))
-                    .where(filter =>
+                    .where((filter) => one(filter, `${field('my_field')} < ${date(new Date('1970/1/1'))}`))
+                    .where((filter) =>
                         all(filter, 'not_escaped in [0..10] and other is true', 'len(f) = 2')
                     )
                     .select('a')
