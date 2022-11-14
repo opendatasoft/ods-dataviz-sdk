@@ -3,7 +3,8 @@
     import { Chart } from 'chart.js';
     import 'chartjs-adapter-luxon';
     import type { Async } from '../../types';
-    import type { ChartOptions, ChartSeries, DataFrame } from '../types';
+    import type { ChartOptions, ChartSeries } from './types';
+    import type { DataFrame } from '../types';
     import { defaultValue } from './utils';
     import toDataset from './datasets';
     import buildScales from './scales';

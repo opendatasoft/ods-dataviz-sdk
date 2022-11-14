@@ -1,16 +1,16 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ChoroplethOptions, DataFrame } from '@opendatasoft/visualizations';
-import { Choropleth, Props } from '../../src';
+import { ChoroplethGeoJsonOptions, DataFrame } from '@opendatasoft/visualizations';
+import { ChoroplethGeoJson, Props } from '../../src';
 import { shapes } from './shapes';
 
-const meta: ComponentMeta<typeof Choropleth> = {
+const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
     title: 'Map/Non Interactive Choropleth',
-    component: Choropleth,
+    component: ChoroplethGeoJson,
 };
 export default meta;
 
-const Template: ComponentStory<typeof Choropleth> = (args: Props<DataFrame, ChoroplethOptions>) => (
+const Template: ComponentStory<typeof ChoroplethGeoJson> = (args: Props<DataFrame, ChoroplethGeoJsonOptions>) => (
     <div
         style={{
             width: '50%',
@@ -20,12 +20,12 @@ const Template: ComponentStory<typeof Choropleth> = (args: Props<DataFrame, Chor
             border: '1px solid black',
         }}
     >
-        <Choropleth {...args} />
+        <ChoroplethGeoJson {...args} />
     </div>
 );
 
 export const NonInteractiveChoropleth = Template.bind({});
-const NonInteractiveChoroplethArgs: Props<DataFrame, ChoroplethOptions> = {
+const NonInteractiveChoroplethArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
     data: {
         loading: false,
         value: [

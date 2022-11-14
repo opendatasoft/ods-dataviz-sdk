@@ -1,0 +1,138 @@
+<svelte:options immutable={true} />
+
+<script lang="ts">
+    import type { FilterSpecification, SourceSpecification } from 'maplibre-gl';
+    import type { BBox } from 'geojson';
+    import { debounce } from 'lodash';
+    import type { ColorScale, DataBounds, Color } from '../../types';
+    import MapRender from './MapRender.svelte';
+    import { BLANK } from '../mapStyles';
+    import {
+        getDataBounds,
+        mapKeyToColor,
+        VOID_BOUNDS,
+        computeFilterExpression,
+        computeTooltip,
+        computeBaseLayer,
+        computeMatchExpression,
+    } from '../utils';
+    import { DEFAULT_COLORS, DEFAULT_COLORS_SCALE } from '../constants';
+    import type {
+        ChoroplethDataValue,
+        ChoroplethLayer,
+        ChoroplethVectorTilesOptions,
+        ChoroplethShapeVectorTilesValue,
+        MapLegend,
+        MapFilter,
+        MapRenderTooltipFunction,
+    } from '../types';
+
+    export let data: { value: ChoroplethDataValue[] }; // values, and the key to match
+    export let options: ChoroplethVectorTilesOptions; // contains the shapes to display & match
+
+    let shapesTiles: ChoroplethShapeVectorTilesValue;
+    let colorScale: ColorScale;
+
+    let aspectRatio: number | undefined;
+    let renderTooltip: MapRenderTooltipFunction;
+    let bbox: BBox | undefined;
+    let activeShapes: string[] | undefined;
+    let interactive: boolean;
+    let legend: MapLegend | undefined;
+    let attribution: string | undefined;
+    let filter: MapFilter | undefined;
+    let filterExpression: (string | string[])[] | undefined;
+
+    // Used to apply a chosen color for shapes without values (default: #cccccc)
+    let emptyValueColor: Color;
+
+    // Used to determine the shapes key
+    let matchKey: string;
+
+    $: matchKey = shapesTiles.key;
+
+    const defaultInteractive = true;
+    $: ({
+        shapesTiles,
+        colorScale = DEFAULT_COLORS_SCALE,
+        legend,
+        aspectRatio,
+        activeShapes,
+        interactive = defaultInteractive,
+        emptyValueColor = DEFAULT_COLORS.Default,
+        bbox,
+        filter,
+        attribution,
+    } = options);
+
+    // Choropleth is always display over a blank map, for readability purposes
+    const style = BLANK;
+    let layer: ChoroplethLayer;
+    let source: SourceSpecification;
+    let dataBounds: DataBounds;
+
+    function computeSourceLayerAndBboxes(
+        newShapes: ChoroplethShapeVectorTilesValue,
+        newColorScale: ColorScale,
+        values: ChoroplethDataValue[] = []
+    ) {
+        let colors;
+        let fillColor: string | (string | string[])[] | FilterSpecification = emptyValueColor;
+
+        if (values.length > 0) {
+            dataBounds = getDataBounds(values);
+            colors = mapKeyToColor(values, dataBounds, newColorScale, emptyValueColor);
+            fillColor = computeMatchExpression(colors, matchKey, emptyValueColor);
+        }
+
+        const baseLayer = computeBaseLayer(fillColor, DEFAULT_COLORS.ShapeOutline);
+
+        source = {
+            type: 'vector',
+            tiles: [newShapes.url],
+        };
+
+        layer = {
+            ...baseLayer,
+            'source-layer': newShapes.layer,
+        };
+
+        bbox = bbox || VOID_BOUNDS;
+    }
+
+    $: if (shapesTiles.url) {
+        computeSourceLayerAndBboxes(shapesTiles, colorScale, data.value);
+    }
+
+    $: renderTooltip = debounce(
+        (hoveredFeature) => computeTooltip(hoveredFeature, data.value, options, matchKey),
+        10,
+        { leading: true }
+    );
+
+    $: if (filter) {
+        filterExpression = computeFilterExpression(filter);
+    }
+</script>
+
+<div>
+    <MapRender
+        {style}
+        {source}
+        {layer}
+        {aspectRatio}
+        {dataBounds}
+        {colorScale}
+        {legend}
+        {renderTooltip}
+        {bbox}
+        {activeShapes}
+        {interactive}
+        {filterExpression}
+        {matchKey}
+        {attribution}
+    />
+</div>
+
+<style>
+</style>

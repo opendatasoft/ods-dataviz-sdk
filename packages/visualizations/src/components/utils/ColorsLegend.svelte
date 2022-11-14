@@ -3,12 +3,12 @@
 <script lang="ts">
     import { onDestroy } from 'svelte';
     import { debounce } from 'lodash';
-    import type { DataBounds, ColorsScale, LegendVariant } from '../types';
+    import type { DataBounds, ColorScale, LegendVariant } from '../types';
     import { defaultCompactLegendNumberFormat } from './formatter';
 
     // options to customize the component
     export let dataBounds: DataBounds;
-    export let colorsScale: ColorsScale;
+    export let colorScale: ColorScale;
     export let variant: LegendVariant;
     export let title: string | undefined;
 
@@ -24,7 +24,7 @@
         legendW: number,
         labelW: number[],
         labelH: number[],
-        colorsScl: ColorsScale
+        colorsScl: ColorScale
     ): void => {
         const isPaletteLegend = colorsScl.type === 'palette';
         const isDomReady = labelH.length !== 0 && labelW.length !== 0 && legendW;
@@ -40,7 +40,7 @@
 
     const rotationDebounce = debounce(handleLabelRotation, 200, { leading: true });
     $: if (labelsWidth.length > 0 && labelsHeight.length > 0 && dataBounds) {
-        rotationDebounce(legendWidth, labelsWidth, labelsHeight, colorsScale);
+        rotationDebounce(legendWidth, labelsWidth, labelsHeight, colorScale);
     }
     onDestroy(rotationDebounce.cancel);
 </script>
@@ -49,22 +49,22 @@
     {#if title}
         <div class="legend-colors-title">{title}</div>
     {/if}
-    {#if colorsScale.type === 'gradient'}
+    {#if colorScale.type === 'gradient'}
         <!-- Gradient color boxes, no custom labels, only displaying min and max -->
         <div
             class="legend-colors-color-box-gradient"
-            style="--legend-color:linear-gradient(to right, {colorsScale.colors.start}, {colorsScale
+            style="--legend-color:linear-gradient(to right, {colorScale.colors.start}, {colorScale
                 .colors.end})"
         />
         <div class="legend-colors-values">
             <div>{defaultCompactLegendNumberFormat(dataBounds.min)}</div>
             <div>{defaultCompactLegendNumberFormat(dataBounds.max)}</div>
         </div>
-    {:else if colorsScale.type === 'palette'}
+    {:else if colorScale.type === 'palette'}
         <!-- Palette color boxes, row display, no labels only displaying palettes steps -->
         <div class="legend-colors-container-palette" bind:clientWidth={legendWidth}>
             <div class="legend-colors-row-color-box-palette">
-                {#each colorsScale.colors as color}
+                {#each colorScale.colors as color}
                     <div class="legend-colors-color-box-palette" style="--box-color: {color}" />
                 {/each}
             </div>
@@ -72,7 +72,7 @@
                 class="legend-colors-row-values-palette"
                 class:vertical-labels-container={displayVertical}
             >
-                {#each colorsScale.colors as _color, i}
+                {#each colorScale.colors as _color, i}
                     {#if i === 0}
                         <div
                             class="label-container"
@@ -90,10 +90,10 @@
                         >
                             {defaultCompactLegendNumberFormat(
                                 dataBounds.min +
-                                    (dataBounds.max - dataBounds.min) / colorsScale.colors.length
+                                    (dataBounds.max - dataBounds.min) / colorScale.colors.length
                             )}
                         </div>
-                    {:else if i === colorsScale.colors.length - 1}
+                    {:else if i === colorScale.colors.length - 1}
                         <div
                             class="label-container"
                             bind:clientWidth={labelsWidth[i]}
@@ -111,8 +111,7 @@
                         >
                             {defaultCompactLegendNumberFormat(
                                 dataBounds.min +
-                                    ((dataBounds.max - dataBounds.min) /
-                                        colorsScale.colors.length) *
+                                    ((dataBounds.max - dataBounds.min) / colorScale.colors.length) *
                                         (i + 1)
                             )}
                         </div>

@@ -1,4 +1,4 @@
-import type { MarkdownTextOptions } from '../types';
+import type { MarkdownTextOptions } from './types';
 import MarkdownTextImpl from './MarkdownText.svelte';
 import SvelteImpl from '../SvelteImpl';
 
