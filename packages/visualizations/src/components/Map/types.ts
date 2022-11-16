@@ -47,6 +47,10 @@ export interface ChoroplethVectorTilesOptions extends ChoroplethOptions {
     filter?: MapFilter;
 }
 
+export type NavigableChoroplethOptions = ChoroplethVectorTilesOptions & {
+    buttonsOptions: ChoroplethGeoJsonOptions[];
+};
+
 export interface MapLegend {
     title?: string;
 }

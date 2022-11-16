@@ -15,6 +15,8 @@
     export let data: { value: ChoroplethDataValue[] };
     export let options: ChoroplethGeoJsonOptions;
 
+    $: console.log(options);
+
     $: ({ shapes, colorScale = DEFAULT_COLORSCALE, emptyValueColor = LIGHT_GREY } = options);
     $: colorMapping = mapKeyToColor(
         data.value,

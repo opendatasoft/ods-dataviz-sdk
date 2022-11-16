@@ -7,7 +7,7 @@ import {
     ColorScaleTypes,
 } from '@opendatasoft/visualizations';
 import { ChoroplethGeoJson, Props } from '../../src';
-import { shapes } from './shapes';
+import { shapes } from './data';
 
 const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
     title: 'Map/Legend',

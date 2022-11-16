@@ -1,4 +1,32 @@
 import { FeatureCollection } from 'geojson';
+import { ChoroplethShapeVectorTilesValue } from '@opendatasoft/visualizations';
+
+export const dataF = [
+    { x: 1, y: 23, label: 'label from data 23' },
+    { x: 2, y: 43, label: 'label from data 43' },
+    { x: 3, y: 160, label: 'label from data 160' },
+    { x: 4, y: 180, label: 'label from data 180' },
+    { x: 6, y: 12, label: 'label from data 12' },
+    { x: 11, y: 384, label: 'label from data 384' },
+    { x: 24, y: 123, label: 'label from data 123' },
+    { x: 27, y: 23, label: 'label from data 23' },
+    { x: 28, y: 93, label: 'label from data 93' },
+    { x: 32, y: 25, label: 'label from data 25' },
+    { x: 44, y: 65, label: 'label from data 65' },
+    { x: 52, y: 234 },
+    { x: 53, y: 109, label: 'label from data 109' },
+    { x: 75, y: 21, label: 'label from data 21' },
+    { x: 84, y: 76, label: 'label from data 76' },
+    { x: 93, y: 200, label: 'label from data 200' },
+    { x: 94, y: 123, label: 'label from data 123' },
+];
+
+export const shapesTiles: ChoroplethShapeVectorTilesValue = {
+    url: 'https://static.opendatasoft.com/vector-tiles/fr_40_region_2021/{z}/{x}/{y}.pbf',
+    layer: 'fr_40_region_2021',
+    key: 'reg_code',
+    label: 'reg_code',
+};
 
 export const shapes: FeatureCollection = {
         type: 'FeatureCollection',

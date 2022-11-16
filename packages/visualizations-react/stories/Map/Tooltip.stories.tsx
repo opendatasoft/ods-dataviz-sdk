@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import type { ChoroplethGeoJsonOptions, DataFrame, TooltipParams } from '@opendatasoft/visualizations';
 import { ChoroplethGeoJson, Props } from '../../src';
 import { IMAGES } from '../utils';
-import { shapes } from './shapes';
+import { shapes } from './data';
 
 const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
     title: 'Map/Tooltip',

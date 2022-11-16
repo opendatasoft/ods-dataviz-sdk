@@ -8,7 +8,7 @@ import {
     ChoroplethTooltipFormatter,
 } from '@opendatasoft/visualizations';
 import { ChoroplethGeoJson, Props } from '../../src';
-import { shapes, multiPolygonShapes } from './shapes';
+import { shapes, multiPolygonShapes } from './data';
 import { IMAGES } from '../utils';
 
 const meta: ComponentMeta<typeof ChoroplethGeoJson> = {

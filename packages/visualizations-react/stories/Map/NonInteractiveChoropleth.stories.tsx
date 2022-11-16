@@ -2,7 +2,7 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { ChoroplethGeoJsonOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChoroplethGeoJson, Props } from '../../src';
-import { shapes } from './shapes';
+import { shapes } from './data';
 
 const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
     title: 'Map/Non Interactive Choropleth',
