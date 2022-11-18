@@ -24,8 +24,15 @@ export interface ChoroplethOptions {
          * By default, the label will be taken from a `label` property in the shapes if it exists, or fallback to the key used to map the data and shapes. */
         labelMatcher?: ChoroplethTooltipMatchers;
     };
-    /** Initial position of the map when rendering. If undefined, with GeoJSON shapes the map will automatically zoom to fit all content, and on VTiles map, it will display the world. */
+    /** Maximum boundaries of the map, outside of which the user cannot zoom/move */
     bbox?: BBox | undefined;
+    /** Position of the map when rendering.
+    * If undefined, will default, in order to:
+    * - bbox if specified
+    * - Fit of teh GeoJson with a geojson soruce
+    * - The world
+    */
+    viewBox?: BBox | undefined;
     /** Attribution to display on the map */
     attribution?: string;
 }
@@ -47,8 +54,12 @@ export interface ChoroplethVectorTilesOptions extends ChoroplethOptions {
     filter?: MapFilter;
 }
 
+export type NavigationButtonOptions = ChoroplethGeoJsonOptions & {
+    bbox: BBox,
+};
+
 export type NavigableChoroplethOptions = ChoroplethVectorTilesOptions & {
-    buttonsOptions: ChoroplethGeoJsonOptions[];
+    buttonsOptions: NavigationButtonOptions[],
 };
 
 export interface MapLegend {

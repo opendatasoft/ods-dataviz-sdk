@@ -9,7 +9,7 @@ import {
     TooltipParams,
 } from '@opendatasoft/visualizations';
 import { ChoroplethVectorTiles, Props } from '../../src';
-import { shapesTiles, dataF } from './data';
+import { shapesTiles, dataReg } from './data';
 
 const meta: ComponentMeta<typeof ChoroplethVectorTiles> = {
     title: 'Map/ChoroplethVector',
@@ -46,7 +46,7 @@ export const StudioChoroplethVectorGradient = Template.bind({});
 const StudioChoroplethVectorGradientArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
     data: {
         loading: false,
-        value: dataF,
+        value: dataReg,
     },
     options: {
         shapesTiles,
@@ -74,7 +74,7 @@ export const StudioChoroplethVectorPalette = Template.bind({});
 const StudioChoroplethVectorPaletteArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
     data: {
         loading: false,
-        value: dataF,
+        value: dataReg,
     },
     options: {
         shapesTiles,
@@ -99,7 +99,7 @@ export const StudioChoroplethVectorFilter = Template.bind({});
 const StudioChoroplethVectorFilterArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
     data: {
         loading: false,
-        value: dataF,
+        value: dataReg,
     },
     options: {
         shapesTiles,
@@ -132,7 +132,7 @@ export const StudioChoroplethVectorCustomLabel = Template.bind({});
 const StudioChoroplethVectorCustomLabelArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
     data: {
         loading: false,
-        value: dataF,
+        value: dataReg,
     },
     options: {
         shapesTiles,

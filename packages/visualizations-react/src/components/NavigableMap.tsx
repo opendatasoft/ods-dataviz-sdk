@@ -2,7 +2,6 @@ import { FC } from 'react';
 import {
     DataFrame,
     NavigableMap as _NavigableMap,
-    NavigableChoroplethOptions,
 } from '@opendatasoft/visualizations';
 import { Props } from './Props';
 import wrap from './ReactImpl';

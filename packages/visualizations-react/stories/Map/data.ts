@@ -1,7 +1,7 @@
 import { FeatureCollection } from 'geojson';
 import { ChoroplethShapeVectorTilesValue } from '@opendatasoft/visualizations';
 
-export const dataF = [
+export const dataReg = [
     { x: 1, y: 23, label: 'label from data 23' },
     { x: 2, y: 43, label: 'label from data 43' },
     { x: 3, y: 160, label: 'label from data 160' },
@@ -1151,4 +1151,12 @@ export const multiPolygonShapes: FeatureCollection = {
                 },
             },
         ],
+};
+
+export const regShapes: FeatureCollection = {
+    type: 'FeatureCollection',
+    features: shapes.features.map((f, i) => {
+        const regFeature = { ...f, key: i };
+        return regFeature;
+    }),
 };

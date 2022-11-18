@@ -33,6 +33,7 @@
     export let layer: MapLayer;
     // bounding box to start from, and restrict to it
     export let bbox: BBox | undefined;
+    export let viewBox: BBox | undefined;
     // option to disable map interactions
     export let interactive: boolean;
     // options to display legend
@@ -81,13 +82,17 @@
     const sourceId = `shape-source-${mapId}`;
     const layerId = `shape-layer-${mapId}`;
 
-    function fitMapToBbox(newBbox: BBox) {
-        // Cancel saved max bounds to properly fitBounds
-        map.setMaxBounds(null);
-        map.fitBounds(newBbox as LngLatBoundsLike, {
+    const fitBox = (bbox: BBox) => {
+        map.fitBounds(bbox as LngLatBoundsLike, {
             animate: false,
             padding: 10,
         });
+    };
+
+    function setMaxBounds(newBbox: BBox) {
+        // Cancel saved max bounds to properly fitBounds
+        map.setMaxBounds(null);
+        fitBox(newBbox);
         // Rest min zoom and movement
         map.setMaxBounds(map.getBounds());
     }
@@ -122,7 +127,7 @@
             debounce(() => {
                 map.resize();
                 if (mapReady && bbox) {
-                    fitMapToBbox(bbox);
+                    setMaxBounds(bbox);
                 }
             }, 100)
         );
@@ -238,7 +243,7 @@
             }
             // Reset map zoom
             if (mapReady && bbox) {
-                fitMapToBbox(bbox);
+                seMaxBounds(bbox);
             }
         }
     }
@@ -285,8 +290,8 @@
         handleInteractivity(interactive, renderTooltip);
     }
     $: updateStyle(style);
-    $: if (mapReady && bbox) {
-        fitMapToBbox(bbox);
+    $: if (mapReady && viewBox) {
+        fitBox(viewBox);
     }
     $: if (fixedPopupsList?.length > 0 && (activeShapes?.length === 0 || !activeShapes)) {
         fixedPopupsList.forEach((fixedPopup) => fixedPopup.popup.remove());

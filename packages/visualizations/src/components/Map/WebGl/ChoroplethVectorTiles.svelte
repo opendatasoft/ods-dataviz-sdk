@@ -36,6 +36,7 @@
     let aspectRatio: number | undefined;
     let renderTooltip: MapRenderTooltipFunction;
     let bbox: BBox | undefined;
+    let viewBox: BBox | undefined;
     let activeShapes: string[] | undefined;
     let interactive: boolean;
     let legend: MapLegend | undefined;
@@ -61,6 +62,7 @@
         interactive = defaultInteractive,
         emptyValueColor = DEFAULT_COLORS.Default,
         bbox,
+        viewBox,
         filter,
         attribution,
     } = options);
@@ -126,6 +128,7 @@
         {legend}
         {renderTooltip}
         {bbox}
+        {viewBox}
         {activeShapes}
         {interactive}
         {filterExpression}
