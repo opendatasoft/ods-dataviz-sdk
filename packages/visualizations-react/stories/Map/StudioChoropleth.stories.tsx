@@ -6,6 +6,7 @@ import {
     DataFrame,
     ColorScaleTypes,
     ChoroplethTooltipFormatter,
+    LegendPositions,
 } from '@opendatasoft/visualizations';
 import { ChoroplethGeoJson, Props } from '../../src';
 import { shapes, multiPolygonShapes } from './shapes';
@@ -27,7 +28,9 @@ const defaultLabelCallback: ChoroplethTooltipFormatter = ({ label, value }: Tool
 
 export default meta;
 
-const Template: ComponentStory<typeof ChoroplethGeoJson> = (args: Props<DataFrame, ChoroplethGeoJsonOptions>) => (
+const Template: ComponentStory<typeof ChoroplethGeoJson> = (
+    args: Props<DataFrame, ChoroplethGeoJsonOptions>
+) => (
     <div
         style={{
             width: '50%',
@@ -272,3 +275,65 @@ const StudioChoroplethEmptyDataArgs: Props<DataFrame, ChoroplethGeoJsonOptions> 
     },
 };
 StudioChoroplethEmptyData.args = StudioChoroplethEmptyDataArgs;
+
+export const StudioChoroplethLegendLeft = Template.bind({});
+const StudioChoroplethLegendLeftArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
+    data: {
+        loading: false,
+        value: [
+            { x: 'France', y: 6000 },
+            { x: 'Île de France', y: 3500 },
+            { x: 'Corsica', y: 9500 },
+        ],
+    },
+    options: {
+        shapes,
+        emptyValueColor: 'red',
+        colorScale: {
+            type: ColorScaleTypes.Palette,
+            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+        },
+        aspectRatio: 1,
+        title: 'Lorem Ipsum',
+        subtitle: 'Dolor Sit Amet',
+        legend: {
+            title: 'I Am Legend',
+            position: LegendPositions.Left,
+        },
+        tooltip: {
+            labelFormatter: defaultLabelCallback,
+        },
+    },
+};
+StudioChoroplethLegendLeft.args = StudioChoroplethLegendLeftArgs;
+
+export const StudioChoroplethLegendRight = Template.bind({});
+const StudioChoroplethLegendRightArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
+    data: {
+        loading: false,
+        value: [
+            { x: 'France', y: 6000 },
+            { x: 'Île de France', y: 3500 },
+            { x: 'Corsica', y: 9500 },
+        ],
+    },
+    options: {
+        shapes,
+        emptyValueColor: 'red',
+        colorScale: {
+            type: ColorScaleTypes.Palette,
+            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+        },
+        aspectRatio: 1,
+        title: 'Lorem Ipsum',
+        subtitle: 'Dolor Sit Amet',
+        legend: {
+            title: 'I Am Legend',
+            position: LegendPositions.Right,
+        },
+        tooltip: {
+            labelFormatter: defaultLabelCallback,
+        },
+    },
+};
+StudioChoroplethLegendRight.args = StudioChoroplethLegendRightArgs;

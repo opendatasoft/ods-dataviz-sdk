@@ -8,6 +8,7 @@ import {
     ChoroplethTooltipMatcherTypes,
     ChoroplethShapeVectorTilesValue,
     TooltipParams,
+    LegendPositions,
 } from '@opendatasoft/visualizations';
 import { ChoroplethVectorTiles, Props } from '../../src';
 
@@ -53,7 +54,9 @@ const defaultLabelCallback: ChoroplethTooltipFormatter = ({ label, value }: Tool
     `<b>${label}:</b> ${value}`;
 
 export default meta;
-const Template: ComponentStory<typeof ChoroplethVectorTiles> = (args: Props<DataFrame, ChoroplethVectorTilesOptions>) => (
+const Template: ComponentStory<typeof ChoroplethVectorTiles> = (
+    args: Props<DataFrame, ChoroplethVectorTilesOptions>
+) => (
     <div
         style={{
             width: '50%',
@@ -224,6 +227,70 @@ const StudioChoroplethVectorEmptyDataArgs: Props<DataFrame, ChoroplethVectorTile
     },
 };
 StudioChoroplethVectorEmptyData.args = StudioChoroplethVectorEmptyDataArgs;
+
+export const StudioChoroplethVectorLegendLeft = Template.bind({});
+const StudioChoroplethVectorLegendLeftArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
+    data: {
+        loading: false,
+        value: dataF,
+    },
+    options: {
+        shapesTiles,
+        colorScale: {
+            type: ColorScaleTypes.Palette,
+            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+        },
+        title: 'Lorem Ipsum',
+        subtitle: 'Dolor Sit Amet',
+        legend: {
+            title: 'I Am Legend',
+            position: LegendPositions.Left,
+        },
+        emptyValueColor: '#CBD2DB',
+        aspectRatio: 1,
+        bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
+        tooltip: {
+            labelFormatter: defaultLabelCallback,
+        },
+        filter: {
+            key: 'reg_code',
+            value: ['52', '53'],
+        },
+    },
+};
+StudioChoroplethVectorLegendLeft.args = StudioChoroplethVectorLegendLeftArgs;
+
+export const StudioChoroplethVectorLegendRight = Template.bind({});
+const StudioChoroplethVectorLegendRightArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
+    data: {
+        loading: false,
+        value: dataF,
+    },
+    options: {
+        shapesTiles,
+        colorScale: {
+            type: ColorScaleTypes.Palette,
+            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+        },
+        title: 'Lorem Ipsum',
+        subtitle: 'Dolor Sit Amet',
+        legend: {
+            title: 'I Am Legend',
+            position: LegendPositions.Right,
+        },
+        emptyValueColor: '#CBD2DB',
+        aspectRatio: 1,
+        bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
+        tooltip: {
+            labelFormatter: defaultLabelCallback,
+        },
+        filter: {
+            key: 'reg_code',
+            value: ['52', '53'],
+        },
+    },
+};
+StudioChoroplethVectorLegendRight.args = StudioChoroplethVectorLegendRightArgs;
 
 /* The next story was used for the demo, but its too big for chromatic, keeping it hear for future ref on loading/wathever */
 // const LoaderTemplate: ComponentStory<typeof Choropleth> = (args, { loaded: { data } }) => (
