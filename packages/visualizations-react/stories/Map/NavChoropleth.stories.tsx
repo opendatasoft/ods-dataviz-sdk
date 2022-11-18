@@ -15,7 +15,7 @@ const Template: ComponentStory<typeof NavigableMap> = args => (
     <NavigableMap {...args} />
 );
 export const NavMapStory = Template.bind({});
-const buttonsOptions = [...Array(5)].map((_, i) => {
+const navigationMaps = [...Array(5)].map((_, i) => {
     const feature = regShapes.features[i % regShapes.features.length];
     const bbox = turf.bbox(feature);
     return {
@@ -47,6 +47,6 @@ NavMapStory.args = {
         aspectRatio: 1,
         activeShapes: ['11', '93'],
         emptyValueColor: 'red',
-        buttonsOptions,
+        navigationMaps,
     },
 } as Props<DataFrame, NavigableChoroplethOptions>;

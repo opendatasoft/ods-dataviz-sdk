@@ -1156,7 +1156,13 @@ export const multiPolygonShapes: FeatureCollection = {
 export const regShapes: FeatureCollection = {
     type: 'FeatureCollection',
     features: shapes.features.map((f, i) => {
-        const regFeature = { ...f, key: i };
+        const regFeature = {
+            ...f,
+            properties: {
+                ...f.properties,
+                key: `${i + 1}`, // Totally wrong, just to get a color 
+            }
+        };
         return regFeature;
     }),
 };

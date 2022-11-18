@@ -2,31 +2,27 @@
     import type { BBox } from 'geojson';
     import SvgChoropleth from '../Svg/Choropleth.svelte';
     import VectorChoropleth from '../WebGl/ChoroplethVectorTiles.svelte';
-    import type {
-        ChoroplethDataValue,
-        NavigableChoroplethOptions,
-        NavigationButtonOptions,
-    } from '../types';
+    import type { ChoroplethDataValue, NavigableChoroplethOptions, NavigationMap } from '../types';
 
     export let data: { value: ChoroplethDataValue[] };
     export let options: NavigableChoroplethOptions;
 
-    $: ({ buttonsOptions, ...mainOptions } = options);
+    $: ({ navigationMaps, colorScale, ...mainOptions } = options);
 
     let viewBox: BBox;
-    const setViewBox = (buttonOptions: NavigationButtonOptions) => () => {
-        viewBox = buttonOptions.bbox;
+    const setViewBox = (map: NavigationMap) => () => {
+        viewBox = map.bbox;
     };
 </script>
 
 <div class="maps-container">
     <div class="main">
-        <VectorChoropleth {data} options={{ ...mainOptions, viewBox }} />
+        <VectorChoropleth {data} options={{ ...mainOptions, colorScale, viewBox }} />
     </div>
     <div class="buttons">
-        {#each buttonsOptions as buttonOptions}
-            <div class="button" on:click={setViewBox(buttonOptions)}>
-                <SvgChoropleth {data} options={buttonOptions} />
+        {#each navigationMaps as map}
+            <div class="button" on:click={setViewBox(map)}>
+                <SvgChoropleth {data} options={{ shapes: map.shapes, colorScale }} />
             </div>
         {/each}
     </div>
@@ -44,13 +40,13 @@
         flex-wrap: wrap;
     }
 
-    .main {
-        flex-grow: 1;
+    .button {
+        height: 60px;
+        width: 60px;
+        padding: 3px;
     }
 
-    .button {
-        flex-shrink: 1;
-        height: 50px;
-        width: 50px;
+    .main {
+        flex-grow: 1;
     }
 </style>

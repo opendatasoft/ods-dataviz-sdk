@@ -54,12 +54,13 @@ export interface ChoroplethVectorTilesOptions extends ChoroplethOptions {
     filter?: MapFilter;
 }
 
-export type NavigationButtonOptions = ChoroplethGeoJsonOptions & {
+export type NavigationMap = {
+    shapes: FeatureCollection,
     bbox: BBox,
 };
 
 export type NavigableChoroplethOptions = ChoroplethVectorTilesOptions & {
-    buttonsOptions: NavigationButtonOptions[],
+    navigationMaps: NavigationMap[],
 };
 
 export interface MapLegend {

@@ -33,7 +33,7 @@
     export let layer: MapLayer;
     // bounding box to start from, and restrict to it
     export let bbox: BBox | undefined;
-    export let viewBox: BBox | undefined;
+    export let viewBox: BBox | undefined = bbox;
     // option to disable map interactions
     export let interactive: boolean;
     // options to display legend
@@ -82,8 +82,8 @@
     const sourceId = `shape-source-${mapId}`;
     const layerId = `shape-layer-${mapId}`;
 
-    const fitBox = (bbox: BBox) => {
-        map.fitBounds(bbox as LngLatBoundsLike, {
+    const fitBox = (viewBox: BBox) => {
+        map.fitBounds(viewBox as LngLatBoundsLike, {
             animate: false,
             padding: 10,
         });
@@ -126,8 +126,8 @@
         resizer = new ResizeObserver(
             debounce(() => {
                 map.resize();
-                if (mapReady && bbox) {
-                    setMaxBounds(bbox);
+                if (mapReady && viewBox) {
+                    fitBox(viewBox);
                 }
             }, 100)
         );
@@ -243,7 +243,7 @@
             }
             // Reset map zoom
             if (mapReady && bbox) {
-                seMaxBounds(bbox);
+                setMaxBounds(bbox);
             }
         }
     }
