@@ -27,11 +27,11 @@ export interface ChoroplethOptions {
     /** Maximum boundaries of the map, outside of which the user cannot zoom/move */
     bbox?: BBox | undefined;
     /** Position of the map when rendering.
-    * If undefined, will default, in order to:
-    * - bbox if specified
-    * - Fit of teh GeoJson with a geojson soruce
-    * - The world
-    */
+     * If undefined, will default, in order to:
+     * - bbox if specified
+     * - Fit of teh GeoJson with a geojson soruce
+     * - The world
+     */
     viewBox?: BBox | undefined;
     /** Attribution to display on the map */
     attribution?: string;
@@ -55,12 +55,12 @@ export interface ChoroplethVectorTilesOptions extends ChoroplethOptions {
 }
 
 export type NavigationMap = {
-    shapes: FeatureCollection,
-    bbox: BBox,
+    shapes: FeatureCollection;
+    bbox: BBox;
 };
 
 export type NavigableChoroplethOptions = ChoroplethVectorTilesOptions & {
-    navigationMaps: NavigationMap[],
+    navigationMaps: NavigationMap[];
 };
 
 export interface MapLegend {
