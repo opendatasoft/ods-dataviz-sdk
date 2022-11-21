@@ -82,18 +82,27 @@
     const sourceId = `shape-source-${mapId}`;
     const layerId = `shape-layer-${mapId}`;
 
-    const fitBox = (viewBox: BBox) => {
-        map.fitBounds(viewBox as LngLatBoundsLike, {
+    const fitBox = (box: BBox | LngLatBoundsLike) => {
+        map.fitBounds(box as LngLatBoundsLike, {
             animate: false,
             padding: 10,
         });
     };
 
-    function setMaxBounds(newBbox: BBox) {
-        // Cancel saved max bounds to properly fitBounds
+    const setViewBox = (box: BBox | undefined) => {
+        if (!box) {
+            // zoom-out to bounds defined in the initialization
+            map.setZoom(map.getMinZoom());
+            return;
+        }
+        fitBox(box);
+    };
+
+    function setMaxBounds(bounds: BBox) {
+        // Cancel any saved max bounds to properly fitBounds
         map.setMaxBounds(null);
-        fitBox(newBbox);
-        // Rest min zoom and movement
+        fitBox(bounds);
+        // Reset min zoom and movement
         map.setMaxBounds(map.getBounds());
     }
 
@@ -127,7 +136,7 @@
             debounce(() => {
                 map.resize();
                 if (mapReady && viewBox) {
-                    fitBox(viewBox);
+                    setViewBox(viewBox);
                 }
             }, 100)
         );
@@ -290,8 +299,8 @@
         handleInteractivity(interactive, renderTooltip);
     }
     $: updateStyle(style);
-    $: if (mapReady && viewBox) {
-        fitBox(viewBox);
+    $: if (mapReady) {
+        setViewBox(viewBox);
     }
     $: if (fixedPopupsList?.length > 0 && (activeShapes?.length === 0 || !activeShapes)) {
         fixedPopupsList.forEach((fixedPopup) => fixedPopup.popup.remove());
