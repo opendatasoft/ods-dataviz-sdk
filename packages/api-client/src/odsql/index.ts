@@ -177,11 +177,12 @@ function inlineMonthOrDay(value?: number) {
 /** Format year month year and day numbers into an API call format.
 If you have an YYYY-MM-DD string already, use FromIsoString  instead.
 */
-export const date = ({ year, month, day }: { year: number, month?: number, day?: number }) => `date'${year}${inlineMonthOrDay(month)}${inlineMonthOrDay(day)}'`;
+export const date = ({ year, month, day }: { year: number; month?: number; day?: number }) =>
+    `date'${year}${inlineMonthOrDay(month)}${inlineMonthOrDay(day)}'`;
 
 /** Formats an YYYY-MM-DD date string into an API call string.
-* Avoids converting to number if you already have a string.
-*/
+ * Avoids converting to number if you already have a string.
+ */
 export const dateFromIsoString = (dateStr: string) => `date'${dateStr}'`;
 
 export const all = (...conditions: (string | undefined | null)[]) =>

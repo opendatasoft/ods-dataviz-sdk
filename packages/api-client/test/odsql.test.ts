@@ -127,7 +127,9 @@ describe('ODSQL query builder', () => {
                     .query()
                     .groupBy('x, y')
                     .where(`${field('my_field')}:${string("this will be' escaped")}`)
-                    .where((filter) => one(filter, `${field('my_field')} < ${dateFromIsoString('1970-01-01')}`))
+                    .where((filter) =>
+                        one(filter, `${field('my_field')} < ${dateFromIsoString('1970-01-01')}`)
+                    )
                     .where((filter) =>
                         all(filter, 'not_escaped in [0..10] and other is true', 'len(f) = 2')
                     )
