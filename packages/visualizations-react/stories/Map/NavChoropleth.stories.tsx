@@ -12,20 +12,7 @@ const meta: ComponentMeta<typeof NavigableMap> = {
 };
 export default meta;
 
-const Template: ComponentStory<typeof NavigableMap> = args => (
-    <div
-        style={{
-            minHeight: '100px',
-            maxHeight: '400px',
-            minWidth: '100px',
-            margin: 'auto',
-        }}
-    >
-        <NavigableMap {...args} />
-    </div>
-);
-export const NavMapStory = Template.bind({});
-const navigationMaps = [...Array(9)].map((_, i) => {
+const makeMiniMaps = (n: number) => [...Array(n)].map((_, i) => {
     const feature = regShapes.features[i % regShapes.features.length];
     const bbox = turf.bbox(feature);
     return {
@@ -35,10 +22,49 @@ const navigationMaps = [...Array(9)].map((_, i) => {
         },
         bbox,
     };
-});
+});   
 
-        
+type Args = Props<DataFrame, NavigableChoroplethOptions > & { numMaps: number };
+
+const NavStory = ({ numMaps, ...args }: Args) => {
+    const navigationMaps = makeMiniMaps(numMaps);
+    const { data, options } = args;
+    const navOptions = {
+        ...args.options,
+        navigationMaps,
+    };
+
+    return (
+        <div
+            style={{
+                minHeight: '100px',
+                maxHeight: '400px',
+                minWidth: '100px',
+                margin: 'auto',
+            }}
+        >
+            <NavigableMap data={data} options={navOptions} />
+        </div>
+    );
+};
+
+const Template: ComponentStory<typeof NavStory> = args => <NavStory {...args} />;
+
+export const NavMapStory = Template.bind({}); 
+
+NavMapStory.argTypes = {
+    numMaps: {
+        control: {
+            type: 'range',
+            min: 1,
+            max: 25,
+            step: 1,
+        }
+    }
+};
+
 NavMapStory.args = {
+    numMaps: 5,
     data: {
         value: dataReg,
         loading: false,
@@ -58,6 +84,5 @@ NavMapStory.args = {
         aspectRatio: 1,
         activeShapes: ['11', '93'],
         emptyValueColor: 'red',
-        navigationMaps,
     },
-} as Props<DataFrame, NavigableChoroplethOptions>;
+} as Args;
