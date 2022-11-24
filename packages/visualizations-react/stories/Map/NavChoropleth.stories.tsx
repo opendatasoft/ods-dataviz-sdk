@@ -30,7 +30,7 @@ const NavStory = ({ numMaps, ...args }: Args) => {
     const navigationMaps = makeMiniMaps(numMaps);
     const { data, options } = args;
     const navOptions = {
-        ...args.options,
+        ...options,
         navigationMaps,
     };
 
