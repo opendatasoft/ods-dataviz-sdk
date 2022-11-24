@@ -79,8 +79,8 @@ export const mapKeyToColor = (
 
     // This is an exhaustive check, function must handle all color scale types
     switch (colorScale.type) {
-        case ColorScaleTypes.Palette:
-            const thresholdArray: number[] = []; // eslint-disable-line no-case-declarations
+        case ColorScaleTypes.Palette: {
+            const thresholdArray: number[] = [];
             colorScale.colors.forEach((_color: Color, i: number) => {
                 if (i === 0) {
                     thresholdArray.push(min);
@@ -93,6 +93,7 @@ export const mapKeyToColor = (
             });
             scale = chroma.scale(colorScale.colors).classes(thresholdArray);
             break;
+        }
         case ColorScaleTypes.Gradient:
             colorMin = chroma(colorScale.colors.start).hex();
             colorMax = chroma(colorScale.colors.end).hex();

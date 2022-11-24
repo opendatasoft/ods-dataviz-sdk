@@ -1,17 +1,18 @@
 <script lang="ts">
     import type { BBox } from 'geojson';
-    import SvgChoropleth from '../Svg/Choropleth.svelte';
     import VectorChoropleth from '../WebGl/ChoroplethVectorTiles.svelte';
     import type { ChoroplethDataValue, NavigableChoroplethOptions, NavigationMap } from '../types';
+
+    import BackButton from './BackButton.svelte';
+    import MiniMap from './MiniMap.svelte';
 
     export let data: { value: ChoroplethDataValue[] };
     export let options: NavigableChoroplethOptions;
 
-    let active: number | undefined;
-
     $: ({ navigationMaps, colorScale, ...mainOptions } = options);
 
     let viewBox: BBox | undefined;
+    let active: number | undefined;
 
     const setViewBox = (map: NavigationMap, i: number) => () => {
         viewBox = map.bbox;
@@ -27,24 +28,22 @@
 </script>
 
 <div class="maps-container">
-    <div class="main">
+    <div class="main" style="--aspect-ratio: {options.aspectRatio}">
         {#if active !== undefined}
-            <button on:click={resetViewBox}>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
-                    ><path fill="none" d="M0 0h24v24H0z" /><path
-                        d="M7.828 11H20v2H7.828l5.364 5.364-1.414 1.414L4 12l7.778-7.778 1.414 1.414z"
-                    /></svg
-                >
-            </button>
+            <BackButton on:click={resetViewBox} />
         {/if}
         <VectorChoropleth {data} options={vectorOptions} />
     </div>
+    <!-- Working with index is safe since we don't add/remove items -->
     <div class="buttons">
-        <!-- Working with index is safe since we don't add/remove items -->
         {#each navigationMaps as map, i}
-            <div class="button" class:active={active === i} on:click={setViewBox(map, i)}>
-                <SvgChoropleth {data} options={{ shapes: map.shapes, colorScale }} />
-            </div>
+            <MiniMap
+                {data}
+                {map}
+                {colorScale}
+                active={active === i}
+                on:click={setViewBox(map, i)}
+            />
         {/each}
     </div>
 </div>
@@ -52,43 +51,24 @@
 <style>
     .maps-container {
         display: flex;
-        align-items: stretch;
+        width: 100%;
     }
 
     .main {
-        flex-grow: 1;
+        flex: 1 1 auto;
+        aspect-ratio: var(--aspect-ratio);
         position: relative;
-    }
-
-    button {
-        position: absolute;
-        top: 26px;
-        right: 26px;
-        z-index: 1;
-        border-radius: 6px;
-        box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.26);
-        background: white;
-        border: none;
+        display: flex;
+        flex-direction: column;
     }
 
     .buttons {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
+        flex: 1 1 0;
+        display: grid;
+        grid-template-rows: repeat(auto-fill, minmax(52px, 72px));
+        grid-auto-flow: column;
+        overflow-y: auto;
         border-left: 1px solid #cbd2db;
         padding: 0 13px;
-    }
-
-    .button {
-        height: 60px;
-        width: 60px;
-        padding: 6px;
-        border-radius: 6px;
-        box-sizing: border-box;
-    }
-
-    .active {
-        border: 1px solid #dee5ef;
-        background: #f6f8fb;
     }
 </style>
