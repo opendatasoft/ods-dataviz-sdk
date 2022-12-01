@@ -22,19 +22,6 @@ import { ChoroplethTooltipMatcherTypes } from './types';
 export const LIGHT_GREY: Color = '#CBD2DB';
 export const DARK_GREY: Color = '#515457';
 
-export const EMPTY_FC: FeatureCollection = {
-    type: 'FeatureCollection',
-    features: [],
-};
-
-export const DEFAULT_COLORSCALE: GradientScale = {
-    type: ColorScaleTypes.Gradient,
-    colors: {
-        start: LIGHT_GREY,
-        end: DARK_GREY,
-    },
-};
-
 export function getDataBounds(values: ChoroplethDataValue[]): DataBounds {
     const rawValues = values.map((v) => v.y);
     const min = Math.min(...rawValues);
@@ -45,12 +32,14 @@ export function getDataBounds(values: ChoroplethDataValue[]): DataBounds {
 export const colorShapes = ({
     featureCollection,
     colorMapping,
+    emptyValueColor,
 }: {
     featureCollection: FeatureCollection;
     colorMapping: { [key: string]: Color };
+    emptyValueColor: Color
 }) => {
     const coloredFeatures = featureCollection.features.map((feature: Feature) => {
-        const color = colorMapping[feature?.properties?.key];
+        const color = colorMapping[feature?.properties?.key] || emptyValueColor;
         return {
             ...feature,
             properties: {
@@ -76,7 +65,6 @@ export const mapKeyToColor = (
     let colorMin: Color;
     let colorMax: Color;
     let scale: Scale;
-
     // This is an exhaustive check, function must handle all color scale types
     switch (colorScale.type) {
         case ColorScaleTypes.Palette: {

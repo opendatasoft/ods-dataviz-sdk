@@ -1,5 +1,3 @@
-<svelte:options immutable={true} />
-
 <script lang="ts">
     import type { FilterSpecification, SourceSpecification } from 'maplibre-gl';
     import type { BBox } from 'geojson';
@@ -16,7 +14,7 @@
         computeBaseLayer,
         computeMatchExpression,
     } from '../utils';
-    import { DEFAULT_COLORS, DEFAULT_COLORS_SCALE } from '../constants';
+    import { DEFAULT_COLORS, DEFAULT_COLORSCALE } from '../constants';
     import type {
         ChoroplethDataValue,
         ChoroplethLayer,
@@ -55,7 +53,7 @@
     const defaultInteractive = true;
     $: ({
         shapesTiles,
-        colorScale = DEFAULT_COLORS_SCALE,
+        colorScale = DEFAULT_COLORSCALE,
         legend,
         aspectRatio,
         activeShapes,
@@ -117,25 +115,23 @@
     }
 </script>
 
-<div>
-    <MapRender
-        {style}
-        {source}
-        {layer}
-        {aspectRatio}
-        {dataBounds}
-        {colorScale}
-        {legend}
-        {renderTooltip}
-        {bbox}
-        {viewBox}
-        {activeShapes}
-        {interactive}
-        {filterExpression}
-        {matchKey}
-        {attribution}
-    />
-</div>
+<MapRender
+    {style}
+    {source}
+    {layer}
+    {aspectRatio}
+    {dataBounds}
+    {colorScale}
+    {legend}
+    {renderTooltip}
+    {bbox}
+    {viewBox}
+    {activeShapes}
+    {interactive}
+    {filterExpression}
+    {matchKey}
+    {attribution}
+/>
 
 <style>
 </style>

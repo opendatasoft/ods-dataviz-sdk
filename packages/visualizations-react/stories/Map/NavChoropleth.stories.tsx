@@ -1,5 +1,4 @@
 import React from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { ColorScaleTypes, NavigableChoroplethOptions , DataFrame } from '@opendatasoft/visualizations';
 import * as turf from "@turf/turf";
@@ -17,19 +16,22 @@ const makeMiniMaps = (n: number) => [...Array(n)].map((_, i) => {
     const bbox = turf.bbox(feature);
     return {
         shapes: {
-            type: 'FeatureCollection',
+            type: 'FeatureCollection' as const,
             features: [feature],
         },
         bbox,
     };
 });   
 
-type Args = Props<DataFrame, NavigableChoroplethOptions > & { numMaps: number };
+// We pass a number of maps to generate them for the story
+type Args = Props<DataFrame, Omit<NavigableChoroplethOptions, 'navigationMaps'>> & {
+    numMaps: number;
+};
 
 const NavStory = ({ numMaps, ...args }: Args) => {
     const navigationMaps = makeMiniMaps(numMaps);
     const { data, options } = args;
-    const navOptions = {
+    const navOptions: NavigableChoroplethOptions = {
         ...options,
         navigationMaps,
     };

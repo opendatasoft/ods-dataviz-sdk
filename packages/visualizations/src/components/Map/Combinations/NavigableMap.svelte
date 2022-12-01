@@ -13,6 +13,7 @@
 
     let viewBox: BBox | undefined;
     let active: number | undefined;
+    let height: number;
 
     const setViewBox = (map: NavigationMap, i: number) => () => {
         viewBox = map.bbox;
@@ -25,17 +26,23 @@
     };
 
     $: vectorOptions = { ...mainOptions, colorScale, viewBox };
+    /* Number of column x largest colmuns.
+     * The maps will then auto-adjust between 52 and 72 to fit the best
+     * It's stable and doesn't involves too much JS computaton either.
+     */
+    $: navMapsWidth = height ? Math.ceil((navigationMaps.length * 72) / height) * 72 : 72;
+    $: console.log(navMapsWidth);
 </script>
 
 <div class="maps-container">
-    <div class="main" style="--aspect-ratio: {options.aspectRatio}">
+    <div class="main" style="--aspect-ratio: {options.aspectRatio}" bind:clientHeight={height}>
         {#if active !== undefined}
             <BackButton on:click={resetViewBox} />
         {/if}
         <VectorChoropleth {data} options={vectorOptions} />
     </div>
     <!-- Working with index is safe since we don't add/remove items -->
-    <div class="buttons">
+    <div class="buttons" style="--nav-maps-width: {navMapsWidth}px">
         {#each navigationMaps as map, i}
             <MiniMap
                 {data}
@@ -55,19 +62,20 @@
     }
 
     .main {
-        flex: 1 1 auto;
+        flex-grow: 1;
         aspect-ratio: var(--aspect-ratio);
         position: relative;
-        display: flex;
-        flex-direction: column;
+        display: block;
     }
 
     .buttons {
-        flex: 1 1 0;
+        max-width: var(--nav-maps-width);
+        flex-shrink: 1;
         display: grid;
-        grid-template-rows: repeat(auto-fill, minmax(52px, 72px));
+        grid-template-rows: repeat(auto-fit, minmax(52px, 72px));
         grid-auto-flow: column;
-        overflow-y: auto;
+        grid-auto-columns: minmax(52px, 72px);
+        justify-content: flex-start;
         border-left: 1px solid #cbd2db;
         padding: 0 13px;
     }

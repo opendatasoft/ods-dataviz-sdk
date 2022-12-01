@@ -16,7 +16,7 @@
         computeBaseLayer,
         computeMatchExpression,
     } from '../utils';
-    import { DEFAULT_COLORS, DEFAULT_COLORS_SCALE } from '../constants';
+    import { DEFAULT_COLORS, DEFAULT_COLORSCALE } from '../constants';
     import type {
         ChoroplethDataValue,
         ChoroplethLayer,
@@ -48,7 +48,7 @@
     const defaultInteractive = true;
     $: ({
         shapes,
-        colorScale = DEFAULT_COLORS_SCALE,
+        colorScale = DEFAULT_COLORSCALE,
         legend,
         aspectRatio,
         activeShapes,
