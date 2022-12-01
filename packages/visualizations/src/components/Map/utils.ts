@@ -6,7 +6,7 @@ import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
 import type { Scale } from 'chroma-js';
 import { DEFAULT_COLORS } from './constants';
 import { assertUnreachable } from '../utils';
-import { ColorScaleTypes, GradientScale } from '../types';
+import { ColorScaleTypes } from '../types';
 import type { Color, ColorScale, DataBounds } from '../types';
 import type {
     ChoroplethDataValue,

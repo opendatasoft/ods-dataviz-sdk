@@ -31,7 +31,6 @@
      * It's stable and doesn't involves too much JS computaton either.
      */
     $: navMapsWidth = height ? Math.ceil((navigationMaps.length * 72) / height) * 72 : 72;
-    $: console.log(navMapsWidth);
 </script>
 
 <div class="maps-container">
