@@ -9,9 +9,11 @@
     export let data: { value: ChoroplethDataValue[] };
     export let options: NavigableChoroplethOptions;
 
-    $: ({ navigationMaps, colorScale, ...mainOptions } = options);
+    $: ({ navigationMaps, colorScale, bbox, ...mainOptions } = options);
 
     let viewBox: BBox | undefined;
+    $: viewBox = bbox;
+
     let active: number | undefined;
     let height: number;
 
@@ -22,7 +24,7 @@
 
     const resetViewBox = () => {
         active = undefined;
-        viewBox = mainOptions.bbox;
+        viewBox = bbox;
     };
 
     $: vectorOptions = { ...mainOptions, colorScale, viewBox };
