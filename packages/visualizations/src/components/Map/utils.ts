@@ -279,7 +279,7 @@ export const computeBaseLayer = (
     layout: {},
     paint: {
         'fill-color': fillColor,
-        'fill-opacity': 0.8,
+        'fill-opacity': 1,
         'fill-outline-color': DefaultColor,
     },
 });
