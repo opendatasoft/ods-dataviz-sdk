@@ -167,9 +167,23 @@ export const field = (fieldName: string) => `\`${fieldName.replace(/`/g, '\\`')}
 
 export const string = (value: string) => JSON.stringify(value);
 
-export const dateTime = (d: Date) => `date'${d.toISOString()}'`;
+export const dateTime = (date: Date) => `date'${date.toISOString()}'`;
 
-export const date = (d: Date) => `date'${d.toISOString().split('T')[0]}'`;
+function inlineMonthOrDay(value?: number) {
+    if (value === undefined) return '';
+    if (value < 10) return `-0${value}`;
+    return `-${value}`;
+}
+/** Format year month year and day numbers into an API call format.
+If you have an YYYY-MM-DD string already, use FromIsoString  instead.
+*/
+export const date = ({ year, month, day }: { year: number; month?: number; day?: number }) =>
+    `date'${year}${inlineMonthOrDay(month)}${inlineMonthOrDay(day)}'`;
+
+/** Formats an YYYY-MM-DD date string into an API call string.
+ * Avoids converting to number if you already have a string.
+ */
+export const dateFromIsoString = (dateStr: string) => `date'${dateStr}'`;
 
 export const all = (...conditions: (string | undefined | null)[]) =>
     conditions

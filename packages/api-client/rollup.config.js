@@ -32,8 +32,8 @@ function basePlugins() {
         production &&
             babel({
                 babelHelpers: 'bundled',
-                extensions: ['.ts', '.mjs', '.js', '.svelte'],
-                include: ['src/**', 'node_modules/chart.js/**', 'node_modules/svelte/**'],
+                extensions: ['.ts', '.mjs', '.js'],
+                include: ['src/**', 'node_modules/chart.js/**'],
                 presets: ['@babel/preset-env'],
             }),
     ];

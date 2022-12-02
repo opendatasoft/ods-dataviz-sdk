@@ -1,6 +1,6 @@
 {
     "name": "@opendatasoft/visualizations-react",
-    "version": "0.10.0",
+    "version": "0.10.1",
     "license": "MIT",
     "author": "opendatasoft",
     "homepage": "https://github.com/opendatasoft/ods-dataviz-sdk",
@@ -52,7 +52,7 @@
         "trailingComma": "es5"
     },
     "dependencies": {
-        "@opendatasoft/visualizations": "^0.10.0",
+        "@opendatasoft/visualizations": "^0.10.1",
         "use-callback-ref": "^1.2.4"
     },
     "devDependencies": {
@@ -67,10 +67,10 @@
         "@rollup/plugin-replace": "^3.0.1",
         "@rollup/plugin-typescript": "^6.1.0",
         "@size-limit/preset-small-lib": "^8.1.0",
-        "@storybook/addon-essentials": "^6.4.22",
-        "@storybook/addon-links": "^6.4.22",
-        "@storybook/addons": "^6.4.22",
-        "@storybook/react": "^6.4.22",
+        "@storybook/addon-essentials": "^6.5.13",
+        "@storybook/addon-links": "^6.5.13",
+        "@storybook/addons": "^6.5.13",
+        "@storybook/react": "^6.5.13",
         "@testing-library/jest-dom": "^5.11.9",
         "@testing-library/react": "^11.2.5",
         "@types/geojson": "^7946.0.10",
