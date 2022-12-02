@@ -32,6 +32,8 @@ export interface ChoroplethOptions {
     title?: string;
     /** Subtitle of the map */
     subtitle?: string;
+    /** Custom formatting function to display data value */
+    valueFormatter?: (value: number) => string;
 }
 
 export interface MapFilter {
@@ -62,7 +64,7 @@ export interface MapLegend {
  */
 export type TooltipParams = {
     /** Numeric value of the shape */
-    value?: number;
+    value?: string;
     /** Label of the shape */
     label: string;
     /** Value of the key used to match shapes and numeric data */
