@@ -96,7 +96,7 @@ export const mapKeyToColor = (
 
     const dataMapping: { [s: ChoroplethDataValue['x']]: Color } = {};
     values.forEach(({ x, y }) => {
-        dataMapping[x] = y ? scale(y).hex() : emptyValueColor;
+        dataMapping[x] = Number.isFinite(y) ? scale(y).hex() : emptyValueColor;
     });
     return dataMapping;
 };
