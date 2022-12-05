@@ -27,6 +27,7 @@
     "scripts": {
         "watch": "rollup --config --watch",
         "build": "rollup --config",
+        "build-package-lock": "npm install --package-lock-only",
         "docs": "typedoc",
         "test": "jest",
         "lint": "run-p lint:*:check -c",
