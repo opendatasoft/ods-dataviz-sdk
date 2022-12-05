@@ -36,7 +36,7 @@ export const colorShapes = ({
 }: {
     featureCollection: FeatureCollection;
     colorMapping: { [key: string]: Color };
-    emptyValueColor: Color
+    emptyValueColor: Color;
 }) => {
     const coloredFeatures = featureCollection.features.map((feature: Feature) => {
         const color = colorMapping[feature?.properties?.key] || emptyValueColor;
