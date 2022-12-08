@@ -5,7 +5,7 @@
     import SourceLink from '../utils/SourceLink.svelte';
     import { defaultCompactNumberFormat, defaultNumberFormat } from '../utils/formatter';
 
-    export let data: Async<number>;
+    export let data: any;
     export let options: KpiCardOptions;
 
     let displayValue: string;
@@ -17,9 +17,9 @@
 
     $: formatCompact = options.formatCompact || defaultCompactNumberFormat;
 
-    $: if (data.value !== undefined) {
-        displayValue = formatCompact(data.value);
-        tooltipValue = format(data.value);
+    $: if ($data?.value !== undefined) {
+        displayValue = formatCompact($data?.value);
+        tooltipValue = format($data?.value);
     } else {
         displayValue = '';
         tooltipValue = '';
@@ -27,8 +27,8 @@
 </script>
 
 <div class="kpi-card">
-    {#if data.error}
-        Error : {JSON.stringify(data.error)}
+    {#if $data?.error}
+        Error : {JSON.stringify($data?.error)}
     {:else}
         {#if options.header}
             <div class="kpi-card__header">{options.header}</div>
@@ -46,7 +46,7 @@
                 If you want to have a space (45 Cars), the prefix or suffix itself has to contain the space -->
                 <div class="kpi-card__value">
                     {#if options.prefix}<span class="kpi-card__prefix">{options.prefix}</span
-                        >{/if}{#if data.loading}<span
+                        >{/if}{#if $data?.loading}<span
                             class="kpi-card__value-loading"
                         />{:else if tooltipValue !== displayValue}<span
                             use:tippy={{
