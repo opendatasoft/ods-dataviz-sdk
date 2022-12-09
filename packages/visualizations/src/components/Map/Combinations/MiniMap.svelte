@@ -9,23 +9,20 @@
     export let colorScale: ColorScale | undefined;
 </script>
 
-<div class:active on:click>
+<button type="button" class:active on:click>
     <SvgChoropleth {data} options={{ shapes: map.shapes, colorScale }} />
-</div>
+</button>
 
 <style>
-    div {
+    button {
+        cursor: pointer; /* Don't understand why it's not the case */
         flex: 1;
         min-width: 52px;
         max-width: 72px;
         aspect-ratio: 1;
-        padding: 6px;
-        border-radius: 6px;
-        box-sizing: border-box;
     }
 
     .active {
-        border: 1px solid #dee5ef;
-        background: #f6f8fb;
+        /* Style from app */
     }
 </style>
