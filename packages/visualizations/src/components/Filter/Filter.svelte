@@ -13,8 +13,6 @@
     {/each}
 </select>
 
-<p>{JSON.stringify(filterValue)}</p>
-
 <style>
     /* your styles go here */
 </style>

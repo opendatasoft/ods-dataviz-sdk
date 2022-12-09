@@ -49,20 +49,17 @@ const FilterStory = () => {
         .groupBy(odsField('region_min'));
     
 
-    /* This could really be a helper in the api-client package 
-    * That packages more and more.
-    */
     const filterField = (query, [field, value]) => query.where(
         filter => all(filter, `${odsField(field)}:${string(value)}`)
     );
 
+    /* This could really be a helper in the api-client package */
     const makeFilter = (baseQuery) => {
         const filterValues: { [field: string]: any} = {};
 
         const makeQuery = () => {
             const entries = Object.entries(filterValues);
             const filteredQuery = entries.reduce(filterField, baseQuery);
-            console.log(filteredQuery);
             return filteredQuery;
         };
 
@@ -72,16 +69,25 @@ const FilterStory = () => {
             const filteredData = await client.get(query.toString());
             return filteredData.results[0]?.y;
         };
+
+        const clear = async (field) => {
+            delete filterValues[field];
+            const query = makeQuery();
+            const filteredData = await client.get(query.toString());
+            return filteredData.results[0]?.y;
+        };
         
-        return filter;
+        return { filter, clear };
     };
 
-    const filter = makeFilter(exQuery);
-    const filteredData = createFilteredData(filter);
+    const { filter, clear } = makeFilter(exQuery);
+    const filteredData = createFilteredData({ filter, clear });
 
+    const clearAgeLabel = () => filteredData.clear('age_label');
     return (
         <>
             <Filter data={filteredData} options={filterOptions1} />
+            <button type="button" onClick={clearAgeLabel}>Clear Age</button>
             <Filter data={filteredData} options={filterOptions2} />
             <KpiCard data={filteredData} options={kpiOptions} />
         </>
