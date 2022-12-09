@@ -6,7 +6,7 @@ export default (fetcher: any) => {
 
     return {
         subscribe,
-        filter: async (value: string) => {
+        filter: async (value) => {
             update(data => ({ ...data, loading: true }));
             const filteredData = await fetcher(value);
             set({ loading: false, value: filteredData });
