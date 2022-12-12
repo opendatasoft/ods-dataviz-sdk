@@ -24,6 +24,7 @@
     "scripts": {
         "prepare": "rimraf dist && rollup --config",
         "build": "rollup --config",
+        "build-package-lock": "npm install --package-lock-only",
         "watch": "rollup --config --watch",
         "test": "echo \"No test specified\"",
         "lint": "run-p lint:*:check -c",
