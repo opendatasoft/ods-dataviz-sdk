@@ -118,6 +118,8 @@ export interface ChoroplethShapeVectorTilesValue {
     layer: string;
     key: string;
     label?: string;
+    minZoom?: number;
+    maxZoom? :number;
 }
 
 export interface ChoroplethFixedTooltipDescription {

@@ -90,6 +90,8 @@
         source = {
             type: 'vector',
             tiles: [newShapes.url],
+            minzoom: newShapes.minZoom,
+            maxzoom: newShapes.maxZoom,
         };
 
         layer = {
