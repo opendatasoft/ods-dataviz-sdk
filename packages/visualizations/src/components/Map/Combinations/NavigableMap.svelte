@@ -77,7 +77,5 @@
         grid-auto-flow: column;
         grid-auto-columns: minmax(52px, 72px);
         justify-content: flex-start;
-        border-left: 1px solid #cbd2db;
-        padding: 0 13px;
     }
 </style>

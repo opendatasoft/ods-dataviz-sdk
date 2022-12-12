@@ -119,7 +119,7 @@
             ...start,
         });
 
-        nav = new maplibregl.NavigationControl({});
+        nav = new maplibregl.NavigationControl({ showCompass: false });
 
         map.on('load', () => {
             mapReady = true;
@@ -220,7 +220,7 @@
 
             // Add navigation control to map
             if (!map.hasControl(nav)) {
-                map.addControl(nav, 'top-left');
+                map.addControl(nav, 'top-right');
             }
 
             // Handle tooltip display

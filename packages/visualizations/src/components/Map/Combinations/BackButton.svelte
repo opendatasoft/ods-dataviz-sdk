@@ -13,12 +13,6 @@
     button {
         cursor: pointer;
         position: absolute;
-        top: 26px;
-        right: 26px;
         z-index: 1;
-        border-radius: 6px;
-        box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.26);
-        background: white;
-        border: none;
     }
 </style>
