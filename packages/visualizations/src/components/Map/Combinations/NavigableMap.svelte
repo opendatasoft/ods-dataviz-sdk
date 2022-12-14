@@ -59,19 +59,34 @@
 <style>
     .maps-container {
         display: flex;
+        flex-direction: column;
         width: 100%;
+        aspect-ratio: var(--aspect-ratio);
     }
 
     .main {
         flex-grow: 1;
-        aspect-ratio: var(--aspect-ratio);
         position: relative;
         display: block;
     }
 
     .buttons {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(52px, 72px));
+        grid-auto-flow: row;
+        grid-auto-rows: minmax(52px, 72px);
+        justify-content: flex-start;
+    }
+
+    /*for external use of .horizontal
+    * Name is "uniquish" because it is not scoped like the other classes
+    */
+    :global(.ods-skd__nav-map--horizontal .maps-container) {
+        flex-direction: row;
+    }
+
+    :global(.ods-skd__nav-map--horizontal .maps-container .buttons) {
         max-width: var(--nav-maps-width);
-        flex-shrink: 1;
         display: grid;
         grid-template-rows: repeat(auto-fit, minmax(52px, 72px));
         grid-auto-flow: column;

@@ -61,6 +61,8 @@ export type NavigationMap = {
 
 export type NavigableChoroplethOptions = ChoroplethVectorTilesOptions & {
     navigationMaps: NavigationMap[];
+    /* Miniman container size below which the buttons will be on the right */
+    horizontal?: number;
 };
 
 export interface MapLegend {
