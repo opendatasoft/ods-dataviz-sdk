@@ -9,3 +9,7 @@ export * from './components/Chart/types';
 export * from './components/KpiCard/types';
 export * from './components/Map/types';
 export * from './components/MarkdownText/types';
+
+export { default as FilterStore } from './filters/filterStore';
+
+export { default as Text } from './filters/components/Text';
