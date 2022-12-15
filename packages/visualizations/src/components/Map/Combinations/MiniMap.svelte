@@ -21,8 +21,4 @@
         max-width: 72px;
         aspect-ratio: 1;
     }
-
-    .active {
-        /* Style from app */
-    }
 </style>

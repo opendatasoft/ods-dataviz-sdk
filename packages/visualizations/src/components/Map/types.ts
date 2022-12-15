@@ -121,7 +121,7 @@ export interface ChoroplethShapeVectorTilesValue {
     key: string;
     label?: string;
     minZoom?: number;
-    maxZoom? :number;
+    maxZoom?: number;
 }
 
 export interface ChoroplethFixedTooltipDescription {
