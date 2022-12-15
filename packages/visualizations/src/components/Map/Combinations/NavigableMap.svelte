@@ -43,7 +43,7 @@
         <VectorChoropleth {data} options={vectorOptions} />
     </div>
     <!-- Working with index is safe since we don't add/remove items -->
-    <div class="buttons" style="--nav-maps-width: {navMapsWidth}px">
+    <div class="buttons" style="--nav-map-buttons--width-vertical: {navMapsWidth}px">
         {#each navigationMaps as map, i}
             <MiniMap
                 {data}
@@ -61,10 +61,10 @@
         display: flex;
         flex-direction: column;
         width: 100%;
-        aspect-ratio: var(--aspect-ratio);
     }
 
     .main {
+        aspect-ratio: var(--aspect-ratio);
         flex-grow: 1;
         position: relative;
         display: block;
@@ -72,25 +72,10 @@
 
     .buttons {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(52px, 72px));
-        grid-auto-flow: row;
-        grid-auto-rows: minmax(52px, 72px);
-        justify-content: flex-start;
-    }
-
-    /*for external use of .horizontal
-    * Name is "uniquish" because it is not scoped like the other classes
-    */
-    :global(.ods-skd__nav-map--horizontal .maps-container) {
-        flex-direction: row;
-    }
-
-    :global(.ods-skd__nav-map--horizontal .maps-container .buttons) {
-        max-width: var(--nav-maps-width);
-        display: grid;
-        grid-template-rows: repeat(auto-fit, minmax(52px, 72px));
-        grid-auto-flow: column;
-        grid-auto-columns: minmax(52px, 72px);
+        grid: auto-flow minmax(52px, 72px) / repeat(auto-fit, minmax(52px, 72px));
+        /* to be used with grid: * * * shorthand */
+        --nav-map-buttons--vertical: repeat(auto-fit, minmax(52px, 72px)) / auto-flow
+            minmax(52px, 72px);
         justify-content: flex-start;
     }
 </style>
