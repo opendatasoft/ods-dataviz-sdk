@@ -1,4 +1,4 @@
-import { FC, ForwardedRef } from 'react';
+import { FC } from 'react';
 import {
     DataFrame,
     NavigableMap as _NavigableMap,
