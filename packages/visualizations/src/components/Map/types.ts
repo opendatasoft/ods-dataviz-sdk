@@ -57,6 +57,7 @@ export interface ChoroplethVectorTilesOptions extends ChoroplethOptions {
 export type NavigationMap = {
     shapes: FeatureCollection;
     bbox: BBox;
+    label: string;
 };
 
 export type NavigableChoroplethOptions = ChoroplethVectorTilesOptions & {
