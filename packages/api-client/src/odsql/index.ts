@@ -185,6 +185,13 @@ export const date = ({ year, month, day }: { year: number; month?: number; day?:
  */
 export const dateFromIsoString = (dateStr: string) => `date'${dateStr}'`;
 
+/* Very random, could be any other ODSQL helper… */
+export const search = (text: string) => `search("${text}")`;
+export const fieldSelect = (
+    { column, value }
+    : { column: string, value: string }
+) => `${field(column)}:${string(value)}`;
+
 export const all = (...conditions: (string | undefined | null)[]) =>
     conditions
         .filter(Boolean)
