@@ -5,6 +5,7 @@
     import Tooltip from './Tooltip.svelte';
 
     export let active: boolean;
+    export let showTooltip: boolean;
     export let data: { value: ChoroplethDataValue[] };
     export let map: NavigationMap;
     export let colorScale: ColorScale | undefined;
@@ -13,11 +14,17 @@
     $: options = { shapes: map.shapes, colorScale };
 </script>
 
-<Tooltip {label}>
+{#if showTooltip}
+    <Tooltip {label}>
+        <button type="button" class:active on:click>
+            <SvgChoropleth {data} {options} />
+        </button>
+    </Tooltip>
+{:else}
     <button type="button" class:active on:click>
         <SvgChoropleth {data} {options} />
     </button>
-</Tooltip>
+{/if}
 
 <style>
     button {

@@ -11,6 +11,9 @@
 
     $: ({ navigationMaps, colorScale, bbox, ...mainOptions } = options);
 
+    const defaultInteractive = true;
+    $: ({ interactive = defaultInteractive } = options);
+
     let viewBox: BBox | undefined;
     $: viewBox = bbox;
 
@@ -50,6 +53,7 @@
                 {map}
                 {colorScale}
                 active={active === i}
+                showTooltip={interactive}
                 on:click={setViewBox(map, i)}
             />
         {/each}

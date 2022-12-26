@@ -39,7 +39,7 @@
     .tooltip {
         position: absolute;
         z-index: 100;
-        padding: 13px;
+        padding: 6px;
         border-radius: 6px;
         box-shadow: 0px 6px 13px rgba(0, 0, 0, 0.26);
         background: white;

@@ -1,7 +1,11 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ColorScaleTypes, NavigableChoroplethOptions , DataFrame } from '@opendatasoft/visualizations';
-import * as turf from "@turf/turf";
+import {
+    ColorScaleTypes,
+    NavigableChoroplethOptions,
+    DataFrame,
+} from '@opendatasoft/visualizations';
+import * as turf from '@turf/turf';
 import { NavigableMap, Props } from '../../src';
 import { shapesTiles, regShapes, dataReg } from './data';
 
@@ -11,17 +15,19 @@ const meta: ComponentMeta<typeof NavigableMap> = {
 };
 export default meta;
 
-const makeMiniMaps = (n: number) => [...Array(n)].map((_, i) => {
-    const feature = regShapes.features[i % regShapes.features.length];
-    const bbox = turf.bbox(feature);
-    return {
-        shapes: {
-            type: 'FeatureCollection' as const,
-            features: [feature],
-        },
-        bbox,
-    };
-});   
+const makeMiniMaps = (n: number) =>
+    [...Array(n)].map((_, i) => {
+        const feature = regShapes.features[i % regShapes.features.length];
+        const bbox = turf.bbox(feature);
+        return {
+            shapes: {
+                type: 'FeatureCollection' as const,
+                features: [feature],
+            },
+            label: feature.properties?.name,
+            bbox,
+        };
+    });
 
 // We pass a number of maps to generate them for the story
 type Args = Props<DataFrame, Omit<NavigableChoroplethOptions, 'navigationMaps'>> & {
@@ -50,9 +56,9 @@ const NavStory = ({ numMaps, ...args }: Args) => {
     );
 };
 
-const Template: ComponentStory<typeof NavStory> = args => <NavStory {...args} />;
+const Template: ComponentStory<typeof NavStory> = (args) => <NavStory {...args} />;
 
-export const NavMapStory = Template.bind({}); 
+export const NavMapStory = Template.bind({});
 
 NavMapStory.argTypes = {
     numMaps: {
@@ -61,8 +67,8 @@ NavMapStory.argTypes = {
             min: 1,
             max: 25,
             step: 1,
-        }
-    }
+        },
+    },
 };
 
 NavMapStory.args = {
