@@ -62,7 +62,7 @@ export interface MapLegend {
  */
 export type TooltipParams = {
     /** Numeric value of the shape */
-    value?: string;
+    value?: number;
     /** Label of the shape */
     label: string;
     /** Value of the key used to match shapes and numeric data */

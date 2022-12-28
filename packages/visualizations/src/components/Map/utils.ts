@@ -269,7 +269,7 @@ export const computeTooltip: ComputeTooltipFunction = (
     }
 
     const tooltipRawValues: TooltipParams = {
-        value: matchedFeature?.y.toString(),
+        value: matchedFeature?.y,
         label: tooltipLabel,
         key: hoveredFeature.properties?.[matchKey], // === matchedFeature.x
     };
