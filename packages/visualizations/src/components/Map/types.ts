@@ -18,7 +18,7 @@ export interface ChoroplethOptions {
     emptyValueColor?: Color;
     /** Configuration for the content of the tooltips that are displayed on hover/touch. */
     tooltip?: {
-        labelFormatter?: ChoroplethTooltipFormatter;
+        formatter?: ChoroplethTooltipFormatter;
         /** Custom configuration to define how to get a label for each shapes.
          *
          * By default, the label will be taken from a `label` property in the shapes if it exists, or fallback to the key used to map the data and shapes. */
@@ -32,8 +32,6 @@ export interface ChoroplethOptions {
     title?: string;
     /** Subtitle of the map */
     subtitle?: string;
-    /** Custom formatting function to display data value */
-    valueFormatter?: (value: number) => string;
 }
 
 export interface MapFilter {

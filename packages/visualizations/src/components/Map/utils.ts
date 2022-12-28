@@ -268,19 +268,12 @@ export const computeTooltip: ComputeTooltipFunction = (
         }
     }
 
-    let value = '';
-    if (matchedFeature?.y) {
-        value = options?.valueFormatter
-            ? options?.valueFormatter(matchedFeature?.y)
-            : matchedFeature.y.toString();
-    }
-
     const tooltipRawValues: TooltipParams = {
-        value,
+        value: matchedFeature?.y.toString(),
         label: tooltipLabel,
         key: hoveredFeature.properties?.[matchKey], // === matchedFeature.x
     };
-    const format = options?.tooltip?.labelFormatter;
+    const format = options?.tooltip?.formatter;
 
     return format ? format(tooltipRawValues) : defaultTooltipFormat(tooltipRawValues);
 };
