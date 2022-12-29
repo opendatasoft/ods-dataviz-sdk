@@ -1,7 +1,7 @@
 import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
 import type { FillLayerSpecification, Popup } from 'maplibre-gl';
 import type { DebouncedFunc } from 'lodash';
-import type { ColorScale, Color } from '../types';
+import type { ColorScale, Color, LegendPositions } from '../types';
 
 export interface ChoroplethOptions {
     /** Configuration for the color scale used to color the choropleth shapes. */
@@ -18,7 +18,7 @@ export interface ChoroplethOptions {
     emptyValueColor?: Color;
     /** Configuration for the content of the tooltips that are displayed on hover/touch. */
     tooltip?: {
-        labelFormatter?: ChoroplethTooltipFormatter;
+        formatter?: ChoroplethTooltipFormatter;
         /** Custom configuration to define how to get a label for each shapes.
          *
          * By default, the label will be taken from a `label` property in the shapes if it exists, or fallback to the key used to map the data and shapes. */
@@ -35,6 +35,10 @@ export interface ChoroplethOptions {
     viewBox?: BBox | undefined;
     /** Attribution to display on the map */
     attribution?: string;
+    /** Title of the map */
+    title?: string;
+    /** Subtitle of the map */
+    subtitle?: string;
 }
 
 export interface MapFilter {
@@ -68,6 +72,8 @@ export type NavigableChoroplethOptions = ChoroplethVectorTilesOptions & {
 
 export interface MapLegend {
     title?: string;
+    /** Position the legend displayed for the choropleth */
+    position?: LegendPositions;
 }
 
 /** Function used to render an HTML Tooltip depending on the shape the user
