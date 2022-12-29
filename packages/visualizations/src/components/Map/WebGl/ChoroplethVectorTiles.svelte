@@ -42,6 +42,8 @@
     let attribution: string | undefined;
     let filter: MapFilter | undefined;
     let filterExpression: (string | string[])[] | undefined;
+    let title: string | undefined;
+    let subtitle: string | undefined;
 
     // Used to apply a chosen color for shapes without values (default: #cccccc)
     let emptyValueColor: Color;
@@ -63,6 +65,8 @@
         bbox,
         filter,
         attribution,
+        title,
+        subtitle,
     } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
@@ -131,6 +135,8 @@
         {filterExpression}
         {matchKey}
         {attribution}
+        {title}
+        {subtitle}
     />
 </div>
 

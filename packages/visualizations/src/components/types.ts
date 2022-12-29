@@ -16,6 +16,11 @@ export interface DataBounds {
 
 export type LegendVariant = 'fluid' | 'fixed';
 
+export enum LegendPositions {
+    Right = 'right',
+    Left = 'left',
+}
+
 export enum ColorScaleTypes {
     Gradient = 'gradient',
     Palette = 'palette',

@@ -17,7 +17,7 @@ import type {
     ComputeTooltipFunction,
     ChoroplethLayer,
 } from './types';
-import { ChoroplethTooltipMatcherTypes } from './types';
+import { ChoroplethTooltipMatcherTypes, TooltipParams } from './types';
 
 export const LIGHT_GREY: Color = '#CBD2DB';
 export const DARK_GREY: Color = '#515457';
@@ -268,16 +268,12 @@ export const computeTooltip: ComputeTooltipFunction = (
         }
     }
 
-    const tooltipRawValues: {
-        value?: number;
-        label: string;
-        key: string;
-    } = {
+    const tooltipRawValues: TooltipParams = {
         value: matchedFeature?.y,
         label: tooltipLabel,
         key: hoveredFeature.properties?.[matchKey], // === matchedFeature.x
     };
-    const format = options?.tooltip?.labelFormatter;
+    const format = options?.tooltip?.formatter;
 
     return format ? format(tooltipRawValues) : defaultTooltipFormat(tooltipRawValues);
 };

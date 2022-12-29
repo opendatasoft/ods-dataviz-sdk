@@ -50,6 +50,10 @@
     export let filterExpression: FilterSpecification | undefined | null = null;
     // Used to determine on which key match data and shapes
     export let matchKey: string;
+    // Title of the map
+    export let title: string | undefined;
+    // Subtitle of the map
+    export let subtitle: string | undefined;
 
     let clientWidth: number;
     let legendVariant: LegendVariant;
@@ -301,9 +305,29 @@
 </script>
 
 <figure class="map-card" style={cssVarStyles} bind:clientWidth>
+    {#if title || subtitle}
+        <figcaption>
+            {#if title}
+                <h3>
+                    {title}
+                </h3>
+            {/if}
+            {#if subtitle}
+                <p>
+                    {subtitle}
+                </p>
+            {/if}
+        </figcaption>
+    {/if}
     <div id="map" bind:this={container} />
     {#if legend && dataBounds && clientWidth && mapReady}
-        <ColorsLegend {dataBounds} {colorScale} variant={legendVariant} title={legend.title} />
+        <ColorsLegend
+            {dataBounds}
+            {colorScale}
+            variant={legendVariant}
+            title={legend.title}
+            position={legend.position}
+        />
     {/if}
 </figure>
 
