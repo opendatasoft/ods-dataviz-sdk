@@ -102,6 +102,7 @@
             center: defaultCenter,
             zoom: 5,
             customAttribution: attribution,
+            renderWorldCopies: false,
         };
 
         map = new maplibregl.Map({
