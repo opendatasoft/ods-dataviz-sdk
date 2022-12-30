@@ -208,3 +208,67 @@ export const list = (...values: (string | undefined | null)[]) => values.filter(
 
 export const not = (condition: string | undefined | null) =>
     condition ? `not (${condition})` : '';
+
+/* Very random, could be date, all fields, IN… */
+export const search = (text: string) => `search("${text}")`;
+export const fieldSelect = ({ column, value }: { column: string; value: string }) =>
+    `${field(column)}:${string(value)}`;
+/* POC Utiles for compoosing Where clauses */
+type Operator = typeof search | typeof fieldSelect;
+/* Ideally we type like Value[Operator] or something */
+export type Clause = { operator: Operator; value?: any };
+
+/* Maybe one function per odperator? Lik addSearchClause, addSelectClause etc. */
+export const addClause = (operator: Operator, clauses: Clause[]) => {
+    const clause: Clause = { operator };
+    
+    const set = (value: string) => {
+        clause.value = value;
+    };
+
+    const clear = () => {
+        delete clause.value;
+    };
+
+    return { set, clear, clauses: [...clauses, clause] };
+};
+
+const applyClause = (query: Query, clause: Clause) => query.where(
+    (filter) => all(filter, clause.operator(clause.value))
+);
+export const makeQueryAdapter = (query: Query, clauses: Clause[]) => clauses.reduce<Query>(applyClause, query);
+
+/* OLD Version that kept an internal state.
+It can seem useful, but it hides the state, making it difficult to react.
+Plus we mutate things more… which always lead to trouble 
+
+Used like const { addClause, getClause } * composeClause();
+const { set, clear } = accClauseooperator);
+
+Class could work as well
+*/
+
+export const composeClauses = () => {
+    const clauses: Clause[] = [];
+
+    const addClause = (operator: Operator) => {
+        const clause: Clause = { operator }; // value undefined at this point
+        clauses.push = clause;
+
+        const set = (value: any) => {
+            clause.value = value;
+        }; 
+        
+        const clear = () => {
+            delete clause.value;
+        };
+
+        return { set, clear };
+    };
+
+    const getClauses = () => clauses;
+
+    const queryAdapter = (query: Query) => clauses.reduce<Query>(applyClause, query);
+
+    return { addClause, getClauses, queryAdapter };
+};

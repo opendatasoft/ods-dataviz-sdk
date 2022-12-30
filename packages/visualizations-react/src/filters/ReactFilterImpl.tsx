@@ -1,4 +1,4 @@
-import { BaseFilter, FilterStore } from '@opendatasoft/visualizations';
+import { BaseFilter } from '@opendatasoft/visualizations';
 import React, { FC, ForwardedRef, forwardRef, useEffect, useRef } from 'react';
 import { useMergeRefs } from 'use-callback-ref';
 import { FilterProps } from './Props';
@@ -7,7 +7,7 @@ import { FilterProps } from './Props';
 
 // Represent one of our component class's constructor like Chart
 type ComponentConstructor<Options, ComponentClass extends BaseFilter<Options>> =
-    new (container: HTMLElement, filterStore: FilterStore, options: Options) => ComponentClass;
+    new (container: HTMLElement, options: Options) => ComponentClass;
 
 // The wrapper build a function component for the given component class
 export default function wrap<Options, ComponentClass extends BaseFilter<Options>>(
@@ -15,7 +15,7 @@ export default function wrap<Options, ComponentClass extends BaseFilter<Options>
 ): FC<FilterProps<Options>> {
     // We use forwardRef to forward the actual ref of the container
     return forwardRef((props: FilterProps<Options>, forwardedRef: ForwardedRef<HTMLElement>) => {
-        const { tag, filterStore, options, ...elementProps } = props;
+        const { tag, options, ...elementProps } = props;
 
         // This ref will hold our SDK component instance
         const componentRef = useRef<ComponentClass | null>(null);
@@ -23,11 +23,6 @@ export default function wrap<Options, ComponentClass extends BaseFilter<Options>
         const containerRef = useRef<HTMLElement | null>(null);
         // By merging container ref and forwarded ref parent component could also access the container ref !
         const ref = useMergeRefs([forwardedRef, containerRef]);
-
-        // Update data (put before creating the component to skip the initial render)
-        useEffect(() => {
-            componentRef.current?.updateFilterStore(filterStore);
-        }, [filterStore]);
 
         // Update options (put before creating the component to skip the initial render)
         useEffect(() => {
@@ -38,7 +33,7 @@ export default function wrap<Options, ComponentClass extends BaseFilter<Options>
         useEffect(() => {
             const container = containerRef.current;
             if (container) {
-                const component = new ComponentConstructor(container, filterStore, options);
+                const component = new ComponentConstructor(container, options);
                 componentRef.current = component;
                 return () => {
                     component.destroy();

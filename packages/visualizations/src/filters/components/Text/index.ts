@@ -1,7 +1,7 @@
 import TextImpl from './Text.svelte';
-import SvelteFilterImpl from '../SvelteFilterImpl';
+import SvelteImpl from '../../../components/SvelteImpl';
 
-export default class Text extends SvelteFilterImpl<{}> {
+export default class Text extends SvelteImpl<null, any> {
     protected getSvelteComponentClass(): typeof TextImpl {
         return TextImpl;
     }

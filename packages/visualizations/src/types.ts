@@ -1,5 +1,3 @@
-import type FilterStore from "./filters/filterStore";
-
 export interface Async<T> {
     value?: T;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -49,23 +47,23 @@ export abstract class BaseComponent<Data, Options> {
 export abstract class BaseFilter<Options> {
     readonly container: HTMLElement;
 
-    protected filterStore: FilterStore;
+    // protected filterStore: FilterStore;
 
     protected options: Options;
 
-    constructor(container: HTMLElement, filterStore: FilterStore, options: Options) {
+    constructor(container: HTMLElement, options: Options) {
         this.container = container;
-        this.filterStore = filterStore;
+        // this.filterStore = filterStore;
         this.options = options;
         this.onCreate();
     }
 
-    public updateFilterStore(newFilterStore: FilterStore): void {
-        const oldFilterStore = this.filterStore;
-        this.filterStore = newFilterStore;
-        // FIXME: Why old? (copied from BaseComponent)
-        this.onFilterStoreUpdated(oldFilterStore);
-    }
+    // public updateFilterStore(newFilterStore: FilterStore): void {
+    //     const oldFilterStore = this.filterStore;
+    //     this.filterStore = newFilterStore;
+    //     // FIXME: Why old? (copied from BaseComponent)
+    //     this.onFilterStoreUpdated(oldFilterStore);
+    // }
 
     public updateOptions(newOptions: Options): void {
         const oldOptions = this.options;
@@ -79,7 +77,7 @@ export abstract class BaseFilter<Options> {
 
     protected abstract onCreate(): void;
 
-    protected abstract onFilterStoreUpdated(oldData: FilterStore): void;
+    // protected abstract onFilterStoreUpdated(oldData: FilterStore): void;
 
     protected abstract onOptionsUpdated(oldOptions: Options): void;
 
