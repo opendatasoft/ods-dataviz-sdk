@@ -207,7 +207,7 @@ export const StudioChoroplethVectorLegendLeft = Template.bind({});
 const StudioChoroplethVectorLegendLeftArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
     data: {
         loading: false,
-        value: dataF,
+        value: dataReg,
     },
     options: {
         shapesTiles,
@@ -239,7 +239,7 @@ export const StudioChoroplethVectorLegendRight = Template.bind({});
 const StudioChoroplethVectorLegendRightArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
     data: {
         loading: false,
-        value: dataF,
+        value: dataReg,
     },
     options: {
         shapesTiles,

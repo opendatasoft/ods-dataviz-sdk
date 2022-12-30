@@ -34,7 +34,6 @@
     let aspectRatio: number | undefined;
     let renderTooltip: MapRenderTooltipFunction;
     let bbox: BBox | undefined;
-    let viewBox: BBox | undefined;
     let activeShapes: string[] | undefined;
     let interactive: boolean;
     let legend: MapLegend | undefined;
