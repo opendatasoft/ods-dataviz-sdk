@@ -185,13 +185,6 @@ export const date = ({ year, month, day }: { year: number; month?: number; day?:
  */
 export const dateFromIsoString = (dateStr: string) => `date'${dateStr}'`;
 
-/* Very random, could be any other ODSQL helper… */
-export const search = (text: string) => `search("${text}")`;
-export const fieldSelect = (
-    { column, value }
-    : { column: string, value: string }
-) => `${field(column)}:${string(value)}`;
-
 export const all = (...conditions: (string | undefined | null)[]) =>
     conditions
         .filter(Boolean)
@@ -209,6 +202,7 @@ export const list = (...values: (string | undefined | null)[]) => values.filter(
 export const not = (condition: string | undefined | null) =>
     condition ? `not (${condition})` : '';
 
+/* POC FILTRES */
 /* Very random, could be date, all fields, IN… */
 export const search = (text: string) => `search("${text}")`;
 export const fieldSelect = ({ column, value }: { column: string; value: string }) =>
@@ -219,24 +213,11 @@ type Operator = typeof search | typeof fieldSelect;
 export type Clause = { operator: Operator; value?: any };
 
 /* Maybe one function per odperator? Lik addSearchClause, addSelectClause etc. */
-export const addClause = (operator: Operator, clauses: Clause[]) => {
-    const clause: Clause = { operator };
-    
-    const set = (value: string) => {
-        clause.value = value;
-    };
-
-    const clear = () => {
-        delete clause.value;
-    };
-
-    return { set, clear, clauses: [...clauses, clause] };
-};
 
 const applyClause = (query: Query, clause: Clause) => query.where(
     (filter) => all(filter, clause.operator(clause.value))
 );
-export const makeQueryAdapter = (query: Query, clauses: Clause[]) => clauses.reduce<Query>(applyClause, query);
+export const makeQueryAdapter = (clauses: Clause[]) => (query: Query) => clauses.reduce<Query>(applyClause, query);
 
 /* OLD Version that kept an internal state.
 It can seem useful, but it hides the state, making it difficult to react.
@@ -253,7 +234,7 @@ export const composeClauses = () => {
 
     const addClause = (operator: Operator) => {
         const clause: Clause = { operator }; // value undefined at this point
-        clauses.push = clause;
+        clauses.push(clause);
 
         const set = (value: any) => {
             clause.value = value;
