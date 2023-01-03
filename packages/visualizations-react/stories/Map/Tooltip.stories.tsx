@@ -64,7 +64,7 @@ const CustomSimpleTooltipArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
         aspectRatio: 1,
         activeShapes: ['Corsica'],
         tooltip: {
-            formatter: (feature: TooltipParams) =>
+            labelFormatter: (feature: TooltipParams) =>
                 `Hello I'm <div style="color: red">${
                     feature.label
                 }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
@@ -88,7 +88,7 @@ const CustomComplexTooltipArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
         aspectRatio: 1,
         activeShapes: ['Île de France'],
         tooltip: {
-            formatter: (
+            labelFormatter: (
                 feature: TooltipParams
             ) => `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center">
                         <h2 style="border-bottom: 1px solid lightgrey">${feature.label}</h2>

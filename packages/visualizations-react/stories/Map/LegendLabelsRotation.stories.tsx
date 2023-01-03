@@ -16,7 +16,7 @@ const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
 export default meta;
 
 const tooltip = {
-    formatter: (feature: TooltipParams) =>
+    labelFormatter: (feature: TooltipParams) =>
         `Hello I'm <div style="color: red">${
             feature.label
         }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,

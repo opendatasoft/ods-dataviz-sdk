@@ -262,7 +262,7 @@ export const computeTooltip: ComputeTooltipFunction = (
         label: tooltipLabel,
         key: hoveredFeature.properties?.[matchKey], // === matchedFeature.x
     };
-    const format = options?.tooltip?.formatter;
+    const format = options?.tooltip?.labelFormatter;
 
     return format ? format(tooltipRawValues) : defaultTooltipFormat(tooltipRawValues);
 };
