@@ -30,7 +30,6 @@
     button {
         cursor: pointer; /* Override user agent stylesheet */
         height: 100%;
-        flex: 1;
         min-width: 52px;
         max-width: 72px;
         aspect-ratio: 1;
