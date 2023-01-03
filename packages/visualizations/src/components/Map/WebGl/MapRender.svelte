@@ -16,12 +16,16 @@
     import type { BBox } from 'geojson';
     import { computeMaxZoomFromGeoJsonFeatures, getFixedTooltips } from '../utils';
     import ColorsLegend from '../../utils/ColorsLegend.svelte';
+    import BackButton from '../../utils/BackButton.svelte';
+    import MiniMap from '../../utils/MiniMap.svelte';
     import type { ColorScale, DataBounds, LegendVariant } from '../../types';
     import type {
         ChoroplethFixedTooltipDescription,
         MapLayer,
         MapRenderTooltipFunction,
         MapLegend,
+        NavigationMap,
+        ChoroplethDataValue,
     } from '../types';
 
     // maplibre style (basemap)
@@ -54,6 +58,9 @@
     export let title: string | undefined;
     // Subtitle of the map
     export let subtitle: string | undefined;
+    // Navigation maps
+    export let navigationMaps: NavigationMap[] | undefined;
+    export let data: { value: ChoroplethDataValue[] };
 
     let clientWidth: number;
     let legendVariant: LegendVariant;
@@ -315,9 +322,28 @@
             .setHTML(description)
             .addTo(map);
     });
+
+    let active: number | undefined;
+    let height: number;
+
+    const setViewBoxFromButton = (mapSVG: NavigationMap, i: number) => () => {
+        viewBox = mapSVG.bbox;
+        active = i;
+    };
+
+    const resetViewBoxFromButton = () => {
+        active = undefined;
+        viewBox = bbox;
+    };
+
+    /* Number of column x largest colmuns.
+     * The maps will then auto-adjust between 52 and 72 to fit the best
+     * It's stable and doesn't involves too much JS computaton either.
+     */
+    $: navMapsWidth = (height && navigationMaps) ? Math.ceil((navigationMaps.length * 72) / height) * 72 : 72;
 </script>
 
-<figure class="map-card" style={cssVarStyles} bind:clientWidth>
+<figure class="map-card maps-container" style={cssVarStyles} bind:clientWidth>
     {#if title || subtitle}
         <figcaption>
             {#if title}
@@ -332,7 +358,12 @@
             {/if}
         </figcaption>
     {/if}
-    <div id="map" bind:this={container} />
+    <div class="main">
+        {#if navigationMaps && active !== undefined}
+            <BackButton on:click={resetViewBoxFromButton} />
+        {/if}
+        <div id="map" bind:this={container} />
+    </div>
     {#if legend && dataBounds && clientWidth && mapReady}
         <ColorsLegend
             {dataBounds}
@@ -341,6 +372,21 @@
             title={legend.title}
             position={legend.position}
         />
+    {/if}
+    <!-- Working with index is safe since we don't add/remove items -->
+    {#if navigationMaps}
+        <div class="buttons" style="--nav-map-buttons--width-vertical: {navMapsWidth}px">
+            {#each navigationMaps as map, i}
+                <MiniMap
+                    {data}
+                    {map}
+                    {colorScale}
+                    active={active === i}
+                    showTooltip={interactive}
+                    on:click={setViewBoxFromButton(map, i)}
+                />
+            {/each}
+        </div>
     {/if}
 </figure>
 
@@ -371,5 +417,20 @@
         border-bottom-color: transparent;
         border-left-color: transparent;
         border-right-color: transparent;
+    }
+
+    .main {
+        aspect-ratio: var(--aspect-ratio);
+        flex-grow: 1;
+        position: relative;
+        display: block;
+    }
+    .buttons {
+        display: grid;
+        grid: auto-flow minmax(52px, 72px) / repeat(auto-fit, minmax(52px, 72px));
+        /* to be used with grid: * * * shorthand */
+        --nav-map-buttons--vertical: repeat(auto-fit, minmax(52px, 72px)) / auto-flow
+            minmax(52px, 72px);
+        justify-content: flex-start;
     }
 </style>

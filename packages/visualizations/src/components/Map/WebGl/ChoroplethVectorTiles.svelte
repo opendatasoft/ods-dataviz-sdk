@@ -25,6 +25,7 @@
         MapLegend,
         MapFilter,
         MapRenderTooltipFunction,
+        NavigationMap,
     } from '../types';
 
     export let data: { value: ChoroplethDataValue[] }; // values, and the key to match
@@ -45,6 +46,7 @@
     let filterExpression: (string | string[])[] | undefined;
     let title: string | undefined;
     let subtitle: string | undefined;
+    let navigationMaps: NavigationMap[] | undefined;
 
     // Used to apply a chosen color for shapes without values (default: #cccccc)
     let emptyValueColor: Color;
@@ -69,6 +71,7 @@
         attribution,
         title,
         subtitle,
+        navigationMaps,
     } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
@@ -145,6 +148,8 @@
     {attribution}
     {title}
     {subtitle}
+    {navigationMaps}
+    {data}
 />
 
 <style>

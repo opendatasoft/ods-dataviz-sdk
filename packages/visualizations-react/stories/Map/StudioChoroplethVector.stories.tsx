@@ -1,5 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
+import * as turf from '@turf/turf';
 import {
     ColorScaleTypes,
     DataFrame,
@@ -10,7 +11,7 @@ import {
     LegendPositions,
 } from '@opendatasoft/visualizations';
 import { ChoroplethVectorTiles, Props } from '../../src';
-import { shapesTiles, dataReg } from './data';
+import { shapesTiles, regShapes, dataReg } from './data';
 
 const meta: ComponentMeta<typeof ChoroplethVectorTiles> = {
     title: 'Map/ChoroplethVector',
@@ -23,7 +24,19 @@ const meta: ComponentMeta<typeof ChoroplethVectorTiles> = {
     },
 };
 
-
+const makeMiniMaps = (n: number) =>
+    [...Array(n)].map((_, i) => {
+        const feature = regShapes.features[i % regShapes.features.length];
+        const bbox = turf.bbox(feature);
+        return {
+            shapes: {
+                type: 'FeatureCollection' as const,
+                features: [feature],
+            },
+            label: feature.properties?.name || `Default label shape number ${i}`,
+            bbox,
+        };
+    });
 
 const defaultLabelCallback: ChoroplethTooltipFormatter = ({ label, value }: TooltipParams) =>
     `<b>${label}:</b> ${value}`;
@@ -266,6 +279,35 @@ const StudioChoroplethVectorLegendRightArgs: Props<DataFrame, ChoroplethVectorTi
     },
 };
 StudioChoroplethVectorLegendRight.args = StudioChoroplethVectorLegendRightArgs;
+
+export const StudioChoroplethNavigationMapButtons = Template.bind({});
+const StudioChoroplethNavigationMapButtonsArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
+    data: {
+        loading: false,
+        value: dataReg,
+    },
+    options: {
+        shapesTiles,
+        colorScale: {
+            type: ColorScaleTypes.Gradient,
+            colors: {
+                start: '#bcf5f9',
+                end: '#0229bf',
+            },
+        },
+        legend: {
+            title: 'I Am Legend',
+        },
+        aspectRatio: 1,
+        activeShapes: ['11', '93'],
+        emptyValueColor: 'red',
+        tooltip: {
+            labelFormatter: defaultLabelCallback,
+        },
+        navigationMaps: [...makeMiniMaps(15),],
+    },
+};
+StudioChoroplethNavigationMapButtons.args = StudioChoroplethNavigationMapButtonsArgs;
 
 /* The next story was used for the demo, but its too big for chromatic, keeping it hear for future ref on loading/wathever */
 // const LoaderTemplate: ComponentStory<typeof Choropleth> = (args, { loaded: { data } }) => (

@@ -1,5 +1,6 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import * as turf from '@turf/turf';
 import {
     ChoroplethGeoJsonOptions,
     TooltipParams,
@@ -16,6 +17,20 @@ const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
     title: 'Map/Choropleth',
     component: ChoroplethGeoJson,
 };
+
+const makeMiniMaps = (n: number) =>
+    [...Array(n)].map((_, i) => {
+        const feature = shapes.features[i % shapes.features.length];
+        const bbox = turf.bbox(feature);
+        return {
+            shapes: {
+                type: 'FeatureCollection' as const,
+                features: [feature],
+            },
+            label: feature.properties?.name || `Default label shape number ${i}`,
+            bbox,
+        };
+    });
 
 const df = [
     { x: 'France', y: 60 },
@@ -337,3 +352,32 @@ const StudioChoroplethLegendRightArgs: Props<DataFrame, ChoroplethGeoJsonOptions
     },
 };
 StudioChoroplethLegendRight.args = StudioChoroplethLegendRightArgs;
+
+export const StudioChoroplethNavigationMapButtons = Template.bind({});
+const StudioChoroplethNavigationMapButtonsArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
+    data: {
+        loading: false,
+        value: [
+            { x: 'France', y: 60.04854 },
+            { x: 'Île de France', y: 35 },
+            { x: 'Corsica', y: 95.054 },
+        ],
+    },
+    options: {
+        shapes,
+        emptyValueColor: 'red',
+        tooltip: {
+            labelFormatter: defaultLabelCallback,
+        },
+        colorScale: {
+            type: ColorScaleTypes.Palette,
+            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+        },
+        aspectRatio: 1,
+        legend: {
+            title: 'I Am Legend',
+        },
+        navigationMaps: [...makeMiniMaps(15),],
+    },
+};
+StudioChoroplethNavigationMapButtons.args = StudioChoroplethNavigationMapButtonsArgs;

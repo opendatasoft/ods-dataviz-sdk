@@ -1,7 +1,7 @@
 <script lang="ts">
-    import SvgChoropleth from '../Svg/Choropleth.svelte';
-    import type { ColorScale } from '../../types';
-    import type { ChoroplethDataValue, NavigationMap } from '../types';
+    import SvgChoropleth from '../Map/Svg/Choropleth.svelte';
+    import type { ColorScale } from '../types';
+    import type { ChoroplethDataValue, NavigationMap } from '../Map/types';
     import Tooltip from './Tooltip.svelte';
 
     export let active: boolean;

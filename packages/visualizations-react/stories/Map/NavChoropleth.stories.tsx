@@ -2,16 +2,16 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import {
     ColorScaleTypes,
-    NavigableChoroplethOptions,
+    ChoroplethOptions,
     DataFrame,
 } from '@opendatasoft/visualizations';
 import * as turf from '@turf/turf';
-import { NavigableMap, Props } from '../../src';
+import { ChoroplethVectorTiles, Props } from '../../src';
 import { shapesTiles, regShapes, dataReg } from './data';
 
-const meta: ComponentMeta<typeof NavigableMap> = {
+const meta: ComponentMeta<typeof ChoroplethVectorTiles> = {
     title: 'Map/NavigableMap',
-    component: NavigableMap,
+    component: ChoroplethVectorTiles,
 };
 export default meta;
 
@@ -30,14 +30,14 @@ const makeMiniMaps = (n: number) =>
     });
 
 // We pass a number of maps to generate them for the story
-type Args = Props<DataFrame, Omit<NavigableChoroplethOptions, 'navigationMaps'>> & {
+type Args = Props<DataFrame, Omit<ChoroplethOptions, 'navigationMaps'>> & {
     numMaps: number;
 };
 
 const NavStory = ({ numMaps, ...args }: Args) => {
     const navigationMaps = makeMiniMaps(numMaps);
     const { data, options } = args;
-    const navOptions: NavigableChoroplethOptions = {
+    const navOptions: ChoroplethOptions = {
         ...options,
         navigationMaps,
     };
@@ -51,12 +51,12 @@ const NavStory = ({ numMaps, ...args }: Args) => {
                 margin: 'auto',
             }}
         >
-            <NavigableMap data={data} options={navOptions} />
+            <ChoroplethVectorTiles data={data} options={navOptions} />
         </div>
     );
 };
 
-const Template: ComponentStory<typeof NavStory> = (args) => <NavStory {...args} />;
+const Template: ComponentStory<typeof NavStory> = args => <NavStory {...args} />;
 
 export const NavMapStory = Template.bind({});
 
