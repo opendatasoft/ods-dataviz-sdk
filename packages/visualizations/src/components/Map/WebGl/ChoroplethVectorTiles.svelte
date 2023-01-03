@@ -77,6 +77,10 @@
     let source: SourceSpecification;
     let dataBounds: DataBounds;
 
+    // MapLibre default zoom
+    const MIN_ZOOM = 0;
+    const MAX_ZOOM = 22;
+
     function computeSourceLayerAndBboxes(
         newShapes: ChoroplethShapeVectorTilesValue,
         newColorScale: ColorScale,
@@ -96,8 +100,8 @@
         source = {
             type: 'vector',
             tiles: [newShapes.url],
-            minzoom: newShapes.minZoom,
-            maxzoom: newShapes.maxZoom,
+            minzoom: newShapes.minZoom || MIN_ZOOM,
+            maxzoom: newShapes.maxZoom || MAX_ZOOM,
         };
 
         layer = {
