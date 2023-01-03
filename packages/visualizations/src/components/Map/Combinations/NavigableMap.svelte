@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { BBox } from 'geojson';
-    import VectorChoropleth from '../WebGl/ChoroplethVectorTiles.svelte';
+    import ChoroplethVectorTiles from '../WebGl/ChoroplethVectorTiles.svelte';
     import type { ChoroplethDataValue, NavigableChoroplethOptions, NavigationMap } from '../types';
 
     import BackButton from './BackButton.svelte';
@@ -43,7 +43,7 @@
         {#if active !== undefined}
             <BackButton on:click={resetViewBox} />
         {/if}
-        <VectorChoropleth {data} options={vectorOptions} />
+        <ChoroplethVectorTiles {data} options={vectorOptions} />
     </div>
     <!-- Working with index is safe since we don't add/remove items -->
     <div class="buttons" style="--nav-map-buttons--width-vertical: {navMapsWidth}px">
