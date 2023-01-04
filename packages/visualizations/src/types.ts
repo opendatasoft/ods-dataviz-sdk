@@ -1,5 +1,3 @@
-import type FilterStore from "./filters/filterStore";
-
 export interface Async<T> {
     value?: T;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -46,25 +44,27 @@ export abstract class BaseComponent<Data, Options> {
     protected abstract onDestroy(): void;
 }
 
+export type HandleFilterCallback = (newFilter: string | null) => void;
+
 export abstract class BaseFilter<Options> {
     readonly container: HTMLElement;
 
-    protected filterStore: FilterStore;
+    protected handleFilter: HandleFilterCallback;
 
     protected options: Options;
 
-    constructor(container: HTMLElement, filterStore: FilterStore, options: Options) {
+    constructor(container: HTMLElement, handleFilter: HandleFilterCallback, options: Options) {
         this.container = container;
-        this.filterStore = filterStore;
+        this.handleFilter = handleFilter;
         this.options = options;
         this.onCreate();
     }
 
-    public updateFilterStore(newFilterStore: FilterStore): void {
-        const oldFilterStore = this.filterStore;
-        this.filterStore = newFilterStore;
+    public updateHandleFilter(newHandleFilter: HandleFilterCallback): void {
+        const oldHandleFilter = this.handleFilter;
+        this.handleFilter = newHandleFilter;
         // FIXME: Why old? (copied from BaseComponent)
-        this.onFilterStoreUpdated(oldFilterStore);
+        this.onHandleFilterUpdated(oldHandleFilter);
     }
 
     public updateOptions(newOptions: Options): void {
@@ -79,7 +79,7 @@ export abstract class BaseFilter<Options> {
 
     protected abstract onCreate(): void;
 
-    protected abstract onFilterStoreUpdated(oldData: FilterStore): void;
+    protected abstract onHandleFilterUpdated(oldHandleFilter: HandleFilterCallback): void;
 
     protected abstract onOptionsUpdated(oldOptions: Options): void;
 

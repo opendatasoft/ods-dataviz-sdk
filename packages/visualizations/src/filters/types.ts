@@ -1,6 +1,6 @@
-export type Filter = TextFilter;
-
-export type TextFilter = {
-    type: 'text';
-    value: string;
+/** Event triggered when a filter needs to apply its filter value */
+export type DispatchedFilterEvent = {
+    filter: {
+        value: string | null
+    }
 }

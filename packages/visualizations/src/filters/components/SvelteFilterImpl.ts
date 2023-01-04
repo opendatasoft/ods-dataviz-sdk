@@ -5,22 +5,23 @@ export default abstract class SvelteFilterImpl<Options> extends BaseFilter<Optio
     protected abstract getSvelteComponentClass(): typeof SvelteComponent;
 
     private svelteComponent: SvelteComponent | undefined;
+    private filterListener: (() => void) | undefined;
 
     protected onCreate() {
         const ComponentClass = this.getSvelteComponentClass();
         this.svelteComponent = new ComponentClass({
             target: this.container,
             props: {
-                filterStore: this.filterStore,
                 options: this.options,
             },
         });
+        this.filterListener = this.svelteComponent.$on('filter', e => this.handleFilter(e.detail.value));
     }
 
-    protected onFilterStoreUpdated() {
-        this.svelteComponent?.$$set?.({
-            filterStore: this.filterStore,
-        });
+    protected onHandleFilterUpdated() {
+        // Remove previous handler
+        this.filterListener?.();
+        this.filterListener = this.svelteComponent?.$on('filter', e => this.handleFilter(e.detail.value));
     }
 
     protected onOptionsUpdated() {

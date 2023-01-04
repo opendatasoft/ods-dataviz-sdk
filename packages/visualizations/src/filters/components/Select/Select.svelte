@@ -3,7 +3,7 @@
     This is a minimal implementation of a filter, based on a standard HTML component.
     It mostly exists for demo and documentation purposes, and may be removed at a later time.
     */
-    import { textSearch } from '@opendatasoft/api-client';
+    import { exactMatch } from '@opendatasoft/api-client';
     import { createEventDispatcher } from 'svelte';
     import type { DispatchedFilterEvent } from '../../types';
 
@@ -11,19 +11,25 @@
 
     const dispatch = createEventDispatcher<DispatchedFilterEvent>();
 
-    let value = '';
+    $: ({ fieldName, availableValues } = options);
+
+    let selected = '';
 
     function applyFilter(newValue: string) {
         dispatch("filter", {
-            value: newValue ? textSearch(newValue) : null
+            value: newValue ? exactMatch(fieldName, newValue) : null
         });
     }
 
-    $: applyFilter(value);
+    $: applyFilter(selected);
 </script>
 
 <div>
-    <input type="text" bind:value={value}>
+    <select bind:value={selected}>
+    {#each availableValues as availableValue}
+        <option value={availableValue}>{availableValue}</option>
+    {/each}
+    </select>
 </div>
 
 <style>
