@@ -2,7 +2,7 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import {
     ColorScaleTypes,
-    ChoroplethOptions,
+    ChoroplethVectorTilesOptions,
     DataFrame,
 } from '@opendatasoft/visualizations';
 import * as turf from '@turf/turf';
@@ -30,14 +30,14 @@ const makeMiniMaps = (n: number) =>
     });
 
 // We pass a number of maps to generate them for the story
-type Args = Props<DataFrame, Omit<ChoroplethOptions, 'navigationMaps'>> & {
+type Args = Props<DataFrame, Omit<ChoroplethVectorTilesOptions, 'navigationMaps'>> & {
     numMaps: number;
 };
 
 const NavStory = ({ numMaps, ...args }: Args) => {
     const navigationMaps = makeMiniMaps(numMaps);
     const { data, options } = args;
-    const navOptions: ChoroplethOptions = {
+    const navOptions: ChoroplethVectorTilesOptions = {
         ...options,
         navigationMaps,
     };
