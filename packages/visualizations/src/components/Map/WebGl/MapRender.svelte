@@ -1,4 +1,4 @@
-<!-- <svelte:options immutable={true} /> -->
+<svelte:options immutable={true} />
 <script lang="ts">
     import maplibregl, {
         Map as MapType,
