@@ -10,7 +10,7 @@ import { ChoroplethVectorTiles, Props } from '../../src';
 import { shapesTiles, regShapes, dataReg } from './data';
 
 const meta: ComponentMeta<typeof ChoroplethVectorTiles> = {
-    title: 'Map/NavigableMap',
+    title: 'Map/NavigableMapPlayground',
     component: ChoroplethVectorTiles,
 };
 export default meta;
@@ -58,9 +58,9 @@ const NavStory = ({ numMaps, ...args }: Args) => {
 
 const Template: ComponentStory<typeof NavStory> = args => <NavStory {...args} />;
 
-export const NavMapStory = Template.bind({});
+export const NavMapDynamicPlayground = Template.bind({});
 
-NavMapStory.argTypes = {
+NavMapDynamicPlayground.argTypes = {
     numMaps: {
         control: {
             type: 'range',
@@ -71,7 +71,7 @@ NavMapStory.argTypes = {
     },
 };
 
-NavMapStory.args = {
+NavMapDynamicPlayground.args = {
     numMaps: 5,
     data: {
         value: dataReg,
