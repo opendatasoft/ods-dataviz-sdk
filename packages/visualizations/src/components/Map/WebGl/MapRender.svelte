@@ -324,7 +324,6 @@
     });
 
     let active: number | undefined;
-    let height: number;
 
     const setViewBoxFromButton = (mapSVG: NavigationMap, i: number) => () => {
         viewBox = mapSVG.bbox;
@@ -335,12 +334,6 @@
         active = undefined;
         viewBox = bbox;
     };
-
-    /* Number of column x largest colmuns.
-     * The maps will then auto-adjust between 52 and 72 to fit the best
-     * It's stable and doesn't involves too much JS computaton either.
-     */
-    $: navMapsWidth = (height && navigationMaps) ? Math.ceil((navigationMaps.length * 72) / height) * 72 : 72;
 </script>
 
 <figure class="map-card maps-container" style={cssVarStyles} bind:clientWidth>
@@ -375,7 +368,7 @@
     {/if}
     <!-- Working with index is safe since we don't add/remove items -->
     {#if navigationMaps}
-        <div class="buttons" style="--nav-map-buttons--width-vertical: {navMapsWidth}px">
+        <div class="buttons" style="--buttons-events:{interactive ? "auto": "none"}">
             {#each navigationMaps as map, i}
                 <MiniMap
                     {data}
@@ -428,9 +421,7 @@
     .buttons {
         display: grid;
         grid: auto-flow minmax(52px, 72px) / repeat(auto-fit, minmax(52px, 72px));
-        /* to be used with grid: * * * shorthand */
-        --nav-map-buttons--vertical: repeat(auto-fit, minmax(52px, 72px)) / auto-flow
-            minmax(52px, 72px);
         justify-content: flex-start;
+        pointer-events: var(--buttons-events);
     }
 </style>
