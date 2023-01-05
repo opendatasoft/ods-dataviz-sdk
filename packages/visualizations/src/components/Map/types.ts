@@ -29,7 +29,7 @@ export interface ChoroplethOptions {
     /** Position of the map when rendering.
      * If undefined, will default, in order to:
      * - bbox if specified
-     * - Fit of teh GeoJson with a geojson soruce
+     * - Fit the content if the source is GeoJSON
      * - The world
      */
     viewBox?: BBox | undefined;
