@@ -146,8 +146,10 @@
         resizer = new ResizeObserver(
             debounce(() => {
                 map.resize();
-                if (mapReady && viewBox) {
+                if (mapReady && viewBox && navigationMaps) {
                     setViewBox(viewBox);
+                } else if (mapReady && bbox && !navigationMaps) {
+                    setMaxBounds(bbox);
                 }
             }, 100)
         );
@@ -310,8 +312,11 @@
         handleInteractivity(interactive, renderTooltip);
     }
     $: updateStyle(style);
-    $: if (mapReady) {
+    $: if (mapReady && navigationMaps) {
         setViewBox(viewBox);
+    }
+    $: if (mapReady && bbox && !navigationMaps) {
+        setMaxBounds(bbox);
     }
     $: if (fixedPopupsList?.length > 0 && (activeShapes?.length === 0 || !activeShapes)) {
         fixedPopupsList.forEach((fixedPopup) => fixedPopup.popup.remove());
