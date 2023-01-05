@@ -1,4 +1,5 @@
 <svelte:options immutable={true} />
+
 <script lang="ts">
     import maplibregl, {
         Map as MapType,
@@ -368,7 +369,7 @@
     {/if}
     <!-- Working with index is safe since we don't add/remove items -->
     {#if navigationMaps}
-        <div class="buttons" style="--buttons-events:{interactive ? "auto": "none"}">
+        <div class="buttons" style="--buttons-events:{interactive ? 'auto' : 'none'}">
             {#each navigationMaps as map, i}
                 <MiniMap
                     {data}

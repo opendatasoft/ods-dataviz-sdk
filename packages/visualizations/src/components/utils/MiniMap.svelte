@@ -15,11 +15,16 @@
 </script>
 
 {#if showTooltip}
-        <button type="button" class:active on:click use:tippy={{
+    <button
+        type="button"
+        class:active
+        on:click
+        use:tippy={{
             content: label,
-        }}>
-            <SvgChoropleth {data} {options} />
-        </button>
+        }}
+    >
+        <SvgChoropleth {data} {options} />
+    </button>
 {:else}
     <button type="button" class:active on:click>
         <SvgChoropleth {data} {options} />
