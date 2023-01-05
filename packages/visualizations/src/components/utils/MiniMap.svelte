@@ -36,7 +36,7 @@
         cursor: pointer; /* Override user agent stylesheet */
         height: 100%;
         min-width: 52px;
-        max-width: 72px;
+        max-width: 60px;
         aspect-ratio: 1;
     }
 </style>

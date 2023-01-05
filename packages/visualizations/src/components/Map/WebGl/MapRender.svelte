@@ -421,7 +421,7 @@
     }
     .buttons {
         display: grid;
-        grid: auto-flow minmax(52px, 72px) / repeat(auto-fit, minmax(52px, 72px));
+        grid: auto-flow minmax(52px, 60px) / repeat(auto-fit, minmax(52px, 60px));
         justify-content: flex-start;
         pointer-events: var(--buttons-events);
     }
