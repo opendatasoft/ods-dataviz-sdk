@@ -1,8 +1,8 @@
 <script lang="ts">
+    import tippy from './tippy';
     import SvgChoropleth from '../Map/Svg/Choropleth.svelte';
     import type { ColorScale } from '../types';
     import type { ChoroplethDataValue, NavigationMap } from '../Map/types';
-    import Tooltip from './Tooltip.svelte';
 
     export let active: boolean;
     export let showTooltip: boolean;
@@ -15,11 +15,11 @@
 </script>
 
 {#if showTooltip}
-    <Tooltip {label}>
-        <button type="button" class:active on:click>
+        <button type="button" class:active on:click use:tippy={{
+            content: label,
+        }}>
             <SvgChoropleth {data} {options} />
         </button>
-    </Tooltip>
 {:else}
     <button type="button" class:active on:click>
         <SvgChoropleth {data} {options} />
