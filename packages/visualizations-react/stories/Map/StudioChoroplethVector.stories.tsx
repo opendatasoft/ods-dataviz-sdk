@@ -80,7 +80,7 @@ const StudioChoroplethVectorGradientArgs: Props<DataFrame, ChoroplethVectorTiles
         activeShapes: ['11', '93'],
         emptyValueColor: 'red',
         tooltip: {
-            labelFormatter: defaultLabelCallback,
+            formatter: defaultLabelCallback,
         },
     },
 };
@@ -105,7 +105,7 @@ const StudioChoroplethVectorPaletteArgs: Props<DataFrame, ChoroplethVectorTilesO
         emptyValueColor: 'red',
         bbox: [-17.529298, 38.79776, 23.889159, 52.836618],
         tooltip: {
-            labelFormatter: defaultLabelCallback,
+            formatter: defaultLabelCallback,
         },
     },
 };
@@ -130,7 +130,7 @@ const StudioChoroplethVectorFilterArgs: Props<DataFrame, ChoroplethVectorTilesOp
         aspectRatio: 1,
         bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
         tooltip: {
-            labelFormatter: defaultLabelCallback,
+            formatter: defaultLabelCallback,
             labelMatcher: {
                 type: ChoroplethTooltipMatcherTypes.KeyProperty,
                 key: 'reg_code',
@@ -163,7 +163,7 @@ const StudioChoroplethVectorCustomLabelArgs: Props<DataFrame, ChoroplethVectorTi
         aspectRatio: 1,
         bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
         tooltip: {
-            labelFormatter: defaultLabelCallback,
+            formatter: defaultLabelCallback,
             labelMatcher: {
                 type: ChoroplethTooltipMatcherTypes.KeyMap,
                 mapping: {
@@ -199,7 +199,7 @@ const StudioChoroplethVectorEmptyDataArgs: Props<DataFrame, ChoroplethVectorTile
         aspectRatio: 1,
         bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
         tooltip: {
-            labelFormatter: defaultLabelCallback,
+            formatter: defaultLabelCallback,
             labelMatcher: {
                 type: ChoroplethTooltipMatcherTypes.KeyMap,
                 mapping: {
@@ -238,7 +238,7 @@ const StudioChoroplethVectorLegendLeftArgs: Props<DataFrame, ChoroplethVectorTil
         aspectRatio: 1,
         bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
         tooltip: {
-            labelFormatter: defaultLabelCallback,
+            formatter: defaultLabelCallback,
         },
         filter: {
             key: 'reg_code',
@@ -270,7 +270,7 @@ const StudioChoroplethVectorLegendRightArgs: Props<DataFrame, ChoroplethVectorTi
         aspectRatio: 1,
         bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
         tooltip: {
-            labelFormatter: defaultLabelCallback,
+            formatter: defaultLabelCallback,
         },
         filter: {
             key: 'reg_code',
@@ -302,7 +302,7 @@ const StudioChoroplethNavigationMapButtonsArgs: Props<DataFrame, ChoroplethVecto
         activeShapes: ['11', '93'],
         emptyValueColor: 'red',
         tooltip: {
-            labelFormatter: defaultLabelCallback,
+            formatter: defaultLabelCallback,
         },
         navigationMaps: [...makeMiniMaps(15),],
     },
@@ -366,7 +366,7 @@ StudioChoroplethNavigationMapButtons.args = StudioChoroplethNavigationMapButtons
 //         aspectRatio: 1,
 //         bbox: [-17.529298, 38.79776, 23.889159, 52.836618],
 //         tooltip: {
-//             labelFormatter: defaultLabelCallback,
+//             formatter: defaultLabelCallback,
 //         },
 //     },
 // };

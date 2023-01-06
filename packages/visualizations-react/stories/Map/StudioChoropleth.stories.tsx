@@ -73,7 +73,7 @@ const StudioChoroplethArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
         shapes,
         emptyValueColor: 'red',
         tooltip: {
-            labelFormatter: defaultLabelCallback,
+            formatter: defaultLabelCallback,
         },
         aspectRatio: 1,
         attribution: 'Testing attribution',
@@ -94,7 +94,7 @@ const StudioChoroplethMultiPolygonArgs: Props<DataFrame, ChoroplethGeoJsonOption
         shapes: multiPolygonShapes,
         emptyValueColor: 'red',
         tooltip: {
-            labelFormatter: defaultLabelCallback,
+            formatter: defaultLabelCallback,
         },
         aspectRatio: 1,
     },
@@ -114,7 +114,7 @@ const StudioChoroplethEmptyValueArgs: Props<DataFrame, ChoroplethGeoJsonOptions>
         shapes,
         emptyValueColor: 'red',
         tooltip: {
-            labelFormatter: defaultLabelCallback,
+            formatter: defaultLabelCallback,
         },
         aspectRatio: 1,
     },
@@ -135,7 +135,7 @@ const StudioChoroplethGradientArgs: Props<DataFrame, ChoroplethGeoJsonOptions> =
         shapes,
         emptyValueColor: 'red',
         tooltip: {
-            labelFormatter: defaultLabelCallback,
+            formatter: defaultLabelCallback,
         },
         colorScale: {
             type: ColorScaleTypes.Gradient,
@@ -166,7 +166,7 @@ const StudioChoroplethPaletteArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = 
         shapes,
         emptyValueColor: 'red',
         tooltip: {
-            labelFormatter: defaultLabelCallback,
+            formatter: defaultLabelCallback,
         },
         colorScale: {
             type: ColorScaleTypes.Palette,
@@ -198,7 +198,7 @@ const StudioChoroplethCustomTooltipArgs: Props<DataFrame, ChoroplethGeoJsonOptio
             title: 'I Am Legend',
         },
         tooltip: {
-            labelFormatter: (feature: TooltipParams) =>
+            formatter: (feature: TooltipParams) =>
                 `Hello I'm <div style="color: red">${
                     feature.label
                 }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
@@ -226,7 +226,7 @@ const StudioChoroplethComplexTooltipArgs: Props<DataFrame, ChoroplethGeoJsonOpti
             title: 'I Am Legend',
         },
         tooltip: {
-            labelFormatter: (feature: TooltipParams) =>
+            formatter: (feature: TooltipParams) =>
                 `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center">
                     <h2 style="border-bottom: 1px solid lightgrey">${feature.label}</h2>
                     <img src="${IMAGES.rocket}" style="margin-bottom: 15px"></img>
@@ -253,7 +253,7 @@ const StudioChoroplethLongLabelsArgs: Props<DataFrame, ChoroplethGeoJsonOptions>
         shapes,
         emptyValueColor: 'red',
         tooltip: {
-            labelFormatter: defaultLabelCallback,
+            formatter: defaultLabelCallback,
         },
         colorScale: {
             type: ColorScaleTypes.Palette,
@@ -282,7 +282,7 @@ const StudioChoroplethEmptyDataArgs: Props<DataFrame, ChoroplethGeoJsonOptions> 
             title: 'I Am Legend',
         },
         tooltip: {
-            labelFormatter: (feature: TooltipParams) =>
+            formatter: (feature: TooltipParams) =>
                 `Hello I'm <div style="color: red">${
                     feature.label
                 }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
@@ -316,7 +316,7 @@ const StudioChoroplethLegendLeftArgs: Props<DataFrame, ChoroplethGeoJsonOptions>
             position: LegendPositions.Left,
         },
         tooltip: {
-            labelFormatter: defaultLabelCallback,
+            formatter: defaultLabelCallback,
         },
     },
 };
@@ -347,7 +347,7 @@ const StudioChoroplethLegendRightArgs: Props<DataFrame, ChoroplethGeoJsonOptions
             position: LegendPositions.Right,
         },
         tooltip: {
-            labelFormatter: defaultLabelCallback,
+            formatter: defaultLabelCallback,
         },
     },
 };
@@ -367,7 +367,7 @@ const StudioChoroplethNavigationMapButtonsArgs: Props<DataFrame, ChoroplethGeoJs
         shapes,
         emptyValueColor: 'red',
         tooltip: {
-            labelFormatter: defaultLabelCallback,
+            formatter: defaultLabelCallback,
         },
         colorScale: {
             type: ColorScaleTypes.Palette,
