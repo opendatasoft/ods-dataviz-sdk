@@ -10,7 +10,7 @@ import {
     LegendPositions,
 } from '@opendatasoft/visualizations';
 import { ChoroplethGeoJson, Props } from '../../src';
-import { shapes, multiPolygonShapes, worldCopies } from './shapes';
+import { shapes, multiPolygonShapes, worldCopies } from './data';
 import { IMAGES } from '../utils';
 
 const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
