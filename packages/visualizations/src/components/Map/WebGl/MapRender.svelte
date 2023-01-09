@@ -146,10 +146,8 @@
         resizer = new ResizeObserver(
             debounce(() => {
                 map.resize();
-                if (mapReady && viewBox && navigationMaps) {
+                if (mapReady && viewBox) {
                     setViewBox(viewBox);
-                } else if (mapReady && bbox && !navigationMaps) {
-                    setMaxBounds(bbox);
                 }
             }, 100)
         );
@@ -215,6 +213,18 @@
         hoverPopup.remove();
     }
 
+    let active: number | undefined;
+
+    const setViewBoxFromButton = (mapSVG: NavigationMap, i: number) => () => {
+        viewBox = mapSVG.bbox;
+        active = i;
+    };
+
+    const resetViewBoxFromButton = () => {
+        active = undefined;
+        viewBox = bbox;
+    };
+
     function handleInteractivity(
         isInteractive: boolean,
         computeTooltip?: MapRenderTooltipFunction
@@ -263,10 +273,8 @@
             if (map.hasControl(nav)) {
                 map.removeControl(nav);
             }
-            // Reset map zoom
-            if (mapReady && bbox) {
-                setMaxBounds(bbox);
-            }
+            // Reset map viewBox
+            resetViewBoxFromButton();
         }
     }
 
@@ -312,10 +320,10 @@
         handleInteractivity(interactive, renderTooltip);
     }
     $: updateStyle(style);
-    $: if (mapReady && navigationMaps) {
+    $: if (mapReady && viewBox) {
         setViewBox(viewBox);
     }
-    $: if (mapReady && bbox && !navigationMaps) {
+    $: if (mapReady && bbox) {
         setMaxBounds(bbox);
     }
     $: if (fixedPopupsList?.length > 0 && (activeShapes?.length === 0 || !activeShapes)) {
@@ -328,18 +336,6 @@
             .setHTML(description)
             .addTo(map);
     });
-
-    let active: number | undefined;
-
-    const setViewBoxFromButton = (mapSVG: NavigationMap, i: number) => () => {
-        viewBox = mapSVG.bbox;
-        active = i;
-    };
-
-    const resetViewBoxFromButton = () => {
-        active = undefined;
-        viewBox = bbox;
-    };
 </script>
 
 <figure class="map-card maps-container" style={cssVarStyles} bind:clientWidth>
