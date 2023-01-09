@@ -16,13 +16,14 @@
         computeBaseLayer,
         computeMatchExpression,
     } from '../utils';
-    import { DEFAULT_COLORS, DEFAULT_COLORS_SCALE } from '../constants';
+    import { DEFAULT_COLORS, DEFAULT_COLORSCALE } from '../constants';
     import type {
         ChoroplethDataValue,
         ChoroplethLayer,
         ChoroplethGeoJsonOptions,
         MapRenderTooltipFunction,
         MapLegend,
+        NavigationMap,
     } from '../types';
 
     export let data: { value: ChoroplethDataValue[] }; // values, and the key to match
@@ -40,6 +41,7 @@
     let attribution: string | undefined;
     let title: string | undefined;
     let subtitle: string | undefined;
+    let navigationMaps: NavigationMap[] | undefined;
 
     // Used to apply a chosen color for shapes without values (default: #cccccc)
     let emptyValueColor: Color;
@@ -50,7 +52,7 @@
     const defaultInteractive = true;
     $: ({
         shapes,
-        colorScale = DEFAULT_COLORS_SCALE,
+        colorScale = DEFAULT_COLORSCALE,
         legend,
         aspectRatio,
         activeShapes,
@@ -60,6 +62,7 @@
         attribution,
         title,
         subtitle,
+        navigationMaps,
     } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
@@ -67,6 +70,7 @@
     let layer: ChoroplethLayer;
     let source: SourceSpecification;
     let dataBounds: DataBounds;
+    let renderedBbox = bbox || VOID_BOUNDS;
 
     function computeSourceLayerAndBboxes(
         newShapes: FeatureCollection,
@@ -89,7 +93,7 @@
 
         layer = computeBaseLayer(fillColor, DEFAULT_COLORS.ShapeOutline);
 
-        bbox = bbox || turfBbox(newShapes) || VOID_BOUNDS;
+        renderedBbox = bbox || turfBbox(newShapes) || VOID_BOUNDS;
     }
 
     $: if (shapes) {
@@ -113,13 +117,15 @@
         {colorScale}
         {legend}
         {renderTooltip}
-        {bbox}
+        bbox={renderedBbox}
         {activeShapes}
         {interactive}
         {matchKey}
         {attribution}
         {title}
         {subtitle}
+        {navigationMaps}
+        {data}
     />
 </div>
 

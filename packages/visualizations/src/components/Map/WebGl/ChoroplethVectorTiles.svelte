@@ -16,7 +16,7 @@
         computeBaseLayer,
         computeMatchExpression,
     } from '../utils';
-    import { DEFAULT_COLORS, DEFAULT_COLORS_SCALE } from '../constants';
+    import { DEFAULT_COLORS, DEFAULT_COLORSCALE } from '../constants';
     import type {
         ChoroplethDataValue,
         ChoroplethLayer,
@@ -25,6 +25,7 @@
         MapLegend,
         MapFilter,
         MapRenderTooltipFunction,
+        NavigationMap,
     } from '../types';
 
     export let data: { value: ChoroplethDataValue[] }; // values, and the key to match
@@ -36,6 +37,7 @@
     let aspectRatio: number | undefined;
     let renderTooltip: MapRenderTooltipFunction;
     let bbox: BBox | undefined;
+    let viewBox: BBox | undefined;
     let activeShapes: string[] | undefined;
     let interactive: boolean;
     let legend: MapLegend | undefined;
@@ -44,6 +46,7 @@
     let filterExpression: (string | string[])[] | undefined;
     let title: string | undefined;
     let subtitle: string | undefined;
+    let navigationMaps: NavigationMap[] | undefined;
 
     // Used to apply a chosen color for shapes without values (default: #cccccc)
     let emptyValueColor: Color;
@@ -56,17 +59,19 @@
     const defaultInteractive = true;
     $: ({
         shapesTiles,
-        colorScale = DEFAULT_COLORS_SCALE,
+        colorScale = DEFAULT_COLORSCALE,
         legend,
         aspectRatio,
         activeShapes,
         interactive = defaultInteractive,
         emptyValueColor = DEFAULT_COLORS.Default,
-        bbox,
+        bbox = VOID_BOUNDS,
+        viewBox,
         filter,
         attribution,
         title,
         subtitle,
+        navigationMaps,
     } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
@@ -74,6 +79,10 @@
     let layer: ChoroplethLayer;
     let source: SourceSpecification;
     let dataBounds: DataBounds;
+
+    // MapLibre default zoom
+    const MIN_ZOOM = 0;
+    const MAX_ZOOM = 22;
 
     function computeSourceLayerAndBboxes(
         newShapes: ChoroplethShapeVectorTilesValue,
@@ -94,14 +103,14 @@
         source = {
             type: 'vector',
             tiles: [newShapes.url],
+            minzoom: newShapes.minZoom || MIN_ZOOM,
+            maxzoom: newShapes.maxZoom || MAX_ZOOM,
         };
 
         layer = {
             ...baseLayer,
             'source-layer': newShapes.layer,
         };
-
-        bbox = bbox || VOID_BOUNDS;
     }
 
     $: if (shapesTiles.url) {
@@ -119,26 +128,27 @@
     }
 </script>
 
-<div>
-    <MapRender
-        {style}
-        {source}
-        {layer}
-        {aspectRatio}
-        {dataBounds}
-        {colorScale}
-        {legend}
-        {renderTooltip}
-        {bbox}
-        {activeShapes}
-        {interactive}
-        {filterExpression}
-        {matchKey}
-        {attribution}
-        {title}
-        {subtitle}
-    />
-</div>
+<MapRender
+    {style}
+    {source}
+    {layer}
+    {aspectRatio}
+    {dataBounds}
+    {colorScale}
+    {legend}
+    {renderTooltip}
+    {bbox}
+    {viewBox}
+    {activeShapes}
+    {interactive}
+    {filterExpression}
+    {matchKey}
+    {attribution}
+    {title}
+    {subtitle}
+    {navigationMaps}
+    {data}
+/>
 
 <style>
 </style>

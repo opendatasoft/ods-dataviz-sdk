@@ -7,7 +7,7 @@ import type {
 } from '@opendatasoft/visualizations';
 import { ChoroplethGeoJson, Props } from '../../src';
 import { IMAGES } from '../utils';
-import { shapes } from './shapes';
+import { shapes } from './data';
 
 const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
     title: 'Map/Tooltip',
