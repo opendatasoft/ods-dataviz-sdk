@@ -70,6 +70,7 @@
     let layer: ChoroplethLayer;
     let source: SourceSpecification;
     let dataBounds: DataBounds;
+    let renderedBbox = bbox || VOID_BOUNDS;
 
     function computeSourceLayerAndBboxes(
         newShapes: FeatureCollection,
@@ -92,7 +93,7 @@
 
         layer = computeBaseLayer(fillColor, DEFAULT_COLORS.ShapeOutline);
 
-        bbox = bbox || turfBbox(newShapes) || VOID_BOUNDS;
+        renderedBbox = bbox || turfBbox(newShapes) || VOID_BOUNDS;
     }
 
     $: if (shapes) {
@@ -116,7 +117,7 @@
         {colorScale}
         {legend}
         {renderTooltip}
-        {bbox}
+        bbox={renderedBbox}
         {activeShapes}
         {interactive}
         {matchKey}

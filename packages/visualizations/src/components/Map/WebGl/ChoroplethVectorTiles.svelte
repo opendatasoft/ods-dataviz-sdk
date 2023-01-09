@@ -65,7 +65,7 @@
         activeShapes,
         interactive = defaultInteractive,
         emptyValueColor = DEFAULT_COLORS.Default,
-        bbox,
+        bbox = VOID_BOUNDS,
         viewBox,
         filter,
         attribution,
@@ -111,8 +111,6 @@
             ...baseLayer,
             'source-layer': newShapes.layer,
         };
-
-        bbox = bbox || VOID_BOUNDS;
     }
 
     $: if (shapesTiles.url) {
