@@ -79,6 +79,7 @@
     let nav: NavigationControl;
 
     let mapReady = false;
+    let currentViewBox = viewBox;
     // Used to add a listener to resize map on container changes, canceled on destroy
     let resizer: ResizeObserver;
 
@@ -94,9 +95,10 @@
     const layerId = `shape-layer-${mapId}`;
 
     const fitBox = (box: BBox | LngLatBoundsLike) => {
+        // Using padding, keep enough room for controls (zoom) to make sure they don't hide anything
         map.fitBounds(box as LngLatBoundsLike, {
             animate: false,
-            padding: 10,
+            padding: 40,
         });
     };
 
@@ -216,13 +218,13 @@
     let active: number | undefined;
 
     const setViewBoxFromButton = (mapSVG: NavigationMap, i: number) => () => {
-        viewBox = mapSVG.bbox;
+        currentViewBox = mapSVG.bbox;
         active = i;
     };
 
     const resetViewBoxFromButton = () => {
         active = undefined;
-        viewBox = bbox;
+        currentViewBox = viewBox;
     };
 
     function handleInteractivity(
@@ -276,6 +278,7 @@
             // Reset map viewBox to reset zoom
             if (mapReady && viewBox) {
                 setViewBox(viewBox);
+                active = undefined;
             }
         }
     }
@@ -322,8 +325,8 @@
         handleInteractivity(interactive, renderTooltip);
     }
     $: updateStyle(style);
-    $: if (mapReady && viewBox) {
-        setViewBox(viewBox);
+    $: if (mapReady && currentViewBox) {
+        setViewBox(currentViewBox);
     }
     $: if (mapReady && bbox) {
         setMaxBounds(bbox);
