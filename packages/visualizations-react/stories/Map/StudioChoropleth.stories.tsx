@@ -10,7 +10,7 @@ import {
     LegendPositions,
 } from '@opendatasoft/visualizations';
 import { ChoroplethGeoJson, Props } from '../../src';
-import { shapes, multiPolygonShapes } from './data';
+import { shapes, multiPolygonShapes, worldCopies } from './shapes';
 import { IMAGES } from '../utils';
 
 const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
@@ -381,3 +381,19 @@ const StudioChoroplethNavigationMapButtonsArgs: Props<DataFrame, ChoroplethGeoJs
     },
 };
 StudioChoroplethNavigationMapButtons.args = StudioChoroplethNavigationMapButtonsArgs;
+
+export const StudioChoroplethPreventWorldCopies = Template.bind({});
+const StudioChoroplethPreventWorldCopiesArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
+    data: {
+        loading: false,
+        value: [],
+    },
+    options: {
+        shapes: worldCopies,
+        emptyValueColor: 'red',
+        aspectRatio: 3,
+        title: 'Prevent world copies',
+        subtitle: 'You should see two rectangles and one circle',
+    },
+};
+StudioChoroplethPreventWorldCopies.args = StudioChoroplethPreventWorldCopiesArgs;
