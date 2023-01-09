@@ -273,8 +273,10 @@
             if (map.hasControl(nav)) {
                 map.removeControl(nav);
             }
-            // Reset map viewBox
-            resetViewBoxFromButton();
+            // Reset map viewBox to reset zoom
+            if (mapReady && viewBox) {
+                setViewBox(viewBox);
+            }
         }
     }
 
