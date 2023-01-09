@@ -304,6 +304,7 @@ const StudioChoroplethNavigationMapButtonsArgs: Props<DataFrame, ChoroplethVecto
         tooltip: {
             formatter: defaultLabelCallback,
         },
+        viewBox: [-17.529298, 38.79776, 23.889159, 52.836618],
         navigationMaps: [...makeMiniMaps(15),],
     },
 };
