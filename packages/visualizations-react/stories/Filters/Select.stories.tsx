@@ -1,9 +1,9 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Select } from '../../src';
 
 const meta: ComponentMeta<typeof Select> = {
-    title: 'Select Filter',
+    title: 'Filters/Select',
     component: Select,
 };
 

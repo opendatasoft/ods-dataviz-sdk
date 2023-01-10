@@ -7,25 +7,18 @@
     import { createEventDispatcher } from 'svelte';
     import type { DispatchedFilterEvent } from '../../types';
 
-    export let options: any;
-
     const dispatch = createEventDispatcher<DispatchedFilterEvent>();
 
-    let value = '';
-
     function applyFilter(newValue: string) {
-        dispatch("filter", {
-            value: newValue ? textSearch(newValue) : null
+        dispatch('filter', {
+            value: newValue ? textSearch(newValue) : null,
         });
     }
-
-    $: applyFilter(value);
 </script>
 
 <div>
-    <input type="text" bind:value={value}>
+    <input type="text" on:input={(e) => applyFilter(e.currentTarget.value)} />
 </div>
 
 <style>
-
 </style>
