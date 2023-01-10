@@ -13,4 +13,5 @@ export const textSearch = (text: string) => `search("${text}")`;
  * @param value Value to match on
  * @returns An ODSQL query, ready to be used as a `where` clause
  */
-export const exactMatch = (fieldName: string, value: string) => `${field(fieldName)}=${string(value)}`
+export const exactMatch = (fieldName: string, value: string) =>
+    `${field(fieldName)}=${string(value)}`;

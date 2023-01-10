@@ -1,5 +1,5 @@
-import type { HandleFilterCallback } from "@opendatasoft/visualizations";
-import { HTMLAttributes } from "react";
+import type { HandleFilterCallback } from '@opendatasoft/visualizations';
+import { HTMLAttributes } from 'react';
 
 export interface FilterProps<Options> extends HTMLAttributes<HTMLElement> {
     handleFilter: HandleFilterCallback;

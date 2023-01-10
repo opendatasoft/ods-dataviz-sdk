@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 export interface Async<T> {
     value?: T;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

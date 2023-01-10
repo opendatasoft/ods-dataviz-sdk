@@ -4,5 +4,5 @@ import { FilterProps } from './Props';
 import wrap from './ReactFilterImpl';
 
 // Explicit name and type are needed for storybook
-const TextFilter: FC<FilterProps<{}>> = wrap(_Text);
+const TextFilter: FC<FilterProps<Record<string, never>>> = wrap(_Text);
 export default TextFilter;

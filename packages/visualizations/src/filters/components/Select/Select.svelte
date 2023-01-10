@@ -5,9 +5,9 @@
     */
     import { exactMatch } from '@opendatasoft/api-client';
     import { createEventDispatcher } from 'svelte';
-    import type { DispatchedFilterEvent } from '../../types';
+    import type { DispatchedFilterEvent, SelectOptions } from '../../types';
 
-    export let options: any;
+    export let options: SelectOptions;
 
     const dispatch = createEventDispatcher<DispatchedFilterEvent>();
 

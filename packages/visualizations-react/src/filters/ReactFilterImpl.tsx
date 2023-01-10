@@ -6,8 +6,11 @@ import { FilterProps } from './Props';
 // FIXME: Test the wrap method
 
 // Represent one of our component class's constructor like Chart
-type ComponentConstructor<Options, ComponentClass extends BaseFilter<Options>> =
-    new (container: HTMLElement, handleFilter: HandleFilterCallback, options: Options) => ComponentClass;
+type ComponentConstructor<Options, ComponentClass extends BaseFilter<Options>> = new (
+    container: HTMLElement,
+    handleFilter: HandleFilterCallback,
+    options: Options
+) => ComponentClass;
 
 // The wrapper build a function component for the given component class
 export default function wrap<Options, ComponentClass extends BaseFilter<Options>>(

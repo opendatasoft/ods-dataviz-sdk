@@ -5,6 +5,7 @@ export default abstract class SvelteFilterImpl<Options> extends BaseFilter<Optio
     protected abstract getSvelteComponentClass(): typeof SvelteComponent;
 
     private svelteComponent: SvelteComponent | undefined;
+
     private filterListener: (() => void) | undefined;
 
     protected onCreate() {
@@ -15,13 +16,17 @@ export default abstract class SvelteFilterImpl<Options> extends BaseFilter<Optio
                 options: this.options,
             },
         });
-        this.filterListener = this.svelteComponent.$on('filter', e => this.handleFilter(e.detail.value));
+        this.filterListener = this.svelteComponent.$on('filter', (e) =>
+            this.handleFilter(e.detail.value)
+        );
     }
 
     protected onHandleFilterUpdated() {
         // Remove previous handler
         this.filterListener?.();
-        this.filterListener = this.svelteComponent?.$on('filter', e => this.handleFilter(e.detail.value));
+        this.filterListener = this.svelteComponent?.$on('filter', (e) =>
+            this.handleFilter(e.detail.value)
+        );
     }
 
     protected onOptionsUpdated() {
