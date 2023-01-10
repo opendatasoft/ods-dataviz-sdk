@@ -17,12 +17,16 @@
     import type { BBox } from 'geojson';
     import { computeMaxZoomFromGeoJsonFeatures, getFixedTooltips } from '../utils';
     import ColorsLegend from '../../utils/ColorsLegend.svelte';
+    import BackButton from '../../utils/BackButton.svelte';
+    import MiniMap from '../../utils/MiniMap.svelte';
     import type { ColorScale, DataBounds, LegendVariant } from '../../types';
     import type {
         ChoroplethFixedTooltipDescription,
         MapLayer,
         MapRenderTooltipFunction,
         MapLegend,
+        NavigationMap,
+        ChoroplethDataValue,
     } from '../types';
 
     // maplibre style (basemap)
@@ -33,6 +37,7 @@
     export let layer: MapLayer;
     // bounding box to start from, and restrict to it
     export let bbox: BBox | undefined;
+    export let viewBox: BBox | undefined = bbox;
     // option to disable map interactions
     export let interactive: boolean;
     // options to display legend
@@ -50,6 +55,13 @@
     export let filterExpression: FilterSpecification | undefined | null = null;
     // Used to determine on which key match data and shapes
     export let matchKey: string;
+    // Title of the map
+    export let title: string | undefined;
+    // Subtitle of the map
+    export let subtitle: string | undefined;
+    // Navigation maps
+    export let navigationMaps: NavigationMap[] | undefined;
+    export let data: { value: ChoroplethDataValue[] };
 
     let clientWidth: number;
     let legendVariant: LegendVariant;
@@ -67,6 +79,7 @@
     let nav: NavigationControl;
 
     let mapReady = false;
+    let currentViewBox = viewBox;
     // Used to add a listener to resize map on container changes, canceled on destroy
     let resizer: ResizeObserver;
 
@@ -81,14 +94,28 @@
     const sourceId = `shape-source-${mapId}`;
     const layerId = `shape-layer-${mapId}`;
 
-    function fitMapToBbox(newBbox: BBox) {
-        // Cancel saved max bounds to properly fitBounds
-        map.setMaxBounds(null);
-        map.fitBounds(newBbox as LngLatBoundsLike, {
+    const fitBox = (box: BBox | LngLatBoundsLike) => {
+        // Using padding, keep enough room for controls (zoom) to make sure they don't hide anything
+        map.fitBounds(box as LngLatBoundsLike, {
             animate: false,
-            padding: 10,
+            padding: 40,
         });
-        // Rest min zoom and movement
+    };
+
+    const setViewBox = (box: BBox | undefined) => {
+        if (!box) {
+            // zoom-out to bounds defined in the initialization
+            map.setZoom(map.getMinZoom());
+            return;
+        }
+        fitBox(box);
+    };
+
+    function setMaxBounds(bounds: BBox) {
+        // Cancel any saved max bounds to properly fitBounds
+        map.setMaxBounds(null);
+        fitBox(bounds);
+        // Reset min zoom and movement
         map.setMaxBounds(map.getBounds());
     }
 
@@ -98,6 +125,7 @@
             center: defaultCenter,
             zoom: 5,
             customAttribution: attribution,
+            renderWorldCopies: false,
         };
 
         map = new maplibregl.Map({
@@ -106,7 +134,7 @@
             ...start,
         });
 
-        nav = new maplibregl.NavigationControl({});
+        nav = new maplibregl.NavigationControl({ showCompass: false });
 
         map.on('load', () => {
             mapReady = true;
@@ -121,8 +149,8 @@
         resizer = new ResizeObserver(
             debounce(() => {
                 map.resize();
-                if (mapReady && bbox) {
-                    fitMapToBbox(bbox);
+                if (mapReady && viewBox) {
+                    setViewBox(viewBox);
                 }
             }, 100)
         );
@@ -188,6 +216,18 @@
         hoverPopup.remove();
     }
 
+    let active: number | undefined;
+
+    const setViewBoxFromButton = (mapSVG: NavigationMap, i: number) => () => {
+        currentViewBox = mapSVG.bbox;
+        active = i;
+    };
+
+    const resetViewBoxFromButton = () => {
+        active = undefined;
+        currentViewBox = viewBox;
+    };
+
     function handleInteractivity(
         isInteractive: boolean,
         computeTooltip?: MapRenderTooltipFunction
@@ -207,7 +247,7 @@
 
             // Add navigation control to map
             if (!map.hasControl(nav)) {
-                map.addControl(nav, 'top-left');
+                map.addControl(nav, 'top-right');
             }
 
             // Handle tooltip display
@@ -236,9 +276,10 @@
             if (map.hasControl(nav)) {
                 map.removeControl(nav);
             }
-            // Reset map zoom
-            if (mapReady && bbox) {
-                fitMapToBbox(bbox);
+            // Reset map viewBox to reset zoom
+            if (mapReady && viewBox) {
+                setViewBox(viewBox);
+                active = undefined;
             }
         }
     }
@@ -285,8 +326,11 @@
         handleInteractivity(interactive, renderTooltip);
     }
     $: updateStyle(style);
+    $: if (mapReady && currentViewBox) {
+        setViewBox(currentViewBox);
+    }
     $: if (mapReady && bbox) {
-        fitMapToBbox(bbox);
+        setMaxBounds(bbox);
     }
     $: if (fixedPopupsList?.length > 0 && (activeShapes?.length === 0 || !activeShapes)) {
         fixedPopupsList.forEach((fixedPopup) => fixedPopup.popup.remove());
@@ -300,10 +344,50 @@
     });
 </script>
 
-<figure class="map-card" style={cssVarStyles} bind:clientWidth>
-    <div id="map" bind:this={container} />
+<figure class="map-card maps-container" style={cssVarStyles} bind:clientWidth>
+    {#if title || subtitle}
+        <figcaption>
+            {#if title}
+                <h3>
+                    {title}
+                </h3>
+            {/if}
+            {#if subtitle}
+                <p>
+                    {subtitle}
+                </p>
+            {/if}
+        </figcaption>
+    {/if}
+    <div class="main">
+        {#if navigationMaps && active !== undefined}
+            <BackButton on:click={resetViewBoxFromButton} />
+        {/if}
+        <div id="map" bind:this={container} />
+    </div>
     {#if legend && dataBounds && clientWidth && mapReady}
-        <ColorsLegend {dataBounds} {colorScale} variant={legendVariant} title={legend.title} />
+        <ColorsLegend
+            {dataBounds}
+            {colorScale}
+            variant={legendVariant}
+            title={legend.title}
+            position={legend.position}
+        />
+    {/if}
+    <!-- Working with index is safe since we don't add/remove items -->
+    {#if navigationMaps}
+        <div class="buttons" style="--buttons-events:{interactive ? 'auto' : 'none'}">
+            {#each navigationMaps as map, i}
+                <MiniMap
+                    {data}
+                    {map}
+                    {colorScale}
+                    active={active === i}
+                    showTooltip={interactive}
+                    on:click={setViewBoxFromButton(map, i)}
+                />
+            {/each}
+        </div>
     {/if}
 </figure>
 
@@ -334,5 +418,18 @@
         border-bottom-color: transparent;
         border-left-color: transparent;
         border-right-color: transparent;
+    }
+
+    .main {
+        aspect-ratio: var(--aspect-ratio);
+        flex-grow: 1;
+        position: relative;
+        display: block;
+    }
+    .buttons {
+        display: grid;
+        grid: auto-flow minmax(52px, 60px) / repeat(auto-fit, minmax(52px, 60px));
+        justify-content: flex-start;
+        pointer-events: var(--buttons-events);
     }
 </style>

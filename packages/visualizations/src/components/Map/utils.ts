@@ -6,7 +6,7 @@ import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
 import type { Scale } from 'chroma-js';
 import { DEFAULT_COLORS } from './constants';
 import { assertUnreachable } from '../utils';
-import { ColorScaleTypes, GradientScale } from '../types';
+import { ColorScaleTypes } from '../types';
 import type { Color, ColorScale, DataBounds } from '../types';
 import type {
     ChoroplethDataValue,
@@ -17,23 +17,10 @@ import type {
     ComputeTooltipFunction,
     ChoroplethLayer,
 } from './types';
-import { ChoroplethTooltipMatcherTypes } from './types';
+import { ChoroplethTooltipMatcherTypes, TooltipParams } from './types';
 
 export const LIGHT_GREY: Color = '#CBD2DB';
 export const DARK_GREY: Color = '#515457';
-
-export const EMPTY_FC: FeatureCollection = {
-    type: 'FeatureCollection',
-    features: [],
-};
-
-export const DEFAULT_COLORSCALE: GradientScale = {
-    type: ColorScaleTypes.Gradient,
-    colors: {
-        start: LIGHT_GREY,
-        end: DARK_GREY,
-    },
-};
 
 export function getDataBounds(values: ChoroplethDataValue[]): DataBounds {
     const rawValues = values.map((v) => v.y);
@@ -45,12 +32,14 @@ export function getDataBounds(values: ChoroplethDataValue[]): DataBounds {
 export const colorShapes = ({
     featureCollection,
     colorMapping,
+    emptyValueColor,
 }: {
     featureCollection: FeatureCollection;
     colorMapping: { [key: string]: Color };
+    emptyValueColor: Color;
 }) => {
     const coloredFeatures = featureCollection.features.map((feature: Feature) => {
-        const color = colorMapping[feature?.properties?.key];
+        const color = colorMapping[feature?.properties?.key] || emptyValueColor;
         return {
             ...feature,
             properties: {
@@ -76,11 +65,10 @@ export const mapKeyToColor = (
     let colorMin: Color;
     let colorMax: Color;
     let scale: Scale;
-
     // This is an exhaustive check, function must handle all color scale types
     switch (colorScale.type) {
-        case ColorScaleTypes.Palette:
-            const thresholdArray: number[] = []; // eslint-disable-line no-case-declarations
+        case ColorScaleTypes.Palette: {
+            const thresholdArray: number[] = [];
             colorScale.colors.forEach((_color: Color, i: number) => {
                 if (i === 0) {
                     thresholdArray.push(min);
@@ -93,6 +81,7 @@ export const mapKeyToColor = (
             });
             scale = chroma.scale(colorScale.colors).classes(thresholdArray);
             break;
+        }
         case ColorScaleTypes.Gradient:
             colorMin = chroma(colorScale.colors.start).hex();
             colorMax = chroma(colorScale.colors.end).hex();
@@ -107,7 +96,7 @@ export const mapKeyToColor = (
 
     const dataMapping: { [s: ChoroplethDataValue['x']]: Color } = {};
     values.forEach(({ x, y }) => {
-        dataMapping[x] = y ? scale(y).hex() : emptyValueColor;
+        dataMapping[x] = Number.isFinite(y) ? scale(y).hex() : emptyValueColor;
     });
     return dataMapping;
 };
@@ -268,16 +257,12 @@ export const computeTooltip: ComputeTooltipFunction = (
         }
     }
 
-    const tooltipRawValues: {
-        value?: number;
-        label: string;
-        key: string;
-    } = {
+    const tooltipRawValues: TooltipParams = {
         value: matchedFeature?.y,
         label: tooltipLabel,
         key: hoveredFeature.properties?.[matchKey], // === matchedFeature.x
     };
-    const format = options?.tooltip?.labelFormatter;
+    const format = options?.tooltip?.formatter;
 
     return format ? format(tooltipRawValues) : defaultTooltipFormat(tooltipRawValues);
 };
@@ -290,7 +275,7 @@ export const computeBaseLayer = (
     layout: {},
     paint: {
         'fill-color': fillColor,
-        'fill-opacity': 0.8,
+        'fill-opacity': 1,
         'fill-outline-color': DefaultColor,
     },
 });

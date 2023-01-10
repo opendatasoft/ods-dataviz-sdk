@@ -4,12 +4,14 @@
     import { onDestroy } from 'svelte';
     import { debounce } from 'lodash';
     import type { DataBounds, ColorScale, LegendVariant } from '../types';
+    import { LegendPositions } from '../types';
     import { defaultCompactLegendNumberFormat } from './formatter';
 
     // options to customize the component
     export let dataBounds: DataBounds;
     export let colorScale: ColorScale;
     export let variant: LegendVariant;
+    export let position: LegendPositions = LegendPositions.Left;
     export let title: string | undefined;
 
     // the part below is related to labels rotation
@@ -45,84 +47,96 @@
     onDestroy(rotationDebounce.cancel);
 </script>
 
-<div class={`legend-colors legend-colors--${variant}`}>
-    {#if title}
-        <div class="legend-colors-title">{title}</div>
-    {/if}
-    {#if colorScale.type === 'gradient'}
-        <!-- Gradient color boxes, no custom labels, only displaying min and max -->
-        <div
-            class="legend-colors-color-box-gradient"
-            style="--legend-color:linear-gradient(to right, {colorScale.colors.start}, {colorScale
-                .colors.end})"
-        />
-        <div class="legend-colors-values">
-            <div>{defaultCompactLegendNumberFormat(dataBounds.min)}</div>
-            <div>{defaultCompactLegendNumberFormat(dataBounds.max)}</div>
-        </div>
-    {:else if colorScale.type === 'palette'}
-        <!-- Palette color boxes, row display, no labels only displaying palettes steps -->
-        <div class="legend-colors-container-palette" bind:clientWidth={legendWidth}>
-            <div class="legend-colors-row-color-box-palette">
-                {#each colorScale.colors as color}
-                    <div class="legend-colors-color-box-palette" style="--box-color: {color}" />
-                {/each}
-            </div>
+<div class={`legend-container legend-container--${position}`}>
+    <div class={`legend-colors legend-colors--${variant}`}>
+        {#if title}
+            <div class="legend-colors-title">{title}</div>
+        {/if}
+        {#if colorScale.type === 'gradient'}
+            <!-- Gradient color boxes, no custom labels, only displaying min and max -->
             <div
-                class="legend-colors-row-values-palette"
-                class:vertical-labels-container={displayVertical}
-            >
-                {#each colorScale.colors as _color, i}
-                    {#if i === 0}
-                        <div
-                            class="label-container"
-                            bind:clientWidth={labelsWidth[i]}
-                            bind:clientHeight={labelsHeight[i]}
-                            class:vertical-label={displayVertical}
-                        >
-                            {defaultCompactLegendNumberFormat(dataBounds.min)}
-                        </div>
-                        <div
-                            class="label-container"
-                            bind:clientWidth={labelsWidth[i]}
-                            bind:clientHeight={labelsHeight[i]}
-                            class:vertical-label={displayVertical}
-                        >
-                            {defaultCompactLegendNumberFormat(
-                                dataBounds.min +
-                                    (dataBounds.max - dataBounds.min) / colorScale.colors.length
-                            )}
-                        </div>
-                    {:else if i === colorScale.colors.length - 1}
-                        <div
-                            class="label-container"
-                            bind:clientWidth={labelsWidth[i]}
-                            bind:clientHeight={labelsHeight[i]}
-                            class:vertical-label={displayVertical}
-                        >
-                            {defaultCompactLegendNumberFormat(dataBounds.max)}
-                        </div>
-                    {:else}
-                        <div
-                            class="label-container"
-                            bind:clientWidth={labelsWidth[i]}
-                            bind:clientHeight={labelsHeight[i]}
-                            class:vertical-label={displayVertical}
-                        >
-                            {defaultCompactLegendNumberFormat(
-                                dataBounds.min +
-                                    ((dataBounds.max - dataBounds.min) / colorScale.colors.length) *
-                                        (i + 1)
-                            )}
-                        </div>
-                    {/if}
-                {/each}
+                class="legend-colors-color-box-gradient"
+                style="--legend-color:linear-gradient(to right, {colorScale.colors
+                    .start}, {colorScale.colors.end})"
+            />
+            <div class="legend-colors-values">
+                <div>{defaultCompactLegendNumberFormat(dataBounds.min)}</div>
+                <div>{defaultCompactLegendNumberFormat(dataBounds.max)}</div>
             </div>
-        </div>
-    {/if}
+        {:else if colorScale.type === 'palette'}
+            <!-- Palette color boxes, row display, no labels only displaying palettes steps -->
+            <div class="legend-colors-container-palette" bind:clientWidth={legendWidth}>
+                <div class="legend-colors-row-color-box-palette">
+                    {#each colorScale.colors as color}
+                        <div class="legend-colors-color-box-palette" style="--box-color: {color}" />
+                    {/each}
+                </div>
+                <div
+                    class="legend-colors-row-values-palette"
+                    class:vertical-labels-container={displayVertical}
+                >
+                    {#each colorScale.colors as _color, i}
+                        {#if i === 0}
+                            <div
+                                class="label-container"
+                                bind:clientWidth={labelsWidth[i]}
+                                bind:clientHeight={labelsHeight[i]}
+                                class:vertical-label={displayVertical}
+                            >
+                                {defaultCompactLegendNumberFormat(dataBounds.min)}
+                            </div>
+                            <div
+                                class="label-container"
+                                bind:clientWidth={labelsWidth[i]}
+                                bind:clientHeight={labelsHeight[i]}
+                                class:vertical-label={displayVertical}
+                            >
+                                {defaultCompactLegendNumberFormat(
+                                    dataBounds.min +
+                                        (dataBounds.max - dataBounds.min) / colorScale.colors.length
+                                )}
+                            </div>
+                        {:else if i === colorScale.colors.length - 1}
+                            <div
+                                class="label-container"
+                                bind:clientWidth={labelsWidth[i]}
+                                bind:clientHeight={labelsHeight[i]}
+                                class:vertical-label={displayVertical}
+                            >
+                                {defaultCompactLegendNumberFormat(dataBounds.max)}
+                            </div>
+                        {:else}
+                            <div
+                                class="label-container"
+                                bind:clientWidth={labelsWidth[i]}
+                                bind:clientHeight={labelsHeight[i]}
+                                class:vertical-label={displayVertical}
+                            >
+                                {defaultCompactLegendNumberFormat(
+                                    dataBounds.min +
+                                        ((dataBounds.max - dataBounds.min) /
+                                            colorScale.colors.length) *
+                                            (i + 1)
+                                )}
+                            </div>
+                        {/if}
+                    {/each}
+                </div>
+            </div>
+        {/if}
+    </div>
 </div>
 
 <style>
+    .legend-container {
+        display: flex;
+    }
+    .legend-container--left {
+        flex-flow: row;
+    }
+    .legend-container--right {
+        flex-flow: row-reverse;
+    }
     .legend-colors {
         display: flex;
         flex-direction: column;

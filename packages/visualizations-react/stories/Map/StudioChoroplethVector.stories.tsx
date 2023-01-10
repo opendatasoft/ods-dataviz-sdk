@@ -1,15 +1,17 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
+import * as turf from '@turf/turf';
 import {
     ColorScaleTypes,
     DataFrame,
     ChoroplethVectorTilesOptions,
     ChoroplethTooltipFormatter,
     ChoroplethTooltipMatcherTypes,
-    ChoroplethShapeVectorTilesValue,
     TooltipParams,
+    LegendPositions,
 } from '@opendatasoft/visualizations';
 import { ChoroplethVectorTiles, Props } from '../../src';
+import { shapesTiles, regShapes, dataReg } from './data';
 
 const meta: ComponentMeta<typeof ChoroplethVectorTiles> = {
     title: 'Map/ChoroplethVector',
@@ -22,38 +24,27 @@ const meta: ComponentMeta<typeof ChoroplethVectorTiles> = {
     },
 };
 
-const dataF = [
-    { x: 1, y: 23, label: 'label from data 23' },
-    { x: 2, y: 43, label: 'label from data 43' },
-    { x: 3, y: 160, label: 'label from data 160' },
-    { x: 4, y: 180, label: 'label from data 180' },
-    { x: 6, y: 12, label: 'label from data 12' },
-    { x: 11, y: 384, label: 'label from data 384' },
-    { x: 24, y: 123, label: 'label from data 123' },
-    { x: 27, y: 23, label: 'label from data 23' },
-    { x: 28, y: 93, label: 'label from data 93' },
-    { x: 32, y: 25, label: 'label from data 25' },
-    { x: 44, y: 65, label: 'label from data 65' },
-    { x: 52, y: 234 },
-    { x: 53, y: 109, label: 'label from data 109' },
-    { x: 75, y: 21, label: 'label from data 21' },
-    { x: 84, y: 76, label: 'label from data 76' },
-    { x: 93, y: 200, label: 'label from data 200' },
-    { x: 94, y: 123, label: 'label from data 123' },
-];
-
-const shapesTiles: ChoroplethShapeVectorTilesValue = {
-    url: 'https://static.opendatasoft.com/vector-tiles/fr_40_region_2021/{z}/{x}/{y}.pbf',
-    layer: 'fr_40_region_2021',
-    key: 'reg_code',
-    label: 'reg_code',
-};
+const makeMiniMaps = (n: number) =>
+    [...Array(n)].map((_, i) => {
+        const feature = regShapes.features[i % regShapes.features.length];
+        const bbox = turf.bbox(feature);
+        return {
+            shapes: {
+                type: 'FeatureCollection' as const,
+                features: [feature],
+            },
+            label: feature.properties?.name || `Default label shape number ${i}`,
+            bbox,
+        };
+    });
 
 const defaultLabelCallback: ChoroplethTooltipFormatter = ({ label, value }: TooltipParams) =>
     `<b>${label}:</b> ${value}`;
 
 export default meta;
-const Template: ComponentStory<typeof ChoroplethVectorTiles> = (args: Props<DataFrame, ChoroplethVectorTilesOptions>) => (
+const Template: ComponentStory<typeof ChoroplethVectorTiles> = (
+    args: Props<DataFrame, ChoroplethVectorTilesOptions>
+) => (
     <div
         style={{
             width: '50%',
@@ -71,7 +62,7 @@ export const StudioChoroplethVectorGradient = Template.bind({});
 const StudioChoroplethVectorGradientArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
     data: {
         loading: false,
-        value: dataF,
+        value: dataReg,
     },
     options: {
         shapesTiles,
@@ -89,7 +80,7 @@ const StudioChoroplethVectorGradientArgs: Props<DataFrame, ChoroplethVectorTiles
         activeShapes: ['11', '93'],
         emptyValueColor: 'red',
         tooltip: {
-            labelFormatter: defaultLabelCallback,
+            formatter: defaultLabelCallback,
         },
     },
 };
@@ -99,7 +90,7 @@ export const StudioChoroplethVectorPalette = Template.bind({});
 const StudioChoroplethVectorPaletteArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
     data: {
         loading: false,
-        value: dataF,
+        value: dataReg,
     },
     options: {
         shapesTiles,
@@ -114,7 +105,7 @@ const StudioChoroplethVectorPaletteArgs: Props<DataFrame, ChoroplethVectorTilesO
         emptyValueColor: 'red',
         bbox: [-17.529298, 38.79776, 23.889159, 52.836618],
         tooltip: {
-            labelFormatter: defaultLabelCallback,
+            formatter: defaultLabelCallback,
         },
     },
 };
@@ -124,7 +115,7 @@ export const StudioChoroplethVectorFilter = Template.bind({});
 const StudioChoroplethVectorFilterArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
     data: {
         loading: false,
-        value: dataF,
+        value: dataReg,
     },
     options: {
         shapesTiles,
@@ -139,7 +130,7 @@ const StudioChoroplethVectorFilterArgs: Props<DataFrame, ChoroplethVectorTilesOp
         aspectRatio: 1,
         bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
         tooltip: {
-            labelFormatter: defaultLabelCallback,
+            formatter: defaultLabelCallback,
             labelMatcher: {
                 type: ChoroplethTooltipMatcherTypes.KeyProperty,
                 key: 'reg_code',
@@ -157,7 +148,7 @@ export const StudioChoroplethVectorCustomLabel = Template.bind({});
 const StudioChoroplethVectorCustomLabelArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
     data: {
         loading: false,
-        value: dataF,
+        value: dataReg,
     },
     options: {
         shapesTiles,
@@ -172,7 +163,7 @@ const StudioChoroplethVectorCustomLabelArgs: Props<DataFrame, ChoroplethVectorTi
         aspectRatio: 1,
         bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
         tooltip: {
-            labelFormatter: defaultLabelCallback,
+            formatter: defaultLabelCallback,
             labelMatcher: {
                 type: ChoroplethTooltipMatcherTypes.KeyMap,
                 mapping: {
@@ -208,7 +199,7 @@ const StudioChoroplethVectorEmptyDataArgs: Props<DataFrame, ChoroplethVectorTile
         aspectRatio: 1,
         bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
         tooltip: {
-            labelFormatter: defaultLabelCallback,
+            formatter: defaultLabelCallback,
             labelMatcher: {
                 type: ChoroplethTooltipMatcherTypes.KeyMap,
                 mapping: {
@@ -224,6 +215,100 @@ const StudioChoroplethVectorEmptyDataArgs: Props<DataFrame, ChoroplethVectorTile
     },
 };
 StudioChoroplethVectorEmptyData.args = StudioChoroplethVectorEmptyDataArgs;
+
+export const StudioChoroplethVectorLegendLeft = Template.bind({});
+const StudioChoroplethVectorLegendLeftArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
+    data: {
+        loading: false,
+        value: dataReg,
+    },
+    options: {
+        shapesTiles,
+        colorScale: {
+            type: ColorScaleTypes.Palette,
+            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+        },
+        title: 'Lorem Ipsum',
+        subtitle: 'Dolor Sit Amet',
+        legend: {
+            title: 'I Am Legend',
+            position: LegendPositions.Left,
+        },
+        emptyValueColor: '#CBD2DB',
+        aspectRatio: 1,
+        bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
+        tooltip: {
+            formatter: defaultLabelCallback,
+        },
+        filter: {
+            key: 'reg_code',
+            value: ['52', '53'],
+        },
+    },
+};
+StudioChoroplethVectorLegendLeft.args = StudioChoroplethVectorLegendLeftArgs;
+
+export const StudioChoroplethVectorLegendRight = Template.bind({});
+const StudioChoroplethVectorLegendRightArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
+    data: {
+        loading: false,
+        value: dataReg,
+    },
+    options: {
+        shapesTiles,
+        colorScale: {
+            type: ColorScaleTypes.Palette,
+            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+        },
+        title: 'Lorem Ipsum',
+        subtitle: 'Dolor Sit Amet',
+        legend: {
+            title: 'I Am Legend',
+            position: LegendPositions.Right,
+        },
+        emptyValueColor: '#CBD2DB',
+        aspectRatio: 1,
+        bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
+        tooltip: {
+            formatter: defaultLabelCallback,
+        },
+        filter: {
+            key: 'reg_code',
+            value: ['52', '53'],
+        },
+    },
+};
+StudioChoroplethVectorLegendRight.args = StudioChoroplethVectorLegendRightArgs;
+
+export const StudioChoroplethNavigationMapButtons = Template.bind({});
+const StudioChoroplethNavigationMapButtonsArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
+    data: {
+        loading: false,
+        value: dataReg,
+    },
+    options: {
+        shapesTiles,
+        colorScale: {
+            type: ColorScaleTypes.Gradient,
+            colors: {
+                start: '#bcf5f9',
+                end: '#0229bf',
+            },
+        },
+        legend: {
+            title: 'I Am Legend',
+        },
+        aspectRatio: 1,
+        activeShapes: ['11', '93'],
+        emptyValueColor: 'red',
+        tooltip: {
+            formatter: defaultLabelCallback,
+        },
+        viewBox: [-17.529298, 38.79776, 23.889159, 52.836618],
+        navigationMaps: [...makeMiniMaps(15),],
+    },
+};
+StudioChoroplethNavigationMapButtons.args = StudioChoroplethNavigationMapButtonsArgs;
 
 /* The next story was used for the demo, but its too big for chromatic, keeping it hear for future ref on loading/wathever */
 // const LoaderTemplate: ComponentStory<typeof Choropleth> = (args, { loaded: { data } }) => (
@@ -282,7 +367,7 @@ StudioChoroplethVectorEmptyData.args = StudioChoroplethVectorEmptyDataArgs;
 //         aspectRatio: 1,
 //         bbox: [-17.529298, 38.79776, 23.889159, 52.836618],
 //         tooltip: {
-//             labelFormatter: defaultLabelCallback,
+//             formatter: defaultLabelCallback,
 //         },
 //     },
 // };
