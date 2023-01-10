@@ -7,4 +7,4 @@ export * from './client';
 export * from './client/error';
 export * from './client/types';
 export * from './odsql';
-export * from './odsql/helpers';
+export * from './odsql/clauses';

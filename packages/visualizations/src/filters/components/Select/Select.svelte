@@ -13,25 +13,21 @@
 
     $: ({ fieldName, availableValues } = options);
 
-    let selected = '';
-
     function applyFilter(newValue: string) {
-        dispatch("filter", {
-            value: newValue ? exactMatch(fieldName, newValue) : null
+        dispatch('filter', {
+            value: newValue ? exactMatch(fieldName, newValue) : null,
         });
     }
-
-    $: applyFilter(selected);
 </script>
 
 <div>
-    <select bind:value={selected}>
-    {#each availableValues as availableValue}
-        <option value={availableValue}>{availableValue}</option>
-    {/each}
+    <select on:change={(e) => applyFilter(e.currentTarget.value)}>
+        <option value={null}>Select a value</option>
+        {#each availableValues as availableValue}
+            <option value={availableValue}>{availableValue}</option>
+        {/each}
     </select>
 </div>
 
 <style>
-
 </style>
