@@ -22,7 +22,7 @@
 
 <div>
     <select on:change={(e) => applyFilter(e.currentTarget.value)}>
-        <option value={null}>Select a value</option>
+        <option value>Select a value</option>
         {#each availableValues as availableValue}
             <option value={availableValue}>{availableValue}</option>
         {/each}
