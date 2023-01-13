@@ -67,6 +67,10 @@
     let legendVariant: LegendVariant;
     $: legendVariant = clientWidth <= 375 ? 'fluid' : 'fixed';
 
+    // Used to set max bounds on map to avoid unecessary scrolls
+    let isViewBoxEqualToMap: boolean;
+    $: isViewBoxEqualToMap = bbox === viewBox;
+
     // Used to store fixed tooltips displayed on render
     // FIXME: This may not be useful anymore, and is very tied to Choropleth right now
     let fixedPopupsList: ChoroplethFixedTooltipDescription[] = [];
@@ -149,12 +153,13 @@
         resizer = new ResizeObserver(
             debounce(() => {
                 map.resize();
-                if (mapReady && viewBox) {
-                    setViewBox(viewBox);
+                if (isViewBoxEqualToMap) {map.setMaxBounds(null);};
+                if (mapReady && currentViewBox) {
+                    setViewBox(currentViewBox);
                 }
+                if (isViewBoxEqualToMap) {map.setMaxBounds(map.getBounds());};
             }, 100)
         );
-
         resizer.observe(container);
         // Disconnect the resize onDestroy
         return () => resizer?.disconnect();
