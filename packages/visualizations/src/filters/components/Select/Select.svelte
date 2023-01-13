@@ -35,7 +35,7 @@
 
 <style>
     .filter-select select {
-        background-color: var(--filter-select-background-color, #FFFFFF);
+        background-color: var(--filter-select-background-color, #ffffff);
         font-size: var(--filter-select-font-size, 14px);
         color: var(--filter-select-text-color, #565656);
 
@@ -43,7 +43,7 @@
         border-radius: var(--filter-select-border-radius, 30px);
         border-color: transparent;
         border-right: var(--filter-select-padding, 13px) solid transparent;
-        box-shadow: var(--filter-select-border-color, #D0D0D0) 0px 0px 0px 1px;
+        box-shadow: var(--filter-select-border-color, #d0d0d0) 0px 0px 0px 1px;
         padding: var(--filter-select-padding, 13px);
         padding-right: 0px;
     }
