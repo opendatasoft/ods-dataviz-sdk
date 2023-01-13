@@ -153,11 +153,15 @@
         resizer = new ResizeObserver(
             debounce(() => {
                 map.resize();
-                if (isViewBoxEqualToMap) {map.setMaxBounds(null);};
+                if (isViewBoxEqualToMap) {
+                    map.setMaxBounds(null);
+                }
                 if (mapReady && currentViewBox) {
                     setViewBox(currentViewBox);
                 }
-                if (isViewBoxEqualToMap) {map.setMaxBounds(map.getBounds());};
+                if (isViewBoxEqualToMap) {
+                    map.setMaxBounds(map.getBounds());
+                }
             }, 100)
         );
         resizer.observe(container);
