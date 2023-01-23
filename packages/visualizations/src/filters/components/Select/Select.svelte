@@ -3,7 +3,7 @@
     This is a minimal implementation of a filter, based on a standard HTML component.
     It mostly exists for demo and documentation purposes, and may be removed at a later time.
     */
-    import { exactMatch } from '@opendatasoft/api-client';
+    import { exactMatch, one } from '@opendatasoft/api-client';
     import { createEventDispatcher } from 'svelte';
     import type { DispatchedFilterEvent, SelectOptions } from '../../types';
 
@@ -11,26 +11,41 @@
 
     const dispatch = createEventDispatcher<DispatchedFilterEvent>();
 
-    $: ({ fieldName, availableValues } = options);
+    $: ({ fieldName, availableValues, placeholder = null, multiple = false } = options);
 
     let selected = '';
 
-    function applyFilter(newValue: string) {
-        dispatch('filter', {
-            value: newValue ? exactMatch(fieldName, newValue) : null,
-        });
+    function applyFilter(newValue: string | string[]) {
+        if (typeof newValue === 'string')
+            dispatch('filter', {
+                value: newValue ? exactMatch(fieldName, newValue) : null,
+            });
+        else {
+            dispatch('filter', {
+                value: one(...newValue.filter(Boolean).map((v) => exactMatch(fieldName, v))),
+            });
+        }
     }
 
     $: applyFilter(selected);
 </script>
 
 <div class="filter-select">
-    <select bind:value={selected}>
-        <option value>Select a value</option>
-        {#each availableValues as availableValue}
-            <option value={availableValue}>{availableValue}</option>
-        {/each}
-    </select>
+    {#if multiple}
+        <select multiple bind:value={selected}>
+            <option value>{placeholder || 'Select a value'}</option>
+            {#each availableValues as availableValue}
+                <option value={availableValue}>{availableValue}</option>
+            {/each}
+        </select>
+    {:else}
+        <select bind:value={selected}>
+            <option value>{placeholder || 'Select a value'}</option>
+            {#each availableValues as availableValue}
+                <option value={availableValue}>{availableValue}</option>
+            {/each}
+        </select>
+    {/if}
 </div>
 
 <style>

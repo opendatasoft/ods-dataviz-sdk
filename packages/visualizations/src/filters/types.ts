@@ -8,4 +8,6 @@ export type DispatchedFilterEvent = {
 export type SelectOptions = {
     fieldName: string;
     availableValues: string[];
+    multiple?: boolean;
+    placeholder?: string;
 };
