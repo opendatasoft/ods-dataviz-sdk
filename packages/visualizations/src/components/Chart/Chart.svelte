@@ -1,4 +1,5 @@
 <script lang="ts">
+    import update from 'immutability-helper';
     import type { ChartConfiguration } from 'chart.js';
     import { Chart } from 'chart.js';
     import 'chartjs-adapter-luxon';
@@ -15,17 +16,14 @@
     export let data: Async<DataFrame>;
     export let options: ChartOptions;
 
-    let dataFrame: DataFrame = [];
-    let series: ChartSeries[] = [];
-    let { labelColumn } = options;
-
     // Hook to handle chart lifecycle
     function chartJs(node: HTMLCanvasElement, config: ChartConfiguration) {
         const ctx = node.getContext('2d');
         if (!ctx) throw new Error('Failed to get canvas context');
         const chart = new Chart(ctx, config);
         return {
-            update() {
+            update(newConfig: ChartConfiguration) {
+                Object.assign(chart, newConfig);
                 chart.update();
             },
             destroy() {
@@ -35,7 +33,7 @@
     }
 
     // Local chart configuration
-    const chartConfig: ChartConfiguration = {
+    let chartConfig: ChartConfiguration = {
         type: options.series[0]?.type || 'line',
         data: {
             labels: [],
@@ -44,16 +42,20 @@
         options: {},
     };
 
-    $: {
-        // Update local variable from props
-        dataFrame = data.value || [];
-        series = options.series;
-        labelColumn = options.labelColumn;
-    }
+    // Update local variable from props
+    let dataFrame: DataFrame = [];
+    let series: ChartSeries[] = [];
+    let { labelColumn } = options;
 
+    $: dataFrame = data.value || [];
+    $: series = options.series;
+    $: labelColumn = options.labelColumn;
+
+    $: chartConfig = update(chartConfig, {
+        type: { $set: defaultValue(options.series[0]?.type, 'line') },
+    });
     $: {
         // Reactively update chart configuration
-        chartConfig.type = defaultValue(options.series[0]?.type, 'line'); // Will set chartJs default value accordingly
         const chartOptions = chartConfig.options || {};
         chartOptions.aspectRatio = defaultValue(options.aspectRatio, 4 / 3);
         chartOptions.maintainAspectRatio = true;
@@ -86,13 +88,17 @@
                 enable: options?.axis?.assemblage?.percentaged,
             },
         };
-        chartConfig.options = chartOptions;
+        chartConfig = update(chartConfig, { options: { $set: chartOptions } });
     }
 
     $: {
-        // Use a separate block to only update datasets if there are new data
-        chartConfig.data.labels = dataFrame.map((entry) => entry[labelColumn]);
-        chartConfig.data.datasets = series.map((s) => toDataset(dataFrame, s));
+        const labels = dataFrame.map((entry) => entry[labelColumn]);
+        chartConfig = update(chartConfig, { data: { labels: { $set: labels } } });
+    }
+
+    $: {
+        const datasets = series.map((s) => toDataset(dataFrame, s));
+        chartConfig = update(chartConfig, { data: { datasets: { $set: datasets } } });
     }
 
     let displayTitle: boolean;
@@ -120,6 +126,7 @@
             </figcaption>
         {/if}
         <div class="chart-container">
+            {JSON.stringify(chartConfig.data.labels)}
             <canvas use:chartJs={chartConfig} role="img" aria-label={options.ariaLabel} />
         </div>
         {#if options.source}
