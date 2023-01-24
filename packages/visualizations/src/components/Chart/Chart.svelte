@@ -126,7 +126,6 @@
             </figcaption>
         {/if}
         <div class="chart-container">
-            {JSON.stringify(chartConfig.data.labels)}
             <canvas use:chartJs={chartConfig} role="img" aria-label={options.ariaLabel} />
         </div>
         {#if options.source}
