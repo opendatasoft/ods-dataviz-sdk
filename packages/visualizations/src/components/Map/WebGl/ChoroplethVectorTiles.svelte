@@ -1,5 +1,3 @@
-<svelte:options immutable={true} />
-
 <script lang="ts">
     import type { FilterSpecification, SourceSpecification } from 'maplibre-gl';
     import type { BBox } from 'geojson';
