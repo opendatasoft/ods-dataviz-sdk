@@ -27,7 +27,6 @@ export interface ChoroplethOptions {
     /** Maximum boundaries of the map, outside of which the user cannot zoom/move
      * Also set the position of the map when rendering.
      * If undefined, will default, in order to:
-     * - bbox if specified
      * - Fit the content if the source is GeoJSON
      * - The world
      */
