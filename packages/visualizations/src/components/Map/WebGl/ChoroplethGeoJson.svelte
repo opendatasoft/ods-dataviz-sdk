@@ -1,5 +1,3 @@
-<svelte:options immutable={true} />
-
 <script lang="ts">
     import turfBbox from '@turf/bbox';
     import type { FilterSpecification, SourceSpecification } from 'maplibre-gl';

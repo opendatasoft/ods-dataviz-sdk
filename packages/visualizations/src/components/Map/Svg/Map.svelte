@@ -21,7 +21,7 @@
         return {};
     };
 
-    $: fittedProjection = projection.fitSize([height, width], featureCollection);
+    $: fittedProjection = { ...projection.fitSize([height, width], featureCollection) };
     $: makePath = geoPath(fittedProjection);
     $: paths =
         featureCollection.features.map((f: Feature) => ({
