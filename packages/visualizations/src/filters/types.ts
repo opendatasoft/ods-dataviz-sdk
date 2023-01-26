@@ -9,5 +9,5 @@ export type SelectOptions = {
     fieldName: string;
     availableValues: string[];
     multiple?: boolean;
-    placeholder?: string;
+    placeholder?: string | null;
 };
