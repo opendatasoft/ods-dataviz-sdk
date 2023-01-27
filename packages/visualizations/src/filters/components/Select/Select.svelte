@@ -13,6 +13,4 @@
     $: component = multiple ? MultiSelect : SingleSelect;
 </script>
 
-<div class="filter-select">
-    <svelte:component this={component} {...rest} on:filter />
-</div>
+<svelte:component this={component} {...rest} on:filter />
