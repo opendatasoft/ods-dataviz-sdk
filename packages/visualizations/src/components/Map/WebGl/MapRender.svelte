@@ -37,7 +37,6 @@
     export let layer: MapLayer;
     // bounding box to start from, and restrict to it
     export let bbox: BBox | undefined;
-    export let viewBox: BBox | undefined = bbox;
     // option to disable map interactions
     export let interactive: boolean;
     // options to display legend
@@ -79,7 +78,7 @@
     let nav: NavigationControl;
 
     let mapReady = false;
-    let currentViewBox = viewBox;
+    let currentBbox = bbox;
     // Used to add a listener to resize map on container changes, canceled on destroy
     let resizer: ResizeObserver;
 
@@ -94,30 +93,22 @@
     const sourceId = `shape-source-${mapId}`;
     const layerId = `shape-layer-${mapId}`;
 
-    const fitBox = (box: BBox | LngLatBoundsLike) => {
-        // Using padding, keep enough room for controls (zoom) to make sure they don't hide anything
-        map.fitBounds(box as LngLatBoundsLike, {
-            animate: false,
-            padding: 40,
-        });
-    };
-
-    const setViewBox = (box: BBox | undefined) => {
+    const setBbox = (box: BBox | undefined) => {
         if (!box) {
             // zoom-out to bounds defined in the initialization
             map.setZoom(map.getMinZoom());
             return;
         }
-        fitBox(box);
-    };
-
-    function setMaxBounds(bounds: BBox) {
         // Cancel any saved max bounds to properly fitBounds
         map.setMaxBounds(null);
-        fitBox(bounds);
-        // Reset min zoom and movement
+        // Using padding, keep enough room for controls (zoom) to make sure they don't hide anything
+        map.fitBounds(box as LngLatBoundsLike, {
+            animate: false,
+            padding: 40,
+        });
+        // Set new map max bounds after bbox changes
         map.setMaxBounds(map.getBounds());
-    }
+    };
 
     function initializeMap() {
         const defaultCenter: LngLatLike = [3.5, 46];
@@ -145,16 +136,14 @@
 
     function initializeResizer() {
         // Set a resizeObserver to resize map on container size changes
-        // TODO: Do we really want to reset to the initial bbox each time?
         resizer = new ResizeObserver(
             debounce(() => {
                 map.resize();
-                if (mapReady && viewBox) {
-                    setViewBox(viewBox);
+                if (mapReady && currentBbox) {
+                    setBbox(currentBbox);
                 }
             }, 100)
         );
-
         resizer.observe(container);
         // Disconnect the resize onDestroy
         return () => resizer?.disconnect();
@@ -218,14 +207,14 @@
 
     let active: number | undefined;
 
-    const setViewBoxFromButton = (mapSVG: NavigationMap, i: number) => () => {
-        currentViewBox = mapSVG.bbox;
+    const setBboxFromButton = (mapSVG: NavigationMap, i: number) => () => {
+        currentBbox = mapSVG.bbox;
         active = i;
     };
 
-    const resetViewBoxFromButton = () => {
+    const resetBboxFromButton = () => {
         active = undefined;
-        currentViewBox = viewBox;
+        currentBbox = bbox;
     };
 
     function handleInteractivity(
@@ -276,10 +265,11 @@
             if (map.hasControl(nav)) {
                 map.removeControl(nav);
             }
-            // Reset map viewBox to reset zoom
-            if (mapReady && viewBox) {
-                setViewBox(viewBox);
+            // Reset map Bbox to reset zoom
+            if (mapReady && bbox) {
                 active = undefined;
+                currentBbox = bbox;
+                setBbox(currentBbox);
             }
         }
     }
@@ -326,11 +316,8 @@
         handleInteractivity(interactive, renderTooltip);
     }
     $: updateStyle(style);
-    $: if (mapReady && currentViewBox) {
-        setViewBox(currentViewBox);
-    }
-    $: if (mapReady && bbox) {
-        setMaxBounds(bbox);
+    $: if (mapReady && currentBbox) {
+        setBbox(currentBbox);
     }
     $: if (fixedPopupsList?.length > 0 && (activeShapes?.length === 0 || !activeShapes)) {
         fixedPopupsList.forEach((fixedPopup) => fixedPopup.popup.remove());
@@ -361,7 +348,7 @@
     {/if}
     <div class="main">
         {#if navigationMaps && active !== undefined}
-            <BackButton on:click={resetViewBoxFromButton} />
+            <BackButton on:click={resetBboxFromButton} />
         {/if}
         <div id="map" bind:this={container} />
     </div>
@@ -384,7 +371,7 @@
                     {colorScale}
                     active={active === i}
                     showTooltip={interactive}
-                    on:click={setViewBoxFromButton(map, i)}
+                    on:click={setBboxFromButton(map, i)}
                 />
             {/each}
         </div>

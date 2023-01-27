@@ -24,15 +24,13 @@ export interface ChoroplethOptions {
          * By default, the label will be taken from a `label` property in the shapes if it exists, or fallback to the key used to map the data and shapes. */
         labelMatcher?: ChoroplethTooltipMatchers;
     };
-    /** Maximum boundaries of the map, outside of which the user cannot zoom/move */
-    bbox?: BBox | undefined;
-    /** Position of the map when rendering.
+    /** Maximum boundaries of the map, outside of which the user cannot zoom/move
+     * Also set the position of the map when rendering.
      * If undefined, will default, in order to:
-     * - bbox if specified
      * - Fit the content if the source is GeoJSON
      * - The world
      */
-    viewBox?: BBox | undefined;
+    bbox?: BBox | undefined;
     /** Attribution to display on the map */
     attribution?: string;
     /** Title of the map */
