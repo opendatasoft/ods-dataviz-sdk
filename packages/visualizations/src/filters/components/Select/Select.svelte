@@ -1,16 +1,53 @@
 <script lang="ts">
-    /*
-    This is a minimal implementation of a filter, based on a standard HTML component.
-    It mostly exists for demo and documentation purposes, and may be removed at a later time.
-    */
-    import type { SelectOptions } from '../../types';
-    import SingleSelect from './SingleSelect.svelte';
-    import MultiSelect from './MultiSelect.svelte';
+    import Select, {SelectProps} from 'svelte-select';
+    import { exactMatch, one } from '@opendatasoft/api-client';
+    import { createEventDispatcher } from 'svelte';
+    import setDefaultValue from './utils';
+    import type { DispatchedFilterEvent, SelectOptions, ValueType } from '../../types';
 
     export let options: SelectOptions;
 
-    $: ({ multiple = false, ...rest } = options);
-    $: component = multiple ? MultiSelect : SingleSelect;
+    let fieldName: string;
+
+    $: ({ fieldName, defaultValue } = options);
+
+    const selectOptions: SelectProps  = {};
+
+    $: {
+        selectOptions.items = options?.availableValues;
+        selectOptions.multiple = setDefaultValue(options?.isMulti, false);
+        selectOptions.searchable = setDefaultValue(options?.isSearchable, false);
+        selectOptions.placeholder = setDefaultValue(options?.placeholder, null);
+        selectOptions.listOpen = setDefaultValue(options?.isMenuOpen, null);
+    }
+
+    const dispatch = createEventDispatcher<DispatchedFilterEvent>();
+
+    let selected: ValueType = defaultValue;
+
+    function applyFilter(newValue: ValueType): void {
+        if (Array.isArray(newValue))
+            dispatch('filter', {
+                value: one(
+                    ...newValue.map((v) => exactMatch(fieldName, v?.value))
+                ),
+            });
+        else {
+            dispatch('filter', {
+                value: newValue?.value ? exactMatch(fieldName, newValue?.value) : null,
+            });
+        };
+    };
+
+    $: applyFilter(selected);
 </script>
 
-<svelte:component this={component} {...rest} on:filter />
+<Select class="filter-select" bind:value={selected} {...selectOptions} />
+
+<style>
+    :global(.filter-select) {
+        --background: var(--filter-select-background-color, #ffffff) !important;
+        --border-radius: var(--filter-select-border-radius, 30px) !important;
+        box-shadow: var(--filter-select-border-color, #d0d0d0) 0px 0px 0px 1px !important;
+    }
+</style>

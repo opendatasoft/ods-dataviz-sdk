@@ -8,6 +8,17 @@ export type DispatchedFilterEvent = {
 export type SelectOptions = {
     fieldName: string;
     availableValues: string[];
-    multiple?: boolean;
+    isMulti?: boolean;
+    isSearchable?: boolean;
     placeholder?: string | null;
+    defaultValue?: ValueType;
+    isMenuOpen?: boolean;
 };
+
+export type ValueItemType = {
+    value: string;
+    label: string;
+    index: number;
+};
+
+export type ValueType = ValueItemType | ValueItemType[] | undefined;

@@ -20,7 +20,7 @@ function basePlugins() {
         svelte({
             // enable run-time checks when not in production
             dev: !production,
-            include: 'src/**/*.svelte',
+            include: ['src/**/*.svelte', 'node_modules/svelte-select/*.svelte'],
             emitCss: true,
             preprocess: autoPreprocess({
                 scss: {

@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import React, { useState } from "react";
+import React, { useState, CSSProperties } from "react";
 import { Select } from '../../src';
 
 const meta: ComponentMeta<typeof Select> = {
@@ -11,7 +11,7 @@ export default meta;
 
 const Template: ComponentStory<typeof Select> = (args) => {
     const [query, setQuery] = useState<string | null>('');
-    
+
     return (
         <>
             <Select {...args} handleFilter={(value:string|null) => setQuery(value)} />
@@ -20,13 +20,62 @@ const Template: ComponentStory<typeof Select> = (args) => {
     );
 };
 
-export const SelectStory = Template.bind({});
+export const SelectSingle = Template.bind({});
 
-SelectStory.args = {
+SelectSingle.args = {
     options: {
         fieldName: 'field',
-        availableValues: ['one', 'two', 'three'],
-        multiple: false,
+        availableValues: ['one', 'two', 'three', 'four'],
+        isMulti: false,
         placeholder: 'Select a value'
     },
+};
+
+export const SelectSingleSearchable = Template.bind({});
+
+SelectSingleSearchable.args = {
+    options: {
+        fieldName: 'field',
+        availableValues: ['one', 'two', 'three', 'four'],
+        isMulti: false,
+        isSearchable: true,
+        placeholder: 'Select a value'
+    },
+};
+
+export const SelectMulti = Template.bind({});
+
+SelectMulti.args = {
+    options: {
+        fieldName: 'field',
+        availableValues: ['one', 'two', 'three', 'four'],
+        isMulti: true,
+        placeholder: 'Select multiple values'
+    },
+};
+
+export const SelectMultiSearchable = Template.bind({});
+
+SelectMultiSearchable.args = {
+    options: {
+        fieldName: 'field',
+        availableValues: ['one', 'two', 'three', 'four'],
+        isMulti: true,
+        isSearchable: true,
+        placeholder: 'Select multiple values'
+    },
+};
+
+export const SelectSingleMenuOpen = Template.bind({});
+
+SelectSingleMenuOpen.args = {
+    options: {
+        fieldName: 'field',
+        availableValues: ['one', 'two', 'three', 'four'],
+        placeholder: 'Select a value with a ligth blue background',
+        isMenuOpen: true,
+    },
+    style: {
+        '--filter-select-background-color': '#9fc6f5',
+    } as CSSProperties,
 };
