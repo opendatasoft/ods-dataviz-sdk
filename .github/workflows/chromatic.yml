@@ -5,6 +5,10 @@ on: push
 jobs:
   chromatic-deployment:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [">=16 <18"]
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
