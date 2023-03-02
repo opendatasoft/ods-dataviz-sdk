@@ -78,7 +78,7 @@
     let nav: NavigationControl;
 
     let mapReady = false;
-    let currentBbox = bbox;
+    $: currentBbox = bbox;
     // Used to add a listener to resize map on container changes, canceled on destroy
     let resizer: ResizeObserver;
 
