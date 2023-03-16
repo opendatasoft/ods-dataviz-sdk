@@ -219,13 +219,17 @@ export const getFixedTooltips = (
     ) as ChoroplethFixedTooltipDescription[];
 };
 
-export const computeFilterExpression = (filterConfig: MapFilter) => {
-    /** Transform a filter object from the options into a Maplibre filter expression */
+/** Transform a filter object from the options into a Maplibre filter expression */
+export const computeFilterExpression = (filterConfig: MapFilter): FilterSpecification => {
     const { key, value } = filterConfig;
-    const filterMatchExpression: string[] = ['in', key];
+    // The matching is case-insensitive to make it easier with unique administrative codes
+    // that may have varying case but still represent the same entity.
+    const filterMatchExpression: FilterSpecification = ['in', ['downcase', ['get', key]]];
+    const matchingValues: string[] = [];
     (Array.isArray(value) ? value : [value]).forEach((filterValue) => {
-        filterMatchExpression.push(filterValue.toString());
+        matchingValues.push(filterValue.toString().toLowerCase());
     });
+    filterMatchExpression.push(['literal', matchingValues]);
     return filterMatchExpression;
 };
 
