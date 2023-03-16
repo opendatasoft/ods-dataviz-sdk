@@ -40,7 +40,7 @@
     let legend: MapLegend | undefined;
     let attribution: string | undefined;
     let filter: MapFilter | undefined;
-    let filterExpression: (string | string[])[] | undefined;
+    let filterExpression: FilterSpecification | undefined;
     let title: string | undefined;
     let subtitle: string | undefined;
     let navigationMaps: NavigationMap[] | undefined;
