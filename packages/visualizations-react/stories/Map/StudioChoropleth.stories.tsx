@@ -77,6 +77,7 @@ const StudioChoroplethArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
         },
         aspectRatio: 1,
         attribution: 'Testing attribution',
+        description: 'Accessible description',
     },
 };
 StudioChoropleth.args = StudioChoroplethArgs;

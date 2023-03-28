@@ -58,6 +58,8 @@
     export let title: string | undefined;
     // Subtitle of the map
     export let subtitle: string | undefined;
+    // Accessibility description
+    export let description: string | undefined;
     // Navigation maps
     export let navigationMaps: NavigationMap[] | undefined;
     export let data: { value: ChoroplethDataValue[] };
@@ -190,12 +192,12 @@
 
     function addTooltip(e: MapLayerMouseEvent) {
         if (e.features) {
-            const description = renderTooltip(e.features[0]);
-            if (description) {
+            const tooltipDescription = renderTooltip(e.features[0]);
+            if (tooltipDescription) {
                 if (hoverPopup.isOpen()) {
-                    hoverPopup.setLngLat(e.lngLat).setHTML(description);
+                    hoverPopup.setLngLat(e.lngLat).setHTML(tooltipDescription);
                 } else {
-                    hoverPopup.setLngLat(e.lngLat).setHTML(description).addTo(map);
+                    hoverPopup.setLngLat(e.lngLat).setHTML(tooltipDescription).addTo(map);
                 }
             }
         }
@@ -323,10 +325,10 @@
         fixedPopupsList.forEach((fixedPopup) => fixedPopup.popup.remove());
     }
     $: fixedPopupsList.forEach((fixedPopup) => {
-        const { center, description, popup } = fixedPopup;
+        const { center, description: tooltipDescription, popup } = fixedPopup;
         popup
             .setLngLat(center as LngLatLike)
-            .setHTML(description)
+            .setHTML(tooltipDescription)
             .addTo(map);
     });
 </script>
@@ -346,12 +348,15 @@
             {/if}
         </figcaption>
     {/if}
-    <div class="main">
+    <div class="main" aria-describedby={description ? mapId.toString() : undefined}>
         {#if navigationMaps && active !== undefined}
             <BackButton on:click={resetBboxFromButton} />
         {/if}
         <div id="map" bind:this={container} />
     </div>
+    {#if description}
+        <p id={mapId.toString()} class="a11y-invisible-description">{description}</p>
+    {/if}
     {#if legend && dataBounds && clientWidth && mapReady}
         <ColorsLegend
             {dataBounds}
@@ -418,5 +423,10 @@
         grid: auto-flow minmax(52px, 60px) / repeat(auto-fit, minmax(52px, 60px));
         justify-content: flex-start;
         pointer-events: var(--buttons-events);
+    }
+
+    /* Suitable for elements that are used via aria-describedby or aria-labelledby */
+    .a11y-invisible-description {
+        display: none;
     }
 </style>

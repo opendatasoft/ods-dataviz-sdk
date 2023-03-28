@@ -23,7 +23,6 @@ const source = {
 const options: ChartOptions = {
     labelColumn: 'x',
     source,
-    ariaLabel: 'Line chart with title, axis, grid and dots',
     series: [
         {
             type: 'line',
@@ -67,6 +66,7 @@ const options: ChartOptions = {
     title: {
         text: 'Line chart with title, axis, grid and dots',
     },
+    description: 'Line chart with title, axis, grid and dots',
 };
 
 describe('Chart Default Story', () => {
@@ -74,7 +74,7 @@ describe('Chart Default Story', () => {
 
     it('renders without crashing', () => {
         const chartCanvas = screen.getByRole('img', {
-            name: /Line chart with title, axis, grid and dots/i,
+            description: 'Line chart with title, axis, grid and dots',
         });
         expect(chartCanvas).toBeInTheDocument();
     });

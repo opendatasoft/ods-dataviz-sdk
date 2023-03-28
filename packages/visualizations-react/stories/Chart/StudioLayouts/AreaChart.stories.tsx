@@ -28,7 +28,6 @@ const AreaTitleAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Area chart with title, axis, grid and dots',
         series: [
             {
                 type: 'line',
@@ -93,7 +92,6 @@ const AreaAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Area chart with axis, grid and dots',
         series: [
             {
                 type: 'line',
@@ -145,7 +143,6 @@ const AreaTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Area chart with title, axis and grid',
         series: [
             {
                 type: 'line',
@@ -201,7 +198,6 @@ const AreaTitleSubtitleGridArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Area chart with title, subtitle and grid',
         series: [
             {
                 type: 'line',
@@ -260,7 +256,6 @@ const AreaTitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Area chart with title and data values on axis',
         series: [
             {
                 type: 'line',
@@ -330,7 +325,6 @@ const AreaDataValuesOnlyArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Area chart with data values on axis',
         series: [
             {
                 type: 'line',

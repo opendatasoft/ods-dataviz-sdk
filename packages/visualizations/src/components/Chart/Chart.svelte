@@ -12,9 +12,12 @@
     import buildLegend from './legend';
     import SourceLink from '../utils/SourceLink.svelte';
     import { defaultNumberFormat } from '../utils/formatter';
+    import { generateId } from '../utils';
 
     export let data: Async<DataFrame>;
     export let options: ChartOptions;
+
+    const chartId = `chart-${generateId()}`;
 
     // Hook to handle chart lifecycle
     function chartJs(node: HTMLCanvasElement, config: ChartConfiguration) {
@@ -126,7 +129,14 @@
             </figcaption>
         {/if}
         <div class="chart-container">
-            <canvas use:chartJs={chartConfig} role="img" aria-label={options.ariaLabel} />
+            <canvas
+                role="img"
+                use:chartJs={chartConfig}
+                aria-describedby={options.description ? chartId : undefined}
+            />
+            {#if options.description}
+                <p id={chartId} class="a11y-invisible-description">{options.description}</p>
+            {/if}
         </div>
         {#if options.source}
             <SourceLink source={options.source} />
@@ -150,5 +160,10 @@
         position: relative;
         width: 100%;
         flex-grow: 1;
+    }
+
+    /* Suitable for elements that are used via aria-describedby or aria-labelledby */
+    .a11y-invisible-description {
+        display: none;
     }
 </style>

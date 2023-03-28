@@ -28,7 +28,6 @@ const ColumnTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {
                 type: 'bar',
@@ -89,7 +88,6 @@ const ColumnAxisGridArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Column chart with axis and grid',
         series: [
             {
                 type: 'bar',
@@ -147,7 +145,6 @@ const ColumnTitleSubtitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {
                 type: 'bar',
@@ -238,7 +235,6 @@ const ColumnDataValuesArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {
                 type: 'bar',
@@ -323,7 +319,6 @@ const ColumnAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {
                 type: 'bar',
@@ -412,7 +407,6 @@ const ColumnTitleAxisGridNegativeArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {
                 type: 'bar',

@@ -28,7 +28,6 @@ const LineLongTitleArgs: Props < DataFrame, ChartOptions > = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Line chart with long title',
         series: [
             {
                 type: 'line',
@@ -73,7 +72,6 @@ const LineNoTitleArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Line chart without title',
         series: [
             {
                 type: 'line',

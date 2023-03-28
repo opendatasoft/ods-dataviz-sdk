@@ -73,7 +73,7 @@
         "@storybook/addons": "^6.5.13",
         "@storybook/react": "^6.5.13",
         "@testing-library/jest-dom": "^5.11.9",
-        "@testing-library/react": "^11.2.5",
+        "@testing-library/react": "^12.1.5",
         "@turf/turf": "^6.5.0",
         "@types/geojson": "^7946.0.10",
         "@types/jest": "^29.0.2",

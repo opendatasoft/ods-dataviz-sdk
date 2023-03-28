@@ -26,7 +26,6 @@ const BarTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Bar chart with title, axis and grid',
         series: [
             {
                 type: 'bar',
@@ -88,7 +87,6 @@ const BarAxisGridArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Bar chart with axis and grid',
         series: [
             {
                 type: 'bar',
@@ -148,7 +146,6 @@ const BarTitleAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Bar chart with title, axis and data values',
         padding: 24,
         series: [
             {
@@ -244,7 +241,6 @@ const BarAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Bar chart with axis and data values',
         padding: 24,
         series: [
             {
@@ -334,7 +330,6 @@ const BarTitleSubTitleGridArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Bar chart with title, subtitle and grid',
         series: [
             {
                 type: 'bar',
@@ -386,6 +381,7 @@ const BarTitleSubTitleGridArgs: Props<DataFrame, ChartOptions> = {
         subtitle: {
             text: 'Custom Chart Subtitle',
         },
+        description: 'Accessible description',
     },
 };
 BarTitleSubTitleGrid.args = BarTitleSubTitleGridArgs;

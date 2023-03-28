@@ -34,8 +34,8 @@ export interface ChartOptions {
     subtitle?: TitleConfiguration;
     /** Configure tooltip */
     tooltip?: TooltipConfiguration;
-    /** Accessibility */
-    ariaLabel: string;
+    /** Description of the map for users that can't see it, intended for acessibility purposes */
+    description?: string;
     /** Link button to source */
     source?: Source;
 }
