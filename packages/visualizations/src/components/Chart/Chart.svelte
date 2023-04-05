@@ -71,12 +71,10 @@
             tooltip: {
                 enabled: defaultValue(options?.tooltip?.display, true),
                 callbacks: {
-                    label(context) {
-                        const format = options?.tooltip?.label;
-                        if (format) return format(context.dataIndex);
-                        const rawValue = context.raw;
-                        if (typeof rawValue === 'number') return defaultNumberFormat(rawValue);
-                        return context.formattedValue;
+                    label({ raw, formattedValue }) {
+                        const format = options?.tooltip?.format;
+                        if (raw && typeof raw === 'number') return format ? format(raw) : defaultNumberFormat(raw);
+                        return formattedValue;
                     },
                 },
             },

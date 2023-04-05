@@ -111,8 +111,10 @@ export interface LegendConfiguration {
 }
 
 export interface TooltipConfiguration {
+    /** Display tooltip */
     display?: boolean;
-    label?: (index: number) => string | string[];
+    /** Custom formatting function for tooltips content */
+    format?: (dataIndex: number) => string;
 }
 export interface FontConfiguration {
     size?: number;
