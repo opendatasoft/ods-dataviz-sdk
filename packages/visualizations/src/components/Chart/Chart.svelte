@@ -73,7 +73,8 @@
                 callbacks: {
                     label({ raw, formattedValue }) {
                         const format = options?.tooltip?.format;
-                        if (raw && typeof raw === 'number') return format ? format(raw) : defaultNumberFormat(raw);
+                        if (raw && typeof raw === 'number')
+                            return format ? format(raw) : defaultNumberFormat(raw);
                         return formattedValue;
                     },
                 },
