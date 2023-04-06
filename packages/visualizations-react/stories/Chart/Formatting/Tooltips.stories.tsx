@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Story, Meta } from '@storybook/react';
 import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 
@@ -15,6 +16,8 @@ enum Locales {
     Italian_Italy = 'it-IT',
     Italian_Switzerland = 'it-CH',
     Arabic_ArabEmirates = 'ar-AE',
+    Arabic_SaudiArabia = 'ar-SA',
+    Arabic_Qatar = 'ar-QA',
     German_Germany = 'de-DE',
     German_Switzerland = 'de-CH',
     Spanish_Spain = 'es-ES',
@@ -33,6 +36,8 @@ const LOCALES_MAPPING: { [locale: string]: string } = {
     [Locales.Italian_Italy]: 'Italian (Italy)',
     [Locales.Italian_Switzerland]: 'Italian (Switzerland)',
     [Locales.Arabic_ArabEmirates]: 'Arabic (Arab Emirates)',
+    [Locales.Arabic_SaudiArabia]: 'Arabic (Saudi Arabia)',
+    [Locales.Arabic_Qatar]: 'Arabic (Qatar)',
     [Locales.German_Germany]: 'German (Germany)',
     [Locales.German_Switzerland]: 'German (Switzerland)',
     [Locales.Spanish_Spain]: 'Spanish (Spain)',
