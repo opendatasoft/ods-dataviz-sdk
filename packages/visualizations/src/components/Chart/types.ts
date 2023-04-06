@@ -114,7 +114,7 @@ export interface TooltipConfiguration {
     /** Display tooltip */
     display?: boolean;
     /** Custom formatting function for tooltips content */
-    format?: (dataIndex: number) => string;
+    format?: (value: number) => string;
 }
 export interface FontConfiguration {
     size?: number;
