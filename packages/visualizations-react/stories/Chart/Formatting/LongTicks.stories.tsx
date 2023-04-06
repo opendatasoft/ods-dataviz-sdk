@@ -74,7 +74,6 @@ const LongTicksFixedArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Line chart with Long Ticks Unfixed',
         padding: 6,
         series: [
             {
@@ -148,7 +147,6 @@ const BarLongTicksArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Bar chart with title, axis and grid',
         series: [
             {
                 type: 'bar',
@@ -237,7 +235,6 @@ const ColumnLongTicksArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {
                 type: 'bar',
@@ -305,7 +302,6 @@ const RadarLongTicksArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Radar chart',
         series: [
             {
                 type: 'radar',

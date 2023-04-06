@@ -25,7 +25,6 @@ const LineLongLegendArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Line chart with title, axis, grid and dots',
         series: [
             {
                 type: 'line',
@@ -104,7 +103,6 @@ const PieLongLegendArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Pie chart with title and legend with values',
         series: [
             {
                 type: 'pie',
@@ -145,7 +143,6 @@ const RadarLongLegendArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Radar chart',
         series: [
             {
                 type: 'radar',
