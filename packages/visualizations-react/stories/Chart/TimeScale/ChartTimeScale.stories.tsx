@@ -24,7 +24,6 @@ const AreaChartYearsArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        ariaLabel: 'Years',
         series: [
             {
                 type: 'line',
@@ -69,7 +68,6 @@ const LineChartYearsWithGapArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'year',
-        ariaLabel: 'Years',
         series: [
             {
                 type: 'line',
@@ -110,7 +108,6 @@ const LineChartMonthsArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        ariaLabel: 'Months',
         series: [
             {
                 type: 'line',
@@ -149,7 +146,6 @@ const LineChartDaysArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        ariaLabel: 'Days',
         series: [
             {
                 type: 'line',
@@ -189,7 +185,6 @@ const LineChartHoursArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        ariaLabel: 'Hours',
         series: [
             {
                 type: 'line',
@@ -228,7 +223,6 @@ const LineChartMinutesArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        ariaLabel: 'Minutes',
         series: [
             {
                 type: 'line',
@@ -267,7 +261,6 @@ const BarChartSecondsArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        ariaLabel: 'Seconds',
         series: [
             {
                 type: 'bar',

@@ -43,6 +43,7 @@
     let filterExpression: FilterSpecification | undefined;
     let title: string | undefined;
     let subtitle: string | undefined;
+    let description: string | undefined;
     let navigationMaps: NavigationMap[] | undefined;
 
     // Used to apply a chosen color for shapes without values (default: #cccccc)
@@ -67,6 +68,7 @@
         attribution,
         title,
         subtitle,
+        description,
         navigationMaps,
     } = options);
 
@@ -141,6 +143,7 @@
     {attribution}
     {title}
     {subtitle}
+    {description}
     {navigationMaps}
     {data}
 />

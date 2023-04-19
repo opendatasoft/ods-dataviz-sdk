@@ -29,7 +29,6 @@ const AreaChartStackedArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        ariaLabel: 'Years',
         series: [
             {
                 type: 'line',
@@ -84,7 +83,6 @@ const AreaChartPercentageArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        ariaLabel: 'Years',
         series: [
             {
                 type: 'line',
@@ -139,7 +137,6 @@ const LineChartStackedArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        ariaLabel: 'Years',
         series: [
             {
                 type: 'line',
@@ -196,7 +193,6 @@ const LineChartPercentageArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        ariaLabel: 'Years',
         series: [
             {
                 type: 'line',
@@ -252,7 +248,6 @@ const BarChartStackedArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        ariaLabel: 'Test',
         title: {
             text: 'Bar Chart - Stacked',
         },
@@ -325,7 +320,6 @@ const BarChartPercentageArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        ariaLabel: 'Test',
         title: {
             text: 'Bar Chart - Percentage',
         },
@@ -398,7 +392,6 @@ const ColumnChartStackedArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        ariaLabel: 'Test',
         title: {
             text: 'Column Chart - Stacked',
         },
@@ -470,7 +463,6 @@ const ColumnChartPercentageArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        ariaLabel: 'Test',
         title: {
             text: 'Column Chart - Percentage',
         },

@@ -27,7 +27,6 @@ const SampleArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Line chart with title, axis, grid and dots',
         series: [
             {
                 label: 'Green',

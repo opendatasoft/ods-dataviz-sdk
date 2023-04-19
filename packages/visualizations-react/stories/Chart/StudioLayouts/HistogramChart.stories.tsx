@@ -28,7 +28,6 @@ const HistogramTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Histogram series chart',
         series: [
             {
                 type: 'bar',
@@ -81,7 +80,6 @@ const HistogramAxisGridArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Histogram chart with axis and grid',
         series: [
             {
                 type: 'bar',
@@ -131,7 +129,6 @@ const HistogramTitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Histogram chart with title, subtitle and data values',
         series: [
             {
                 type: 'bar',
@@ -207,7 +204,6 @@ const HistogramDataValuesArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Histogram chart with data values',
         series: [
             {
                 type: 'bar',
@@ -276,7 +272,6 @@ const HistogramAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Histogram chart with axis and data values',
         series: [
             {
                 type: 'bar',
@@ -355,7 +350,6 @@ const HistogramTitleAxisGridNegativeArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Histogram series chart',
         series: [
             {
                 type: 'bar',

@@ -26,7 +26,6 @@ const PieTitleSectorsNameArgs: Props<DataFrame,ChartOptions> = {
             options: {
                 labelColumn: 'x',
                 source: defaultSource,
-                ariaLabel: 'Pie chart with title and sectors name',
                 series: [
                     {
                         type: 'pie',
@@ -53,7 +52,6 @@ const PieTitleSectorsNameValueArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Pie chart with title and sectors name with values',
         series: [
             {
                 type: 'pie',
@@ -85,7 +83,6 @@ const PieTitleLegendArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Pie chart with title and legend',
         series: [
             {
                 type: 'pie',
@@ -118,7 +115,6 @@ const PieTitleLegendValuesArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Pie chart with title and legend with values',
         series: [
             {
                 type: 'pie',

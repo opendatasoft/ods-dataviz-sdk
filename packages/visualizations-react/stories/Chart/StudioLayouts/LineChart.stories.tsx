@@ -28,7 +28,6 @@ const LineTitleAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Line chart with title, axis, grid and dots',
         series: [
             {
                 type: 'line',
@@ -85,7 +84,6 @@ const LineAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Line chart with axis, grid and dots',
         series: [
             {
                 type: 'line',
@@ -146,7 +144,6 @@ const LineTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Line chart with title, axis and grid',
         series: [
             {
                 type: 'line',
@@ -204,7 +201,6 @@ const LineTitleSubtitleGridArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Line chart with title, subtitle and grid',
         series: [
             {
                 type: 'line',
@@ -265,7 +261,6 @@ const LineTitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Line chart with title and data values on axis',
         series: [
             {
                 type: 'line',
@@ -340,7 +335,6 @@ const LineDataValuesOnlyArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Line chart with data values on axis',
         series: [
             {
                 type: 'line',
@@ -409,7 +403,6 @@ const LineTitleAxisGridDotsNegativeArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Line chart with title, axis, grid and dots',
         series: [
             {
                 type: 'line',
