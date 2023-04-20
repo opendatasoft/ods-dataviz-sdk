@@ -1,7 +1,8 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Story, Meta } from '@storybook/react';
-import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { ChartSeriesType } from '@opendatasoft/visualizations';
 
 import { Chart, Props } from '../../../src';
 import { defaultSource } from '../../utils';
@@ -58,6 +59,15 @@ enum NumberFormatNotations {
 }
 
 /**
+ * Chart assembly options for line and bar charts
+ */
+enum Assemblage {
+    Separate = 'separate',
+    Stacked = 'stacked',
+    Percentage = 'Percentage',
+}
+
+/**
  * This function is used to convert the number format options from the chart configuration
  * to the Intl.NumberFormatOptions used by the Intl.NumberFormat API to format numbers.
  */
@@ -87,39 +97,49 @@ type TemplateProps = {
     locale: Locales;
     notation: NumberFormatNotations;
     decimals: number;
+    assemblage: Assemblage;
     chartOptions: Props<DataFrame, ChartOptions>;
 };
 
 function Template(args: TemplateProps): React.ReactElement {
     const {
-        locale = Locales.English_UnitedStates,
-        notation = NumberFormatNotations.Standard,
-        decimals = 2,
+        locale,
+        notation,
+        decimals,
+        assemblage,
         chartOptions: { data, options },
     } = args;
 
-    const { format } = useMemo(
-        () => new Intl.NumberFormat(locale, decimalFormatOptions(notation, decimals)),
-        [locale, notation, decimals]
-    );
+    const numberFormatter = useCallback((value: number) => (
+        new Intl.NumberFormat(locale, decimalFormatOptions(notation, decimals)).format(value)
+    ), [locale, notation, decimals]);
+
+    const chartOptions = useMemo(() => ({
+            ...options,
+            title: {
+                text: `Current locale: ${LOCALES_MAPPING[locale]}`,
+            },
+            subtitle: {
+                text: `Tooltip exemple: ${numberFormatter(10000000.12345)}`,
+            },
+            tooltip: {
+                numberFormatter,
+            },
+            axis: {
+                ...options.axis,
+                assemblage: {
+                    stacked: assemblage === Assemblage.Stacked || assemblage === Assemblage.Percentage,
+                    percentaged: assemblage === Assemblage.Percentage,
+                },
+            }
+    }), [locale, assemblage, options, numberFormatter]);
 
     return (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Chart
                 style={{ width: '60vw' }}
                 data={data}
-                options={{
-                    ...options,
-                    title: {
-                        text: `Current locale: ${LOCALES_MAPPING[locale]}`,
-                    },
-                    subtitle: {
-                        text: `Tooltip exemple: ${format(10000000.12345)}`,
-                    },
-                    tooltip: {
-                        format,
-                    },
-                }}
+                options={chartOptions}
             />
         </div>
     );
@@ -131,22 +151,16 @@ Default.args = {
     locale: Locales.English_UnitedStates,
     notation: NumberFormatNotations.Standard,
     decimals: 2,
+    assemblage: Assemblage.Separate,
     chartOptions: {
         data: {
-            value: [{ x: 'Big number', y0: 10000000.12345, y1: -10000000.12345 }],
+            value: [{ x: 'Big number', y0: 10000000.12345, y1: 5000000.12345, y2: 2500000.12345 }],
             loading: false,
         },
         options: {
-            title: {}, // Filled in Template
-            subtitle: {}, // Filled in Template
-            tooltip: {}, // Filled in Template
             source: defaultSource,
             labelColumn: 'x',
-            ariaLabel: 'Test',
             axis: {
-                assemblage: {
-                    stacked: true,
-                },
                 x: {
                     display: true,
                     gridLines: {
@@ -165,16 +179,22 @@ Default.args = {
             },
             series: [
                 {
-                    type: 'bar',
+                    type: ChartSeriesType.Bar,
                     valueColumn: 'y0',
                     backgroundColor: '#c3cde3',
                     borderColor: '#8da0cb',
                 },
                 {
-                    type: 'bar',
+                    type: ChartSeriesType.Bar,
                     valueColumn: 'y1',
                     backgroundColor: '#fac4b2',
                     borderColor: '#fc8d62',
+                },
+                {
+                    type: ChartSeriesType.Bar,
+                    valueColumn: 'y2',
+                    backgroundColor: '#b0dcd1',
+                    borderColor: '#63bb9e',
                 },
             ],
         },
@@ -201,4 +221,10 @@ Default.argTypes = {
             type: 'select',
         },
     },
+    assemblage: {
+        options: Object.values(Assemblage),
+        control: {
+            type: 'select',
+        },
+    }
 };

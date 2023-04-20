@@ -113,9 +113,10 @@ export interface LegendConfiguration {
 export interface TooltipConfiguration {
     /** Display tooltip */
     display?: boolean;
-    /** Custom formatting function for tooltips content */
-    format?: (value: number) => string;
+    /** Custom number formatting function for tooltips values */
+    numberFormatter?: (value: number) => string;
 }
+
 export interface FontConfiguration {
     size?: number;
     weight?: string;
@@ -148,8 +149,15 @@ export interface DataLabelsConfiguration {
 
 export type ChartSeries = Line | Bar | Pie | Radar;
 
+export enum ChartSeriesType {
+    Line = 'line',
+    Bar = 'bar',
+    Pie = 'pie',
+    Radar = 'radar',
+}
+
 export interface Line {
-    type: 'line';
+    type: ChartSeriesType.Line;
     valueColumn: string;
     label?: string;
     backgroundColor?: Color | Color[];
@@ -165,7 +173,7 @@ export interface Line {
 }
 
 export interface Bar {
-    type: 'bar';
+    type: ChartSeriesType.Bar;
     valueColumn: string;
     label?: string;
     backgroundColor?: Color | Color[];
@@ -179,7 +187,7 @@ export interface Bar {
 }
 
 export interface Pie {
-    type: 'pie';
+    type: ChartSeriesType.Pie;
     valueColumn: string;
     label?: string;
     backgroundColor?: Color | Color[];
@@ -188,7 +196,7 @@ export interface Pie {
 }
 
 export interface Radar {
-    type: 'radar';
+    type: ChartSeriesType.Radar;
     valueColumn: string;
     label?: string;
     backgroundColor?: Color | Color[];
