@@ -64,7 +64,7 @@ enum NumberFormatNotations {
 enum Assemblage {
     Separate = 'separate',
     Stacked = 'stacked',
-    Percentage = 'Percentage',
+    Percentage = 'percentage',
 }
 
 /**
