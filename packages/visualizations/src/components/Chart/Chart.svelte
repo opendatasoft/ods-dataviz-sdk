@@ -89,9 +89,7 @@
                             raw,
                             formattedValue,
                             dataIndex,
-                            dataset: {
-                                label,
-                            },
+                            dataset: { label },
                         } = context;
                         const { type: seriesType } = options.series[0];
                         const format = options?.tooltip?.numberFormatter || defaultNumberFormat;
@@ -103,7 +101,8 @@
                         // If the value is a percentage, we need to add the '%' symbol
                         const percentaged = options?.axis?.assemblage?.percentaged ? '% ' : '';
                         // If the value is a percentage, we need to format the raw value
-                        const formattedRawValue = percentaged && raw && typeof raw === 'number' && `(${format(raw)})`;
+                        const formattedRawValue =
+                            percentaged && raw && typeof raw === 'number' && `(${format(raw)})`;
                         const suffix = percentaged + formattedRawValue;
 
                         if (seriesType && parsed) {
