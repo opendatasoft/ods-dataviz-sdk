@@ -1,4 +1,5 @@
-import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import type { Props } from '../../../src';
 import { COLORS, generateArrayOf } from '../../utils';
@@ -26,7 +27,7 @@ const AreaChartYearsArgs: Props<DataFrame, ChartOptions> = {
         labelColumn: 'x',
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 backgroundColor: COLORS.green,
                 fill: { mode: 'origin' },
@@ -70,7 +71,7 @@ const LineChartYearsWithGapArgs: Props<DataFrame, ChartOptions> = {
         labelColumn: 'year',
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 borderColor: COLORS.purple,
                 backgroundColor: COLORS.red,
@@ -110,7 +111,7 @@ const LineChartMonthsArgs: Props<DataFrame, ChartOptions> = {
         labelColumn: 'x',
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 borderColor: COLORS.blue,
             },
@@ -148,7 +149,7 @@ const LineChartDaysArgs: Props<DataFrame, ChartOptions> = {
         labelColumn: 'x',
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 borderColor: COLORS.blue,
                 tension: 0.5,
@@ -187,7 +188,7 @@ const LineChartHoursArgs: Props<DataFrame, ChartOptions> = {
         labelColumn: 'x',
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 borderColor: COLORS.orange,
             },
@@ -225,7 +226,7 @@ const LineChartMinutesArgs: Props<DataFrame, ChartOptions> = {
         labelColumn: 'x',
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 borderColor: COLORS.red,
             },
@@ -263,7 +264,7 @@ const BarChartSecondsArgs: Props<DataFrame, ChartOptions> = {
         labelColumn: 'x',
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 backgroundColor: COLORS.grey,
             },

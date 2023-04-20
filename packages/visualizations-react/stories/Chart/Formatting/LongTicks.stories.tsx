@@ -1,4 +1,5 @@
-import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
 import { defaultSource } from '../../utils';
@@ -77,13 +78,13 @@ const LongTicksFixedArgs: Props<DataFrame, ChartOptions> = {
         padding: 6,
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 tension: 0,
                 borderColor: 'rgb(22, 161, 145)',
             },
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'z',
                 tension: 0,
                 borderColor: 'rgb(119, 73, 54)',
@@ -149,7 +150,7 @@ const BarLongTicksArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 indexAxis: 'y',
                 backgroundColor: [
@@ -237,7 +238,7 @@ const ColumnLongTicksArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 backgroundColor: [
                     'rgba(250,50,50,0.5)',
@@ -304,14 +305,14 @@ const RadarLongTicksArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'radar',
+                type: ChartSeriesType.Radar,
                 valueColumn: 'y',
                 label: 'User 1',
                 backgroundColor: 'rgba(27,210,210,0.5)',
                 borderColor: 'rgb(27,210,210)',
             },
             {
-                type: 'radar',
+                type: ChartSeriesType.Radar,
                 valueColumn: 'z',
                 label: 'User 2',
                 backgroundColor: 'rgba(127,10,210,0.5)',

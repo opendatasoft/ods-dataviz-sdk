@@ -1,4 +1,5 @@
-import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
 import { compactNumberFormatter, defaultSource } from '../../utils';
@@ -30,7 +31,7 @@ const LineLongDataLabelsArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 tension: 0,
                 borderColor: 'rgb(22, 161, 145)',
@@ -102,7 +103,7 @@ const PieLongDataLabelrsArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'pie',
+                type: ChartSeriesType.Pie,
                 valueColumn: 'y',
                 backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
                 dataLabels: {
@@ -142,7 +143,7 @@ export const RadarLongDataLabels = ChartTemplate.bind({});
         source: defaultSource,
         series: [
             {
-                type: 'radar',
+                type: ChartSeriesType.Radar,
                 valueColumn: 'y',
                 label: 'User 1',
                 backgroundColor: 'rgba(27,210,210,0.5)',
@@ -154,7 +155,7 @@ export const RadarLongDataLabels = ChartTemplate.bind({});
                 },
             },
             {
-                type: 'radar',
+                type: ChartSeriesType.Radar,
                 valueColumn: 'z',
                 label: 'User 2',
                 backgroundColor: 'rgba(127,10,210,0.5)',

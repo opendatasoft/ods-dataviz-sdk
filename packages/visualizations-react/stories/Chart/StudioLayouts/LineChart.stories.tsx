@@ -1,4 +1,5 @@
-import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
 import { defaultSource } from '../../utils';
@@ -30,14 +31,14 @@ const LineTitleAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 tension: 0,
                 borderColor: 'rgb(22, 161, 145)',
                 borderDash: [5, 5],
             },
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'z',
                 tension: 0,
                 borderColor: 'rgb(119, 73, 54)',
@@ -86,14 +87,14 @@ const LineAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 tension: 0.3,
                 borderColor: 'rgb(22, 161, 145)',
                 borderDash: [5, 5],
             },
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'z',
                 tension: 0.3,
                 borderColor: 'rgb(119, 73, 54)',
@@ -146,7 +147,7 @@ const LineTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 tension: 0,
                 borderColor: 'rgb(22, 161, 145)',
@@ -203,7 +204,7 @@ const LineTitleSubtitleGridArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 tension: 0,
                 borderColor: 'rgb(22, 161, 145)',
@@ -263,7 +264,7 @@ const LineTitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 tension: 0,
                 borderColor: 'rgb(22, 161, 145)',
@@ -337,7 +338,7 @@ const LineDataValuesOnlyArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 tension: 0,
                 borderColor: 'rgb(22, 161, 145)',
@@ -405,7 +406,7 @@ const LineTitleAxisGridDotsNegativeArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 tension: 0,
                 borderColor: 'rgb(22, 161, 145)',

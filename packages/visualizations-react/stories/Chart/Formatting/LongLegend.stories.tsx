@@ -1,4 +1,5 @@
-import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
 import { compactNumberFormatter, defaultSource } from '../../utils';
@@ -27,14 +28,14 @@ const LineLongLegendArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 label: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
                 valueColumn: 'y',
                 tension: 0,
                 borderColor: 'rgb(22, 161, 145)',
             },
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 label: '100000',
                 valueColumn: 'z',
                 tension: 0,
@@ -105,7 +106,7 @@ const PieLongLegendArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'pie',
+                type: ChartSeriesType.Pie,
                 valueColumn: 'y',
                 backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', 'rgb(39,174,96)'],
             },
@@ -145,14 +146,14 @@ const RadarLongLegendArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'radar',
+                type: ChartSeriesType.Radar,
                 valueColumn: 'y',
                 label: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
                 backgroundColor: 'rgba(27,210,210,0.5)',
                 borderColor: 'rgb(27,210,210)',
             },
             {
-                type: 'radar',
+                type: ChartSeriesType.Radar,
                 valueColumn: 'z',
                 label: '1000000000000',
                 backgroundColor: 'rgba(127,10,210,0.5)',

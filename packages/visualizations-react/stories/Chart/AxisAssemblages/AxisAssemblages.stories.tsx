@@ -1,4 +1,5 @@
-import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import type { Props } from '../../../src';
 import { COLORS } from '../../utils';
@@ -31,13 +32,13 @@ const AreaChartStackedArgs: Props<DataFrame, ChartOptions> = {
         labelColumn: 'x',
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'series_001',
                 backgroundColor: COLORS.green,
                 fill: { mode: 'origin' },
             },
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'series_002',
                 backgroundColor: COLORS.yellow,
                 fill: { mode: 'origin' },
@@ -85,13 +86,13 @@ const AreaChartPercentageArgs: Props<DataFrame, ChartOptions> = {
         labelColumn: 'x',
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'series_001',
                 backgroundColor: COLORS.green,
                 fill: { mode: 'origin' },
             },
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'series_002',
                 backgroundColor: COLORS.yellow,
                 fill: { mode: 'origin' },
@@ -139,14 +140,14 @@ const LineChartStackedArgs: Props<DataFrame, ChartOptions> = {
         labelColumn: 'x',
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'series_001',
                 borderColor: COLORS.purple,
                 backgroundColor: COLORS.red,
                 spanGaps: 1000 * 60 * 60 * 24 * 366, // 1 year
             },
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'series_002',
                 borderColor: COLORS.orange,
                 backgroundColor: COLORS.blue,
@@ -195,14 +196,14 @@ const LineChartPercentageArgs: Props<DataFrame, ChartOptions> = {
         labelColumn: 'x',
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'series_001',
                 borderColor: COLORS.purple,
                 backgroundColor: COLORS.red,
                 spanGaps: 1000 * 60 * 60 * 24 * 366, // 1 year
             },
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'series_002',
                 borderColor: COLORS.orange,
                 backgroundColor: COLORS.blue,
@@ -253,7 +254,7 @@ const BarChartStackedArgs: Props<DataFrame, ChartOptions> = {
         },
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'series_001',
                 indexAxis: 'y',
                 borderColor: 'rgba(255, 0, 0, 1)',
@@ -264,7 +265,7 @@ const BarChartStackedArgs: Props<DataFrame, ChartOptions> = {
                 },
             },
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'series_002',
                 indexAxis: 'y',
                 borderColor: 'rgba(38, 56, 145, 1)',
@@ -325,7 +326,7 @@ const BarChartPercentageArgs: Props<DataFrame, ChartOptions> = {
         },
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'series_001',
                 indexAxis: 'y',
                 borderColor: 'rgba(255, 0, 0, 1)',
@@ -336,7 +337,7 @@ const BarChartPercentageArgs: Props<DataFrame, ChartOptions> = {
                 },
             },
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'series_002',
                 indexAxis: 'y',
                 borderColor: 'rgba(38, 56, 145, 1)',
@@ -397,7 +398,7 @@ const ColumnChartStackedArgs: Props<DataFrame, ChartOptions> = {
         },
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'series_001',
                 borderColor: 'rgba(255, 0, 0, 1)',
                 backgroundColor: 'rgba(255, 0, 0, 0.5)',
@@ -407,7 +408,7 @@ const ColumnChartStackedArgs: Props<DataFrame, ChartOptions> = {
                 },
             },
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'series_002',
                 borderColor: 'rgba(38, 56, 145, 1)',
                 backgroundColor: 'rgba(38, 56, 145, 0.5)',
@@ -468,7 +469,7 @@ const ColumnChartPercentageArgs: Props<DataFrame, ChartOptions> = {
         },
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'series_001',
                 borderColor: 'rgba(255, 0, 0, 1)',
                 backgroundColor: 'rgba(255, 0, 0, 0.5)',
@@ -478,7 +479,7 @@ const ColumnChartPercentageArgs: Props<DataFrame, ChartOptions> = {
                 },
             },
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'series_002',
                 borderColor: 'rgba(38, 56, 145, 1)',
                 backgroundColor: 'rgba(38, 56, 145, 0.5)',

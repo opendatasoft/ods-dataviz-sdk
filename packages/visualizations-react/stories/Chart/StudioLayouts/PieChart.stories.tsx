@@ -1,4 +1,5 @@
-import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
 import { compactNumberFormatter, defaultSource } from '../../utils';
@@ -28,7 +29,7 @@ const PieTitleSectorsNameArgs: Props<DataFrame,ChartOptions> = {
                 source: defaultSource,
                 series: [
                     {
-                        type: 'pie',
+                        type: ChartSeriesType.Pie,
                         valueColumn: 'y',
                         backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
                         dataLabels: {
@@ -54,7 +55,7 @@ const PieTitleSectorsNameValueArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'pie',
+                type: ChartSeriesType.Pie,
                 valueColumn: 'y',
                 backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
                 dataLabels: {
@@ -85,7 +86,7 @@ const PieTitleLegendArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'pie',
+                type: ChartSeriesType.Pie,
                 valueColumn: 'y',
                 backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
             },
@@ -117,7 +118,7 @@ const PieTitleLegendValuesArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'pie',
+                type: ChartSeriesType.Pie,
                 valueColumn: 'y',
                 backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', 'rgb(39,174,96)'],
             },

@@ -1,4 +1,5 @@
-import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
 import { defaultSource } from '../../utils';
@@ -28,7 +29,7 @@ const BarTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 indexAxis: 'y',
                 backgroundColor: 'rgba(22, 161, 145, 0.26)',
@@ -36,7 +37,7 @@ const BarTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
                 label: 'User 1',
             },
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'z',
                 indexAxis: 'y',
                 backgroundColor: 'rgba(119, 73, 54, 0.26)',
@@ -89,7 +90,7 @@ const BarAxisGridArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 indexAxis: 'y',
                 backgroundColor: [
@@ -149,7 +150,7 @@ const BarTitleAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
         padding: 24,
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 indexAxis: 'y',
                 backgroundColor: 'rgba(22, 161, 145, 0.26)',
@@ -172,7 +173,7 @@ const BarTitleAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
                 },
             },
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'z',
                 indexAxis: 'y',
                 backgroundColor: 'rgba(119, 73, 54, 0.26)',
@@ -244,7 +245,7 @@ const BarAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
         padding: 24,
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 indexAxis: 'y',
                 backgroundColor: [
@@ -332,7 +333,7 @@ const BarTitleSubTitleGridArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 indexAxis: 'y',
                 backgroundColor: [

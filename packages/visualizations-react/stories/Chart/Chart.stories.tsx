@@ -1,5 +1,6 @@
 import { ComponentMeta } from '@storybook/react';
-import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Chart, Props } from '../../src';
 import { COLORS, defaultSource } from '../utils';
 import ChartTemplate from './ChartTemplate';
@@ -30,14 +31,14 @@ const SampleArgs: Props<DataFrame, ChartOptions> = {
         series: [
             {
                 label: 'Green',
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 tension: 0,
                 borderColor: COLORS.green,
             },
             {
                 label: 'Blue',
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'z',
                 tension: 0,
                 borderColor: COLORS.blue,
