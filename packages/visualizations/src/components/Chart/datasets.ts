@@ -18,11 +18,12 @@ function chartJsDataLabels(dataLabels: DataLabelsConfiguration | undefined): Dat
     if (dataLabels === undefined) return { display: false };
     const { text, align, anchor } = dataLabels;
     return {
+        textAlign: 'center',
         align: align ? (context) => align(context.dataIndex) : 'end',
         anchor: anchor ? (context) => anchor(context.dataIndex) : 'end',
         display: defaultValue(dataLabels.display, false),
         color: defaultValue(dataLabels.color, 'rgb(0,0,0)'),
-        backgroundColor: defaultValue(dataLabels.backgroundColor, 'rgb(255,255,255)'),
+        backgroundColor: defaultValue(dataLabels.backgroundColor, 'rgb(255,255,255, 0.8)'),
         offset: defaultValue(dataLabels.offset, 4),
         borderRadius: defaultValue(dataLabels.borderRadius, 3),
         formatter: (value, context) =>
