@@ -82,6 +82,8 @@
             },
             tooltip: {
                 enabled: defaultValue(options?.tooltip?.display, true),
+                rtl: defaultValue(options?.tooltip?.rtl, false),
+                textDirection: defaultValue(options?.tooltip?.rtl, false) ? 'rtl' : 'ltr',
                 callbacks: {
                     label(context) {
                         const {

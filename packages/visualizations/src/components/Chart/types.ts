@@ -113,6 +113,8 @@ export interface LegendConfiguration {
 export interface TooltipConfiguration {
     /** Display tooltip */
     display?: boolean;
+    /** Indicates that the directionality of the text must be right to left */
+    rtl?: boolean;
     /** Custom number formatting function for tooltips values */
     numberFormatter?: (value: number) => string;
 }
