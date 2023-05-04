@@ -62,7 +62,7 @@
         const chartOptions = chartConfig.options || {};
         chartOptions.aspectRatio = defaultValue(options.aspectRatio, 4 / 3);
         chartOptions.maintainAspectRatio = true;
-        chartOptions.scales = buildScales(options);
+        chartOptions.scales = buildScales(options, dataFrame);
         chartOptions.layout = {
             padding: defaultValue(options?.padding, 12),
         };
