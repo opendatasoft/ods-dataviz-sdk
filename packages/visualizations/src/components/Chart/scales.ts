@@ -15,7 +15,7 @@ import type {
     TicksConfiguration,
     TimeCartesianAxisConfiguration,
 } from './types';
-import { defaultValue, singleChartJsColor } from './utils';
+import { defaultValue, singleChartJsColor, isRangeTimeUnitCompatible } from './utils';
 import { assureMaxLength, defaultCompactNumberFormat } from '../utils/formatter';
 import type { DataFrame } from '../types';
 
@@ -76,60 +76,10 @@ function getDateTooltipFormat(unit?: TimeCartesianAxisConfiguration['timeUnit'])
     return undefined;
 }
 
-// FIXME
-// -add checks on other time units if the approach of passing dataFrame to buildScales seems reasonable
-// -send an error or message to display instead of fallback
-function isRangeTimeUnitCompatible(min: string, max: string, unit: string | undefined) {
-    let stepSize = 86400 * 1000;
-    let minTimestamp;
-    let splittedMin;
-    let maxTimestamp;
-    let splittedMax;
-    if (min && max && unit) {
-        switch (unit) {
-            case "day":
-                stepSize = 86400 * 1000;
-                splittedMin = min.split("-");
-                minTimestamp = new Date(
-                    Number(splittedMin[0]), Number(splittedMin[1]) - 1, Number(splittedMin[2])).getTime();
-                splittedMax = max.split("-");
-                maxTimestamp = new Date(
-                    Number(splittedMax[0]), Number(splittedMax[1]) - 1, Number(splittedMax[2])).getTime();
-                break;
-            case "month":
-                stepSize = 30*86400 * 1000;
-                splittedMin = min.split("-");
-                minTimestamp = new Date(
-                    Number(splittedMin[0]), Number(splittedMin[1]) - 1).getTime();
-                splittedMax = max.split("-");
-                maxTimestamp = new Date(
-                    Number(splittedMax[0]), Number(splittedMax[1]) - 1).getTime();
-                break;
-            case "year":
-                stepSize = 12*30*86400 * 1000;
-                minTimestamp = new Date(
-                    Number(min)).getTime();
-                maxTimestamp = new Date(
-                    Number(max)).getTime();
-                break;
-            default:
-                stepSize = 86400 * 1000;
-                splittedMin = min.split("-");
-                minTimestamp = new Date(
-                    Number(splittedMin[0]), Number(splittedMin[1]) - 1, Number(splittedMin[2])).getTime();
-                splittedMax = max.split("-");
-                maxTimestamp = new Date(
-                    Number(splittedMax[0]), Number(splittedMax[1]) - 1, Number(splittedMax[2])).getTime();
-        }
-        if (maxTimestamp - minTimestamp > (100000 * stepSize)) {
-          return false;
-        }
-        return true;
-    }
-    return true;
-}
-
-export default function buildScales(options: ChartOptions, dataFrame: DataFrame): ChartJsChartOptions['scales'] {
+export default function buildScales(
+    options: ChartOptions,
+    dataFrame: DataFrame
+): ChartJsChartOptions['scales'] {
     const scales: ChartJsChartOptions['scales'] = {};
     // X Axis
     if (options.axis?.x) {
@@ -144,10 +94,12 @@ export default function buildScales(options: ChartOptions, dataFrame: DataFrame)
                 ? {
                       time: {
                           ...(isRangeTimeUnitCompatible(
-                                dataFrame[0]?.x, dataFrame[dataFrame.length - 1]?.x, options?.axis?.x?.timeUnit
-                            )
-                          ? { unit: options?.axis?.x?.timeUnit }
-                          : {}),
+                              dataFrame[0]?.x,
+                              dataFrame[dataFrame.length - 1]?.x,
+                              options?.axis?.x?.timeUnit
+                          )
+                              ? { unit: options?.axis?.x?.timeUnit }
+                              : {}),
                           tooltipFormat: getDateTooltipFormat(options?.axis?.x?.timeUnit),
                       },
                   }
