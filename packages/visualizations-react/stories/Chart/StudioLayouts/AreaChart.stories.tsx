@@ -1,4 +1,5 @@
-import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
 import { defaultSource } from '../../utils';
@@ -30,7 +31,7 @@ const AreaTitleAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 tension: 0.3,
                 borderColor: 'rgb(22, 161, 145)',
@@ -41,7 +42,7 @@ const AreaTitleAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
                 },
             },
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'z',
                 tension: 0.3,
                 borderColor: 'rgb(119, 73, 54)',
@@ -94,7 +95,7 @@ const AreaAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 tension: 0.3,
                 borderColor: 'rgb(22, 161, 145)',
@@ -145,7 +146,7 @@ const AreaTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 tension: 0.3,
                 pointRadius: 0,
@@ -200,7 +201,7 @@ const AreaTitleSubtitleGridArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 tension: 0.3,
                 pointRadius: 0,
@@ -258,7 +259,7 @@ const AreaTitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 tension: 0.3,
                 borderColor: 'rgb(22, 161, 145)',
@@ -327,7 +328,7 @@ const AreaDataValuesOnlyArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 tension: 0.3,
                 borderColor: 'rgb(22, 161, 145)',

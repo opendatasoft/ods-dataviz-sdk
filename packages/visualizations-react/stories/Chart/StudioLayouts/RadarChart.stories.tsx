@@ -1,4 +1,5 @@
-import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
 import { defaultSource } from '../../utils';
@@ -35,14 +36,14 @@ const RadarTitleScaleArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'radar',
+                type: ChartSeriesType.Radar,
                 valueColumn: 'y',
                 label: 'User 1',
                 backgroundColor: 'rgba(27,210,210,0.5)',
                 borderColor: 'rgb(27,210,210)',
             },
             {
-                type: 'radar',
+                type: ChartSeriesType.Radar,
                 valueColumn: 'z',
                 label: 'User 2',
                 backgroundColor: 'rgba(127,10,210,0.5)',
@@ -81,14 +82,14 @@ const RadarTitleScaleNegativePositiveArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'radar',
+                type: ChartSeriesType.Radar,
                 valueColumn: 'y',
                 label: 'User 1',
                 backgroundColor: 'rgba(27,210,210,0.5)',
                 borderColor: 'rgb(27,210,210)',
             },
             {
-                type: 'radar',
+                type: ChartSeriesType.Radar,
                 valueColumn: 'z',
                 label: 'User 2',
                 backgroundColor: 'rgba(127,10,210,0.5)',
@@ -123,14 +124,14 @@ const RadarTitleArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'radar',
+                type: ChartSeriesType.Radar,
                 valueColumn: 'y',
                 label: 'User 1',
                 backgroundColor: 'rgba(27,210,210,0.5)',
                 borderColor: 'rgb(27,210,210)',
             },
             {
-                type: 'radar',
+                type: ChartSeriesType.Radar,
                 valueColumn: 'z',
                 label: 'User 2',
                 backgroundColor: 'rgba(127,10,210,0.5)',
@@ -163,7 +164,7 @@ const RadarTitleDataValuesArg: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'radar',
+                type: ChartSeriesType.Radar,
                 valueColumn: 'y',
                 label: 'User 1',
                 backgroundColor: 'rgba(27,210,210,0.5)',
@@ -175,7 +176,7 @@ const RadarTitleDataValuesArg: Props<DataFrame, ChartOptions> = {
                 },
             },
             {
-                type: 'radar',
+                type: ChartSeriesType.Radar,
                 valueColumn: 'z',
                 label: 'User 2',
                 backgroundColor: 'rgba(127,10,210,0.5)',

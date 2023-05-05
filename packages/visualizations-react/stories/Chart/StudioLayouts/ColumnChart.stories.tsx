@@ -1,4 +1,5 @@
-import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
 import { defaultSource } from '../../utils';
@@ -30,7 +31,7 @@ const ColumnTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 backgroundColor: [
                     'rgba(250,50,50,0.5)',
@@ -90,7 +91,7 @@ const ColumnAxisGridArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 backgroundColor: [
                     'rgba(250,50,50,0.5)',
@@ -147,7 +148,7 @@ const ColumnTitleSubtitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 backgroundColor: [
                     'rgba(250,50,50,0.5)',
@@ -237,7 +238,7 @@ const ColumnDataValuesArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 backgroundColor: [
                     'rgba(250,50,50,0.5)',
@@ -321,7 +322,7 @@ const ColumnAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 backgroundColor: [
                     'rgba(250,50,50,0.5)',
@@ -409,7 +410,7 @@ const ColumnTitleAxisGridNegativeArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 backgroundColor: [
                     'rgba(250,50,50,0.5)',

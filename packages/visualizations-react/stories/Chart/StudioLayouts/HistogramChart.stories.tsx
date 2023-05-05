@@ -1,4 +1,5 @@
-import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
 import { defaultSource } from '../../utils';
@@ -30,7 +31,7 @@ const HistogramTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 barPercentage: 1,
                 categoryPercentage: 1,
@@ -82,7 +83,7 @@ const HistogramAxisGridArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 barPercentage: 1,
                 categoryPercentage: 1,
@@ -131,7 +132,7 @@ const HistogramTitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 barPercentage: 1,
                 categoryPercentage: 1,
@@ -206,7 +207,7 @@ const HistogramDataValuesArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 barPercentage: 1,
                 categoryPercentage: 1,
@@ -274,7 +275,7 @@ const HistogramAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 barPercentage: 1,
                 categoryPercentage: 1,
@@ -352,7 +353,7 @@ const HistogramTitleAxisGridNegativeArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 barPercentage: 1,
                 categoryPercentage: 1,

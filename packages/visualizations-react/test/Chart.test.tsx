@@ -1,7 +1,8 @@
 // @jest-environment jsdom
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { ChartOptions } from '@opendatasoft/visualizations';
+import type { ChartOptions } from '@opendatasoft/visualizations';
+import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Chart } from '../src';
 
 const data = {
@@ -25,14 +26,14 @@ const options: ChartOptions = {
     source,
     series: [
         {
-            type: 'line',
+            type: ChartSeriesType.Line,
             valueColumn: 'y',
             tension: 0,
             borderColor: 'rgb(22, 161, 145)',
             borderDash: [5, 5],
         },
         {
-            type: 'line',
+            type: ChartSeriesType.Line,
             valueColumn: 'z',
             tension: 0,
             borderColor: 'rgb(119, 73, 54)',

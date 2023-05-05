@@ -4,8 +4,9 @@
     import { Chart } from 'chart.js';
     import 'chartjs-adapter-luxon';
     import type { Async } from '../../types';
-    import type { ChartOptions, ChartSeries } from './types';
     import type { DataFrame } from '../types';
+    import type { ChartOptions, ChartSeries } from './types';
+    import { ChartSeriesType } from './types';
     import { defaultValue } from './utils';
     import toDataset from './datasets';
     import buildScales from './scales';
@@ -42,7 +43,15 @@
             labels: [],
             datasets: [],
         },
-        options: {},
+        options: {
+            // Display all series values in tooltips
+            // https://www.chartjs.org/docs/latest/samples/tooltip/interactions.html
+            interaction: {
+                intersect: false,
+                mode: 'index',
+                axis: 'xy',
+            },
+        },
     };
 
     // Update local variable from props
@@ -55,7 +64,7 @@
     $: labelColumn = options.labelColumn;
 
     $: chartConfig = update(chartConfig, {
-        type: { $set: defaultValue(options.series[0]?.type, 'line') },
+        type: { $set: defaultValue(options.series[0]?.type, ChartSeriesType.Line) },
     });
     $: {
         // Reactively update chart configuration
@@ -73,13 +82,52 @@
             },
             tooltip: {
                 enabled: defaultValue(options?.tooltip?.display, true),
+                rtl: defaultValue(options?.tooltip?.rtl, false),
+                textDirection: defaultValue(options?.tooltip?.rtl, false) ? 'rtl' : 'ltr',
                 callbacks: {
                     label(context) {
-                        const format = options?.tooltip?.label;
-                        if (format) return format(context.dataIndex);
-                        const rawValue = context.raw;
-                        if (typeof rawValue === 'number') return defaultNumberFormat(rawValue);
-                        return context.formattedValue;
+                        const {
+                            parsed,
+                            raw,
+                            formattedValue,
+                            dataIndex,
+                            dataset: { label },
+                        } = context;
+                        const { type: seriesType } = options.series[0];
+                        const format = options?.tooltip?.numberFormatter || defaultNumberFormat;
+
+                        // If the value has a label, we need to add it to the tooltip
+                        let prefix = '';
+                        if (label && series.length > 1) prefix = `${label}: `;
+
+                        // If the value is a percentage, we need to add the '%' symbol
+                        const percentaged = options?.axis?.assemblage?.percentaged ? '% ' : '';
+                        // If the value is a percentage, we need to format the raw value
+                        const formattedRawValue =
+                            percentaged && raw && typeof raw === 'number' && `(${format(raw)})`;
+                        const suffix = percentaged + formattedRawValue;
+
+                        if (seriesType && parsed) {
+                            if (seriesType === ChartSeriesType.Bar) {
+                                if (options.series[0]?.indexAxis === 'y') {
+                                    return prefix + format(parsed.x) + suffix;
+                                }
+                                return prefix + format(parsed.y) + suffix;
+                            }
+                            if (seriesType === ChartSeriesType.Line) {
+                                return prefix + format(parsed.y) + suffix;
+                            }
+                            if (seriesType === ChartSeriesType.Radar) {
+                                return prefix + format(parsed.r);
+                            }
+                            if (seriesType === ChartSeriesType.Pie) {
+                                // For pie charts we need to get the label from the dataFrame because, unlike other
+                                // charts, the label is not the series legend, it's the category.
+                                return `${dataFrame[dataIndex].x}: ${format(parsed)}`;
+                            }
+                        }
+
+                        return prefix + formattedValue + suffix;
                     },
                 },
             },
