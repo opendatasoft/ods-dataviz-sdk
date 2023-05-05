@@ -71,7 +71,7 @@
         "@storybook/addon-essentials": "^6.5.13",
         "@storybook/addon-links": "^6.5.13",
         "@storybook/addons": "^6.5.13",
-        "@storybook/react": "^6.5.13",
+        "@storybook/react": "^7.0.8",
         "@testing-library/jest-dom": "^5.11.9",
         "@testing-library/react": "^12.1.5",
         "@turf/turf": "^6.5.0",
