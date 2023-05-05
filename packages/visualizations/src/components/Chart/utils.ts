@@ -90,6 +90,14 @@ export function isRangeTimeUnitCompatible(
             default:
                 return false;
         }
+        /*
+        We base the check here on the chartjs check and what seems to make the crash
+        Code and comment from chartjs source (src/scales/scale.time.js) :
+        // Prevent browser from freezing in case user options request millions of milliseconds
+        if (adapter.diff(max, min, minor) > 100000 * stepSize) {
+            throw new Error(min + ' and ' + max + ' are too far apart with stepSize of ' + stepSize + ' ' + minor);
+        }
+        */
         if (maxTimestamp - minTimestamp > 100000 * stepSize) {
             return false;
         }
