@@ -1,0 +1,76 @@
+import type { CircleLayerSpecification } from 'maplibre-gl';
+import type { FeatureCollection, BBox, Feature } from 'geojson';
+import type { DebouncedFunc } from 'lodash';
+
+export interface POIMapOptionsB {
+    /** Configuration for the shapes used to display markers */
+    shapes: FeatureCollection;
+    /** Maximum boundaries of the map, outside of which the user cannot zoom/move
+     * Also set the position of the map when rendering.
+     * If undefined, will default, in order to:
+     * - Fit the content if the source is GeoJSON
+     * - The world
+     */
+    bbox?: BBox | undefined;
+     /** Configuration for the content of the tooltips that are displayed on hover/touch. */
+     tooltip?: {
+        formatter?: POIMapTooltipFormatter;
+        /** Custom configuration to define how to get a label for each shapes.
+         *
+         * By default, the label will be taken from a `label` property in the shapes if it exists, or fallback to the key used to map the data and shapes. */
+        labelMatcher?: POIMapTooltipMatchers;
+    };
+}
+/** Structure containing the numerical data used by the Choropleth to compute
+ * the legend and the color of the shapes it renders.
+ */
+export interface POIMapDataValue {
+    x: string;
+    y: number;
+    label?: string;
+}
+
+export type POIMapLayer = Omit<CircleLayerSpecification, 'id' | 'source'>;
+
+export type ComputeTooltipFunction = (
+    feature: Feature,
+    dataValues: POIMapDataValue[],
+    options: POIMapOptionsB,
+    matchKey: string
+) => string;
+
+export type TooltipParams = {
+    /** Numeric value of the shape */
+    value?: number;
+    /** Label of the shape */
+    label: string;
+    /** Value of the key used to match shapes and numeric data */
+    key?: string;
+};
+
+export type POIMapTooltipFormatter = ({ value, label, key }: TooltipParams) => string;
+
+export enum POIMapTooltipMatcherTypes {
+    KeyProperty = 'keyProperty',
+    KeyMap = 'keyMap',
+}
+
+/** `POIMapTooltipMatcher` based on a target feature property */
+export interface POIMapTooltipMatcherKeyProperty {
+    type: POIMapTooltipMatcherTypes.KeyProperty;
+    key: string;
+}
+
+/** `POIMapTooltipMatcher` based on an key-value object mapping  */
+export interface POIMapTooltipMatcherKeyMap {
+    type: POIMapTooltipMatcherTypes.KeyMap;
+    mapping: {
+        [key: string]: string;
+    };
+}
+
+export type POIMapTooltipMatchers =
+    | POIMapTooltipMatcherKeyProperty
+    | POIMapTooltipMatcherKeyMap;
+
+export type MapRenderTooltipFunction = DebouncedFunc<(feature: Feature) => string>;
