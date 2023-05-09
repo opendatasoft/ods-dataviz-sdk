@@ -1,11 +1,10 @@
-
 import type { BBox } from 'geojson';
 import type {
     POIMapLayer,
-    ComputeTooltipFunction,
+    ComputeTooltipFunctionPOI,
     POIMapDataValue,
     POIMapTooltipFormatter,
-    TooltipParams,
+    TooltipParamsPOI,
 } from './types';
 import { POIMapTooltipMatcherTypes } from './types';
 
@@ -16,7 +15,7 @@ export const computeBaseRoundMarkerLayer = (): POIMapLayer => ({
         'circle-radius': 6,
         'circle-color': '#B42222',
     },
-    filter: ['==', '$type', 'Point']
+    filter: ['==', '$type', 'Point'],
 });
 
 // This is a default bound that will be extended
@@ -25,7 +24,7 @@ export const VOID_BOUNDS: BBox = [180, 90, -180, -90];
 export const defaultTooltipFormat: POIMapTooltipFormatter = ({ value, label }) =>
     value ? `${label} &mdash; ${value}` : label;
 
-export const computeTooltip: ComputeTooltipFunction = (
+export const computeTooltip: ComputeTooltipFunctionPOI = (
     hoveredFeature,
     dataValues,
     options,
@@ -50,7 +49,7 @@ export const computeTooltip: ComputeTooltipFunction = (
         }
     }
 
-    const tooltipRawValues: TooltipParams = {
+    const tooltipRawValues: TooltipParamsPOI = {
         value: matchedFeature?.y,
         label: tooltipLabel,
         key: hoveredFeature.properties?.[matchKey], // === matchedFeature.x
@@ -59,4 +58,3 @@ export const computeTooltip: ComputeTooltipFunction = (
 
     return format ? format(tooltipRawValues) : defaultTooltipFormat(tooltipRawValues);
 };
-

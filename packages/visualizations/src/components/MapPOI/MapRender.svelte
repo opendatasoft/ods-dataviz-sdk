@@ -14,10 +14,7 @@
     import type { BBox } from 'geojson';
 
     import { onMount } from 'svelte';
-    import type {
-        POIMapLayer,
-        MapRenderTooltipFunction,
-    } from './types';
+    import type { POIMapLayer, MapRenderTooltipFunctionPOI } from './types';
     import { BLANK } from './mapStyles';
 
     // maplibre style (basemap)
@@ -30,7 +27,7 @@
     export let bbox: BBox | undefined;
     $: currentBbox = bbox;
     // Used to render tooltips on hover
-    export let renderTooltip: MapRenderTooltipFunction;
+    export let renderTooltip: MapRenderTooltipFunctionPOI;
 
     const hoverPopup = new maplibregl.Popup({
         closeOnClick: false,
@@ -162,8 +159,7 @@
     }
 </script>
 
-<figure class="map-card maps-container" >
-
+<figure class="map-card maps-container">
     <div class="main">
         <div id="map" bind:this={container} />
     </div>

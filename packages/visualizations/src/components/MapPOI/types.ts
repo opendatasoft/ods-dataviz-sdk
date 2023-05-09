@@ -12,8 +12,8 @@ export interface POIMapOptionsB {
      * - The world
      */
     bbox?: BBox | undefined;
-     /** Configuration for the content of the tooltips that are displayed on hover/touch. */
-     tooltip?: {
+    /** Configuration for the content of the tooltips that are displayed on hover/touch. */
+    tooltip?: {
         formatter?: POIMapTooltipFormatter;
         /** Custom configuration to define how to get a label for each shapes.
          *
@@ -32,14 +32,14 @@ export interface POIMapDataValue {
 
 export type POIMapLayer = Omit<CircleLayerSpecification, 'id' | 'source'>;
 
-export type ComputeTooltipFunction = (
+export type ComputeTooltipFunctionPOI = (
     feature: Feature,
     dataValues: POIMapDataValue[],
     options: POIMapOptionsB,
     matchKey: string
 ) => string;
 
-export type TooltipParams = {
+export type TooltipParamsPOI = {
     /** Numeric value of the shape */
     value?: number;
     /** Label of the shape */
@@ -48,7 +48,7 @@ export type TooltipParams = {
     key?: string;
 };
 
-export type POIMapTooltipFormatter = ({ value, label, key }: TooltipParams) => string;
+export type POIMapTooltipFormatter = ({ value, label, key }: TooltipParamsPOI) => string;
 
 export enum POIMapTooltipMatcherTypes {
     KeyProperty = 'keyProperty',
@@ -69,8 +69,6 @@ export interface POIMapTooltipMatcherKeyMap {
     };
 }
 
-export type POIMapTooltipMatchers =
-    | POIMapTooltipMatcherKeyProperty
-    | POIMapTooltipMatcherKeyMap;
+export type POIMapTooltipMatchers = POIMapTooltipMatcherKeyProperty | POIMapTooltipMatcherKeyMap;
 
-export type MapRenderTooltipFunction = DebouncedFunc<(feature: Feature) => string>;
+export type MapRenderTooltipFunctionPOI = DebouncedFunc<(feature: Feature) => string>;

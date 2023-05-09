@@ -6,14 +6,19 @@
     import MapRender from './MapRender.svelte';
     import { BLANK } from './mapStyles';
     import { VOID_BOUNDS, computeBaseRoundMarkerLayer, computeTooltip } from './utils';
-    import type { POIMapOptionsB, POIMapDataValue, POIMapLayer, MapRenderTooltipFunction } from './types';
+    import type {
+        POIMapOptionsB,
+        POIMapDataValue,
+        POIMapLayer,
+        MapRenderTooltipFunctionPOI,
+    } from './types';
 
     export let data: { value: POIMapDataValue[] }; // values, and the key to match
     export let options: POIMapOptionsB; // contains the shapes to display & match
 
     let shapes: FeatureCollection;
 
-    let renderTooltip: MapRenderTooltipFunction;
+    let renderTooltip: MapRenderTooltipFunctionPOI;
     // Used to determine the shapes key
     const matchKey = 'key';
 
@@ -27,9 +32,7 @@
     let source: SourceSpecification;
     let renderedBbox = bbox || VOID_BOUNDS;
 
-    function computeSourceLayerAndBboxes(
-        newShapes: FeatureCollection,
-    ) {
+    function computeSourceLayerAndBboxes(newShapes: FeatureCollection) {
         source = {
             type: 'geojson',
             data: newShapes,
@@ -50,13 +53,7 @@
 </script>
 
 <div>
-    <MapRender
-        {style}
-        {source}
-        {layer}
-        bbox={renderedBbox}
-        {renderTooltip}
-    />
+    <MapRender {style} {source} {layer} bbox={renderedBbox} {renderTooltip} />
 </div>
 
 <style>
