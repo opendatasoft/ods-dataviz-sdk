@@ -25,7 +25,6 @@
     let bbox: BBox | undefined;
 
     $: ({ shapes, bbox } = options);
-
     // Here style will set the basemap
     const style = BLANK;
     let layer: POIMapLayer;
@@ -40,7 +39,7 @@
         layer = computeBaseRoundMarkerLayer();
 
         renderedBbox = bbox || turfBbox(newShapes) || VOID_BOUNDS;
-    }
+    };
 
     $: if (shapes) {
         computeSourceLayerAndBboxes(shapes);
@@ -53,7 +52,13 @@
 </script>
 
 <div>
-    <MapRender {style} {source} {layer} bbox={renderedBbox} {renderTooltip} />
+    <MapRender
+    {style}
+    {source}
+    {layer}
+    bbox={renderedBbox}
+    {renderTooltip}
+    />
 </div>
 
 <style>

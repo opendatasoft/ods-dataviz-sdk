@@ -131,7 +131,6 @@
             if (map.getSource(sourceId)) {
                 map.removeSource(sourceId);
             }
-
             map.addSource(sourceId, newSource);
             map.addLayer({
                 ...newLayer,
