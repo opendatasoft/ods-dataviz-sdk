@@ -1,8 +1,4 @@
-import {
-    POIGeoJson as _POIGeoJson,
-    POIMapOptionsB,
-    DataFrame,
-} from '@opendatasoft/visualizations';
+import { POIGeoJson as _POIGeoJson, POIMapOptionsB, DataFrame } from '@opendatasoft/visualizations';
 import { FC } from 'react';
 import { Props } from './Props';
 import wrap from './ReactImpl';
