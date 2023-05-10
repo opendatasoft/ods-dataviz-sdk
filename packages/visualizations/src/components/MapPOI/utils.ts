@@ -5,18 +5,34 @@ import type {
     POIMapDataValue,
     POIMapTooltipFormatter,
     TooltipParamsPOI,
+    LayersParams,
 } from './types';
 import { POIMapTooltipMatcherTypes } from './types';
+import type { Color } from '../types';
 
-export const computeBaseRoundMarkerLayer = (): POIMapLayer => ({
+export const computeBaseRoundMarkerLayer = (
+    color: Color,
+    matchKey: string,
+    matchProperty: string
+): POIMapLayer => ({
     type: 'circle',
     layout: {},
     paint: {
         'circle-radius': 6,
-        'circle-color': '#B42222',
+        'circle-color': color,
     },
-    filter: ['==', '$type', 'Point'],
+    filter: ['==', ['get', matchProperty], matchKey],
 });
+
+export const computeLayers = (layers: LayersParams[]): POIMapLayer[] | [] => {
+    if (layers.length === 0) {
+        return [];
+    }
+    return layers.map((layer) => {
+        const { color, matchKey, matchProperty } = layer;
+        return computeBaseRoundMarkerLayer(color, matchKey, matchProperty);
+    });
+};
 
 // This is a default bound that will be extended
 export const VOID_BOUNDS: BBox = [180, 90, -180, -90];

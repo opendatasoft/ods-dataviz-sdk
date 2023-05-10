@@ -1,10 +1,13 @@
 import type { CircleLayerSpecification } from 'maplibre-gl';
 import type { FeatureCollection, BBox, Feature } from 'geojson';
 import type { DebouncedFunc } from 'lodash';
+import type { Color } from '../types';
 
 export interface POIMapOptionsB {
     /** Configuration for the shapes used to display markers */
     shapes: FeatureCollection;
+    /** Configuration for the layers to display POIs */
+    layerParams: LayersParams[];
     /** Maximum boundaries of the map, outside of which the user cannot zoom/move
      * Also set the position of the map when rendering.
      * If undefined, will default, in order to:
@@ -30,7 +33,15 @@ export interface POIMapDataValue {
     label?: string;
 }
 
-export type POIMapLayer = Omit<CircleLayerSpecification, 'id' | 'source'>;
+type CircleLayer = Omit<CircleLayerSpecification, 'id' | 'source'>;
+
+export type LayersParams = {
+    color: Color;
+    matchKey: string;
+    matchProperty: string;
+};
+
+export type POIMapLayer = CircleLayer;
 
 export type ComputeTooltipFunctionPOI = (
     feature: Feature,

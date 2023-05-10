@@ -15,14 +15,15 @@
 
     import { onMount } from 'svelte';
     import type { POIMapLayer, MapRenderTooltipFunctionPOI } from './types';
-    import { BLANK } from './mapStyles';
+    import { DEMO_BASEMAP } from './mapStyles';
+    import { BLANK } from '../Map/mapStyles';
 
-    // maplibre style (basemap)
-    export let style: StyleSpecification = BLANK;
+    // maplibre style (basemap) as for now not used and replace by DEMO_BASEMAP
+    export const style: StyleSpecification = BLANK;
     // maplibre source config
     export let source: SourceSpecification;
     // maplibre layer config
-    export let layer: POIMapLayer;
+    export let layers: POIMapLayer[];
     // bounding box to start from, and restrict to it
     export let bbox: BBox | undefined;
     $: currentBbox = bbox;
@@ -56,7 +57,7 @@
 
         map = new maplibregl.Map({
             container,
-            style,
+            style: DEMO_BASEMAP,
             ...start,
         });
 
@@ -81,7 +82,7 @@
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
                 {
-                    sourceLayer: layer['source-layer'] || layerId, // FIXME: This may not the best way to do it
+                    sourceLayer: layerId, // FIXME: This may not the best way to do it
                 }
             );
             map.off('sourcedata', sourceLoadingCallback);
@@ -101,8 +102,6 @@
             animate: false,
             padding: 40,
         });
-        // Set new map max bounds after bbox changes
-        map.setMaxBounds(map.getBounds());
     };
 
     function addTooltip(e: MapLayerMouseEvent) {
@@ -122,7 +121,7 @@
         hoverPopup.remove();
     }
 
-    function updateSourceAndLayer(newSource: SourceSpecification, newLayer: POIMapLayer) {
+    function updateSourceAndLayer(newSource: SourceSpecification, newLayer: POIMapLayer[]) {
         if (newSource && newLayer) {
             if (map.getLayer(layerId)) {
                 map.removeLayer(layerId);
@@ -132,18 +131,20 @@
                 map.removeSource(sourceId);
             }
             map.addSource(sourceId, newSource);
-            map.addLayer({
-                ...newLayer,
-                id: layerId,
-                source: sourceId,
-            });
-            // Handle tooltip display
-            map.off('mousemove', layerId, addTooltip);
-            map.off('mouseleave', layerId, removeTooltip);
+            newLayer.forEach((layer, i) => {
+                map.addLayer({
+                    ...layer,
+                    id: `${layerId}-${i}`,
+                    source: sourceId,
+                });
+                // Handle tooltip display
+                map.off('mousemove', `${layerId}-${i}`, addTooltip);
+                map.off('mouseleave', `${layerId}-${i}`, removeTooltip);
 
-            map.on('mousemove', layerId, addTooltip);
-            map.on('mouseleave', layerId, removeTooltip);
-            map.on('sourcedata', sourceLoadingCallback);
+                map.on('mousemove', `${layerId}-${i}`, addTooltip);
+                map.on('mouseleave', `${layerId}-${i}`, removeTooltip);
+                map.on('sourcedata', sourceLoadingCallback);
+            });
         }
     }
 
@@ -151,7 +152,7 @@
     onMount(initializeMap);
 
     $: if (mapReady) {
-        updateSourceAndLayer(source, layer);
+        updateSourceAndLayer(source, layers);
     }
     $: if (mapReady && currentBbox) {
         setBbox(currentBbox);

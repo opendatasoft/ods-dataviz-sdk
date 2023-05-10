@@ -5,12 +5,13 @@
     import type { BBox, FeatureCollection } from 'geojson';
     import MapRender from './MapRender.svelte';
     import { BLANK } from './mapStyles';
-    import { VOID_BOUNDS, computeBaseRoundMarkerLayer, computeTooltip } from './utils';
+    import { VOID_BOUNDS, computeTooltip, computeLayers } from './utils';
     import type {
         POIMapOptionsB,
         POIMapDataValue,
         POIMapLayer,
         MapRenderTooltipFunctionPOI,
+        LayersParams,
     } from './types';
 
     export let data: { value: POIMapDataValue[] }; // values, and the key to match
@@ -24,10 +25,12 @@
 
     let bbox: BBox | undefined;
 
-    $: ({ shapes, bbox } = options);
+    let layerParams: LayersParams[];
+
+    $: ({ shapes, bbox, layerParams = [] } = options);
     // Here style will set the basemap
     const style = BLANK;
-    let layer: POIMapLayer;
+    let layers: POIMapLayer[];
     let source: SourceSpecification;
     let renderedBbox = bbox || VOID_BOUNDS;
 
@@ -36,10 +39,9 @@
             type: 'geojson',
             data: newShapes,
         };
-        layer = computeBaseRoundMarkerLayer();
-
+        layers = computeLayers(layerParams);
         renderedBbox = bbox || turfBbox(newShapes) || VOID_BOUNDS;
-    };
+    }
 
     $: if (shapes) {
         computeSourceLayerAndBboxes(shapes);
@@ -52,13 +54,7 @@
 </script>
 
 <div>
-    <MapRender
-    {style}
-    {source}
-    {layer}
-    bbox={renderedBbox}
-    {renderTooltip}
-    />
+    <MapRender {style} {source} {layers} bbox={renderedBbox} {renderTooltip} />
 </div>
 
 <style>
