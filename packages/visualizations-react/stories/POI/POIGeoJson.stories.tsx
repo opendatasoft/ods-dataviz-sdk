@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { POIMapOptionsB, DataFrame } from '@opendatasoft/visualizations';
+import { POIMapOptions, DataFrame } from '@opendatasoft/visualizations';
 import { shapes } from './data';
 import { POIGeoJson, Props } from '../../src';
 
@@ -11,7 +11,7 @@ const meta: ComponentMeta<typeof POIGeoJson> = {
 
 export default meta;
 
-const Template: ComponentStory<typeof POIGeoJson> = (args: Props<DataFrame, POIMapOptionsB>) => (
+const Template: ComponentStory<typeof POIGeoJson> = (args: Props<DataFrame, POIMapOptions>) => (
     <div
         style={{
             width: '50%',
@@ -31,7 +31,7 @@ const layerParams = [
     { color: '#0000FF', matchKey: 'Blue', matchProperty: 'cat' },
 ];
 
-const POIMapArgs: Props<DataFrame, POIMapOptionsB> = {
+const POIMapArgs: Props<DataFrame, POIMapOptions> = {
     data: {
         loading: false,
         value: [

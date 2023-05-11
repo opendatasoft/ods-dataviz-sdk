@@ -3,7 +3,7 @@ import type { FeatureCollection, BBox, Feature } from 'geojson';
 import type { DebouncedFunc } from 'lodash';
 import type { Color } from '../types';
 
-export interface POIMapOptionsB {
+export interface POIMapOptions {
     /** Configuration for the shapes used to display markers */
     shapes: FeatureCollection;
     /** Configuration for the layers to display POIs */
@@ -23,6 +23,8 @@ export interface POIMapOptionsB {
          * By default, the label will be taken from a `label` property in the shapes if it exists, or fallback to the key used to map the data and shapes. */
         labelMatcher?: POIMapTooltipMatchers;
     };
+    /** Aspect ratio used to draw the map. The map will take he width available to it, and decide its height based on that ratio. */
+    aspectRatio?: number;
 }
 /** Structure containing the numerical data used by the Choropleth to compute
  * the legend and the color of the shapes it renders.
@@ -46,7 +48,7 @@ export type POIMapLayer = CircleLayer;
 export type ComputeTooltipFunctionPOI = (
     feature: Feature,
     dataValues: POIMapDataValue[],
-    options: POIMapOptionsB,
+    options: POIMapOptions,
     matchKey: string
 ) => string;
 

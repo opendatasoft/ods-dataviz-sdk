@@ -7,7 +7,7 @@
     import { BLANK } from './mapStyles';
     import { VOID_BOUNDS, computeTooltip, computeLayers } from './utils';
     import type {
-        POIMapOptionsB,
+        POIMapOptions,
         POIMapDataValue,
         POIMapLayer,
         MapRenderTooltipFunctionPOI,
@@ -15,7 +15,7 @@
     } from './types';
 
     export let data: { value: POIMapDataValue[] }; // values, and the key to match
-    export let options: POIMapOptionsB; // contains the shapes to display & match
+    export let options: POIMapOptions; // contains the shapes to display & match
 
     let shapes: FeatureCollection;
 
@@ -26,8 +26,9 @@
     let bbox: BBox | undefined;
 
     let layerParams: LayersParams[];
+    let aspectRatio: number | undefined;
 
-    $: ({ shapes, bbox, layerParams = [] } = options);
+    $: ({ shapes, bbox, layerParams = [], aspectRatio } = options);
     // Here style will set the basemap
     const style = BLANK;
     let layers: POIMapLayer[];
@@ -54,7 +55,7 @@
 </script>
 
 <div>
-    <MapRender {style} {source} {layers} bbox={renderedBbox} {renderTooltip} />
+    <MapRender {style} {source} {layers} bbox={renderedBbox} {renderTooltip} {aspectRatio} />
 </div>
 
 <style>
