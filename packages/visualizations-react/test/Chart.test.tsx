@@ -1,9 +1,9 @@
+// @jest-environment jsdom
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { ChartOptions } from '@opendatasoft/visualizations';
+import type { ChartOptions } from '@opendatasoft/visualizations';
+import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Chart } from '../src';
-import './ResizeObserver.mock';
-import '@testing-library/jest-dom';
 
 const data = {
     loading: false,
@@ -18,24 +18,22 @@ const data = {
 };
 
 const source = {
-    href:
-        'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+    href: 'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
 };
 
 const options: ChartOptions = {
     labelColumn: 'x',
     source,
-    ariaLabel: 'Line chart with title, axis, grid and dots',
     series: [
         {
-            type: 'line',
+            type: ChartSeriesType.Line,
             valueColumn: 'y',
             tension: 0,
             borderColor: 'rgb(22, 161, 145)',
             borderDash: [5, 5],
         },
         {
-            type: 'line',
+            type: ChartSeriesType.Line,
             valueColumn: 'z',
             tension: 0,
             borderColor: 'rgb(119, 73, 54)',
@@ -69,6 +67,7 @@ const options: ChartOptions = {
     title: {
         text: 'Line chart with title, axis, grid and dots',
     },
+    description: 'Line chart with title, axis, grid and dots',
 };
 
 describe('Chart Default Story', () => {
@@ -76,7 +75,7 @@ describe('Chart Default Story', () => {
 
     it('renders without crashing', () => {
         const chartCanvas = screen.getByRole('img', {
-            name: /Line chart with title, axis, grid and dots/i,
+            description: 'Line chart with title, axis, grid and dots',
         });
         expect(chartCanvas).toBeInTheDocument();
     });

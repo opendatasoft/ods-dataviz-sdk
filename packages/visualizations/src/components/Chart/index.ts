@@ -1,7 +1,8 @@
 import * as ChartJs from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import Stacked100Plugin from 'chartjs-plugin-stacked100';
-import type { ChartOptions, DataFrame } from '../types';
+import type { ChartOptions } from './types';
+import type { DataFrame } from '../types';
 import ChartImpl from './Chart.svelte';
 import SvelteImpl from '../SvelteImpl';
 import PieDataLabelsPlugin from './pieDataLabelsPlugin';

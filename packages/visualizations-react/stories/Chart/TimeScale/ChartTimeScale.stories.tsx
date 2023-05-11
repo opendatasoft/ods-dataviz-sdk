@@ -1,8 +1,9 @@
-import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
-import { Meta, Story } from '@storybook/react';
+import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { ChartSeriesType } from '@opendatasoft/visualizations';
+import { Meta } from '@storybook/react';
 import type { Props } from '../../../src';
 import { COLORS, generateArrayOf } from '../../utils';
-import { Sample } from '../Chart.stories';
+import ChartTemplate from '../ChartTemplate';
 
 const meta: Meta = {
     title: 'Chart/TimeScale',
@@ -10,14 +11,12 @@ const meta: Meta = {
 
 export default meta;
 
-type Args = Props<DataFrame, ChartOptions>;
-
-export const AreaChartYears: Story<Args> = Sample.bind({});
+export const AreaChartYears = ChartTemplate.bind({});
 const AreaChartYearsArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: generateArrayOf(
-            (index) => ({
+            index => ({
                 x: `${2000 + index}`,
                 y: index * index * 100,
             }),
@@ -26,10 +25,9 @@ const AreaChartYearsArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        ariaLabel: 'Years',
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 backgroundColor: COLORS.green,
                 fill: { mode: 'origin' },
@@ -52,7 +50,7 @@ const AreaChartYearsArgs: Props<DataFrame, ChartOptions> = {
 };
 AreaChartYears.args = AreaChartYearsArgs;
 
-export const LineChartYearsWithGap: Story<Args> = Sample.bind({});
+export const LineChartYearsWithGap = ChartTemplate.bind({});
 const LineChartYearsWithGapArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -71,10 +69,9 @@ const LineChartYearsWithGapArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'year',
-        ariaLabel: 'Years',
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 borderColor: COLORS.purple,
                 backgroundColor: COLORS.red,
@@ -98,12 +95,12 @@ const LineChartYearsWithGapArgs: Props<DataFrame, ChartOptions> = {
 };
 LineChartYearsWithGap.args = LineChartYearsWithGapArgs;
 
-export const LineChartMonths: Story<Args> = Sample.bind({});
+export const LineChartMonths = ChartTemplate.bind({});
 const LineChartMonthsArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: generateArrayOf(
-            (index) => ({
+            index => ({
                 x: `2021-0${index + 1}`,
                 y: index * index * 100,
             }),
@@ -112,10 +109,9 @@ const LineChartMonthsArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        ariaLabel: 'Months',
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 borderColor: COLORS.blue,
             },
@@ -137,24 +133,23 @@ const LineChartMonthsArgs: Props<DataFrame, ChartOptions> = {
 };
 LineChartMonths.args = LineChartMonthsArgs;
 
-export const LineChartDays: Story<Args> = Sample.bind({});
+export const LineChartDays = ChartTemplate.bind({});
 const LineChartDaysArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: generateArrayOf(
-            (index) => ({
+            (index: number) => ({
                 x: `2021-0${index + 1}-0${index + 1}`,
-                y: (index * 2) ^ (index + 1),
+                y: (index * 2) ^ (index + 1), // eslint-disable-line no-bitwise
             }),
             9
         ),
     },
     options: {
         labelColumn: 'x',
-        ariaLabel: 'Days',
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 borderColor: COLORS.blue,
                 tension: 0.5,
@@ -177,24 +172,23 @@ const LineChartDaysArgs: Props<DataFrame, ChartOptions> = {
 };
 LineChartDays.args = LineChartDaysArgs;
 
-export const LineChartHours: Story<Args> = Sample.bind({});
+export const LineChartHours = ChartTemplate.bind({});
 const LineChartHoursArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: generateArrayOf(
-            (index) => ({
+            index => ({
                 x: index < 5 ? `2021-12-09T${index + 19}` : `2021-12-10T0${index - 5}`,
-                y: (index ^ (1 - index)) * 100,
+                y: (index ^ (1 - index)) * 100, // eslint-disable-line no-bitwise
             }),
             9
         ),
     },
     options: {
         labelColumn: 'x',
-        ariaLabel: 'Hours',
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 borderColor: COLORS.orange,
             },
@@ -216,24 +210,23 @@ const LineChartHoursArgs: Props<DataFrame, ChartOptions> = {
 };
 LineChartHours.args = LineChartHoursArgs;
 
-export const LineChartMinutes: Story<Args> = Sample.bind({});
+export const LineChartMinutes = ChartTemplate.bind({});
 const LineChartMinutesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: generateArrayOf(
-            (index) => ({
+            (index: number) => ({
                 x: index < 5 ? `2021-01-01T10:${index + 55}` : `2021-01-01T11:0${index - 5}`,
-                y: (index ^ (1 + index)) * 100,
+                y: (index ^ (1 + index)) * 100, // eslint-disable-line no-bitwise
             }),
             9
         ),
     },
     options: {
         labelColumn: 'x',
-        ariaLabel: 'Minutes',
         series: [
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 borderColor: COLORS.red,
             },
@@ -255,12 +248,12 @@ const LineChartMinutesArgs: Props<DataFrame, ChartOptions> = {
 };
 LineChartMinutes.args = LineChartMinutesArgs;
 
-export const BarChartSeconds: Story<Args> = Sample.bind({});
+export const BarChartSeconds = ChartTemplate.bind({});
 const BarChartSecondsArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: generateArrayOf(
-            (index) => ({
+            index => ({
                 x: index < 5 ? `2021-01-01T10:00:${index + 55}` : `2021-01-01T10:01:0${index - 5}`,
                 y: Math.sin(index) * 100,
             }),
@@ -269,10 +262,9 @@ const BarChartSecondsArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        ariaLabel: 'Seconds',
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 backgroundColor: COLORS.grey,
             },

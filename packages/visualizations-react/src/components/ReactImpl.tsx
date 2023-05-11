@@ -6,14 +6,11 @@ import { Props } from './Props';
 // FIXME: Test the wrap method
 
 // Represent one of our component class's constructor like Chart
-type ComponentConstructor<
-    Data,
-    Options,
-    ComponentClass extends BaseComponent<Data, Options>
-> = new (container: HTMLElement, data: Async<Data>, options: Options) => ComponentClass;
+type ComponentConstructor<Data, Options, ComponentClass extends BaseComponent<Data, Options>> =
+    new (container: HTMLElement, data: Async<Data>, options: Options) => ComponentClass;
 
 // The wrapper build a function component for the given component class
-export function wrap<Data, Options, ComponentClass extends BaseComponent<Data, Options>>(
+export default function wrap<Data, Options, ComponentClass extends BaseComponent<Data, Options>>(
     ComponentConstructor: ComponentConstructor<Data, Options, ComponentClass>
 ): FC<Props<Data, Options>> {
     // We use forwardRef to forward the actual ref of the container
@@ -47,11 +44,9 @@ export function wrap<Data, Options, ComponentClass extends BaseComponent<Data, O
                     component.destroy();
                     componentRef.current = null;
                 };
-            } else {
-                throw new Error(
-                    'Container was expected to be available in useEffect. This is a bug.'
-                );
             }
+
+            throw new Error('Container was expected to be available in useEffect. This is a bug.');
             // We only want to create or destroy on mount, hot reload or tag change.
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [tag]);

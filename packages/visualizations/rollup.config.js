@@ -22,6 +22,7 @@ function basePlugins() {
             dev: !production,
             include: 'src/**/*.svelte',
             emitCss: true,
+            immutable: true,
             preprocess: autoPreprocess({
                 scss: {
                     includePaths: ['src'],

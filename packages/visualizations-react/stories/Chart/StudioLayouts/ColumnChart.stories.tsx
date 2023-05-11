@@ -1,9 +1,9 @@
-import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
 import { defaultSource } from '../../utils';
-import { Sample } from '../Chart.stories';
-import { storyWithArgs } from '../../utils';
+import ChartTemplate from '../ChartTemplate';
 
 const meta: Meta = {
     title: 'Chart/StudioLayouts/ColumnChart',
@@ -20,7 +20,8 @@ const df = [
     { x: 5, y: -50 },
 ];
 
-export const ColumnTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const ColumnTitleAxisGrid = ChartTemplate.bind({});
+const ColumnTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -28,10 +29,9 @@ export const ColumnTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 backgroundColor: [
                     'rgba(250,50,50,0.5)',
@@ -77,9 +77,11 @@ export const ColumnTitleAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>
             text: 'Column chart with title, axis and grid',
         },
     },
-});
+};
+ColumnTitleAxisGrid.args = ColumnTitleAxisGridArgs;
 
-export const ColumnAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const ColumnAxisGrid = ChartTemplate.bind({});
+const ColumnAxisGridArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -87,10 +89,9 @@ export const ColumnAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Samp
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Column chart with axis and grid',
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 backgroundColor: [
                     'rgba(250,50,50,0.5)',
@@ -133,9 +134,11 @@ export const ColumnAxisGrid = storyWithArgs<Props<DataFrame, ChartOptions>>(Samp
             },
         },
     },
-});
+};
+ColumnAxisGrid.args = ColumnAxisGridArgs;
 
-export const ColumnTitleSubtitleDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const ColumnTitleSubtitleDataValues = ChartTemplate.bind({});
+const ColumnTitleSubtitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -143,10 +146,9 @@ export const ColumnTitleSubtitleDataValues = storyWithArgs<Props<DataFrame, Char
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 backgroundColor: [
                     'rgba(250,50,50,0.5)',
@@ -162,19 +164,17 @@ export const ColumnTitleSubtitleDataValues = storyWithArgs<Props<DataFrame, Char
                 ],
                 dataLabels: {
                     display: true,
-                    align: function (index) {
+                    align(index) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
-                    anchor: function (index) {
+                    anchor(index) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
                     color: [
                         'rgba(250,50,50)',
@@ -224,9 +224,11 @@ export const ColumnTitleSubtitleDataValues = storyWithArgs<Props<DataFrame, Char
             text: 'Custom Chart Subtitle',
         },
     },
-});
+};
+ColumnTitleSubtitleDataValues.args = ColumnTitleSubtitleDataValuesArgs;
 
-export const ColumnDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const ColumnDataValues = ChartTemplate.bind({});
+const ColumnDataValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -234,10 +236,9 @@ export const ColumnDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sa
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 backgroundColor: [
                     'rgba(250,50,50,0.5)',
@@ -256,16 +257,14 @@ export const ColumnDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sa
                     align(index) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
                     anchor(index) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
                     color: [
                         'rgba(250,50,50)',
@@ -309,9 +308,11 @@ export const ColumnDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sa
             },
         },
     },
-});
+};
+ColumnDataValues.args = ColumnDataValuesArgs;
 
-export const ColumnAxisDataValues = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const ColumnAxisDataValues = ChartTemplate.bind({});
+const ColumnAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -319,10 +320,9 @@ export const ColumnAxisDataValues = storyWithArgs<Props<DataFrame, ChartOptions>
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 backgroundColor: [
                     'rgba(250,50,50,0.5)',
@@ -341,16 +341,14 @@ export const ColumnAxisDataValues = storyWithArgs<Props<DataFrame, ChartOptions>
                     align(index) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
                     anchor(index) {
                         if (df[index].y >= 0) {
                             return 'end';
-                        } else {
-                            return 'start';
                         }
+                        return 'start';
                     },
                     color: [
                         'rgba(250,50,50)',
@@ -391,9 +389,11 @@ export const ColumnAxisDataValues = storyWithArgs<Props<DataFrame, ChartOptions>
             },
         },
     },
-});
+};
+ColumnAxisDataValues.args = ColumnAxisDataValuesArgs;
 
-export const ColumnTitleAxisGridNegative = storyWithArgs<Props<DataFrame, ChartOptions>>(Sample, {
+export const ColumnTitleAxisGridNegative = ChartTemplate.bind({});
+const ColumnTitleAxisGridNegativeArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
@@ -408,10 +408,9 @@ export const ColumnTitleAxisGridNegative = storyWithArgs<Props<DataFrame, ChartO
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Column chart with title, axis and grid',
         series: [
             {
-                type: 'bar',
+                type: ChartSeriesType.Bar,
                 valueColumn: 'y',
                 backgroundColor: [
                     'rgba(250,50,50,0.5)',
@@ -457,4 +456,5 @@ export const ColumnTitleAxisGridNegative = storyWithArgs<Props<DataFrame, ChartO
             text: 'Column chart with title, axis and grid',
         },
     },
-});
+};
+ColumnTitleAxisGridNegative.args = ColumnTitleAxisGridNegativeArgs;

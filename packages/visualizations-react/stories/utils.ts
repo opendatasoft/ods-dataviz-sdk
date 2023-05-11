@@ -1,8 +1,7 @@
-/// <reference path="./utils.d.ts" />
+import { Source } from "@opendatasoft/visualizations/src/components/types";
 import trophy from './img/trophy.svg';
 import gov from './img/gov.svg';
 import rocket from './img/rocket.png';
-import { Source } from '../../visualizations/src/components/types';
 
 export const COLORS = {
     red: 'rgb(255, 99, 132)',
@@ -20,14 +19,8 @@ export const IMAGES = {
     rocket,
 };
 
-export function storyWithArgs<Args>(template: Function, args: Args) {
-    const story = template.bind({});
-    story.args = args;
-    return story;
-}
-
 export function generateArrayOf<T>(generator: (index: number) => T, size: number) {
-    let result: T[] = [];
+    const result: T[] = [];
 
     for (let i = 0; i < size; ++i) {
         result.push(generator(i));
@@ -120,8 +113,7 @@ export const CONTROLS = {
 };
 
 export const defaultSource: Source = {
-    href:
-        'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+    href: 'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
 };
 
 export const simpleFormatter = new Intl.NumberFormat(undefined, {

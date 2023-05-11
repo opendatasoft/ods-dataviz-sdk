@@ -1,8 +1,9 @@
-import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import { Props } from '../../../src';
 import { compactNumberFormatter, defaultSource } from '../../utils';
-import { Sample } from '../Chart.stories';
+import ChartTemplate from '../ChartTemplate';
 
 const meta: Meta = {
     title: 'Chart/Formatting/LongLegend',
@@ -25,18 +26,16 @@ const LineLongLegendArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Line chart with title, axis, grid and dots',
         series: [
             {
-                type: 'line',
-                label:
-                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
+                type: ChartSeriesType.Line,
+                label: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
                 valueColumn: 'y',
                 tension: 0,
                 borderColor: 'rgb(22, 161, 145)',
             },
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 label: '100000',
                 valueColumn: 'z',
                 tension: 0,
@@ -46,27 +45,29 @@ const LineLongLegendArgs: Props<DataFrame, ChartOptions> = {
         legend: {
             display: true,
         },
-        xAxis: {
-            display: true,
-            type: 'linear',
-            title: {
+        axis: {
+            x: {
                 display: true,
-                text: 'Date de plantation',
-                align: 'center',
+                type: 'linear',
+                title: {
+                    display: true,
+                    text: 'Date de plantation',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: false,
+                },
             },
-            gridLines: {
-                display: false,
-            },
-        },
-        yAxis: {
-            display: true,
-            title: {
+            y: {
                 display: true,
-                text: 'Moyenne de la hauteur en CM',
-                align: 'center',
-            },
-            gridLines: {
-                display: true,
+                title: {
+                    display: true,
+                    text: 'Moyenne de la hauteur en CM',
+                    align: 'center',
+                },
+                gridLines: {
+                    display: true,
+                },
             },
         },
         title: {
@@ -74,28 +75,24 @@ const LineLongLegendArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const LineLongLegend = Sample.bind({});
+export const LineLongLegend = ChartTemplate.bind({});
 LineLongLegend.args = LineLongLegendArgs;
 
 const pieDf = [
     {
-        x:
-            'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
+        x: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
         y: 100,
     },
     {
-        x:
-            'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
+        x: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
         y: 50,
     },
     {
-        x:
-            'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
+        x: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
         y: 20,
     },
     {
-        x:
-            'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
+        x: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
         y: 30,
     },
 ];
@@ -107,10 +104,9 @@ const PieLongLegendArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Pie chart with title and legend with values',
         series: [
             {
-                type: 'pie',
+                type: ChartSeriesType.Pie,
                 valueColumn: 'y',
                 backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', 'rgb(39,174,96)'],
             },
@@ -131,7 +127,7 @@ const PieLongLegendArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const PieLongLegend = Sample.bind({});
+export const PieLongLegend = ChartTemplate.bind({});
 PieLongLegend.args = PieLongLegendArgs;
 
 const RadarLongLegendArgs: Props<DataFrame, ChartOptions> = {
@@ -148,18 +144,16 @@ const RadarLongLegendArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Radar chart',
         series: [
             {
-                type: 'radar',
+                type: ChartSeriesType.Radar,
                 valueColumn: 'y',
-                label:
-                    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
+                label: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae optio placeat, explicabo neque fugit asperiores, illo qui necessitatibus doloribus nulla cum aperiam soluta obcaecati! Fuga nihil quisquam impedit voluptates. Ad.',
                 backgroundColor: 'rgba(27,210,210,0.5)',
                 borderColor: 'rgb(27,210,210)',
             },
             {
-                type: 'radar',
+                type: ChartSeriesType.Radar,
                 valueColumn: 'z',
                 label: '1000000000000',
                 backgroundColor: 'rgba(127,10,210,0.5)',
@@ -172,12 +166,14 @@ const RadarLongLegendArgs: Props<DataFrame, ChartOptions> = {
         title: {
             text: 'Radar chart with long legend',
         },
-        rAxis: {
-            ticks: {
-                display: true,
+        axis: {
+            r: {
+                ticks: {
+                    display: true,
+                },
             },
         },
     },
 };
-export const RadarLongLegend = Sample.bind({});
+export const RadarLongLegend = ChartTemplate.bind({});
 RadarLongLegend.args = RadarLongLegendArgs;

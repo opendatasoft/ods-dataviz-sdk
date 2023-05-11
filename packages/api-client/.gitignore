@@ -1,6 +1,1 @@
-*.log
-.DS_Store
-node_modules
-dist
-umd
-coverage/
+coverage

@@ -3,9 +3,10 @@
  */
 
 import { enableFetchMocks } from 'jest-fetch-mock';
-import { ApiClient, field, fromCatalog } from '../src';
 import { expect, it, beforeEach, describe } from '@jest/globals';
+import { ApiClient, field, fromCatalog } from '../src';
 import { AuthenticationError, NotFoundError, ServerError, UserError } from '../src/client/error';
+
 enableFetchMocks();
 
 describe('Api client', () => {
@@ -26,7 +27,7 @@ describe('Api client', () => {
 
     it('should call fetch with the right url', async () => {
         const apiResponse = { any: 'any' };
-        fetchMock.once(async req => {
+        fetchMock.once(async (req) => {
             expect(req.url).toEqual('https://public.opendatasoft.com/api/v2/catalog/');
             return JSON.stringify(apiResponse);
         });
@@ -38,7 +39,7 @@ describe('Api client', () => {
 
     it('should add the api key', async () => {
         const apiResponse = { any: 'any' };
-        fetchMock.once(async req => {
+        fetchMock.once(async (req) => {
             expect(req.headers.get('Authorization')).toEqual('ApiKey 1234');
             return JSON.stringify(apiResponse);
         });
@@ -50,7 +51,7 @@ describe('Api client', () => {
 
     it('works with the query builder', async () => {
         const apiResponse = { any: 'any' };
-        fetchMock.once(async req => {
+        fetchMock.once(async (req) => {
             expect(req.url).toEqual(
                 'https://public.opendatasoft.com/api/v2/catalog/facets/?facet=facet1&facet=facet2&refine=%60facet1%60%3Avalue'
             );
@@ -69,21 +70,21 @@ describe('Api client', () => {
     });
 
     it('allow request and response interception', async () => {
-        fetchMock.once(async req => {
+        fetchMock.once(async (req) => {
             expect(req.headers.get('x-custom')).toEqual('custom');
             return 'response';
         });
         const client = new ApiClient({
             /* (Optional) Allow you to update the request before it is send. */
-            interceptRequest: async request => {
+            interceptRequest: async (request) => {
                 request.headers.append('x-custom', 'custom');
                 return request;
             },
 
             /* (Optional) Allow you to intercept the response before it is returned */
-            interceptResponse: async response => {
+            interceptResponse: async (response) => {
                 const apiResponse = await response.text();
-                return (apiResponse + '_intercepted') as any;
+                return `${apiResponse}_intercepted`;
             },
         });
 

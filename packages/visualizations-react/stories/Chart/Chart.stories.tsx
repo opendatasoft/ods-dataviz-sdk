@@ -1,28 +1,18 @@
-import React from 'react';
-import { Meta } from '@storybook/react';
+import { ComponentMeta } from '@storybook/react';
+import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Chart, Props } from '../../src';
-import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { COLORS, defaultSource } from '../utils';
+import ChartTemplate from './ChartTemplate';
 
-const meta: Meta = {
+const meta: ComponentMeta<typeof Chart> = {
     title: 'Chart',
     component: Chart,
 };
 
 export default meta;
 
-const Template = (args: Props<DataFrame, ChartOptions>) => (
-    <div
-        style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-        }}
-    >
-        <Chart {...args} style={{ width: '60vw' }} />
-    </div>
-);
-export const Sample = Template.bind({});
+export const Sample = ChartTemplate.bind({});
 const SampleArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -38,18 +28,17 @@ const SampleArgs: Props<DataFrame, ChartOptions> = {
     options: {
         labelColumn: 'x',
         source: defaultSource,
-        ariaLabel: 'Line chart with title, axis, grid and dots',
         series: [
             {
                 label: 'Green',
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'y',
                 tension: 0,
                 borderColor: COLORS.green,
             },
             {
                 label: 'Blue',
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'z',
                 tension: 0,
                 borderColor: COLORS.blue,
