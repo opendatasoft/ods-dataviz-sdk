@@ -1,5 +1,6 @@
 import { ColorScaleTypes } from '../types';
 import type { ColorScale, Color } from '../types';
+import type { CircleLayer } from './types';
 
 export const DEFAULT_COLORS: Record<string, Color> = {
     Default: '#CCCCCC',
@@ -15,3 +16,13 @@ export const DEFAULT_COLORSCALE: ColorScale = {
         end: DEFAULT_COLORS.DarkGrey,
     },
 };
+
+export const DEFAULT_LAYERS_PARAMS = {
+    type: 'circle',
+    layout: {},
+    paint: {
+        'circle-radius': 6,
+        'circle-color': DEFAULT_COLORS.DarkGrey,
+    },
+    filter: ['==', ['geometry-type'], 'Point'],
+} as CircleLayer;

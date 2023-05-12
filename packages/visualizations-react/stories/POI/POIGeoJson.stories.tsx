@@ -52,3 +52,23 @@ const POIMapArgs: Props<DataFrame, POIMapOptions> = {
     },
 };
 POIMap.args = POIMapArgs;
+
+export const POIMapNoLayersParams = Template.bind({});
+const POIMapNoLayersParamsArgs: Props<DataFrame, POIMapOptions> = {
+    data: {
+        loading: false,
+        value: [
+            { x: 'Paris', y: 60 },
+            { x: 'Ile de France', y: 35 },
+            { x: 'Corsica', y: 95 },
+            { x: 'Nantes', y: 60 },
+            { x: 'Marseille', y: 35 },
+            { x: 'Bordeaux', y: 95 },
+        ],
+    },
+    options: {
+        shapes,
+        style: DEMO_BASEMAP,
+    },
+};
+POIMapNoLayersParams.args = POIMapNoLayersParamsArgs;

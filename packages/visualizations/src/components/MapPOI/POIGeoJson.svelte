@@ -6,6 +6,7 @@
     import MapRender from './MapRender.svelte';
     import { BLANK } from './mapStyles';
     import { VOID_BOUNDS, computeTooltip, computeLayers } from './utils';
+    import { DEFAULT_LAYERS_PARAMS } from './constants';
     import type {
         POIMapOptions,
         POIMapDataValue,
@@ -25,15 +26,15 @@
 
     let bbox: BBox | undefined;
 
-    let layerParams: LayersParams[];
+    let layerParams: LayersParams[] | undefined;
     let aspectRatio: number | undefined;
 
     // Here style will set the basemap
-    let style: StyleSpecification | string = BLANK;
+    let style: StyleSpecification | string;
     let layers: POIMapLayer[];
     let source: SourceSpecification;
 
-    $: ({ shapes, style, bbox, layerParams = [], aspectRatio } = options);
+    $: ({ shapes, style = BLANK, bbox, layerParams, aspectRatio } = options);
     let renderedBbox = bbox || VOID_BOUNDS;
 
     function computeSourceLayerAndBboxes(newShapes: FeatureCollection) {
@@ -41,7 +42,7 @@
             type: 'geojson',
             data: newShapes,
         };
-        layers = computeLayers(layerParams);
+        layers = layerParams ? computeLayers(layerParams) : [DEFAULT_LAYERS_PARAMS];
         renderedBbox = bbox || turfBbox(newShapes) || VOID_BOUNDS;
     }
 
