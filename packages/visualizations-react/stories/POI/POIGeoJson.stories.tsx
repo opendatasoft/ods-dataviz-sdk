@@ -4,6 +4,8 @@ import { POIMapOptions, DataFrame } from '@opendatasoft/visualizations';
 import { shapes } from './data';
 import { POIGeoJson, Props } from '../../src';
 
+const DEMO_BASEMAP = 'https://demotiles.maplibre.org/style.json';
+
 const meta: ComponentMeta<typeof POIGeoJson> = {
     title: 'POI/GeoJson',
     component: POIGeoJson,
@@ -46,6 +48,7 @@ const POIMapArgs: Props<DataFrame, POIMapOptions> = {
     options: {
         shapes,
         layerParams,
+        style: DEMO_BASEMAP,
     },
 };
 POIMap.args = POIMapArgs;

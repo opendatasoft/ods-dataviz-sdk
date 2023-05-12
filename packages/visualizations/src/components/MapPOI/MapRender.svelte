@@ -15,11 +15,10 @@
 
     import { onMount } from 'svelte';
     import type { POIMapLayer, MapRenderTooltipFunctionPOI } from './types';
-    import { DEMO_BASEMAP } from './mapStyles';
     import { BLANK } from '../Map/mapStyles';
 
-    // maplibre style (basemap) as for now not used and replace by DEMO_BASEMAP
-    export const style: StyleSpecification = BLANK;
+    // maplibre style (basemap)
+    export let style: StyleSpecification | string = BLANK;
     // maplibre source config
     export let source: SourceSpecification;
     // maplibre layer config
@@ -60,7 +59,7 @@
 
         map = new maplibregl.Map({
             container,
-            style: DEMO_BASEMAP,
+            style,
             ...start,
         });
 
@@ -169,7 +168,7 @@
 </figure>
 
 <style>
-     #map {
+    #map {
         height: 400px;
     }
     @supports (aspect-ratio: auto) {

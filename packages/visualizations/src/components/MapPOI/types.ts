@@ -1,4 +1,4 @@
-import type { CircleLayerSpecification } from 'maplibre-gl';
+import type { CircleLayerSpecification, StyleSpecification } from 'maplibre-gl';
 import type { FeatureCollection, BBox, Feature } from 'geojson';
 import type { DebouncedFunc } from 'lodash';
 import type { Color } from '../types';
@@ -6,6 +6,8 @@ import type { Color } from '../types';
 export interface POIMapOptions {
     /** Configuration for the shapes used to display markers */
     shapes: FeatureCollection;
+    /** Configuration of map style */
+    style: StyleSpecification | string;
     /** Configuration for the layers to display POIs */
     layerParams: LayersParams[];
     /** Maximum boundaries of the map, outside of which the user cannot zoom/move

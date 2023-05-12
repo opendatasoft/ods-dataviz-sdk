@@ -1,7 +1,7 @@
 <script lang="ts">
     import turfBbox from '@turf/bbox';
     import { debounce } from 'lodash';
-    import type { SourceSpecification } from 'maplibre-gl';
+    import type { SourceSpecification, StyleSpecification } from 'maplibre-gl';
     import type { BBox, FeatureCollection } from 'geojson';
     import MapRender from './MapRender.svelte';
     import { BLANK } from './mapStyles';
@@ -28,11 +28,12 @@
     let layerParams: LayersParams[];
     let aspectRatio: number | undefined;
 
-    $: ({ shapes, bbox, layerParams = [], aspectRatio } = options);
     // Here style will set the basemap
-    const style = BLANK;
+    let style: StyleSpecification | string = BLANK;
     let layers: POIMapLayer[];
     let source: SourceSpecification;
+
+    $: ({ shapes, style, bbox, layerParams = [], aspectRatio } = options);
     let renderedBbox = bbox || VOID_BOUNDS;
 
     function computeSourceLayerAndBboxes(newShapes: FeatureCollection) {
