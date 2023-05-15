@@ -209,9 +209,7 @@
             {/if}
         </figure>
         {#if options.source}
-            <div class="source">
-                <SourceLink source={options.source} />
-            </div>
+            <SourceLink source={options.source} />
         {/if}
     </div>
 {/if}
@@ -220,6 +218,9 @@
     .container {
         display: flex;
         flex-direction: column;
+    }
+    .header {
+        width: 100%;
         margin: 0;
     }
 
@@ -227,8 +228,7 @@
         position: relative;
         width: 100%;
         flex-grow: 1;
-        display: flex;
-        /* align-items: center; */
+        margin: 0;
     }
     .legend--bottom {
         flex-direction: column;
@@ -244,10 +244,6 @@
         grid-template-columns: repeat(auto-fit, minmax(120px, max-content));
     }
 
-    .header {
-        width: 100%;
-        margin: 0;
-    }
     /* Suitable for elements that are used via aria-describedby or aria-labelledby */
     .a11y-invisible-description {
         display: none;
