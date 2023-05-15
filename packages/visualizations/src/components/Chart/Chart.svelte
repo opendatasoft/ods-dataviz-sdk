@@ -24,7 +24,7 @@
     const chartId = `chart-${generateId()}`;
 
     let chart: Chart;
-    let clientWidth;
+    let clientWidth: number;
     // Hook to handle chart lifecycle
     function chartJs(node: HTMLCanvasElement, config: ChartConfiguration) {
         const ctx = node.getContext('2d');
