@@ -7,6 +7,7 @@ export const DEFAULT_COLORS: Record<string, Color> = {
     ShapeOutline: '#FFFFFF',
     LightGrey: '#CBD2DB',
     DarkGrey: '#515457',
+    Blue: '#142E7B',
 } as const;
 
 export const DEFAULT_COLORSCALE: ColorScale = {
@@ -22,7 +23,7 @@ export const DEFAULT_LAYERS_PARAMS = {
     layout: {},
     paint: {
         'circle-radius': 6,
-        'circle-color': DEFAULT_COLORS.DarkGrey,
+        'circle-color': DEFAULT_COLORS.Blue,
     },
     filter: ['==', ['geometry-type'], 'Point'],
 } as CircleLayer;
