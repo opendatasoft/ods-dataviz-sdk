@@ -75,8 +75,7 @@
         // Reactively update chart configuration
         const chartOptions = chartConfig.options || {};
         const legend = options.legend?.custom ? { display: false } : buildLegend(options);
-        chartOptions.aspectRatio =
-            options.series[0]?.type === 'pie' ? 1 : defaultValue(options.aspectRatio, 4 / 3);
+        chartOptions.aspectRatio = defaultValue(options.aspectRatio, 4 / 3);
         chartOptions.maintainAspectRatio = true;
         chartOptions.scales = buildScales(options);
         chartOptions.layout = {
