@@ -220,9 +220,13 @@
     .container {
         display: flex;
         flex-direction: column;
+        margin: 0;
     }
 
     figure {
+        position: relative;
+        width: 100%;
+        flex-grow: 1;
         display: flex;
         /* align-items: center; */
     }
