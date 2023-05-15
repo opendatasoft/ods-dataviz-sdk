@@ -5,7 +5,7 @@
     import { debounce } from 'lodash';
     import type { DataBounds, ColorScale, LegendVariant } from '../types';
     import { LegendPositions } from '../types';
-    import { defaultCompactLegendNumberFormat } from './formatter';
+    import { defaultCompactLegendNumberFormat } from '../utils/formatter';
 
     // options to customize the component
     export let dataBounds: DataBounds;

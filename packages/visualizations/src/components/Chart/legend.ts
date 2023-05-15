@@ -1,4 +1,4 @@
-import type { LegendOptions, ChartTypeRegistry } from 'chart.js';
+import type { LegendOptions, ChartTypeRegistry, ChartConfiguration, Chart } from 'chart.js';
 import type { _DeepPartialObject } from 'chart.js/types/utils';
 import type { ChartOptions } from './types';
 import { assureMaxLength } from '../utils/formatter';
@@ -31,7 +31,7 @@ const handleLeavePieChart: LegendOptions<'pie'>['onLeave'] = (_evt, _item, legen
     legend.chart.update();
 };
 
-export default function buildLegend(
+export function buildLegend(
     options: ChartOptions
 ): _DeepPartialObject<LegendOptions<keyof ChartTypeRegistry>> {
     const legend: _DeepPartialObject<LegendOptions<keyof ChartTypeRegistry>> = {
@@ -66,4 +66,68 @@ export default function buildLegend(
         },
     };
     return legend;
+}
+
+function buildLegendLabels(
+    index: number,
+    options: ChartOptions,
+    chartConfig: ChartConfiguration
+): string {
+    const text = options?.legend?.labels?.text;
+    if (text) {
+        return assureMaxLength(text(index), LEGEND_MAX_LENGTH);
+    }
+    return `${chartConfig.data.labels?.[index]}`;
+}
+
+export function buildCustomLegend({
+    chart,
+    options,
+    chartConfig,
+}: {
+    chart: Chart,
+    options: ChartOptions,
+    chartConfig: ChartConfiguration,
+}) {
+    const { series } = options;
+           return {
+               type: 'category' as const,
+               position: defaultValue(options?.legend?.position, 'bottom'),
+               items: chartConfig.data.datasets[0].data.map((_data, i) => ({
+                   color: series[0].backgroundColor?.[i],
+                   borderDashed: false,
+                   label: buildLegendLabels(i, options, chartConfig),
+                   onClick: (index: number) => {
+                       if (chart) {
+                           chart.toggleDataVisibility(index);
+                           chart.update();
+                       }
+                   },
+                   onHover: (index: number) => {
+                       const { tooltip, chartArea } = chart;
+                       if (tooltip) {
+                           tooltip.setActiveElements(
+                               [
+                                   {
+                                       datasetIndex: 0,
+                                       index,
+                                   },
+                               ],
+                               {
+                                   x: (chartArea.left + chartArea.right) / 2,
+                                   y: (chartArea.top + chartArea.bottom) / 2,
+                               }
+                           );
+                       }
+                       chart.update();
+                   },
+                   onLeave: () => {
+                       const { tooltip } = chart;
+                       if (tooltip) {
+                           tooltip.setActiveElements([], { x: 0, y: 0 });
+                       }
+                       chart.update();
+                   },
+               })),
+           };
 }

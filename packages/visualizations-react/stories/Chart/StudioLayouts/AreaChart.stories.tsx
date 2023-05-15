@@ -54,7 +54,7 @@ const AreaTitleAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
                 },
             },
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'a',
                 label: 'Consommation de gaz en GWh',
                 tension: 0.3,
@@ -66,7 +66,7 @@ const AreaTitleAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
                 },
             },
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'z',
                 label: 'Consommation électrique en GWh',
                 tension: 0.3,
@@ -78,7 +78,7 @@ const AreaTitleAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
                 },
             },
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'z',
                 label: 'Serie 2',
                 tension: 0.3,
@@ -90,7 +90,7 @@ const AreaTitleAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
                 },
             },
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'z',
                 label: 'Consommation pétrole en GWh',
                 tension: 0.3,
@@ -102,7 +102,7 @@ const AreaTitleAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
                 },
             },
             {
-                type: 'line',
+                type: ChartSeriesType.Line,
                 valueColumn: 'z',
                 label: 'Serie 3',
                 tension: 0.3,

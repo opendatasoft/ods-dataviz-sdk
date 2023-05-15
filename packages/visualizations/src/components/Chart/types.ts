@@ -98,7 +98,7 @@ export interface AssemblageAxisConfiguration {
     percentaged?: boolean;
 }
 
-export interface LegendLabelsConfiguration {
+interface LegendLabelsConfiguration {
     text?: (legendIndex: number) => string;
 }
 
@@ -108,6 +108,10 @@ export interface LegendConfiguration {
     align?: 'start' | 'center' | 'end';
     labels?: LegendLabelsConfiguration;
     boxStyle?: 'rect' | 'line' | 'dash';
+    /** Wether to use ChartJS legend or homemade one
+    NOTE: temporary API for backward compatibility
+     */
+    custom?: boolean;
 }
 
 export interface TooltipConfiguration {
