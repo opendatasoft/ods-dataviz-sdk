@@ -27,6 +27,8 @@ export interface POIMapOptions {
     };
     /** Aspect ratio used to draw the map. The map will take he width available to it, and decide its height based on that ratio. */
     aspectRatio?: number;
+    /** Is the map interactive for the user (zoom, move, tooltips...)? */
+    interactive?: boolean;
 }
 /** Structure containing the numerical data used by the Choropleth to compute
  * the legend and the color of the shapes it renders.

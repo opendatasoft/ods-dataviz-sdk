@@ -28,13 +28,18 @@
 
     let layerParams: LayersParams[] | undefined;
     let aspectRatio: number | undefined;
+    let interactive: boolean;
 
     // Here style will set the basemap
     let style: StyleSpecification | string;
     let layers: POIMapLayer[];
     let source: SourceSpecification;
 
-    $: ({ shapes, style = BLANK, bbox, layerParams, aspectRatio } = options);
+    const defaultInteractive = true;
+
+    $: ({
+        shapes, style = BLANK, bbox, layerParams, aspectRatio, interactive=defaultInteractive
+    } = options);
     let renderedBbox = bbox || VOID_BOUNDS;
 
     function computeSourceLayerAndBboxes(newShapes: FeatureCollection) {
@@ -57,7 +62,7 @@
 </script>
 
 <div>
-    <MapRender {style} {source} {layers} bbox={renderedBbox} {renderTooltip} {aspectRatio} />
+    <MapRender {style} {source} {layers} bbox={renderedBbox} {renderTooltip} {aspectRatio} {interactive}/>
 </div>
 
 <style>

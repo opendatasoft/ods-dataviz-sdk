@@ -31,6 +31,8 @@
     // aspect ratio based on width, by default equal to 1
     export let aspectRatio = 1;
     $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
+    // option to disable map interactions
+    export let interactive: boolean;
 
     const hoverPopup = new maplibregl.Popup({
         closeOnClick: false,
@@ -73,6 +75,16 @@
 
         return () => map.remove();
     }
+
+    function getAllCustomLayersIds() {
+        const mapLayers = map.getStyle().layers;
+        if (mapLayers.length > 0) {
+                return mapLayers
+                    .filter((layer) => layer.id.includes(layerId))
+                    .map((layer) => layer.id);
+            }
+        return [];
+    };
 
     function sourceLoadingCallback(e: MapSourceDataEvent) {
         // sourceDataType can be "visibility" or "metadata", in which case it's not about the data itself
@@ -123,18 +135,80 @@
         hoverPopup.remove();
     }
 
+    function handleInteractivity(
+        isInteractive: boolean,
+        computeTooltip?: MapRenderTooltipFunctionPOI
+    ) {
+        if (isInteractive) {
+            // Enable all user interaction handlers
+            // Another way to disable all user handlers is to pass the option interactive = false on map creation
+            // But it doesn't allow to change it afterwards
+            // Id est it forces you to recreate another map if you want to change that option
+            map.boxZoom.enable();
+            map.doubleClickZoom.enable();
+            map.dragPan.enable();
+            map.dragRotate.enable();
+            map.keyboard.enable();
+            map.scrollZoom.enable();
+            map.touchZoomRotate.enable();
+
+            // Add navigation control to map
+            if (!map.hasControl(nav)) {
+                map.addControl(nav, 'top-right');
+            }
+
+            const customLayersIds = getAllCustomLayersIds();
+            if (customLayersIds.length > 0) {
+                customLayersIds.forEach((customLayerId) => {
+                     // Handle tooltip display
+                    map.off('mousemove', customLayerId, addTooltip);
+                    map.off('mouseleave', customLayerId, removeTooltip);
+
+                    if (computeTooltip) {
+                        map.on('mousemove', customLayerId, addTooltip);
+                        map.on('mouseleave', customLayerId, removeTooltip);
+                    }
+                });
+            }
+
+        } else {
+            // Disable all user interaction handlers
+            map.boxZoom.disable();
+            map.doubleClickZoom.disable();
+            map.dragPan.disable();
+            map.dragRotate.disable();
+            map.keyboard.disable();
+            map.scrollZoom.disable();
+            map.touchZoomRotate.disable();
+
+            const customLayersIds = getAllCustomLayersIds();
+            if (customLayersIds.length > 0) {
+                customLayersIds.forEach((customLayerId) => {
+                    // Remove tooltip
+                    map.off('mousemove', customLayerId, addTooltip);
+                    map.off('mouseleave', customLayerId, removeTooltip);
+                });
+            }
+
+            // Remove navigation control from map
+            if (map.hasControl(nav)) {
+                map.removeControl(nav);
+            }
+            // Reset map Bbox to reset zoom
+            if (mapReady && bbox) {
+                setBbox(currentBbox);
+            }
+        }
+    };
+
     function updateSourceAndLayer(newSource: SourceSpecification, newLayer: POIMapLayer[]) {
         if (newSource && newLayer) {
             // Remove all custom layers but keep maplibre other style layers
             // Must be done before removing Source used by layers
-            const mapLayers = map.getStyle().layers;
-            if (mapLayers.length > 0) {
-                const customLayersIds = mapLayers
-                    .filter((layer) => layer.id.includes(layerId))
-                    .map((layer) => layer.id);
-                if (customLayersIds.length > 0) {
-                    customLayersIds.forEach((customLayerId) => map.removeLayer(customLayerId));
-                }
+
+            const customLayersIds = getAllCustomLayersIds();
+            if (customLayersIds.length > 0) {
+                customLayersIds.forEach((customLayerId) => map.removeLayer(customLayerId));
             }
 
             if (map.getSource(sourceId)) {
@@ -163,6 +237,9 @@
 
     $: if (mapReady) {
         updateSourceAndLayer(source, layers);
+    }
+    $: if (mapReady) {
+        handleInteractivity(interactive, renderTooltip);
     }
     $: if (mapReady && currentBbox) {
         setBbox(currentBbox);
