@@ -125,8 +125,16 @@
 
     function updateSourceAndLayer(newSource: SourceSpecification, newLayer: POIMapLayer[]) {
         if (newSource && newLayer) {
-            if (map.getLayer(layerId)) {
-                map.removeLayer(layerId);
+            // Remove all custom layers but keep maplibre other style layers
+            // Must be done before removing Source used by layers
+            const mapLayers = map.getStyle().layers;
+            if (mapLayers.length > 0) {
+                const customLayersIds = mapLayers
+                    .filter((layer) => layer.id.includes(layerId))
+                    .map((layer) => layer.id);
+                if (customLayersIds.length > 0) {
+                    customLayersIds.forEach((customLayerId) => map.removeLayer(customLayerId));
+                }
             }
 
             if (map.getSource(sourceId)) {
