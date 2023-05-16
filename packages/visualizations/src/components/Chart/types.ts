@@ -1,5 +1,5 @@
 import type { Color, Source } from '../types';
-
+import type { LegendConfiguration } from '../Legend/types';
 export interface ChartOptions {
     /** Specify label column in DataFrame */
     labelColumn: string;
@@ -96,22 +96,6 @@ export interface RadialAxisConfiguration {
 export interface AssemblageAxisConfiguration {
     stacked?: boolean;
     percentaged?: boolean;
-}
-
-interface LegendLabelsConfiguration {
-    text?: (legendIndex: number) => string;
-}
-
-export interface LegendConfiguration {
-    display?: boolean;
-    position?: 'top' | 'left' | 'bottom' | 'right';
-    align?: 'start' | 'center' | 'end';
-    labels?: LegendLabelsConfiguration;
-    boxStyle?: 'rect' | 'line' | 'dash';
-    /** Wether to use ChartJS legend or homemade one
-    NOTE: temporary API for backward compatibility
-     */
-    custom?: boolean;
 }
 
 export interface TooltipConfiguration {

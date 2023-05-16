@@ -75,9 +75,6 @@ const BarTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
         title: {
             text: 'Bar chart with title, axis and grid',
         },
-        legend: {
-            display: true,
-        },
     },
 };
 BarTitleAxisGrid.args = BarTitleAxisGridArgs;
