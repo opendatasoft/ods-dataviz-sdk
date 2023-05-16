@@ -47,31 +47,11 @@ const POIMapNoLayersParamsArgs: Props<DataFrame, POIMapOptions> = {
 };
 POIMapNoLayersParams.args = POIMapNoLayersParamsArgs;
 
-export const POIMap = Template.bind({});
-const layerParams = [
-    { color: '#B42222', matchKey: 'Red', matchProperty: 'cat' },
-    { color: '#0000FF', matchKey: 'Blue', matchProperty: 'cat' },
-];
-
-const POIMapArgs: Props<DataFrame, POIMapOptions> = {
-    data: {
-        loading: false,
-        value: [
-            { x: 'Paris', y: 60 },
-            { x: 'Ile de France', y: 35 },
-            { x: 'Corsica', y: 95 },
-            { x: 'Nantes', y: 60 },
-            { x: 'Marseille', y: 35 },
-            { x: 'Bordeaux', y: 95 },
-        ],
-    },
-    options: {
-        shapes,
-        layerParams,
-        style: DEMO_BASEMAP,
-    },
+const layerParams = {
+    colors: ['#B42222', 'Green'],
+    matchValues: ['Paris', 'Nantes'],
+    matchKey: 'key',
 };
-POIMap.args = POIMapArgs;
 
 export const POIMapNonInteractive = Template.bind({});
 
@@ -95,3 +75,25 @@ const POIMapNonInteractiveArgs: Props<DataFrame, POIMapOptions> = {
     },
 };
 POIMapNonInteractive.args = POIMapNonInteractiveArgs;
+
+export const POIMapMatchExpression = Template.bind({});
+
+const POIMapMatchExpressionArgs: Props<DataFrame, POIMapOptions> = {
+    data: {
+        loading: false,
+        value: [
+            { x: 'Paris', y: 60 },
+            { x: 'Ile de France', y: 35 },
+            { x: 'Corsica', y: 95 },
+            { x: 'Nantes', y: 60 },
+            { x: 'Marseille', y: 35 },
+            { x: 'Bordeaux', y: 95 },
+        ],
+    },
+    options: {
+        shapes,
+        layerParams,
+        style: DEMO_BASEMAP,
+    },
+};
+POIMapMatchExpression.args = POIMapMatchExpressionArgs;

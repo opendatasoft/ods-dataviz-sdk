@@ -5,14 +5,14 @@
     import type { BBox, FeatureCollection } from 'geojson';
     import MapRender from './MapRender.svelte';
     import { BLANK } from './mapStyles';
-    import { VOID_BOUNDS, computeTooltip, computeLayers } from './utils';
+    import { VOID_BOUNDS, computeTooltip, computeBaseRoundMarkerLayer } from './utils';
     import { DEFAULT_LAYERS_PARAMS } from './constants';
     import type {
         POIMapOptions,
         POIMapDataValue,
         POIMapLayer,
         MapRenderTooltipFunctionPOI,
-        LayersParams,
+        LayerParams,
     } from './types';
 
     export let data: { value: POIMapDataValue[] }; // values, and the key to match
@@ -26,7 +26,7 @@
 
     let bbox: BBox | undefined;
 
-    let layerParams: LayersParams[] | undefined;
+    let layerParams: LayerParams | undefined;
     let aspectRatio: number | undefined;
     let interactive: boolean;
 
@@ -38,7 +38,7 @@
     const defaultInteractive = true;
 
     $: ({
-        shapes, style = BLANK, bbox, layerParams, aspectRatio, interactive=defaultInteractive
+        shapes, style = BLANK, bbox, layerParams, aspectRatio, interactive=defaultInteractive,
     } = options);
     let renderedBbox = bbox || VOID_BOUNDS;
 
@@ -47,7 +47,10 @@
             type: 'geojson',
             data: newShapes,
         };
-        layers = layerParams ? computeLayers(layerParams) : [DEFAULT_LAYERS_PARAMS];
+        // layers will be stored in an array as it will be needed to add more than one layer to display different geometries
+        layers = layerParams
+                ? [computeBaseRoundMarkerLayer(layerParams.colors, layerParams.matchValues, layerParams.matchKey)]
+                : [DEFAULT_LAYERS_PARAMS];
         renderedBbox = bbox || turfBbox(newShapes) || VOID_BOUNDS;
     }
 

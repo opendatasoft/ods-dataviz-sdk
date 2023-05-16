@@ -5,33 +5,34 @@ import type {
     POIMapDataValue,
     POIMapTooltipFormatter,
     TooltipParamsPOI,
-    LayersParams,
 } from './types';
 import { POIMapTooltipMatcherTypes } from './types';
 import type { Color } from '../types';
+import { DEFAULT_COLORS } from './constants';
 
 export const computeBaseRoundMarkerLayer = (
-    color: Color,
+    colors: Color[],
+    matchValues: string[],
     matchKey: string,
-    matchProperty: string
-): POIMapLayer => ({
-    type: 'circle',
-    layout: {},
-    paint: {
-        'circle-radius': 6,
-        'circle-color': color,
-    },
-    filter: ['==', ['get', matchProperty], matchKey],
-});
+    noMatchColor?: Color,
+): POIMapLayer => {
 
-export const computeLayers = (layers: LayersParams[]): POIMapLayer[] | [] => {
-    if (layers.length === 0) {
-        return [];
-    }
-    return layers.map((layer) => {
-        const { color, matchKey, matchProperty } = layer;
-        return computeBaseRoundMarkerLayer(color, matchKey, matchProperty);
+    const matchExpression = ['match', ['get', matchKey]];
+    matchValues.forEach((key, i) => {
+        matchExpression.push(key);
+        matchExpression.push(colors[i]);
     });
+    matchExpression.push(noMatchColor || DEFAULT_COLORS.Blue); // Default fallback color
+
+    return {
+        type: 'circle',
+        layout: {},
+        paint: {
+            'circle-radius': 6,
+            'circle-color': matchExpression,
+        },
+        filter: ['==', ['geometry-type'], 'Point'],
+    };
 };
 
 // This is a default bound that will be extended

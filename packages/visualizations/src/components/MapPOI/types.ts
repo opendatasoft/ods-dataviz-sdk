@@ -9,7 +9,7 @@ export interface POIMapOptions {
     /** Configuration of map style */
     style?: StyleSpecification | string;
     /** Configuration for the layers to display POIs */
-    layerParams?: LayersParams[];
+    layerParams?: LayerParams;
     /** Maximum boundaries of the map, outside of which the user cannot zoom/move
      * Also set the position of the map when rendering.
      * If undefined, will default, in order to:
@@ -41,10 +41,11 @@ export interface POIMapDataValue {
 
 export type CircleLayer = Omit<CircleLayerSpecification, 'id' | 'source'>;
 
-export type LayersParams = {
-    color: Color;
-    matchKey: string;
-    matchProperty: string;
+export type LayerParams = {
+    colors: Color[], // Array of colors to match the array of values
+    matchValues: string[], // Array of values to apply colors
+    matchKey: string, // The features key on which apply colors and values mapping
+    noMatchColor?: Color,
 };
 
 export type POIMapLayer = CircleLayer;
