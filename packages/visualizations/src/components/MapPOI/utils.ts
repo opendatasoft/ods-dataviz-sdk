@@ -14,9 +14,8 @@ export const computeBaseRoundMarkerLayer = (
     colors: Color[],
     matchValues: string[],
     matchKey: string,
-    noMatchColor?: Color,
+    noMatchColor?: Color
 ): POIMapLayer => {
-
     const matchExpression = ['match', ['get', matchKey]];
     matchValues.forEach((key, i) => {
         matchExpression.push(key);

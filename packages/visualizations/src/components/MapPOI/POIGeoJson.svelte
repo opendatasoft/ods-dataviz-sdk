@@ -38,7 +38,12 @@
     const defaultInteractive = true;
 
     $: ({
-        shapes, style = BLANK, bbox, layerParams, aspectRatio, interactive=defaultInteractive,
+        shapes,
+        style = BLANK,
+        bbox,
+        layerParams,
+        aspectRatio,
+        interactive = defaultInteractive,
     } = options);
     let renderedBbox = bbox || VOID_BOUNDS;
 
@@ -49,8 +54,14 @@
         };
         // layers will be stored in an array as it will be needed to add more than one layer to display different geometries
         layers = layerParams
-                ? [computeBaseRoundMarkerLayer(layerParams.colors, layerParams.matchValues, layerParams.matchKey)]
-                : [DEFAULT_LAYERS_PARAMS];
+            ? [
+                  computeBaseRoundMarkerLayer(
+                      layerParams.colors,
+                      layerParams.matchValues,
+                      layerParams.matchKey
+                  ),
+              ]
+            : [DEFAULT_LAYERS_PARAMS];
         renderedBbox = bbox || turfBbox(newShapes) || VOID_BOUNDS;
     }
 
@@ -65,7 +76,15 @@
 </script>
 
 <div>
-    <MapRender {style} {source} {layers} bbox={renderedBbox} {renderTooltip} {aspectRatio} {interactive}/>
+    <MapRender
+        {style}
+        {source}
+        {layers}
+        bbox={renderedBbox}
+        {renderTooltip}
+        {aspectRatio}
+        {interactive}
+    />
 </div>
 
 <style>

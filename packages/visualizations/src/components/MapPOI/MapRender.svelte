@@ -79,12 +79,10 @@
     function getAllCustomLayersIds() {
         const mapLayers = map.getStyle().layers;
         if (mapLayers.length > 0) {
-                return mapLayers
-                    .filter((layer) => layer.id.includes(layerId))
-                    .map((layer) => layer.id);
-            }
+            return mapLayers.filter((layer) => layer.id.includes(layerId)).map((layer) => layer.id);
+        }
         return [];
-    };
+    }
 
     function sourceLoadingCallback(e: MapSourceDataEvent) {
         // sourceDataType can be "visibility" or "metadata", in which case it's not about the data itself
@@ -160,7 +158,7 @@
             const customLayersIds = getAllCustomLayersIds();
             if (customLayersIds.length > 0) {
                 customLayersIds.forEach((customLayerId) => {
-                     // Handle tooltip display
+                    // Handle tooltip display
                     map.off('mousemove', customLayerId, addTooltip);
                     map.off('mouseleave', customLayerId, removeTooltip);
 
@@ -170,7 +168,6 @@
                     }
                 });
             }
-
         } else {
             // Disable all user interaction handlers
             map.boxZoom.disable();
@@ -199,7 +196,7 @@
                 setBbox(currentBbox);
             }
         }
-    };
+    }
 
     function updateSourceAndLayer(newSource: SourceSpecification, newLayer: POIMapLayer[]) {
         if (newSource && newLayer) {
