@@ -3,15 +3,15 @@
 <script lang="ts">
     import { onDestroy } from 'svelte';
     import { debounce } from 'lodash';
-    import type { DataBounds, ColorScale, LegendVariant } from '../types';
-    import { LegendPositions } from '../types';
+    import type { DataBounds, ColorScale } from '../types';
+    import type { LegendVariant, LegendPositions } from './types';
     import { defaultCompactLegendNumberFormat } from '../utils/formatter';
 
     // options to customize the component
     export let dataBounds: DataBounds;
     export let colorScale: ColorScale;
     export let variant: LegendVariant;
-    export let position: LegendPositions = LegendPositions.Left;
+    export let position: LegendPositions = 'left';
     export let title: string | undefined;
 
     // the part below is related to labels rotation

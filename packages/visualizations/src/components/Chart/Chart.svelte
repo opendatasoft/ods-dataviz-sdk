@@ -9,8 +9,7 @@
     import SourceLink from '../utils/SourceLink.svelte';
     import { defaultNumberFormat } from '../utils/formatter';
     import CategoryLegend from '../Legend/CategoryLegend.svelte';
-    import { LEGEND_POSITIONS } from '../Legend/types';
-    import type { LegendPosition, CategoryLegend as CategoryLegendType } from '../Legend/types';
+    import type { LegendPositions, CategoryLegend as CategoryLegendType } from '../Legend/types';
     import { ChartSeriesType } from './types';
     import type { ChartOptions, ChartSeries } from './types';
     import { defaultValue } from './utils';
@@ -163,11 +162,9 @@
     $: displayTitle = defaultValue(options?.title?.display, !!options?.title?.text);
     $: displaySubtitle = defaultValue(options?.subtitle?.display, !!options?.subtitle?.text);
 
-    let legendPosition: LegendPosition;
+    let legendPosition: LegendPositions;
     $: legendPosition =
-        clientWidth <= 375
-            ? LEGEND_POSITIONS.bottom
-            : defaultValue(options?.legend?.position, LEGEND_POSITIONS.bottom);
+        clientWidth <= 375 ? 'bottom' : defaultValue(options?.legend?.position, 'bottom');
     let legendOptions: CategoryLegendType;
     $: if (options?.legend?.custom) {
         legendOptions = buildCustomLegend({ chart, options, chartConfig });
@@ -217,6 +214,7 @@
     .container {
         display: flex;
         flex-direction: column;
+        width: 100%;
     }
     .header {
         width: 100%;

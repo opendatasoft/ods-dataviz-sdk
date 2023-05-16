@@ -1,12 +1,12 @@
 import type { Color } from '../types';
 
 export const LEGEND_POSITIONS = {
-    right: 'right',
     bottom: 'bottom',
     top: 'top',
     left: 'left',
+    right: 'right',
 } as const;
-export type LegendPosition = typeof LEGEND_POSITIONS[keyof typeof LEGEND_POSITIONS];
+export type LegendPositions = typeof LEGEND_POSITIONS[keyof typeof LEGEND_POSITIONS];
 
 export interface LegendLabelsConfiguration {
     text?: (legendIndex: number) => string;
@@ -14,7 +14,7 @@ export interface LegendLabelsConfiguration {
 
 export interface LegendConfiguration {
     display?: boolean;
-    position?: LegendPosition;
+    position?: LegendPositions;
     align?: 'start' | 'center' | 'end';
     labels?: LegendLabelsConfiguration;
     boxStyle?: 'rect' | 'line' | 'dash';

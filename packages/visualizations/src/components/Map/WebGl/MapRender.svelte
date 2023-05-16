@@ -19,7 +19,8 @@
     import ColorsLegend from '../../Legend/ColorsLegend.svelte';
     import BackButton from '../../utils/BackButton.svelte';
     import MiniMap from '../../utils/MiniMap.svelte';
-    import type { ColorScale, DataBounds, LegendVariant } from '../../types';
+    import type { ColorScale, DataBounds } from '../../types';
+    import type { LegendVariant } from '../../Legend/types';
     import type {
         ChoroplethFixedTooltipDescription,
         MapLayer,
