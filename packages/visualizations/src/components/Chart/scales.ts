@@ -116,7 +116,7 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
                 ),
             },
             ticks: {
-                display: !!defaultValue(options?.axis?.x?.ticks?.display, true),
+                display: !!defaultValue(options?.axis?.x?.ticks?.display, false),
                 color: defaultValue(options?.axis?.x?.ticks?.color, 'rgb(86, 86, 86)'),
                 callback: computeFormatTick(
                     defaultValue(options?.axis?.x?.ticks?.display, true),
