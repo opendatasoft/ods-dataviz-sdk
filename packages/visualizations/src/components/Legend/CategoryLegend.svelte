@@ -1,7 +1,7 @@
 <svelte:options immutable={false} />
 
 <script lang="ts">
-    import type { CategoryLegend } from '../types';
+    import type { CategoryLegend } from './types';
 
     export let legendOptions: CategoryLegend;
     let refinedSeries: boolean[];

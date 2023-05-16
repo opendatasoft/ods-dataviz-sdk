@@ -1,3 +1,5 @@
+import type { Color } from '../types';
+
 export const LEGEND_POSITIONS = {
     right: 'right',
     bottom: 'bottom',
@@ -21,3 +23,20 @@ export interface LegendConfiguration {
      */
     custom?: boolean;
 }
+
+export type LegendVariant = 'fluid' | 'fixed';
+
+type CategoryItem = {
+    color?: Color;
+    borderColor?: Color;
+    borderDashed?: boolean;
+    label: LegendLabelsConfiguration | string | undefined;
+    onClick: (index: number) => void;
+    onHover?(index: number): void;
+    onLeave?(): void;
+};
+
+export type CategoryLegend = {
+    type: 'category';
+    items: CategoryItem[];
+};

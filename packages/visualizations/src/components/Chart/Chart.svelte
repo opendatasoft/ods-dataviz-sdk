@@ -4,19 +4,19 @@
     import { Chart } from 'chart.js';
     import 'chartjs-adapter-luxon';
     import type { Async } from '../../types';
-    import type { DataFrame, CategoryLegend as CategoryLegendType } from '../types';
-    import type { ChartOptions, ChartSeries } from './types';
-    import type { LegendPosition } from '../Legend/types';
+    import type { DataFrame } from '../types';
+    import { generateId } from '../utils';
+    import SourceLink from '../utils/SourceLink.svelte';
+    import { defaultNumberFormat } from '../utils/formatter';
+    import CategoryLegend from '../Legend/CategoryLegend.svelte';
     import { LEGEND_POSITIONS } from '../Legend/types';
+    import type { LegendPosition, CategoryLegend as CategoryLegendType } from '../Legend/types';
     import { ChartSeriesType } from './types';
+    import type { ChartOptions, ChartSeries } from './types';
     import { defaultValue } from './utils';
     import toDataset from './datasets';
     import buildScales from './scales';
     import { buildLegend, buildCustomLegend } from './legend';
-    import SourceLink from '../utils/SourceLink.svelte';
-    import { defaultNumberFormat } from '../utils/formatter';
-    import CategoryLegend from '../Legend/CategoryLegend.svelte';
-    import { generateId } from '../utils';
 
     export let data: Async<DataFrame>;
     export let options: ChartOptions;

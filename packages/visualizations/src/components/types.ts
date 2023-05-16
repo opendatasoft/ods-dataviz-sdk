@@ -14,32 +14,6 @@ export interface DataBounds {
     max: number;
 }
 
-export type LegendVariant = 'fluid' | 'fixed';
-
-export enum LegendPositions {
-    Right = 'right',
-    Left = 'left',
-}
-
-export interface LegendLabelsConfiguration {
-    text?: (legendIndex: number) => string;
-}
-
-type CategoryItem = {
-    color?: Color;
-    borderColor?: Color;
-    borderDashed?: boolean;
-    label: LegendLabelsConfiguration | string | undefined;
-    onClick: (index: number) => void;
-    onHover?(index: number): void;
-    onLeave?(): void;
-};
-
-export type CategoryLegend = {
-    type: 'category';
-    items: CategoryItem[];
-};
-
 export enum ColorScaleTypes {
     Gradient = 'gradient',
     Palette = 'palette',
