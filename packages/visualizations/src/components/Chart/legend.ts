@@ -85,49 +85,49 @@ export function buildCustomLegend({
     options,
     chartConfig,
 }: {
-    chart: Chart,
-    options: ChartOptions,
-    chartConfig: ChartConfiguration,
+    chart: Chart;
+    options: ChartOptions;
+    chartConfig: ChartConfiguration;
 }) {
     const { series } = options;
-           return {
-               type: 'category' as const,
-               position: defaultValue(options?.legend?.position, 'bottom'),
-               items: chartConfig.data.datasets[0].data.map((_data, i) => ({
-                   color: series[0].backgroundColor?.[i],
-                   borderDashed: false,
-                   label: buildLegendLabels(i, options, chartConfig),
-                   onClick: (index: number) => {
-                       if (chart) {
-                           chart.toggleDataVisibility(index);
-                           chart.update();
-                       }
-                   },
-                   onHover: (index: number) => {
-                       const { tooltip, chartArea } = chart;
-                       if (tooltip) {
-                           tooltip.setActiveElements(
-                               [
-                                   {
-                                       datasetIndex: 0,
-                                       index,
-                                   },
-                               ],
-                               {
-                                   x: (chartArea.left + chartArea.right) / 2,
-                                   y: (chartArea.top + chartArea.bottom) / 2,
-                               }
-                           );
-                       }
-                       chart.update();
-                   },
-                   onLeave: () => {
-                       const { tooltip } = chart;
-                       if (tooltip) {
-                           tooltip.setActiveElements([], { x: 0, y: 0 });
-                       }
-                       chart.update();
-                   },
-               })),
-           };
+    return {
+        type: 'category' as const,
+        position: defaultValue(options?.legend?.position, 'bottom'),
+        items: chartConfig.data.datasets[0].data.map((_data, i) => ({
+            color: series[0].backgroundColor?.[i],
+            borderDashed: false,
+            label: buildLegendLabels(i, options, chartConfig),
+            onClick: (index: number) => {
+                if (chart) {
+                    chart.toggleDataVisibility(index);
+                    chart.update();
+                }
+            },
+            onHover: (index: number) => {
+                const { tooltip, chartArea } = chart;
+                if (tooltip) {
+                    tooltip.setActiveElements(
+                        [
+                            {
+                                datasetIndex: 0,
+                                index,
+                            },
+                        ],
+                        {
+                            x: (chartArea.left + chartArea.right) / 2,
+                            y: (chartArea.top + chartArea.bottom) / 2,
+                        }
+                    );
+                }
+                chart.update();
+            },
+            onLeave: () => {
+                const { tooltip } = chart;
+                if (tooltip) {
+                    tooltip.setActiveElements([], { x: 0, y: 0 });
+                }
+                chart.update();
+            },
+        })),
+    };
 }

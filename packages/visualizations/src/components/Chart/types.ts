@@ -1,5 +1,6 @@
 import type { Color, Source } from '../types';
 import type { LegendConfiguration } from '../Legend/types';
+
 export interface ChartOptions {
     /** Specify label column in DataFrame */
     labelColumn: string;
