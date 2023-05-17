@@ -7,7 +7,6 @@ import {
     DataFrame,
     ColorScaleTypes,
     ChoroplethTooltipFormatter,
-    LegendPositions,
 } from '@opendatasoft/visualizations';
 import { ChoroplethGeoJson, Props } from '../../src';
 import { shapes, multiPolygonShapes, worldCopies } from './data';
@@ -314,7 +313,7 @@ const StudioChoroplethLegendLeftArgs: Props<DataFrame, ChoroplethGeoJsonOptions>
         subtitle: 'Dolor Sit Amet',
         legend: {
             title: 'I Am Legend',
-            position: LegendPositions.Left,
+            position: 'left',
         },
         tooltip: {
             formatter: defaultLabelCallback,
@@ -345,7 +344,7 @@ const StudioChoroplethLegendRightArgs: Props<DataFrame, ChoroplethGeoJsonOptions
         subtitle: 'Dolor Sit Amet',
         legend: {
             title: 'I Am Legend',
-            position: LegendPositions.Right,
+            position: 'right',
         },
         tooltip: {
             formatter: defaultLabelCallback,
