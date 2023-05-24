@@ -1,6 +1,6 @@
 # @opendatasoft/api-client ![CI status](https://github.com/opendatasoft/ods-dataviz-sdk/workflows/CI/badge.svg)
 
-This package implements a Typescript/Javascript client library for [Opendatasoft's Search APIv2](https://help.opendatasoft.com/apis/ods-search-v2/#search-api-v2).
+This package implements a Typescript/Javascript client library for [Opendatasoft's Explore APIv2](https://help.opendatasoft.com/apis/ods-explore-v2/).
 
 -   [Installation](#installation)
 -   [Get started](#get-started)
@@ -238,9 +238,8 @@ Here are some samples to get you started.
 
 ## Resources
 
--   [Opendatasoft's APIv2 documentation](https://help.opendatasoft.com/apis/ods-search-v2/#search-api-v2)
--   [API Client Reference](docs/modules.md)
--   [Data Network API Console](https://data.opendatasoft.com/api/v2/console)
+-   [Opendatasoft's Explore APIv2 documentation](https://help.opendatasoft.com/apis/ods-explore-v2/)
+-   [Data Network Explore APIv2 Console](https://data.opendatasoft.com/api/v2/console)
 
 ## Contributing
 
