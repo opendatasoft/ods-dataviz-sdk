@@ -8,19 +8,19 @@
     import { VOID_BOUNDS, computeTooltip, computeBaseRoundMarkerLayer } from './utils';
     import { DEFAULT_LAYERS_PARAMS } from './constants';
     import type {
-        POIMapOptions,
-        POIMapDataValue,
-        POIMapLayer,
-        MapRenderTooltipFunctionPOI,
+        PoiMapOptions,
+        PoiMapDataValue,
+        PoiMapLayer,
+        MapRenderTooltipFunctionPoi,
         LayerParams,
     } from './types';
 
-    export let data: { value: POIMapDataValue[] }; // values, and the key to match
-    export let options: POIMapOptions; // contains the shapes to display & match
+    export let data: { value: PoiMapDataValue[] }; // values, and the key to match
+    export let options: PoiMapOptions; // contains the shapes to display & match
 
     let shapes: FeatureCollection;
 
-    let renderTooltip: MapRenderTooltipFunctionPOI;
+    let renderTooltip: MapRenderTooltipFunctionPoi;
     // Used to determine the shapes key
     const matchKey = 'key';
 
@@ -32,7 +32,7 @@
 
     // Here style will set the basemap
     let style: StyleSpecification | string;
-    let layers: POIMapLayer[];
+    let layers: PoiMapLayer[];
     let source: SourceSpecification;
 
     const defaultInteractive = true;

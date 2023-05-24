@@ -1,19 +1,19 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { POIMapOptions, DataFrame } from '@opendatasoft/visualizations';
+import { PoiMapOptions, DataFrame } from '@opendatasoft/visualizations';
 import { shapes } from './data';
-import { POIGeoJson, Props } from '../../src';
+import { PoiGeoJson, Props } from '../../src';
 
 const DEMO_BASEMAP = 'https://demotiles.maplibre.org/style.json';
 
-const meta: ComponentMeta<typeof POIGeoJson> = {
-    title: 'POI/GeoJson',
-    component: POIGeoJson,
+const meta: ComponentMeta<typeof PoiGeoJson> = {
+    title: 'Poi/GeoJson',
+    component: PoiGeoJson,
 };
 
 export default meta;
 
-const Template: ComponentStory<typeof POIGeoJson> = (args: Props<DataFrame, POIMapOptions>) => (
+const Template: ComponentStory<typeof PoiGeoJson> = (args: Props<DataFrame, PoiMapOptions>) => (
     <div
         style={{
             width: '50%',
@@ -23,12 +23,12 @@ const Template: ComponentStory<typeof POIGeoJson> = (args: Props<DataFrame, POIM
             border: '1px solid black',
         }}
     >
-        <POIGeoJson {...args} />
+        <PoiGeoJson {...args} />
     </div>
 );
 
-export const POIMapNoLayersParams = Template.bind({});
-const POIMapNoLayersParamsArgs: Props<DataFrame, POIMapOptions> = {
+export const PoiMapNoLayersParams = Template.bind({});
+const PoiMapNoLayersParamsArgs: Props<DataFrame, PoiMapOptions> = {
     data: {
         loading: false,
         value: [
@@ -45,7 +45,7 @@ const POIMapNoLayersParamsArgs: Props<DataFrame, POIMapOptions> = {
         style: DEMO_BASEMAP,
     },
 };
-POIMapNoLayersParams.args = POIMapNoLayersParamsArgs;
+PoiMapNoLayersParams.args = PoiMapNoLayersParamsArgs;
 
 const layerParams = {
     colors: ['#B42222', 'Green'],
@@ -53,9 +53,9 @@ const layerParams = {
     matchKey: 'key',
 };
 
-export const POIMapNonInteractive = Template.bind({});
+export const PoiMapNonInteractive = Template.bind({});
 
-const POIMapNonInteractiveArgs: Props<DataFrame, POIMapOptions> = {
+const PoiMapNonInteractiveArgs: Props<DataFrame, PoiMapOptions> = {
     data: {
         loading: false,
         value: [
@@ -74,11 +74,11 @@ const POIMapNonInteractiveArgs: Props<DataFrame, POIMapOptions> = {
         interactive: false,
     },
 };
-POIMapNonInteractive.args = POIMapNonInteractiveArgs;
+PoiMapNonInteractive.args = PoiMapNonInteractiveArgs;
 
-export const POIMapMatchExpression = Template.bind({});
+export const PoiMapMatchExpression = Template.bind({});
 
-const POIMapMatchExpressionArgs: Props<DataFrame, POIMapOptions> = {
+const PoiMapMatchExpressionArgs: Props<DataFrame, PoiMapOptions> = {
     data: {
         loading: false,
         value: [
@@ -96,4 +96,4 @@ const POIMapMatchExpressionArgs: Props<DataFrame, POIMapOptions> = {
         style: DEMO_BASEMAP,
     },
 };
-POIMapMatchExpression.args = POIMapMatchExpressionArgs;
+PoiMapMatchExpression.args = PoiMapMatchExpressionArgs;

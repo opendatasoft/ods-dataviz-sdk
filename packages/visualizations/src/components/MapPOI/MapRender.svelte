@@ -14,7 +14,7 @@
     import type { BBox } from 'geojson';
 
     import { onMount } from 'svelte';
-    import type { POIMapLayer, MapRenderTooltipFunctionPOI } from './types';
+    import type { PoiMapLayer, MapRenderTooltipFunctionPoi } from './types';
     import { BLANK } from '../Map/mapStyles';
 
     // maplibre style (basemap)
@@ -22,12 +22,12 @@
     // maplibre source config
     export let source: SourceSpecification;
     // maplibre layer config
-    export let layers: POIMapLayer[];
+    export let layers: PoiMapLayer[];
     // bounding box to start from, and restrict to it
     export let bbox: BBox | undefined;
     $: currentBbox = bbox;
     // Used to render tooltips on hover
-    export let renderTooltip: MapRenderTooltipFunctionPOI;
+    export let renderTooltip: MapRenderTooltipFunctionPoi;
     // aspect ratio based on width, by default equal to 1
     export let aspectRatio = 1;
     $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
@@ -135,7 +135,7 @@
 
     function handleInteractivity(
         isInteractive: boolean,
-        computeTooltip?: MapRenderTooltipFunctionPOI
+        computeTooltip?: MapRenderTooltipFunctionPoi
     ) {
         if (isInteractive) {
             // Enable all user interaction handlers
@@ -198,7 +198,7 @@
         }
     }
 
-    function updateSourceAndLayer(newSource: SourceSpecification, newLayer: POIMapLayer[]) {
+    function updateSourceAndLayer(newSource: SourceSpecification, newLayer: PoiMapLayer[]) {
         if (newSource && newLayer) {
             // Remove all custom layers but keep maplibre other style layers
             // Must be done before removing Source used by layers

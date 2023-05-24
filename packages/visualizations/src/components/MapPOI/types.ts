@@ -3,12 +3,12 @@ import type { FeatureCollection, BBox, Feature } from 'geojson';
 import type { DebouncedFunc } from 'lodash';
 import type { Color } from '../types';
 
-export interface POIMapOptions {
+export interface PoiMapOptions {
     /** Configuration for the shapes used to display markers */
     shapes: FeatureCollection;
     /** Configuration of map style */
     style?: StyleSpecification | string;
-    /** Configuration for the layers to display POIs */
+    /** Configuration for the layers to display Pois */
     layerParams?: LayerParams;
     /** Maximum boundaries of the map, outside of which the user cannot zoom/move
      * Also set the position of the map when rendering.
@@ -19,11 +19,11 @@ export interface POIMapOptions {
     bbox?: BBox | undefined;
     /** Configuration for the content of the tooltips that are displayed on hover/touch. */
     tooltip?: {
-        formatter?: POIMapTooltipFormatter;
+        formatter?: PoiMapTooltipFormatter;
         /** Custom configuration to define how to get a label for each shapes.
          *
          * By default, the label will be taken from a `label` property in the shapes if it exists, or fallback to the key used to map the data and shapes. */
-        labelMatcher?: POIMapTooltipMatchers;
+        labelMatcher?: PoiMapTooltipMatchers;
     };
     /** Aspect ratio used to draw the map. The map will take he width available to it, and decide its height based on that ratio. */
     aspectRatio?: number;
@@ -33,7 +33,7 @@ export interface POIMapOptions {
 /** Structure containing the numerical data used by the Choropleth to compute
  * the legend and the color of the shapes it renders.
  */
-export interface POIMapDataValue {
+export interface PoiMapDataValue {
     x: string;
     y: number;
     label?: string;
@@ -48,16 +48,16 @@ export type LayerParams = {
     noMatchColor?: Color;
 };
 
-export type POIMapLayer = CircleLayer;
+export type PoiMapLayer = CircleLayer;
 
-export type ComputeTooltipFunctionPOI = (
+export type ComputeTooltipFunctionPoi = (
     feature: Feature,
-    dataValues: POIMapDataValue[],
-    options: POIMapOptions,
+    dataValues: PoiMapDataValue[],
+    options: PoiMapOptions,
     matchKey: string
 ) => string;
 
-export type TooltipParamsPOI = {
+export type TooltipParamsPoi = {
     /** Numeric value of the shape */
     value?: number;
     /** Label of the shape */
@@ -66,27 +66,27 @@ export type TooltipParamsPOI = {
     key?: string;
 };
 
-export type POIMapTooltipFormatter = ({ value, label, key }: TooltipParamsPOI) => string;
+export type PoiMapTooltipFormatter = ({ value, label, key }: TooltipParamsPoi) => string;
 
-export enum POIMapTooltipMatcherTypes {
+export enum PoiMapTooltipMatcherTypes {
     KeyProperty = 'keyProperty',
     KeyMap = 'keyMap',
 }
 
-/** `POIMapTooltipMatcher` based on a target feature property */
-export interface POIMapTooltipMatcherKeyProperty {
-    type: POIMapTooltipMatcherTypes.KeyProperty;
+/** `PoiMapTooltipMatcher` based on a target feature property */
+export interface PoiMapTooltipMatcherKeyProperty {
+    type: PoiMapTooltipMatcherTypes.KeyProperty;
     key: string;
 }
 
-/** `POIMapTooltipMatcher` based on an key-value object mapping  */
-export interface POIMapTooltipMatcherKeyMap {
-    type: POIMapTooltipMatcherTypes.KeyMap;
+/** `PoiMapTooltipMatcher` based on an key-value object mapping  */
+export interface PoiMapTooltipMatcherKeyMap {
+    type: PoiMapTooltipMatcherTypes.KeyMap;
     mapping: {
         [key: string]: string;
     };
 }
 
-export type POIMapTooltipMatchers = POIMapTooltipMatcherKeyProperty | POIMapTooltipMatcherKeyMap;
+export type PoiMapTooltipMatchers = PoiMapTooltipMatcherKeyProperty | PoiMapTooltipMatcherKeyMap;
 
-export type MapRenderTooltipFunctionPOI = DebouncedFunc<(feature: Feature) => string>;
+export type MapRenderTooltipFunctionPoi = DebouncedFunc<(feature: Feature) => string>;

@@ -1,12 +1,12 @@
 import type { BBox } from 'geojson';
 import type {
-    POIMapLayer,
-    ComputeTooltipFunctionPOI,
-    POIMapDataValue,
-    POIMapTooltipFormatter,
-    TooltipParamsPOI,
+    PoiMapLayer,
+    ComputeTooltipFunctionPoi,
+    PoiMapDataValue,
+    PoiMapTooltipFormatter,
+    TooltipParamsPoi,
 } from './types';
-import { POIMapTooltipMatcherTypes } from './types';
+import { PoiMapTooltipMatcherTypes } from './types';
 import type { Color } from '../types';
 import { DEFAULT_COLORS } from './constants';
 
@@ -15,7 +15,7 @@ export const computeBaseRoundMarkerLayer = (
     matchValues: string[],
     matchKey: string,
     noMatchColor?: Color
-): POIMapLayer => {
+): PoiMapLayer => {
     const matchExpression = ['match', ['get', matchKey]];
     matchValues.forEach((key, i) => {
         matchExpression.push(key);
@@ -37,10 +37,10 @@ export const computeBaseRoundMarkerLayer = (
 // This is a default bound that will be extended
 export const VOID_BOUNDS: BBox = [180, 90, -180, -90];
 
-export const defaultTooltipFormat: POIMapTooltipFormatter = ({ value, label }) =>
+export const defaultTooltipFormat: PoiMapTooltipFormatter = ({ value, label }) =>
     value ? `${label} &mdash; ${value}` : label;
 
-export const computeTooltip: ComputeTooltipFunctionPOI = (
+export const computeTooltip: ComputeTooltipFunctionPoi = (
     hoveredFeature,
     dataValues,
     options,
@@ -48,7 +48,7 @@ export const computeTooltip: ComputeTooltipFunctionPOI = (
 ) => {
     const values = dataValues || [];
     const matchedFeature = values.find(
-        (item: POIMapDataValue) => String(item.x) === hoveredFeature.properties?.[matchKey]
+        (item: PoiMapDataValue) => String(item.x) === hoveredFeature.properties?.[matchKey]
     );
 
     let tooltipLabel = hoveredFeature.properties?.label || hoveredFeature.properties?.[matchKey];
@@ -56,16 +56,16 @@ export const computeTooltip: ComputeTooltipFunctionPOI = (
 
     if (labelMatcher) {
         const { type } = labelMatcher;
-        if (type === POIMapTooltipMatcherTypes.KeyProperty) {
+        if (type === PoiMapTooltipMatcherTypes.KeyProperty) {
             const { key } = labelMatcher;
             tooltipLabel = hoveredFeature.properties?.[key];
-        } else if (type === POIMapTooltipMatcherTypes.KeyMap && matchedFeature) {
+        } else if (type === PoiMapTooltipMatcherTypes.KeyMap && matchedFeature) {
             const { mapping } = labelMatcher;
             tooltipLabel = mapping[matchedFeature?.x];
         }
     }
 
-    const tooltipRawValues: TooltipParamsPOI = {
+    const tooltipRawValues: TooltipParamsPoi = {
         value: matchedFeature?.y,
         label: tooltipLabel,
         key: hoveredFeature.properties?.[matchKey], // === matchedFeature.x

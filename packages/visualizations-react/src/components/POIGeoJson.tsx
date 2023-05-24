@@ -1,8 +1,8 @@
-import { POIGeoJson as _POIGeoJson, POIMapOptions, DataFrame } from '@opendatasoft/visualizations';
+import { PoiGeoJson as _PoiGeoJson, PoiMapOptions, DataFrame } from '@opendatasoft/visualizations';
 import { FC } from 'react';
 import { Props } from './Props';
 import wrap from './ReactImpl';
 
 // Explicit name and type are needed for storybook
-const POIGeoJson: FC<Props<DataFrame, POIMapOptions>> = wrap(_POIGeoJson);
-export default POIGeoJson;
+const PoiGeoJson: FC<Props<DataFrame, PoiMapOptions>> = wrap(_PoiGeoJson);
+export default PoiGeoJson;
