@@ -13,10 +13,10 @@ const _global: any =
     typeof global !== 'undefined'
         ? global
         : typeof self !== 'undefined'
-            ? self
-            : typeof window !== 'undefined'
-                ? window
-                : {};
+        ? self
+        : typeof window !== 'undefined'
+        ? window
+        : {};
 
 export type RequestInterceptor = (request: Request) => Promise<Request>;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
