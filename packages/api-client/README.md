@@ -1,6 +1,6 @@
 # @opendatasoft/api-client ![CI status](https://github.com/opendatasoft/ods-dataviz-sdk/workflows/CI/badge.svg)
 
-This package implements a Typescript/Javascript client library for [Opendatasoft's Search APIv2](https://help.opendatasoft.com/apis/ods-search-v2/#search-api-v2).
+This package implements a Typescript/Javascript client library for [Opendatasoft's Search APIv2.1](https://help.opendatasoft.com/apis/ods-explore-v2/explore_v2.1.html).
 
 -   [Installation](#installation)
 -   [Get started](#get-started)
@@ -43,7 +43,7 @@ const client = new ApiClient({ domain: 'documentation-resources' });
 // Create the query to run.
 const query = fromCatalog() // From the domain catalog
     .dataset('doc-geonames-cities-5000') // ... we'll use the dataset "doc-geonames-cities-5000"
-    .query() // call the query endpoint
+    .datasets() // call the query endpoint
     .where("country_code:'FR'") // // Filter records where country_code === "FR".
     .groupBy('name as city, population') // Select the fields "name" and "population".
     .orderBy('-population') // Sort by population in descending order.
@@ -192,7 +192,7 @@ import {
 } from '@opendatasoft/api-client';
 
 fromCatalog()
-    .query()
+    .datassets()
     .select('count(*), avg(f)') // You can select fields
     .select(list('f1', 'f2', 'avg(f3) as n')) // There is also a helper to select multiple fields
     .select(previous => list(previous, 'avg(f4)')) // You can also reuse the previous value, list() will ignore it if it undefined
@@ -238,9 +238,9 @@ Here are some samples to get you started.
 
 ## Resources
 
--   [Opendatasoft's APIv2 documentation](https://help.opendatasoft.com/apis/ods-search-v2/#search-api-v2)
+-   [Opendatasoft's APIv2.1 documentation](https://help.opendatasoft.com/apis/ods-explore-v2/explore_v2.1.html)
 -   [API Client Reference](docs/modules.md)
--   [Data Network API Console](https://data.opendatasoft.com/api/v2/console)
+-   [Data Network API Console](https://data.opendatasoft.com/api/explore/v2.1/console)
 
 ## Contributing
 

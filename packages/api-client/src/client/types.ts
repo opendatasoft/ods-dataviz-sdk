@@ -66,5 +66,31 @@ export interface ApiFacets {
 
 export interface ApiQuery<T> {
     total_count?: number;
-    results: T[];
+    records: T[];
 }
+
+export enum ExportCatalogFormat {
+    CSV = 'csv',
+    JSON = 'json',
+    XLSX = 'xlsx',
+    RDF = 'rdf',
+    TTL = 'ttl',
+    DATA_SJON = 'data.json',
+    RSS = 'rss',
+    DCAT = 'dcat',
+}
+
+export enum ExportDatasetFormat {
+    JSON = 'json',
+    GEOJSON = 'geojson',
+    SHP = 'shp',
+    CSV = 'csv',
+    XLSX = 'xlsx',
+    KML = 'kml',
+    JSONLD = 'jsonld',
+    JSONL = 'jsonl',
+    RDFXML = 'rdfxml',
+    TURTLE = 'turtle',
+    N3 = 'n3',
+}
+

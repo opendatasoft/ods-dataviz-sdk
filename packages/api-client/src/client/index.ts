@@ -13,10 +13,10 @@ const _global: any =
     typeof global !== 'undefined'
         ? global
         : typeof self !== 'undefined'
-        ? self
-        : typeof window !== 'undefined'
-        ? window
-        : {};
+            ? self
+            : typeof window !== 'undefined'
+                ? window
+                : {};
 
 export type RequestInterceptor = (request: Request) => Promise<Request>;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -48,7 +48,7 @@ function computeBaseUrl(domain: string): string {
     if (!baseUrl.endsWith('/')) {
         baseUrl += '/';
     }
-    baseUrl += 'api/v2/';
+    baseUrl += 'api/explore/v2.1/';
 
     return baseUrl;
 }

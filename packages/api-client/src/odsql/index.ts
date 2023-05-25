@@ -1,4 +1,5 @@
 import update from 'immutability-helper';
+import { ExportCatalogFormat, ExportDatasetFormat } from '../client/types';
 
 export type StringOrUpdater = string | ((current: string) => string) | null | undefined | false;
 
@@ -134,24 +135,14 @@ export class Query {
 function root(source: string) {
     return () => ({
         itself: () => new Query(`${source}/`),
-        /**
-         * @deprecated Use query() instead
-         */
-        aggregates: () => new Query(`${source}/aggregates/`),
         facets: () => new Query(`${source}/facets/`),
         datasets: () => new Query(`${source}/datasets/`),
-        query: () => new Query(`${source}/query/`),
-        exports: (format: string) => new Query(`${source}/exports/${format}/`),
+        exports: (format: ExportCatalogFormat) => new Query(`${source}/exports/${format}/`),
         dataset: (datasetId: string) => ({
             itself: () => new Query(`${source}/datasets/${datasetId}/`),
-            /**
-             * @deprecated Use query() instead
-             */
-            aggregates: () => new Query(`${source}/datasets/${datasetId}/aggregates/`),
             facets: () => new Query(`${source}/datasets/${datasetId}/facets/`),
             records: () => new Query(`${source}/datasets/${datasetId}/records/`),
-            query: () => new Query(`${source}/datasets/${datasetId}/query/`),
-            exports: (format: string) =>
+            exports: (format: ExportDatasetFormat) =>
                 new Query(`${source}/datasets/${datasetId}/exports/${format}/`),
         }),
     });
