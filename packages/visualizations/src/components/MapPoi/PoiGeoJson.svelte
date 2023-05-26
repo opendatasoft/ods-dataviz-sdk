@@ -9,14 +9,11 @@
     import type {
         PoiMapOptions,
         PoiMapLayer,
-        MapRenderTooltipFunctionPoi,
         LayerParams,
     } from './types';
 
     export let data: FeatureCollection; // values, and the key to match
     export let options: PoiMapOptions; // contains the shapes to display & match
-
-    let renderTooltip: MapRenderTooltipFunctionPoi;
 
     let bbox: BBox | undefined;
 
@@ -69,7 +66,6 @@
         {source}
         {layers}
         bbox={renderedBbox}
-        {renderTooltip}
         {aspectRatio}
         {interactive}
     />

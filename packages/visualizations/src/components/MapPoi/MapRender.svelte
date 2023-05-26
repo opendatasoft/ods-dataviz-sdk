@@ -9,12 +9,11 @@
         MapSourceDataEvent,
         LngLatLike,
         LngLatBoundsLike,
-        MapLayerMouseEvent,
     } from 'maplibre-gl';
     import type { BBox } from 'geojson';
 
     import { onMount } from 'svelte';
-    import type { PoiMapLayer, MapRenderTooltipFunctionPoi } from './types';
+    import type { PoiMapLayer } from './types';
     import { BLANK } from '../Map/mapStyles';
 
     // maplibre style (basemap)
@@ -26,19 +25,11 @@
     // bounding box to start from, and restrict to it
     export let bbox: BBox | undefined;
     $: currentBbox = bbox;
-    // Used to render tooltips on hover
-    export let renderTooltip: MapRenderTooltipFunctionPoi;
     // aspect ratio based on width, by default equal to 1
     export let aspectRatio = 1;
     $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
     // option to disable map interactions
     export let interactive: boolean;
-
-    const hoverPopup = new maplibregl.Popup({
-        closeOnClick: false,
-        closeButton: false,
-        className: 'tooltip-on-hover',
-    }).trackPointer();
 
     let container: HTMLElement;
     let map: MapType;
@@ -116,26 +107,8 @@
         });
     };
 
-    function addTooltip(e: MapLayerMouseEvent) {
-        if (e.features) {
-            const tooltipDescription = renderTooltip(e.features[0]);
-            if (tooltipDescription) {
-                if (hoverPopup.isOpen()) {
-                    hoverPopup.setLngLat(e.lngLat).setHTML(tooltipDescription);
-                } else {
-                    hoverPopup.setLngLat(e.lngLat).setHTML(tooltipDescription).addTo(map);
-                }
-            }
-        }
-    }
-
-    function removeTooltip() {
-        hoverPopup.remove();
-    }
-
     function handleInteractivity(
         isInteractive: boolean,
-        computeTooltip?: MapRenderTooltipFunctionPoi
     ) {
         if (isInteractive) {
             // Enable all user interaction handlers
@@ -155,19 +128,6 @@
                 map.addControl(nav, 'top-right');
             }
 
-            const customLayersIds = getAllCustomLayersIds();
-            if (customLayersIds.length > 0) {
-                customLayersIds.forEach((customLayerId) => {
-                    // Handle tooltip display
-                    map.off('mousemove', customLayerId, addTooltip);
-                    map.off('mouseleave', customLayerId, removeTooltip);
-
-                    if (computeTooltip) {
-                        map.on('mousemove', customLayerId, addTooltip);
-                        map.on('mouseleave', customLayerId, removeTooltip);
-                    }
-                });
-            }
         } else {
             // Disable all user interaction handlers
             map.boxZoom.disable();
@@ -177,15 +137,6 @@
             map.keyboard.disable();
             map.scrollZoom.disable();
             map.touchZoomRotate.disable();
-
-            const customLayersIds = getAllCustomLayersIds();
-            if (customLayersIds.length > 0) {
-                customLayersIds.forEach((customLayerId) => {
-                    // Remove tooltip
-                    map.off('mousemove', customLayerId, addTooltip);
-                    map.off('mouseleave', customLayerId, removeTooltip);
-                });
-            }
 
             // Remove navigation control from map
             if (map.hasControl(nav)) {
@@ -218,12 +169,6 @@
                     id: `${layerId}-${i}`,
                     source: sourceId,
                 });
-                // Handle tooltip display
-                map.off('mousemove', `${layerId}-${i}`, addTooltip);
-                map.off('mouseleave', `${layerId}-${i}`, removeTooltip);
-
-                map.on('mousemove', `${layerId}-${i}`, addTooltip);
-                map.on('mouseleave', `${layerId}-${i}`, removeTooltip);
                 map.on('sourcedata', sourceLoadingCallback);
             });
         }
@@ -236,7 +181,7 @@
         updateSourceAndLayer(source, layers);
     }
     $: if (mapReady) {
-        handleInteractivity(interactive, renderTooltip);
+        handleInteractivity(interactive);
     }
     $: if (mapReady && currentBbox) {
         setBbox(currentBbox);
