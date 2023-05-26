@@ -1,6 +1,5 @@
 import type { CircleLayerSpecification, StyleSpecification } from 'maplibre-gl';
-import type { BBox, Feature, FeatureCollection } from 'geojson';
-import type { DebouncedFunc } from 'lodash';
+import type { BBox, FeatureCollection } from 'geojson';
 import type { Color } from '../types';
 
 export interface PoiMapOptions {
@@ -21,9 +20,9 @@ export interface PoiMapOptions {
     interactive?: boolean;
 }
 /** Structure containing the shapes data used by the POI map
-*/
+ */
 export type PoiMapDataValue = {
-    value: FeatureCollection
+    value: FeatureCollection;
 };
 
 export type CircleLayer = Omit<CircleLayerSpecification, 'id' | 'source'>;

@@ -6,11 +6,7 @@
     import { BLANK } from './mapStyles';
     import { VOID_BOUNDS, computeBaseRoundMarkerLayer } from './utils';
     import { DEFAULT_LAYERS_PARAMS } from './constants';
-    import type {
-        PoiMapOptions,
-        PoiMapLayer,
-        LayerParams,
-    } from './types';
+    import type { PoiMapOptions, PoiMapLayer, LayerParams } from './types';
 
     export let data: FeatureCollection; // values, and the key to match
     export let options: PoiMapOptions; // contains the shapes to display & match
@@ -61,14 +57,7 @@
 </script>
 
 <div>
-    <MapRender
-        {style}
-        {source}
-        {layers}
-        bbox={renderedBbox}
-        {aspectRatio}
-        {interactive}
-    />
+    <MapRender {style} {source} {layers} bbox={renderedBbox} {aspectRatio} {interactive} />
 </div>
 
 <style>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { PoiMapOptions, DataFrame } from '@opendatasoft/visualizations';
+import { PoiMapOptions, Async } from '@opendatasoft/visualizations';
+import { FeatureCollection } from 'geojson';
 import { shapes } from './data';
 import { PoiGeoJson, Props } from '../../src';
 
@@ -13,7 +14,7 @@ const meta: ComponentMeta<typeof PoiGeoJson> = {
 
 export default meta;
 
-const Template: ComponentStory<typeof PoiGeoJson> = (args: Props<DataFrame, PoiMapOptions>) => (
+const Template: ComponentStory<typeof PoiGeoJson> = (args: Props<FeatureCollection, PoiMapOptions>) => (
     <div
         style={{
             width: '50%',
@@ -28,8 +29,8 @@ const Template: ComponentStory<typeof PoiGeoJson> = (args: Props<DataFrame, PoiM
 );
 
 export const PoiMapNoLayersParams = Template.bind({});
-const PoiMapNoLayersParamsArgs: Props<DataFrame, PoiMapOptions> = {
-    data: shapes,
+const PoiMapNoLayersParamsArgs: Props<FeatureCollection, PoiMapOptions> = {
+    data: shapes as Async<FeatureCollection>,
     options: {
         style: DEMO_BASEMAP,
     },
@@ -44,8 +45,8 @@ const layerParams = {
 
 export const PoiMapNonInteractive = Template.bind({});
 
-const PoiMapNonInteractiveArgs: Props<DataFrame, PoiMapOptions> = {
-    data: shapes,
+const PoiMapNonInteractiveArgs: Props<FeatureCollection, PoiMapOptions> = {
+    data: shapes as Async<FeatureCollection>,
     options: {
         layerParams,
         style: DEMO_BASEMAP,
@@ -56,8 +57,8 @@ PoiMapNonInteractive.args = PoiMapNonInteractiveArgs;
 
 export const PoiMapMatchExpression = Template.bind({});
 
-const PoiMapMatchExpressionArgs: Props<DataFrame, PoiMapOptions> = {
-    data: shapes,
+const PoiMapMatchExpressionArgs: Props<FeatureCollection, PoiMapOptions> = {
+    data: shapes as Async<FeatureCollection>,
     options: {
         layerParams,
         style: DEMO_BASEMAP,

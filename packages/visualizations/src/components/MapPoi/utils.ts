@@ -1,7 +1,5 @@
 import type { BBox } from 'geojson';
-import type {
-    PoiMapLayer,
-} from './types';
+import type { PoiMapLayer } from './types';
 import type { Color } from '../types';
 import { DEFAULT_COLORS } from './constants';
 
