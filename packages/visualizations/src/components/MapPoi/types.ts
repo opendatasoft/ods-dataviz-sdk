@@ -1,11 +1,9 @@
 import type { CircleLayerSpecification, StyleSpecification } from 'maplibre-gl';
-import type { FeatureCollection, BBox, Feature } from 'geojson';
+import type { BBox, Feature } from 'geojson';
 import type { DebouncedFunc } from 'lodash';
 import type { Color } from '../types';
 
 export interface PoiMapOptions {
-    /** Configuration for the shapes used to display markers */
-    shapes: FeatureCollection;
     /** Configuration of map style */
     style?: StyleSpecification | string;
     /** Configuration for the layers to display Pois */

@@ -1,28 +1,22 @@
 <script lang="ts">
     import turfBbox from '@turf/bbox';
-    import { debounce } from 'lodash';
     import type { SourceSpecification, StyleSpecification } from 'maplibre-gl';
     import type { BBox, FeatureCollection } from 'geojson';
     import MapRender from './MapRender.svelte';
     import { BLANK } from './mapStyles';
-    import { VOID_BOUNDS, computeTooltip, computeBaseRoundMarkerLayer } from './utils';
+    import { VOID_BOUNDS, computeBaseRoundMarkerLayer } from './utils';
     import { DEFAULT_LAYERS_PARAMS } from './constants';
     import type {
         PoiMapOptions,
-        PoiMapDataValue,
         PoiMapLayer,
         MapRenderTooltipFunctionPoi,
         LayerParams,
     } from './types';
 
-    export let data: { value: PoiMapDataValue[] }; // values, and the key to match
+    export let data: FeatureCollection; // values, and the key to match
     export let options: PoiMapOptions; // contains the shapes to display & match
 
-    let shapes: FeatureCollection;
-
     let renderTooltip: MapRenderTooltipFunctionPoi;
-    // Used to determine the shapes key
-    const matchKey = 'key';
 
     let bbox: BBox | undefined;
 
@@ -38,7 +32,6 @@
     const defaultInteractive = true;
 
     $: ({
-        shapes,
         style = BLANK,
         bbox,
         layerParams,
@@ -65,14 +58,9 @@
         renderedBbox = bbox || turfBbox(newShapes) || VOID_BOUNDS;
     }
 
-    $: if (shapes) {
-        computeSourceLayerAndBboxes(shapes);
+    $: if (data) {
+        computeSourceLayerAndBboxes(data);
     }
-    $: renderTooltip = debounce(
-        (hoveredFeature) => computeTooltip(hoveredFeature, data.value, options, matchKey),
-        10,
-        { leading: true }
-    );
 </script>
 
 <div>

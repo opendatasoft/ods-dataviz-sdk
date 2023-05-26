@@ -29,19 +29,8 @@ const Template: ComponentStory<typeof PoiGeoJson> = (args: Props<DataFrame, PoiM
 
 export const PoiMapNoLayersParams = Template.bind({});
 const PoiMapNoLayersParamsArgs: Props<DataFrame, PoiMapOptions> = {
-    data: {
-        loading: false,
-        value: [
-            { x: 'Paris', y: 60 },
-            { x: 'Ile de France', y: 35 },
-            { x: 'Corsica', y: 95 },
-            { x: 'Nantes', y: 60 },
-            { x: 'Marseille', y: 35 },
-            { x: 'Bordeaux', y: 95 },
-        ],
-    },
+    data: shapes,
     options: {
-        shapes,
         style: DEMO_BASEMAP,
     },
 };
@@ -56,19 +45,8 @@ const layerParams = {
 export const PoiMapNonInteractive = Template.bind({});
 
 const PoiMapNonInteractiveArgs: Props<DataFrame, PoiMapOptions> = {
-    data: {
-        loading: false,
-        value: [
-            { x: 'Paris', y: 60 },
-            { x: 'Ile de France', y: 35 },
-            { x: 'Corsica', y: 95 },
-            { x: 'Nantes', y: 60 },
-            { x: 'Marseille', y: 35 },
-            { x: 'Bordeaux', y: 95 },
-        ],
-    },
+    data: shapes,
     options: {
-        shapes,
         layerParams,
         style: DEMO_BASEMAP,
         interactive: false,
@@ -79,19 +57,8 @@ PoiMapNonInteractive.args = PoiMapNonInteractiveArgs;
 export const PoiMapMatchExpression = Template.bind({});
 
 const PoiMapMatchExpressionArgs: Props<DataFrame, PoiMapOptions> = {
-    data: {
-        loading: false,
-        value: [
-            { x: 'Paris', y: 60 },
-            { x: 'Ile de France', y: 35 },
-            { x: 'Corsica', y: 95 },
-            { x: 'Nantes', y: 60 },
-            { x: 'Marseille', y: 35 },
-            { x: 'Bordeaux', y: 95 },
-        ],
-    },
+    data: shapes,
     options: {
-        shapes,
         layerParams,
         style: DEMO_BASEMAP,
     },
