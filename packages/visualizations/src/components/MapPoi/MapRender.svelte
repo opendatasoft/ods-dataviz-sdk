@@ -107,9 +107,7 @@
         });
     };
 
-    function handleInteractivity(
-        isInteractive: boolean,
-    ) {
+    function handleInteractivity(isInteractive: boolean) {
         if (isInteractive) {
             // Enable all user interaction handlers
             // Another way to disable all user handlers is to pass the option interactive = false on map creation
@@ -127,7 +125,6 @@
             if (!map.hasControl(nav)) {
                 map.addControl(nav, 'top-right');
             }
-
         } else {
             // Disable all user interaction handlers
             map.boxZoom.disable();
