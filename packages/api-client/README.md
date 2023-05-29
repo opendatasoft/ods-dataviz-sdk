@@ -192,7 +192,7 @@ import {
 } from '@opendatasoft/api-client';
 
 fromCatalog()
-    .datassets()
+    .dataset('doc-geonames-cities-5000').records()
     .select('count(*), avg(f)') // You can select fields
     .select(list('f1', 'f2', 'avg(f3) as n')) // There is also a helper to select multiple fields
     .select(previous => list(previous, 'avg(f4)')) // You can also reuse the previous value, list() will ignore it if it undefined
