@@ -43,7 +43,7 @@ const client = new ApiClient({ domain: 'documentation-resources' });
 // Create the query to run.
 const query = fromCatalog() // From the domain catalog
     .dataset('doc-geonames-cities-5000') // ... we'll use the dataset "doc-geonames-cities-5000"
-    .datasets() // call the query endpoint
+    .records() // call the records endpoint
     .where("country_code:'FR'") // // Filter records where country_code === "FR".
     .groupBy('name as city, population') // Select the fields "name" and "population".
     .orderBy('-population') // Sort by population in descending order.
