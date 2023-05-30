@@ -75,9 +75,15 @@ export enum ExportCatalogFormat {
     XLSX = 'xlsx',
     RDF = 'rdf',
     TTL = 'ttl',
-    DATA_SJON = 'data.json',
+    DATA_JSON = 'data.json',
     RSS = 'rss',
     DCAT = 'dcat',
+    DCAT_AP_CH = 'dcat-ap-ch',
+    DCAT_AP_IT = 'dcat-ap-it',
+    DCAT_AP_DE = 'dcat-ap-de',
+    DCAT_AP_SE = 'dcat-ap-se',
+    DCAT_AP_SP = 'dcat-ap-sp',
+    DCAT_AP_V1 = 'dcat-ap-v1'
 }
 
 export enum ExportDatasetFormat {
