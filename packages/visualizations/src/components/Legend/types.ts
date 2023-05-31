@@ -2,7 +2,6 @@ import type { Color } from '../types';
 
 export const LEGEND_POSITIONS = {
     bottom: 'bottom',
-    top: 'top',
     left: 'left',
     right: 'right',
 } as const;

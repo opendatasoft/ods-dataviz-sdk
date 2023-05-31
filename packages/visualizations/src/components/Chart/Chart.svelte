@@ -73,6 +73,8 @@
     $: {
         // Reactively update chart configuration
         const chartOptions = chartConfig.options || {};
+        /* Kills ChartJS legend if in custom mode
+         * To be deleted when fully switching to home made one */
         const legend = options.legend?.custom ? { display: false } : buildLegend(options);
         chartOptions.aspectRatio = defaultValue(options.aspectRatio, 4 / 3);
         chartOptions.maintainAspectRatio = true;
@@ -239,6 +241,7 @@
         justify-content: center;
         grid-gap: 3px 13px;
         grid-template-columns: repeat(auto-fit, minmax(120px, max-content));
+        padding: 13px 0;
     }
 
     /* Suitable for elements that are used via aria-describedby or aria-labelledby */
