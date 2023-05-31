@@ -228,6 +228,7 @@
         width: 100%;
         flex-grow: 1;
         margin: 0;
+        display: flex;
     }
     .legend--bottom {
         flex-direction: column;

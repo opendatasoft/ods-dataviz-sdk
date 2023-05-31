@@ -169,7 +169,7 @@ const PieDataLabelCustomLegendValuesArgs: Props<DataFrame, ChartOptions> = {
         legend: {
             display: false,
             custom: true,
-            position: 'right',
+            position: 'bottom',
             align: 'center',
             labels: {
                 text(index: number) {

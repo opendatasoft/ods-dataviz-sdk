@@ -2,17 +2,23 @@
     import type { CategoryLegend } from './types';
 
     export let legendOptions: CategoryLegend;
-    let refinedSeries: boolean[];
-    if (legendOptions.type === 'category') {
-        refinedSeries = legendOptions.items.map(() => false);
-    }
+    let refinedSeries: string[] = [];
+    // if (legendOptions.type === 'category') {
+    //     refinedSeries = legendOptions.items.map(() => false);
+    // }
 </script>
 
 {#each legendOptions.items as item, i}
     <div
         class="color-item-category"
         on:click={() => {
-            refinedSeries[i] = !refinedSeries[i];
+            // using color as a unique id proxy
+            if (item?.color) {
+                const isItemRefined = Boolean(refinedSeries.find((color) => color === item.color));
+                refinedSeries = isItemRefined
+                    ? refinedSeries.filter((color) => color !== item.color)
+                    : [...refinedSeries, item.color];
+            }
             item.onClick(i);
         }}
         on:mouseenter={() => {
