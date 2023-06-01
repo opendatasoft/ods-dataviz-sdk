@@ -1,21 +1,20 @@
 <script lang="ts">
-    import type { CategoryLegend } from './types';
+    import type { CategoryLegend, CategoryItem } from './types';
 
     export let legendOptions: CategoryLegend;
     let refinedSeries: string[] = [];
-    // if (legendOptions.type === 'category') {
-    //     refinedSeries = legendOptions.items.map(() => false);
-    // }
+
+    const isRefined = (item: CategoryItem, series: string[]) =>
+        series.some((color) => item.color === color);
 </script>
 
-{#each legendOptions.items as item, i}
+{#each legendOptions.items as item, i (item.color)}
     <div
         class="color-item-category"
         on:click={() => {
             // using color as a unique id proxy
             if (item?.color) {
-                const isItemRefined = Boolean(refinedSeries.find((color) => color === item.color));
-                refinedSeries = isItemRefined
+                refinedSeries = isRefined(item, refinedSeries)
                     ? refinedSeries.filter((color) => color !== item.color)
                     : [...refinedSeries, item.color];
             }
@@ -35,7 +34,7 @@
         {#if item.color}
             <div
                 class="color-box-category"
-                class:refined={refinedSeries[i]}
+                class:refined={isRefined(item, refinedSeries)}
                 style="--box-color: {item.color}; --border-color:{item.borderColor}"
             />
         {:else}
@@ -45,7 +44,7 @@
                 style="--border-color:{item.borderColor}"
             />
         {/if}
-        <div class="color-label-category" class:refined={refinedSeries[i]}>
+        <div class="color-label-category" class:refined={isRefined(item, refinedSeries)}>
             {item.label}
         </div>
     </div>

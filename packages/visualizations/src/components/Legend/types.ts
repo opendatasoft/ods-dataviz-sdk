@@ -25,7 +25,7 @@ export interface LegendConfiguration {
 
 export type LegendVariant = 'fluid' | 'fixed';
 
-type CategoryItem = {
+export type CategoryItem = {
     color?: Color;
     borderColor?: Color;
     borderDashed?: boolean;
