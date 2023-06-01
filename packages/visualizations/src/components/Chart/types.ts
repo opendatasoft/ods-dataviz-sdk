@@ -1,4 +1,5 @@
 import type { Color, Source } from '../types';
+import type { LegendConfiguration } from '../Legend/types';
 
 export interface ChartOptions {
     /** Specify label column in DataFrame */
@@ -96,18 +97,6 @@ export interface RadialAxisConfiguration {
 export interface AssemblageAxisConfiguration {
     stacked?: boolean;
     percentaged?: boolean;
-}
-
-export interface LegendLabelsConfiguration {
-    text?: (legendIndex: number) => string;
-}
-
-export interface LegendConfiguration {
-    display?: boolean;
-    position?: 'top' | 'left' | 'bottom' | 'right';
-    align?: 'start' | 'center' | 'end';
-    labels?: LegendLabelsConfiguration;
-    boxStyle?: 'rect' | 'line' | 'dash';
 }
 
 export interface TooltipConfiguration {
