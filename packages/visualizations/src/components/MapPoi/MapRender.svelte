@@ -22,6 +22,8 @@
     export let source: SourceSpecification;
     // maplibre layer config
     export let layers: PoiMapLayer[];
+    // array of created layer ids
+    let storedLayerIds: string[] = [];
     // bounding box to start from, and restrict to it
     export let bbox: BBox | undefined;
     $: currentBbox = bbox;
@@ -65,14 +67,6 @@
         });
 
         return () => map.remove();
-    }
-
-    function getAllCustomLayersIds() {
-        const mapLayers = map.getStyle().layers;
-        if (mapLayers.length > 0) {
-            return mapLayers.filter((layer) => layer.id.includes(layerId)).map((layer) => layer.id);
-        }
-        return [];
     }
 
     function sourceLoadingCallback(e: MapSourceDataEvent) {
@@ -150,10 +144,9 @@
         if (newSource && newLayer) {
             // Remove all custom layers but keep maplibre other style layers
             // Must be done before removing Source used by layers
-
-            const customLayersIds = getAllCustomLayersIds();
-            if (customLayersIds.length > 0) {
-                customLayersIds.forEach((customLayerId) => map.removeLayer(customLayerId));
+            if (storedLayerIds.length > 0) {
+                storedLayerIds.forEach((customLayerId) => map.removeLayer(customLayerId));
+                storedLayerIds = [];
             }
 
             if (map.getSource(sourceId)) {
@@ -161,11 +154,13 @@
             }
             map.addSource(sourceId, newSource);
             newLayer.forEach((layer, i) => {
+                const uniqueLayerId = `${layerId}-${i}`;
                 map.addLayer({
                     ...layer,
-                    id: `${layerId}-${i}`,
+                    id: uniqueLayerId,
                     source: sourceId,
                 });
+                storedLayerIds.push(uniqueLayerId);
                 map.on('sourcedata', sourceLoadingCallback);
             });
         }
