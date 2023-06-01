@@ -31,7 +31,7 @@ export type CategoryItem = {
     borderDashed?: boolean;
     label: LegendLabelsConfiguration | string | undefined;
     onClick: (index: number) => void;
-    onHover?(index: number): void;
+    onHover?(index: number, isVisible: boolean): void;
     onLeave?(): void;
 };
 

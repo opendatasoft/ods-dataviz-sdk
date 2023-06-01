@@ -2,27 +2,30 @@
     import type { CategoryLegend, CategoryItem } from './types';
 
     export let legendOptions: CategoryLegend;
-    let refinedSeries: string[] = [];
+    let refinedSeries: number[] = [];
+    /** just find a way to identify each item uniquely, here initial order */
+    type UniqueCategoryItem = CategoryItem & { id: number };
+    $: categoryItems = legendOptions.items.map((item, i) => ({ ...item, id: i }));
 
-    const isRefined = (item: CategoryItem, series: string[]) =>
-        series.some((color) => item.color === color);
+    const isRefined = (item: UniqueCategoryItem, series: number[]) =>
+        series.some((id) => id === item.id);
 </script>
 
-{#each legendOptions.items as item, i (item.color)}
+{#each categoryItems as item (item.id)}
     <div
         class="color-item-category"
         on:click={() => {
             // using color as a unique id proxy
             if (item?.color) {
                 refinedSeries = isRefined(item, refinedSeries)
-                    ? refinedSeries.filter((color) => color !== item.color)
-                    : [...refinedSeries, item.color];
+                    ? refinedSeries.filter((id) => id !== item.id)
+                    : [...refinedSeries, item.id];
             }
-            item.onClick(i);
+            item.onClick(item.id);
         }}
         on:mouseenter={() => {
             if (item.onHover) {
-                item.onHover(i);
+                item.onHover(item.id, !isRefined(item, refinedSeries));
             }
         }}
         on:mouseleave={() => {

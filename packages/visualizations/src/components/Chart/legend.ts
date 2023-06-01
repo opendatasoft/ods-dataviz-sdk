@@ -103,9 +103,9 @@ export function buildCustomLegend({
                     chart.update();
                 }
             },
-            onHover: (index: number) => {
+            onHover: (index: number, isVisible = true) => {
                 const { tooltip, chartArea } = chart;
-                if (tooltip) {
+                if (tooltip && isVisible) {
                     tooltip.setActiveElements(
                         [
                             {
