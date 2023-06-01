@@ -33,13 +33,13 @@
     } = options);
     let renderedBbox = bbox || VOID_BOUNDS;
 
-    function computeSourceLayerAndBboxes(newShapes: FeatureCollection) {
+    function computeSourceLayers(newShapes: FeatureCollection) {
         source = {
             type: 'geojson',
             data: newShapes,
         };
         // layers will be stored in an array as it will be needed to add more than one layer to display different geometries
-        layers = layerParams
+        return layerParams
             ? [
                   computeBaseRoundMarkerLayer(
                       layerParams.colors,
@@ -48,11 +48,11 @@
                   ),
               ]
             : [DEFAULT_LAYERS_PARAMS];
-        renderedBbox = bbox || turfBbox(newShapes) || VOID_BOUNDS;
     }
 
     $: if (data) {
-        computeSourceLayerAndBboxes(data);
+        layers = computeSourceLayers(data);
+        renderedBbox = bbox || turfBbox(data) || VOID_BOUNDS;
     }
 </script>
 
