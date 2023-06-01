@@ -170,7 +170,6 @@ const PieDataLabelCustomLegendValuesArgs: Props<DataFrame, ChartOptions> = {
             display: false,
             custom: true,
             position: 'bottom',
-            align: 'center',
             labels: {
                 text(index: number) {
                     const xData = df[index].x;
