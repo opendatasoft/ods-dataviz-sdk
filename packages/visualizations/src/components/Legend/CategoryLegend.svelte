@@ -15,12 +15,9 @@
     <div
         class="color-item-category"
         on:click={() => {
-            // using color as a unique id proxy
-            if (item?.color) {
-                refinedSeries = isRefined(item, refinedSeries)
-                    ? refinedSeries.filter((id) => id !== item.id)
-                    : [...refinedSeries, item.id];
-            }
+            refinedSeries = isRefined(item, refinedSeries)
+                ? refinedSeries.filter((id) => id !== item.id)
+                : [...refinedSeries, item.id];
             item.onClick(item.id);
         }}
         on:mouseenter={() => {
