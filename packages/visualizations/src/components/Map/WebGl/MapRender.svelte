@@ -16,10 +16,11 @@
     import { debounce } from 'lodash';
     import type { BBox } from 'geojson';
     import { computeMaxZoomFromGeoJsonFeatures, getFixedTooltips } from '../utils';
-    import ColorsLegend from '../../utils/ColorsLegend.svelte';
+    import ColorsLegend from '../../Legend/ColorsLegend.svelte';
     import BackButton from '../../utils/BackButton.svelte';
     import MiniMap from '../../utils/MiniMap.svelte';
-    import type { ColorScale, DataBounds, LegendVariant } from '../../types';
+    import type { ColorScale, DataBounds } from '../../types';
+    import type { LegendVariant } from '../../Legend/types';
     import type {
         ChoroplethFixedTooltipDescription,
         MapLayer,

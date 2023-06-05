@@ -60,7 +60,7 @@ const PieTitleSectorsNameValueArgs: Props<DataFrame, ChartOptions> = {
                 backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
                 dataLabels: {
                     display: true,
-                    text (index) {
+                    text(index: number) {
                         const xData = df[index].x;
                         const yData = compactNumberFormatter.format(df[index].y);
                         return [xData, yData];
@@ -127,7 +127,7 @@ const PieTitleLegendValuesArgs: Props<DataFrame, ChartOptions> = {
             display: true,
             position: 'right',
             labels: {
-                text (index) {
+                text(index: number) {
                     const xData = df[index].x;
                     const yData = compactNumberFormatter.format(df[index].y);
                     return `${xData} - ${yData}`;
@@ -140,3 +140,47 @@ const PieTitleLegendValuesArgs: Props<DataFrame, ChartOptions> = {
     },
 };
 PieTitleLegendValues.args = PieTitleLegendValuesArgs;
+
+export const PieDataLabelCustomLegendValues = ChartTemplate.bind({});
+const PieDataLabelCustomLegendValuesArgs: Props<DataFrame, ChartOptions> = {
+    data: {
+        loading: false,
+        value: [
+            { x: 'Alpha', y: 100 },
+            { x: 'Beta', y: 50 },
+            { x: 'Gamma', y: 20 },
+            { x: 'Delta', y: 30 },
+        ],
+    },
+    options: {
+        labelColumn: 'x',
+        source: defaultSource,
+        series: [
+            {
+                type: ChartSeriesType.Pie,
+                valueColumn: 'y',
+                backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
+                dataLabels: {
+                    display: true,
+                },
+            },
+        ],
+        padding: 32,
+        legend: {
+            display: false,
+            custom: true,
+            position: 'bottom',
+            labels: {
+                text(index: number) {
+                    const xData = df[index].x;
+                    const yData = compactNumberFormatter.format(df[index].y);
+                    return `${xData} - ${yData}`;
+                },
+            },
+        },
+        title: {
+            text: 'Pie chart with title and legend with values',
+        },
+    },
+};
+PieDataLabelCustomLegendValues.args = PieDataLabelCustomLegendValuesArgs;

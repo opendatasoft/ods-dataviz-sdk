@@ -240,9 +240,14 @@ Here are some samples to get you started.
 
 ## Resources
 
+<<<<<<< HEAD
 -   [Opendatasoft's APIv2.1 documentation](https://help.opendatasoft.com/apis/ods-explore-v2/explore_v2.1.html)
 -   [API Client Reference](docs/modules.md)
 -   [Data Network API Console](https://data.opendatasoft.com/api/explore/v2.1/console)
+=======
+-   [Opendatasoft's Explore APIv2 documentation](https://help.opendatasoft.com/apis/ods-explore-v2/)
+-   [Data Network Explore APIv2 Console](https://data.opendatasoft.com/api/v2/console)
+>>>>>>> origin/main
 
 ## Contributing
 

@@ -137,12 +137,12 @@ function root(source: string) {
         itself: () => new Query(`${source}/`),
         facets: () => new Query(`${source}/facets/`),
         datasets: () => new Query(`${source}/datasets/`),
-        exports: (format: ExportCatalogFormat) => new Query(`${source}/exports/${format}/`),
+        export: (format: ExportCatalogFormat) => new Query(`${source}/exports/${format}/`),
         dataset: (datasetId: string) => ({
             itself: () => new Query(`${source}/datasets/${datasetId}/`),
             facets: () => new Query(`${source}/datasets/${datasetId}/facets/`),
             records: () => new Query(`${source}/datasets/${datasetId}/records/`),
-            exports: (format: ExportDatasetFormat) =>
+            export: (format: ExportDatasetFormat) =>
                 new Query(`${source}/datasets/${datasetId}/exports/${format}/`),
         }),
     });
