@@ -20,7 +20,7 @@ export const textSearch = (text: string, textFields: string[] = []) =>
  * @param textFields Fields to search in
  * @returns An ODSQL query, ready to be used as a `where` clause
  */
-export const textStartWith = (text: string, textFields: string[] = []) =>
+export const textStartsWith = (text: string, textFields: string[] = []) =>
     `startswith(${formatFields(textFields)}"${text}")`;
 
 /**
