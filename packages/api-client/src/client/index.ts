@@ -86,6 +86,8 @@ function buildConfig(
 export class ApiClient {
     readonly defaultConfig: ApiClientConfiguration;
 
+    deprecatedWarningShown: string[];
+
     /**
      * Constructs an instance of {@link ApiClient}
      */
@@ -136,7 +138,14 @@ export class ApiClient {
         // Send request
         const { fetch } = config;
         const fetchResponse = await fetch(request);
-        if (!options?.hideDeprecatedWarning) console.warn(`@opendatasoft/api-client : ${fetchResponse.headers.get('Ods-Explore-Api-Deprecation')}`);
+        if (!options?.hideDeprecatedWarning) {
+            const msg = fetchResponse.headers.get('Ods-Explore-Api-Deprecation');
+            if(msg !== null && !this.deprecatedWarningShown.includes(msg)) {
+                this.deprecatedWarningShown.push(msg);
+                // eslint-disable-next-line no-console
+                console.warn(`@opendatasoft/api-client : ${msg}`);
+            }
+        } 
         if (config.interceptResponse) return config.interceptResponse(fetchResponse);
 
         if (fetchResponse.ok) {

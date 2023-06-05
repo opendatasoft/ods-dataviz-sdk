@@ -94,6 +94,8 @@ const client = new ApiClient({
         delete apiResponse['links'];
         return apiResponse;
     },
+    /* (Optional) Hide the deprecated warning. Useful when in production environment */
+    hideDeprecatedWarning: true, 
 });
 ```
 
