@@ -13,10 +13,10 @@ const _global: any =
     typeof global !== 'undefined'
         ? global
         : typeof self !== 'undefined'
-            ? self
-            : typeof window !== 'undefined'
-                ? window
-                : {};
+        ? self
+        : typeof window !== 'undefined'
+        ? window
+        : {};
 
 export type RequestInterceptor = (request: Request) => Promise<Request>;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -64,8 +64,9 @@ function buildConfig(
     }
 
     const {
-        domain, fetch, apiKey, interceptRequest, interceptResponse, hideDeprecatedWarning
-    } = apiClientOptions;
+ domain, fetch, apiKey, interceptRequest, interceptResponse, hideDeprecatedWarning 
+} =
+        apiClientOptions;
 
     const newConfig: Partial<ApiClientConfiguration> = {};
 
@@ -74,7 +75,7 @@ function buildConfig(
     if (fetch) newConfig.fetch = fetch;
     if (interceptRequest) newConfig.interceptRequest = interceptRequest;
     if (interceptResponse) newConfig.interceptResponse = interceptResponse;
-        newConfig.hideDeprecatedWarning = Boolean(hideDeprecatedWarning);
+    newConfig.hideDeprecatedWarning = Boolean(hideDeprecatedWarning);
 
     return update(defaultConfig, { $merge: newConfig });
 }
@@ -136,12 +137,12 @@ export class ApiClient {
         const fetchResponse = await fetch(request);
         if (!options?.hideDeprecatedWarning) {
             const msg = fetchResponse.headers.get('Ods-Explore-Api-Deprecation');
-            if(msg !== null && !this.deprecatedWarningShown.includes(msg)) {
+            if (msg !== null && !this.deprecatedWarningShown.includes(msg)) {
                 this.deprecatedWarningShown.push(msg);
                 // eslint-disable-next-line no-console
                 console.warn(`@opendatasoft/api-client : ${msg}`);
             }
-        } 
+        }
         if (config.interceptResponse) return config.interceptResponse(fetchResponse);
 
         if (fetchResponse.ok) {
