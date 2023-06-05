@@ -5,26 +5,30 @@
     import 'chartjs-adapter-luxon';
     import type { Async } from '../../types';
     import type { DataFrame } from '../types';
-    import type { ChartOptions, ChartSeries } from './types';
+    import { generateId } from '../utils';
+    import SourceLink from '../utils/SourceLink.svelte';
+    import { defaultNumberFormat } from '../utils/formatter';
+    import CategoryLegend from '../Legend/CategoryLegend.svelte';
+    import type { LegendPositions, CategoryLegend as CategoryLegendType } from '../Legend/types';
     import { ChartSeriesType } from './types';
+    import type { ChartOptions, ChartSeries } from './types';
     import { defaultValue } from './utils';
     import toDataset from './datasets';
     import buildScales from './scales';
-    import buildLegend from './legend';
-    import SourceLink from '../utils/SourceLink.svelte';
-    import { defaultNumberFormat } from '../utils/formatter';
-    import { generateId } from '../utils';
+    import { buildLegend, buildCustomLegend } from './legend';
 
     export let data: Async<DataFrame>;
     export let options: ChartOptions;
 
     const chartId = `chart-${generateId()}`;
 
+    let chart: Chart;
+    let clientWidth: number;
     // Hook to handle chart lifecycle
     function chartJs(node: HTMLCanvasElement, config: ChartConfiguration) {
         const ctx = node.getContext('2d');
         if (!ctx) throw new Error('Failed to get canvas context');
-        const chart = new Chart(ctx, config);
+        chart = new Chart(ctx, config);
         return {
             update(newConfig: ChartConfiguration) {
                 Object.assign(chart, newConfig);
@@ -69,6 +73,9 @@
     $: {
         // Reactively update chart configuration
         const chartOptions = chartConfig.options || {};
+        /* Kills ChartJS legend if in custom mode
+         * To be deleted when fully switching to home made one */
+        const legend = options.legend?.custom ? { display: false } : buildLegend(options);
         chartOptions.aspectRatio = defaultValue(options.aspectRatio, 4 / 3);
         chartOptions.maintainAspectRatio = true;
         chartOptions.scales = buildScales(options);
@@ -76,7 +83,7 @@
             padding: defaultValue(options?.padding, 12),
         };
         chartOptions.plugins = {
-            legend: buildLegend(options),
+            legend,
             title: {
                 display: false,
             },
@@ -156,14 +163,22 @@
     let displaySubtitle: boolean;
     $: displayTitle = defaultValue(options?.title?.display, !!options?.title?.text);
     $: displaySubtitle = defaultValue(options?.subtitle?.display, !!options?.subtitle?.text);
+
+    let legendPosition: LegendPositions;
+    $: legendPosition =
+        clientWidth <= 375 ? 'bottom' : defaultValue(options?.legend?.position, 'bottom');
+    let legendOptions: CategoryLegendType;
+    $: if (options?.legend?.custom) {
+        legendOptions = buildCustomLegend({ chart, options, chartConfig });
+    }
 </script>
 
 {#if data.error}
     Error : {JSON.stringify(data.error)}
 {:else if options}
-    <figure>
+    <div bind:clientWidth class="container">
         {#if displayTitle || displaySubtitle}
-            <figcaption>
+            <div class="header">
                 {#if displayTitle}
                     <h3>
                         {options.title?.text}
@@ -174,9 +189,9 @@
                         {options.subtitle?.text}
                     </p>
                 {/if}
-            </figcaption>
+            </div>
         {/if}
-        <div class="chart-container">
+        <figure class="chart legend--{legendPosition}">
             <canvas
                 role="img"
                 use:chartJs={chartConfig}
@@ -185,29 +200,49 @@
             {#if options.description}
                 <p id={chartId} class="a11y-invisible-description">{options.description}</p>
             {/if}
-        </div>
+            {#if options?.legend?.custom}
+                <figcaption>
+                    <CategoryLegend {legendOptions} />
+                </figcaption>
+            {/if}
+        </figure>
         {#if options.source}
             <SourceLink source={options.source} />
         {/if}
-    </figure>
+    </div>
 {/if}
 
 <style>
-    figure {
+    .container {
         display: flex;
         flex-direction: column;
-        margin: 0;
+        width: 100%;
     }
-
-    figcaption {
+    .header {
         width: 100%;
         margin: 0;
     }
 
-    .chart-container {
+    figure {
         position: relative;
         width: 100%;
         flex-grow: 1;
+        margin: 0;
+        display: flex;
+    }
+    .legend--bottom {
+        flex-direction: column;
+    }
+    .legend--right {
+        flex-direction: row;
+    }
+
+    figcaption {
+        display: grid;
+        justify-content: center;
+        grid-gap: 3px 13px;
+        grid-template-columns: repeat(auto-fit, minmax(120px, max-content));
+        padding: 13px 0;
     }
 
     /* Suitable for elements that are used via aria-describedby or aria-labelledby */
