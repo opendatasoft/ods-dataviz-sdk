@@ -74,11 +74,7 @@ function buildConfig(
     if (fetch) newConfig.fetch = fetch;
     if (interceptRequest) newConfig.interceptRequest = interceptRequest;
     if (interceptResponse) newConfig.interceptResponse = interceptResponse;
-    if (hideDeprecatedWarning) {
-        newConfig.hideDeprecatedWarning = hideDeprecatedWarning;
-    } else {
-        newConfig.hideDeprecatedWarning = false;
-    }
+        newConfig.hideDeprecatedWarning = Boolean(hideDeprecatedWarning);
 
     return update(defaultConfig, { $merge: newConfig });
 }
