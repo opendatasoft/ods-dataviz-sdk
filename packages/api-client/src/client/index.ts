@@ -86,7 +86,7 @@ function buildConfig(
 export class ApiClient {
     readonly defaultConfig: ApiClientConfiguration;
 
-    deprecatedWarningShown: string[];
+    deprecatedWarningShown: string[] = [];
 
     /**
      * Constructs an instance of {@link ApiClient}

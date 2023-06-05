@@ -70,7 +70,7 @@ export interface ApiQuery<T> {
 }
 
 
-const EnumExportCatalogFormat = {
+export const EnumExportCatalogFormat = {
     CSV: 'csv',
     JSON: 'json',
     XLSX: 'xlsx',
