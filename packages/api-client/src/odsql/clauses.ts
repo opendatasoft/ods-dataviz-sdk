@@ -15,7 +15,7 @@ export const textSearch = (text: string, textFields: string[] = []) =>
     `search(${formatFields(textFields)}"${text}")`;
 
 /**
- * Perform full-text search on fields, either ones specified in textFields, or all fields. It matches the text fields that contain strings beginning with the searched string.
+ * Perform full-text search on fields, either ones specified in textFields, or all fields. It matches the text fields that contain strings beginning with the searched string. Equivalent to [ODSQL startsWith predicade](https://help.opendatasoft.com/apis/ods-explore-v2/explore_v2.1.html#section/ODSQL-predicates/startswith())
  * @param text Text to search for
  * @param textFields Fields to search in
  * @returns An ODSQL query, ready to be used as a `where` clause
