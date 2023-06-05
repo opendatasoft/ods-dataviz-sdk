@@ -157,7 +157,7 @@ describe('ODSQL query builder', () => {
 
         test('export geojson query', () => {
             expect(
-                fromCatalog().dataset('my_dataset').exports('geojson').limit(10000).toString()
+                fromCatalog().dataset('my_dataset').export('geojson').limit(10000).toString()
             ).toEqual('catalog/datasets/my_dataset/exports/geojson/?limit=10000');
         });
 
