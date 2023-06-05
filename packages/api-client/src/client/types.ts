@@ -69,7 +69,6 @@ export interface ApiQuery<T> {
     records: T[];
 }
 
-
 export const EnumExportCatalogFormat = {
     CSV: 'csv',
     JSON: 'json',
@@ -87,7 +86,8 @@ export const EnumExportCatalogFormat = {
     DCAT_AP_V1: 'dcat-ap-v1',
 } as const;
 
-export type ExportCatalogFormat = typeof EnumExportCatalogFormat[keyof typeof EnumExportCatalogFormat];
+export type ExportCatalogFormat =
+    typeof EnumExportCatalogFormat[keyof typeof EnumExportCatalogFormat];
 
 export const EnumExportDatasetFormat = {
     JSON: 'json',
@@ -103,4 +103,5 @@ export const EnumExportDatasetFormat = {
     N3: 'n3',
 } as const;
 
-export type ExportDatasetFormat = typeof EnumExportDatasetFormat[keyof typeof EnumExportDatasetFormat];
+export type ExportDatasetFormat =
+    typeof EnumExportDatasetFormat[keyof typeof EnumExportDatasetFormat];
