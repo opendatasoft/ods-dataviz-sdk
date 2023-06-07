@@ -63,9 +63,9 @@ function buildConfig(
         return defaultConfig;
     }
 
-    const {
- domain, fetch, apiKey, interceptRequest, interceptResponse, hideDeprecatedWarning 
-} =
+    // FIXME: Rules conflict between prettier and eslint
+    // eslint-disable-next-line object-curly-newline
+    const { domain, fetch, apiKey, interceptRequest, interceptResponse, hideDeprecatedWarning } =
         apiClientOptions;
 
     const newConfig: Partial<ApiClientConfiguration> = {};
