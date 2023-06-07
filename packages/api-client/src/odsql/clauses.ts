@@ -6,7 +6,7 @@ const formatFields = (fields: string[]) => {
 };
 
 /**
- * Perform full-text search on fields, either ones specified in textFields, or all fields . It's a fuzzy search that finds matches even if the searched string is not an exact match.'
+ * Perform full-text search on fields, either ones specified in textFields, or all fields . It's a fuzzy search that finds matches even if the searched string is not an exact match.
  * @param text Text to search for
  * @param textFields Fields to search in
  * @returns An ODSQL query, ready to be used as a `where` clause
