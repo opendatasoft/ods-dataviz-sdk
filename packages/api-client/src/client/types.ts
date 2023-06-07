@@ -84,6 +84,7 @@ export const EnumExportCatalogFormat = {
     DCAT_AP_SE: 'dcat-ap-se',
     DCAT_AP_SP: 'dcat-ap-sp',
     DCAT_AP_V1: 'dcat-ap-v1',
+    DCAT_AP_BENAP: 'dcat_ap_benap',
 } as const;
 
 export type ExportCatalogFormat =
