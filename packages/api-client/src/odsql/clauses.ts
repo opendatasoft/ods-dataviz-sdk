@@ -24,7 +24,7 @@ export const textStartWith = (text: string, textFields: string[] = []) =>
     `startswith(${formatFields(textFields)}"${string(text)}")`;
 
 /**
- *  Perform full-text search on fields, either ones specified in textFields, or all fields. It matches the text fields that contain the searched string.
+ * Perform full-text search on fields, either ones specified in textFields, or all fields. It matches the text fields that contain the searched string.
  * @param text Text to search for
  * @param textFields Fields to search in
  * @returns An ODSQL query, ready to be used as a `where` clause
