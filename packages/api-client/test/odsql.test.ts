@@ -17,6 +17,9 @@ import {
     list,
     not,
     dateFromIsoString,
+    textSearch,
+    textSuggest,
+    textStartWith,
 } from '../src';
 
 describe('ODSQL query builder', () => {
@@ -174,5 +177,31 @@ describe('ODSQL query builder', () => {
                 'catalog/datasets/'
             );
         });
+        test('Search clause', () => {
+            expect(
+                textSearch('my search term', ['field1', 'field2'])
+            ).toEqual('search(\`field1\`, \`field2\`, "my search term")');
+        });
+        test('Suggest clause', () => {
+            expect(
+                textSuggest('my search term', ['field1', 'field2'])
+            ).toEqual(`suggest(\`field1\`, \`field2\`, "my search term")`);
+        });
+        test('StartWith clause', () => {
+            expect(
+                textStartWith('my search term', ['field1', 'field2'])
+            ).toEqual(`startswith(\`field1\`, \`field2\`, "my search term")`);
+        });
+        test('StartWith clause with only one field', () => {
+            expect(
+                textStartWith('my search term', ['field1'])
+            ).toEqual(`startswith(\`field1\`, "my search term")`);
+        });
+        test('StartWith clause with no field', () => {
+            expect(
+                textStartWith('my search term')
+            ).toEqual(`startswith("my search term")`);
+        });
+
     });
 });
