@@ -52,7 +52,12 @@
 
     $: if (data) {
         layers = computeSourceLayers(data);
-        renderedBbox = bbox || turfBbox(data) || VOID_BOUNDS;
+        // We need to check that features are not empty before computing bbox through turf,
+        // if they are empty (through filtering for example) we fallback
+        // to bbox from options (or if bbox is undefined we keep VOID_BOUNDS from initialization)
+        if (data.features.length > 0) {
+            renderedBbox = bbox || turfBbox(data);
+        }
     }
 </script>
 
