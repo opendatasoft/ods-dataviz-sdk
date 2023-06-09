@@ -50,6 +50,8 @@
         const start = {
             center: defaultCenter,
             zoom: 5,
+            // if defined, overrides center and zoom
+            bounds: currentBbox as LngLatBoundsLike,
         };
 
         map = new maplibregl.Map({
