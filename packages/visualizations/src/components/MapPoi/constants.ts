@@ -1,5 +1,4 @@
-import { ColorScaleTypes } from '../types';
-import type { ColorScale, Color } from '../types';
+import type { Color } from '../types';
 import type { CircleLayer } from './types';
 
 export const DEFAULT_COLORS: Record<string, Color> = {
@@ -9,14 +8,6 @@ export const DEFAULT_COLORS: Record<string, Color> = {
     DarkGrey: '#515457',
     Blue: '#142E7B',
 } as const;
-
-export const DEFAULT_COLORSCALE: ColorScale = {
-    type: ColorScaleTypes.Gradient,
-    colors: {
-        start: DEFAULT_COLORS.LightGrey,
-        end: DEFAULT_COLORS.DarkGrey,
-    },
-};
 
 export const DEFAULT_LAYERS_PARAMS = {
     type: 'circle',

@@ -9,9 +9,7 @@ export interface PoiMapOptions {
     layerParams?: LayerParams;
     /** Maximum boundaries of the map, outside of which the user cannot zoom/move
      * Also set the position of the map when rendering.
-     * If undefined, will default, in order to:
-     * - Fit the content if the source is GeoJSON
-     * - The world
+     * If undefined, the map will fit the content.
      */
     bbox?: BBox | undefined;
     /** Aspect ratio used to draw the map. The map will take he width available to it, and decide its height based on that ratio. */
