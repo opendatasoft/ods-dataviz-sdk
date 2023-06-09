@@ -240,7 +240,6 @@ Here are some samples to get you started.
 
 
 -   [Opendatasoft's APIv2.1 documentation](https://help.opendatasoft.com/apis/ods-explore-v2/explore_v2.1.html)
--   [API Client Reference](docs/modules.md)
 -   [Data Network API Console](https://data.opendatasoft.com/api/explore/v2.1/console)
 
 ## Contributing
