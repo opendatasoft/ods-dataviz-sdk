@@ -8,7 +8,6 @@ import {
     ChoroplethTooltipFormatter,
     ChoroplethTooltipMatcherTypes,
     TooltipParams,
-    LegendPositions,
 } from '@opendatasoft/visualizations';
 import { ChoroplethVectorTiles, Props } from '../../src';
 import { shapesTiles, regShapes, dataReg } from './data';
@@ -232,7 +231,7 @@ const StudioChoroplethVectorLegendLeftArgs: Props<DataFrame, ChoroplethVectorTil
         subtitle: 'Dolor Sit Amet',
         legend: {
             title: 'I Am Legend',
-            position: LegendPositions.Left,
+            position: 'left',
         },
         emptyValueColor: '#CBD2DB',
         aspectRatio: 1,
@@ -264,7 +263,7 @@ const StudioChoroplethVectorLegendRightArgs: Props<DataFrame, ChoroplethVectorTi
         subtitle: 'Dolor Sit Amet',
         legend: {
             title: 'I Am Legend',
-            position: LegendPositions.Right,
+            position: 'right',
         },
         emptyValueColor: '#CBD2DB',
         aspectRatio: 1,

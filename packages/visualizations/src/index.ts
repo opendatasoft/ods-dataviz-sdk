@@ -12,3 +12,4 @@ export * from './components/KpiCard/types';
 export * from './components/Map/types';
 export * from './components/MarkdownText/types';
 export * from './components/MapPoi/types';
+export * from './components/Legend/types';
