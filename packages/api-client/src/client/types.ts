@@ -71,4 +71,4 @@ export interface ApiQuery<T> {
 
 export interface ApiExport<T> {
     [key: string]: T;
-};
+}
