@@ -8,8 +8,8 @@
     import { DEFAULT_LAYERS_PARAMS } from './constants';
     import type { PoiMapOptions, PoiMapLayer, LayerParams } from './types';
 
-    export let data: FeatureCollection; // values, and the key to match
-    export let options: PoiMapOptions; // contains the shapes to display & match
+    export let data: { value: FeatureCollection }; // values and geo points to display
+    export let options: PoiMapOptions;
 
     let bbox: BBox | undefined;
 
@@ -50,13 +50,13 @@
             : [DEFAULT_LAYERS_PARAMS];
     }
 
-    $: if (data) {
-        layers = computeSourceLayers(data);
+    $: if (data.value) {
+        layers = computeSourceLayers(data.value);
         // We need to check that features are not empty before computing bbox through turf,
         // if they are empty (through filtering for example) we fallback
         // to bbox from options (or if bbox is undefined we keep VOID_BOUNDS from initialization)
-        if (data.features.length > 0) {
-            renderedBbox = bbox || turfBbox(data);
+        if (data.value.features.length > 0) {
+            renderedBbox = bbox || turfBbox(data.value);
         }
     }
 </script>
