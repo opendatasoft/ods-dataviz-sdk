@@ -72,7 +72,7 @@ It takes an optional configuration object.
 import { ApiClient } from '@opendatasoft/api-client';
 
 const client = new ApiClient({
-    /* (Optional) authenticate through an api key */
+    /* (Optional) authenticate through an API key */
     apiKey: 'secret',
 
     /* (Optional) The Opendatasoft domain identifier or url.
@@ -100,7 +100,7 @@ const client = new ApiClient({
 
 You can reuse client instances.
 
-Use the method `get` to call the api. It accepts an url or a query object. It return a promise containing the api response or throw an error.
+Use the method `get` to call the API. It accepts an url or a query object. It return a promise containing the API response or throw an error.
 
 ```javascript
 import { ApiClient } from '@opendatasoft/api-client';
@@ -217,20 +217,18 @@ fromCatalog()
 
 # Versioning
 
-The client must follow [Opendatasoft's Explore API](https://help.opendatasoft.com/apis/ods-explore-v2/) evolution.
+The client will follow [Opendatasoft's Explore API](https://help.opendatasoft.com/apis/ods-explore-v2/) evolution.
 However, versioning is handled differently by the two projects. This package follows [Semantic Versioning](https://semver.org/) but not the Opendatasoft's Explore API (between the 2.0 and 2.1 there are some [breaking changes](https://help.opendatasoft.com/apis/ods-explore-v2/explore_v2.1.html#section/Introduction/v2.1-Changelog)).
 
-The table below shows how the api client follows Opendatasoft's Explore API evolution according to the type of change that may occur.
+The table below shows how the API client follows Opendatasoft's Explore API evolution according to the type of change that may occur. These are examples and may not represent the exact versions of Explore API in the future.
 
-| Opendatasoft's Explore API version | Api client version  | Comment |
+| Opendatasoft's Explore API version | API client version  | Comment |
 |---|----|----|
-| 2.0  | 0.x.x   | Api client was in beta                                                                   |
-| 2.1  | 21.0.0  | 2.0 ⇒ 2.1 - Breaking change in Explore API - So major version upgrade for the api client |
-| 3.0  | 30.0.0  | 2.0 ⇒ 3.0 - Paradigm change in Explore API - So major version upgrade for the api client |
-| 3.0  | 30.1.0  | No changes in Explore API but a new feature in the api client                            |
-| 3.0  | 30.1.1  | No changes in Explore API but a fix in the api client                                    |
-
-*When the version of Opendatasoft's Explore API will upgrade from 2.x to 3.0, a version 22.0.0 of the api client could be created, but to easily remember the correspondence between the two packages, the api client version will be 30.0.0.*
+| 2.0  | 0.x.x   | API client was in beta                                                                   |
+| 2.1  | 21.0.0  | 2.0 ⇒ 2.1 - Breaking change in Explore API - So major version upgrade for the API client |
+| 3.0  | 30.0.0  | 2.0 ⇒ 3.0 - Paradigm change in Explore API - So major version upgrade for the API client |
+| 3.0  | 30.1.0  | No changes in Explore API but a new feature in the API client                            |
+| 3.0  | 30.1.1  | No changes in Explore API but a fix in the API client                                    |
 
 ## Frameworks
 
