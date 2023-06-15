@@ -33,3 +33,8 @@ export type LayerParams = {
 };
 
 export type PoiMapLayer = CircleLayer;
+
+export type GeoPoint = {
+    lat: number;
+    lon: number;
+};
