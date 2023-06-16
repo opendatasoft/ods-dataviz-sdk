@@ -40,23 +40,13 @@ export interface OdsRecord<T> {
 export interface ApiRecords<T> {
     total_count?: number;
     links: Link[];
-    records: { links: Link[]; record: OdsRecord<T> }[];
-}
-
-export interface ApiRecord<T> {
-    links: Link[];
-    record: OdsRecord<T>;
+    results: OdsRecord<T>[];
 }
 
 export interface ApiDatasets {
     total_count: number;
     links: Link[];
-    datasets: { links: Link[]; dataset: OdsDataset }[];
-}
-
-export interface ApiDataset {
-    links: Link[];
-    dataset: OdsDataset;
+    results: OdsDataset[];
 }
 
 export interface ApiFacets {
@@ -66,7 +56,7 @@ export interface ApiFacets {
 
 export interface ApiQuery<T> {
     total_count?: number;
-    records: T[];
+    results: T[];
 }
 
 export const EnumExportCatalogFormat = {
