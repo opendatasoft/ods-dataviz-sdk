@@ -68,3 +68,7 @@ export interface ApiQuery<T> {
     total_count?: number;
     results: T[];
 }
+
+export interface ApiExport<T> {
+    [key: string]: T;
+}
