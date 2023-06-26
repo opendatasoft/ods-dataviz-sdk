@@ -57,7 +57,7 @@ client
     .catch(error => console.error(error));
 ```
 
-[CodeSandbox sample](https://codesandbox.io/s/api-clientget-started-be0xu?file=/src/index.js)
+[CodeSandbox sample](https://codesandbox.io/s/api-client-get-started-v2-1-4jpvd9)
 
 ## Usage
 
@@ -113,8 +113,7 @@ import { ApiClient } from '@opendatasoft/api-client';
     /*
        {
         total_count: 10,
-        links: [...],
-        datasets: [...]
+        results: [...]
       }
       */
 })();
@@ -194,7 +193,8 @@ import {
 } from '@opendatasoft/api-client';
 
 fromCatalog()
-    .dataset('doc-geonames-cities-5000').records()
+    .dataset('doc-geonames-cities-5000')
+    .records()
     .select('count(*), avg(f)') // You can select fields
     .select(list('f1', 'f2', 'avg(f3) as n')) // There is also a helper to select multiple fields
     .select(previous => list(previous, 'avg(f4)')) // You can also reuse the previous value, list() will ignore it if it undefined
