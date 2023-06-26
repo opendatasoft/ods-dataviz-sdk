@@ -40,23 +40,13 @@ export interface OdsRecord<T> {
 export interface ApiRecords<T> {
     total_count?: number;
     links: Link[];
-    records: { links: Link[]; record: OdsRecord<T> }[];
-}
-
-export interface ApiRecord<T> {
-    links: Link[];
-    record: OdsRecord<T>;
+    results: OdsRecord<T>[];
 }
 
 export interface ApiDatasets {
     total_count: number;
     links: Link[];
-    datasets: { links: Link[]; dataset: OdsDataset }[];
-}
-
-export interface ApiDataset {
-    links: Link[];
-    dataset: OdsDataset;
+    results: OdsDataset[];
 }
 
 export interface ApiFacets {
@@ -68,3 +58,41 @@ export interface ApiQuery<T> {
     total_count?: number;
     results: T[];
 }
+
+export const EnumExportCatalogFormat = {
+    CSV: 'csv',
+    JSON: 'json',
+    XLSX: 'xlsx',
+    RDF: 'rdf',
+    TTL: 'ttl',
+    DATA_JSON: 'data.json',
+    RSS: 'rss',
+    DCAT: 'dcat',
+    DCAT_AP_CH: 'dcat-ap-ch',
+    DCAT_AP_IT: 'dcat-ap-it',
+    DCAT_AP_DE: 'dcat-ap-de',
+    DCAT_AP_SE: 'dcat-ap-se',
+    DCAT_AP_SP: 'dcat-ap-sp',
+    DCAT_AP_V1: 'dcat-ap-v1',
+    DCAT_AP_BENAP: 'dcat_ap_benap',
+} as const;
+
+export type ExportCatalogFormat =
+    typeof EnumExportCatalogFormat[keyof typeof EnumExportCatalogFormat];
+
+export const EnumExportDatasetFormat = {
+    JSON: 'json',
+    GEOJSON: 'geojson',
+    SHP: 'shp',
+    CSV: 'csv',
+    XLSX: 'xlsx',
+    KML: 'kml',
+    JSONLD: 'jsonld',
+    JSONL: 'jsonl',
+    RDFXML: 'rdfxml',
+    TURTLE: 'turtle',
+    N3: 'n3',
+} as const;
+
+export type ExportDatasetFormat =
+    typeof EnumExportDatasetFormat[keyof typeof EnumExportDatasetFormat];

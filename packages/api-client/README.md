@@ -1,6 +1,6 @@
 # @opendatasoft/api-client ![CI status](https://github.com/opendatasoft/ods-dataviz-sdk/workflows/CI/badge.svg)
 
-This package implements a Typescript/Javascript client library for [Opendatasoft's Explore APIv2](https://help.opendatasoft.com/apis/ods-explore-v2/).
+This package implements a Typescript/Javascript client library for [Opendatasoft's Explore API v2.1](https://help.opendatasoft.com/apis/ods-explore-v2/explore_v2.1.html).
 
 -   [Installation](#installation)
 -   [Get started](#get-started)
@@ -44,7 +44,7 @@ const client = new ApiClient({ domain: 'documentation-resources' });
 // Create the query to run.
 const query = fromCatalog() // From the domain catalog
     .dataset('doc-geonames-cities-5000') // ... we'll use the dataset "doc-geonames-cities-5000"
-    .query() // call the query endpoint
+    .records() // call the records endpoint
     .where("country_code:'FR'") // // Filter records where country_code === "FR".
     .groupBy('name as city, population') // Select the fields "name" and "population".
     .orderBy('-population') // Sort by population in descending order.
@@ -58,7 +58,7 @@ client
     .catch(error => console.error(error));
 ```
 
-[CodeSandbox sample](https://codesandbox.io/s/api-clientget-started-be0xu?file=/src/index.js)
+[CodeSandbox sample](https://codesandbox.io/s/api-client-get-started-v2-1-4jpvd9)
 
 ## Usage
 
@@ -95,6 +95,8 @@ const client = new ApiClient({
         delete apiResponse['links'];
         return apiResponse;
     },
+    /* (Optional) Hide the deprecated warning. Useful when in production environment */
+    hideDeprecatedWarning: true, 
 });
 ```
 
@@ -112,8 +114,7 @@ import { ApiClient } from '@opendatasoft/api-client';
     /*
        {
         total_count: 10,
-        links: [...],
-        datasets: [...]
+        results: [...]
       }
       */
 })();
@@ -193,7 +194,8 @@ import {
 } from '@opendatasoft/api-client';
 
 fromCatalog()
-    .query()
+    .dataset('doc-geonames-cities-5000')
+    .records()
     .select('count(*), avg(f)') // You can select fields
     .select(list('f1', 'f2', 'avg(f3) as n')) // There is also a helper to select multiple fields
     .select(previous => list(previous, 'avg(f4)')) // You can also reuse the previous value, list() will ignore it if it undefined
@@ -254,8 +256,9 @@ Here are some samples to get you started.
 
 ## Resources
 
--   [Opendatasoft's Explore APIv2 documentation](https://help.opendatasoft.com/apis/ods-explore-v2/)
--   [Data Network Explore APIv2 Console](https://data.opendatasoft.com/api/v2/console)
+
+-   [Opendatasoft's APIv2.1 documentation](https://help.opendatasoft.com/apis/ods-explore-v2/explore_v2.1.html)
+-   [Data Network API Console](https://data.opendatasoft.com/api/explore/v2.1/console)
 
 ## Contributing
 

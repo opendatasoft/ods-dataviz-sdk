@@ -16,7 +16,7 @@ describe('Api client', () => {
 
     it('should create a client without error', () => {
         const client = new ApiClient();
-        expect(client.defaultConfig.baseUrl).toEqual('http://localhost/api/v2/');
+        expect(client.defaultConfig.baseUrl).toEqual('http://localhost/api/explore/v2.1/');
     });
 
     it('should use the global fetch', () => {
@@ -28,7 +28,7 @@ describe('Api client', () => {
     it('should call fetch with the right url', async () => {
         const apiResponse = { any: 'any' };
         fetchMock.once(async (req) => {
-            expect(req.url).toEqual('https://public.opendatasoft.com/api/v2/catalog/');
+            expect(req.url).toEqual('https://public.opendatasoft.com/api/explore/v2.1/catalog/');
             return JSON.stringify(apiResponse);
         });
         const client = new ApiClient({ domain: 'public' });
@@ -53,7 +53,7 @@ describe('Api client', () => {
         const apiResponse = { any: 'any' };
         fetchMock.once(async (req) => {
             expect(req.url).toEqual(
-                'https://public.opendatasoft.com/api/v2/catalog/facets/?facet=facet1&facet=facet2&refine=%60facet1%60%3Avalue'
+                'https://public.opendatasoft.com/api/explore/v2.1/catalog/facets/?facet=facet1&facet=facet2&refine=%60facet1%60%3Avalue'
             );
             return JSON.stringify(apiResponse);
         });
