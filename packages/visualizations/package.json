@@ -1,6 +1,6 @@
 {
     "name": "@opendatasoft/visualizations",
-    "version": "0.14.2-beta.0",
+    "version": "0.14.2",
     "license": "MIT",
     "author": "opendatasoft",
     "homepage": "https://github.com/opendatasoft/ods-dataviz-sdk",
