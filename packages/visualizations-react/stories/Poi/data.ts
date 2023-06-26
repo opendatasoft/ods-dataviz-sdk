@@ -507,7 +507,7 @@ export const shapes: FeatureCollection = {
                     type: 'Polygon',
                 },
                 properties: {
-                    key: 'Ile de France',
+                    label: 'Ile de France',
                     cat: 'Terrain',
                 },
             },
@@ -518,7 +518,7 @@ export const shapes: FeatureCollection = {
                     type: 'Point',
                 },
                 properties: {
-                    key: 'Corsica',
+                    label: 'Corsica',
                     cat: 'Red',
                 },
             },
@@ -529,7 +529,7 @@ export const shapes: FeatureCollection = {
                     coordinates: [2.357573,48.837904],
                 },
                 properties: {
-                    key: 'Paris',
+                    label: 'Paris',
                     cat: 'Red',
                 },
             },
@@ -551,7 +551,7 @@ export const shapes: FeatureCollection = {
                     coordinates: [-1.552924,47.214847],
                 },
                 properties: {
-                    key: 'Nantes',
+                    label: 'Nantes',
                     cat: 'Blue',
                 },
             },
@@ -562,7 +562,7 @@ export const shapes: FeatureCollection = {
                     coordinates: [5.360529,43.303114],
                 },
                 properties: {
-                    key: 'Marseille',
+                    label: 'Marseille',
                     cat: 'Red',
                 },
             },
@@ -643,7 +643,7 @@ export const multiPolygonShapes: FeatureCollection = {
                     type: 'MultiPolygon',
                 },
                 properties: {
-                    key: 'France & Corsica',
+                    label: 'France & Corsica',
                 },
             },
             {
@@ -1122,7 +1122,7 @@ export const multiPolygonShapes: FeatureCollection = {
                     ],
                 },
                 properties: {
-                    key: 'Île de France',
+                    label: 'Île de France',
                 },
             },
         ],

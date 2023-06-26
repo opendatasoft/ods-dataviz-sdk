@@ -42,7 +42,7 @@ PoiMapNoLayersParams.args = PoiMapNoLayersParamsArgs;
 const layerParams = {
     colors: ['#B42222', 'Green'],
     matchValues: ['Paris', 'Nantes'],
-    matchKey: 'key',
+    matchKey: 'label',
 };
 
 export const PoiMapNonInteractive = Template.bind({});

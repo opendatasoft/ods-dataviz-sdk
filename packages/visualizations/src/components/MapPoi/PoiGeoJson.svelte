@@ -2,9 +2,10 @@
     import turfBbox from '@turf/bbox';
     import type { SourceSpecification, StyleSpecification } from 'maplibre-gl';
     import type { BBox, FeatureCollection } from 'geojson';
+    import { debounce } from 'lodash';
     import MapRender from './MapRender.svelte';
     import { BLANK } from './mapStyles';
-    import { VOID_BOUNDS, computeBaseRoundMarkerLayer } from './utils';
+    import { VOID_BOUNDS, computeBaseRoundMarkerLayer, computeTooltip } from './utils';
     import { DEFAULT_LAYERS_PARAMS } from './constants';
     import type { PoiMapOptions, PoiMapLayer, LayerParams } from './types';
 
@@ -59,10 +60,22 @@
             renderedBbox = bbox || turfBbox(data.value);
         }
     }
+
+    $: renderTooltip = debounce((hoveredFeature) => computeTooltip(hoveredFeature, options), 10, {
+        leading: true,
+    });
 </script>
 
 <div>
-    <MapRender {style} {source} {layers} bbox={renderedBbox} {aspectRatio} {interactive} />
+    <MapRender
+        {style}
+        {source}
+        {layers}
+        bbox={renderedBbox}
+        {aspectRatio}
+        {interactive}
+        {renderTooltip}
+    />
 </div>
 
 <style>

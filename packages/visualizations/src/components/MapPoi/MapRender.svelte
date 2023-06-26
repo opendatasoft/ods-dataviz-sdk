@@ -9,11 +9,12 @@
         MapSourceDataEvent,
         LngLatLike,
         LngLatBoundsLike,
+        MapLayerMouseEvent,
     } from 'maplibre-gl';
     import type { BBox } from 'geojson';
 
     import { onMount } from 'svelte';
-    import type { PoiMapLayer } from './types';
+    import type { PoiMapLayer, PoiMapRenderTooltipFunction } from './types';
     import { BLANK } from '../Map/mapStyles';
 
     // maplibre style (basemap)
@@ -22,6 +23,8 @@
     export let source: SourceSpecification;
     // maplibre layer config
     export let layers: PoiMapLayer[];
+    // Used to render tooltips on hover
+    export let renderTooltip: PoiMapRenderTooltipFunction;
     // array of created layer ids
     let storedLayerIds: string[] = [];
     // bounding box to start from, and restrict to it
@@ -71,6 +74,12 @@
         return () => map.remove();
     }
 
+    const clickPopup = new maplibregl.Popup({
+        closeOnClick: true,
+        closeButton: false,
+        className: 'tooltip-on-click',
+    });
+
     function sourceLoadingCallback(e: MapSourceDataEvent) {
         // sourceDataType can be "visibility" or "metadata", in which case it's not about the data itself
         if (e.isSourceLoaded && e.sourceId === sourceId && !e.sourceDataType) {
@@ -103,7 +112,27 @@
         });
     };
 
-    function handleInteractivity(isInteractive: boolean) {
+    function addTooltip(e: MapLayerMouseEvent) {
+        if (e.features) {
+            const tooltipDescription = renderTooltip(e.features[0]);
+            if (tooltipDescription) {
+                if (clickPopup.isOpen()) {
+                    clickPopup.setLngLat(e.lngLat).setHTML(tooltipDescription);
+                } else {
+                    clickPopup.setLngLat(e.lngLat).setHTML(tooltipDescription).addTo(map);
+                }
+            }
+        }
+    }
+
+    function removeTooltip() {
+        clickPopup.remove();
+    }
+
+    function handleInteractivity(
+        isInteractive: boolean,
+        computeTooltip?: PoiMapRenderTooltipFunction
+    ) {
         if (isInteractive) {
             // Enable all user interaction handlers
             // Another way to disable all user handlers is to pass the option interactive = false on map creation
@@ -121,6 +150,13 @@
             if (!map.hasControl(nav)) {
                 map.addControl(nav, 'top-right');
             }
+
+            // Handle tooltip display
+            map.off('click', `${layerId}-0`, removeTooltip);
+
+            if (computeTooltip) {
+                map.on('click', `${layerId}-0`, addTooltip);
+            }
         } else {
             // Disable all user interaction handlers
             map.boxZoom.disable();
@@ -130,6 +166,9 @@
             map.keyboard.disable();
             map.scrollZoom.disable();
             map.touchZoomRotate.disable();
+
+            // Remove tooltip
+            map.off('click', `${layerId}-0`, removeTooltip);
 
             // Remove navigation control from map
             if (map.hasControl(nav)) {
@@ -175,7 +214,7 @@
         updateSourceAndLayer(source, layers);
     }
     $: if (mapReady) {
-        handleInteractivity(interactive);
+        handleInteractivity(interactive, renderTooltip);
     }
     $: if (mapReady && currentBbox) {
         setBbox(currentBbox);
@@ -205,12 +244,12 @@
         position: relative;
     }
     /* To add classes programmatically in svelte we will use a global selector. We place it inside a local selector to obtain some encapsulation and avoid side effects */
-    .map-card :global(.tooltip-on-hover > .maplibregl-popup-content) {
+    .map-card :global(.tooltip-on-click > .maplibregl-popup-content) {
         border-radius: 6px;
         box-shadow: 0px 6px 13px rgba(0, 0, 0, 0.26);
         padding: 13px;
     }
-    .map-card :global(.tooltip-on-hover .maplibregl-popup-tip) {
+    .map-card :global(.tooltip-on-click .maplibregl-popup-tip) {
         border-top-color: transparent;
         border-bottom-color: transparent;
         border-left-color: transparent;

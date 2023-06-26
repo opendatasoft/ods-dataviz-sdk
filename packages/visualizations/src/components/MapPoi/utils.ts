@@ -1,5 +1,5 @@
-import type { BBox } from 'geojson';
-import type { PoiMapLayer } from './types';
+import type { BBox, Feature } from 'geojson';
+import type { PoiMapLayer, ComputeTooltipFunction } from './types';
 import type { Color } from '../types';
 import { DEFAULT_COLORS } from './constants';
 
@@ -29,3 +29,11 @@ export const computeBaseRoundMarkerLayer = (
 
 // This is a default bound that will be extended
 export const VOID_BOUNDS: BBox = [180, 90, -180, -90];
+
+export const defaultTooltipFormat = (feature: Feature): string =>
+    feature?.properties?.label ? `${feature.properties?.label}` : '';
+
+export const computeTooltip: ComputeTooltipFunction = (hoveredFeature, options) => {
+    const format = options?.tooltip?.formatter;
+    return format ? format(hoveredFeature) : defaultTooltipFormat(hoveredFeature);
+};
