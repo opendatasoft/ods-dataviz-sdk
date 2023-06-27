@@ -267,6 +267,7 @@
     }
     .map-card :global(.tooltip-on-click-fixed) {
         transform: none !important;
+        margin: 6px;
     }
     .main {
         aspect-ratio: var(--aspect-ratio);
