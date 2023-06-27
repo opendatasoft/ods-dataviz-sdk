@@ -5,6 +5,16 @@ import type { Color } from '../types';
 
 export type PoiTooltipFormatter = (feature: Feature) => string;
 
+export type TooltipOptions = {
+    formatter?: PoiTooltipFormatter;
+    /** Custom configuration to define how to get a label for each shapes.
+     *
+     * The layer id to apply tooltip */
+    layerMatcher?: string;
+    /** Makes the tooltip position fixed */
+    fixed?: boolean;
+};
+
 export interface PoiMapOptions {
     /** Configuration of map style */
     style?: StyleSpecification | string;
@@ -19,13 +29,7 @@ export interface PoiMapOptions {
     aspectRatio?: number;
     /** Is the map interactive for the user (zoom, move, tooltips...)? */
     interactive?: boolean;
-    tooltip?: {
-        formatter?: PoiTooltipFormatter;
-        /** Custom configuration to define how to get a label for each shapes.
-         *
-         * The layer id to apply tooltip */
-        layerMatcher?: string;
-    };
+    tooltip?: TooltipOptions;
 }
 /** Structure containing the shapes data used by the POI map
  */

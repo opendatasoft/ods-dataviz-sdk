@@ -7,7 +7,7 @@
     import { BLANK } from './mapStyles';
     import { VOID_BOUNDS, computeBaseRoundMarkerLayer, computeTooltip } from './utils';
     import { DEFAULT_LAYERS_PARAMS } from './constants';
-    import type { PoiMapOptions, PoiMapLayer, LayerParams } from './types';
+    import type { PoiMapOptions, PoiMapLayer, LayerParams, TooltipOptions } from './types';
 
     export let data: { value: FeatureCollection }; // values and geo points to display
     export let options: PoiMapOptions;
@@ -23,6 +23,8 @@
     let layers: PoiMapLayer[];
     let source: SourceSpecification;
 
+    let tooltip: TooltipOptions;
+
     const defaultInteractive = true;
 
     $: ({
@@ -31,7 +33,11 @@
         layerParams,
         aspectRatio,
         interactive = defaultInteractive,
+        tooltip = {},
     } = options);
+
+    $: ({ fixed = false } = tooltip);
+
     let renderedBbox = bbox || VOID_BOUNDS;
 
     function computeSourceLayers(newShapes: FeatureCollection) {
@@ -75,6 +81,7 @@
         {aspectRatio}
         {interactive}
         {renderTooltip}
+        {fixed}
     />
 </div>
 

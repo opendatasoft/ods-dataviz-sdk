@@ -36,6 +36,8 @@
     // option to disable map interactions
     export let interactive: boolean;
 
+    export let fixed: boolean;
+
     let container: HTMLElement;
     let map: MapType;
     // Used to add navigation control to map
@@ -115,6 +117,11 @@
     function addTooltip(e: MapLayerMouseEvent) {
         if (e.features) {
             const tooltipDescription = renderTooltip(e.features[0]);
+            if (fixed) {
+                clickPopup.addClassName('tooltip-on-click-fixed');
+            } else {
+                clickPopup.removeClassName('tooltip-on-click-fixed');
+            }
             if (tooltipDescription) {
                 if (clickPopup.isOpen()) {
                     clickPopup.setLngLat(e.lngLat).setHTML(tooltipDescription);
@@ -245,17 +252,20 @@
     }
     /* To add classes programmatically in svelte we will use a global selector. We place it inside a local selector to obtain some encapsulation and avoid side effects */
     .map-card :global(.tooltip-on-click > .maplibregl-popup-content) {
-        border-radius: 6px;
-        box-shadow: 0px 6px 13px rgba(0, 0, 0, 0.26);
-        padding: 13px;
-    }
-    .map-card :global(.tooltip-on-click .maplibregl-popup-tip) {
-        border-top-color: transparent;
-        border-bottom-color: transparent;
-        border-left-color: transparent;
-        border-right-color: transparent;
+    border-radius: 6px;
+    box-shadow: 0px 6px 13px rgba(0, 0, 0, 0.26);
+    padding: 13px;
     }
 
+    .map-card :global(.tooltip-on-click .maplibregl-popup-tip) {
+    border-color: transparent;
+    border-style: solid;
+    border-width: 0;
+    border-top-width: 1px;
+    }
+    .map-card :global(.tooltip-on-click-fixed) {
+        transform: none !important;
+    }
     .main {
         aspect-ratio: var(--aspect-ratio);
         flex-grow: 1;
