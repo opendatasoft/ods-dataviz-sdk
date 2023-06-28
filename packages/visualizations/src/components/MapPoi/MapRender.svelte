@@ -146,6 +146,7 @@
         if (newSource && newLayer) {
             // Remove all custom layers but keep maplibre other style layers
             // Must be done before removing Source used by layers
+            // FIXME: find a better way to handle multiple layers
             if (storedLayerIds.length > 0) {
                 storedLayerIds.forEach((customLayerId) => map.removeLayer(customLayerId));
                 storedLayerIds = [];

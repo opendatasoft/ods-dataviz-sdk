@@ -146,6 +146,16 @@
                 enable: options?.axis?.assemblage?.percentaged,
             },
         };
+
+        /**
+         * We cannot use a type guard due to a bug in ChartJS
+         * https://github.com/chartjs/Chart.js/issues/10896#issuecomment-1660559770
+         */
+        const { type: seriesType } = options.series[0];
+        if (seriesType === ChartSeriesType.Doughnut) {
+            (chartOptions as Exclude<ChartConfiguration<'doughnut'>['options'], undefined>).cutout =
+                options.series[0].cutout;
+        }
         chartConfig = update(chartConfig, { options: { $set: chartOptions } });
     }
 

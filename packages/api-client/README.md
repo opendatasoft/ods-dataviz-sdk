@@ -1,12 +1,13 @@
 # @opendatasoft/api-client ![CI status](https://github.com/opendatasoft/ods-dataviz-sdk/workflows/CI/badge.svg)
 
-This package implements a Typescript/Javascript client library for [Opendatasoft's Explore APIv2](https://help.opendatasoft.com/apis/ods-explore-v2/).
+This package implements a Typescript/Javascript client library for [Opendatasoft's Explore API v2.1](https://help.opendatasoft.com/apis/ods-explore-v2/explore_v2.1.html).
 
 -   [Installation](#installation)
 -   [Get started](#get-started)
 -   [Usage](#usage)
     -   [ApiClient](#ApiClient)
     -   [Query builder](#query-builder)
+-   [Versioning](#versioning)
 -   [Frameworks](#frameworks)
 -   [Resources](#resources)
 -   [Contributing](#contributing)
@@ -43,7 +44,7 @@ const client = new ApiClient({ domain: 'documentation-resources' });
 // Create the query to run.
 const query = fromCatalog() // From the domain catalog
     .dataset('doc-geonames-cities-5000') // ... we'll use the dataset "doc-geonames-cities-5000"
-    .query() // call the query endpoint
+    .records() // call the records endpoint
     .where("country_code:'FR'") // // Filter records where country_code === "FR".
     .groupBy('name as city, population') // Select the fields "name" and "population".
     .orderBy('-population') // Sort by population in descending order.
@@ -57,7 +58,7 @@ client
     .catch(error => console.error(error));
 ```
 
-[CodeSandbox sample](https://codesandbox.io/s/api-clientget-started-be0xu?file=/src/index.js)
+[CodeSandbox sample](https://codesandbox.io/s/api-client-get-started-v2-1-4jpvd9)
 
 ## Usage
 
@@ -71,7 +72,7 @@ It takes an optional configuration object.
 import { ApiClient } from '@opendatasoft/api-client';
 
 const client = new ApiClient({
-    /* (Optional) authenticate through an api key */
+    /* (Optional) authenticate through an API key */
     apiKey: 'secret',
 
     /* (Optional) The Opendatasoft domain identifier or url.
@@ -94,12 +95,14 @@ const client = new ApiClient({
         delete apiResponse['links'];
         return apiResponse;
     },
+    /* (Optional) Hide the deprecated warning. Useful when in production environment */
+    hideDeprecatedWarning: true, 
 });
 ```
 
 You can reuse client instances.
 
-Use the method `get` to call the api. It accepts an url or a query object. It return a promise containing the api response or throw an error.
+Use the method `get` to call the API. It accepts an url or a query object. It return a promise containing the API response or throw an error.
 
 ```javascript
 import { ApiClient } from '@opendatasoft/api-client';
@@ -111,8 +114,7 @@ import { ApiClient } from '@opendatasoft/api-client';
     /*
        {
         total_count: 10,
-        links: [...],
-        datasets: [...]
+        results: [...]
       }
       */
 })();
@@ -175,6 +177,13 @@ client.get(
         .datasets()
         .select('dataset_id, records_count')
 );
+
+// ../catalog/datasets/my-dataset/records/2ee92a48178f784a5babfc06cb42d210cab57f55/
+client.get(
+    fromCatalog()
+        .dataset('my-dataset')
+        .record('2ee92a48178f784a5babfc06cb42d210cab57f55')
+);
 ```
 
 The `Query` interface expose convenient parameters of an API request.
@@ -192,7 +201,8 @@ import {
 } from '@opendatasoft/api-client';
 
 fromCatalog()
-    .query()
+    .dataset('doc-geonames-cities-5000')
+    .records()
     .select('count(*), avg(f)') // You can select fields
     .select(list('f1', 'f2', 'avg(f3) as n')) // There is also a helper to select multiple fields
     .select(previous => list(previous, 'avg(f4)')) // You can also reuse the previous value, list() will ignore it if it undefined
@@ -213,6 +223,21 @@ fromCatalog()
     .exclude('field:value') // Same for excluding
     .lang('fr'); // Force a language
 ```
+
+# Versioning
+
+The client will follow [Opendatasoft's Explore API](https://help.opendatasoft.com/apis/ods-explore-v2/) evolution.
+However, versioning is handled differently by the two projects. This package follows [Semantic Versioning](https://semver.org/) but not the Opendatasoft's Explore API (between the 2.0 and 2.1 there are some [breaking changes](https://help.opendatasoft.com/apis/ods-explore-v2/explore_v2.1.html#section/Introduction/v2.1-Changelog)).
+
+The table below shows how the API client follows Opendatasoft's Explore API evolution according to the type of change that may occur. These are examples and may not represent the exact versions of Explore API in the future.
+
+| Opendatasoft's Explore API version | API client version  | Comment |
+|---|----|----|
+| 2.0  | 0.x.x   | API client was in beta                                                                   |
+| 2.1  | 21.0.0  | 2.0 ⇒ 2.1 - Breaking change in Explore API - So major version upgrade for the API client |
+| 3.0  | 30.0.0  | 2.0 ⇒ 3.0 - Paradigm change in Explore API - So major version upgrade for the API client |
+| 3.0  | 30.1.0  | No changes in Explore API but a new feature in the API client                            |
+| 3.0  | 30.1.1  | No changes in Explore API but a fix in the API client                                    |
 
 ## Frameworks
 
@@ -238,8 +263,9 @@ Here are some samples to get you started.
 
 ## Resources
 
--   [Opendatasoft's Explore APIv2 documentation](https://help.opendatasoft.com/apis/ods-explore-v2/)
--   [Data Network Explore APIv2 Console](https://data.opendatasoft.com/api/v2/console)
+
+-   [Opendatasoft's APIv2.1 documentation](https://help.opendatasoft.com/apis/ods-explore-v2/explore_v2.1.html)
+-   [Data Network API Console](https://data.opendatasoft.com/api/explore/v2.1/console)
 
 ## Contributing
 
