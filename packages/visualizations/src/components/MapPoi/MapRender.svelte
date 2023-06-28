@@ -261,6 +261,7 @@
     border-top-width: 1px;
     }
     .map-card :global(.tooltip-on-click-fixed) {
+        /* Removes the natural behaviour of appearing at setLngLat */
         transform: none !important;
         margin: 6px;
     }
