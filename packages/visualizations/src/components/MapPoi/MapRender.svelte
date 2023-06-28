@@ -117,11 +117,6 @@
     function addTooltip(e: MapLayerMouseEvent) {
         if (e.features) {
             const tooltipDescription = renderTooltip(e.features[0]);
-            if (fixed) {
-                clickPopup.addClassName('tooltip-on-click-fixed');
-            } else {
-                clickPopup.removeClassName('tooltip-on-click-fixed');
-            }
             if (tooltipDescription) {
                 if (clickPopup.isOpen()) {
                     clickPopup.setLngLat(e.lngLat).setHTML(tooltipDescription);
