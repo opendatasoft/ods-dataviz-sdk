@@ -28,6 +28,7 @@ export interface ApiClientOptions {
     fetch?: WindowOrWorkerGlobalScope['fetch'];
     interceptRequest?: RequestInterceptor;
     interceptResponse?: ResponseInterceptor;
+    hideDeprecatedWarning?: boolean;
 }
 
 export interface ApiClientConfiguration {
@@ -36,6 +37,7 @@ export interface ApiClientConfiguration {
     fetch: WindowOrWorkerGlobalScope['fetch'];
     interceptRequest?: RequestInterceptor;
     interceptResponse?: ResponseInterceptor;
+    hideDeprecatedWarning?: boolean;
 }
 
 function computeBaseUrl(domain: string): string {
@@ -48,7 +50,7 @@ function computeBaseUrl(domain: string): string {
     if (!baseUrl.endsWith('/')) {
         baseUrl += '/';
     }
-    baseUrl += 'api/v2/';
+    baseUrl += 'api/explore/v2.1/';
 
     return baseUrl;
 }
@@ -61,7 +63,10 @@ function buildConfig(
         return defaultConfig;
     }
 
-    const { domain, fetch, apiKey, interceptRequest, interceptResponse } = apiClientOptions;
+    // FIXME: Rules conflict between prettier and eslint
+    // eslint-disable-next-line object-curly-newline
+    const { domain, fetch, apiKey, interceptRequest, interceptResponse, hideDeprecatedWarning } =
+        apiClientOptions;
 
     const newConfig: Partial<ApiClientConfiguration> = {};
 
@@ -70,12 +75,15 @@ function buildConfig(
     if (fetch) newConfig.fetch = fetch;
     if (interceptRequest) newConfig.interceptRequest = interceptRequest;
     if (interceptResponse) newConfig.interceptResponse = interceptResponse;
+    newConfig.hideDeprecatedWarning = Boolean(hideDeprecatedWarning);
 
     return update(defaultConfig, { $merge: newConfig });
 }
 
 export class ApiClient {
     readonly defaultConfig: ApiClientConfiguration;
+
+    deprecatedWarningShown: string[] = [];
 
     /**
      * Constructs an instance of {@link ApiClient}
@@ -127,6 +135,14 @@ export class ApiClient {
         // Send request
         const { fetch } = config;
         const fetchResponse = await fetch(request);
+        if (!options?.hideDeprecatedWarning) {
+            const msg = fetchResponse.headers.get('Ods-Explore-Api-Deprecation');
+            if (msg !== null && !this.deprecatedWarningShown.includes(msg)) {
+                this.deprecatedWarningShown.push(msg);
+                // eslint-disable-next-line no-console
+                console.warn(`@opendatasoft/api-client : ${msg}`);
+            }
+        }
         if (config.interceptResponse) return config.interceptResponse(fetchResponse);
 
         if (fetchResponse.ok) {
