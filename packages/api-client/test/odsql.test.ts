@@ -17,6 +17,9 @@ import {
     list,
     not,
     dateFromIsoString,
+    textSearch,
+    textSuggest,
+    textStartWith,
 } from '../src';
 
 describe('ODSQL query builder', () => {
@@ -56,30 +59,30 @@ describe('ODSQL query builder', () => {
             const searchTerm = undefined;
             expect(
                 fromCatalog()
-                    .query()
+                    .datasets()
                     .where(searchTerm && `search(${string(searchTerm)})`)
                     .toString()
-            ).toEqual('catalog/query/');
+            ).toEqual('catalog/datasets/');
         });
 
         test('conditional condition', () => {
             const searchTerm = 'my search term';
             expect(
                 fromCatalog()
-                    .query()
+                    .datasets()
                     .where((prev) => all(prev, searchTerm && `search(${string(searchTerm)})`))
                     .toString()
-            ).toEqual('catalog/query/?where=%28search%28%22my+search+term%22%29%29');
+            ).toEqual('catalog/datasets/?where=%28search%28%22my+search+term%22%29%29');
         });
 
         test('list helper', () => {
             expect(
                 fromCatalog()
-                    .query()
+                    .datasets()
                     .select((prev) => list(prev, 'a', 'b', 'c'))
                     .select((prev) => list(prev, 'd'))
                     .toString()
-            ).toEqual(`catalog/query/?select=${encodeURIComponent('a,b,c,d')}`);
+            ).toEqual(`catalog/datasets/?select=${encodeURIComponent('a,b,c,d')}`);
         });
 
         test('date helper', () => {
@@ -124,7 +127,7 @@ describe('ODSQL query builder', () => {
             expect(
                 fromCatalog()
                     .dataset('my_dataset')
-                    .query()
+                    .records()
                     .groupBy('x, y')
                     .where(`${field('my_field')}:${string("this will be' escaped")}`)
                     .where((filter) =>
@@ -137,12 +140,12 @@ describe('ODSQL query builder', () => {
                     .select((selected) => `${selected}, b`)
                     .toString()
             ).toEqual(
-                'catalog/datasets/my_dataset/query/?group_by=x%2C+y&select=a%2C+b&where=%28%28%60my_field%60%3A%22this+will+be%27+escaped%22%29+OR+%28%60my_field%60+%3C+date%271970-01-01%27%29%29+AND+%28not_escaped+in+%5B0..10%5D+and+other+is+true%29+AND+%28len%28f%29+%3D+2%29'
+                'catalog/datasets/my_dataset/records/?group_by=x%2C+y&select=a%2C+b&where=%28%28%60my_field%60%3A%22this+will+be%27+escaped%22%29+OR+%28%60my_field%60+%3C+date%271970-01-01%27%29%29+AND+%28not_escaped+in+%5B0..10%5D+and+other+is+true%29+AND+%28len%28f%29+%3D+2%29'
             );
 
             expect(
                 fromCatalog()
-                    .query()
+                    .datasets()
                     .orderBy(`${field('x')}`)
                     .limit(40)
                     .limit((l) => l + 5)
@@ -151,13 +154,13 @@ describe('ODSQL query builder', () => {
                     .exclude('field:2')
                     .toString()
             ).toEqual(
-                'catalog/query/?exclude=field%3A2&limit=45&offset=10&order_by=%60x%60&refine=field%3A1'
+                'catalog/datasets/?exclude=field%3A2&limit=45&offset=10&order_by=%60x%60&refine=field%3A1'
             );
         });
 
         test('export geojson query', () => {
             expect(
-                fromCatalog().dataset('my_dataset').exports('geojson').limit(10000).toString()
+                fromCatalog().dataset('my_dataset').export('geojson').limit(10000).toString()
             ).toEqual('catalog/datasets/my_dataset/exports/geojson/?limit=10000');
         });
 
@@ -167,12 +170,35 @@ describe('ODSQL query builder', () => {
         });
 
         test('not helper', () => {
-            expect(fromCatalog().query().where(not('x = 1')).toString()).toEqual(
-                'catalog/query/?where=not+%28x+%3D+1%29'
+            expect(fromCatalog().datasets().where(not('x = 1')).toString()).toEqual(
+                'catalog/datasets/?where=not+%28x+%3D+1%29'
             );
-            expect(fromCatalog().query().where(not(undefined)).toString()).toEqual(
-                'catalog/query/'
+            expect(fromCatalog().datasets().where(not(undefined)).toString()).toEqual(
+                'catalog/datasets/'
             );
+        });
+        test('Search clause', () => {
+            expect(textSearch('my search term', ['field1', 'field2'])).toEqual(
+                'search(`field1`, `field2`, "my search term")'
+            );
+        });
+        test('Suggest clause', () => {
+            expect(textSuggest('my search term', ['field1', 'field2'])).toEqual(
+                `suggest(\`field1\`, \`field2\`, "my search term")`
+            );
+        });
+        test('StartWith clause', () => {
+            expect(textStartWith('my search term', ['field1', 'field2'])).toEqual(
+                `startswith(\`field1\`, \`field2\`, "my search term")`
+            );
+        });
+        test('StartWith clause with only one field', () => {
+            expect(textStartWith('my search term', ['field1'])).toEqual(
+                `startswith(\`field1\`, "my search term")`
+            );
+        });
+        test('StartWith clause with no field', () => {
+            expect(textStartWith('my search term')).toEqual(`startswith("my search term")`);
         });
     });
 });
