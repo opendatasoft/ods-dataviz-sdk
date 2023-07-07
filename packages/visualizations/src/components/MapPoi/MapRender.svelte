@@ -14,6 +14,7 @@
     import type { BBox } from 'geojson';
 
     import { onMount } from 'svelte';
+    import { setActiveFeature, clearActiveFeature } from './utils';
     import type { PoiMapLayer, PoiMapRenderTooltipFunction } from './types';
     import { BLANK } from '../Map/mapStyles';
 
@@ -51,7 +52,7 @@
     const layerId = `shape-layer-${mapId}`;
 
     // Used to track clicked Feature id
-    let clickedFeatureId: string | number | undefined | null = null;
+    let activeFeatureId: string | number | undefined | null = null;
 
     function initializeMap() {
         const defaultCenter: LngLatLike = [3.5, 46];
@@ -80,7 +81,7 @@
     }
 
     $: clickPopup = new maplibregl.Popup({
-        closeOnClick: true,
+        closeOnClick: false,
         closeButton: false,
         className: fixed ? 'tooltip-on-click-fixed' : 'tooltip-on-click',
     });
@@ -117,46 +118,41 @@
         });
     };
 
-    function addTooltip(e: MapLayerMouseEvent) {
+    // The first approach to handle the display and the state of the marker and the tooltip
+    // Was to use clickPopup events listeners : clickPopup.on('open', handler), clickPopup.on('close', handler)
+    // It seemed like a natural way to toggle the active state but unfortunately the clickPopup.on('close', handler)
+    // Seems to cause a leak when the component is unmounted and a popup is opened as map.remove is called before the popup close event
+    // One way to avoid that is to manually handle all the tooltip related states
+    function handleTooltip(e: MapLayerMouseEvent) {
+        e.preventDefault();
         if (e.features) {
             const tooltipDescription = renderTooltip(e.features[0]);
-            clickPopup.on('open', () => {
-                // Remove active state from feature
-                if (clickedFeatureId && map) {
-                    map.setFeatureState(
-                        { source: sourceId, id: clickedFeatureId },
-                        { active: false }
-                    );
-                }
-                clickedFeatureId = e.features?.[0].id || null;
-                // Add active state to feature
-                if (clickedFeatureId && map) {
-                    map.setFeatureState(
-                        { source: sourceId, id: clickedFeatureId },
-                        { active: true }
-                    );
-                }
-            });
-            clickPopup.on('close', () => {
-                // Remove active state from feature
-                if (clickedFeatureId && map) {
-                    map.setFeatureState(
-                        { source: sourceId, id: clickedFeatureId },
-                        { active: false }
-                    );
-                }
-            });
             if (tooltipDescription) {
+                // Remove active state from feature if it was set before
+                clearActiveFeature(map, sourceId, activeFeatureId);
+                activeFeatureId = e.features?.[0].id || null;
+                // Add active state to feature
+                setActiveFeature(map, sourceId, activeFeatureId);
                 // Add tooltip to map
+                clickPopup.remove();
                 clickPopup.setLngLat(e.lngLat).setHTML(tooltipDescription).addTo(map);
                 // Center map to selected point
                 map.flyTo({ center: e.lngLat });
             }
+        } else {
+            clickPopup.remove();
         }
     }
 
     function removeTooltip() {
+        clearActiveFeature(map, sourceId, activeFeatureId);
         clickPopup.remove();
+    }
+
+    function handleClosePopupOnClickOutside(e: MapLayerMouseEvent) {
+        if (e.defaultPrevented === false) {
+            removeTooltip();
+        }
     }
 
     function handleInteractivity(
@@ -185,7 +181,8 @@
             map.off('click', `${layerId}-0`, removeTooltip);
 
             if (computeTooltip) {
-                map.on('click', `${layerId}-0`, addTooltip);
+                map.on('click', `${layerId}-0`, handleTooltip);
+                map.on('click', handleClosePopupOnClickOutside);
             }
         } else {
             // Disable all user interaction handlers
