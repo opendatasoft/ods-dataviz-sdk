@@ -55,4 +55,4 @@ export type GeoPoint = {
 
 export type PoiMapRenderTooltipFunction = DebouncedFunc<(feature: Feature) => string>;
 
-export type ComputeTooltipFunction = (hoveredFeature: Feature, options: PoiMapOptions) => string;
+export type ComputePOITooltipFunction = (hoveredFeature: Feature, options: PoiMapOptions) => string;

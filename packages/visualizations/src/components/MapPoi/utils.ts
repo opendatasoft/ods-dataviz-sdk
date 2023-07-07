@@ -1,6 +1,6 @@
 import type { BBox, Feature } from 'geojson';
 import type { Map } from 'maplibre-gl';
-import type { PoiMapLayer, ComputeTooltipFunction } from './types';
+import type { PoiMapLayer, ComputePOITooltipFunction } from './types';
 import type { Color } from '../types';
 import { DEFAULT_COLORS } from './constants';
 
@@ -44,7 +44,7 @@ export const VOID_BOUNDS: BBox = [180, 90, -180, -90];
 export const defaultTooltipFormat = (feature: Feature): string =>
     feature?.properties?.label ? `${feature.properties?.label}` : '';
 
-export const computeTooltip: ComputeTooltipFunction = (hoveredFeature, options) => {
+export const computeTooltip: ComputePOITooltipFunction = (hoveredFeature, options) => {
     const format = options?.tooltip?.formatter;
     return format ? format(hoveredFeature) : defaultTooltipFormat(hoveredFeature);
 };
@@ -71,7 +71,6 @@ export const setActiveFeature = (
     mapInstance: Map | undefined | null,
     source: string | undefined | null,
     activeId: string | number | undefined | null
-
 ) => {
     if (mapInstance && source && activeId) {
         mapInstance.setFeatureState(
