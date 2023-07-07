@@ -15,6 +15,16 @@ export const DEFAULT_LAYERS_PARAMS = {
     paint: {
         'circle-radius': 6,
         'circle-color': DEFAULT_COLORS.Blue,
+        'circle-stroke-width': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            1,
+            ['case', ['boolean', ['feature-state', 'active'], false], 4, 0.25],
+            7.5,
+            ['case', ['boolean', ['feature-state', 'active'], false], 6, 1.25],
+        ],
+        'circle-stroke-color': DEFAULT_COLORS.LightGrey,
     },
     filter: ['==', ['geometry-type'], 'Point'],
 } as CircleLayer;

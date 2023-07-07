@@ -50,6 +50,9 @@
     const sourceId = `shape-source-${mapId}`;
     const layerId = `shape-layer-${mapId}`;
 
+    // Used to track clicked Feature id
+    let clickedFeatureId: string | number | undefined | null = null;
+
     function initializeMap() {
         const defaultCenter: LngLatLike = [3.5, 46];
         const start = {
@@ -76,10 +79,10 @@
         return () => map.remove();
     }
 
-    $:clickPopup = new maplibregl.Popup({
+    $: clickPopup = new maplibregl.Popup({
         closeOnClick: true,
         closeButton: false,
-        className: fixed ? 'tooltip-on-click-fixed': 'tooltip-on-click',
+        className: fixed ? 'tooltip-on-click-fixed' : 'tooltip-on-click',
     });
 
     function sourceLoadingCallback(e: MapSourceDataEvent) {
@@ -117,12 +120,37 @@
     function addTooltip(e: MapLayerMouseEvent) {
         if (e.features) {
             const tooltipDescription = renderTooltip(e.features[0]);
-            if (tooltipDescription) {
-                if (clickPopup.isOpen()) {
-                    clickPopup.setLngLat(e.lngLat).setHTML(tooltipDescription);
-                } else {
-                    clickPopup.setLngLat(e.lngLat).setHTML(tooltipDescription).addTo(map);
+            clickPopup.on('open', () => {
+                // Remove active state from feature
+                if (clickedFeatureId && map) {
+                    map.setFeatureState(
+                        { source: sourceId, id: clickedFeatureId },
+                        { active: false }
+                    );
                 }
+                clickedFeatureId = e.features?.[0].id || null;
+                // Add active state to feature
+                if (clickedFeatureId && map) {
+                    map.setFeatureState(
+                        { source: sourceId, id: clickedFeatureId },
+                        { active: true }
+                    );
+                }
+            });
+            clickPopup.on('close', () => {
+                // Remove active state from feature
+                if (clickedFeatureId && map) {
+                    map.setFeatureState(
+                        { source: sourceId, id: clickedFeatureId },
+                        { active: false }
+                    );
+                }
+            });
+            if (tooltipDescription) {
+                // Add tooltip to map
+                clickPopup.setLngLat(e.lngLat).setHTML(tooltipDescription).addTo(map);
+                // Center map to selected point
+                map.flyTo({ center: e.lngLat });
             }
         }
     }
@@ -249,17 +277,17 @@
     /* To add classes programmatically in svelte we will use a global selector. We place it inside a local selector to obtain some encapsulation and avoid side effects */
     .map-card :global(.tooltip-on-click > .maplibregl-popup-content),
     .map-card :global(.tooltip-on-click-fixed > .maplibregl-popup-content) {
-    border-radius: 6px;
-    box-shadow: 0px 6px 13px rgba(0, 0, 0, 0.26);
-    padding: 13px;
+        border-radius: 6px;
+        box-shadow: 0px 6px 13px rgba(0, 0, 0, 0.26);
+        padding: 13px;
     }
 
     .map-card :global(.tooltip-on-click .maplibregl-popup-tip),
     .map-card :global(.tooltip-on-click-fixed .maplibregl-popup-tip) {
-    border-color: transparent;
-    border-style: solid;
-    border-width: 0;
-    border-top-width: 1px;
+        border-color: transparent;
+        border-style: solid;
+        border-width: 0;
+        border-top-width: 1px;
     }
     .map-card :global(.tooltip-on-click-fixed) {
         /* Removes the natural behaviour of appearing at setLngLat */

@@ -508,6 +508,7 @@ export const shapes: FeatureCollection = {
                 },
                 properties: {
                     label: 'Ile de France',
+                    featureId: 'idf',
                     cat: 'Terrain',
                 },
             },
@@ -519,6 +520,7 @@ export const shapes: FeatureCollection = {
                 },
                 properties: {
                     label: 'Corsica',
+                    featureId: 'Corsica',
                     cat: 'Red',
                 },
             },
@@ -530,6 +532,7 @@ export const shapes: FeatureCollection = {
                 },
                 properties: {
                     label: 'Paris',
+                    featureId: 'Paris',
                     cat: 'Red',
                 },
             },
@@ -541,6 +544,7 @@ export const shapes: FeatureCollection = {
                 },
                 properties: {
                     key: 'Bordeaux',
+                    featureId: 'Bordeaux',
                     cat: 'Blue',
                 },
             },
@@ -552,6 +556,7 @@ export const shapes: FeatureCollection = {
                 },
                 properties: {
                     label: 'Nantes',
+                    featureId: 'Nantes',
                     cat: 'Blue',
                 },
             },
@@ -563,6 +568,7 @@ export const shapes: FeatureCollection = {
                 },
                 properties: {
                     label: 'Marseille',
+                    featureId: 'Marseille',
                     cat: 'Red',
                 },
             },

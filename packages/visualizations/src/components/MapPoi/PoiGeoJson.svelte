@@ -44,6 +44,8 @@
         source = {
             type: 'geojson',
             data: newShapes,
+            // We need a feature id to handle hover state
+            promoteId: 'featureId',
         };
         // layers will be stored in an array as it will be needed to add more than one layer to display different geometries
         return layerParams
