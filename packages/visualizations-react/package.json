@@ -82,7 +82,7 @@
         "@typescript-eslint/eslint-plugin": "^5.37.0",
         "@typescript-eslint/parser": "^5.37.0",
         "babel-loader": "^8.2.2",
-        "chromatic": "^5.7.1",
+        "chromatic": "^6.19.9",
         "eslint": "^7.32.0",
         "eslint-config-airbnb": "^19.0.4",
         "eslint-config-airbnb-typescript": "^17.0.0",
