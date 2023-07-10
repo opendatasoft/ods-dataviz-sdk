@@ -80,11 +80,32 @@
         return () => map.remove();
     }
 
-    $: clickPopup = new maplibregl.Popup({
-        closeOnClick: false,
-        closeButton: false,
-        className: fixed ? 'tooltip-on-click-fixed' : 'tooltip-on-click',
-    });
+    let clickPopup: maplibregl.Popup;
+
+    function removeTooltip() {
+        clearActiveFeature(map, sourceId, activeFeatureId);
+        clickPopup.remove();
+    }
+
+    $: if (fixed) {
+        if (clickPopup) {
+            removeTooltip();
+        }
+        clickPopup = new maplibregl.Popup({
+            closeOnClick: false,
+            closeButton: false,
+            className: 'tooltip-on-click tooltip-on-click-fixed',
+        });
+    } else {
+        if (clickPopup) {
+            removeTooltip();
+        }
+        clickPopup = new maplibregl.Popup({
+            closeOnClick: false,
+            closeButton: false,
+            className: 'tooltip-on-click',
+        });
+    }
 
     function sourceLoadingCallback(e: MapSourceDataEvent) {
         // sourceDataType can be "visibility" or "metadata", in which case it's not about the data itself
@@ -142,11 +163,6 @@
         } else {
             clickPopup.remove();
         }
-    }
-
-    function removeTooltip() {
-        clearActiveFeature(map, sourceId, activeFeatureId);
-        clickPopup.remove();
     }
 
     function handleClosePopupOnClickOutside(e: MapLayerMouseEvent) {
@@ -262,6 +278,7 @@
     @supports (aspect-ratio: auto) {
         #map {
             height: auto;
+            max-height: 100%;
             aspect-ratio: var(--aspect-ratio);
         }
     }
@@ -277,6 +294,7 @@
         border-radius: 6px;
         box-shadow: 0px 6px 13px rgba(0, 0, 0, 0.26);
         padding: 13px;
+        overflow: auto;
     }
 
     .map-card :global(.tooltip-on-click .maplibregl-popup-tip),
@@ -284,12 +302,19 @@
         border-color: transparent;
         border-style: solid;
         border-width: 0;
-        border-top-width: 1px;
+    }
+    .map-card :global(.tooltip-on-click) {
+        max-height: inherit;
     }
     .map-card :global(.tooltip-on-click-fixed) {
         /* Removes the natural behaviour of appearing at setLngLat */
         transform: none !important;
-        margin: 6px;
+        height: inherit;
+        max-height: inherit;
+    }
+    .map-card :global(.tooltip-on-click-fixed > .maplibregl-popup-content) {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
     }
     .main {
         aspect-ratio: var(--aspect-ratio);
