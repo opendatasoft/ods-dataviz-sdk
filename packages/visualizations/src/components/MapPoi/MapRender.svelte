@@ -310,7 +310,8 @@
         border-width: 0;
     }
     .map-card :global(.tooltip-on-click) {
-        max-height: inherit;
+        /* Non fixed tooltip will be displayed above or below feature which will end in the center, it shouldn't take more than 50% of total height*/
+        max-height: 50%;
     }
     .map-card :global(.tooltip-on-click-fixed) {
         /* Removes the natural behaviour of appearing at setLngLat */
