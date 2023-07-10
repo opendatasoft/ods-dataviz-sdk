@@ -15,6 +15,7 @@
 
     import { onMount } from 'svelte';
     import { setActiveFeature, clearActiveFeature } from './utils';
+    import { TOOLTIP_WIDTH_PADDING, NULL_PADDING } from './constants';
     import type { PoiMapLayer, PoiMapRenderTooltipFunction } from './types';
     import { BLANK } from '../Map/mapStyles';
 
@@ -157,8 +158,13 @@
                 // Add tooltip to map
                 clickPopup.remove();
                 clickPopup.setLngLat(e.lngLat).setHTML(tooltipDescription).addTo(map);
+                // Place the map in the visible map center when fixed, in the absolute center otherwise
+                const flyToPadding = fixed ? TOOLTIP_WIDTH_PADDING : NULL_PADDING;
                 // Center map to selected point
-                map.flyTo({ center: e.lngLat });
+                map.flyTo({
+                    center: e.lngLat,
+                    padding: flyToPadding,
+                });
             }
         } else {
             clickPopup.remove();

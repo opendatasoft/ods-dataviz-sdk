@@ -28,3 +28,18 @@ export const DEFAULT_LAYERS_PARAMS = {
     },
     filter: ['==', ['geometry-type'], 'Point'],
 } as CircleLayer;
+
+export const TOOLTIP_WIDTH_PADDING = {
+    top: 0,
+    bottom: 0,
+    left: 240,
+    right: 0,
+};
+
+export const NULL_PADDING = {
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+};
+
