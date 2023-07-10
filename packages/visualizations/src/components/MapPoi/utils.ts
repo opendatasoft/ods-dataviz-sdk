@@ -32,6 +32,7 @@ export const computeBaseRoundMarkerLayer = (
                 7.5,
                 ['case', ['boolean', ['feature-state', 'active'], false], 6, 1.25],
             ],
+            'circle-opacity': ['case', ['boolean', ['feature-state', 'active'], false], 1, 0.5],
             'circle-stroke-color': DEFAULT_COLORS.LightGrey,
         },
         filter: ['==', ['geometry-type'], 'Point'],

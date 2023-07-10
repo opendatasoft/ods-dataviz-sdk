@@ -7,6 +7,7 @@ export const DEFAULT_COLORS: Record<string, Color> = {
     LightGrey: '#CBD2DB',
     DarkGrey: '#515457',
     Blue: '#142E7B',
+    LightBlue: '#5571c2',
 } as const;
 
 export const DEFAULT_LAYERS_PARAMS = {
@@ -14,7 +15,7 @@ export const DEFAULT_LAYERS_PARAMS = {
     layout: {},
     paint: {
         'circle-radius': 6,
-        'circle-color': DEFAULT_COLORS.Blue,
+        'circle-color': ['case', ['boolean', ['feature-state', 'active'], false], DEFAULT_COLORS.Blue, DEFAULT_COLORS.LightBlue],
         'circle-stroke-width': [
             'interpolate',
             ['linear'],
