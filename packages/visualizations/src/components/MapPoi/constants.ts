@@ -8,6 +8,7 @@ export const DEFAULT_COLORS: Record<string, Color> = {
     DarkGrey: '#515457',
     Blue: '#142E7B',
     LightBlue: '#5571c2',
+    LightGreen: '#3bf0dc',
 } as const;
 
 export const DEFAULT_LAYERS_PARAMS = {
@@ -15,7 +16,12 @@ export const DEFAULT_LAYERS_PARAMS = {
     layout: {},
     paint: {
         'circle-radius': 6,
-        'circle-color': ['case', ['boolean', ['feature-state', 'active'], false], DEFAULT_COLORS.Blue, DEFAULT_COLORS.LightBlue],
+        'circle-color': [
+            'case',
+            ['boolean', ['feature-state', 'active'], false],
+            DEFAULT_COLORS.LightGreen,
+            DEFAULT_COLORS.Blue,
+        ],
         'circle-stroke-width': [
             'interpolate',
             ['linear'],
@@ -25,7 +31,12 @@ export const DEFAULT_LAYERS_PARAMS = {
             7.5,
             ['case', ['boolean', ['feature-state', 'active'], false], 6, 1.25],
         ],
-        'circle-stroke-color': DEFAULT_COLORS.LightGrey,
+        'circle-stroke-color': [
+            'case',
+            ['boolean', ['feature-state', 'active'], false],
+            DEFAULT_COLORS.Blue,
+            DEFAULT_COLORS.LightGrey,
+        ],
     },
     filter: ['==', ['geometry-type'], 'Point'],
 } as CircleLayer;
@@ -43,4 +54,3 @@ export const NULL_PADDING = {
     left: 0,
     right: 0,
 };
-

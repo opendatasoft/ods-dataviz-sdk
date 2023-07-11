@@ -84,6 +84,7 @@
         {interactive}
         {renderTooltip}
         {fixed}
+        {data}
     />
 </div>
 

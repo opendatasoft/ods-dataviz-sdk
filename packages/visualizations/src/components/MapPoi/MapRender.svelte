@@ -11,7 +11,14 @@
         LngLatBoundsLike,
         MapLayerMouseEvent,
     } from 'maplibre-gl';
-    import type { BBox } from 'geojson';
+    import type {
+        BBox,
+        FeatureCollection,
+        Point,
+        Feature,
+        GeoJsonProperties,
+        Geometry,
+    } from 'geojson';
 
     import { onMount } from 'svelte';
     import { setActiveFeature, clearActiveFeature } from './utils';
@@ -19,6 +26,7 @@
     import type { PoiMapLayer, PoiMapRenderTooltipFunction } from './types';
     import { BLANK } from '../Map/mapStyles';
 
+    export let data: { value: FeatureCollection }; // values and geo points to display
     // maplibre style (basemap)
     export let style: StyleSpecification | string = BLANK;
     // maplibre source config
@@ -40,6 +48,11 @@
 
     export let fixed: boolean;
 
+    // Used to store keyboard navigation index
+    let keyboardNavIndex = 0;
+    // Used to distinguish click and keyboard navigation
+    let isKeyboardNavigation = false;
+
     let container: HTMLElement;
     let map: MapType;
     // Used to add navigation control to map
@@ -54,6 +67,108 @@
 
     // Used to track clicked Feature id
     let activeFeatureId: string | number | undefined | null = null;
+
+    // Tooltip popup related variables and functions
+    let clickPopup: maplibregl.Popup;
+
+    function removeTooltip() {
+        clearActiveFeature(map, sourceId, activeFeatureId);
+        clickPopup.remove();
+    }
+    // We recreate a new Popup instance for each type of tooltips
+    $: if (fixed) {
+        if (clickPopup) {
+            removeTooltip();
+        }
+        clickPopup = new maplibregl.Popup({
+            closeOnClick: false,
+            closeButton: false,
+            className: 'tooltip-on-click tooltip-on-click-fixed',
+        });
+    } else {
+        if (clickPopup) {
+            removeTooltip();
+        }
+        clickPopup = new maplibregl.Popup({
+            closeOnClick: false,
+            closeButton: false,
+            className: 'tooltip-on-click',
+        });
+    }
+
+    function handleTooltip(
+        FeatureCollection: Feature<Geometry, GeoJsonProperties>[],
+        indexToDisplay: number
+    ) {
+        if (
+            // Check existence, ids and geometry type
+            FeatureCollection &&
+            FeatureCollection?.[indexToDisplay]?.properties?.featureId &&
+            FeatureCollection[indexToDisplay].geometry.type === 'Point'
+        ) {
+            // We can safely cast type Point here as the previous if checks the type
+            const { coordinates } = FeatureCollection[indexToDisplay].geometry as Point;
+            const tooltipDescription = renderTooltip(FeatureCollection[indexToDisplay]);
+            if (tooltipDescription) {
+                // Remove tooltip and active state from feature if it was set before
+                removeTooltip();
+                // Track active feature id
+                activeFeatureId = FeatureCollection?.[indexToDisplay]?.properties?.featureId;
+                // Add active state to feature
+                setActiveFeature(map, sourceId, activeFeatureId);
+                // Add tooltip to map
+                clickPopup
+                    .setLngLat(coordinates as LngLatLike)
+                    .setHTML(tooltipDescription)
+                    .addTo(map);
+                // Place the map in the visible map center when fixed, in the absolute center otherwise
+                const flyToPadding = fixed ? TOOLTIP_WIDTH_PADDING : NULL_PADDING;
+                // Zoom in on selection
+                const currentZoom = map.getZoom();
+                const zoom = currentZoom > 10 ? currentZoom : 10;
+                // Center map to selected point
+                map.flyTo({
+                    center: coordinates as LngLatLike,
+                    padding: flyToPadding,
+                    zoom,
+                    screenSpeed: 2.5,
+                });
+                // Add keyboard navigation controls
+                clickPopup.getElement().addEventListener(
+                    'keydown',
+                    (event) => {
+                        if (event.code === 'Space' || event.code === 'Escape') {
+                            event.preventDefault();
+                            // Dismiss open popup
+                            if (clickPopup) {
+                                removeTooltip();
+                            }
+                            map.getCanvas().focus();
+                        }
+                        if (event.code === 'ArrowLeft') {
+                            isKeyboardNavigation = true;
+                            event.preventDefault();
+                            if (keyboardNavIndex === 0) {
+                                keyboardNavIndex = data.value.features.length - 1;
+                            } else {
+                                keyboardNavIndex--;
+                            }
+                        }
+                        if (event.code === 'ArrowRight') {
+                            isKeyboardNavigation = true;
+                            event.preventDefault();
+                            if (keyboardNavIndex === data.value.features.length - 1) {
+                                keyboardNavIndex = 0;
+                            } else {
+                                keyboardNavIndex++;
+                            }
+                        }
+                    },
+                    true
+                );
+            }
+        }
+    }
 
     function initializeMap() {
         const defaultCenter: LngLatLike = [3.5, 46];
@@ -76,36 +191,25 @@
 
         map.on('load', () => {
             mapReady = true;
+            // Add keyboard navigation controls to the map
+            map.getCanvas().addEventListener(
+                'keydown',
+                (e) => {
+                    if (e.code === 'Enter') {
+                        isKeyboardNavigation = true;
+                        handleTooltip(data?.value?.features, keyboardNavIndex);
+                    }
+                },
+                true
+            );
         });
 
         return () => map.remove();
     }
 
-    let clickPopup: maplibregl.Popup;
-
-    function removeTooltip() {
-        clearActiveFeature(map, sourceId, activeFeatureId);
-        clickPopup.remove();
-    }
-
-    $: if (fixed) {
-        if (clickPopup) {
-            removeTooltip();
-        }
-        clickPopup = new maplibregl.Popup({
-            closeOnClick: false,
-            closeButton: false,
-            className: 'tooltip-on-click tooltip-on-click-fixed',
-        });
-    } else {
-        if (clickPopup) {
-            removeTooltip();
-        }
-        clickPopup = new maplibregl.Popup({
-            closeOnClick: false,
-            closeButton: false,
-            className: 'tooltip-on-click',
-        });
+    // Listen to keyboardNavIndex to change tooltip on arrow keys navigation
+    $: if (keyboardNavIndex && clickPopup.isOpen() && isKeyboardNavigation) {
+        handleTooltip(data?.value?.features, keyboardNavIndex);
     }
 
     function sourceLoadingCallback(e: MapSourceDataEvent) {
@@ -145,32 +249,13 @@
     // It seemed like a natural way to toggle the active state but unfortunately the clickPopup.on('close', handler)
     // Seems to cause a leak when the component is unmounted and a popup is opened as map.remove is called before the popup close event
     // One way to avoid that is to manually handle all the tooltip related states
-    function handleTooltip(e: MapLayerMouseEvent) {
+    function handleClickTooltip(e: MapLayerMouseEvent) {
+        isKeyboardNavigation = false;
         e.preventDefault();
         if (e.features) {
-            const tooltipDescription = renderTooltip(e.features[0]);
-            if (tooltipDescription) {
-                // Remove active state from feature if it was set before
-                clearActiveFeature(map, sourceId, activeFeatureId);
-                activeFeatureId = e.features?.[0].id || null;
-                // Add active state to feature
-                setActiveFeature(map, sourceId, activeFeatureId);
-                // Add tooltip to map
-                clickPopup.remove();
-                clickPopup.setLngLat(e.lngLat).setHTML(tooltipDescription).addTo(map);
-                // Place the map in the visible map center when fixed, in the absolute center otherwise
-                const flyToPadding = fixed ? TOOLTIP_WIDTH_PADDING : NULL_PADDING;
-                // Zoom in on selection
-                const currentZoom = map.getZoom();
-                const zoom = currentZoom > 10 ? currentZoom : 10;
-                // Center map to selected point
-                map.flyTo({
-                    center: e.lngLat,
-                    padding: flyToPadding,
-                    zoom,
-                    screenSpeed: 2.5,
-                });
-            }
+            // We take the first feature in the array of the click event but we could imagine having an intermediate popup displaying the list of the closest features
+            // As we are able to zoom on the mpa it doesn't seem necessary at this point
+            handleTooltip(e.features, 0);
         } else {
             clickPopup.remove();
         }
@@ -208,7 +293,7 @@
             map.off('click', `${layerId}-0`, removeTooltip);
 
             if (computeTooltip) {
-                map.on('click', `${layerId}-0`, handleTooltip);
+                map.on('click', `${layerId}-0`, handleClickTooltip);
                 map.on('click', handleClosePopupOnClickOutside);
             }
         } else {
