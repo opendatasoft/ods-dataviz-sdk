@@ -160,10 +160,15 @@
                 clickPopup.setLngLat(e.lngLat).setHTML(tooltipDescription).addTo(map);
                 // Place the map in the visible map center when fixed, in the absolute center otherwise
                 const flyToPadding = fixed ? TOOLTIP_WIDTH_PADDING : NULL_PADDING;
+                // Zoom in on selection
+                const currentZoom = map.getZoom();
+                const zoom = currentZoom > 10 ? currentZoom : 10;
                 // Center map to selected point
                 map.flyTo({
                     center: e.lngLat,
                     padding: flyToPadding,
+                    zoom,
+                    screenSpeed: 2.5,
                 });
             }
         } else {
