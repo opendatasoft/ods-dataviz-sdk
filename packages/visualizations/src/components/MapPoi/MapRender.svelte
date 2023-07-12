@@ -33,8 +33,6 @@
     export let source: SourceSpecification;
     // maplibre layer config
     export let layers: PoiMapLayer[];
-    // Used to render tooltips on hover
-    export let renderTooltip: PoiMapRenderTooltipFunction;
     // array of created layer ids
     let storedLayerIds: string[] = [];
     // bounding box to start from, and restrict to it
@@ -45,13 +43,6 @@
     $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
     // option to disable map interactions
     export let interactive: boolean;
-
-    export let fixed: boolean;
-
-    // Used to store keyboard navigation index
-    let keyboardNavIndex = 0;
-    // Used to distinguish click and keyboard navigation
-    let isKeyboardNavigation = false;
 
     let container: HTMLElement;
     let map: MapType;
@@ -65,17 +56,24 @@
     const sourceId = `shape-source-${mapId}`;
     const layerId = `shape-layer-${mapId}`;
 
+    // Used to render tooltips on click
+    export let renderTooltip: PoiMapRenderTooltipFunction;
+    // Used to display the tooltip on a left sidebar fixed position
+    export let fixed: boolean;
+    // Used to store keyboard navigation index
+    let keyboardTooltipNavIndex = 0;
+    // Used to distinguish click and keyboard navigation
+    let isKeyboardNavigation = false;
     // Used to track clicked Feature id
     let activeFeatureId: string | number | undefined | null = null;
-
-    // Tooltip popup related variables and functions
+    // Used to store maplibre popup instance
     let clickPopup: maplibregl.Popup;
 
     function removeTooltip() {
         clearActiveFeature(map, sourceId, activeFeatureId);
         clickPopup.remove();
     }
-    // We recreate a new Popup instance for each type of tooltips
+    // We recreate a new Popup instance for each type of tooltips to avoid event listeners errors
     $: if (fixed) {
         if (clickPopup) {
             removeTooltip();
@@ -148,19 +146,19 @@
                         if (event.code === 'ArrowLeft') {
                             isKeyboardNavigation = true;
                             event.preventDefault();
-                            if (keyboardNavIndex === 0) {
-                                keyboardNavIndex = data.value.features.length - 1;
+                            if (keyboardTooltipNavIndex === 0) {
+                                keyboardTooltipNavIndex = data.value.features.length - 1;
                             } else {
-                                keyboardNavIndex--;
+                                keyboardTooltipNavIndex--;
                             }
                         }
                         if (event.code === 'ArrowRight') {
                             isKeyboardNavigation = true;
                             event.preventDefault();
-                            if (keyboardNavIndex === data.value.features.length - 1) {
-                                keyboardNavIndex = 0;
+                            if (keyboardTooltipNavIndex === data.value.features.length - 1) {
+                                keyboardTooltipNavIndex = 0;
                             } else {
-                                keyboardNavIndex++;
+                                keyboardTooltipNavIndex++;
                             }
                         }
                     },
@@ -197,7 +195,7 @@
                 (e) => {
                     if (e.code === 'Enter') {
                         isKeyboardNavigation = true;
-                        handleTooltip(data?.value?.features, keyboardNavIndex);
+                        handleTooltip(data?.value?.features, keyboardTooltipNavIndex);
                     }
                 },
                 true
@@ -207,9 +205,9 @@
         return () => map.remove();
     }
 
-    // Listen to keyboardNavIndex to change tooltip on arrow keys navigation
-    $: if (keyboardNavIndex && clickPopup.isOpen() && isKeyboardNavigation) {
-        handleTooltip(data?.value?.features, keyboardNavIndex);
+    // Listen to keyboardTooltipNavIndex to change tooltip on arrow keys navigation
+    $: if (keyboardTooltipNavIndex && clickPopup.isOpen() && isKeyboardNavigation) {
+        handleTooltip(data?.value?.features, keyboardTooltipNavIndex);
     }
 
     function sourceLoadingCallback(e: MapSourceDataEvent) {
