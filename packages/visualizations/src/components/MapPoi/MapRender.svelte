@@ -141,8 +141,12 @@
                             if (clickPopup) {
                                 removeTooltip();
                             }
+                            // Stay focused on the map after removing tooltip
                             map.getCanvas().focus();
                         }
+                        // Enable arrow keys navigation among tooltips following their index
+                        // Every time when keyboardTooltipNavIndex changes and if isKeyboardNavigation is true
+                        // A new tooltip is displayed by calling handleTooltip in a reactive $ statement below
                         if (event.code === 'ArrowLeft') {
                             isKeyboardNavigation = true;
                             event.preventDefault();
@@ -242,7 +246,7 @@
         });
     };
 
-    // The first approach to handle the display and the state of the marker and the tooltip
+    // The first tested approach to handle the display and the state of the marker and the tooltip
     // Was to use clickPopup events listeners : clickPopup.on('open', handler), clickPopup.on('close', handler)
     // It seemed like a natural way to toggle the active state but unfortunately the clickPopup.on('close', handler)
     // Seems to cause a leak when the component is unmounted and a popup is opened as map.remove is called before the popup close event
@@ -252,7 +256,7 @@
         e.preventDefault();
         if (e.features) {
             // We take the first feature in the array of the click event but we could imagine having an intermediate popup displaying the list of the closest features
-            // As we are able to zoom on the mpa it doesn't seem necessary at this point
+            // As we are able to zoom on the map it doesn't seem necessary at this point
             handleTooltip(e.features, 0);
         } else {
             clickPopup.remove();

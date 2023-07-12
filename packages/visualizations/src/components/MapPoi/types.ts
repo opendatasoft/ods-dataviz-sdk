@@ -1,15 +1,13 @@
 import type { CircleLayerSpecification, StyleSpecification } from 'maplibre-gl';
 import type { BBox, FeatureCollection, Feature } from 'geojson';
-import type { DebouncedFunc } from 'lodash';
 import type { Color } from '../types';
 
 export type PoiTooltipFormatter = (feature: Feature) => string;
 
 export type TooltipOptions = {
     formatter?: PoiTooltipFormatter;
-    /** Custom configuration to define how to get a label for each shapes.
-     *
-     * The layer id to apply tooltip */
+    /** Custom configuration to define how to display tooltip.
+     * The layer id to apply layer style and tooltip */
     layerMatcher?: string;
     /** Makes the tooltip position fixed */
     fixed?: boolean;
@@ -31,8 +29,7 @@ export interface PoiMapOptions {
     interactive?: boolean;
     tooltip?: TooltipOptions;
 }
-/** Structure containing the shapes data used by the POI map
- */
+/** Structure containing the shapes data used by the POI map */
 export type PoiMapDataValue = {
     value: FeatureCollection;
 };
@@ -53,6 +50,6 @@ export type GeoPoint = {
     lon: number;
 };
 
-export type PoiMapRenderTooltipFunction = DebouncedFunc<(feature: Feature) => string>;
+export type PoiMapRenderTooltipFunction = (feature: Feature) => string;
 
-export type ComputePOITooltipFunction = (hoveredFeature: Feature, options: PoiMapOptions) => string;
+export type ComputePOITooltipFunction = (clickedFeature: Feature, options: PoiMapOptions) => string;

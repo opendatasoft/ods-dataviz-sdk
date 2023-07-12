@@ -1,8 +1,7 @@
 <script lang="ts">
     import turfBbox from '@turf/bbox';
     import type { SourceSpecification, StyleSpecification } from 'maplibre-gl';
-    import type { BBox, FeatureCollection } from 'geojson';
-    import { debounce } from 'lodash';
+    import type { BBox, FeatureCollection, Feature } from 'geojson';
     import MapRender from './MapRender.svelte';
     import { BLANK } from './mapStyles';
     import { VOID_BOUNDS, computeBaseRoundMarkerLayer, computeTooltip } from './utils';
@@ -44,7 +43,7 @@
         source = {
             type: 'geojson',
             data: newShapes,
-            // We need a feature id to handle hover state
+            // We need a feature id to use active feature-state to toggle selected feature
             promoteId: 'featureId',
         };
         // layers will be stored in an array as it will be needed to add more than one layer to display different geometries
@@ -69,9 +68,7 @@
         }
     }
 
-    $: renderTooltip = debounce((hoveredFeature) => computeTooltip(hoveredFeature, options), 10, {
-        leading: true,
-    });
+    $: renderTooltip = (clickedFeature: Feature) => computeTooltip(clickedFeature, options);
 </script>
 
 <div>
