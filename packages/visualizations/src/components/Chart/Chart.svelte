@@ -111,7 +111,10 @@
                         const percentaged = options?.axis?.assemblage?.percentaged ? '% ' : '';
                         // If the value is a percentage, we need to format the raw value
                         const formattedRawValue =
-                            percentaged && raw && typeof raw === 'number' && `(${format(raw)})`;
+                            percentaged &&
+                            raw !== undefined &&
+                            typeof raw === 'number' &&
+                            `(${format(raw)})`;
                         const suffix = percentaged + formattedRawValue;
 
                         if (seriesType && parsed) {
