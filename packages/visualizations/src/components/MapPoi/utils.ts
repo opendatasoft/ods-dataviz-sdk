@@ -1,31 +1,70 @@
-import type { BBox } from 'geojson';
-import type { PoiMapLayer } from './types';
-import type { Color } from '../types';
-import { DEFAULT_COLORS } from './constants';
+import type {  CircleLayerSpecification, StyleSpecification, DataDrivenPropertyValueSpecification } from 'maplibre-gl';
 
-export const computeBaseRoundMarkerLayer = (
-    colors: Color[],
-    matchValues: string[],
-    matchKey: string,
-    noMatchColor?: Color
-): PoiMapLayer => {
-    const matchExpression = ['match', ['get', matchKey]];
-    matchValues.forEach((key, i) => {
-        matchExpression.push(key);
-        matchExpression.push(colors[i]);
-    });
-    matchExpression.push(noMatchColor || DEFAULT_COLORS.Blue); // Default fallback color
+import type { Layer, PoiMapOptions } from './types';
+import { DEFAULT_ASPECT_RATIO, DEFAULT_BBOX } from './constants';
 
-    return {
-        type: 'circle',
-        layout: {},
-        paint: {
-            'circle-radius': 6,
-            'circle-color': matchExpression,
-        },
-        filter: ['==', ['geometry-type'], 'Point'],
-    };
+export const getJsonStyle = async (style : string) => {
+    const response = await fetch(style);
+    return await response.json() as StyleSpecification;
 };
 
-// This is a default bound that will be extended
-export const VOID_BOUNDS: BBox = [180, 90, -180, -90];
+
+// TO DO: add tests to check that optional layers are at the end of the array
+export const getMapStyle = (
+    style: StyleSpecification | undefined,
+    options : {
+        sources?: StyleSpecification["sources"], 
+        layers?: StyleSpecification["layers"]
+    }
+    ) : StyleSpecification | undefined => {
+        if(!style) return undefined;
+        const {sources, layers} = options;
+        return {
+            ...style, 
+            sources: {...style.sources, ...sources}, 
+            layers: [ ...style.layers, ...(layers || [])] 
+        };};
+
+
+// Only circle layers are supported 
+export const getMapLayers = (layers?: Layer[]) : CircleLayerSpecification[] => {
+    if(!layers) return [];
+
+    return layers.map(layer => {
+        const {source, sourceLayer, type, color, groupBy} = layer;
+         let cirleColor : unknown = color;
+        
+        if(groupBy) {
+            const groupByColors = ['match', ['get', groupBy?.key]] ;
+            Object.keys(groupBy.colorMap).forEach((key) => {
+                groupByColors.push(key, groupBy.colorMap[key]);
+            });
+            groupByColors.push(color);
+            cirleColor = groupByColors;
+        }
+
+        return {
+            type,
+            id : `${source}-${type}`, 
+            source,
+            ...(sourceLayer ? {'source-layer' : sourceLayer }  : undefined),
+            paint: {'circle-radius' : 5, 'circle-color': cirleColor as DataDrivenPropertyValueSpecification<string>},
+            filter: ['==', ['geometry-type'], 'Point']
+        };
+    });
+};
+
+export const getMapOptions = (options: PoiMapOptions) => {
+    const {
+        aspectRatio = DEFAULT_ASPECT_RATIO,
+        bbox = DEFAULT_BBOX,
+        interactive = true,
+      } = options;
+    
+    return {
+        ...options,
+        aspectRatio,
+        bbox, 
+        interactive
+    };
+};

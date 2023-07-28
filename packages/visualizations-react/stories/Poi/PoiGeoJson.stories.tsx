@@ -1,11 +1,24 @@
 import React from 'react';
+import { BBox } from 'geojson';
+import { PoiMapOptions, PoiMapData } from '@opendatasoft/visualizations';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { PoiMapOptions } from '@opendatasoft/visualizations';
-import { FeatureCollection } from 'geojson';
-import { shapes } from './data';
-import { PoiGeoJson, Props } from '../../src';
 
-const DEMO_BASEMAP = 'https://demotiles.maplibre.org/style.json';
+import { PoiGeoJson, Props } from '../../src';
+import { shapes as data } from './data';
+
+const BASE_STYLE = 'https://demotiles.maplibre.org/style.json';
+
+const layers : PoiMapOptions["layers"] = [{
+    source: "data",
+    type: "circle",
+    color: '#B42222',
+    groupBy: {
+        key: 'key',
+        colorMap: {Paris: 'blue', Nantes: 'yellow', Bordeaux: 'purple', Corsica: 'white', Marseille : 'lightblue' }
+    }
+}];
+
+const bbox : BBox = [ -6.855469,41.343825,11.645508,51.371780];
 
 const meta: ComponentMeta<typeof PoiGeoJson> = {
     title: 'Poi/GeoJson',
@@ -14,9 +27,7 @@ const meta: ComponentMeta<typeof PoiGeoJson> = {
 
 export default meta;
 
-const Template: ComponentStory<typeof PoiGeoJson> = (
-    args: Props<FeatureCollection, PoiMapOptions>
-) => (
+const Template: ComponentStory<typeof PoiGeoJson> = args => (
     <div
         style={{
             width: '50%',
@@ -30,40 +41,39 @@ const Template: ComponentStory<typeof PoiGeoJson> = (
     </div>
 );
 
-export const PoiMapNoLayersParams = Template.bind({});
-const PoiMapNoLayersParamsArgs: Props<FeatureCollection, PoiMapOptions> = {
-    data: { value: shapes },
-    options: {
-        style: DEMO_BASEMAP,
-    },
+/**
+ * STORY: No layer params
+ */
+export const PoiMapNoLayersParams : ComponentStory<React.FC<Props<PoiMapData, PoiMapOptions>>> = Template.bind({});
+const PoiMapNoLayersParamsArgs : Props<PoiMapData, PoiMapOptions> = {
+    data: {style: BASE_STYLE},
+    options: {bbox}
 };
 PoiMapNoLayersParams.args = PoiMapNoLayersParamsArgs;
 
-const layerParams = {
-    colors: ['#B42222', 'Green'],
-    matchValues: ['Paris', 'Nantes'],
-    matchKey: 'key',
-};
-
-export const PoiMapNonInteractive = Template.bind({});
-
-const PoiMapNonInteractiveArgs: Props<FeatureCollection, PoiMapOptions> = {
-    data: { value: shapes },
+/**
+ * STORY: No interactive
+ */
+export const PoiMapNonInteractive : ComponentStory<React.FC<Props<PoiMapData, PoiMapOptions>>> = Template.bind({});
+const PoiMapNonInteractiveArgs: Props<PoiMapData, PoiMapOptions> = {
+    data:  {style: BASE_STYLE, sources: { [layers[0].source] : {type: "geojson", data}}},
     options: {
-        layerParams,
-        style: DEMO_BASEMAP,
+        bbox,
+        layers,
         interactive: false,
     },
 };
 PoiMapNonInteractive.args = PoiMapNonInteractiveArgs;
 
-export const PoiMapMatchExpression = Template.bind({});
-
-const PoiMapMatchExpressionArgs: Props<FeatureCollection, PoiMapOptions> = {
-    data: { value: shapes },
-    options: {
-        layerParams,
-        style: DEMO_BASEMAP,
+/**
+ * STORY: With match expression
+ */
+export const PoiMapMatchExpression : ComponentStory<React.FC<Props<PoiMapData, PoiMapOptions>>> = Template.bind({});
+const PoiMapMatchExpressionArgs : Props<PoiMapData, PoiMapOptions> = {
+    data: {
+        style: BASE_STYLE, 
+        sources: {[layers[0].source] : {type: "geojson", data}}
     },
+    options: {bbox, layers},
 };
 PoiMapMatchExpression.args = PoiMapMatchExpressionArgs;

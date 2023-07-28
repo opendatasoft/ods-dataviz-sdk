@@ -1,5 +1,5 @@
+import type { BBox } from 'geojson';
 import type { Color } from '../types';
-import type { CircleLayer } from './types';
 
 export const DEFAULT_COLORS: Record<string, Color> = {
     Default: '#CCCCCC',
@@ -9,12 +9,6 @@ export const DEFAULT_COLORS: Record<string, Color> = {
     Blue: '#142E7B',
 } as const;
 
-export const DEFAULT_LAYERS_PARAMS = {
-    type: 'circle',
-    layout: {},
-    paint: {
-        'circle-radius': 6,
-        'circle-color': DEFAULT_COLORS.Blue,
-    },
-    filter: ['==', ['geometry-type'], 'Point'],
-} as CircleLayer;
+export const DEFAULT_BBOX: BBox = [180, 90, -180, -90];
+
+export const DEFAULT_ASPECT_RATIO = 1;
