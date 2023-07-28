@@ -1,12 +1,11 @@
-import type { FeatureCollection } from 'geojson';
-import type { PoiMapOptions } from './types';
-import PoiGeoJsonImpl from './PoiGeoJson.svelte';
+import type { PoiMapData, PoiMapOptions } from './types';
+import MapImpl from './Map.svelte';
 import SvelteImpl from '../SvelteImpl';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
 
-export default class PoiGeoJson extends SvelteImpl<FeatureCollection, PoiMapOptions> {
-    protected getSvelteComponentClass(): typeof PoiGeoJsonImpl {
-        return PoiGeoJsonImpl;
+export default class Map extends SvelteImpl<PoiMapData, PoiMapOptions> {
+    protected getSvelteComponentClass(): typeof MapImpl {
+        return MapImpl;
     }
 }
