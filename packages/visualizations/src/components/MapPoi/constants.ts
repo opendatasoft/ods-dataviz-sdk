@@ -1,20 +1,13 @@
-import type { Color } from '../types';
-import type { CircleLayer } from './types';
+import type { BBox } from 'geojson';
+import type { StyleSpecification } from 'maplibre-gl';
 
-export const DEFAULT_COLORS: Record<string, Color> = {
-    Default: '#CCCCCC',
-    ShapeOutline: '#FFFFFF',
-    LightGrey: '#CBD2DB',
-    DarkGrey: '#515457',
-    Blue: '#142E7B',
-} as const;
+export const DEFAULT_BASEMAP_STYLE: StyleSpecification = {
+    version: 8,
+    name: 'Opendatasoft default basemap style',
+    sources: {},
+    layers: [],
+};
 
-export const DEFAULT_LAYERS_PARAMS = {
-    type: 'circle',
-    layout: {},
-    paint: {
-        'circle-radius': 6,
-        'circle-color': DEFAULT_COLORS.Blue,
-    },
-    filter: ['==', ['geometry-type'], 'Point'],
-} as CircleLayer;
+export const DEFAULT_BBOX: BBox = [180, 90, -180, -90];
+
+export const DEFAULT_ASPECT_RATIO = 1;
