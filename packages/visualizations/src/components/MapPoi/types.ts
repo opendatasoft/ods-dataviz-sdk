@@ -1,38 +1,55 @@
 import type { CircleLayerSpecification, StyleSpecification } from 'maplibre-gl';
-import type { BBox, FeatureCollection } from 'geojson';
+import type { BBox } from 'geojson';
 import type { Color } from '../types';
 
+// To render data layers on the map
+export type PoiMapData = Partial<{
+    sources: StyleSpecification['sources'];
+    layers: Layer[];
+}>;
+
 export interface PoiMapOptions {
-    /** Configuration of map style */
-    style?: StyleSpecification | string;
-    /** Configuration for the layers to display Pois */
-    layerParams?: LayerParams;
-    /** Maximum boundaries of the map, outside of which the user cannot zoom/move
+    /*
+     * To render a basemap. Could be:
+     * - A MapLibre style URL; See https://maplibre.org/maplibre-gl-js/docs/API/types/maplibregl.MapOptions.
+     * - Or an object with a 'sources' and a 'layers' keys. Useful when using a Raster or WMS basemap.
+     */
+    style?: string | PoiMapStyleOption;
+    /**
+     * Maximum boundaries of the map, outside of which the user cannot zoom/move
      * Also set the position of the map when rendering.
-     * If undefined, the map will fit the content.
      */
     bbox?: BBox | undefined;
-    /** Aspect ratio used to draw the map. The map will take he width available to it, and decide its height based on that ratio. */
+    // Aspect ratio used to draw the map. The map will take he width available to it, and decide its height based on that ratio.
     aspectRatio?: number;
-    /** Is the map interactive for the user (zoom, move, tooltips...)? */
+    // Is the map interactive for the user (zoom, move, tooltips...)
     interactive?: boolean;
 }
-/** Structure containing the shapes data used by the POI map
+
+export type PoiMapStyleOption = Partial<Pick<StyleSpecification, 'sources' | 'layers'>>;
+
+// Supported layers
+export type LayerSpecification = CircleLayerSpecification;
+
+/**
+ * Base on Maplibre layers https://maplibre.org/maplibre-style-spec/layers/
+ * Use only part of the configuration to build layers with consistent styles.
  */
-export type PoiMapDataValue = {
-    value: FeatureCollection;
+export type Layer = {
+    id: string;
+    source: string;
+    sourceLayer?: string;
+    type: LayerSpecification['type'];
+    color: Color;
+    /**
+     * Set a marker color based on a value.
+     * If no match, default color comes from `color`
+     */
+    colorMatch?: {
+        key: string;
+        colors: { [key: string]: Color };
+    };
 };
-
-export type CircleLayer = Omit<CircleLayerSpecification, 'id' | 'source'>;
-
-export type LayerParams = {
-    colors: Color[]; // Array of colors to match the array of values
-    matchValues: string[]; // Array of values to apply colors
-    matchKey: string; // The features key on which apply colors and values mapping
-    noMatchColor?: Color;
-};
-
-export type PoiMapLayer = CircleLayer;
 
 export type GeoPoint = {
     lat: number;

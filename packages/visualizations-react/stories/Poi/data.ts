@@ -518,8 +518,7 @@ export const shapes: FeatureCollection = {
                     type: 'Point',
                 },
                 properties: {
-                    key: 'Corsica',
-                    cat: 'Red',
+                    key: 'Corsica'
                 },
             },
             {
@@ -529,8 +528,7 @@ export const shapes: FeatureCollection = {
                     coordinates: [2.357573,48.837904],
                 },
                 properties: {
-                    key: 'Paris',
-                    cat: 'Red',
+                    key: 'Paris'
                 },
             },
             {
@@ -540,8 +538,7 @@ export const shapes: FeatureCollection = {
                     coordinates: [-0.563328,44.838245],
                 },
                 properties: {
-                    key: 'Bordeaux',
-                    cat: 'Blue',
+                    key: 'Bordeaux'
                 },
             },
             {
@@ -551,8 +548,7 @@ export const shapes: FeatureCollection = {
                     coordinates: [-1.552924,47.214847],
                 },
                 properties: {
-                    key: 'Nantes',
-                    cat: 'Blue',
+                    key: 'Nantes'
                 },
             },
             {
@@ -562,8 +558,7 @@ export const shapes: FeatureCollection = {
                     coordinates: [5.360529,43.303114],
                 },
                 properties: {
-                    key: 'Marseille',
-                    cat: 'Red',
+                    key: 'Marseille'
                 },
             },
         ],
