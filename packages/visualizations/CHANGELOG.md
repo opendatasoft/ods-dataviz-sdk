@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.15.0-beta-poimap.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.15.0-beta-poimap.1...@opendatasoft/visualizations@0.15.0-beta-poimap.2) (2023-07-31)
+
+**Note:** Version bump only for package @opendatasoft/visualizations
+
+
+
+
+
 # [0.15.0-beta-poimap.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.15.0-beta-poimap.0...@opendatasoft/visualizations@0.15.0-beta-poimap.1) (2023-07-31)
 
 
