@@ -95,6 +95,7 @@ export const EnumExportDatasetFormat = {
     RDFXML: 'rdfxml',
     TURTLE: 'turtle',
     N3: 'n3',
+    MVT: 'mvt',
 } as const;
 
 export type ExportDatasetFormat =
