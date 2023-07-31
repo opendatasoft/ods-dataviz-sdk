@@ -23,7 +23,7 @@
     $: style = getMapStyle(jsonStyle, { sources, layers });
     
     // Enrich options with default values
-    $: computedOptions = getMapOptions(options)
+    $: computedOptions = getMapOptions(options);
 
 </script>
 
