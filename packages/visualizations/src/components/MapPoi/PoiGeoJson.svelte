@@ -15,8 +15,10 @@
     let sources: StyleSpecification['sources'] | undefined;
     let layers: StyleSpecification['layers'] | undefined;
 
-    onMount(async () => {
-        jsonStyle = await getJsonStyle(data?.value?.style);
+    onMount(() => {
+        getJsonStyle(data?.value?.style).then((response) => {
+            jsonStyle = response;
+        });
     });
 
     $: sources = data?.value?.sources;

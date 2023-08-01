@@ -7,11 +7,25 @@ import type {
 import type { Layer, PoiMapOptions } from './types';
 import { DEFAULT_ASPECT_RATIO, DEFAULT_BBOX } from './constants';
 
-export const getJsonStyle = async (style?: string) => {
-    if (!style) return undefined;
-    const response = await fetch(style);
-    return (await response.json()) as StyleSpecification;
-};
+export const getJsonStyle = (style?: string): Promise<StyleSpecification | undefined> =>
+    new Promise((resolve) => {
+        if (!style) {
+            resolve(undefined);
+            return;
+        }
+
+        fetch(style)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch style.`);
+                }
+                return response.json();
+            })
+            .then((json) => resolve(json))
+            .catch(() => {
+                throw new Error(`Failed to parse fetched style`);
+            });
+    });
 
 // TO DO: add tests to check that optional layers are at the end of the array
 export const getMapStyle = (
@@ -62,10 +76,16 @@ export const getMapLayers = (layers?: Layer[]): CircleLayerSpecification[] => {
 };
 
 export const getMapOptions = (options: PoiMapOptions) => {
-    const { aspectRatio = DEFAULT_ASPECT_RATIO, bbox = DEFAULT_BBOX, interactive = true } = options;
+    const {
+        aspectRatio = DEFAULT_ASPECT_RATIO,
+        bbox = DEFAULT_BBOX,
+        interactive = true,
+        layers,
+        ...rest
+    } = options;
 
     return {
-        ...options,
+        ...rest,
         aspectRatio,
         bbox,
         interactive,
