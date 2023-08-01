@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.15.0-beta-poimap.4](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.15.0-beta-poimap.3...@opendatasoft/visualizations-react@0.15.0-beta-poimap.4) (2023-08-01)
+
+**Note:** Version bump only for package @opendatasoft/visualizations-react
+
+
+
+
+
 # [0.15.0-beta-poimap.3](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.15.0-beta-poimap.2...@opendatasoft/visualizations-react@0.15.0-beta-poimap.3) (2023-07-31)
 
 **Note:** Version bump only for package @opendatasoft/visualizations-react
