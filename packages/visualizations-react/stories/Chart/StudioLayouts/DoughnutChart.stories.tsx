@@ -6,7 +6,7 @@ import { compactNumberFormatter, defaultSource } from '../../utils';
 import ChartTemplate from '../ChartTemplate';
 
 const meta: Meta = {
-    title: 'Chart/StudioLayouts/PieChart',
+    title: 'Chart/StudioLayouts/DoughnutChart',
 };
 
 export default meta;
@@ -18,8 +18,8 @@ const df = [
     { x: 'Delta', y: 30 },
 ];
 
-export const PieTitleSectorsName = ChartTemplate.bind({});
-const PieTitleSectorsNameArgs: Props<DataFrame,ChartOptions> = {
+export const DoughnutTitleSectorsName = ChartTemplate.bind({});
+const DoughnutTitleSectorsNameArgs: Props<DataFrame,ChartOptions> = {
             data: {
                 loading: false,
                 value: df,
@@ -29,8 +29,9 @@ const PieTitleSectorsNameArgs: Props<DataFrame,ChartOptions> = {
                 source: defaultSource,
                 series: [
                     {
-                        type: ChartSeriesType.Pie,
+                        type: ChartSeriesType.Doughnut,
                         valueColumn: 'y',
+                        cutout:"65%",
                         backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
                         dataLabels: {
                             display: true,
@@ -39,14 +40,14 @@ const PieTitleSectorsNameArgs: Props<DataFrame,ChartOptions> = {
                     },
                 ],
                 title: {
-                    text: 'Pie chart with title and sectors name',
+                    text: 'Doughnut chart with title and sectors name',
                 },
             },
 };
-PieTitleSectorsName.args = PieTitleSectorsNameArgs;
+DoughnutTitleSectorsName.args = DoughnutTitleSectorsNameArgs;
 
-export const PieTitleSectorsNameValue = ChartTemplate.bind({});
-const PieTitleSectorsNameValueArgs: Props<DataFrame, ChartOptions> = {
+export const DoughnutTitleSectorsNameValue = ChartTemplate.bind({});
+const DoughnutTitleSectorsNameValueArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -56,7 +57,8 @@ const PieTitleSectorsNameValueArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: ChartSeriesType.Pie,
+                type: ChartSeriesType.Doughnut,
+                cutout:"65%",
                 valueColumn: 'y',
                 backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
                 dataLabels: {
@@ -70,14 +72,14 @@ const PieTitleSectorsNameValueArgs: Props<DataFrame, ChartOptions> = {
             },
         ],
         title: {
-            text: 'Pie chart with title and sectors name with values',
+            text: 'Doughnut chart with title and sectors name with values',
         },
     },
 };
-PieTitleSectorsNameValue.args = PieTitleSectorsNameValueArgs;
+DoughnutTitleSectorsNameValue.args = DoughnutTitleSectorsNameValueArgs;
 
-export const PieTitleLegend = ChartTemplate.bind({});
-const PieTitleLegendArgs: Props<DataFrame, ChartOptions> = {
+export const DoughnutTitleLegend = ChartTemplate.bind({});
+const DoughnutTitleLegendArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -87,8 +89,9 @@ const PieTitleLegendArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: ChartSeriesType.Pie,
+                type: ChartSeriesType.Doughnut,
                 valueColumn: 'y',
+                cutout:"65%",
                 backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
             },
         ],
@@ -97,14 +100,14 @@ const PieTitleLegendArgs: Props<DataFrame, ChartOptions> = {
             position: 'right',
         },
         title: {
-            text: 'Pie chart with title and legend',
+            text: 'Doughnut chart with title and legend',
         },
     },
 };
-PieTitleLegend.args = PieTitleLegendArgs;
+DoughnutTitleLegend.args = DoughnutTitleLegendArgs;
 
-export const PieTitleLegendValues = ChartTemplate.bind({});
-const PieTitleLegendValuesArgs: Props<DataFrame, ChartOptions> = {
+export const DoughnutTitleLegendValues = ChartTemplate.bind({});
+const DoughnutTitleLegendValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
@@ -119,8 +122,9 @@ const PieTitleLegendValuesArgs: Props<DataFrame, ChartOptions> = {
         source: defaultSource,
         series: [
             {
-                type: ChartSeriesType.Pie,
+                type: ChartSeriesType.Doughnut,
                 valueColumn: 'y',
+                cutout:"65%",
                 backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', 'rgb(39,174,96)'],
             },
         ],
@@ -136,9 +140,9 @@ const PieTitleLegendValuesArgs: Props<DataFrame, ChartOptions> = {
             },
         },
         title: {
-            text: 'Pie chart with title and legend with values',
+            text: 'Doughnut chart with title and legend with values',
         },
     },
 };
-PieTitleLegendValues.args = PieTitleLegendValuesArgs;
+DoughnutTitleLegendValues.args = DoughnutTitleLegendValuesArgs;
 
