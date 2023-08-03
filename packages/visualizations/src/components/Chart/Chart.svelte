@@ -112,8 +112,8 @@
                         // If the value is a percentage, we need to format the raw value
                         const formattedRawValue =
                             percentaged &&
-                            raw !== undefined &&
                             typeof raw === 'number' &&
+                            !Number.isNaN(raw) &&
                             `(${format(raw)})`;
                         const suffix = percentaged + formattedRawValue;
 
