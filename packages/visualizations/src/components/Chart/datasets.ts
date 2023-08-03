@@ -90,6 +90,15 @@ export default function toDataset(df: DataFrame, s: ChartSeries): ChartDataset {
             borderWidth: defaultValue(s.borderWidth, 2),
         };
     }
+    if (s.type === 'doughnut') {
+        return {
+            type: 'doughnut',
+            label: defaultValue(s.label, ''),
+            data: df.map((entry) => entry[s.valueColumn]),
+            backgroundColor: multipleChartJsColors(s.backgroundColor),
+            datalabels: chartJsDataLabels(s.dataLabels),
+        };
+    }
 
     throw new Error('Unknown chart type');
 }

@@ -138,13 +138,14 @@ export interface DataLabelsConfiguration {
     padding?: number;
 }
 
-export type ChartSeries = Line | Bar | Pie | Radar;
+export type ChartSeries = Line | Bar | Pie | Radar | Doughnut;
 
 export enum ChartSeriesType {
     Line = 'line',
     Bar = 'bar',
     Pie = 'pie',
     Radar = 'radar',
+    Doughnut = 'doughnut',
 }
 
 export interface Line {
@@ -196,6 +197,15 @@ export interface Radar {
     pointRadius?: number;
     pointBackgroundColor?: Color | Color[];
     borderWidth?: number;
+}
+export interface Doughnut {
+    type: ChartSeriesType.Doughnut;
+    valueColumn: string;
+    label?: string;
+    cutout: string;
+    backgroundColor?: Color | Color[];
+    dataLabels?: DataLabelsConfiguration;
+    indexAxis?: 'x' | 'y';
 }
 
 export type FillMode = false | number | string | { value: number };
