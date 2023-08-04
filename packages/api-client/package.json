@@ -1,6 +1,6 @@
 {
     "name": "@opendatasoft/api-client",
-    "version": "21.0.1-beta-poimap.0",
+    "version": "21.0.0-poi-tooltip",
     "license": "MIT",
     "author": "opendatasoft",
     "homepage": "https://github.com/opendatasoft/ods-dataviz-sdk",

@@ -1,6 +1,6 @@
 {
     "name": "@opendatasoft/visualizations-react",
-    "version": "0.15.0-beta-poimap.0",
+    "version": "0.15.0-poi-tooltip",
     "license": "MIT",
     "author": "opendatasoft",
     "homepage": "https://github.com/opendatasoft/ods-dataviz-sdk",
@@ -53,7 +53,7 @@
         "trailingComma": "es5"
     },
     "dependencies": {
-        "@opendatasoft/visualizations": "^0.15.0-beta-poimap.0",
+        "@opendatasoft/visualizations": "^0.15.0-poi-tooltip",
         "use-callback-ref": "^1.2.4"
     },
     "devDependencies": {
