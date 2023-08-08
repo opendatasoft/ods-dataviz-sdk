@@ -1,6 +1,6 @@
 import React from 'react';
 import { BBox } from 'geojson';
-import { PoiMapOptions } from '@opendatasoft/visualizations';
+import { PoiMapData } from '@opendatasoft/visualizations';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { PoiGeoJson } from '../../src';
@@ -8,7 +8,7 @@ import { shapes as data } from './data';
 
 const BASE_STYLE = 'https://demotiles.maplibre.org/style.json';
 
-const layers : PoiMapOptions["layers"] = [{
+const layers : PoiMapData["layers"] = [{
     source: "data",
     type: "circle",
     color: '#B42222',
@@ -46,8 +46,8 @@ const Template: ComponentStory<typeof PoiGeoJson> = args => (
  */
 export const PoiMapNoLayersParams : ComponentStory<typeof PoiGeoJson> = Template.bind({});
 const PoiMapNoLayersParamsArgs = {
-    data: {value: {style: BASE_STYLE}},
-    options: {bbox}
+    data: {},
+    options: {style: BASE_STYLE, bbox}
 };
 PoiMapNoLayersParams.args = PoiMapNoLayersParamsArgs;
 
@@ -56,9 +56,9 @@ PoiMapNoLayersParams.args = PoiMapNoLayersParamsArgs;
  */
 export const PoiMapNonInteractive : ComponentStory<typeof PoiGeoJson> = Template.bind({});
 const PoiMapNonInteractiveArgs = {
-    data:  {value:{style: BASE_STYLE, sources: { [layers[0].source] : {type: "geojson" as const, data}}}},
+    data:  {value:{ layers, sources: { [layers[0].source] : {type: "geojson" as const, data}}}},
     options: {
-        bbox,
+        style: BASE_STYLE,
         layers,
         interactive: false,
     },
@@ -72,10 +72,10 @@ export const PoiMapMatchExpression : ComponentStory<typeof PoiGeoJson> = Templat
 const PoiMapMatchExpressionArgs = {
     data: {
         value: {
-            style: BASE_STYLE, 
+            layers,
             sources: {[layers[0].source] : {type: "geojson" as const, data}}
         }
     },
-    options: {bbox, layers},
+    options: {style: BASE_STYLE, bbox },
 };
 PoiMapMatchExpression.args = PoiMapMatchExpressionArgs;

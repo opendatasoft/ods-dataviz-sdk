@@ -2,12 +2,17 @@
 
 <script lang="ts">
     import type { BBox } from 'geojson';
-    import type { LngLatBoundsLike, StyleSpecification } from 'maplibre-gl';
+    import type { LngLatBoundsLike, MapOptions, StyleSpecification } from 'maplibre-gl';
     import { onDestroy, onMount } from 'svelte';
 
     import MapPOI from './Map';
 
-    export let style: StyleSpecification;
+    // Base style, sources and layers
+    export let style: MapOptions['style'];
+    export let sources: StyleSpecification['sources'];
+    export let layers: StyleSpecification['layers'];
+
+    // Options
     export let bbox: BBox;
     export let aspectRatio: number;
     export let interactive: boolean;
@@ -17,7 +22,7 @@
 
     $: map.toggleInteractivity(interactive ? 'enable' : 'disable');
     $: map.setBbox(bbox);
-    $: map.setStyle(style);
+    $: map.setStyle(style, { sources, layers });
     $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
 
     // Lifecycle

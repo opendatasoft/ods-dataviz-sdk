@@ -20,7 +20,7 @@ export default class MapPOI {
     navigation = new maplibregl.NavigationControl({ showCompass: false });
 
     initialize(
-        style: StyleSpecification,
+        style: MapOptions['style'],
         container: HTMLElement,
         options: Omit<MapOptions, 'style' | 'container'>
     ) {
@@ -45,8 +45,26 @@ export default class MapPOI {
         this.map?.remove();
     }
 
-    setStyle(style: StyleSpecification) {
-        this.queue(() => this.map?.setStyle(style));
+    // TODO: add tests to check that layers are at the end of the array
+    setStyle(
+        style: MapOptions['style'],
+        {
+            sources,
+            layers,
+        }: { sources: StyleSpecification['sources']; layers: StyleSpecification['layers'] }
+    ) {
+        this.queue(() =>
+            this.map?.setStyle(style, {
+                transformStyle: (_, nextStyle) => ({
+                    ...nextStyle,
+                    sources: {
+                        ...nextStyle.sources,
+                        ...sources,
+                    },
+                    layers: [...nextStyle.layers, ...layers],
+                }),
+            })
+        );
     }
 
     setBbox(bbox?: BBox) {
