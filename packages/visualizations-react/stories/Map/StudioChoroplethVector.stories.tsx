@@ -64,6 +64,9 @@ const StudioChoroplethVectorGradientArgs: Props<DataFrame, ChoroplethVectorTiles
         value: dataReg,
     },
     options: {
+        title: 'Title',
+        subtitle: 'Subtitle',
+        description: 'description',
         shapesTiles,
         colorScale: {
             type: ColorScaleTypes.Gradient,

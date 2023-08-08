@@ -4,7 +4,7 @@
     import type { BBox, FeatureCollection } from 'geojson';
     import { debounce } from 'lodash';
     import type { ColorScale, DataBounds, Color } from '../../types';
-    import MapRender from './MapRender.svelte';
+    import MapRender from '../WebGl/MapRender.svelte';
     import { BLANK } from '../mapStyles';
     import {
         getDataBounds,
@@ -23,6 +23,7 @@
         MapLegend,
         NavigationMap,
     } from '../types';
+    import Map from '../WebGl/Map.svelte';
 
     export let data: { value: ChoroplethDataValue[] }; // values, and the key to match
     export let options: ChoroplethGeoJsonOptions; // contains the shapes to display & match
@@ -108,26 +109,28 @@
 </script>
 
 <div>
-    <MapRender
-        {style}
-        {source}
-        {layer}
-        {aspectRatio}
-        {dataBounds}
-        {colorScale}
-        {legend}
-        {renderTooltip}
-        bbox={renderedBbox}
-        {activeShapes}
-        {interactive}
-        {matchKey}
-        {attribution}
-        {title}
-        {subtitle}
-        {description}
-        {navigationMaps}
-        {data}
-    />
+    <Map>
+        <MapRender
+            {style}
+            {source}
+            {layer}
+            {aspectRatio}
+            {dataBounds}
+            {colorScale}
+            {legend}
+            {renderTooltip}
+            bbox={renderedBbox}
+            {activeShapes}
+            {interactive}
+            {matchKey}
+            {attribution}
+            {title}
+            {subtitle}
+            {description}
+            {navigationMaps}
+            {data}
+        />
+    </Map>
 </div>
 
 <style>

@@ -355,9 +355,6 @@
         {/if}
         <div id="map" bind:this={container} />
     </div>
-    {#if description}
-        <p id={mapId.toString()} class="a11y-invisible-description">{description}</p>
-    {/if}
     {#if legend && dataBounds && clientWidth && mapReady}
         <ColorsLegend
             {dataBounds}
