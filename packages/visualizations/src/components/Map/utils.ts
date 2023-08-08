@@ -1,6 +1,10 @@
 import chroma from 'chroma-js';
 import turfBbox from '@turf/bbox';
-import maplibregl, { FilterSpecification } from 'maplibre-gl';
+import maplibregl, {
+    ColorSpecification,
+    DataDrivenPropertyValueSpecification,
+    FilterSpecification,
+} from 'maplibre-gl';
 import geoViewport from '@mapbox/geo-viewport';
 import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
 import type { Scale } from 'chroma-js';
@@ -224,13 +228,11 @@ export const computeFilterExpression = (filterConfig: MapFilter): FilterSpecific
     const { key, value } = filterConfig;
     // The matching is case-insensitive to make it easier with unique administrative codes
     // that may have varying case but still represent the same entity.
-    const filterMatchExpression: FilterSpecification = ['in', ['downcase', ['get', key]]];
     const matchingValues: string[] = [];
     (Array.isArray(value) ? value : [value]).forEach((filterValue) => {
         matchingValues.push(filterValue.toString().toLowerCase());
     });
-    filterMatchExpression.push(['literal', matchingValues]);
-    return filterMatchExpression;
+    return ['in', ['downcase', ['get', key]], ['literal', matchingValues]];
 };
 
 export const defaultTooltipFormat: ChoroplethTooltipFormatter = ({ value, label }) =>
@@ -278,7 +280,8 @@ export const computeBaseLayer = (
     type: 'fill',
     layout: {},
     paint: {
-        'fill-color': fillColor,
+        // TODO: Better typing
+        'fill-color': fillColor as DataDrivenPropertyValueSpecification<ColorSpecification>,
         'fill-opacity': 1,
         'fill-outline-color': DefaultColor,
     },
@@ -289,8 +292,9 @@ export const computeMatchExpression = (
     matchKey: string,
     emptyValueColor: Color
 ): FilterSpecification => {
-    const matchExpression = ['match', ['get', matchKey]];
+    // TODO: Better typing
+    const matchExpression: unknown[] = ['match', ['get', matchKey]];
     Object.entries(colors).forEach((e) => matchExpression.push(...e));
     matchExpression.push(emptyValueColor); // Default fallback color
-    return matchExpression;
+    return matchExpression as FilterSpecification;
 };
