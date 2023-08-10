@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [21.0.1-beta-poi-map.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.0.0...@opendatasoft/api-client@21.0.1-beta-poi-map.0) (2023-08-10)
+
+**Note:** Version bump only for package @opendatasoft/api-client
+
+
+
+
+
 # [21.0.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.1.0-beta.0...@opendatasoft/api-client@21.0.0) (2023-06-26)
 
 Welcome to the first stable release of `@opendatasoft/api-client`!
@@ -42,4 +50,3 @@ In the [documentation](https://github.com/opendatasoft/ods-dataviz-sdk/tree/main
 - New and updated clauses: `textStartWith()`, `textSearch()` and `textSuggest()`.
 - types: Add `ExportCatalogFormat` and `ExportDatasetFormat` types.
 - Warning messages are showed in the console when the response API contains an `ODS-Explore-API-Deprecation` header.
-

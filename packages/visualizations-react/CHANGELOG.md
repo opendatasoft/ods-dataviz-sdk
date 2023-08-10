@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0-beta-poi-map.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.15.0...@opendatasoft/visualizations-react@0.16.0-beta-poi-map.0) (2023-08-10)
+
+
+### Features
+
+* **poimap:** add react poi map component ([1101108](https://github.com/opendatasoft/ods-dataviz-sdk/commit/1101108b624e011649b0b763f61af91319f837a6))
+
+
+
+
+
 # [0.15.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.14.2...@opendatasoft/visualizations-react@0.15.0) (2023-08-10)
 
 
