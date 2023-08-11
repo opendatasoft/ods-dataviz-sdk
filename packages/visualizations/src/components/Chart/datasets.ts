@@ -101,5 +101,18 @@ export default function toDataset(df: DataFrame, s: ChartSeries): ChartDataset {
         };
     }
 
+    if (s.type === 'scatter') {
+        return {
+            type: 'scatter',
+            label:s.label,
+            data: df.map((entry) => ({x: entry[s.valueColumn],y : entry[s.indexAxis]})),
+            backgroundColor: s.backgroundColor,
+            datalabels: chartJsDataLabels(s.dataLabels),
+            pointRadius: defaultValue(s.pointRadius, 3),
+            hitRadius: defaultValue(s.hitRadius, 3),
+            pointBorderColor: defaultValue(s.pointBorderColor,'rgb(255,255,255)'),
+            pointHoverRadius:defaultValue(s.pointHoverRadius, 3),
+        };
+    }
     throw new Error('Unknown chart type');
 }

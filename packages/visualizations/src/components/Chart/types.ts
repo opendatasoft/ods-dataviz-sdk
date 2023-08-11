@@ -39,6 +39,7 @@ export interface ChartOptions {
     description?: string;
     /** Link button to source */
     source?: Source;
+    interaction?:Object
 }
 
 export interface GridLinesConfiguration {
@@ -138,7 +139,7 @@ export interface DataLabelsConfiguration {
     padding?: number;
 }
 
-export type ChartSeries = Line | Bar | Pie | Radar | Doughnut;
+export type ChartSeries = Line | Bar | Pie | Radar | Doughnut | Scatter;
 
 export enum ChartSeriesType {
     Line = 'line',
@@ -146,6 +147,7 @@ export enum ChartSeriesType {
     Pie = 'pie',
     Radar = 'radar',
     Doughnut = 'doughnut',
+    Scatter = 'scatter',
 }
 
 export interface Line {
@@ -207,6 +209,24 @@ export interface Doughnut {
     backgroundColor?: Color | Color[];
     dataLabels?: DataLabelsConfiguration;
     indexAxis?: 'x' | 'y';
+}
+
+export interface Scatter {
+    type: ChartSeriesType.Scatter;
+    valueColumn: string;
+    label?: string;
+    indexAxis:string;
+    backgroundColor?: Color | Color[];
+    borderColor?: Color | Color[];
+    fill?: FillConfiguration;
+    dataLabels?: DataLabelsConfiguration;
+    tension?: number;
+    pointRadius?: number;
+    pointBorderColor?: string;
+    pointBackgroundColor?: Color | Color[];
+    borderWidth?: number;
+    borderDash?: number[];
+    spanGaps?: boolean | number;
 }
 
 export type FillMode = false | number | string | { value: number };

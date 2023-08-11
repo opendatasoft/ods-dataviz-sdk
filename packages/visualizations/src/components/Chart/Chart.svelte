@@ -139,6 +139,10 @@
                                 // charts, the label is not the series legend, it's the category.
                                 return `${dataFrame[dataIndex].x}: ${format(parsed)}`;
                             }
+                            if (seriesType === ChartSeriesType.Scatter) {
+                                prefix= `${label} `
+                                return prefix + `(x: ${format(parsed.x)} | y: ${format(parsed.y)})` + suffix;
+                            }
                         }
 
                         return prefix + formattedValue + suffix;
@@ -164,6 +168,7 @@
             (chartOptions as Exclude<ChartConfiguration<'doughnut'>['options'], undefined>).cutout =
                 options.series[0].cutout;
         }
+        chartOptions.interaction = defaultValue(options.interaction,"");
         chartConfig = update(chartConfig, { options: { $set: chartOptions } });
     }
 

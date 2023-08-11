@@ -710,3 +710,187 @@ const ColumnChartStackedGroupsArgs: Props<DataFrame, ChartOptions> = {
     },
 };
 ColumnChartStackedGroups.args = ColumnChartStackedGroupsArgs;
+function generateUniformDistribution(n:number, xRange = [0, 1], yRange = [0, 1]) {
+    const points = [];
+    for (let i = 0; i < n; i++) {
+      points.push({
+        x: xRange[0] + Math.random() * (xRange[1] - xRange[0]),
+        y: yRange[0] + Math.random() * (yRange[1] - yRange[0])
+      });
+    }
+    return points;
+  }
+  
+
+export const ScatterplotChart = ChartTemplate.bind({});
+const ScatterPlotChartArgs: Props<DataFrame, ChartOptions> = {
+    data: {
+        loading: false,
+        value: generateUniformDistribution(1000, [0, 10], [0, 10]),
+    },
+    options: {
+        labelColumn: 'label',
+        series: [
+            {
+                type: ChartSeriesType.Scatter,
+                valueColumn:"x",
+                indexAxis:"y",
+                label:"Group 1",
+                pointRadius: 5,
+                hitRadius: 5,
+                pointHoverRadius: 4,
+                backgroundColor: 'rgba(255, 0, 0, .5)',
+                dataLabels:{
+                    display:false
+                }
+            },
+        ],
+        legend: {
+            display: true,
+        },
+        axis: {
+            x: {
+                display: true,
+            },
+            y: {
+                display: true,
+            },
+            assemblage: {
+                stacked: false,
+                percentaged: false,
+            },
+        },
+        title: {
+            text: 'test with gap',
+        },
+    },
+};
+ScatterplotChart.args = ScatterPlotChartArgs;
+
+function randomNormal(mean = 0, stdDev = 1) {
+    let u1 = 0;
+    let u2 = 0;
+    while (u1 === 0) u1 = Math.random();
+    while (u2 === 0) u2 = Math.random();
+    const z0 = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
+    return z0 * stdDev + mean;
+  }
+  
+function generateNormalDistribution(n, xMean = 0, xStdDev = 1, yMean = 0, yStdDev = 1) {
+    const points = [];
+    for (let i = 0; i < n; i++) {
+      points.push({
+        x: randomNormal(xMean, xStdDev),
+        y: randomNormal(yMean, yStdDev)
+      });
+    }
+    return points;
+  }
+
+  
+export const ScatterplotNormalDistribChart = ChartTemplate.bind({});
+const ScatterplotNormalDistribChartArgs: Props<DataFrame, ChartOptions> = {
+    data: {
+        loading: false,
+        value: generateNormalDistribution(1000, 5, 2, 5, 2),
+    },
+    options: {
+        labelColumn: 'label',
+        series: [
+            {
+                type: ChartSeriesType.Scatter,
+                valueColumn:"x",
+                indexAxis:"y",
+                label:"Group 1",
+                pointRadius: 5,
+                hitRadius: 5,
+                pointHoverRadius: 4,
+                pointBorderColor: "#00000000",
+                backgroundColor: 'rgba(255, 0, 0, .5)',
+                dataLabels:{
+                    display:false
+                }
+            },
+        ],
+        legend: {
+            display: true,
+        },
+        axis: {
+            x: {
+                display: true,
+            },
+            y: {
+                display: true,
+            },
+            assemblage: {
+                stacked: false,
+                percentaged: false,
+            },
+        },
+        title: {
+            text: 'test with gap',
+        },
+    },
+};
+ScatterplotNormalDistribChart.args = ScatterplotNormalDistribChartArgs;
+
+function randomExponential(lambda) {
+    return -Math.log(1.0 - Math.random()) / lambda;
+  }
+  
+  function generateExponentialDistribution(n, lambda = 1, yRange = [0, 1]) {
+    const points = [];
+    for (let i = 0; i < n; i++) {
+      points.push({
+        x: randomExponential(lambda),
+        y: yRange[0] + Math.random() * (yRange[1] - yRange[0])
+      });
+    }
+    return points;
+  }
+  
+  export const ScatterplotExponentialDistribChart = ChartTemplate.bind({});
+const ScatterplotExponentialDistribChartArgs: Props<DataFrame, ChartOptions> = {
+    data: {
+        loading: false,
+        value: generateExponentialDistribution(1000, 10, [0, 10]),
+    },
+    options: {
+        labelColumn: 'label',
+        series: [
+            {
+                type: ChartSeriesType.Scatter,
+                valueColumn:"x",
+                indexAxis:"y",
+                label:"Group 1",
+                pointRadius: 5,
+                hitRadius: 5,
+                pointBorderColor: "#000000",
+                pointHoverRadius: 4,
+                backgroundColor: 'rgba(255, 0, 0, .5)',
+                dataLabels:{
+                    display:false
+                }
+            },
+        ],
+        legend: {
+            display: true,
+        },
+        axis: {
+            x: {
+                display: true,
+            },
+            y: {
+                display: true,
+            },
+            assemblage: {
+                stacked: false,
+                percentaged: false,
+            },
+        },
+        title: {
+            text: 'test with gap',
+        },
+    },
+};
+ScatterplotExponentialDistribChart.args = ScatterplotExponentialDistribChartArgs;
