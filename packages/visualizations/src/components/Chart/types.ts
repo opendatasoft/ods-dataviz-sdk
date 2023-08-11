@@ -222,6 +222,8 @@ export interface Scatter {
     dataLabels?: DataLabelsConfiguration;
     tension?: number;
     pointRadius?: number;
+    hitRadius?:number;
+    pointHoverRadius:number;
     pointBorderColor?: string;
     pointBackgroundColor?: Color | Color[];
     borderWidth?: number;

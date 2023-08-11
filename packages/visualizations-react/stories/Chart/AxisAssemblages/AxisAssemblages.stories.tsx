@@ -776,7 +776,7 @@ function randomNormal(mean = 0, stdDev = 1) {
     return z0 * stdDev + mean;
   }
   
-function generateNormalDistribution(n, xMean = 0, xStdDev = 1, yMean = 0, yStdDev = 1) {
+function generateNormalDistribution(n: number, xMean = 0, xStdDev = 1, yMean = 0, yStdDev = 1) {
     const points = [];
     for (let i = 0; i < n; i++) {
       points.push({
@@ -834,11 +834,11 @@ const ScatterplotNormalDistribChartArgs: Props<DataFrame, ChartOptions> = {
 };
 ScatterplotNormalDistribChart.args = ScatterplotNormalDistribChartArgs;
 
-function randomExponential(lambda) {
+function randomExponential(lambda :number) {
     return -Math.log(1.0 - Math.random()) / lambda;
   }
   
-  function generateExponentialDistribution(n, lambda = 1, yRange = [0, 1]) {
+  function generateExponentialDistribution(n :number, lambda = 1, yRange = [0, 1]) {
     const points = [];
     for (let i = 0; i < n; i++) {
       points.push({
