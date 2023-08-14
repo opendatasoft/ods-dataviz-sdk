@@ -49,6 +49,12 @@ describe('ODSQL query builder', () => {
             ).toEqual('opendatasoft/datasets/sirene@data/records/?lang=fr');
         });
 
+        test('get a record', () => {
+            expect(fromCatalog().dataset('my_dataset').record('a_record_id').toString()).toEqual(
+                'catalog/datasets/my_dataset/records/a_record_id/'
+            );
+        });
+
         test('with select', () => {
             expect(fromCatalog().itself().select('dataset_id, records_count').toString()).toEqual(
                 'catalog/?select=dataset_id%2C+records_count'

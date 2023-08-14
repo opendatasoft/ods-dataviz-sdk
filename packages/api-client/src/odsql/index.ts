@@ -144,6 +144,8 @@ function root(source: string) {
             records: () => new Query(`${source}/datasets/${datasetId}/records/`),
             export: (format: ExportDatasetFormat) =>
                 new Query(`${source}/datasets/${datasetId}/exports/${format}/`),
+            record: (recordId: string) =>
+                new Query(`${source}/datasets/${datasetId}/records/${recordId}/`),
         }),
     });
 }
