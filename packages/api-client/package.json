@@ -14,7 +14,10 @@
         "TypeScript"
     ],
     "main": "dist/umd/index.umd.js",
-    "module": "dist/index.es.js",
+    "exports": {
+        "import": "dist/index.es.js",
+        "require": "dist/umd/index.umd.js"
+    },
     "typings": "dist/src/index.d.ts",
     "unpkg": "dist/umd/index.umd.js",
     "files": [
