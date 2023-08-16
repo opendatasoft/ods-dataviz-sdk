@@ -1,6 +1,6 @@
 {
     "name": "@opendatasoft/api-client",
-    "version": "21.0.0",
+    "version": "21.0.0-alpha-exports.1",
     "license": "MIT",
     "author": "opendatasoft",
     "homepage": "https://github.com/opendatasoft/ods-dataviz-sdk",
@@ -15,8 +15,8 @@
     ],
     "main": "dist/umd/index.umd.js",
     "exports": {
-        "import": "dist/index.es.js",
-        "require": "dist/umd/index.umd.js"
+        "import": "./dist/index.es.js",
+        "require": "./dist/umd/index.umd.js"
     },
     "typings": "dist/src/index.d.ts",
     "unpkg": "dist/umd/index.umd.js",
