@@ -22,7 +22,7 @@
         "src"
     ],
     "engines": {
-        "node": ">=10 <18"
+        "node": ">17"
     },
     "scripts": {
         "watch": "rollup --config --watch",
