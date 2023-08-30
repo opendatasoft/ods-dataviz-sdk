@@ -35,6 +35,7 @@ _special cases that are not widely known_
 ## Review checklist
 
 - [ ] Description is complete
+- [ ] Commits respect the [Conventional Commits Specification](https://github.com/opendatasoft/ods-dataviz-sdk/blob/main/CONTRIBUTING.md#commit-messages)
 - [ ] 2 reviewers (1 if trivial)
 - [ ] Tests coverage has improved
 - [ ] Code is ready for a release on NPM
