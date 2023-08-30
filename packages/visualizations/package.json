@@ -1,6 +1,6 @@
 {
     "name": "@opendatasoft/visualizations",
-    "version": "0.15.0-beta-poimap.4",
+    "version": "0.15.0-beta-node-version-17.0",
     "license": "MIT",
     "author": "opendatasoft",
     "homepage": "https://github.com/opendatasoft/ods-dataviz-sdk",
