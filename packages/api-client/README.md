@@ -177,6 +177,13 @@ client.get(
         .datasets()
         .select('dataset_id, records_count')
 );
+
+// ../catalog/datasets/my-dataset/records/2ee92a48178f784a5babfc06cb42d210cab57f55/
+client.get(
+    fromCatalog()
+        .dataset('my-dataset')
+        .record('2ee92a48178f784a5babfc06cb42d210cab57f55')
+);
 ```
 
 The `Query` interface expose convenient parameters of an API request.
