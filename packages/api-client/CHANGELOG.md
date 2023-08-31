@@ -3,9 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [21.0.1-beta-poi-map.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.0.0...@opendatasoft/api-client@21.0.1-beta-poi-map.0) (2023-08-10)
+# [21.1.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.0.0...@opendatasoft/api-client@21.1.0) (2023-08-31)
 
-**Note:** Version bump only for package @opendatasoft/api-client
+
+### Features
+
+* Add Record endpoint in api-client ([3d68ea7](https://github.com/opendatasoft/ods-dataviz-sdk/commit/3d68ea7fab9b7eada65230716ed8bc0982910574))
 
 
 
