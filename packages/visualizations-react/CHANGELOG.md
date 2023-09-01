@@ -3,13 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0-beta-poimap.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.15.1...@opendatasoft/visualizations-react@0.16.0-beta-poimap.0) (2023-09-01)
+
+
+### Features
+
+* add PoiMap component ([c380e97](https://github.com/opendatasoft/ods-dataviz-sdk/commit/c380e9726c0c43bedad321cbd2695f39ce161dc7))
+* **map:** handle multiple sources and layers ([e0756d6](https://github.com/opendatasoft/ods-dataviz-sdk/commit/e0756d6f6995d16031e786a852946c38d0a75f7e))
+
+
+
+
 ## [0.15.3](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.15.2...@opendatasoft/visualizations-react@0.15.3) (2023-09-18)
 
 
 ### Bug Fixes
 
 * **Chart:** expose `stack` property ([049672e](https://github.com/opendatasoft/ods-dataviz-sdk/commit/049672eb8a721070f957fca22866cbb6b74a7920))
-
 
 
 
