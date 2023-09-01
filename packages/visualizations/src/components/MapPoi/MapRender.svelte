@@ -5,7 +5,7 @@
     import type { LngLatBoundsLike, MapOptions, StyleSpecification } from 'maplibre-gl';
     import { onDestroy, onMount } from 'svelte';
 
-    import MapPOI from './Map';
+    import Map from './Map';
 
     // Base style, sources and layers
     export let style: MapOptions['style'];
@@ -18,7 +18,7 @@
     export let interactive: boolean;
 
     let container: HTMLElement;
-    const map = new MapPOI();
+    const map = new Map();
 
     $: map.toggleInteractivity(interactive ? 'enable' : 'disable');
     $: map.setBbox(bbox);
