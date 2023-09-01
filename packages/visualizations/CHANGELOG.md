@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.15.0...@opendatasoft/visualizations@0.15.1) (2023-09-01)
+
+
+### Bug Fixes
+
+* display zero value as 0 instead of null ([#179](https://github.com/opendatasoft/ods-dataviz-sdk/issues/179)) ([bc9ea83](https://github.com/opendatasoft/ods-dataviz-sdk/commit/bc9ea835879f20c02a6b1ff9f34deab04d44d597))
+
+
+
+
+
 # [0.15.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.14.2...@opendatasoft/visualizations@0.15.0) (2023-08-10)
 
 
