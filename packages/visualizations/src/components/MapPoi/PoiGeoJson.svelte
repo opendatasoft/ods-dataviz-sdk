@@ -17,7 +17,9 @@
 </script>
 
 <div>
-    <MapRender {style} {sources} {layers} {...computedOptions} />
+    {#key style}
+        <MapRender {style} {sources} {layers} {...computedOptions} />
+    {/key}
 </div>
 
 <style>

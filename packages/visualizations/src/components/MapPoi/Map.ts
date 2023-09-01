@@ -15,6 +15,8 @@ export default class MapPOI {
 
     isReady = false;
 
+    baseStyle: StyleSpecification | null = null;
+
     queuedFunctions: Array<MapFunction> = [];
 
     navigation = new maplibregl.NavigationControl({ showCompass: false });
@@ -27,6 +29,10 @@ export default class MapPOI {
         this.map = new maplibregl.Map({ style, container, center: DEFAULT_CENTER, ...options });
         this.map.on('load', () => {
             this.isReady = true;
+            // Store base style after the first loads
+            if (this.map) {
+                this.baseStyle = this.map?.getStyle();
+            }
             this.enqueue();
         });
     }
@@ -46,25 +52,29 @@ export default class MapPOI {
     }
 
     // TODO: add tests to check that layers are at the end of the array
-    setStyle(
-        style: MapOptions['style'],
-        {
-            sources,
-            layers,
-        }: { sources: StyleSpecification['sources']; layers: StyleSpecification['layers'] }
+    /*
+     * TODO: When updating Maplibre to a 3.2.2 version or up
+     * - Update this code to use the option transformStyle.
+     *   https://maplibre.org/maplibre-gl-js/docs/API/types/maplibregl.TransformStyleFunction/
+     * - `baseStyle` could be removed
+     * - The key block could also be removed in MapRender.svelte
+     */
+    setSourcesAndLayers(
+        sources: StyleSpecification['sources'],
+        layers: StyleSpecification['layers']
     ) {
-        this.queue(() =>
-            this.map?.setStyle(style, {
-                transformStyle: (_, nextStyle) => ({
-                    ...nextStyle,
+        this.queue(() => {
+            if (this.baseStyle) {
+                this.map?.setStyle({
+                    ...this.baseStyle,
                     sources: {
-                        ...nextStyle.sources,
                         ...sources,
+                        ...this.baseStyle.sources,
                     },
-                    layers: [...nextStyle.layers, ...layers],
-                }),
-            })
-        );
+                    layers: [...this.baseStyle.layers, ...layers],
+                });
+            }
+        });
     }
 
     setBbox(bbox?: BBox) {

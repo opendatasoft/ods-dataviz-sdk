@@ -22,7 +22,7 @@
 
     $: map.toggleInteractivity(interactive ? 'enable' : 'disable');
     $: map.setBbox(bbox);
-    $: map.setStyle(style, { sources, layers });
+    $: map.setSourcesAndLayers(sources, layers);
     $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
 
     // Lifecycle
