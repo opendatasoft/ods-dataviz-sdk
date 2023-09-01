@@ -59,6 +59,9 @@ export interface ApiQuery<T> {
     results: T[];
 }
 
+export interface ApiExport<T> {
+    [key: string]: T;
+}
 export const EnumExportCatalogFormat = {
     CSV: 'csv',
     JSON: 'json',
