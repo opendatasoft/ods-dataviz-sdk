@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [21.1.1-beta-poimap.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.1.0...@opendatasoft/api-client@21.1.1-beta-poimap.0) (2023-09-01)
+
+
+### Bug Fixes
+
+* add MVT dataset export format ([8c1e2ff](https://github.com/opendatasoft/ods-dataviz-sdk/commit/8c1e2fffe975e0735b0067173ec3971e68770f07))
+* add typing for API export ([cc3919e](https://github.com/opendatasoft/ods-dataviz-sdk/commit/cc3919e8f18c1ae182c9ea8f534fd3cc9f079657))
+
+
+
+
+
 # [21.1.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.0.0...@opendatasoft/api-client@21.1.0) (2023-08-31)
 
 
