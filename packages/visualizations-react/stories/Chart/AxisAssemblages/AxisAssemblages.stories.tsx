@@ -792,7 +792,7 @@ export const ScatterplotNormalDistribChart = ChartTemplate.bind({});
 const ScatterplotNormalDistribChartArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
-        value: generateNormalDistribution(1000, 5, 2, 5, 2),
+        value: generateNormalDistribution(10000, 5, 2, 5, 2),
     },
     options: {
         labelColumn: 'label',
@@ -802,11 +802,11 @@ const ScatterplotNormalDistribChartArgs: Props<DataFrame, ChartOptions> = {
                 valueColumn:"x",
                 indexAxis:"y",
                 label:"Group 1",
-                pointRadius: 5,
+                pointRadius: .08,
                 hitRadius: 5,
                 pointHoverRadius: 4,
                 pointBorderColor: "#00000000",
-                backgroundColor: 'rgba(255, 0, 0, .5)',
+                backgroundColor: 'rgba(255, 0, 0)',
                 dataLabels:{
                     display:false
                 }

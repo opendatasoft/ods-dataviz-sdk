@@ -168,7 +168,6 @@
             (chartOptions as Exclude<ChartConfiguration<'doughnut'>['options'], undefined>).cutout =
                 options.series[0].cutout;
         }
-        chartOptions.interaction = defaultValue(options.interaction,"");
         chartConfig = update(chartConfig, { options: { $set: chartOptions } });
     }
 

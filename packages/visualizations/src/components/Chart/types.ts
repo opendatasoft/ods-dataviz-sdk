@@ -39,7 +39,6 @@ export interface ChartOptions {
     description?: string;
     /** Link button to source */
     source?: Source;
-    interaction?:Object
 }
 
 export interface GridLinesConfiguration {
@@ -215,7 +214,7 @@ export interface Scatter {
     type: ChartSeriesType.Scatter;
     valueColumn: string;
     label?: string;
-    indexAxis:string;
+    indexAxis: string;
     backgroundColor?: Color | Color[];
     borderColor?: Color | Color[];
     fill?: FillConfiguration;
