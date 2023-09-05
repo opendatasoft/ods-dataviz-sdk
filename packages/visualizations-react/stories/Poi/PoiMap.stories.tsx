@@ -1,23 +1,45 @@
 import React from 'react';
 import { BBox } from 'geojson';
-import { PoiMapData } from '@opendatasoft/visualizations';
+import { Layer } from '@opendatasoft/visualizations';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import { shapes as data } from './data';
+import sources from './sources';
 import { PoiMap } from '../../src';
 
 const BASE_STYLE = 'https://demotiles.maplibre.org/style.json';
 
-const layers : PoiMapData["layers"] = [{
-    id: 'data-layer-001',
-    source: "data",
+const layer1 : Layer = {
+    id: 'layer-001',
+    source: "cities",
     type: "circle",
-    color: '#B42222',
-    colorMatch: {
-        key: 'key',
-        colors: {Paris: 'blue', Nantes: 'yellow', Bordeaux: 'purple', Corsica: 'white', Marseille : 'lightblue' }
+    color: 'black',
+    popup: {
+        display: 'tooltip', 
+        getContent: (_, properties) => {
+            const {key} = properties as {key: string};
+            return `<h4>${key}</h4>`;}
     }
-}];
+};
+
+const layer2 : Layer = {
+    id: 'layer-002',
+    source: "battles",
+    type: "circle",
+    color: 'red',
+    popup: {
+        display: 'sidebar', 
+        getContent: (_, properties) => {
+            const {name, date, description} = properties as {name: string, date: string, description: string};
+            return `<h4>${name}</h4><p>${description}<p/><small>${date}</small>`;}
+    }
+};
+
+const layers = [layer1, layer2];
+
+const citiesColorMatch =  {
+    key: 'key',
+    colors: {Paris: 'blue', Nantes: 'yellow', Bordeaux: 'purple', Marseille : 'lightblue' }
+};
 
 const bbox : BBox = [ -6.855469,41.343825,11.645508,51.371780];
 
@@ -57,10 +79,10 @@ PoiMapNoLayersParams.args = PoiMapNoLayersParamsArgs;
  */
 export const PoiMapNonInteractive : ComponentStory<typeof PoiMap> = Template.bind({});
 const PoiMapNonInteractiveArgs = {
-    data:  {value:{ layers, sources: { [layers[0].source] : {type: "geojson" as const, data}}}},
+    data:  {value:{ layers, sources}},
     options: {
         style: BASE_STYLE,
-        layers,
+        bbox,
         interactive: false,
     },
 };
@@ -71,12 +93,7 @@ PoiMapNonInteractive.args = PoiMapNonInteractiveArgs;
  */
 export const PoiMapMatchExpression : ComponentStory<typeof PoiMap> = Template.bind({});
 const PoiMapMatchExpressionArgs = {
-    data: {
-        value: {
-            layers,
-            sources: {[layers[0].source] : {type: "geojson" as const, data}}
-        }
-    },
+    data:  {value:{ layers: [{...layer1, colorMatch: citiesColorMatch}, layer2], sources}},
     options: {style: BASE_STYLE, bbox },
 };
 PoiMapMatchExpression.args = PoiMapMatchExpressionArgs;

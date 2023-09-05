@@ -1,5 +1,5 @@
-import type { CircleLayerSpecification, StyleSpecification } from 'maplibre-gl';
-import type { BBox } from 'geojson';
+import type { CircleLayerSpecification, GeoJSONFeature, StyleSpecification } from 'maplibre-gl';
+import type { BBox, GeoJsonProperties } from 'geojson';
 import type { Color } from '../types';
 
 // To render data layers on the map
@@ -41,6 +41,7 @@ export type Layer = {
     sourceLayer?: string;
     type: LayerSpecification['type'];
     color: Color;
+    popup?: PopupLayer;
     /**
      * Set a marker color based on a value.
      * If no match, default color comes from `color`
@@ -51,7 +52,19 @@ export type Layer = {
     };
 };
 
+export type PopupLayer = {
+    /**
+     * Control where to display the popup
+     * - `sidebar`: As a side element (on the left)
+     * - `tooltip`: Above the feature that has been clicked
+     */
+    display: 'sidebar' | 'tooltip';
+    getContent: (id: GeoJSONFeature['id'], properties?: GeoJsonProperties) => string;
+};
+
 export type GeoPoint = {
     lat: number;
     lon: number;
 };
+
+export type PopupsConfiguration = { [key: string]: PopupLayer };
