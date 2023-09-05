@@ -6,6 +6,7 @@
     import { onDestroy, onMount } from 'svelte';
 
     import Map from './Map';
+    import type { PopupsConfiguration } from './types';
 
     // Base style, sources and layers
     export let style: MapOptions['style'];
@@ -16,6 +17,7 @@
     export let bbox: BBox;
     export let aspectRatio: number;
     export let interactive: boolean;
+    export let popupsConfiguration: PopupsConfiguration;
 
     let container: HTMLElement;
     const map = new Map();
@@ -23,7 +25,12 @@
     $: map.toggleInteractivity(interactive ? 'enable' : 'disable');
     $: map.setBbox(bbox);
     $: map.setSourcesAndLayers(sources, layers);
+    $: map.setPopupsConfiguration(popupsConfiguration);
     $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
+
+    $: if (interactive === false) {
+        map.setBbox(bbox);
+    }
 
     // Lifecycle
     onMount(() => map.initialize(style, container, { bounds: bbox as LngLatBoundsLike }));
@@ -53,18 +60,18 @@
         position: relative;
     }
     /* To add classes programmatically in svelte we will use a global selector. We place it inside a local selector to obtain some encapsulation and avoid side effects */
-    .map-card :global(.tooltip-on-hover > .maplibregl-popup-content) {
-        border-radius: 6px;
-        box-shadow: 0px 6px 13px rgba(0, 0, 0, 0.26);
+    .map-card :global(.poi-map__popup.poi-map__popup--as-sidebar) {
+        /* TO DO: add common stylesheet */
+        transform: translate(13px, 13px) !important;
+    }
+    .map-card :global(.poi-map__popup.poi-map__popup--as-sidebar > .maplibregl-popup-tip) {
+        display: none;
+    }
+    .map-card :global(.poi-map__popup > .maplibregl-popup-content) {
         padding: 13px;
+        border-radius: 6px;
+        box-shadow: 0 6px 13px 0 rgba(0, 0, 0, 0.26);
     }
-    .map-card :global(.tooltip-on-hover .maplibregl-popup-tip) {
-        border-top-color: transparent;
-        border-bottom-color: transparent;
-        border-left-color: transparent;
-        border-right-color: transparent;
-    }
-
     .main {
         aspect-ratio: var(--aspect-ratio);
         flex-grow: 1;
