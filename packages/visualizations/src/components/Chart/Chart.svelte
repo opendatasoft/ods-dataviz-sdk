@@ -108,13 +108,16 @@
                         if (label && series.length > 1) prefix = `${label}: `;
 
                         // If the value is a percentage, we need to add the '%' symbol
-                        const percentaged = options?.axis?.assemblage?.percentaged ? '% ' : '';
-                        // If the value is a percentage, we need to format the raw value
-                        const formattedRawValue =
-                            percentaged && typeof raw === 'number' && !Number.isNaN(raw)
-                                ? `(${format(raw)})`
-                                : `(0)`;
-                        const suffix = percentaged + formattedRawValue;
+                        const percentaged = options?.axis?.assemblage?.percentaged ? '%' : '';
+                        let percentagedRawValue = '';
+                        if (percentaged) {
+                            // If the value is a percentage, we need to format the raw value
+                            percentagedRawValue = ` ${
+                                typeof raw === 'number' ? `(${format(raw)})` : '(0)'
+                            }`;
+                        }
+
+                        const suffix = percentaged + percentagedRawValue;
 
                         if (seriesType && parsed) {
                             if (seriesType === ChartSeriesType.Bar) {
@@ -146,6 +149,7 @@
             stacked100: {
                 // Enables the 100% percent stacking
                 enable: options?.axis?.assemblage?.percentaged,
+                replaceTooltipLabel: false,
             },
         };
 

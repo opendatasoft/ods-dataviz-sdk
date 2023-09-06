@@ -236,7 +236,7 @@ const BarChartStackedArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
-            { series_001: 17, series_002: 20, x: 'Acer' },
+            { series_001: null, series_002: 20, x: 'Acer' },
             { series_001: 22, series_002: 28, x: 'Aesculus' },
             { series_001: 18, series_002: 18, x: 'Alnus' },
             { series_001: 11, series_002: 11, x: 'Araucaria' },
@@ -308,7 +308,7 @@ const BarChartPercentageArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
-            { series_001: 17, series_002: 20, x: 'Acer' },
+            { series_001: null, series_002: 20, x: 'Acer' },
             { series_001: 22, series_002: 28, x: 'Aesculus' },
             { series_001: 18, series_002: 18, x: 'Alnus' },
             { series_001: 11, series_002: 11, x: 'Araucaria' },
