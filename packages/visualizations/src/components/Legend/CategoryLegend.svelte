@@ -8,9 +8,8 @@
     const defaultVariant = 'box';
     let items: CategoryItem[] = [];
     let title: string | undefined;
-    let subtitle: string | undefined;
     let alignement: string | undefined;
-    $: ({ items, title, subtitle, alignement = 'center' } = legendOptions);
+    $: ({ items, title, alignement = 'center' } = legendOptions);
     $: categoryItems = items.map((item, i) => ({
         ...item,
         id: i,
@@ -24,9 +23,6 @@
 <div class={`legend-container legend-container--align-${alignement}`}>
     {#if title}
         <div class="legend-title" >{title}</div>
-    {/if}
-    {#if subtitle}
-        <div class="legend-subtitle" >{subtitle}</div>
     {/if}
     <div class={`legend-items-container legend-items-container--align-${alignement}`} >
         {#each categoryItems as item (item.id)}
@@ -97,10 +93,6 @@
     .legend-title {
         font-weight: 700;
         margin-bottom: 3px;
-        font-size: medium;
-    }
-    .legend-subtitle {
-        font-size: small;
     }
     .legend-items-container--align-center {
         margin-top: 3px;
