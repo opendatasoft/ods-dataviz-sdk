@@ -9,8 +9,8 @@
     let items: CategoryItem[] = [];
     let title: string | undefined;
     let subtitle: string | undefined;
-    let alignement: string | undefined = 'center';
-    $: ({ items, title, subtitle, alignement } = legendOptions);
+    let alignement: string | undefined;
+    $: ({ items, title, subtitle, alignement = 'center' } = legendOptions);
     $: categoryItems = items.map((item, i) => ({
         ...item,
         id: i,
@@ -21,17 +21,17 @@
         series.some((id) => id === item.id);
 </script>
 
-<div class={`legend-container legend-container--${alignement}`}>
+<div class={`legend-container legend-container--align-${alignement}`}>
     {#if title}
-        <div class="legend-title" style="--alignement: {alignement};">{title}</div>
+        <div class="legend-title" >{title}</div>
     {/if}
     {#if subtitle}
-        <div class="legend-subtitle" style="--alignement: {alignement};">{subtitle}</div>
+        <div class="legend-subtitle" >{subtitle}</div>
     {/if}
-    <div class="legend-items-container" style="--alignement: {alignement};">
+    <div class={`legend-items-container legend-items-container--align-${alignement}`} >
         {#each categoryItems as item (item.id)}
             <div
-                class="legend-item-category"
+                class={`legend-item-category legend-item-category--${alignement}`}
                 style="--cursor-style: {item.onClick ? "pointer" : "default"};"
                 on:click={() => {
                     if (item.onClick) {
@@ -87,27 +87,45 @@
         flex-direction: column;
         padding: 13px;
     }
+    .legend-container--align-start,
+    .legend-container--align-end {
+        width: fit-content;
+    }
+    .legend-container--align-end {
+        margin-left: auto;
+    }
     .legend-title {
-        align-self: var(--alignement);
         font-weight: 700;
         margin-bottom: 3px;
         font-size: medium;
     }
     .legend-subtitle {
-        align-self: var(--alignement);
-        margin-bottom: 3px;
         font-size: small;
     }
-    .legend-items-container {
+    .legend-items-container--align-center {
+        margin-top: 3px;
         display: grid;
-        justify-content: var(--alignement);
+        justify-content: center;
         grid-gap: 3px 13px;
         grid-template-columns: repeat(auto-fit, minmax(80px, max-content));
         padding: 13px 0;
     }
+    .legend-items-container--align-start,
+    .legend-items-container--align-end {
+        display: flex;
+        flex-wrap: wrap;
+    }
     .legend-item-category {
         display: inline-flex;
         align-items: center;
+    }
+    .legend-item-category--start:not(:last-child),
+    .legend-item-category--end:not(:last-child) {
+        margin-right: 13px;
+    }
+    .legend-item-category--start,
+    .legend-item-category--end {
+        margin-top: 3px;
     }
     .legend-item-category:hover {
         cursor: var(--cursor-style);
