@@ -255,14 +255,6 @@
         flex-direction: row;
     }
 
-    figcaption {
-        display: grid;
-        justify-content: center;
-        grid-gap: 3px 13px;
-        grid-template-columns: repeat(auto-fit, minmax(120px, max-content));
-        padding: 13px 0;
-    }
-
     /* Suitable for elements that are used via aria-describedby or aria-labelledby */
     .a11y-invisible-description {
         display: none;

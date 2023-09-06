@@ -53,10 +53,16 @@ export const getMapLayers = (layers?: Layer[]): CircleLayerSpecification[] => {
 };
 
 export const getMapOptions = (options: PoiMapOptions) => {
-    const { aspectRatio = DEFAULT_ASPECT_RATIO, bbox = DEFAULT_BBOX, interactive = true } = options;
+    const {
+        aspectRatio = DEFAULT_ASPECT_RATIO,
+        bbox = DEFAULT_BBOX,
+        interactive = true,
+        legend,
+    } = options;
     return {
         aspectRatio,
         bbox,
         interactive,
+        legend,
     };
 };

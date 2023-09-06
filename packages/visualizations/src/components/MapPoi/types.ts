@@ -1,6 +1,7 @@
 import type { CircleLayerSpecification, StyleSpecification } from 'maplibre-gl';
 import type { BBox } from 'geojson';
 import type { Color } from '../types';
+import type { CategoryLegend } from '../Legend/types';
 
 // To render data layers on the map
 export type PoiMapData = Partial<{
@@ -24,6 +25,7 @@ export interface PoiMapOptions {
     aspectRatio?: number;
     // Is the map interactive for the user (zoom, move, tooltips...)
     interactive?: boolean;
+    legend?: CategoryLegend | undefined;
 }
 
 export type PoiMapStyleOption = Partial<Pick<StyleSpecification, 'sources' | 'layers'>>;

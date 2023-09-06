@@ -25,12 +25,15 @@ export interface LegendConfiguration {
 
 export type LegendVariant = 'fluid' | 'fixed';
 
+type ItemVariant = 'box' | 'circle' | 'line';
+
 export type CategoryItem = {
     color?: Color;
+    variant?: ItemVariant;
     borderColor?: Color;
     borderDashed?: boolean;
     label: LegendLabelsConfiguration | string | undefined;
-    onClick: (index: number) => void;
+    onClick?: (index: number) => void;
     onHover?(index: number, isVisible: boolean): void;
     onLeave?(): void;
 };
@@ -38,4 +41,7 @@ export type CategoryItem = {
 export type CategoryLegend = {
     type: 'category';
     items: CategoryItem[];
+    title?: string;
+    subtitle?: string;
+    alignement?: 'start' | 'center' | 'end';
 };

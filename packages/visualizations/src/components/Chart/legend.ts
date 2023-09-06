@@ -93,6 +93,7 @@ export function buildCustomLegend({
     return {
         type: 'category' as const,
         position: defaultValue(options?.legend?.position, 'bottom'),
+        alignement: 'center' as const,
         items: chartConfig.data.datasets[0].data.map((_data, i) => ({
             color: series[0].backgroundColor?.[i],
             borderDashed: false,

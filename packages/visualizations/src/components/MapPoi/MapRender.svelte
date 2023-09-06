@@ -4,6 +4,8 @@
     import type { BBox } from 'geojson';
     import type { LngLatBoundsLike, MapOptions, StyleSpecification } from 'maplibre-gl';
     import { onDestroy, onMount } from 'svelte';
+    import CategoryLegend from '../Legend/CategoryLegend.svelte';
+    import type { CategoryLegend as CategoryLegendType } from '../Legend/types';
 
     import Map from './Map';
 
@@ -16,6 +18,7 @@
     export let bbox: BBox;
     export let aspectRatio: number;
     export let interactive: boolean;
+    export let legend: CategoryLegendType | undefined;
 
     let container: HTMLElement;
     const map = new Map();
@@ -34,6 +37,9 @@
     <div class="main">
         <div id="map" bind:this={container} />
     </div>
+    {#if legend}
+        <CategoryLegend legendOptions={legend} />
+    {/if}
 </figure>
 
 <style>
