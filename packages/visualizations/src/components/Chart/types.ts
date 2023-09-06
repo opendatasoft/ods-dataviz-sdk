@@ -224,19 +224,13 @@ export interface Scatter {
     valueColumn: string;
     label?: string;
     indexAxis: string;
+    /** Point color */
     backgroundColor?: Color | Color[];
-    borderColor?: Color | Color[];
-    fill?: FillConfiguration;
-    dataLabels?: DataLabelsConfiguration;
-    tension?: number;
     pointRadius?: number;
-    hitRadius?:number;
-    pointHoverRadius:number;
+    pointHitRadius?: number;
+    pointHoverRadius?: number;
     pointBorderColor?: string;
-    pointBackgroundColor?: Color | Color[];
-    borderWidth?: number;
-    borderDash?: number[];
-    spanGaps?: boolean | number;
+    dataLabels?: DataLabelsConfiguration;
 }
 
 export type FillMode = false | number | string | { value: number };

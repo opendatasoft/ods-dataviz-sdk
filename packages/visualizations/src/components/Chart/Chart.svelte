@@ -140,8 +140,11 @@
                                 return `${dataFrame[dataIndex].x}: ${format(parsed)}`;
                             }
                             if (seriesType === ChartSeriesType.Scatter) {
-                                prefix= `${label} `
-                                return prefix + `(x: ${format(parsed.x)} | y: ${format(parsed.y)})` + suffix;
+                                const formattedValues = `${format(parsed.x)}, ${format(parsed.y)}`;
+                                // e.g. dataset 1: (4.5, 54)
+                                if (prefix) return `${prefix}(${formattedValues})`;
+                                // 4.5, 54
+                                return formattedValues;
                             }
                         }
 
