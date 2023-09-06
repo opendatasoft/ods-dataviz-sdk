@@ -110,7 +110,7 @@ const PoiMapLegendStartArgs = {
         desciption: "More aria description",
         legend: {
             type: 'category' as const,
-            title: "I'm Legend",
+            title: "I Am Legend",
             items: [
                 { label: 'catégorie 1', color: '#F5C2C1', borderColor: 'red', variant: 'circle' as const },
                 { label: 'catégorie 2', color: '#90EE90', borderColor: 'green', variant: 'circle' as const },
@@ -141,7 +141,7 @@ const PoiMapLegendEndArgs = {
         desciption: "More aria description",
         legend: {
             type: 'category' as const,
-            title: "I'm Legend",
+            title: "I Am Legend",
             items: [
                 { label: 'catégorie 1', color: '#F5C2C1', borderColor: 'red', variant: 'circle' as const },
                 { label: 'catégorie 2', color: '#90EE90', borderColor: 'green', variant: 'circle' as const },

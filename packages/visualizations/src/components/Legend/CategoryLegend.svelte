@@ -82,11 +82,11 @@
         display: flex;
         flex-direction: column;
         padding: 13px;
-        font-size: 0.8rem;
     }
     .legend-container--align-start,
     .legend-container--align-end {
         width: fit-content;
+        font-size: 0.8rem;
     }
     .legend-container--align-end {
         margin-left: auto;
