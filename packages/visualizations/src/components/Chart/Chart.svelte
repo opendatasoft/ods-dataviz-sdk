@@ -132,8 +132,10 @@
                             if (seriesType === ChartSeriesType.Radar) {
                                 return prefix + format(parsed.r);
                             }
-                            if (seriesType === ChartSeriesType.Pie) {
-                                // For pie charts we need to get the label from the dataFrame because, unlike other
+                            if (
+                                [ChartSeriesType.Pie, ChartSeriesType.Doughnut].includes(seriesType)
+                            ) {
+                                // For pie and doughnut charts we need to get the label from the dataFrame because, unlike other
                                 // charts, the label is not the series legend, it's the category.
                                 return `${dataFrame[dataIndex].x}: ${format(parsed)}`;
                             }
