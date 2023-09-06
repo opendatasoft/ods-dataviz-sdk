@@ -18,7 +18,13 @@
     export let bbox: BBox;
     export let aspectRatio: number;
     export let interactive: boolean;
+    export let title: string | undefined;
+    export let subtitle: string | undefined;
     export let legend: CategoryLegendType | undefined;
+    export let description: string | undefined;
+
+    // Used in front of console and error messages to debug multiple maps on a same page
+    const mapId = Math.floor(Math.random() * 1000);
 
     let container: HTMLElement;
     const map = new Map();
@@ -34,9 +40,26 @@
 </script>
 
 <figure class="map-card maps-container" style={cssVarStyles}>
-    <div class="main">
+    {#if title || subtitle}
+    <figcaption>
+        {#if title}
+            <h3>
+                {title}
+            </h3>
+        {/if}
+        {#if subtitle}
+            <p>
+                {subtitle}
+            </p>
+        {/if}
+    </figcaption>
+{/if}
+    <div class="main" aria-describedby={description ? mapId.toString() : undefined}>
         <div id="map" bind:this={container} />
     </div>
+    {#if description}
+    <p id={mapId.toString()} class="a11y-invisible-description">{description}</p>
+    {/if}
     {#if legend}
         <CategoryLegend legendOptions={legend} />
     {/if}

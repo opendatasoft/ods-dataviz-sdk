@@ -25,6 +25,9 @@ export interface PoiMapOptions {
     aspectRatio?: number;
     // Is the map interactive for the user (zoom, move, tooltips...)
     interactive?: boolean;
+    title?: string | undefined,
+    subtitle?: string | undefined,
+    description?: string | undefined,
     legend?: CategoryLegend | undefined;
 }
 

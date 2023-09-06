@@ -105,6 +105,9 @@ const PoiMapLegendStartArgs = {
     options: {
         style: BASE_STYLE,
         bbox,
+        title: "Lorem Ipsum",
+        subtitle: "Dolor Sit Amet",
+        desciption: "More aria description",
         legend: {
             type: 'category' as const,
             title: "I'm Legend",
@@ -133,6 +136,9 @@ const PoiMapLegendEndArgs = {
     options: {
         style: BASE_STYLE,
         bbox,
+        title: "Lorem Ipsum",
+        subtitle: "Dolor Sit Amet",
+        desciption: "More aria description",
         legend: {
             type: 'category' as const,
             title: "I'm Legend",

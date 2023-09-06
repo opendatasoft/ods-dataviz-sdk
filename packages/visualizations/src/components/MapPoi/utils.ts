@@ -57,12 +57,18 @@ export const getMapOptions = (options: PoiMapOptions) => {
         aspectRatio = DEFAULT_ASPECT_RATIO,
         bbox = DEFAULT_BBOX,
         interactive = true,
+        title,
+        subtitle,
+        description,
         legend,
     } = options;
     return {
         aspectRatio,
         bbox,
         interactive,
+        title,
+        subtitle,
+        description,
         legend,
     };
 };
