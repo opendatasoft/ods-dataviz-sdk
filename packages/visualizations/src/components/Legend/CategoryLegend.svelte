@@ -32,11 +32,14 @@
         {#each categoryItems as item (item.id)}
             <div
                 class="legend-item-category"
+                style="--cursor-style: {item.onClick ? "pointer" : "default"};"
                 on:click={() => {
-                    refinedSeries = isRefined(item, refinedSeries)
-                        ? refinedSeries.filter((id) => id !== item.id)
-                        : [...refinedSeries, item.id];
-                    item.onClick?.(item.id);
+                    if (item.onClick) {
+                        refinedSeries = isRefined(item, refinedSeries)
+                            ? refinedSeries.filter((id) => id !== item.id)
+                            : [...refinedSeries, item.id];
+                        item.onClick?.(item.id);
+                    }
                 }}
                 on:mouseenter={() => {
                     if (item.onHover) {
@@ -107,7 +110,7 @@
         align-items: center;
     }
     .legend-item-category:hover {
-        cursor: pointer;
+        cursor: var(--cursor-style);
     }
     .refined {
         text-decoration: line-through;
