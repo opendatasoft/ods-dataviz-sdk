@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0-beta-poimap.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.15.2...@opendatasoft/visualizations@0.16.0-beta-poimap.1) (2023-09-07)
+
+
+### Features
+
+* add PoiMap component ([2b00cc4](https://github.com/opendatasoft/ods-dataviz-sdk/commit/2b00cc48aa940facdcd841649ba20c93414c2fca))
+* **map:** handle multiple sources and layers ([42c99ca](https://github.com/opendatasoft/ods-dataviz-sdk/commit/42c99cacd12262700f3c98ba63a2c54ce826d97c))
+
+
+
+
+
 # [0.16.0-beta-poimap.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.15.1...@opendatasoft/visualizations@0.16.0-beta-poimap.0) (2023-09-01)
 
 
