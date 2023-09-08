@@ -125,8 +125,8 @@ PoiMapLegendStart.args = PoiMapLegendStartArgs;
 /**
  * STORY: With match expression
  */
-export const PoiMapLegendEnd: ComponentStory<typeof PoiMap> = Template.bind({});
-const PoiMapLegendEndArgs = {
+export const PoiMapLegendCenter: ComponentStory<typeof PoiMap> = Template.bind({});
+const PoiMapLegendCenterArgs = {
     data: {
         value: {
             layers,
@@ -147,8 +147,8 @@ const PoiMapLegendEndArgs = {
                 { label: 'catégorie 2', color: '#90EE90', borderColor: 'green', variant: 'circle' as const },
                 { label: 'catégorie 3', color: '#ADD8E6', borderColor: 'blue', variant: 'circle' as const },
             ],
-            alignement: 'end' as const,
+            alignement: 'center' as const,
         },
     },
 };
-PoiMapLegendEnd.args = PoiMapLegendEndArgs;
+PoiMapLegendCenter.args = PoiMapLegendCenterArgs;

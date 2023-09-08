@@ -42,5 +42,5 @@ export type CategoryLegend = {
     type: 'category';
     items: CategoryItem[];
     title?: string;
-    alignement?: 'start' | 'center' | 'end';
+    alignement?: 'start' | 'center';
 };

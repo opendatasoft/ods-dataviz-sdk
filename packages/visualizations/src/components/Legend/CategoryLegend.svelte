@@ -20,14 +20,14 @@
         series.some((id) => id === item.id);
 </script>
 
-<div class={`legend-container legend-container--align-${alignement}`}>
+<div class="legend-container" style="--alignement: {alignement}">
     {#if title}
         <div class="legend-title" >{title}</div>
     {/if}
-    <div class={`legend-items-container legend-items-container--align-${alignement}`} >
+    <div class="legend-items-container" style="--alignement: {alignement}">
         {#each categoryItems as item (item.id)}
             <div
-                class={`legend-item-category legend-item-category--${alignement}`}
+                class="legend-item-category"
                 style="--cursor-style: {item.onClick ? "pointer" : "default"};"
                 on:click={() => {
                     if (item.onClick) {
@@ -82,43 +82,22 @@
         display: flex;
         flex-direction: column;
         padding: 13px;
-    }
-    .legend-container--align-start,
-    .legend-container--align-end {
-        width: fit-content;
         font-size: 0.8rem;
-    }
-    .legend-container--align-end {
-        margin-left: auto;
     }
     .legend-title {
         font-weight: 700;
-        margin-bottom: 3px;
+        text-align: var(--alignement);
     }
-    .legend-items-container--align-center {
-        margin-top: 3px;
+    .legend-items-container {
         display: grid;
-        justify-content: center;
+        justify-content: var(--alignement);
         grid-gap: 3px 13px;
         grid-template-columns: repeat(auto-fit, minmax(80px, max-content));
         padding: 13px 0;
     }
-    .legend-items-container--align-start,
-    .legend-items-container--align-end {
-        display: flex;
-        flex-wrap: wrap;
-    }
     .legend-item-category {
         display: inline-flex;
         align-items: center;
-    }
-    .legend-item-category--start:not(:last-child),
-    .legend-item-category--end:not(:last-child) {
-        margin-right: 13px;
-    }
-    .legend-item-category--start,
-    .legend-item-category--end {
-        margin-top: 3px;
     }
     .legend-item-category:hover {
         cursor: var(--cursor-style);
