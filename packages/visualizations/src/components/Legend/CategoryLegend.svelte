@@ -81,10 +81,11 @@
     .legend-container {
         display: flex;
         flex-direction: column;
-        padding: 13px;
         font-size: 0.8rem;
+        padding: 0 13px;
     }
     .legend-title {
+        padding-top: 13px;
         font-weight: 700;
         text-align: var(--alignement);
     }
