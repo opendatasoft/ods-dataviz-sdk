@@ -22,13 +22,13 @@
 
 <div class="legend-container" style="--alignement: {alignement}">
     {#if title}
-        <div class="legend-title" >{title}</div>
+        <div class="legend-title">{title}</div>
     {/if}
     <div class="legend-items-container" style="--alignement: {alignement}">
         {#each categoryItems as item (item.id)}
             <div
                 class="legend-item-category"
-                style="--cursor-style: {item.onClick ? "pointer" : "default"};"
+                style="--cursor-style: {item.onClick ? 'pointer' : 'default'};"
                 on:click={() => {
                     if (item.onClick) {
                         refinedSeries = isRefined(item, refinedSeries)

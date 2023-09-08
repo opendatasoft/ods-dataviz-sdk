@@ -92,7 +92,7 @@ const PoiMapMatchExpressionArgs = {
 PoiMapMatchExpression.args = PoiMapMatchExpressionArgs;
 
 /**
- * STORY: With match expression
+ * STORY: With legend on start alignement
  */
 export const PoiMapLegendStart: ComponentStory<typeof PoiMap> = Template.bind({});
 const PoiMapLegendStartArgs = {
@@ -123,7 +123,7 @@ const PoiMapLegendStartArgs = {
 PoiMapLegendStart.args = PoiMapLegendStartArgs;
 
 /**
- * STORY: With match expression
+ * STORY: With legend on center alignement
  */
 export const PoiMapLegendCenter: ComponentStory<typeof PoiMap> = Template.bind({});
 const PoiMapLegendCenterArgs = {

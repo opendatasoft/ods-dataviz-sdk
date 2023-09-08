@@ -41,24 +41,24 @@
 
 <figure class="map-card maps-container" style={cssVarStyles}>
     {#if title || subtitle}
-    <figcaption>
-        {#if title}
-            <h3>
-                {title}
-            </h3>
-        {/if}
-        {#if subtitle}
-            <p>
-                {subtitle}
-            </p>
-        {/if}
-    </figcaption>
-{/if}
+        <figcaption>
+            {#if title}
+                <h3>
+                    {title}
+                </h3>
+            {/if}
+            {#if subtitle}
+                <p>
+                    {subtitle}
+                </p>
+            {/if}
+        </figcaption>
+    {/if}
     <div class="main" aria-describedby={description ? mapId.toString() : undefined}>
         <div id="map" bind:this={container} />
     </div>
     {#if description}
-    <p id={mapId.toString()} class="a11y-invisible-description">{description}</p>
+        <p id={mapId.toString()} class="a11y-invisible-description">{description}</p>
     {/if}
     {#if legend}
         <CategoryLegend legendOptions={legend} />
