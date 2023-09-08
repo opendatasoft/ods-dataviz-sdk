@@ -76,9 +76,18 @@ export interface CategoryCartesianAxisConfiguration extends BaseCartesianAxisCon
     type?: 'category';
 }
 
-export interface NumericCartesianAxisConfiguration extends BaseCartesianAxisConfiguration {
-    type: 'linear' | 'logarithmic';
+export interface LinearCartesianAxisConfiguration extends BaseCartesianAxisConfiguration {
+    type: 'linear';
+    beginAtZero?: boolean;
 }
+
+export interface LogarithmicCartesianAxisConfiguration extends BaseCartesianAxisConfiguration {
+    type: 'logarithmic';
+}
+
+export type NumericCartesianAxisConfiguration =
+    | LinearCartesianAxisConfiguration
+    | LogarithmicCartesianAxisConfiguration;
 
 export interface AxisTitleConfiguration {
     display?: boolean;

@@ -81,6 +81,9 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
     // X Axis
     if (options.axis?.x) {
         scales.x = {
+            ...(options.axis.x.type === 'linear' && {
+                beginAtZero: defaultValue(options?.axis?.x?.beginAtZero, true),
+            }),
             stacked: options.axis?.assemblage?.stacked,
             max:
                 options?.axis?.x?.type === 'linear' && options.axis?.assemblage?.percentaged
@@ -130,6 +133,9 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
     // Y Axis
     if (options.axis?.y) {
         scales.y = {
+            ...(options.axis.y.type === 'linear' && {
+                beginAtZero: defaultValue(options?.axis?.y?.beginAtZero, true),
+            }),
             stacked: options.axis?.assemblage?.stacked,
             max:
                 options?.axis?.y?.type === 'linear' && options.axis?.assemblage?.percentaged
