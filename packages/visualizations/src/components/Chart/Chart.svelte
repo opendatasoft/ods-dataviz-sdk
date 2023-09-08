@@ -134,6 +134,9 @@
                                 // charts, the label is not the series legend, it's the category.
                                 return `${dataFrame[dataIndex].x}: ${format(parsed)}`;
                             }
+                            if (seriesType === ChartSeriesType.Treemap) {
+                                return prefix;
+                            }
                         }
 
                         return prefix + formattedValue + suffix;

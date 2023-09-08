@@ -516,3 +516,41 @@ const ColumnChartPercentageArgs: Props<DataFrame, ChartOptions> = {
     },
 };
 ColumnChartPercentage.args = ColumnChartPercentageArgs;
+
+export const TreemapChart = ChartTemplate.bind({});
+const DATA = [
+    { category: 'main', color: 'blue', count: 10 },
+    { category: 'other', color: 'yellow', count: 20 },
+    { category: 'toto', color: 'red', count: 10 },
+    { category: 'tete', color: 'lightgrey', count: 20 },
+    { category: 'utu', color: 'green', count: 10 },
+    { category: 'hdhd', color: 'black', count: 20 },
+];
+const TreemapChartArgs: Props<DataFrame, ChartOptions> = {
+    data: {
+        loading: false,
+        value: DATA,
+    },
+    options: {
+        series: [
+            {
+                type: ChartSeriesType.Treemap,
+                keyColumn: 'count',
+                keyGroups: ['category'],
+                borderColor: 'white',
+                colorFormatter: (index: number) => DATA[index].color,
+                labels: {
+                    align: 'center',
+                    display: true,
+                    labelsFormatter: (index: number ) => [DATA[index].category],
+                    color: ['white'],
+                    font: [{ size: 20 }],
+                    hoverColor: ['white', 'whiteSmoke'],
+                    hoverFont: [{ size: 21, weight: 'bold' }],
+                    position: 'middle',
+                }
+            },
+        ],
+    },
+};
+TreemapChart.args = TreemapChartArgs;

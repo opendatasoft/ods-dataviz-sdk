@@ -1,5 +1,6 @@
 import type { ChartDataset } from 'chart.js';
 import type { Options as DataLabelsOptions } from 'chartjs-plugin-datalabels/types/options';
+import type { TreemapControllerDatasetOptions } from 'chartjs-chart-treemap';
 import type { ChartSeries, DataLabelsConfiguration, FillConfiguration } from './types';
 import type { DataFrame } from '../types';
 import { defaultCompactNumberFormat } from '../utils/formatter';
@@ -32,7 +33,9 @@ function chartJsDataLabels(dataLabels: DataLabelsConfiguration | undefined): Dat
     };
 }
 
-export default function toDataset(df: DataFrame, s: ChartSeries): ChartDataset {
+export default function toDataset(
+    df: DataFrame, s: ChartSeries
+): ChartDataset | TreemapControllerDatasetOptions<Record<string, unknown>> {
     if (s.type === 'bar') {
         return {
             type: 'bar',
@@ -97,6 +100,42 @@ export default function toDataset(df: DataFrame, s: ChartSeries): ChartDataset {
             data: df.map((entry) => entry[s.valueColumn]),
             backgroundColor: multipleChartJsColors(s.backgroundColor),
             datalabels: chartJsDataLabels(s.dataLabels),
+        };
+    }
+    if (s.type === 'treemap') {
+        return {
+            tree: df,
+            datalabels: chartJsDataLabels(s.dataLabels),
+            data: [], // from chartjs-chart-treemap index.esm.d.ts: data will be auto-generated from `tree` but appears mandatory in the types, why ?
+            key: s.keyColumn,
+            groups: s.keyGroups,
+            borderColor: defaultValue(singleChartJsColor(s.borderColor), 'rgb(255,255,255)'),
+            borderWidth: defaultValue(s.borderWidth, 1),
+            spacing: defaultValue(s.spacing, 0),
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            backgroundColor: (context: any) => {
+                if (s.colorFormatter) {
+                    return s.colorFormatter(context.index);
+                }
+                // TODO: create a function in utils to generate a color gradient bbased on a default color
+                return 'grey';
+            },
+            labels: s.labels ? {
+                align: s.labels.align,
+                display: defaultValue(s.labels.display, false),
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                formatter(context: any) {
+                    if (s.labels && s.labels.labelsFormatter) {
+                        return s.labels.labelsFormatter(context.index);
+                    }
+                    return '';
+                  },
+                  font: s.labels.font,
+                  color: s.labels.color,
+                  hoverColor: s.labels.hoverColor,
+                  hoverFont: s.labels.hoverFont,
+                  position: s.labels.position,
+              } : { display: false }
         };
     }
 

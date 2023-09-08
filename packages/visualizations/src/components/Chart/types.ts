@@ -1,9 +1,10 @@
+import type { CSSProperties } from 'react';
 import type { Color, Source } from '../types';
 import type { LegendConfiguration } from '../Legend/types';
 
 export interface ChartOptions {
     /** Specify label column in DataFrame */
-    labelColumn: string;
+    labelColumn?: string;
     /** Series to display */
     series: ChartSeries[];
     /** Chart aspect ratio */
@@ -12,11 +13,11 @@ export interface ChartOptions {
     padding?:
         | number
         | {
-              top?: number;
-              bottom?: number;
-              left?: number;
-              right?: number;
-          };
+            top?: number;
+            bottom?: number;
+            left?: number;
+            right?: number;
+        };
     axis?: {
         /** Configure x axis */
         x?: CartesianAxisConfiguration;
@@ -138,7 +139,7 @@ export interface DataLabelsConfiguration {
     padding?: number;
 }
 
-export type ChartSeries = Line | Bar | Pie | Radar | Doughnut;
+export type ChartSeries = Line | Bar | Pie | Radar | Doughnut | Treemap;
 
 export enum ChartSeriesType {
     Line = 'line',
@@ -146,6 +147,7 @@ export enum ChartSeriesType {
     Pie = 'pie',
     Radar = 'radar',
     Doughnut = 'doughnut',
+    Treemap = 'treemap',
 }
 
 export interface Line {
@@ -208,6 +210,28 @@ export interface Doughnut {
     indexAxis?: 'x' | 'y';
 }
 
+export interface Treemap {
+    type: ChartSeriesType.Treemap;
+    dataLabels?: DataLabelsConfiguration;
+    keyColumn: string;
+    keyGroups: string[];
+    borderColor?: string;
+    borderWidth?: number;
+    spacing?: number;
+    colorFormatter?: (index: number) => Color;
+    labels?: {
+        display?: boolean;
+        align?: 'left' | 'center' | 'right';
+        labelsFormatter?:(index: number) => string[] | string;
+        font?: CSSProperties[] | CSSProperties;
+        color?: Color[] | Color;
+        hoverColor?: Color[] | Color;
+        hoverFont?: CSSProperties[] | CSSProperties;
+        position?: 'top' | 'middle' | 'bottom';
+    }
+    
+}
+
 export type FillMode = false | number | string | { value: number };
 
 export interface FillConfiguration {
@@ -215,3 +239,9 @@ export interface FillConfiguration {
     above?: Color | Color[];
     below?: Color | Color[];
 }
+
+// Couldn't find the index props in the treemap types TreemapScriptableContext
+// it finally generates a bug, I left a comment to remember we tried it
+// export type TreemapContext = ScriptableContext<'treemap'> & {
+//     index?: number
+// };
