@@ -161,6 +161,10 @@
             (chartOptions as Exclude<ChartConfiguration<'doughnut'>['options'], undefined>).cutout =
                 options.series[0].cutout;
         }
+        if (seriesType === ChartSeriesType.Treemap) {
+            (chartOptions as Exclude<ChartConfiguration<'treemap'>['options'], undefined>).plugins = 
+                {...chartOptions.plugins, tooltip: { enabled: false }}
+        }
         chartConfig = update(chartConfig, { options: { $set: chartOptions } });
     }
 

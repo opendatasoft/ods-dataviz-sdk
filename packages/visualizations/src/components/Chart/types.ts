@@ -1,4 +1,3 @@
-import type { CSSProperties } from 'react';
 import type { Color, Source } from '../types';
 import type { LegendConfiguration } from '../Legend/types';
 
@@ -223,10 +222,10 @@ export interface Treemap {
         display?: boolean;
         align?: 'left' | 'center' | 'right';
         labelsFormatter?:(index: number) => string[] | string;
-        font?: CSSProperties[] | CSSProperties;
+        font?: {[key: string]: number | string }[] | {[key: string]: number | string};
         color?: Color[] | Color;
         hoverColor?: Color[] | Color;
-        hoverFont?: CSSProperties[] | CSSProperties;
+        hoverFont?: {[key: string]: number | string }[] | {[key: string]: number | string};
         position?: 'top' | 'middle' | 'bottom';
     }
     
