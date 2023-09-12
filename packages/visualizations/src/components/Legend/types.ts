@@ -28,7 +28,7 @@ export type LegendVariant = 'fluid' | 'fixed';
 export const CATEGORY_ITEM_VARIANT = {
     Circle: 'circle',
     Line: 'line',
-    Box: 'box' ,
+    Box: 'box',
 } as const;
 
 type BaseCategoryItem = {

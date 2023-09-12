@@ -118,6 +118,7 @@ const DoughnutDataLabelCustomLegendValuesArgs: Props<DataFrame, ChartOptions> = 
                 type: ChartSeriesType.Doughnut,
                 cutout:"65%",
                 valueColumn: 'y',
+                backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
                 dataLabels: {
                     display: true,
                 },
