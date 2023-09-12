@@ -93,11 +93,14 @@
         border-left-color: transparent;
         border-right-color: transparent;
     }
-
     .main {
         aspect-ratio: var(--aspect-ratio);
         flex-grow: 1;
         position: relative;
         display: block;
+    }
+    /* Suitable for elements that are used via aria-describedby or aria-labelledby */
+    .a11y-invisible-description {
+        display: none;
     }
 </style>
