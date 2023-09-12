@@ -1,6 +1,6 @@
 import React from 'react';
 import { BBox } from 'geojson';
-import { PoiMapData } from '@opendatasoft/visualizations';
+import { PoiMapData, CATEGORY_ITEM_VARIANT } from '@opendatasoft/visualizations';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { shapes as data } from './data';
@@ -92,7 +92,7 @@ const PoiMapMatchExpressionArgs = {
 PoiMapMatchExpression.args = PoiMapMatchExpressionArgs;
 
 /**
- * STORY: With legend on start alignement
+ * STORY: With legend on start align
  */
 export const PoiMapLegendStart: ComponentStory<typeof PoiMap> = Template.bind({});
 const PoiMapLegendStartArgs = {
@@ -112,18 +112,18 @@ const PoiMapLegendStartArgs = {
             type: 'category' as const,
             title: "I Am Legend",
             items: [
-                { label: 'category 1', color: '#F5C2C1', borderColor: 'red', variant: 'circle' as const },
-                { label: 'category 2', color: '#90EE90', borderColor: 'green', variant: 'circle' as const },
-                { label: 'category 3', color: '#ADD8E6', borderColor: 'blue', variant: 'circle' as const },
+                { label: 'category 1', color: '#F5C2C1', borderColor: 'red', variant: CATEGORY_ITEM_VARIANT.Circle },
+                { label: 'category 2', color: '#90EE90', borderColor: 'green', variant: CATEGORY_ITEM_VARIANT.Circle },
+                { label: 'category 3', color: '#ADD8E6', borderColor: 'blue', variant: CATEGORY_ITEM_VARIANT.Circle },
             ],
-            alignement: 'start' as const,
+            align: 'start' as const,
         },
     },
 };
 PoiMapLegendStart.args = PoiMapLegendStartArgs;
 
 /**
- * STORY: With legend on center alignement
+ * STORY: With legend on center align
  */
 export const PoiMapLegendCenter: ComponentStory<typeof PoiMap> = Template.bind({});
 const PoiMapLegendCenterArgs = {
@@ -143,11 +143,11 @@ const PoiMapLegendCenterArgs = {
             type: 'category' as const,
             title: "I Am Legend",
             items: [
-                { label: 'category 1', color: '#F5C2C1', borderColor: 'red', variant: 'circle' as const },
-                { label: 'category 2', color: '#90EE90', borderColor: 'green', variant: 'circle' as const },
-                { label: 'category 3', color: '#ADD8E6', borderColor: 'blue', variant: 'circle' as const },
+                { label: 'category 1', color: '#F5C2C1', borderColor: 'red', variant: CATEGORY_ITEM_VARIANT.Circle },
+                { label: 'category 2', color: '#90EE90', borderColor: 'green', variant: CATEGORY_ITEM_VARIANT.Circle },
+                { label: 'category 3', color: '#ADD8E6', borderColor: 'blue', variant: CATEGORY_ITEM_VARIANT.Circle },
             ],
-            alignement: 'center' as const,
+            align: 'center' as const,
         },
     },
 };

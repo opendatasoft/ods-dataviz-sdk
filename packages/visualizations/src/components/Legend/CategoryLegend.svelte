@@ -1,26 +1,25 @@
 <script lang="ts">
     import type { CategoryLegend, CategoryItem } from './types';
+    import { CATEGORY_ITEM_VARIANT } from './types';
 
     export let legendOptions: CategoryLegend;
     let refinedSeries: number[] = [];
     /** just find a way to identify each item uniquely, here initial order */
     type UniqueCategoryItem = CategoryItem & { id: number };
-    const defaultVariant = 'box';
     let items: CategoryItem[] = [];
     let title: string | undefined;
-    let alignement: string | undefined;
-    $: ({ items, title, alignement = 'center' } = legendOptions);
+    let align: string | undefined;
+    $: ({ items, title, align = 'center' } = legendOptions);
     $: categoryItems = items.map((item, i) => ({
         ...item,
         id: i,
-        variant: item.variant || defaultVariant,
     }));
 
     const isRefined = (item: UniqueCategoryItem, series: number[]) =>
         series.some((id) => id === item.id);
 </script>
 
-<div class="legend-container" style="--alignement: {alignement}">
+<div class="legend-container" style="--align: {align}">
     {#if title}
         <div class="legend-title">{title}</div>
     {/if}
@@ -48,24 +47,16 @@
                     }
                 }}
             >
-                {#if item.color}
-                    {#if item?.variant === 'circle'}
-                        <div
-                            class={'item-circle-category'}
-                            class:refined={isRefined(item, refinedSeries)}
-                            style="--box-color: {item.color}; --border-color:{item.borderColor}"
-                        />
-                    {:else}
-                        <div
-                            class={'item-box-category'}
-                            class:refined={isRefined(item, refinedSeries)}
-                            style="--box-color: {item.color}; --border-color:{item.borderColor}"
-                        />
-                    {/if}
+                {#if item.variant === CATEGORY_ITEM_VARIANT.Circle || item.variant === CATEGORY_ITEM_VARIANT.Box}
+                    <div
+                        class={`item-${item.variant}-category`}
+                        class:refined={isRefined(item, refinedSeries)}
+                        style="--box-color: {item.color}; --border-color:{item.borderColor}"
+                    />
                 {:else}
                     <div
                         class="item-line-category"
-                        class:item-line-category-dashed={item.borderDashed}
+                        class:item-line-category-dashed={item.dashed}
                         style="--border-color:{item.borderColor}"
                     />
                 {/if}
@@ -87,11 +78,11 @@
     .legend-title {
         padding-top: 13px;
         font-weight: 700;
-        text-align: var(--alignement);
+        text-align: var(--align);
     }
     .legend-items-container {
         display: grid;
-        justify-content: var(--alignement);
+        justify-content: var(--align);
         grid-gap: 3px 13px;
         grid-template-columns: repeat(auto-fit, minmax(80px, max-content));
         padding: 13px 0;
