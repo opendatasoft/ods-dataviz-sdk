@@ -24,7 +24,7 @@
     {#if title}
         <div class="legend-title">{title}</div>
     {/if}
-    <div class="legend-items-container" style="--alignement: {alignement}">
+    <div class="legend-items-container">
         {#each categoryItems as item (item.id)}
             <div
                 class="legend-item-category"
