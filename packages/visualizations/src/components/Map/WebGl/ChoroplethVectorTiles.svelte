@@ -2,7 +2,7 @@
     import type { FilterSpecification, SourceSpecification } from 'maplibre-gl';
     import type { BBox } from 'geojson';
     import { debounce } from 'lodash';
-    import type { ColorScale, DataBounds, Color } from '../../types';
+    import type { ColorScale, DataBounds, Color, Source } from '../../types';
     import MapRender from './MapRender.svelte';
     import { BLANK } from '../mapStyles';
     import {
@@ -45,6 +45,8 @@
     let subtitle: string | undefined;
     let description: string | undefined;
     let navigationMaps: NavigationMap[] | undefined;
+    // Data source link
+    let sourceLink: Source | undefined;
 
     // Used to apply a chosen color for shapes without values (default: #cccccc)
     let emptyValueColor: Color;
@@ -70,6 +72,7 @@
         subtitle,
         description,
         navigationMaps,
+        sourceLink,
     } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
@@ -146,6 +149,7 @@
     {description}
     {navigationMaps}
     {data}
+    {sourceLink}
 />
 
 <style>

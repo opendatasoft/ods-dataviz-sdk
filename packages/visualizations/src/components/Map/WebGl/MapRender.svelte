@@ -15,11 +15,12 @@
     import { onMount } from 'svelte';
     import { debounce } from 'lodash';
     import type { BBox } from 'geojson';
+    import SourceLink from '../../utils/SourceLink.svelte';
     import { computeMaxZoomFromGeoJsonFeatures, getFixedTooltips } from '../utils';
     import ColorsLegend from '../../Legend/ColorsLegend.svelte';
     import BackButton from '../../utils/BackButton.svelte';
     import MiniMap from '../../utils/MiniMap.svelte';
-    import type { ColorScale, DataBounds } from '../../types';
+    import type { ColorScale, DataBounds, Source } from '../../types';
     import type { LegendVariant } from '../../Legend/types';
     import type {
         ChoroplethFixedTooltipDescription,
@@ -64,6 +65,8 @@
     // Navigation maps
     export let navigationMaps: NavigationMap[] | undefined;
     export let data: { value: ChoroplethDataValue[] };
+    // Data source link
+    export let sourceLink: Source | undefined;
 
     let clientWidth: number;
     let legendVariant: LegendVariant;
@@ -381,6 +384,9 @@
                 />
             {/each}
         </div>
+    {/if}
+    {#if sourceLink}
+        <SourceLink source={sourceLink} />
     {/if}
 </figure>
 

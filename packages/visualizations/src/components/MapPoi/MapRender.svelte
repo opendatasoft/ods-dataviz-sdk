@@ -6,6 +6,8 @@
     import { onDestroy, onMount } from 'svelte';
     import CategoryLegend from '../Legend/CategoryLegend.svelte';
     import type { CategoryLegend as CategoryLegendType } from '../Legend/types';
+    import SourceLink from '../utils/SourceLink.svelte';
+    import type { Source } from '../types';
 
     import Map from './Map';
 
@@ -22,6 +24,8 @@
     export let subtitle: string | undefined;
     export let legend: CategoryLegendType | undefined;
     export let description: string | undefined;
+    // Data source link
+    export let sourceLink: Source | undefined;
 
     // Used in front of console and error messages to debug multiple maps on a same page
     const mapId = Math.floor(Math.random() * 1000);
@@ -62,6 +66,9 @@
     {/if}
     {#if legend}
         <CategoryLegend legendOptions={legend} />
+    {/if}
+    {#if sourceLink}
+        <SourceLink source={sourceLink} />
     {/if}
 </figure>
 

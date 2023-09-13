@@ -61,6 +61,7 @@ export const getMapOptions = (options: PoiMapOptions) => {
         subtitle,
         description,
         legend,
+        sourceLink,
     } = options;
     return {
         aspectRatio,
@@ -70,5 +71,6 @@ export const getMapOptions = (options: PoiMapOptions) => {
         subtitle,
         description,
         legend,
+        sourceLink,
     };
 };

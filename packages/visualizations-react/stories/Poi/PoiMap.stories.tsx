@@ -2,6 +2,7 @@ import React from 'react';
 import { BBox } from 'geojson';
 import { PoiMapData, CATEGORY_ITEM_VARIANT } from '@opendatasoft/visualizations';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { defaultSource } from '../utils';
 
 import { shapes as data } from './data';
 import { PoiMap } from '../../src';
@@ -118,6 +119,7 @@ const PoiMapLegendStartArgs = {
             ],
             align: 'start' as const,
         },
+        sourceLink: defaultSource,
     },
 };
 PoiMapLegendStart.args = PoiMapLegendStartArgs;
@@ -149,6 +151,7 @@ const PoiMapLegendCenterArgs = {
             ],
             align: 'center' as const,
         },
+        sourceLink: defaultSource,
     },
 };
 PoiMapLegendCenter.args = PoiMapLegendCenterArgs;
