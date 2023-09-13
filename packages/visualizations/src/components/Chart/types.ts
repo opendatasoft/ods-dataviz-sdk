@@ -215,6 +215,7 @@ export interface Treemap {
     keyColumn: string;
     keyGroups: string[];
     borderColor?: string;
+    backgroundColor?: Color | Color[];
     borderWidth?: number;
     spacing?: number;
     colorFormatter?: (index: number) => Color;

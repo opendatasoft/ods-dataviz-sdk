@@ -103,6 +103,11 @@
                         const { type: seriesType } = options.series[0];
                         const format = options?.tooltip?.numberFormatter || defaultNumberFormat;
 
+                        // In this special chart type keyColumn is the data key to group values
+                        if (seriesType === ChartSeriesType.Treemap) {
+                            return raw._data[options.series[0].keyColumn];
+                        };
+
                         // If the value has a label, we need to add it to the tooltip
                         let prefix = '';
                         if (label && series.length > 1) prefix = `${label}: `;
@@ -134,9 +139,6 @@
                                 // charts, the label is not the series legend, it's the category.
                                 return `${dataFrame[dataIndex].x}: ${format(parsed)}`;
                             }
-                            if (seriesType === ChartSeriesType.Treemap) {
-                                return prefix;
-                            }
                         }
 
                         return prefix + formattedValue + suffix;
@@ -160,10 +162,6 @@
         if (seriesType === ChartSeriesType.Doughnut) {
             (chartOptions as Exclude<ChartConfiguration<'doughnut'>['options'], undefined>).cutout =
                 options.series[0].cutout;
-        }
-        if (seriesType === ChartSeriesType.Treemap) {
-            (chartOptions as Exclude<ChartConfiguration<'treemap'>['options'], undefined>).plugins = 
-                {...chartOptions.plugins, tooltip: { enabled: false }}
         }
         chartConfig = update(chartConfig, { options: { $set: chartOptions } });
     }

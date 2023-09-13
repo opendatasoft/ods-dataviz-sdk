@@ -551,6 +551,9 @@ const TreemapChartArgs: Props<DataFrame, ChartOptions> = {
                 }
             },
         ],
+        tooltip: {
+            display: false,
+        }
     },
 };
 TreemapChart.args = TreemapChartArgs;

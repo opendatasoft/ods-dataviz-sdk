@@ -1,6 +1,5 @@
 import type { ChartDataset } from 'chart.js';
 import type { Options as DataLabelsOptions } from 'chartjs-plugin-datalabels/types/options';
-import type { TreemapControllerDatasetOptions } from 'chartjs-chart-treemap';
 import type { ChartSeries, DataLabelsConfiguration, FillConfiguration } from './types';
 import type { DataFrame } from '../types';
 import { defaultCompactNumberFormat } from '../utils/formatter';
@@ -35,7 +34,7 @@ function chartJsDataLabels(dataLabels: DataLabelsConfiguration | undefined): Dat
 
 export default function toDataset(
     df: DataFrame, s: ChartSeries
-): ChartDataset | TreemapControllerDatasetOptions<Record<string, unknown>> {
+): ChartDataset {
     if (s.type === 'bar') {
         return {
             type: 'bar',
