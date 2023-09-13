@@ -113,13 +113,16 @@
                         if (label && series.length > 1) prefix = `${label}: `;
 
                         // If the value is a percentage, we need to add the '%' symbol
-                        const percentaged = options?.axis?.assemblage?.percentaged ? '% ' : '';
-                        // If the value is a percentage, we need to format the raw value
-                        const formattedRawValue =
-                            percentaged && typeof raw === 'number' && !Number.isNaN(raw)
-                                ? `(${format(raw)})`
-                                : `(0)`;
-                        const suffix = percentaged + formattedRawValue;
+                        const percentaged = options?.axis?.assemblage?.percentaged ? '%' : '';
+                        let percentagedRawValue = '';
+                        if (percentaged) {
+                            // If the value is a percentage, we need to format the raw value
+                            percentagedRawValue = ` ${
+                                typeof raw === 'number' ? `(${format(raw)})` : '(0)'
+                            }`;
+                        }
+
+                        const suffix = percentaged + percentagedRawValue;
 
                         if (seriesType && parsed) {
                             if (seriesType === ChartSeriesType.Bar) {
@@ -134,8 +137,10 @@
                             if (seriesType === ChartSeriesType.Radar) {
                                 return prefix + format(parsed.r);
                             }
-                            if (seriesType === ChartSeriesType.Pie) {
-                                // For pie charts we need to get the label from the dataFrame because, unlike other
+                            if (
+                                [ChartSeriesType.Pie, ChartSeriesType.Doughnut].includes(seriesType)
+                            ) {
+                                // For pie and doughnut charts we need to get the label from the dataFrame because, unlike other
                                 // charts, the label is not the series legend, it's the category.
                                 return `${dataFrame[dataIndex].x}: ${format(parsed)}`;
                             }
@@ -151,6 +156,7 @@
             stacked100: {
                 // Enables the 100% percent stacking
                 enable: options?.axis?.assemblage?.percentaged,
+                replaceTooltipLabel: false,
             },
         };
 

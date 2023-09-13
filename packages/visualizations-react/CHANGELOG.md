@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.15.1...@opendatasoft/visualizations-react@0.15.2) (2023-09-07)
+
+
+### Bug Fixes
+
+* **Vizualizations:** format nullish values in tooltip ([5b339c5](https://github.com/opendatasoft/ods-dataviz-sdk/commit/5b339c52c8c8d73525dee2ec871a220efaecc5c2))
+
+
+
+
+
 ## [0.15.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.15.0...@opendatasoft/visualizations-react@0.15.1) (2023-09-01)
 
 **Note:** Version bump only for package @opendatasoft/visualizations-react
