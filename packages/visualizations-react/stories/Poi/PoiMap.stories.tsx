@@ -24,6 +24,13 @@ const layers: PoiMapData['layers'] = [
                 Corsica: 'white',
                 Marseille: 'lightblue',
             },
+            borderColors: {
+                Paris: 'white',
+                Nantes: 'black',
+                Bordeaux: 'white',
+                Corsica: 'black',
+                Marseille: 'black',
+            },
         },
     },
 ];

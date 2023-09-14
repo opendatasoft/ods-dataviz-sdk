@@ -48,6 +48,7 @@ export type Layer = {
     sourceLayer?: string;
     type: LayerSpecification['type'];
     color: Color;
+    borderColor?: Color;
     /**
      * Set a marker color based on a value.
      * If no match, default color comes from `color`
@@ -55,6 +56,7 @@ export type Layer = {
     colorMatch?: {
         key: string;
         colors: { [key: string]: Color };
+        borderColors?: { [key: string]: Color };
     };
 };
 
