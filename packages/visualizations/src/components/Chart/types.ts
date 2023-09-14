@@ -12,11 +12,11 @@ export interface ChartOptions {
     padding?:
         | number
         | {
-            top?: number;
-            bottom?: number;
-            left?: number;
-            right?: number;
-        };
+              top?: number;
+              bottom?: number;
+              left?: number;
+              right?: number;
+          };
     axis?: {
         /** Configure x axis */
         x?: CartesianAxisConfiguration;
@@ -222,14 +222,13 @@ export interface Treemap {
     labels?: {
         display?: boolean;
         align?: 'left' | 'center' | 'right';
-        labelsFormatter?:(index: number) => string[] | string;
-        font?: {[key: string]: number | string }[] | {[key: string]: number | string};
+        labelsFormatter?: (index: number) => string[] | string;
+        font?: { [key: string]: number | string }[] | { [key: string]: number | string };
         color?: Color[] | Color;
         hoverColor?: Color[] | Color;
-        hoverFont?: {[key: string]: number | string }[] | {[key: string]: number | string};
+        hoverFont?: { [key: string]: number | string }[] | { [key: string]: number | string };
         position?: 'top' | 'middle' | 'bottom';
-    }
-    
+    };
 }
 
 export type FillMode = false | number | string | { value: number };
@@ -239,9 +238,3 @@ export interface FillConfiguration {
     above?: Color | Color[];
     below?: Color | Color[];
 }
-
-// Couldn't find the index props in the treemap types TreemapScriptableContext
-// it finally generates a bug, I left a comment to remember we tried it
-// export type TreemapContext = ScriptableContext<'treemap'> & {
-//     index?: number
-// };

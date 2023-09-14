@@ -32,9 +32,7 @@ function chartJsDataLabels(dataLabels: DataLabelsConfiguration | undefined): Dat
     };
 }
 
-export default function toDataset(
-    df: DataFrame, s: ChartSeries
-): ChartDataset {
+export default function toDataset(df: DataFrame, s: ChartSeries): ChartDataset {
     if (s.type === 'bar') {
         return {
             type: 'bar',
@@ -119,22 +117,24 @@ export default function toDataset(
                 // TODO: create a function in utils to generate a color gradient bbased on a default color
                 return 'grey';
             },
-            labels: s.labels ? {
-                align: s.labels.align,
-                display: defaultValue(s.labels.display, false),
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                formatter(context: any) {
-                    if (s.labels && s.labels.labelsFormatter) {
-                        return s.labels.labelsFormatter(context.index);
-                    }
-                    return '';
-                  },
-                  font: s.labels.font,
-                  color: s.labels.color,
-                  hoverColor: s.labels.hoverColor,
-                  hoverFont: s.labels.hoverFont,
-                  position: s.labels.position,
-              } : { display: false }
+            labels: s.labels
+                ? {
+                      align: s.labels.align,
+                      display: defaultValue(s.labels.display, false),
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                      formatter(context: any) {
+                          if (s.labels && s.labels.labelsFormatter) {
+                              return s.labels.labelsFormatter(context.index);
+                          }
+                          return '';
+                      },
+                      font: s.labels.font,
+                      color: s.labels.color,
+                      hoverColor: s.labels.hoverColor,
+                      hoverFont: s.labels.hoverFont,
+                      position: s.labels.position,
+                  }
+                : { display: false },
         };
     }
 

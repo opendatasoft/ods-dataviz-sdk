@@ -1,5 +1,5 @@
 import * as ChartJs from 'chart.js';
-import {TreemapController, TreemapElement} from 'chartjs-chart-treemap';
+import { TreemapController, TreemapElement } from 'chartjs-chart-treemap';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import Stacked100Plugin from 'chartjs-plugin-stacked100';
 import type { ChartOptions } from './types';

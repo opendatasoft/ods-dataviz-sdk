@@ -106,7 +106,7 @@
                         // In this special chart type keyColumn is the data key to group values
                         if (seriesType === ChartSeriesType.Treemap) {
                             return raw._data[options.series[0].keyColumn];
-                        };
+                        }
 
                         // If the value has a label, we need to add it to the tooltip
                         let prefix = '';
