@@ -8,7 +8,12 @@ import type {
 import type { Color } from '../types';
 
 import type { Layer, PoiMapData, PoiMapOptions } from './types';
-import { DEFAULT_BASEMAP_STYLE, DEFAULT_ASPECT_RATIO, DEFAULT_BBOX, DEFAULT_DARK_GREY } from './constants';
+import {
+    DEFAULT_BASEMAP_STYLE,
+    DEFAULT_ASPECT_RATIO,
+    DEFAULT_BBOX,
+    DEFAULT_DARK_GREY,
+} from './constants';
 
 export const getMapStyle = (style: PoiMapOptions['style']): MapOptions['style'] => {
     if (!style) return DEFAULT_BASEMAP_STYLE;
