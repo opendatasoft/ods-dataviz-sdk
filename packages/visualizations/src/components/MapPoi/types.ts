@@ -52,14 +52,20 @@ export type Layer = {
     };
 };
 
+export enum PopupDisplayTypes {
+    Tooltip = 'tooltip',
+    Sidebar = 'sidebar',
+}
+
 export type PopupLayer = {
     /**
      * Control where to display the popup
      * - `sidebar`: As a side element (on the left)
      * - `tooltip`: Above the feature that has been clicked
      */
-    display: 'sidebar' | 'tooltip';
-    getContent: (id: GeoJSONFeature['id'], properties?: GeoJsonProperties) => string;
+    display: PopupDisplayTypes;
+    getContent: (id?: GeoJSONFeature['id'], properties?: GeoJsonProperties) => Promise<string>;
+    getLoadingContent: () => string;
 };
 
 export type GeoPoint = {

@@ -1,7 +1,9 @@
 import React from 'react';
 import { BBox } from 'geojson';
-import { Layer } from '@opendatasoft/visualizations';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+
+import type { Layer } from '@opendatasoft/visualizations';
+import { PopupDisplayTypes } from '@opendatasoft/visualizations';
 
 import sources from './sources';
 import { PoiMap } from '../../src';
@@ -14,10 +16,12 @@ const layer1 : Layer = {
     type: "circle",
     color: 'black',
     popup: {
-        display: 'tooltip', 
-        getContent: (_, properties) => {
+        display: PopupDisplayTypes.Tooltip,
+        getContent: async (_, properties) => {
             const {key} = properties as {key: string};
-            return `<h4>${key}</h4>`;}
+            return Promise.resolve(`<h4>${key}</h4>`);
+        },
+        getLoadingContent: () => 'Loading...',
     }
 };
 
@@ -27,10 +31,12 @@ const layer2 : Layer = {
     type: "circle",
     color: 'red',
     popup: {
-        display: 'sidebar', 
-        getContent: (_, properties) => {
+        display: PopupDisplayTypes.Sidebar,
+        getContent: async (_, properties) => {
             const {name, date, description} = properties as {name: string, date: string, description: string};
-            return `<h4>${name}</h4><p>${description}<p/><small>${date}</small>`;}
+            return Promise.resolve(`<h4>${name}</h4><p>${description}<p/><small>${date}</small>`);
+        },
+        getLoadingContent: () => 'Loading...',
     }
 };
 

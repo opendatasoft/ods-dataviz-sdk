@@ -118,11 +118,18 @@ export default class MapPOI {
             return;
         }
 
-        const { display, getContent } = popupConfiguration;
-        this.popup
-            .setLngLat(geometry.coordinates.slice() as LngLatLike)
-            .setHTML(getContent(featureId, properties))
-            .addTo(map);
+        const { display, getContent, getLoadingContent } = popupConfiguration;
+
+        if (this.popup.isOpen() === false) {
+            this.popup.setLngLat(geometry.coordinates.slice() as LngLatLike).addTo(map);
+        }
+
+        this.popup.setHTML(getLoadingContent());
+
+        getContent(featureId, properties)
+            .then((content) => {
+                this.popup.setHTML(content);
+            });
 
         const classnameModifier = display === 'sidebar' ? 'addClassName' : 'removeClassName';
         this.popup[classnameModifier](`${POPUP_OPTIONS.className}--as-sidebar`);
