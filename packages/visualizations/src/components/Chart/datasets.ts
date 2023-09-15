@@ -46,6 +46,7 @@ export default function toDataset(df: DataFrame, s: ChartSeries): ChartDataset {
             barPercentage: defaultValue(s.barPercentage, 0.9),
             categoryPercentage: defaultValue(s.categoryPercentage, 0.8),
             datalabels: chartJsDataLabels(s.dataLabels),
+            stack: s.stack,
         };
     }
 

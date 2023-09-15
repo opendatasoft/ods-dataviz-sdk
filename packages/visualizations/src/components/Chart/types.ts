@@ -176,6 +176,7 @@ export interface Bar {
     categoryPercentage?: number;
     barPercentage?: number;
     dataLabels?: DataLabelsConfiguration;
+    stack?: string;
 }
 
 export interface Pie {
