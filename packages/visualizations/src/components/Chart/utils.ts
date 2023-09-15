@@ -8,12 +8,11 @@ export function defaultValue<T>(value: T | undefined, fallback: T): T {
 }
 
 export function singleChartJsColor(color?: Color | Color[]) {
-    if (color === undefined) return DEFAULT_GREY_COLOR;
+    if (color === undefined) return undefined;
     if (typeof color === 'string') return color;
     return color[0];
 }
 
 export function multipleChartJsColors(color?: Color | Color[]) {
-    if (color === undefined) return DEFAULT_GREY_COLOR;
     return color;
 }

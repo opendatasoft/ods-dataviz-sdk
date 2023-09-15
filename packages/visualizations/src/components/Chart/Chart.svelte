@@ -15,7 +15,7 @@
     import { defaultValue } from './utils';
     import toDataset from './datasets';
     import buildScales from './scales';
-    import { buildLegend, buildCustomLegend } from './legend';
+    import { buildLegend, buildPieAndDoughnutCustomLegend } from './legend';
 
     export let data: Async<DataFrame>;
     export let options: ChartOptions;
@@ -186,8 +186,8 @@
     $: legendPosition =
         clientWidth <= 375 ? 'bottom' : defaultValue(options?.legend?.position, 'bottom');
     let legendOptions: CategoryLegendType;
-    $: if (options?.legend?.custom) {
-        legendOptions = buildCustomLegend({ chart, options, chartConfig });
+    $: if ([ChartSeriesType.Pie, ChartSeriesType.Doughnut].includes(options.series[0].type )  && options?.legend?.custom) {
+        legendOptions = buildPieAndDoughnutCustomLegend({ chart, options, chartConfig });
     }
 </script>
 

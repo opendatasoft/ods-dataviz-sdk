@@ -81,7 +81,7 @@ function buildLegendLabels(
     return `${chartConfig.data.labels?.[index]}`;
 }
 
-export function buildCustomLegend({
+export function buildPieAndDoughnutCustomLegend({
     chart,
     options,
     chartConfig,
@@ -91,12 +91,15 @@ export function buildCustomLegend({
     chartConfig: ChartConfiguration;
 }) {
     const { series } = options;
+    const backgroundColors = series[0].backgroundColor?.length 
+        ? series[0].backgroundColor 
+        : [DEFAULT_GREY_COLOR];
     return {
         type: 'category' as const,
         position: defaultValue(options?.legend?.position, 'bottom'),
         align: defaultValue(options?.legend?.align, 'center'),
         items: chartConfig.data.datasets[0].data.map((_data, i) => ({
-            color: defaultValue(series[0].backgroundColor?.[i], DEFAULT_GREY_COLOR),
+            color: backgroundColors[i % backgroundColors.length],
             variant: CATEGORY_ITEM_VARIANT.Box,
             dashed: false,
             label: buildLegendLabels(i, options, chartConfig),
