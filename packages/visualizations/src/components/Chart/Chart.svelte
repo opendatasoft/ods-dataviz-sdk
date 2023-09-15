@@ -186,7 +186,10 @@
     $: legendPosition =
         clientWidth <= 375 ? 'bottom' : defaultValue(options?.legend?.position, 'bottom');
     let legendOptions: CategoryLegendType;
-    $: if ([ChartSeriesType.Pie, ChartSeriesType.Doughnut].includes(options.series[0].type )  && options?.legend?.custom) {
+    $: if (
+        [ChartSeriesType.Pie, ChartSeriesType.Doughnut].includes(options.series[0].type) &&
+        options?.legend?.custom
+    ) {
         legendOptions = buildPieAndDoughnutCustomLegend({ chart, options, chartConfig });
     }
 </script>

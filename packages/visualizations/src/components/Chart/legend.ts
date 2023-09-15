@@ -91,8 +91,8 @@ export function buildPieAndDoughnutCustomLegend({
     chartConfig: ChartConfiguration;
 }) {
     const { series } = options;
-    const backgroundColors = series[0].backgroundColor?.length 
-        ? series[0].backgroundColor 
+    const backgroundColors = series[0].backgroundColor?.length
+        ? series[0].backgroundColor
         : [DEFAULT_GREY_COLOR];
     return {
         type: 'category' as const,
