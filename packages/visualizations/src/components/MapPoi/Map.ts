@@ -126,10 +126,9 @@ export default class MapPOI {
 
         this.popup.setHTML(getLoadingContent());
 
-        getContent(featureId, properties)
-            .then((content) => {
-                this.popup.setHTML(content);
-            });
+        getContent(featureId, properties).then((content) => {
+            this.popup.setHTML(content);
+        });
 
         const classnameModifier = display === 'sidebar' ? 'addClassName' : 'removeClassName';
         this.popup[classnameModifier](`${POPUP_OPTIONS.className}--as-sidebar`);
