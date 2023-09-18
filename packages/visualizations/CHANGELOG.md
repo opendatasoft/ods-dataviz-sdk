@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.3](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.15.2...@opendatasoft/visualizations@0.15.3) (2023-09-18)
+
+
+### Bug Fixes
+
+* **Chart:** expose `stack` property ([049672e](https://github.com/opendatasoft/ods-dataviz-sdk/commit/049672eb8a721070f957fca22866cbb6b74a7920))
+
+
+
+
+
 ## [0.15.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.15.1...@opendatasoft/visualizations@0.15.2) (2023-09-07)
 
 
