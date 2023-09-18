@@ -88,6 +88,13 @@
         margin: 0;
         position: relative;
     }
+    figcaption {
+        margin: 0 0 1em 0;
+    }
+    figcaption p,
+    figcaption h3 {
+        margin: 0;
+    }
     /* To add classes programmatically in svelte we will use a global selector. We place it inside a local selector to obtain some encapsulation and avoid side effects */
     .map-card :global(.tooltip-on-hover > .maplibregl-popup-content) {
         border-radius: 6px;

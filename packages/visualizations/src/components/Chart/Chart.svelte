@@ -241,6 +241,10 @@
     }
     .header {
         width: 100%;
+        margin: 0 0 1em 0;
+    }
+    .header h3,
+    .header p {
         margin: 0;
     }
 

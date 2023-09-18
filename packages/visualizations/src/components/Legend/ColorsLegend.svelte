@@ -147,8 +147,8 @@
         width: 276px;
     }
     .legend-colors--fluid {
-        width: 90%;
-        padding: 6px;
+        width: 100%;
+        padding: 13px 0;
         margin: auto;
     }
     .legend-colors-title {

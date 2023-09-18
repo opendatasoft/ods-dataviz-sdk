@@ -361,15 +361,6 @@
     {#if description}
         <p id={mapId.toString()} class="a11y-invisible-description">{description}</p>
     {/if}
-    {#if legend && dataBounds && clientWidth && mapReady}
-        <ColorsLegend
-            {dataBounds}
-            {colorScale}
-            variant={legendVariant}
-            title={legend.title}
-            position={legend.position}
-        />
-    {/if}
     <!-- Working with index is safe since we don't add/remove items -->
     {#if navigationMaps}
         <div class="buttons" style="--buttons-events:{interactive ? 'auto' : 'none'}">
@@ -384,6 +375,15 @@
                 />
             {/each}
         </div>
+    {/if}
+    {#if legend && dataBounds && clientWidth && mapReady}
+        <ColorsLegend
+            {dataBounds}
+            {colorScale}
+            variant={legendVariant}
+            title={legend.title}
+            position={legend.position}
+        />
     {/if}
     {#if sourceLink}
         <SourceLink source={sourceLink} />
@@ -405,6 +405,13 @@
         flex-direction: column;
         margin: 0;
         position: relative;
+    }
+    figcaption {
+        margin: 0 0 1em 0;
+    }
+    figcaption p,
+    figcaption h3 {
+        margin: 0;
     }
     /* To add classes programmatically in svelte we will use a global selector. We place it inside a local selector to obtain some encapsulation and avoid side effects */
     .map-card :global(.tooltip-on-hover > .maplibregl-popup-content) {
