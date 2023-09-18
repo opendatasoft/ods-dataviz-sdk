@@ -7,6 +7,7 @@ import { PopupDisplayTypes } from '@opendatasoft/visualizations';
 
 import sources from './sources';
 import { PoiMap } from '../../src';
+import { timeout } from '../utils';
 
 const BASE_STYLE = 'https://demotiles.maplibre.org/style.json';
 
@@ -18,6 +19,7 @@ const layer1 : Layer = {
     popup: {
         display: PopupDisplayTypes.Tooltip,
         getContent: async (_, properties) => {
+            await timeout(500);
             const {key} = properties as {key: string};
             return Promise.resolve(`<h4>${key}</h4>`);
         },
@@ -33,6 +35,7 @@ const layer2 : Layer = {
     popup: {
         display: PopupDisplayTypes.Sidebar,
         getContent: async (_, properties) => {
+            await timeout(500);
             const {name, date, description} = properties as {name: string, date: string, description: string};
             return Promise.resolve(`<h4>${name}</h4><p>${description}<p/><small>${date}</small>`);
         },
