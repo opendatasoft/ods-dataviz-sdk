@@ -375,6 +375,104 @@ const BarChartPercentageArgs: Props<DataFrame, ChartOptions> = {
 };
 BarChartPercentage.args = BarChartPercentageArgs;
 
+export const BarChartStackedGroups = ChartTemplate.bind({});
+const BarChartStackedGroupsArgs: Props<DataFrame, ChartOptions> = {
+    data: {
+        loading: false,
+        value: [
+            { series_001: null, series_002: 20, series_003: 50, series_004: 11, x: 'Acer' },
+            { series_001: 22, series_002: 28, series_003: 27, series_004: 67, x: 'Aesculus' },
+            { series_001: 18, series_002: 18, series_003: 11, series_004: 10, x: 'Alnus' },
+            { series_001: 11, series_002: 11, series_003: 33, series_004: 21, x: 'Araucaria' },
+            { series_001: 20, series_002: 20, series_003: 9, series_004: 22, x: 'Betula' },
+            { series_001: 21, series_002: 21, series_003: 21, series_004: 18.14, x: 'Calocedrus' },
+            { series_001: 10, series_002: 9, series_003: 22, series_004: 10, x: 'Catalpa' },
+            { series_001: 21, series_002: 19.375, series_003: 15, series_004: 12, x: 'Cedrus' },
+            { series_001: 18, series_002: 15, series_003: 20, series_004: 27, x: 'Celtis' },
+        ],
+    },
+    options: {
+        labelColumn: 'x',
+        title: {
+            text: 'Bar Chart - Stacked Groups',
+        },
+        series: [
+            {
+                type: ChartSeriesType.Bar,
+                valueColumn: 'series_001',
+                indexAxis: 'y',
+                stack: 'stack_0',
+                borderColor: 'rgba(255, 0, 0, 1)',
+                backgroundColor: 'rgba(255, 0, 0, 0.5)',
+                dataLabels: {
+                    display: false,
+                    color: 'rgba(255, 0, 0, 1)',
+                },
+            },
+            {
+                type: ChartSeriesType.Bar,
+                valueColumn: 'series_002',
+                indexAxis: 'y',
+                stack: 'stack_0',
+                borderColor: 'rgba(38, 56, 145, 1)',
+                backgroundColor: 'rgba(38, 56, 145, 0.5)',
+                dataLabels: {
+                    display: false,
+                    color: 'rgba(38, 56, 145, 1)',
+                },
+            },
+            {
+                type: ChartSeriesType.Bar,
+                valueColumn: 'series_003',
+                indexAxis: 'y',
+                stack: 'stack_1',
+                borderColor: 'rgba(218, 30, 127, 0.8)',
+                backgroundColor: 'rgba(218, 30, 127, 0.8)',
+                dataLabels: {
+                    display: false,
+                    color: 'rgba(218, 30, 127, 0.8)',
+                },
+            },
+            {
+                type: ChartSeriesType.Bar,
+                valueColumn: 'series_004',
+                indexAxis: 'y',
+                stack: 'stack_1',
+                borderColor: 'rgba(30, 218, 147, 0.8)',
+                backgroundColor: 'rgba(30, 218, 147, 0.8)',
+                dataLabels: {
+                    display: false,
+                    color: 'rgba(30, 218, 147, 0.8)',
+                },
+            },
+        ],
+        axis: {
+            x: {
+                display: true,
+                type: 'linear',
+                gridLines: {
+                    display: true,
+                },
+                ticks: {
+                    display: true,
+                },
+            },
+            y: {
+                display: true,
+                gridLines: {
+                    display: false,
+                },
+                type: 'category',
+            },
+            assemblage: {
+                stacked: true,
+                percentaged: false,
+            },
+        },
+    },
+};
+BarChartStackedGroups.args = BarChartStackedGroupsArgs;
+
 export const ColumnChartStacked = ChartTemplate.bind({});
 const ColumnChartStackedArgs: Props<DataFrame, ChartOptions> = {
     data: {
@@ -516,3 +614,99 @@ const ColumnChartPercentageArgs: Props<DataFrame, ChartOptions> = {
     },
 };
 ColumnChartPercentage.args = ColumnChartPercentageArgs;
+
+
+export const ColumnChartStackedGroups = ChartTemplate.bind({});
+const ColumnChartStackedGroupsArgs: Props<DataFrame, ChartOptions> = {
+    data: {
+        loading: false,
+        value: [
+            { series_001: null, series_002: 20, series_003: 50, series_004: 11, x: 'Acer' },
+            { series_001: 22, series_002: 28, series_003: 27, series_004: 67, x: 'Aesculus' },
+            { series_001: 18, series_002: 18, series_003: 11, series_004: 10, x: 'Alnus' },
+            { series_001: 11, series_002: 11, series_003: 33, series_004: 21, x: 'Araucaria' },
+            { series_001: 20, series_002: 20, series_003: 9, series_004: 22, x: 'Betula' },
+            { series_001: 21, series_002: 21, series_003: 21, series_004: 18.14, x: 'Calocedrus' },
+            { series_001: 10, series_002: 9, series_003: 22, series_004: 10, x: 'Catalpa' },
+            { series_001: 21, series_002: 19.375, series_003: 15, series_004: 12, x: 'Cedrus' },
+            { series_001: 18, series_002: 15, series_003: 20, series_004: 27, x: 'Celtis' },
+        ],
+    },
+    options: {
+        labelColumn: 'x',
+        title: {
+            text: 'Column Chart - Stacked Groups',
+        },
+        series: [
+            {
+                type: ChartSeriesType.Bar,
+                valueColumn: 'series_001',
+                borderColor: 'rgba(255, 0, 0, 1)',
+                backgroundColor: 'rgba(255, 0, 0, 0.5)',
+                dataLabels: {
+                    display: false,
+                    color: 'rgba(255, 0, 0, 1)',
+                },
+                stack: 'stack_0',
+            },
+            {
+                type: ChartSeriesType.Bar,
+                valueColumn: 'series_002',
+                borderColor: 'rgba(38, 56, 145, 1)',
+                backgroundColor: 'rgba(38, 56, 145, 0.5)',
+                dataLabels: {
+                    display: false,
+                    color: 'rgba(38, 56, 145, 1)',
+                },
+                stack: 'stack_0',
+            },
+            {
+                type: ChartSeriesType.Bar,
+                valueColumn: 'series_003',
+                stack: 'stack_1',
+                borderColor: 'rgba(218, 30, 127, 0.8)',
+                backgroundColor: 'rgba(218, 30, 127, 0.8)',
+                dataLabels: {
+                    display: false,
+                    color: 'rgba(218, 30, 127, 0.8)',
+                },
+            },
+            {
+                type: ChartSeriesType.Bar,
+                valueColumn: 'series_004',
+                stack: 'stack_1',
+                borderColor: 'rgba(30, 218, 147, 0.8)',
+                backgroundColor: 'rgba(30, 218, 147, 0.8)',
+                dataLabels: {
+                    display: false,
+                    color: 'rgba(30, 218, 147, 0.8)',
+                },
+            },
+        ],
+        axis: {
+            x: {
+                display: true,
+                offset: true,
+                gridLines: {
+                    display: false,
+                },
+                type: 'category',
+            },
+            y: {
+                display: true,
+                type: 'linear',
+                gridLines: {
+                    display: true,
+                },
+                ticks: {
+                    display: true,
+                },
+            },
+            assemblage: {
+                stacked: true,
+                percentaged: false,
+            },
+        },
+    },
+};
+ColumnChartStackedGroups.args = ColumnChartStackedGroupsArgs;
