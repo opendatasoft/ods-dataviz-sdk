@@ -61,8 +61,8 @@ export const getMapLayers = (layers?: Layer[]): CircleLayerSpecification[] => {
             source,
             ...(sourceLayer ? { 'source-layer': sourceLayer } : undefined),
             paint: {
-                'circle-radius': 5,
-                ...(circleBorderColor && { 'circle-stroke-width': 1 }),
+                'circle-radius': 7,
+                ...(circleBorderColor && { 'circle-stroke-width': 1.5 }),
                 'circle-color': circleColor,
                 ...(circleBorderColor && { 'circle-stroke-color': circleBorderColor }),
             },
