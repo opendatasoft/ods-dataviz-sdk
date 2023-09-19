@@ -6,12 +6,12 @@ import { COLORS } from '../../utils';
 import ChartTemplate from '../ChartTemplate';
 
 const meta: Meta = {
+    component: ChartTemplate,
     title: 'Chart/AxisAssemblages',
 };
 
 export default meta;
 
-export const AreaChartStacked = ChartTemplate.bind({});
 const AreaChartStackedArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -63,9 +63,8 @@ const AreaChartStackedArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-AreaChartStacked.args = AreaChartStackedArgs;
+export const AreaChartStacked =  {args: AreaChartStackedArgs};
 
-export const AreaChartPercentage = ChartTemplate.bind({});
 const AreaChartPercentageArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -117,9 +116,8 @@ const AreaChartPercentageArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-AreaChartPercentage.args = AreaChartPercentageArgs;
+export const AreaChartPercentage = {args: AreaChartPercentageArgs};
 
-export const LineChartStacked = ChartTemplate.bind({});
 const LineChartStackedArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -173,9 +171,8 @@ const LineChartStackedArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-LineChartStacked.args = LineChartStackedArgs;
+export const LineChartStacked = {args: LineChartStackedArgs};
 
-export const LineChartPercentage = ChartTemplate.bind({});
 const LineChartPercentageArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -229,9 +226,8 @@ const LineChartPercentageArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-LineChartPercentage.args = LineChartPercentageArgs;
+export const LineChartPercentage = {args: LineChartPercentageArgs};
 
-export const BarChartStacked = ChartTemplate.bind({});
 const BarChartStackedArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -301,9 +297,8 @@ const BarChartStackedArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-BarChartStacked.args = BarChartStackedArgs;
+export const BarChartStacked = {args: BarChartStackedArgs};
 
-export const BarChartPercentage = ChartTemplate.bind({});
 const BarChartPercentageArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -373,9 +368,8 @@ const BarChartPercentageArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-BarChartPercentage.args = BarChartPercentageArgs;
+export const BarChartPercentage = {args: BarChartPercentageArgs};
 
-export const BarChartStackedGroups = ChartTemplate.bind({});
 const BarChartStackedGroupsArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -471,9 +465,8 @@ const BarChartStackedGroupsArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-BarChartStackedGroups.args = BarChartStackedGroupsArgs;
+export const BarChartStackedGroups = {args: BarChartStackedGroupsArgs};
 
-export const ColumnChartStacked = ChartTemplate.bind({});
 const ColumnChartStackedArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -542,9 +535,8 @@ const ColumnChartStackedArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-ColumnChartStacked.args = ColumnChartStackedArgs;
+export const ColumnChartStacked = {args: ColumnChartStackedArgs};
 
-export const ColumnChartPercentage = ChartTemplate.bind({});
 const ColumnChartPercentageArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -613,10 +605,8 @@ const ColumnChartPercentageArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-ColumnChartPercentage.args = ColumnChartPercentageArgs;
+export const ColumnChartPercentage = {args: ColumnChartPercentageArgs};
 
-
-export const ColumnChartStackedGroups = ChartTemplate.bind({});
 const ColumnChartStackedGroupsArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -709,4 +699,115 @@ const ColumnChartStackedGroupsArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-ColumnChartStackedGroups.args = ColumnChartStackedGroupsArgs;
+export const ColumnChartStackedGroups = {args: ColumnChartStackedGroupsArgs};
+
+const ScatterPlotChartArgs: Props<DataFrame, ChartOptions> = {
+    data: {
+        loading: false,
+        value: [
+            {label: 'id-0', x: -10, y: 20}, 
+            {label: 'id-1', x: 20, y: -10}, 
+            {label: 'id-2', x: 5, y: 2},
+            {label: 'id-3', x: 7, y: 3}
+        ],
+    },
+    options: {
+        labelColumn: 'label',
+        series: [
+            {
+                type: ChartSeriesType.Scatter,
+                label: "Serie 1",
+                valueColumn:"x",
+                indexAxis:"y",
+                backgroundColor: COLORS.blue,
+            },
+        ],
+        axis: {
+            x: {
+                display: true,
+                type: 'linear',
+                title: {
+                    display: true,
+                    text: "Horizontal axis"
+                },
+            },
+            y: {
+                display: true,
+                title: {
+                    display: true,
+                    text: "Vertical axis"
+                },
+                type: 'linear',
+            },
+        },
+        title: {
+            text: 'Scatterplot Chart',
+        },
+    },
+};
+export const ScatterplotChart = {args: ScatterPlotChartArgs};
+
+function randomNormal(mean = 0, stdDev = 1) {
+    let u1 = 0;
+    let u2 = 0;
+    while (u1 === 0) u1 = Math.random();
+    while (u2 === 0) u2 = Math.random();
+    const z0 = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
+    return z0 * stdDev + mean;
+  }
+
+function generateNormalDistribution(n: number, xMean = 0, xStdDev = 1, yMean = 0, yStdDev = 1) {
+    const points = [];
+    for (let i = 0; i < n; i++) {
+      points.push({
+        label: `id-${i}`, 
+        x: randomNormal(xMean, xStdDev),
+        y: randomNormal(yMean, yStdDev),
+      });
+    }
+    return points;
+  }
+
+const ScatterplotNormalDistribChartArgs: Props<DataFrame, ChartOptions> = {
+    data: {
+        loading: false,
+        value: generateNormalDistribution(1000, 5, 2, 5, 2),
+    },
+    options: {
+        labelColumn: 'label',
+        series: [
+            {
+                label: "Serie 1",
+                type: ChartSeriesType.Scatter,
+                valueColumn:"x",
+                indexAxis:"y",
+                backgroundColor: COLORS.blue,
+            },
+        ],
+        axis: {
+            x: {
+                display: true,
+                title: {
+                    display: true,
+                    text: "Horizontal axis"
+                }, 
+                beginAtZero: true
+            },
+            y: {
+                display: true,
+                title: {
+                    display: true,
+                    text: "Vertical axis"
+                },
+                beginAtZero: true
+            },
+        },
+        title: {
+            text: 'Scatterplot Chart - Normal distribution',
+        },
+    },
+};
+export const ScatterplotNormalDistribChart = {
+    args: ScatterplotNormalDistribChartArgs, 
+    parameters: {chromatic: { disableSnapshot: true }}
+};

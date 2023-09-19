@@ -139,6 +139,13 @@
                                 // charts, the label is not the series legend, it's the category.
                                 return `${dataFrame[dataIndex].x}: ${format(parsed)}`;
                             }
+                            if (seriesType === ChartSeriesType.Scatter) {
+                                const formattedValues = `${format(parsed.x)}, ${format(parsed.y)}`;
+                                // e.g. dataset 1: (4.5, 54)
+                                if (prefix) return `${prefix}(${formattedValues})`;
+                                // 4.5, 54
+                                return formattedValues;
+                            }
                         }
 
                         return prefix + formattedValue + suffix;

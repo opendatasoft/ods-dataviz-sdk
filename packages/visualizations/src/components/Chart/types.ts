@@ -76,9 +76,18 @@ export interface CategoryCartesianAxisConfiguration extends BaseCartesianAxisCon
     type?: 'category';
 }
 
-export interface NumericCartesianAxisConfiguration extends BaseCartesianAxisConfiguration {
-    type: 'linear' | 'logarithmic';
+export interface LinearCartesianAxisConfiguration extends BaseCartesianAxisConfiguration {
+    type: 'linear';
+    beginAtZero?: boolean;
 }
+
+export interface LogarithmicCartesianAxisConfiguration extends BaseCartesianAxisConfiguration {
+    type: 'logarithmic';
+}
+
+export type NumericCartesianAxisConfiguration =
+    | LinearCartesianAxisConfiguration
+    | LogarithmicCartesianAxisConfiguration;
 
 export interface AxisTitleConfiguration {
     display?: boolean;
@@ -138,7 +147,7 @@ export interface DataLabelsConfiguration {
     padding?: number;
 }
 
-export type ChartSeries = Line | Bar | Pie | Radar | Doughnut;
+export type ChartSeries = Line | Bar | Pie | Radar | Doughnut | Scatter;
 
 export enum ChartSeriesType {
     Line = 'line',
@@ -146,6 +155,7 @@ export enum ChartSeriesType {
     Pie = 'pie',
     Radar = 'radar',
     Doughnut = 'doughnut',
+    Scatter = 'scatter',
 }
 
 export interface Line {
@@ -207,6 +217,20 @@ export interface Doughnut {
     backgroundColor?: Color | Color[];
     dataLabels?: DataLabelsConfiguration;
     indexAxis?: 'x' | 'y';
+}
+
+export interface Scatter {
+    type: ChartSeriesType.Scatter;
+    valueColumn: string;
+    label?: string;
+    indexAxis: string;
+    /** Point color */
+    backgroundColor?: Color | Color[];
+    pointRadius?: number;
+    pointHitRadius?: number;
+    pointHoverRadius?: number;
+    pointBorderColor?: string;
+    dataLabels?: DataLabelsConfiguration;
 }
 
 export type FillMode = false | number | string | { value: number };
