@@ -30,21 +30,31 @@ export const getMapLayers = (layers?: Layer[]): CircleLayerSpecification[] => {
     if (!layers) return [];
 
     return layers.map((layer) => {
-        let circleColor: DataDrivenPropertyValueSpecification<Color> | Color = layer.color;
-        // Border color is optionnal in map layers
-        let circleBorderColor: DataDrivenPropertyValueSpecification<Color> | Color | undefined =
-            layer?.borderColor;
+        const {
+            id,
+            type,
+            source,
+            sourceLayer,
+            circleRadius = 7,
+            circleStrokeWidth = 1.5,
+            colorMatch,
+            color: layerColor,
+            borderColor: layerBorderColor,
+        } = layer;
 
-        if (layer.colorMatch) {
-            const { key, colors, borderColors } = layer.colorMatch;
+        let circleColor: DataDrivenPropertyValueSpecification<Color> | Color = layerColor;
+        let circleBorderColor: DataDrivenPropertyValueSpecification<Color> | Color | undefined =
+            layerBorderColor;
+
+        if (colorMatch) {
+            const { key, colors, borderColors } = colorMatch;
             const groupByColors = ['match', ['get', key]];
             Object.keys(colors).forEach((color) => {
                 groupByColors.push(color, colors[color]);
             });
-            groupByColors.push(layer.color);
+            groupByColors.push(layerColor);
             circleColor = groupByColors;
 
-            // Border colors are optionnal in the colorMatch props
             if (borderColors) {
                 const groupBordersByColors = ['match', ['get', key]];
                 Object.keys(borderColors).forEach((borderColor) => {
@@ -54,9 +64,6 @@ export const getMapLayers = (layers?: Layer[]): CircleLayerSpecification[] => {
                 circleBorderColor = groupBordersByColors;
             }
         }
-        const {
-            id, type, source, sourceLayer, circleRadius = 7, circleStrokeWidth = 1.5
-        } = layer;
         return {
             id,
             type,
