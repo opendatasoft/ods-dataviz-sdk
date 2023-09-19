@@ -49,6 +49,8 @@ export type Layer = {
     type: LayerSpecification['type'];
     color: Color;
     borderColor?: Color;
+    circleRadius?: number;
+    circleStrokeWidth?: number;
     /**
      * Set a marker color based on a value.
      * If no match, default color comes from `color`
