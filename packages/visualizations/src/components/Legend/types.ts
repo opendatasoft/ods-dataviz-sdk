@@ -38,19 +38,19 @@ type BaseCategoryItem = {
     onLeave?(): void;
 };
 
-type CircleCategoryItem = BaseCategoryItem & {
+export type CircleCategoryItem = BaseCategoryItem & {
     variant: typeof CATEGORY_ITEM_VARIANT.Circle;
     color: Color;
     borderColor?: Color;
 };
 
-type BoxCategoryItem = BaseCategoryItem & {
+export type BoxCategoryItem = BaseCategoryItem & {
     variant: typeof CATEGORY_ITEM_VARIANT.Box;
     color: Color;
     borderColor?: Color;
 };
 
-type LineCategoryItem = BaseCategoryItem & {
+export type LineCategoryItem = BaseCategoryItem & {
     variant: typeof CATEGORY_ITEM_VARIANT.Line;
     borderColor: Color;
     dashed?: boolean;
