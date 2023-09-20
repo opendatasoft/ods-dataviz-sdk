@@ -6,3 +6,8 @@ export interface Props<Data, Options> extends HTMLAttributes<HTMLElement> {
     options: Options;
     tag?: string;
 }
+
+export interface SimpleProps<Options> extends HTMLAttributes<HTMLElement> {
+    options: Options;
+    tag?: string;
+}

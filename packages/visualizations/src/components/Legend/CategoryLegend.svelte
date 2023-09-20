@@ -1,8 +1,8 @@
 <script lang="ts">
     import CategoryLegendItem from './CategoryLegend/Item/CategoryLegendItem.svelte';
-    import type { CategoryLegend, CategoryItem } from './types';
+    import type { CategoryLegendOptions, CategoryItem } from './types';
 
-    export let legendOptions: CategoryLegend;
+    export let options: CategoryLegendOptions;
 
     let items: CategoryItem[] = [];
     let title: string | undefined;
@@ -16,7 +16,7 @@
             : [...refinedSeries, index];
     };
 
-    $: ({ items, title, align = 'center' } = legendOptions);
+    $: ({ items, title, align = 'center' } = options);
 </script>
 
 <div class="legend-container" style="--align: {align}">

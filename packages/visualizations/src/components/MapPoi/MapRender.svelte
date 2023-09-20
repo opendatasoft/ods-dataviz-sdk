@@ -65,7 +65,7 @@
         <p id={mapId.toString()} class="a11y-invisible-description">{description}</p>
     {/if}
     {#if legend}
-        <CategoryLegend legendOptions={legend} />
+        <CategoryLegend options={legend} />
     {/if}
     {#if sourceLink}
         <SourceLink source={sourceLink} />

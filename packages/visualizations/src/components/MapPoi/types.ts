@@ -1,7 +1,7 @@
 import type { CircleLayerSpecification, StyleSpecification } from 'maplibre-gl';
 import type { BBox } from 'geojson';
 import type { Color, Source } from '../types';
-import type { CategoryLegend } from '../Legend/types';
+import type { CategoryLegendOptions } from '../Legend/types';
 
 // To render data layers on the map
 export type PoiMapData = Partial<{
@@ -28,7 +28,7 @@ export interface PoiMapOptions {
     title?: string;
     subtitle?: string;
     description?: string;
-    legend?: CategoryLegend;
+    legend?: CategoryLegendOptions;
     /** Link button to source */
     sourceLink?: Source;
 }
