@@ -14,7 +14,6 @@
 </script>
 
 <div
-    class="legend-item-category"
     class:refined
     style="--cursor-style: {item.onClick ? 'pointer' : 'default'};"
     on:click={() => {
@@ -41,11 +40,11 @@
 </div>
 
 <style>
-    .legend-item-category {
+    div {
         display: inline-flex;
         align-items: center;
     }
-    .legend-item-category:hover {
+    div:hover {
         cursor: var(--cursor-style);
     }
     .refined {

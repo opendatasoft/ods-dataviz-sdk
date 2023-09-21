@@ -4,7 +4,7 @@
     export let item: LineCategoryItem;
 </script>
 
-<div class:item-line-category-dashed={item.dashed} style="--border-color:{item.borderColor}" />
+<div class:dashed={item.dashed} style="--border-color:{item.borderColor}" />
 
 <style>
     div {
@@ -15,7 +15,7 @@
             2px;
         background-position-x: calc(50% - 3px);
     }
-    .item-line-category-dashed {
+    .dashed {
         background: repeating-linear-gradient(
                 to right,
                 transparent 0 3px,
