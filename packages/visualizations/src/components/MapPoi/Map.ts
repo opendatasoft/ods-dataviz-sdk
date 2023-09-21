@@ -1,4 +1,5 @@
 import type { BBox } from 'geojson';
+import { debounce } from 'lodash';
 import maplibregl, {
     LngLatBoundsLike,
     LngLatLike,
@@ -12,6 +13,8 @@ const DEFAULT_CENTER: LngLatLike = [3.5, 46];
 
 export default class MapPOI {
     private map: maplibregl.Map | null = null;
+
+    private mapResizeObserver: ResizeObserver | null = null;
 
     private isReady = false;
 
@@ -31,12 +34,25 @@ export default class MapPOI {
         this.queuedFunctions = [];
     }
 
+    private initializeMapResizer(map: maplibregl.Map, container: HTMLElement) {
+        // Set a resizeObserver to resize map on container size changes
+        this.mapResizeObserver = new ResizeObserver(
+            debounce(() => {
+                map.resize();
+            }, 100)
+        );
+        this.mapResizeObserver.observe(container);
+    }
+
     initialize(
         style: MapOptions['style'],
         container: HTMLElement,
         options: Omit<MapOptions, 'style' | 'container'>
     ) {
         this.map = new maplibregl.Map({ style, container, center: DEFAULT_CENTER, ...options });
+
+        this.queue((map) => this.initializeMapResizer(map, container));
+
         this.map.on('load', () => {
             this.isReady = true;
             // Store base style after the first loads
@@ -47,8 +63,9 @@ export default class MapPOI {
         });
     }
 
-    remove() {
+    destroy() {
         this.queue((map) => map.remove());
+        this.mapResizeObserver?.disconnect();
     }
 
     // TODO: add tests to check that layers are at the end of the array
