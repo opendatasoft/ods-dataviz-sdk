@@ -27,7 +27,7 @@
 
     // Lifecycle
     onMount(() => map.initialize(style, container, { bounds: bbox as LngLatBoundsLike }));
-    onDestroy(() => map.remove());
+    onDestroy(() => map.destroy());
 </script>
 
 <figure class="map-card maps-container" style={cssVarStyles}>
