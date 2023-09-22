@@ -3,7 +3,12 @@ import type { Options as DataLabelsOptions } from 'chartjs-plugin-datalabels/typ
 import type { ChartSeries, DataLabelsConfiguration, FillConfiguration } from './types';
 import type { DataFrame } from '../types';
 import { defaultCompactNumberFormat } from '../utils/formatter';
-import { defaultValue, singleChartJsColor, multipleChartJsColors } from './utils';
+import {
+    defaultValue,
+    singleChartJsColor,
+    multipleChartJsColors,
+    DEFAULT_GREY_COLOR,
+} from './utils';
 
 function chartJsFill(fill: FillConfiguration | undefined) {
     if (fill === undefined) return false;
@@ -73,7 +78,9 @@ export default function toDataset(df: DataFrame, s: ChartSeries): ChartDataset {
             type: 'pie',
             label: defaultValue(s.label, ''),
             data: df.map((entry) => entry[s.valueColumn]),
-            backgroundColor: multipleChartJsColors(s.backgroundColor),
+            backgroundColor: multipleChartJsColors(
+                s.backgroundColor?.length ? s.backgroundColor : [DEFAULT_GREY_COLOR]
+            ),
             datalabels: chartJsDataLabels(s.dataLabels),
         };
     }
@@ -96,7 +103,9 @@ export default function toDataset(df: DataFrame, s: ChartSeries): ChartDataset {
             type: 'doughnut',
             label: defaultValue(s.label, ''),
             data: df.map((entry) => entry[s.valueColumn]),
-            backgroundColor: multipleChartJsColors(s.backgroundColor),
+            backgroundColor: multipleChartJsColors(
+                s.backgroundColor?.length ? s.backgroundColor : DEFAULT_GREY_COLOR
+            ),
             datalabels: chartJsDataLabels(s.dataLabels),
         };
     }

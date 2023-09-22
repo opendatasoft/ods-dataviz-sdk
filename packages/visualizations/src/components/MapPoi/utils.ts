@@ -8,7 +8,12 @@ import type {
 import type { Color } from '../types';
 
 import type { Layer, PoiMapData, PoiMapOptions, PopupsConfiguration } from './types';
-import { DEFAULT_BASEMAP_STYLE, DEFAULT_ASPECT_RATIO, DEFAULT_BBOX } from './constants';
+import {
+    DEFAULT_DARK_GREY,
+    DEFAULT_BASEMAP_STYLE,
+    DEFAULT_ASPECT_RATIO,
+    DEFAULT_BBOX,
+} from './constants';
 
 export const getMapStyle = (style: PoiMapOptions['style']): MapOptions['style'] => {
     if (!style) return DEFAULT_BASEMAP_STYLE;
@@ -25,18 +30,40 @@ export const getMapLayers = (layers?: Layer[]): CircleLayerSpecification[] => {
     if (!layers) return [];
 
     return layers.map((layer) => {
-        let circleColor: DataDrivenPropertyValueSpecification<Color> | Color = layer.color;
+        const {
+            id,
+            type,
+            source,
+            sourceLayer,
+            circleRadius = 7,
+            circleStrokeWidth = 1.5,
+            colorMatch,
+            color: layerColor,
+            borderColor: layerBorderColor,
+        } = layer;
 
-        if (layer.colorMatch) {
-            const { key, colors } = layer.colorMatch;
+        let circleColor: DataDrivenPropertyValueSpecification<Color> | Color = layerColor;
+        let circleBorderColor: DataDrivenPropertyValueSpecification<Color> | Color | undefined =
+            layerBorderColor;
+
+        if (colorMatch) {
+            const { key, colors, borderColors } = colorMatch;
             const groupByColors = ['match', ['get', key]];
             Object.keys(colors).forEach((color) => {
                 groupByColors.push(color, colors[color]);
             });
-            groupByColors.push(layer.color);
+            groupByColors.push(layerColor);
             circleColor = groupByColors;
+
+            if (borderColors) {
+                const groupBordersByColors = ['match', ['get', key]];
+                Object.keys(borderColors).forEach((borderColor) => {
+                    groupBordersByColors.push(borderColor, borderColors[borderColor]);
+                });
+                groupBordersByColors.push(circleBorderColor || DEFAULT_DARK_GREY);
+                circleBorderColor = groupBordersByColors;
+            }
         }
-        const { id, type, source, sourceLayer } = layer;
         return {
             id,
             type,
@@ -46,10 +73,12 @@ export const getMapLayers = (layers?: Layer[]): CircleLayerSpecification[] => {
                 'circle-radius': [
                     'case',
                     ['boolean', ['feature-state', 'popup-feature'], false],
-                    8,
-                    5,
+                    circleRadius * 1.3,
+                    circleRadius,
                 ],
+                ...(circleBorderColor && { 'circle-stroke-width': circleStrokeWidth }),
                 'circle-color': circleColor,
+                ...(circleBorderColor && { 'circle-stroke-color': circleBorderColor }),
             },
             filter: ['==', ['geometry-type'], 'Point'],
         };
@@ -67,10 +96,24 @@ export const getPopupsConfiguration = (layers?: Layer[]): PopupsConfiguration =>
 };
 
 export const getMapOptions = (options: PoiMapOptions) => {
-    const { aspectRatio = DEFAULT_ASPECT_RATIO, bbox = DEFAULT_BBOX, interactive = true } = options;
+    const {
+        aspectRatio = DEFAULT_ASPECT_RATIO,
+        bbox = DEFAULT_BBOX,
+        interactive = true,
+        title,
+        subtitle,
+        description,
+        legend,
+        sourceLink,
+    } = options;
     return {
         aspectRatio,
         bbox,
         interactive,
+        title,
+        subtitle,
+        description,
+        legend,
+        sourceLink,
     };
 };

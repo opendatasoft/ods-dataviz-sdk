@@ -1,5 +1,6 @@
 import type { BBox } from 'geojson';
 import type { LngLatLike, PopupOptions, StyleSpecification } from 'maplibre-gl';
+import type { Color } from '../types';
 
 export const DEFAULT_BASEMAP_STYLE: StyleSpecification = {
     version: 8,
@@ -11,6 +12,8 @@ export const DEFAULT_BASEMAP_STYLE: StyleSpecification = {
 export const DEFAULT_BBOX: BBox = [180, 90, -180, -90];
 
 export const DEFAULT_ASPECT_RATIO = 1;
+
+export const DEFAULT_DARK_GREY: Color = '#515457';
 
 export const DEFAULT_MAP_CENTER: LngLatLike = [0, 0];
 

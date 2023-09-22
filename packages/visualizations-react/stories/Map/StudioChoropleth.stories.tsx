@@ -10,7 +10,7 @@ import {
 } from '@opendatasoft/visualizations';
 import { ChoroplethGeoJson, Props } from '../../src';
 import { shapes, multiPolygonShapes, worldCopies } from './data';
-import { IMAGES } from '../utils';
+import { IMAGES, defaultSource } from '../utils';
 
 const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
     title: 'Map/Choropleth',
@@ -378,6 +378,7 @@ const StudioChoroplethNavigationMapButtonsArgs: Props<DataFrame, ChoroplethGeoJs
             title: 'I Am Legend',
         },
         navigationMaps: [...makeMiniMaps(15),],
+        sourceLink: defaultSource,
     },
 };
 StudioChoroplethNavigationMapButtons.args = StudioChoroplethNavigationMapButtonsArgs;
