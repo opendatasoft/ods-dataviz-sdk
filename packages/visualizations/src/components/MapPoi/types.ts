@@ -60,6 +60,9 @@ export type Layer = {
         colors: { [key: string]: Color };
         borderColors?: { [key: string]: Color };
     };
+    /**
+     * A feature for which a popup is defined will update the cursor style in pointer mode
+     */
     popup?: PopupLayer;
 };
 

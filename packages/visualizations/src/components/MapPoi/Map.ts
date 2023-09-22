@@ -12,6 +12,12 @@ import maplibregl, {
 import { DEFAULT_MAP_CENTER, POPUP_OPTIONS } from './constants';
 import type { PopupsConfiguration } from './types';
 
+const CURSOR = {
+    DEFAULT: 'default',
+    HOVER: 'pointer',
+    DRAG: 'move',
+};
+
 type MapFunction = (map: maplibregl.Map) => unknown;
 
 export default class MapPOI {
@@ -69,6 +75,30 @@ export default class MapPOI {
             }, 100)
         );
         this.mapResizeObserver.observe(container);
+    }
+
+    /**
+     * How cursor should react
+     * - drag: move
+     * - hover a feature with a popup: pointer
+     */
+    private initializeCursorBehavior(map: maplibregl.Map) {
+        const canvas = map.getCanvas();
+        map.on('dragstart', () => {
+            canvas.style.cursor = CURSOR.DRAG;
+        });
+        map.on('dragend', () => {
+            canvas.style.cursor = CURSOR.DEFAULT;
+        });
+        map.on('mousemove', ({ point }) => {
+            const features = map.queryRenderedFeatures(point, { layers: this.layerIds });
+            const isMovingOverFeatureWithPopup =
+                features.length &&
+                features.some((feature) =>
+                    Object.keys(this.popupsConfiguration).includes(feature.layer.id)
+                );
+            canvas.style.cursor = isMovingOverFeatureWithPopup ? CURSOR.HOVER : CURSOR.DEFAULT;
+        });
     }
 
     /**
@@ -169,6 +199,7 @@ export default class MapPOI {
         this.map = new maplibregl.Map({ style, container, center: DEFAULT_MAP_CENTER, ...options });
 
         this.queue((map) => this.initializeMapResizer(map, container));
+        this.queue((map) => this.initializeCursorBehavior(map));
 
         this.map.on('load', () => {
             this.isReady = true;
