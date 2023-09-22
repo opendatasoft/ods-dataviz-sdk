@@ -1,6 +1,7 @@
-import type { CircleLayerSpecification, GeoJSONFeature, StyleSpecification } from 'maplibre-gl';
+import type { CircleLayerSpecification, StyleSpecification, GeoJSONFeature } from 'maplibre-gl';
 import type { BBox, GeoJsonProperties } from 'geojson';
-import type { Color } from '../types';
+import type { Color, Source } from '../types';
+import type { CategoryLegend } from '../Legend/types';
 
 // To render data layers on the map
 export type PoiMapData = Partial<{
@@ -19,11 +20,17 @@ export interface PoiMapOptions {
      * Maximum boundaries of the map, outside of which the user cannot zoom/move
      * Also set the position of the map when rendering.
      */
-    bbox?: BBox | undefined;
+    bbox?: BBox;
     // Aspect ratio used to draw the map. The map will take he width available to it, and decide its height based on that ratio.
     aspectRatio?: number;
     // Is the map interactive for the user (zoom, move, tooltips...)
     interactive?: boolean;
+    title?: string;
+    subtitle?: string;
+    description?: string;
+    legend?: CategoryLegend;
+    /** Link button to source */
+    sourceLink?: Source;
 }
 
 export type PoiMapStyleOption = Partial<Pick<StyleSpecification, 'sources' | 'layers'>>;
@@ -41,7 +48,9 @@ export type Layer = {
     sourceLayer?: string;
     type: LayerSpecification['type'];
     color: Color;
-    popup?: PopupLayer;
+    borderColor?: Color;
+    circleRadius?: number;
+    circleStrokeWidth?: number;
     /**
      * Set a marker color based on a value.
      * If no match, default color comes from `color`
@@ -49,7 +58,9 @@ export type Layer = {
     colorMatch?: {
         key: string;
         colors: { [key: string]: Color };
+        borderColors?: { [key: string]: Color };
     };
+    popup?: PopupLayer;
 };
 
 export enum PopupDisplayTypes {

@@ -2,7 +2,8 @@ import type { LegendOptions, ChartTypeRegistry, ChartConfiguration, Chart } from
 import type { _DeepPartialObject } from 'chart.js/types/utils';
 import type { ChartOptions } from './types';
 import { assureMaxLength } from '../utils/formatter';
-import { defaultValue } from './utils';
+import { defaultValue, DEFAULT_GREY_COLOR } from './utils';
+import { CATEGORY_ITEM_VARIANT } from '../Legend/types';
 
 const LEGEND_MAX_LENGTH = 50;
 
@@ -80,7 +81,7 @@ function buildLegendLabels(
     return `${chartConfig.data.labels?.[index]}`;
 }
 
-export function buildCustomLegend({
+export function buildPieAndDoughnutCustomLegend({
     chart,
     options,
     chartConfig,
@@ -90,12 +91,17 @@ export function buildCustomLegend({
     chartConfig: ChartConfiguration;
 }) {
     const { series } = options;
+    const backgroundColors = series[0].backgroundColor?.length
+        ? series[0].backgroundColor
+        : [DEFAULT_GREY_COLOR];
     return {
         type: 'category' as const,
         position: defaultValue(options?.legend?.position, 'bottom'),
+        align: defaultValue(options?.legend?.align, 'center'),
         items: chartConfig.data.datasets[0].data.map((_data, i) => ({
-            color: series[0].backgroundColor?.[i],
-            borderDashed: false,
+            color: backgroundColors[i % backgroundColors.length],
+            variant: CATEGORY_ITEM_VARIANT.Box,
+            dashed: false,
             label: buildLegendLabels(i, options, chartConfig),
             onClick: (index: number) => {
                 if (chart) {

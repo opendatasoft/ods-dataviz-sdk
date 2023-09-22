@@ -1,94 +1,57 @@
 <script lang="ts">
+    import CategoryLegendItem from './CategoryLegend/Item/CategoryLegendItem.svelte';
     import type { CategoryLegend, CategoryItem } from './types';
 
     export let legendOptions: CategoryLegend;
-    let refinedSeries: number[] = [];
-    /** just find a way to identify each item uniquely, here initial order */
-    type UniqueCategoryItem = CategoryItem & { id: number };
-    $: categoryItems = legendOptions.items.map((item, i) => ({ ...item, id: i }));
 
-    const isRefined = (item: UniqueCategoryItem, series: number[]) =>
-        series.some((id) => id === item.id);
+    let items: CategoryItem[] = [];
+    let title: string | undefined;
+    let align: string | undefined;
+    let refinedSeries: number[] = [];
+
+    const isRefined = (i: number, series: number[]) => series.some((id) => id === i);
+    const toggleSerie = (index: number) => {
+        refinedSeries = refinedSeries.some((id) => id === index)
+            ? refinedSeries.filter((id) => id !== index)
+            : [...refinedSeries, index];
+    };
+
+    $: ({ items, title, align = 'center' } = legendOptions);
 </script>
 
-{#each categoryItems as item (item.id)}
-    <div
-        class="color-item-category"
-        on:click={() => {
-            refinedSeries = isRefined(item, refinedSeries)
-                ? refinedSeries.filter((id) => id !== item.id)
-                : [...refinedSeries, item.id];
-            item.onClick(item.id);
-        }}
-        on:mouseenter={() => {
-            if (item.onHover) {
-                item.onHover(item.id, !isRefined(item, refinedSeries));
-            }
-        }}
-        on:mouseleave={() => {
-            if (item.onLeave) {
-                item.onLeave();
-            }
-        }}
-    >
-        {#if item.color}
-            <div
-                class="color-box-category"
-                class:refined={isRefined(item, refinedSeries)}
-                style="--box-color: {item.color}; --border-color:{item.borderColor}"
+<div class="legend-container" style="--align: {align}">
+    {#if title}
+        <div class="legend-title">{title}</div>
+    {/if}
+    <div class="legend-items-container">
+        {#each items as item, i}
+            <CategoryLegendItem
+                {item}
+                itemIndex={i}
+                {toggleSerie}
+                refined={isRefined(i, refinedSeries)}
             />
-        {:else}
-            <div
-                class="color-line-category"
-                class:color-line-category-dashed={item.borderDashed}
-                style="--border-color:{item.borderColor}"
-            />
-        {/if}
-        <div class="color-label-category" class:refined={isRefined(item, refinedSeries)}>
-            {item.label}
-        </div>
+        {/each}
     </div>
-{/each}
+</div>
 
 <style>
-    .color-item-category {
-        display: inline-flex;
-        align-items: center;
-    }
-    .color-item-category:hover {
-        cursor: pointer;
-    }
-    .refined {
-        text-decoration: line-through;
-        opacity: 50%;
-    }
-    .color-box-category {
-        min-height: 16px;
-        min-width: 28px;
-        border-radius: 3px;
-        background: var(--box-color);
-        border: 1px solid var(--border-color);
-        margin-right: 6px;
-    }
-    .color-line-category {
-        min-height: 16px;
-        min-width: 28px;
-        margin-right: 3px;
-        background: linear-gradient(var(--border-color), var(--border-color)) no-repeat center/100%
-            2px;
-        background-position-x: calc(50% - 3px);
-    }
-    .color-line-category-dashed {
-        background: repeating-linear-gradient(
-                to right,
-                transparent 0 3px,
-                var(--border-color) 3px 9px
-            )
-            no-repeat center/100% 2px;
-        background-position-x: calc(50% - 3px);
-    }
-    .color-label-category {
-        color: #565656;
+    .legend-container {
+        display: flex;
+        flex-direction: column;
         font-size: 0.8rem;
+        padding: 0 13px;
+    }
+    .legend-title {
+        padding-top: 13px;
+        font-weight: 700;
+        text-align: var(--align);
+    }
+    .legend-items-container {
+        display: grid;
+        justify-content: var(--align);
+        grid-gap: 3px 13px;
+        grid-template-columns: repeat(auto-fit, minmax(80px, max-content));
+        padding: 13px 0;
     }
 </style>

@@ -15,11 +15,12 @@
     import { onMount } from 'svelte';
     import { debounce } from 'lodash';
     import type { BBox } from 'geojson';
+    import SourceLink from '../../utils/SourceLink.svelte';
     import { computeMaxZoomFromGeoJsonFeatures, getFixedTooltips } from '../utils';
     import ColorsLegend from '../../Legend/ColorsLegend.svelte';
     import BackButton from '../../utils/BackButton.svelte';
     import MiniMap from '../../utils/MiniMap.svelte';
-    import type { ColorScale, DataBounds } from '../../types';
+    import type { ColorScale, DataBounds, Source } from '../../types';
     import type { LegendVariant } from '../../Legend/types';
     import type {
         ChoroplethFixedTooltipDescription,
@@ -64,6 +65,8 @@
     // Navigation maps
     export let navigationMaps: NavigationMap[] | undefined;
     export let data: { value: ChoroplethDataValue[] };
+    // Data source link
+    export let sourceLink: Source | undefined;
 
     let clientWidth: number;
     let legendVariant: LegendVariant;
@@ -358,15 +361,6 @@
     {#if description}
         <p id={mapId.toString()} class="a11y-invisible-description">{description}</p>
     {/if}
-    {#if legend && dataBounds && clientWidth && mapReady}
-        <ColorsLegend
-            {dataBounds}
-            {colorScale}
-            variant={legendVariant}
-            title={legend.title}
-            position={legend.position}
-        />
-    {/if}
     <!-- Working with index is safe since we don't add/remove items -->
     {#if navigationMaps}
         <div class="buttons" style="--buttons-events:{interactive ? 'auto' : 'none'}">
@@ -381,6 +375,18 @@
                 />
             {/each}
         </div>
+    {/if}
+    {#if legend && dataBounds && clientWidth && mapReady}
+        <ColorsLegend
+            {dataBounds}
+            {colorScale}
+            variant={legendVariant}
+            title={legend.title}
+            position={legend.position}
+        />
+    {/if}
+    {#if sourceLink}
+        <SourceLink source={sourceLink} />
     {/if}
 </figure>
 
@@ -399,6 +405,13 @@
         flex-direction: column;
         margin: 0;
         position: relative;
+    }
+    figcaption {
+        margin: 0 0 1em 0;
+    }
+    figcaption p,
+    figcaption h3 {
+        margin: 0;
     }
     /* To add classes programmatically in svelte we will use a global selector. We place it inside a local selector to obtain some encapsulation and avoid side effects */
     .map-card :global(.tooltip-on-hover > .maplibregl-popup-content) {

@@ -11,6 +11,7 @@ import {
 } from '@opendatasoft/visualizations';
 import { ChoroplethVectorTiles, Props } from '../../src';
 import { shapesTiles, regShapes, dataReg } from './data';
+import { defaultSource } from '../utils';
 
 const meta: ComponentMeta<typeof ChoroplethVectorTiles> = {
     title: 'Map/ChoroplethVector',
@@ -305,6 +306,7 @@ const StudioChoroplethNavigationMapButtonsArgs: Props<DataFrame, ChoroplethVecto
         },
         bbox: [-17.529298, 38.79776, 23.889159, 52.836618],
         navigationMaps: [...makeMiniMaps(15),],
+        sourceLink: defaultSource,
     },
 };
 StudioChoroplethNavigationMapButtons.args = StudioChoroplethNavigationMapButtonsArgs;

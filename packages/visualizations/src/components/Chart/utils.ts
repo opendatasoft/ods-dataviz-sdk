@@ -1,5 +1,7 @@
 import type { Color } from '../types';
 
+export const DEFAULT_GREY_COLOR = '#F0F0F0';
+
 export function defaultValue<T>(value: T | undefined, fallback: T): T {
     if (value === undefined) return fallback;
     return value;
