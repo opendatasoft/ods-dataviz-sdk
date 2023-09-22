@@ -107,6 +107,14 @@
         margin: 0;
     }
     /* To add classes programmatically in svelte we will use a global selector. We place it inside a local selector to obtain some encapsulation and avoid side effects */
+    .map-card :global(.poi-map__popup) {
+        /* To be above map controls (z-index: 2)*/
+        z-index: 3;
+        /* 26px is for its padding */
+        max-height: calc(100% - 26px);
+        height: auto;
+        overflow-y: auto;
+    }
     .map-card :global(.poi-map__popup.poi-map__popup--as-sidebar) {
         /* TO DO: add common stylesheet */
         transform: translate(13px, 13px) !important;
