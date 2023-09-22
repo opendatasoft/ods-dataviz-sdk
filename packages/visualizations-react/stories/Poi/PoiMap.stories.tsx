@@ -1,41 +1,104 @@
 import React from 'react';
 import { BBox } from 'geojson';
-import { PoiMapData, CATEGORY_ITEM_VARIANT } from '@opendatasoft/visualizations';
+import { CATEGORY_ITEM_VARIANT, PopupDisplayTypes } from '@opendatasoft/visualizations';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { defaultSource } from '../utils';
+import type { Layer } from '@opendatasoft/visualizations';
 
-import { shapes as data } from './data';
+import { defaultSource, timeout } from '../utils';
+
+import sources from './sources';
 import { PoiMap } from '../../src';
 
 const BASE_STYLE = 'https://demotiles.maplibre.org/style.json';
 
-const layers: PoiMapData['layers'] = [
-    {
-        id: 'data-layer-001',
-        source: 'data',
-        type: 'circle',
-        color: '#B42222',
-        colorMatch: {
-            key: 'key',
-            colors: {
-                Paris: 'blue',
-                Nantes: 'yellow',
-                Bordeaux: 'purple',
-                Corsica: 'white',
-                Marseille: 'lightblue',
-            },
-            borderColors: {
-                Paris: 'white',
-                Nantes: 'black',
-                Bordeaux: 'white',
-                Corsica: 'black',
-                Marseille: 'black',
-            },
+const layer1: Layer = {
+    id: 'layer-001',
+    source: 'cities',
+    type: 'circle',
+    color: 'black',
+    borderColor: 'white',
+    popup: {
+        display: PopupDisplayTypes.Tooltip,
+        getContent: async (_, properties) => {
+            await timeout(500);
+            const { key } = properties as { key: string };
+            return Promise.resolve(`<h4>${key}</h4>`);
         },
+        getLoadingContent: () => 'Loading...',
     },
-];
+};
+
+const layer2: Layer = {
+    id: 'layer-002',
+    source: 'battles',
+    type: 'circle',
+    color: 'red',
+    borderColor: 'white',
+    popup: {
+        display: PopupDisplayTypes.Sidebar,
+        getContent: async (_, properties) => {
+            await timeout(500);
+            const { name, date, description } = properties as {
+                name: string;
+                date: string;
+                description: string;
+            };
+            return Promise.resolve(`<h4>${name}</h4><p>${description}<p/><small>${date}</small>`);
+        },
+        getLoadingContent: () => 'Loading...',
+    },
+};
+
+const layers = [layer1, layer2];
+
+const citiesColorMatch = {
+    key: 'key',
+    colors: { Paris: 'blue', Nantes: 'yellow', Bordeaux: 'purple', Marseille: 'lightblue' },
+    borderColors: { Paris: 'white', Nantes: 'black', Bordeaux: 'white', Marseille: 'black' },
+};
 
 const bbox: BBox = [-6.855469, 41.343825, 11.645508, 51.37178];
+
+const legend = {
+    type: 'category' as const,
+    title: 'French cities',
+    items: [
+        {
+            label: 'Paris',
+            color: citiesColorMatch.colors.Paris,
+            borderColor: citiesColorMatch.borderColors.Paris,
+            variant: CATEGORY_ITEM_VARIANT.Circle,
+        },
+        {
+            label: 'Nantes',
+            color: citiesColorMatch.colors.Nantes,
+            borderColor: citiesColorMatch.borderColors.Nantes,
+            variant: CATEGORY_ITEM_VARIANT.Circle,
+        },
+        {
+            label: 'Bordeaux',
+            color: citiesColorMatch.colors.Bordeaux,
+            borderColor: citiesColorMatch.borderColors.Bordeaux,
+            variant: CATEGORY_ITEM_VARIANT.Circle,
+        },
+        {
+            label: 'Marseille',
+            color: citiesColorMatch.colors.Marseille,
+            borderColor: citiesColorMatch.borderColors.Marseille,
+            variant: CATEGORY_ITEM_VARIANT.Circle,
+        },
+    ],
+    align: 'start' as const,
+};
+
+const options = {
+    style: BASE_STYLE,
+    bbox,
+    title: 'Lorem Ipsum',
+    subtitle: 'Dolor Sit Amet',
+    desciption: 'More aria description',
+    sourceLink: defaultSource,
+};
 
 const meta: ComponentMeta<typeof PoiMap> = {
     title: 'Poi/PoiMap',
@@ -64,7 +127,7 @@ const Template: ComponentStory<typeof PoiMap> = (args) => (
 export const PoiMapNoLayersParams: ComponentStory<typeof PoiMap> = Template.bind({});
 const PoiMapNoLayersParamsArgs = {
     data: {},
-    options: { style: BASE_STYLE, bbox },
+    options,
 };
 PoiMapNoLayersParams.args = PoiMapNoLayersParamsArgs;
 
@@ -73,14 +136,8 @@ PoiMapNoLayersParams.args = PoiMapNoLayersParamsArgs;
  */
 export const PoiMapNonInteractive: ComponentStory<typeof PoiMap> = Template.bind({});
 const PoiMapNonInteractiveArgs = {
-    data: {
-        value: { layers, sources: { [layers[0].source]: { type: 'geojson' as const, data } } },
-    },
-    options: {
-        style: BASE_STYLE,
-        layers,
-        interactive: false,
-    },
+    data: { value: { layers, sources } },
+    options: { ...options, interactive: false },
 };
 PoiMapNonInteractive.args = PoiMapNonInteractiveArgs;
 
@@ -89,13 +146,8 @@ PoiMapNonInteractive.args = PoiMapNonInteractiveArgs;
  */
 export const PoiMapMatchExpression: ComponentStory<typeof PoiMap> = Template.bind({});
 const PoiMapMatchExpressionArgs = {
-    data: {
-        value: {
-            layers,
-            sources: { [layers[0].source]: { type: 'geojson' as const, data } },
-        },
-    },
-    options: { style: BASE_STYLE, bbox },
+    data: { value: { layers: [{ ...layer1, colorMatch: citiesColorMatch }, layer2], sources } },
+    options,
 };
 PoiMapMatchExpression.args = PoiMapMatchExpressionArgs;
 
@@ -104,30 +156,8 @@ PoiMapMatchExpression.args = PoiMapMatchExpressionArgs;
  */
 export const PoiMapLegendStart: ComponentStory<typeof PoiMap> = Template.bind({});
 const PoiMapLegendStartArgs = {
-    data: {
-        value: {
-            layers,
-            sources: { [layers[0].source]: { type: 'geojson' as const, data } },
-        },
-    },
-    options: {
-        style: BASE_STYLE,
-        bbox,
-        title: "Lorem Ipsum",
-        subtitle: "Dolor Sit Amet",
-        desciption: "More aria description",
-        legend: {
-            type: 'category' as const,
-            title: "I Am Legend",
-            items: [
-                { label: 'category 1', color: '#F5C2C1', borderColor: 'red', variant: CATEGORY_ITEM_VARIANT.Circle },
-                { label: 'category 2', color: '#90EE90', borderColor: 'green', variant: CATEGORY_ITEM_VARIANT.Circle },
-                { label: 'category 3', color: '#ADD8E6', borderColor: 'blue', variant: CATEGORY_ITEM_VARIANT.Circle },
-            ],
-            align: 'start' as const,
-        },
-        sourceLink: defaultSource,
-    },
+    data: { value: { layers: [{ ...layer1, colorMatch: citiesColorMatch }, layer2], sources } },
+    options: { ...options, legend },
 };
 PoiMapLegendStart.args = PoiMapLegendStartArgs;
 
@@ -136,29 +166,7 @@ PoiMapLegendStart.args = PoiMapLegendStartArgs;
  */
 export const PoiMapLegendCenter: ComponentStory<typeof PoiMap> = Template.bind({});
 const PoiMapLegendCenterArgs = {
-    data: {
-        value: {
-            layers,
-            sources: { [layers[0].source]: { type: 'geojson' as const, data } },
-        },
-    },
-    options: {
-        style: BASE_STYLE,
-        bbox,
-        title: "Lorem Ipsum",
-        subtitle: "Dolor Sit Amet",
-        desciption: "More aria description",
-        legend: {
-            type: 'category' as const,
-            title: "I Am Legend",
-            items: [
-                { label: 'category 1', color: '#F5C2C1', borderColor: 'red', variant: CATEGORY_ITEM_VARIANT.Circle },
-                { label: 'category 2', color: '#90EE90', borderColor: 'green', variant: CATEGORY_ITEM_VARIANT.Circle },
-                { label: 'category 3', color: '#ADD8E6', borderColor: 'blue', variant: CATEGORY_ITEM_VARIANT.Circle },
-            ],
-            align: 'center' as const,
-        },
-        sourceLink: defaultSource,
-    },
+    data: { value: { layers: [{ ...layer1, colorMatch: citiesColorMatch }, layer2], sources } },
+    options: { ...options, legend: { ...legend, align: 'center' as const } },
 };
 PoiMapLegendCenter.args = PoiMapLegendCenterArgs;

@@ -1,5 +1,5 @@
-import type { CircleLayerSpecification, StyleSpecification } from 'maplibre-gl';
-import type { BBox } from 'geojson';
+import type { CircleLayerSpecification, StyleSpecification, GeoJSONFeature } from 'maplibre-gl';
+import type { BBox, GeoJsonProperties } from 'geojson';
 import type { Color, Source } from '../types';
 import type { CategoryLegend } from '../Legend/types';
 
@@ -60,9 +60,28 @@ export type Layer = {
         colors: { [key: string]: Color };
         borderColors?: { [key: string]: Color };
     };
+    popup?: PopupLayer;
+};
+
+export enum PopupDisplayTypes {
+    Tooltip = 'tooltip',
+    Sidebar = 'sidebar',
+}
+
+export type PopupLayer = {
+    /**
+     * Control where to display the popup
+     * - `sidebar`: As a side element (on the left)
+     * - `tooltip`: Above the feature that has been clicked
+     */
+    display: PopupDisplayTypes;
+    getContent: (id?: GeoJSONFeature['id'], properties?: GeoJsonProperties) => Promise<string>;
+    getLoadingContent: () => string;
 };
 
 export type GeoPoint = {
     lat: number;
     lon: number;
 };
+
+export type PopupsConfiguration = { [key: string]: PopupLayer };

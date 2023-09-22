@@ -8,7 +8,7 @@
     export let toggleSerie: (index: number) => void;
     export let refined: boolean;
 
-    const stringLabel =
+    $: stringLabel =
         item.label &&
         (typeof item.label === 'string' ? item.label : item?.label?.text?.(itemIndex));
 </script>

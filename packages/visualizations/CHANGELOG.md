@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0-beta-poimap.3](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.16.0-beta-poimap.2...@opendatasoft/visualizations@0.16.0-beta-poimap.3) (2023-09-19)
+
+
+### Features
+
+* **PoiMap:** can display a popup on feature click ([2c2af23](https://github.com/opendatasoft/ods-dataviz-sdk/commit/2c2af234fc5b31bb1cd9952ebcc1c6d1a123a807))
+
+
+
+
+
 # [0.16.0-beta-poimap.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.15.3...@opendatasoft/visualizations@0.16.0-beta-poimap.2) (2023-09-18)
 
 

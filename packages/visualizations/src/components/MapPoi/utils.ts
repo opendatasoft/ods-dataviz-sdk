@@ -7,12 +7,12 @@ import type {
 
 import type { Color } from '../types';
 
-import type { Layer, PoiMapData, PoiMapOptions } from './types';
+import type { Layer, PoiMapData, PoiMapOptions, PopupsConfiguration } from './types';
 import {
+    DEFAULT_DARK_GREY,
     DEFAULT_BASEMAP_STYLE,
     DEFAULT_ASPECT_RATIO,
     DEFAULT_BBOX,
-    DEFAULT_DARK_GREY,
 } from './constants';
 
 export const getMapStyle = (style: PoiMapOptions['style']): MapOptions['style'] => {
@@ -70,7 +70,12 @@ export const getMapLayers = (layers?: Layer[]): CircleLayerSpecification[] => {
             source,
             ...(sourceLayer ? { 'source-layer': sourceLayer } : undefined),
             paint: {
-                'circle-radius': circleRadius,
+                'circle-radius': [
+                    'case',
+                    ['boolean', ['feature-state', 'popup-feature'], false],
+                    circleRadius * 1.3,
+                    circleRadius,
+                ],
                 ...(circleBorderColor && { 'circle-stroke-width': circleStrokeWidth }),
                 'circle-color': circleColor,
                 ...(circleBorderColor && { 'circle-stroke-color': circleBorderColor }),
@@ -78,6 +83,16 @@ export const getMapLayers = (layers?: Layer[]): CircleLayerSpecification[] => {
             filter: ['==', ['geometry-type'], 'Point'],
         };
     });
+};
+
+export const getPopupsConfiguration = (layers?: Layer[]): PopupsConfiguration => {
+    const configuration: PopupsConfiguration = {};
+    layers?.forEach(({ id, popup }) => {
+        if (popup) {
+            configuration[id] = popup;
+        }
+    });
+    return configuration;
 };
 
 export const getMapOptions = (options: PoiMapOptions) => {
