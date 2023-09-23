@@ -705,8 +705,8 @@ const ScatterPlotChartArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
-            {label: 'id-0', x: -10, y: 20}, 
-            {label: 'id-1', x: 20, y: -10}, 
+            {label: 'id-0', x: -10, y: 20},
+            {label: 'id-1', x: 20, y: -10},
             {label: 'id-2', x: 5, y: 2},
             {label: 'id-3', x: 7, y: 3}
         ],
@@ -760,7 +760,7 @@ function generateNormalDistribution(n: number, xMean = 0, xStdDev = 1, yMean = 0
     const points = [];
     for (let i = 0; i < n; i++) {
       points.push({
-        label: `id-${i}`, 
+        label: `id-${i}`,
         x: randomNormal(xMean, xStdDev),
         y: randomNormal(yMean, yStdDev),
       });
@@ -779,8 +779,8 @@ const ScatterplotNormalDistribChartArgs: Props<DataFrame, ChartOptions> = {
             {
                 label: "Serie 1",
                 type: ChartSeriesType.Scatter,
-                valueColumn:"x",
-                indexAxis:"y",
+                valueColumn:"y",
+                indexAxis:"x",
                 backgroundColor: COLORS.blue,
             },
         ],
@@ -790,7 +790,7 @@ const ScatterplotNormalDistribChartArgs: Props<DataFrame, ChartOptions> = {
                 title: {
                     display: true,
                     text: "Horizontal axis"
-                }, 
+                },
                 beginAtZero: true
             },
             y: {
@@ -808,6 +808,6 @@ const ScatterplotNormalDistribChartArgs: Props<DataFrame, ChartOptions> = {
     },
 };
 export const ScatterplotNormalDistribChart = {
-    args: ScatterplotNormalDistribChartArgs, 
+    args: ScatterplotNormalDistribChartArgs,
     parameters: {chromatic: { disableSnapshot: true }}
 };
