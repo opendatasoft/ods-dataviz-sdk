@@ -223,7 +223,7 @@ export interface Scatter {
     type: ChartSeriesType.Scatter;
     valueColumn: string;
     label?: string;
-    indexAxis: string;
+    indexAxis?: 'x' | 'y';
     /** Point color */
     backgroundColor?: Color | Color[];
     pointRadius?: number;
