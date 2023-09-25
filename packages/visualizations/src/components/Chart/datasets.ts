@@ -114,7 +114,10 @@ export default function toDataset(df: DataFrame, s: ChartSeries): ChartDataset {
         return {
             type: 'scatter',
             label: defaultValue(s.label, ''),
-            data: df.map((entry) => ({ x: entry[defaultValue(s.indexAxis, 'x')], y: entry[defaultValue(s.valueColumn, 'y')] })),
+            data: df.map((entry) => ({
+                x: entry[defaultValue(s.indexAxis, 'x')],
+                y: entry[defaultValue(s.valueColumn, 'y')],
+            })),
             datalabels: chartJsDataLabels(s.dataLabels),
             backgroundColor: singleChartJsColor(s.backgroundColor),
             pointRadius: defaultValue(s.pointRadius, 5),
