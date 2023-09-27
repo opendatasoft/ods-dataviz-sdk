@@ -15,7 +15,7 @@
     import { defaultValue } from './utils';
     import toDataset from './datasets';
     import buildScales from './scales';
-    import { buildLegend, buildCustomLegend } from './legend';
+    import { buildLegend, buildPieAndDoughnutCustomLegend } from './legend';
 
     export let data: Async<DataFrame>;
     export let options: ChartOptions;
@@ -144,6 +144,13 @@
                                 // charts, the label is not the series legend, it's the category.
                                 return `${dataFrame[dataIndex].x}: ${format(parsed)}`;
                             }
+                            if (seriesType === ChartSeriesType.Scatter) {
+                                const formattedValues = `${format(parsed.x)}, ${format(parsed.y)}`;
+                                // e.g. dataset 1: (4.5, 54)
+                                if (prefix) return `${prefix}(${formattedValues})`;
+                                // 4.5, 54
+                                return formattedValues;
+                            }
                         }
 
                         return prefix + formattedValue + suffix;
@@ -202,8 +209,11 @@
     $: legendPosition =
         clientWidth <= 375 ? 'bottom' : defaultValue(options?.legend?.position, 'bottom');
     let legendOptions: CategoryLegendType;
-    $: if (options?.legend?.custom) {
-        legendOptions = buildCustomLegend({ chart, options, chartConfig });
+    $: if (
+        [ChartSeriesType.Pie, ChartSeriesType.Doughnut].includes(options.series[0].type) &&
+        options?.legend?.custom
+    ) {
+        legendOptions = buildPieAndDoughnutCustomLegend({ chart, options, chartConfig });
     }
 </script>
 
@@ -254,6 +264,10 @@
     }
     .header {
         width: 100%;
+        margin: 0 0 1em 0;
+    }
+    .header h3,
+    .header p {
         margin: 0;
     }
 
@@ -269,14 +283,6 @@
     }
     .legend--right {
         flex-direction: row;
-    }
-
-    figcaption {
-        display: grid;
-        justify-content: center;
-        grid-gap: 3px 13px;
-        grid-template-columns: repeat(auto-fit, minmax(120px, max-content));
-        padding: 13px 0;
     }
 
     /* Suitable for elements that are used via aria-describedby or aria-labelledby */

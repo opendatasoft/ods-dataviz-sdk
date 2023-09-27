@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [21.1.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.1.0...@opendatasoft/api-client@21.1.1) (2023-09-22)
+
+
+### Bug Fixes
+
+* add MVT dataset export format ([0b0a746](https://github.com/opendatasoft/ods-dataviz-sdk/commit/0b0a746121195eb0f5b9837b8459a431f9ef5fa0))
+* add typing for API export ([511bb8b](https://github.com/opendatasoft/ods-dataviz-sdk/commit/511bb8ba4f7d305c0d1f6979e897b268b5f94d1f))
+
+
+
+
+
 # [21.1.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.0.0...@opendatasoft/api-client@21.1.0) (2023-08-31)
 
 

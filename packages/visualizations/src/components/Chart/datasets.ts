@@ -3,7 +3,12 @@ import type { Options as DataLabelsOptions } from 'chartjs-plugin-datalabels/typ
 import type { ChartSeries, DataLabelsConfiguration, FillConfiguration } from './types';
 import type { DataFrame } from '../types';
 import { defaultCompactNumberFormat, assureMaxLength } from '../utils/formatter';
-import { defaultValue, singleChartJsColor, multipleChartJsColors } from './utils';
+import {
+    defaultValue,
+    singleChartJsColor,
+    multipleChartJsColors,
+    DEFAULT_GREY_COLOR,
+} from './utils';
 
 function chartJsFill(fill: FillConfiguration | undefined) {
     if (fill === undefined) return false;
@@ -46,6 +51,7 @@ export default function toDataset(df: DataFrame, s: ChartSeries): ChartDataset {
             barPercentage: defaultValue(s.barPercentage, 0.9),
             categoryPercentage: defaultValue(s.categoryPercentage, 0.8),
             datalabels: chartJsDataLabels(s.dataLabels),
+            stack: s.stack,
         };
     }
 
@@ -72,7 +78,9 @@ export default function toDataset(df: DataFrame, s: ChartSeries): ChartDataset {
             type: 'pie',
             label: defaultValue(s.label, ''),
             data: df.map((entry) => entry[s.valueColumn]),
-            backgroundColor: multipleChartJsColors(s.backgroundColor),
+            backgroundColor: multipleChartJsColors(
+                s.backgroundColor?.length ? s.backgroundColor : [DEFAULT_GREY_COLOR]
+            ),
             datalabels: chartJsDataLabels(s.dataLabels),
         };
     }
@@ -95,7 +103,9 @@ export default function toDataset(df: DataFrame, s: ChartSeries): ChartDataset {
             type: 'doughnut',
             label: defaultValue(s.label, ''),
             data: df.map((entry) => entry[s.valueColumn]),
-            backgroundColor: multipleChartJsColors(s.backgroundColor),
+            backgroundColor: multipleChartJsColors(
+                s.backgroundColor?.length ? s.backgroundColor : DEFAULT_GREY_COLOR
+            ),
             datalabels: chartJsDataLabels(s.dataLabels),
         };
     }
@@ -149,5 +159,21 @@ export default function toDataset(df: DataFrame, s: ChartSeries): ChartDataset {
         };
     }
 
+    if (s.type === 'scatter') {
+        return {
+            type: 'scatter',
+            label: defaultValue(s.label, ''),
+            data: df.map((entry) => ({
+                x: entry[defaultValue(s.indexAxis, 'x')],
+                y: entry[defaultValue(s.valueColumn, 'y')],
+            })),
+            datalabels: chartJsDataLabels(s.dataLabels),
+            backgroundColor: singleChartJsColor(s.backgroundColor),
+            pointRadius: defaultValue(s.pointRadius, 5),
+            pointHitRadius: defaultValue(s.pointHitRadius, 5),
+            pointHoverRadius: defaultValue(s.pointHoverRadius, 5),
+            pointBorderColor: defaultValue(s.pointBorderColor, 'rgba(255,255,255, 0)'),
+        };
+    }
     throw new Error('Unknown chart type');
 }

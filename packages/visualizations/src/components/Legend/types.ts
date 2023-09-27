@@ -25,17 +25,42 @@ export interface LegendConfiguration {
 
 export type LegendVariant = 'fluid' | 'fixed';
 
-export type CategoryItem = {
-    color?: Color;
-    borderColor?: Color;
-    borderDashed?: boolean;
+export const CATEGORY_ITEM_VARIANT = {
+    Circle: 'circle',
+    Line: 'line',
+    Box: 'box',
+} as const;
+
+type BaseCategoryItem = {
     label: LegendLabelsConfiguration | string | undefined;
-    onClick: (index: number) => void;
+    onClick?: (index: number) => void;
     onHover?(index: number, isVisible: boolean): void;
     onLeave?(): void;
 };
 
+export type CircleCategoryItem = BaseCategoryItem & {
+    variant: typeof CATEGORY_ITEM_VARIANT.Circle;
+    color: Color;
+    borderColor?: Color;
+};
+
+export type BoxCategoryItem = BaseCategoryItem & {
+    variant: typeof CATEGORY_ITEM_VARIANT.Box;
+    color: Color;
+    borderColor?: Color;
+};
+
+export type LineCategoryItem = BaseCategoryItem & {
+    variant: typeof CATEGORY_ITEM_VARIANT.Line;
+    borderColor: Color;
+    dashed?: boolean;
+};
+
+export type CategoryItem = CircleCategoryItem | BoxCategoryItem | LineCategoryItem;
+
 export type CategoryLegend = {
     type: 'category';
     items: CategoryItem[];
+    title?: string;
+    align?: 'start' | 'center' | 'end';
 };

@@ -1,0 +1,172 @@
+import React from 'react';
+import { BBox } from 'geojson';
+import { CATEGORY_ITEM_VARIANT, PopupDisplayTypes } from '@opendatasoft/visualizations';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { Layer } from '@opendatasoft/visualizations';
+
+import { defaultSource, timeout } from '../utils';
+
+import sources from './sources';
+import { PoiMap } from '../../src';
+
+const BASE_STYLE = 'https://demotiles.maplibre.org/style.json';
+
+const layer1: Layer = {
+    id: 'layer-001',
+    source: 'cities',
+    type: 'circle',
+    color: 'black',
+    borderColor: 'white',
+    popup: {
+        display: PopupDisplayTypes.Tooltip,
+        getContent: async (_, properties) => {
+            await timeout(500);
+            const { key } = properties as { key: string };
+            return Promise.resolve(`<h4>${key}</h4>`);
+        },
+        getLoadingContent: () => 'Loading...',
+    },
+};
+
+const layer2: Layer = {
+    id: 'layer-002',
+    source: 'battles',
+    type: 'circle',
+    color: 'red',
+    borderColor: 'white',
+    popup: {
+        display: PopupDisplayTypes.Sidebar,
+        getContent: async (_, properties) => {
+            await timeout(500);
+            const { name, date, description } = properties as {
+                name: string;
+                date: string;
+                description: string;
+            };
+            return Promise.resolve(`<h4>${name}</h4><p>${description}<p/><small>${date}</small>`);
+        },
+        getLoadingContent: () => 'Loading...',
+    },
+};
+
+const layers = [layer1, layer2];
+
+const citiesColorMatch = {
+    key: 'key',
+    colors: { Paris: 'blue', Nantes: 'yellow', Bordeaux: 'purple', Marseille: 'lightblue' },
+    borderColors: { Paris: 'white', Nantes: 'black', Bordeaux: 'white', Marseille: 'black' },
+};
+
+const bbox: BBox = [-6.855469, 41.343825, 11.645508, 51.37178];
+
+const legend = {
+    type: 'category' as const,
+    title: 'French cities',
+    items: [
+        {
+            label: 'Paris',
+            color: citiesColorMatch.colors.Paris,
+            borderColor: citiesColorMatch.borderColors.Paris,
+            variant: CATEGORY_ITEM_VARIANT.Circle,
+        },
+        {
+            label: 'Nantes',
+            color: citiesColorMatch.colors.Nantes,
+            borderColor: citiesColorMatch.borderColors.Nantes,
+            variant: CATEGORY_ITEM_VARIANT.Circle,
+        },
+        {
+            label: 'Bordeaux',
+            color: citiesColorMatch.colors.Bordeaux,
+            borderColor: citiesColorMatch.borderColors.Bordeaux,
+            variant: CATEGORY_ITEM_VARIANT.Circle,
+        },
+        {
+            label: 'Marseille',
+            color: citiesColorMatch.colors.Marseille,
+            borderColor: citiesColorMatch.borderColors.Marseille,
+            variant: CATEGORY_ITEM_VARIANT.Circle,
+        },
+    ],
+    align: 'start' as const,
+};
+
+const options = {
+    style: BASE_STYLE,
+    bbox,
+    title: 'Lorem Ipsum',
+    subtitle: 'Dolor Sit Amet',
+    desciption: 'More aria description',
+    sourceLink: defaultSource,
+};
+
+const meta: ComponentMeta<typeof PoiMap> = {
+    title: 'Poi/PoiMap',
+    component: PoiMap,
+};
+
+export default meta;
+
+const Template: ComponentStory<typeof PoiMap> = (args) => (
+    <div
+        style={{
+            width: '50%',
+            minHeight: '100px',
+            minWidth: '100px',
+            margin: 'auto',
+            border: '1px solid black',
+        }}
+    >
+        <PoiMap {...args} />
+    </div>
+);
+
+/**
+ * STORY: No layer params
+ */
+export const PoiMapNoLayersParams: ComponentStory<typeof PoiMap> = Template.bind({});
+const PoiMapNoLayersParamsArgs = {
+    data: {},
+    options,
+};
+PoiMapNoLayersParams.args = PoiMapNoLayersParamsArgs;
+
+/**
+ * STORY: No interactive
+ */
+export const PoiMapNonInteractive: ComponentStory<typeof PoiMap> = Template.bind({});
+const PoiMapNonInteractiveArgs = {
+    data: { value: { layers, sources } },
+    options: { ...options, interactive: false },
+};
+PoiMapNonInteractive.args = PoiMapNonInteractiveArgs;
+
+/**
+ * STORY: With match expression
+ */
+export const PoiMapMatchExpression: ComponentStory<typeof PoiMap> = Template.bind({});
+const PoiMapMatchExpressionArgs = {
+    data: { value: { layers: [{ ...layer1, colorMatch: citiesColorMatch }, layer2], sources } },
+    options,
+};
+PoiMapMatchExpression.args = PoiMapMatchExpressionArgs;
+
+/**
+ * STORY: With legend on start align
+ */
+export const PoiMapLegendStart: ComponentStory<typeof PoiMap> = Template.bind({});
+const PoiMapLegendStartArgs = {
+    data: { value: { layers: [{ ...layer1, colorMatch: citiesColorMatch }, layer2], sources } },
+    options: { ...options, legend },
+};
+PoiMapLegendStart.args = PoiMapLegendStartArgs;
+
+/**
+ * STORY: With legend on center align
+ */
+export const PoiMapLegendCenter: ComponentStory<typeof PoiMap> = Template.bind({});
+const PoiMapLegendCenterArgs = {
+    data: { value: { layers: [{ ...layer1, colorMatch: citiesColorMatch }, layer2], sources } },
+    options: { ...options, legend: { ...legend, align: 'center' as const } },
+};
+PoiMapLegendCenter.args = PoiMapLegendCenterArgs;

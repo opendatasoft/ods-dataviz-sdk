@@ -59,6 +59,9 @@ export interface ApiQuery<T> {
     results: T[];
 }
 
+export interface ApiExport<T> {
+    [key: string]: T;
+}
 export const EnumExportCatalogFormat = {
     CSV: 'csv',
     JSON: 'json',
@@ -92,6 +95,7 @@ export const EnumExportDatasetFormat = {
     RDFXML: 'rdfxml',
     TURTLE: 'turtle',
     N3: 'n3',
+    MVT: 'mvt',
 } as const;
 
 export type ExportDatasetFormat =

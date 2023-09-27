@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.16.0...@opendatasoft/visualizations@0.16.1) (2023-09-25)
+
+
+### Bug Fixes
+
+* Use same typing for `indexAxis` as other charts series ([#193](https://github.com/opendatasoft/ods-dataviz-sdk/issues/193)) ([78a9cd4](https://github.com/opendatasoft/ods-dataviz-sdk/commit/78a9cd45fa20c53ae01de9fa8198b980059095ba))
+
+
+
+
+
+# [0.16.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.15.3...@opendatasoft/visualizations@0.16.0) (2023-09-22)
+
+
+### Features
+
+* add PoiMap component ([023eb28](https://github.com/opendatasoft/ods-dataviz-sdk/commit/023eb288c27570addd2efb3bfc82dbabf25fb169))
+* new variant ('circle') for category legend ([f7b6dc9](https://github.com/opendatasoft/ods-dataviz-sdk/commit/f7b6dc9d7ef0ea0d4bf28affddb4bcca37ad5c0c))
+
+
+
+
+
+## [0.15.3](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.15.2...@opendatasoft/visualizations@0.15.3) (2023-09-18)
+
+
+### Bug Fixes
+
+* **Chart:** expose `stack` property ([049672e](https://github.com/opendatasoft/ods-dataviz-sdk/commit/049672eb8a721070f957fca22866cbb6b74a7920))
+
+
+
+
+
 ## [0.15.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.15.1...@opendatasoft/visualizations@0.15.2) (2023-09-07)
 
 
