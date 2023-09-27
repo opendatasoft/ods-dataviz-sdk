@@ -18,7 +18,7 @@
     export let layers: StyleSpecification['layers'];
 
     // Options
-    export let bbox: BBox;
+    export let bbox: BBox | undefined;
     export let zoom: number | undefined;
     export let center: [number, number] | undefined;
     export let aspectRatio: number;

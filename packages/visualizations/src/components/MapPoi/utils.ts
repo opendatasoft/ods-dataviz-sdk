@@ -8,12 +8,7 @@ import type {
 import type { Color } from '../types';
 
 import type { Layer, PoiMapData, PoiMapOptions, PopupsConfiguration } from './types';
-import {
-    DEFAULT_DARK_GREY,
-    DEFAULT_BASEMAP_STYLE,
-    DEFAULT_ASPECT_RATIO,
-    DEFAULT_BBOX,
-} from './constants';
+import { DEFAULT_DARK_GREY, DEFAULT_BASEMAP_STYLE, DEFAULT_ASPECT_RATIO } from './constants';
 
 export const getMapStyle = (style: PoiMapOptions['style']): MapOptions['style'] => {
     if (!style) return DEFAULT_BASEMAP_STYLE;
@@ -98,7 +93,7 @@ export const getPopupsConfiguration = (layers?: Layer[]): PopupsConfiguration =>
 export const getMapOptions = (options: PoiMapOptions) => {
     const {
         aspectRatio = DEFAULT_ASPECT_RATIO,
-        bbox = DEFAULT_BBOX,
+        bbox,
         zoom,
         center,
         interactive = true,

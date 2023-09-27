@@ -47,7 +47,10 @@
      */
     $: {
         // Update bbox only if different from previous bbox
-        if (!previousBbox || currentBbox.some((bound, index) => bound !== previousBbox[index])) {
+        if (
+            currentBbox &&
+            (!previousBbox || currentBbox.some((bound, index) => bound !== previousBbox[index]))
+        ) {
             bbox = currentBbox;
             previousBbox = currentBbox;
         }

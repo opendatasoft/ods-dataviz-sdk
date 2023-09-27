@@ -9,7 +9,7 @@ import maplibregl, {
     StyleSpecification,
 } from 'maplibre-gl';
 
-import { DEFAULT_MAP_CENTER, POPUP_OPTIONS } from './constants';
+import { POPUP_OPTIONS } from './constants';
 import type { Center, PopupsConfiguration } from './types';
 
 type MapFunction = (map: maplibregl.Map) => unknown;
@@ -166,7 +166,7 @@ export default class MapPOI {
         container: HTMLElement,
         options: Omit<MapOptions, 'style' | 'container'>
     ) {
-        this.map = new maplibregl.Map({ style, container, center: DEFAULT_MAP_CENTER, ...options });
+        this.map = new maplibregl.Map({ style, container, ...options });
 
         this.queue((map) => this.initializeMapResizer(map, container));
 
