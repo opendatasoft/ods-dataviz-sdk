@@ -5,12 +5,19 @@ import maplibregl, {
     LngLatLike,
     MapGeoJSONFeature,
     MapLayerMouseEvent,
+    MapMouseEvent,
     MapOptions,
     StyleSpecification,
 } from 'maplibre-gl';
 
 import { DEFAULT_MAP_CENTER, POPUP_OPTIONS } from './constants';
 import type { PopupsConfiguration } from './types';
+
+const CURSOR = {
+    DEFAULT: 'default',
+    HOVER: 'pointer',
+    DRAG: 'move',
+};
 
 type MapFunction = (map: maplibregl.Map) => unknown;
 
@@ -69,6 +76,38 @@ export default class MapPOI {
             }, 100)
         );
         this.mapResizeObserver.observe(container);
+    }
+
+    /**
+     * Event handler for mousemove event.
+     * Show a pointer cursor if hovering a feature with a popup configuration
+     */
+    private onMouseMove({ point }: MapMouseEvent) {
+        this.queue((map) => {
+            const canvas = map.getCanvas();
+            const features = map.queryRenderedFeatures(point, { layers: this.layerIds });
+            const isMovingOverFeatureWithPopup =
+                features.length &&
+                features.some((feature) =>
+                    Object.keys(this.popupsConfiguration).includes(feature.layer.id)
+                );
+            canvas.style.cursor = isMovingOverFeatureWithPopup ? CURSOR.HOVER : CURSOR.DEFAULT;
+        });
+    }
+
+    private bindedOnMouseMove = this.onMouseMove.bind(this);
+
+    /**
+     * How cursor should react on drag and when mouse move over the map
+     */
+    private initializeCursorBehavior(map: maplibregl.Map) {
+        const canvas = map.getCanvas();
+        map.on('dragstart', () => {
+            canvas.style.cursor = CURSOR.DRAG;
+        });
+        map.on('dragend', () => {
+            canvas.style.cursor = CURSOR.DEFAULT;
+        });
     }
 
     /**
@@ -169,13 +208,13 @@ export default class MapPOI {
         this.map = new maplibregl.Map({ style, container, center: DEFAULT_MAP_CENTER, ...options });
 
         this.queue((map) => this.initializeMapResizer(map, container));
+        this.queue((map) => this.initializeCursorBehavior(map));
 
         this.map.on('load', () => {
             this.isReady = true;
             if (this.map) {
                 // Store base style after the first load
                 this.baseStyle = this.map?.getStyle();
-                this.map.on('click', this.bindedOnClick);
                 this.popup.on('close', this.bindedOnPopupClose);
                 this.enqueue(this.map);
             }
@@ -254,11 +293,14 @@ export default class MapPOI {
             map.scrollZoom[interaction]();
             map.touchZoomRotate[interaction]();
 
+            const eventFunction = interaction === 'enable' ? 'on' : 'off';
+            map[eventFunction]('click', this.bindedOnClick);
+            map[eventFunction]('mousemove', this.bindedOnMouseMove);
+
             const hasControl = map.hasControl(this.navigationControl);
 
             if (interaction === 'disable') {
                 this.popup.remove();
-                map.off('click', this.bindedOnClick);
                 if (hasControl) {
                     map.removeControl(this.navigationControl);
                 }
@@ -267,7 +309,6 @@ export default class MapPOI {
                 if (!hasControl) {
                     map.addControl(this.navigationControl, 'top-right');
                 }
-                map.on('click', this.bindedOnClick);
             }
         });
     }
