@@ -103,9 +103,9 @@
                         const { type: seriesType } = options.series[0];
                         const format = options?.tooltip?.numberFormatter || defaultNumberFormat;
 
-                        // In this special chart type keyColumn is the data key to group values
+                        // Treemap tooltips only display the category count
                         if (seriesType === ChartSeriesType.Treemap) {
-                            return raw._data[options.series[0].keyColumn];
+                            return dataFrame[dataIndex][options.series[0].keyColumn];
                         }
 
                         // If the value has a label, we need to add it to the tooltip
@@ -148,7 +148,18 @@
 
                         return prefix + formattedValue + suffix;
                     },
+                    // Treemap tooltips only display the category count
+                    ...(options.series[0].type === ChartSeriesType.Treemap && {
+                        title() {
+                            return '';
+                        },
+                        beforeLabel() {
+                            return '';
+                        },
+                    }),
                 },
+                // Treemap tooltips only display the category count
+                ...(options.series[0].type === ChartSeriesType.Treemap && { displayColors: false }),
             },
             subtitle: {
                 display: false,
@@ -173,7 +184,7 @@
     }
 
     $: {
-        const labels = dataFrame.map((entry) => entry[labelColumn]);
+        const labels = dataFrame.map((entry) => (labelColumn ? entry[labelColumn] : ''));
         chartConfig = update(chartConfig, { data: { labels: { $set: labels } } });
     }
 

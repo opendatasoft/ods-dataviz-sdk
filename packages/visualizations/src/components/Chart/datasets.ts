@@ -2,7 +2,7 @@ import type { ChartDataset } from 'chart.js';
 import type { Options as DataLabelsOptions } from 'chartjs-plugin-datalabels/types/options';
 import type { ChartSeries, DataLabelsConfiguration, FillConfiguration } from './types';
 import type { DataFrame } from '../types';
-import { defaultCompactNumberFormat } from '../utils/formatter';
+import { defaultCompactNumberFormat, assureMaxLength } from '../utils/formatter';
 import { defaultValue, singleChartJsColor, multipleChartJsColors } from './utils';
 
 function chartJsFill(fill: FillConfiguration | undefined) {
@@ -124,12 +124,23 @@ export default function toDataset(df: DataFrame, s: ChartSeries): ChartDataset {
                       // eslint-disable-next-line @typescript-eslint/no-explicit-any
                       formatter(context: any) {
                           if (s.labels && s.labels.labelsFormatter) {
+                              const { maxLength } = s.labels;
+                              if (maxLength) {
+                                  const formattedLabels = s.labels.labelsFormatter(context.index);
+                                  if (Array.isArray(formattedLabels)) {
+                                      return formattedLabels.map((l) =>
+                                          assureMaxLength(l, maxLength)
+                                      );
+                                  }
+                                  return assureMaxLength(formattedLabels, maxLength);
+                              }
                               return s.labels.labelsFormatter(context.index);
                           }
                           return '';
                       },
                       font: s.labels.font,
                       color: s.labels.color,
+                      overflow: defaultValue(s.labels.overflow, 'cut'),
                       hoverColor: s.labels.hoverColor,
                       hoverFont: s.labels.hoverFont,
                       position: s.labels.position,

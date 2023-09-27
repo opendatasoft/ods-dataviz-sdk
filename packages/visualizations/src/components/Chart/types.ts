@@ -228,6 +228,8 @@ export interface Treemap {
         hoverColor?: Color[] | Color;
         hoverFont?: { [key: string]: number | string }[] | { [key: string]: number | string };
         position?: 'top' | 'middle' | 'bottom';
+        overflow?: 'cut' | 'hidden' | 'fit';
+        maxLength?: number;
     };
 }
 
