@@ -99,6 +99,8 @@ export const getMapOptions = (options: PoiMapOptions) => {
     const {
         aspectRatio = DEFAULT_ASPECT_RATIO,
         bbox = DEFAULT_BBOX,
+        zoom,
+        center,
         interactive = true,
         title,
         subtitle,
@@ -109,6 +111,8 @@ export const getMapOptions = (options: PoiMapOptions) => {
     return {
         aspectRatio,
         bbox,
+        zoom,
+        center,
         interactive,
         title,
         subtitle,

@@ -12,12 +12,16 @@
         getPopupsConfiguration,
         getMapOptions,
     } from './utils';
-    import type { PoiMapData, PoiMapOptions } from './types';
+    import type { Center, PoiMapData, PoiMapOptions } from './types';
 
     export let data: Async<PoiMapData>;
     export let options: PoiMapOptions;
+
     let bbox: BBox;
     let previousBbox: BBox;
+
+    let center: Center;
+    let previousCenter: Center;
 
     $: style = getMapStyle(options.style);
     $: sources = getMapSources(data.value?.sources);
@@ -26,6 +30,8 @@
 
     $: ({
         bbox: currentBbox,
+        zoom,
+        center: currentCenter,
         title,
         subtitle,
         description,
@@ -46,6 +52,18 @@
             previousBbox = currentBbox;
         }
     }
+
+    // Same thing as above for center
+    $: {
+        if (
+            currentCenter &&
+            (!previousCenter ||
+                currentCenter.some((point, index) => point !== previousCenter[index]))
+        ) {
+            center = currentCenter;
+            previousCenter = currentCenter;
+        }
+    }
 </script>
 
 <div>
@@ -56,6 +74,8 @@
             {layers}
             {popupsConfiguration}
             {bbox}
+            {center}
+            {zoom}
             {title}
             {subtitle}
             {description}

@@ -1,7 +1,10 @@
 import type { CircleLayerSpecification, StyleSpecification, GeoJSONFeature } from 'maplibre-gl';
 import type { BBox, GeoJsonProperties } from 'geojson';
+
 import type { Color, Source } from '../types';
 import type { CategoryLegend } from '../Legend/types';
+
+export type Center = [number, number];
 
 // To render data layers on the map
 export type PoiMapData = Partial<{
@@ -21,6 +24,8 @@ export interface PoiMapOptions {
      * Also set the position of the map when rendering.
      */
     bbox?: BBox;
+    center?: Center;
+    zoom?: number;
     // Aspect ratio used to draw the map. The map will take he width available to it, and decide its height based on that ratio.
     aspectRatio?: number;
     // Is the map interactive for the user (zoom, move, tooltips...)

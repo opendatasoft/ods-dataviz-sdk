@@ -19,6 +19,8 @@
 
     // Options
     export let bbox: BBox;
+    export let zoom: number | undefined;
+    export let center: [number, number] | undefined;
     export let aspectRatio: number;
     export let interactive: boolean;
     export let title: string | undefined;
@@ -40,10 +42,20 @@
     $: map.setBbox(bbox);
     $: map.setSourcesAndLayers(sources, layers);
     $: map.setPopupsConfiguration(popupsConfiguration);
+    $: map.setZoom(zoom);
+    $: map.setCenter(center);
     $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
 
     // Lifecycle
-    onMount(() => map.initialize(style, container, { bounds: bbox as LngLatBoundsLike }));
+    onMount(() => {
+        const options = {
+            bounds: bbox as LngLatBoundsLike,
+            // The map doesn't seems to accept undefined values for center and zoom
+            ...(center ? { center } : null),
+            ...(Number.isInteger(zoom) ? { zoom } : null),
+        };
+        map.initialize(style, container, options);
+    });
     onDestroy(() => map.destroy());
 </script>
 

@@ -10,7 +10,7 @@ import maplibregl, {
 } from 'maplibre-gl';
 
 import { DEFAULT_MAP_CENTER, POPUP_OPTIONS } from './constants';
-import type { PopupsConfiguration } from './types';
+import type { Center, PopupsConfiguration } from './types';
 
 type MapFunction = (map: maplibregl.Map) => unknown;
 
@@ -237,6 +237,24 @@ export default class MapPOI {
                 padding: 40,
             });
         });
+    }
+
+    /**
+     * Sets the map's zoom level.
+     * @param zoom
+     */
+    setZoom(zoom?: number) {
+        if (zoom === undefined) return;
+        this.queue((map) => map.setZoom(zoom));
+    }
+
+    /**
+     * Sets the map's geographical centerpoint.
+     * @param center
+     */
+    setCenter(center?: Center) {
+        if (center === undefined) return;
+        this.queue((map) => map.setCenter(center));
     }
 
     setPopupsConfiguration(config: PopupsConfiguration) {
