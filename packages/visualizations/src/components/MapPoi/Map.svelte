@@ -1,4 +1,6 @@
 <script lang="ts">
+    import type { BBox } from 'geojson';
+
     import MapRender from './MapRender.svelte';
 
     import type { Async } from '../../types';
@@ -14,18 +16,54 @@
 
     export let data: Async<PoiMapData>;
     export let options: PoiMapOptions;
+    let bbox: BBox;
+    let previousBbox: BBox;
 
     $: style = getMapStyle(options.style);
     $: sources = getMapSources(data.value?.sources);
     $: layers = getMapLayers(data.value?.layers);
     $: popupsConfiguration = getPopupsConfiguration(data.value?.layers);
 
-    $: computedOptions = getMapOptions(options);
+    $: ({
+        bbox: currentBbox,
+        title,
+        subtitle,
+        description,
+        legend,
+        sourceLink,
+        aspectRatio,
+        interactive,
+    } = getMapOptions(options));
+
+    /*
+     * As options is an object, current bbox updates when options changes
+     * We want to trigger an update to MapRender only if bbox value changes, not its reference.
+     */
+    $: {
+        // Update bbox only if different from previous bbox
+        if (!previousBbox || currentBbox.some((bound, index) => bound !== previousBbox[index])) {
+            bbox = currentBbox;
+            previousBbox = currentBbox;
+        }
+    }
 </script>
 
 <div>
     {#key style}
-        <MapRender {style} {sources} {layers} {popupsConfiguration} {...computedOptions} />
+        <MapRender
+            {style}
+            {sources}
+            {layers}
+            {popupsConfiguration}
+            {bbox}
+            {title}
+            {subtitle}
+            {description}
+            {legend}
+            {sourceLink}
+            {aspectRatio}
+            {interactive}
+        />
     {/key}
 </div>
 

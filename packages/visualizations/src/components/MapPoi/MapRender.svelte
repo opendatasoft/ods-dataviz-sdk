@@ -42,10 +42,6 @@
     $: map.setPopupsConfiguration(popupsConfiguration);
     $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
 
-    $: if (interactive === false) {
-        map.setBbox(bbox);
-    }
-
     // Lifecycle
     onMount(() => map.initialize(style, container, { bounds: bbox as LngLatBoundsLike }));
     onDestroy(() => map.destroy());
