@@ -265,3 +265,9 @@ export interface FillConfiguration {
     above?: Color | Color[];
     below?: Color | Color[];
 }
+
+export type Parsed = {
+    x: number;
+    y: number;
+    r: number;
+};
