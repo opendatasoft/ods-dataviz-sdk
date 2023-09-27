@@ -5,6 +5,7 @@ import maplibregl, {
     LngLatLike,
     MapGeoJSONFeature,
     MapLayerMouseEvent,
+    MapMouseEvent,
     MapOptions,
     StyleSpecification,
 } from 'maplibre-gl';
@@ -78,9 +79,26 @@ export default class MapPOI {
     }
 
     /**
-     * How cursor should react
-     * - drag: move
-     * - hover a feature with a popup: pointer
+     * Event handler for mousemove event.
+     * Show a pointer cursor if hovering a feature with a popup configuration
+     */
+    private onMouseMove({ point }: MapMouseEvent) {
+        this.queue((map) => {
+            const canvas = map.getCanvas();
+            const features = map.queryRenderedFeatures(point, { layers: this.layerIds });
+            const isMovingOverFeatureWithPopup =
+                features.length &&
+                features.some((feature) =>
+                    Object.keys(this.popupsConfiguration).includes(feature.layer.id)
+                );
+            canvas.style.cursor = isMovingOverFeatureWithPopup ? CURSOR.HOVER : CURSOR.DEFAULT;
+        });
+    }
+
+    private bindedOnMouseMove = this.onMouseMove.bind(this);
+
+    /**
+     * How cursor should react on drag and when mouse move over the map
      */
     private initializeCursorBehavior(map: maplibregl.Map) {
         const canvas = map.getCanvas();
@@ -89,15 +107,6 @@ export default class MapPOI {
         });
         map.on('dragend', () => {
             canvas.style.cursor = CURSOR.DEFAULT;
-        });
-        map.on('mousemove', ({ point }) => {
-            const features = map.queryRenderedFeatures(point, { layers: this.layerIds });
-            const isMovingOverFeatureWithPopup =
-                features.length &&
-                features.some((feature) =>
-                    Object.keys(this.popupsConfiguration).includes(feature.layer.id)
-                );
-            canvas.style.cursor = isMovingOverFeatureWithPopup ? CURSOR.HOVER : CURSOR.DEFAULT;
         });
     }
 
@@ -206,7 +215,6 @@ export default class MapPOI {
             if (this.map) {
                 // Store base style after the first load
                 this.baseStyle = this.map?.getStyle();
-                this.map.on('click', this.bindedOnClick);
                 this.popup.on('close', this.bindedOnPopupClose);
                 this.enqueue(this.map);
             }
@@ -285,11 +293,14 @@ export default class MapPOI {
             map.scrollZoom[interaction]();
             map.touchZoomRotate[interaction]();
 
+            const eventFunction = interaction === 'enable' ? 'on' : 'off';
+            map[eventFunction]('click', this.bindedOnClick);
+            map[eventFunction]('mousemove', this.bindedOnMouseMove);
+
             const hasControl = map.hasControl(this.navigationControl);
 
             if (interaction === 'disable') {
                 this.popup.remove();
-                map.off('click', this.bindedOnClick);
                 if (hasControl) {
                     map.removeControl(this.navigationControl);
                 }
@@ -298,7 +309,6 @@ export default class MapPOI {
                 if (!hasControl) {
                     map.addControl(this.navigationControl, 'top-right');
                 }
-                map.on('click', this.bindedOnClick);
             }
         });
     }
