@@ -273,6 +273,7 @@ export type Parsed = {
 };
 
 export interface ScriptableTreemapContext {
-    type: string;
+    type?: string;
     index?: number;
+    dataIndex?: number;
 }

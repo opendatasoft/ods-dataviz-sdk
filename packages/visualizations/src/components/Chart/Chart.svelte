@@ -11,7 +11,13 @@
     import CategoryLegend from '../Legend/CategoryLegend.svelte';
     import type { LegendPositions, CategoryLegend as CategoryLegendType } from '../Legend/types';
     import { ChartSeriesType } from './types';
-    import type { ChartOptions, ChartSeries, Parsed } from './types';
+    import type {
+        ChartOptions,
+        ChartSeries,
+        Parsed,
+        ScriptableTreemapContext,
+        Treemap,
+    } from './types';
     import { defaultValue } from './utils';
     import toDataset from './datasets';
     import buildScales from './scales';
@@ -103,7 +109,7 @@
                         const { type: seriesType } = options.series[0];
                         const format = options?.tooltip?.numberFormatter || defaultNumberFormat;
 
-                        // Treemap tooltips only display the category count
+                        // Treemap tooltips only display the category name and count
                         if (seriesType === ChartSeriesType.Treemap) {
                             return dataFrame[dataIndex][options.series[0].keyColumn];
                         }
@@ -157,9 +163,14 @@
 
                         return prefix + formattedValue + suffix;
                     },
-                    // Treemap tooltips only display the category count
+                    // Treemap tooltips only display the category name and count
                     ...(options.series[0].type === ChartSeriesType.Treemap && {
-                        title() {
+                        title(context: ScriptableTreemapContext[]) {
+                            const { dataIndex } = context[0];
+                            const { keyGroups } = options.series[0] as Treemap;
+                            if (typeof dataIndex === 'number') {
+                                return dataFrame[dataIndex][keyGroups[0]];
+                            }
                             return '';
                         },
                         beforeLabel() {
@@ -167,7 +178,7 @@
                         },
                     }),
                 },
-                // Treemap tooltips only display the category count
+                // Treemap tooltips only display the category name and count
                 ...(options.series[0].type === ChartSeriesType.Treemap && { displayColors: false }),
             },
             subtitle: {
