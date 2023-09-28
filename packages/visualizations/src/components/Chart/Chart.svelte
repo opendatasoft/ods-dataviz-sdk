@@ -173,9 +173,6 @@
                             }
                             return '';
                         },
-                        beforeLabel() {
-                            return '';
-                        },
                     }),
                 },
                 // Treemap tooltips only display the category name and count
