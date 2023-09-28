@@ -3,6 +3,7 @@ import type {
     StyleSpecification,
     GeoJSONFeature,
     LngLatLike,
+    RequestTransformFunction,
 } from 'maplibre-gl';
 import type { BBox, GeoJsonProperties } from 'geojson';
 
@@ -22,6 +23,14 @@ export interface PoiMapOptions {
      * - Or an object with a 'sources' and a 'layers' keys. Useful when using a Raster or WMS basemap.
      */
     style?: string | PoiMapStyleOption;
+    /**
+     * A callback run before the Map makes a request for an external URL.
+     * The callback can be used to modify the url, set headers, or set the credentials property for cross-origin requests.
+     * Expected to return an object with a url property and optionally headers and credentials properties.
+     *
+     * Especially useful for mapbox://
+     */
+    transformRequest?: RequestTransformFunction;
     /**
      * Maximum boundaries of the map, outside of which the user cannot zoom/move
      * Also set the position of the map when rendering.

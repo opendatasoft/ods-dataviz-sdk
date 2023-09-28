@@ -17,6 +17,7 @@
     export let style: MapOptions['style'];
     export let sources: StyleSpecification['sources'];
     export let layers: StyleSpecification['layers'];
+    export let transformRequest: MapOptions['transformRequest'];
 
     // Options
     export let bbox: BBox | undefined;
@@ -51,6 +52,7 @@
         const options = {
             bounds: bbox as LngLatBoundsLike,
             ...getCenterZoomOptions({ zoom, center }),
+            transformRequest,
         };
         map.initialize(style, container, options);
     });

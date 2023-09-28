@@ -108,6 +108,7 @@ export const getMapOptions = (options: PoiMapOptions) => {
         description,
         legend,
         sourceLink,
+        transformRequest,
     } = options;
     return {
         aspectRatio,
@@ -120,6 +121,7 @@ export const getMapOptions = (options: PoiMapOptions) => {
         description,
         legend,
         sourceLink,
+        transformRequest,
     };
 };
 

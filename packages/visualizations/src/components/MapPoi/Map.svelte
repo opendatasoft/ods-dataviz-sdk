@@ -33,6 +33,7 @@
         sourceLink,
         aspectRatio,
         interactive,
+        transformRequest,
     } = getMapOptions(options));
 
     const bbox = createDeepEqual(_bbox);
@@ -58,6 +59,7 @@
             {sourceLink}
             {aspectRatio}
             {interactive}
+            {transformRequest}
         />
     {/key}
 </div>
