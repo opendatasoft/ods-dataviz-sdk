@@ -1,6 +1,11 @@
 import type { ChartDataset } from 'chart.js';
 import type { Options as DataLabelsOptions } from 'chartjs-plugin-datalabels/types/options';
-import type { ChartSeries, DataLabelsConfiguration, FillConfiguration } from './types';
+import type {
+    ChartSeries,
+    DataLabelsConfiguration,
+    FillConfiguration,
+    ScriptableTreemapContext,
+} from './types';
 import type { DataFrame } from '../types';
 import { defaultCompactNumberFormat, assureMaxLength } from '../utils/formatter';
 import {
@@ -119,21 +124,22 @@ export default function toDataset(df: DataFrame, s: ChartSeries): ChartDataset {
             borderColor: defaultValue(singleChartJsColor(s.borderColor), 'rgb(255,255,255)'),
             borderWidth: defaultValue(s.borderWidth, 1),
             spacing: defaultValue(s.spacing, 0),
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            backgroundColor: (context: any) => {
-                if (s.colorFormatter) {
+            backgroundColor: (context: ScriptableTreemapContext) => {
+                if (s.colorFormatter && typeof context?.index === 'number') {
                     return s.colorFormatter(context.index);
                 }
-                // TODO: create a function in utils to generate a color gradient bbased on a default color
-                return 'grey';
+                return DEFAULT_GREY_COLOR;
             },
             labels: s.labels
                 ? {
                       align: s.labels.align,
                       display: defaultValue(s.labels.display, false),
-                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                      formatter(context: any) {
-                          if (s.labels && s.labels.labelsFormatter) {
+                      formatter(context: ScriptableTreemapContext) {
+                          if (
+                              s.labels &&
+                              s.labels.labelsFormatter &&
+                              typeof context?.index === 'number'
+                          ) {
                               const { maxLength } = s.labels;
                               if (maxLength) {
                                   const formattedLabels = s.labels.labelsFormatter(context.index);

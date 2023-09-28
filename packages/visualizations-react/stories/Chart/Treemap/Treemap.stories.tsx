@@ -12,12 +12,12 @@ export default meta;
 
 export const TreemapChart = ChartTemplate.bind({});
 const DATA = [
-    { category: 'a very very very very very very very very very very very very very very very long text', color: '#F1C40F', count: 100 },
-    { category: 'first category', color: '#27AE60', count: 50 },
-    { category: 'second category', color: '#1F618D', count: 20 },
-    { category: 'third category', color: '#CB4335', count: 20 },
-    { category: 'fourth category', color: '#27AE60', count: 10 },
-    { category: 'fifth category', color: '#1F618D', count: 10 },
+    { category: 'a very very very very very very very very very very very very very very very long text', color: 'red', count: 100 },
+    { category: 'first category', color: 'green', count: 50 },
+    { category: 'second category', color: 'blue', count: 20 },
+    { category: 'third category', color: 'red', count: 20 },
+    { category: 'fourth category', color: 'purple', count: 10 },
+    { category: 'fifth category', color: 'green', count: 10 },
 ];
 const TreemapChartArgs: Props<DataFrame, ChartOptions> = {
     data: {
