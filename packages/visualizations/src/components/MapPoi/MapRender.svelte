@@ -2,7 +2,7 @@
 
 <script lang="ts">
     import type { BBox } from 'geojson';
-    import type { LngLatBoundsLike, MapOptions, StyleSpecification } from 'maplibre-gl';
+    import type { LngLatBoundsLike, LngLatLike, MapOptions, StyleSpecification } from 'maplibre-gl';
     import { onDestroy, onMount } from 'svelte';
     import CategoryLegend from '../Legend/CategoryLegend.svelte';
     import type { CategoryLegend as CategoryLegendType } from '../Legend/types';
@@ -10,6 +10,7 @@
     import type { Source } from '../types';
 
     import Map from './Map';
+    import { getCenterZoomOptions } from './utils';
     import type { PopupsConfiguration } from './types';
 
     // Base style, sources and layers
@@ -18,7 +19,9 @@
     export let layers: StyleSpecification['layers'];
 
     // Options
-    export let bbox: BBox;
+    export let bbox: BBox | undefined;
+    export let zoom: number | undefined;
+    export let center: LngLatLike | undefined;
     export let aspectRatio: number;
     export let interactive: boolean;
     export let title: string | undefined;
@@ -40,14 +43,17 @@
     $: map.setBbox(bbox);
     $: map.setSourcesAndLayers(sources, layers);
     $: map.setPopupsConfiguration(popupsConfiguration);
+    $: map.jumpTo(getCenterZoomOptions({ zoom, center }));
     $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
 
-    $: if (interactive === false) {
-        map.setBbox(bbox);
-    }
-
     // Lifecycle
-    onMount(() => map.initialize(style, container, { bounds: bbox as LngLatBoundsLike }));
+    onMount(() => {
+        const options = {
+            bounds: bbox as LngLatBoundsLike,
+            ...getCenterZoomOptions({ zoom, center }),
+        };
+        map.initialize(style, container, options);
+    });
     onDestroy(() => map.destroy());
 </script>
 

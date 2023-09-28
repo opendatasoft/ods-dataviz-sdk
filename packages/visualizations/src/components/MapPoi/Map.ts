@@ -10,8 +10,8 @@ import maplibregl, {
     StyleSpecification,
 } from 'maplibre-gl';
 
-import { DEFAULT_MAP_CENTER, POPUP_OPTIONS } from './constants';
-import type { PopupsConfiguration } from './types';
+import { POPUP_OPTIONS } from './constants';
+import type { PopupsConfiguration, CenterZoomOptions } from './types';
 
 const CURSOR = {
     DEFAULT: 'default',
@@ -205,7 +205,7 @@ export default class MapPOI {
         container: HTMLElement,
         options: Omit<MapOptions, 'style' | 'container'>
     ) {
-        this.map = new maplibregl.Map({ style, container, center: DEFAULT_MAP_CENTER, ...options });
+        this.map = new maplibregl.Map({ style, container, ...options });
 
         this.queue((map) => this.initializeMapResizer(map, container));
         this.queue((map) => this.initializeCursorBehavior(map));
@@ -276,6 +276,14 @@ export default class MapPOI {
                 padding: 40,
             });
         });
+    }
+
+    /**
+     * Changes any combination of center and zoom without an animated transition.
+     * The map will retain its current values for any details not specified in options
+     */
+    jumpTo(options: CenterZoomOptions) {
+        this.queue((map) => map.jumpTo(options));
     }
 
     setPopupsConfiguration(config: PopupsConfiguration) {

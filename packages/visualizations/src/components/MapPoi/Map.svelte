@@ -1,4 +1,6 @@
 <script lang="ts">
+    import createDeepEqual from '../../stores/createDeepEqual';
+
     import MapRender from './MapRender.svelte';
 
     import type { Async } from '../../types';
@@ -20,12 +22,43 @@
     $: layers = getMapLayers(data.value?.layers);
     $: popupsConfiguration = getPopupsConfiguration(data.value?.layers);
 
-    $: computedOptions = getMapOptions(options);
+    $: ({
+        bbox: _bbox,
+        zoom,
+        center: _center,
+        title,
+        subtitle,
+        description,
+        legend,
+        sourceLink,
+        aspectRatio,
+        interactive,
+    } = getMapOptions(options));
+
+    const bbox = createDeepEqual(_bbox);
+    const center = createDeepEqual(_center);
+    $: bbox.update(_bbox);
+    $: center.update(_center);
 </script>
 
 <div>
     {#key style}
-        <MapRender {style} {sources} {layers} {popupsConfiguration} {...computedOptions} />
+        <MapRender
+            {style}
+            {sources}
+            {layers}
+            {popupsConfiguration}
+            bbox={$bbox}
+            center={$center}
+            {zoom}
+            {title}
+            {subtitle}
+            {description}
+            {legend}
+            {sourceLink}
+            {aspectRatio}
+            {interactive}
+        />
     {/key}
 </div>
 
