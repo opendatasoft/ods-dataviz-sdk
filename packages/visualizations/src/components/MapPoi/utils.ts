@@ -7,7 +7,13 @@ import type {
 
 import type { Color } from '../types';
 
-import type { Layer, PoiMapData, PoiMapOptions, PopupsConfiguration } from './types';
+import type {
+    CenterZoomOptions,
+    Layer,
+    PoiMapData,
+    PoiMapOptions,
+    PopupsConfiguration,
+} from './types';
 import { DEFAULT_DARK_GREY, DEFAULT_BASEMAP_STYLE, DEFAULT_ASPECT_RATIO } from './constants';
 
 export const getMapStyle = (style: PoiMapOptions['style']): MapOptions['style'] => {
@@ -116,3 +122,17 @@ export const getMapOptions = (options: PoiMapOptions) => {
         sourceLink,
     };
 };
+
+/**
+ * Generates a valid CenterZoomOptions object by combining optional zoom and center properties.
+ *
+ * @param {CenterZoomOptions} options - An object with optional zoom and center properties.
+ * @returns A CenterZoomOptions object with valid zoom and center properties is defined.
+ */
+export const getCenterZoomOptions: (options: CenterZoomOptions) => CenterZoomOptions = ({
+    zoom,
+    center,
+}) => ({
+    ...(center ? { center } : null),
+    ...(Number.isInteger(zoom) ? { zoom } : null),
+});

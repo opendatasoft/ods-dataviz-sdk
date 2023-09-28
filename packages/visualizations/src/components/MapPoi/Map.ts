@@ -10,7 +10,7 @@ import maplibregl, {
 } from 'maplibre-gl';
 
 import { POPUP_OPTIONS } from './constants';
-import type { Center, PopupsConfiguration } from './types';
+import type { PopupsConfiguration, CenterZoomOptions } from './types';
 
 type MapFunction = (map: maplibregl.Map) => unknown;
 
@@ -240,21 +240,11 @@ export default class MapPOI {
     }
 
     /**
-     * Sets the map's zoom level.
-     * @param zoom
+     * Changes any combination of center and zoom without an animated transition.
+     * The map will retain its current values for any details not specified in options
      */
-    setZoom(zoom?: number) {
-        if (zoom === undefined) return;
-        this.queue((map) => map.setZoom(zoom));
-    }
-
-    /**
-     * Sets the map's geographical centerpoint.
-     * @param center
-     */
-    setCenter(center?: Center) {
-        if (center === undefined) return;
-        this.queue((map) => map.setCenter(center));
+    jumpTo(options: CenterZoomOptions) {
+        this.queue((map) => map.jumpTo(options));
     }
 
     setPopupsConfiguration(config: PopupsConfiguration) {

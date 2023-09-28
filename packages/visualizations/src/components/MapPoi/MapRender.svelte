@@ -2,7 +2,7 @@
 
 <script lang="ts">
     import type { BBox } from 'geojson';
-    import type { LngLatBoundsLike, MapOptions, StyleSpecification } from 'maplibre-gl';
+    import type { LngLatBoundsLike, LngLatLike, MapOptions, StyleSpecification } from 'maplibre-gl';
     import { onDestroy, onMount } from 'svelte';
     import CategoryLegend from '../Legend/CategoryLegend.svelte';
     import type { CategoryLegend as CategoryLegendType } from '../Legend/types';
@@ -10,6 +10,7 @@
     import type { Source } from '../types';
 
     import Map from './Map';
+    import { getCenterZoomOptions } from './utils';
     import type { PopupsConfiguration } from './types';
 
     // Base style, sources and layers
@@ -20,7 +21,7 @@
     // Options
     export let bbox: BBox | undefined;
     export let zoom: number | undefined;
-    export let center: [number, number] | undefined;
+    export let center: LngLatLike | undefined;
     export let aspectRatio: number;
     export let interactive: boolean;
     export let title: string | undefined;
@@ -42,17 +43,14 @@
     $: map.setBbox(bbox);
     $: map.setSourcesAndLayers(sources, layers);
     $: map.setPopupsConfiguration(popupsConfiguration);
-    $: map.setZoom(zoom);
-    $: map.setCenter(center);
+    $: map.jumpTo(getCenterZoomOptions({ zoom, center }));
     $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
 
     // Lifecycle
     onMount(() => {
         const options = {
             bounds: bbox as LngLatBoundsLike,
-            // The map doesn't seems to accept undefined values for center and zoom
-            ...(center ? { center } : null),
-            ...(Number.isInteger(zoom) ? { zoom } : null),
+            ...getCenterZoomOptions({ zoom, center }),
         };
         map.initialize(style, container, options);
     });
