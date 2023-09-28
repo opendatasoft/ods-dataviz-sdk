@@ -35,10 +35,10 @@
         interactive,
     } = getMapOptions(options));
 
-    let bbox = createDeepEqual(_bbox);
-    let center = createDeepEqual(_center);
-    $: bbox.set(_bbox);
-    $: center.set(_center);
+    const bbox = createDeepEqual(_bbox);
+    const center = createDeepEqual(_center);
+    $: bbox.update(_bbox);
+    $: center.update(_center);
 </script>
 
 <div>
