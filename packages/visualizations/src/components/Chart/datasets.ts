@@ -118,7 +118,7 @@ export default function toDataset(df: DataFrame, s: ChartSeries): ChartDataset {
         return {
             tree: df,
             datalabels: chartJsDataLabels(s.dataLabels),
-            data: [], // from chartjs-chart-treemap index.esm.d.ts: data will be auto-generated from `tree` but appears mandatory in the types, why ?
+            data: [], // from chartjs-chart-treemap index.esm.d.ts: data will be auto-generated from `tree` but appears mandatory in the types
             key: s.keyColumn,
             groups: s.keyGroups,
             borderColor: defaultValue(singleChartJsColor(s.borderColor), 'rgb(255,255,255)'),

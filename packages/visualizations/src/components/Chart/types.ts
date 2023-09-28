@@ -2,7 +2,7 @@ import type { Color, Source } from '../types';
 import type { LegendConfiguration } from '../Legend/types';
 
 export interface ChartOptions {
-    /** Specify label column in DataFrame */
+    /** Specify label column in DataFrame (mandatory for all charts except Treemap) */
     labelColumn?: string;
     /** Series to display */
     series: ChartSeries[];
