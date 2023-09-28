@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { BBox } from 'geojson';
+    import createDeepEqual from '../../stores/createDeepEqual';
 
     import MapRender from './MapRender.svelte';
 
@@ -12,16 +12,10 @@
         getPopupsConfiguration,
         getMapOptions,
     } from './utils';
-    import type { Center, PoiMapData, PoiMapOptions } from './types';
+    import type { PoiMapData, PoiMapOptions } from './types';
 
     export let data: Async<PoiMapData>;
     export let options: PoiMapOptions;
-
-    let bbox: BBox;
-    let previousBbox: BBox;
-
-    let center: Center;
-    let previousCenter: Center;
 
     $: style = getMapStyle(options.style);
     $: sources = getMapSources(data.value?.sources);
@@ -29,9 +23,9 @@
     $: popupsConfiguration = getPopupsConfiguration(data.value?.layers);
 
     $: ({
-        bbox: currentBbox,
+        bbox: _bbox,
         zoom,
-        center: currentCenter,
+        center: _center,
         title,
         subtitle,
         description,
@@ -41,32 +35,10 @@
         interactive,
     } = getMapOptions(options));
 
-    /*
-     * As options is an object, current bbox updates when options changes
-     * We want to trigger an update to MapRender only if bbox value changes, not its reference.
-     */
-    $: {
-        // Update bbox only if different from previous bbox
-        if (
-            currentBbox &&
-            (!previousBbox || currentBbox.some((bound, index) => bound !== previousBbox[index]))
-        ) {
-            bbox = currentBbox;
-            previousBbox = currentBbox;
-        }
-    }
-
-    // Same thing as above for center
-    $: {
-        if (
-            currentCenter &&
-            (!previousCenter ||
-                currentCenter.some((point, index) => point !== previousCenter[index]))
-        ) {
-            center = currentCenter;
-            previousCenter = currentCenter;
-        }
-    }
+    let bbox = createDeepEqual(_bbox);
+    let center = createDeepEqual(_center);
+    $: bbox.set(_bbox);
+    $: center.set(_center);
 </script>
 
 <div>
@@ -76,8 +48,8 @@
             {sources}
             {layers}
             {popupsConfiguration}
-            {bbox}
-            {center}
+            bbox={$bbox}
+            center={$center}
             {zoom}
             {title}
             {subtitle}
