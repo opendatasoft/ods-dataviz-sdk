@@ -12,8 +12,10 @@ export const DEFAULT_ASPECT_RATIO = 1;
 
 export const DEFAULT_DARK_GREY: Color = '#515457';
 
+export const POPUP_WIDTH = 300;
+
 export const POPUP_OPTIONS: PopupOptions = {
     className: 'poi-map__popup',
     closeButton: false,
-    maxWidth: '300px',
+    maxWidth: `${POPUP_WIDTH}px`,
 };

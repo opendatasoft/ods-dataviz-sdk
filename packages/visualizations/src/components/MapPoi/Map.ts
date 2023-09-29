@@ -10,7 +10,7 @@ import maplibregl, {
     StyleSpecification,
 } from 'maplibre-gl';
 
-import { POPUP_OPTIONS } from './constants';
+import { POPUP_OPTIONS, POPUP_WIDTH } from './constants';
 import type { PopupsConfiguration, CenterZoomOptions } from './types';
 
 const CURSOR = {
@@ -136,6 +136,13 @@ export default class MapPOI {
 
     private bindedOnClick = this.onClick.bind(this);
 
+    private resetLeftPaddingPopup() {
+        this.queue((map) => map.easeTo({ padding: { left: 0 } }));
+        this.popup.off('close', this.bindedResetLeftPaddingPopup);
+    }
+
+    private bindedResetLeftPaddingPopup = this.resetLeftPaddingPopup.bind(this);
+
     /** Event handler for popup close event. */
     private onPopupClose() {
         this.popupFeatures.forEach(({ source, sourceLayer, id }) => {
@@ -184,7 +191,7 @@ export default class MapPOI {
         const { display, getContent, getLoadingContent } = popupConfiguration;
 
         if (this.popup.isOpen() === false) {
-            this.popup.setLngLat(geometry.coordinates.slice() as LngLatLike).addTo(map);
+            this.popup.setLngLat(geometry.coordinates as LngLatLike).addTo(map);
         }
 
         this.popup.setHTML(getLoadingContent());
@@ -194,6 +201,14 @@ export default class MapPOI {
 
         const classnameModifier = display === 'sidebar' ? 'addClassName' : 'removeClassName';
         this.popup[classnameModifier](`${POPUP_OPTIONS.className}--as-sidebar`);
+
+        if (display === 'sidebar') {
+            map.easeTo({
+                center: geometry.coordinates as LngLatLike,
+                padding: { left: POPUP_WIDTH },
+            });
+            this.popup.on('close', this.bindedResetLeftPaddingPopup);
+        }
 
         if (featureId) {
             map.setFeatureState({ source, sourceLayer, id: featureId }, { 'popup-feature': true });
