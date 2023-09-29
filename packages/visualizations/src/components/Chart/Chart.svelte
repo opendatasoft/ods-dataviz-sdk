@@ -9,7 +9,7 @@
     import SourceLink from '../utils/SourceLink.svelte';
     import { defaultNumberFormat } from '../utils/formatter';
     import CategoryLegend from '../Legend/CategoryLegend.svelte';
-    import type { LegendPositions, CategoryLegend as CategoryLegendType } from '../Legend/types';
+    import type { LegendPositions, CategoryLegendType } from '../Legend/types';
     import { ChartSeriesType } from './types';
     import type { ChartOptions, ChartSeries } from './types';
     import { defaultValue } from './utils';

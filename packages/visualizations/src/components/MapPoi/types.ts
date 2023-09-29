@@ -7,7 +7,7 @@ import type {
 import type { BBox, GeoJsonProperties } from 'geojson';
 
 import type { Color, Source } from '../types';
-import type { CategoryLegend } from '../Legend/types';
+import type { CategoryLegendType } from '../Legend/types';
 
 // To render data layers on the map
 export type PoiMapData = Partial<{
@@ -36,7 +36,7 @@ export interface PoiMapOptions {
     title?: string;
     subtitle?: string;
     description?: string;
-    legend?: CategoryLegend;
+    legend?: CategoryLegendType;
     /** Link button to source */
     sourceLink?: Source;
 }

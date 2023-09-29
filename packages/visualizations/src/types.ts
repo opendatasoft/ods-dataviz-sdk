@@ -44,3 +44,31 @@ export abstract class BaseComponent<Data, Options> {
 
     protected abstract onDestroy(): void;
 }
+
+export abstract class SimpleComponent<Options> {
+    readonly container: HTMLElement;
+
+    protected legendOptions: Options;
+
+    constructor(container: HTMLElement, options: Options) {
+        this.container = container;
+        this.legendOptions = options;
+        this.onCreate();
+    }
+
+    public updateOptions(newOptions: Options): void {
+        const oldOptions = this.legendOptions;
+        this.legendOptions = newOptions;
+        this.onOptionsUpdated(oldOptions);
+    }
+
+    public destroy(): void {
+        this.onDestroy();
+    }
+
+    protected abstract onCreate(): void;
+
+    protected abstract onOptionsUpdated(oldOptions: Options): void;
+
+    protected abstract onDestroy(): void;
+}

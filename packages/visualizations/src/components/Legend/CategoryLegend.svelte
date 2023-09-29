@@ -1,8 +1,8 @@
 <script lang="ts">
     import CategoryLegendItem from './CategoryLegend/Item/CategoryLegendItem.svelte';
-    import type { CategoryLegend, CategoryItem } from './types';
+    import type { CategoryLegendType, CategoryItem } from './types';
 
-    export let legendOptions: CategoryLegend;
+    export let legendOptions: CategoryLegendType;
 
     let items: CategoryItem[] = [];
     let title: string | undefined;

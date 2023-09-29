@@ -58,7 +58,7 @@ export type LineCategoryItem = BaseCategoryItem & {
 
 export type CategoryItem = CircleCategoryItem | BoxCategoryItem | LineCategoryItem;
 
-export type CategoryLegend = {
+export type CategoryLegendType = {
     type: 'category';
     items: CategoryItem[];
     title?: string;

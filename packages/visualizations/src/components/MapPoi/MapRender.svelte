@@ -5,7 +5,7 @@
     import type { LngLatBoundsLike, LngLatLike, MapOptions, StyleSpecification } from 'maplibre-gl';
     import { onDestroy, onMount } from 'svelte';
     import CategoryLegend from '../Legend/CategoryLegend.svelte';
-    import type { CategoryLegend as CategoryLegendType } from '../Legend/types';
+    import type { CategoryLegendType } from '../Legend/types';
     import SourceLink from '../utils/SourceLink.svelte';
     import type { Source } from '../types';
 
