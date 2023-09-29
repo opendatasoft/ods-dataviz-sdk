@@ -1,7 +1,7 @@
 import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
 import type { FillLayerSpecification, Popup } from 'maplibre-gl';
 import type { DebouncedFunc } from 'lodash';
-import type { LegendPositions } from '../Legend/types';
+import type { LegendPositions } from '../utils/Legend/types';
 import type { ColorScale, Color, Source } from '../types';
 
 export interface ChoroplethOptions {

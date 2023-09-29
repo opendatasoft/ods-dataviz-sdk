@@ -17,11 +17,11 @@
     import type { BBox } from 'geojson';
     import SourceLink from '../../utils/SourceLink.svelte';
     import { computeMaxZoomFromGeoJsonFeatures, getFixedTooltips } from '../utils';
-    import ColorsLegend from '../../Legend/ColorsLegend.svelte';
+    import ColorsLegend from '../../utils/Legend/ColorsLegend.svelte';
     import BackButton from '../../utils/BackButton.svelte';
     import MiniMap from '../../utils/MiniMap.svelte';
     import type { ColorScale, DataBounds, Source } from '../../types';
-    import type { LegendVariant } from '../../Legend/types';
+    import type { LegendVariant } from '../../utils/Legend/types';
     import type {
         ChoroplethFixedTooltipDescription,
         MapLayer,

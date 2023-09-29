@@ -1,5 +1,12 @@
-/* eslint-disable import/prefer-default-export */
+import CategoryLegendImpl from './Legend/CategoryLegend.svelte';
+import SvelteUtilsImpl from './SvelteUtilsImpl';
+import type { CategoryLegendType } from './Legend/types';
 
+export class CategoryLegend extends SvelteUtilsImpl<CategoryLegendType> {
+    protected getSvelteSimpleComponentClass(): typeof CategoryLegendImpl {
+        return CategoryLegendImpl;
+    }
+}
 /**
  * Check (in the compiler) that a switch block is exhaustive.
  * Documentation: https://www.typescriptlang.org/docs/handbook/2/narrowing.html#exhaustiveness-checking

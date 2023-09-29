@@ -8,8 +8,8 @@
     import { generateId } from '../utils';
     import SourceLink from '../utils/SourceLink.svelte';
     import { defaultNumberFormat } from '../utils/formatter';
-    import CategoryLegend from '../Legend/CategoryLegend.svelte';
-    import type { LegendPositions, CategoryLegendType } from '../Legend/types';
+    import CategoryLegend from '../utils/Legend/CategoryLegend.svelte';
+    import type { LegendPositions, CategoryLegendType } from '../utils/Legend/types';
     import { ChartSeriesType } from './types';
     import type { ChartOptions, ChartSeries } from './types';
     import { defaultValue } from './utils';

@@ -4,7 +4,7 @@ export { default as KpiCard } from './components/KpiCard';
 export { ChoroplethGeoJson, ChoroplethVectorTiles } from './components/Map/WebGl';
 export { default as ChoroplethSvg } from './components/Map/Svg';
 export { default as PoiMap } from './components/MapPoi';
-export { default as CategoryLegend } from './components/Legend';
+export { CategoryLegend } from './components/utils';
 
 export * from './types';
 export * from './components/types';
@@ -13,4 +13,4 @@ export * from './components/KpiCard/types';
 export * from './components/Map/types';
 export * from './components/MarkdownText/types';
 export * from './components/MapPoi/types';
-export * from './components/Legend/types';
+export * from './components/utils/Legend/types';

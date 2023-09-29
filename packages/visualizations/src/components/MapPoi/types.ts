@@ -7,7 +7,7 @@ import type {
 import type { BBox, GeoJsonProperties } from 'geojson';
 
 import type { Color, Source } from '../types';
-import type { CategoryLegendType } from '../Legend/types';
+import type { CategoryLegendType } from '../utils/Legend/types';
 
 // To render data layers on the map
 export type PoiMapData = Partial<{

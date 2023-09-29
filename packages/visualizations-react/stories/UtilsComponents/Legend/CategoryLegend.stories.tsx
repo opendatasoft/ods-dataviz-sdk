@@ -1,18 +1,32 @@
-import { ComponentMeta } from '@storybook/react';
+import React from 'react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 import type { CategoryLegendType } from '@opendatasoft/visualizations';
 import { CATEGORY_ITEM_VARIANT } from '@opendatasoft/visualizations';
-import { CategoryLegend } from '../../src';
-import { SimpleProps } from '../../src/components/Props';
-import CategoryLegendTemplate from './CategoryLegendTemplate';
+import { CategoryLegend } from '../../../src';
+import { SimpleProps } from '../../../src/components/Props';
 
 const meta: ComponentMeta<typeof CategoryLegend> = {
-    title: 'Legend',
+    title: 'Utils/Legend',
     component: CategoryLegend,
 };
 
 export default meta;
 
-export const CategoryCircleLegend = CategoryLegendTemplate.bind({});
+const Template: ComponentStory<typeof CategoryLegend> = (
+    args: SimpleProps<CategoryLegendType>
+) => (
+    <div
+        style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        }}
+    >
+        <CategoryLegend {...args} style={{ width: '60vw' }} />
+    </div>
+);
+
+export const CategoryCircleLegend = Template.bind({});
 const CategoryCircleLegendArgs: SimpleProps<CategoryLegendType> = {
     legendOptions: {
         type: 'category' as const,

@@ -1,5 +1,5 @@
 import type { SvelteComponent } from 'svelte';
-import { SimpleComponent } from '../types';
+import { SimpleComponent } from '../../types';
 
 export default abstract class SvelteImpl<Options> extends SimpleComponent<Options> {
     protected abstract getSvelteSimpleComponentClass(): typeof SvelteComponent;

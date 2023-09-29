@@ -3,7 +3,7 @@ import type { _DeepPartialObject } from 'chart.js/types/utils';
 import type { ChartOptions } from './types';
 import { assureMaxLength } from '../utils/formatter';
 import { defaultValue, DEFAULT_GREY_COLOR } from './utils';
-import { CATEGORY_ITEM_VARIANT } from '../Legend/types';
+import { CATEGORY_ITEM_VARIANT } from '../utils/Legend/types';
 
 const LEGEND_MAX_LENGTH = 50;
 
