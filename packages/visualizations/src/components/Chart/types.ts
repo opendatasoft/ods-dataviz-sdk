@@ -266,6 +266,14 @@ export interface FillConfiguration {
     below?: Color | Color[];
 }
 
+// FIXME: implement proper types
+export type Parsed = {
+    x: number;
+    y: number;
+    r: number;
+};
+
+// FIXME: implement proper types
 export interface ScriptableTreemapContext {
     type?: string;
     index?: number;

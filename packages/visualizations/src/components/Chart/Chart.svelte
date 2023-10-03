@@ -11,7 +11,13 @@
     import CategoryLegend from '../Legend/CategoryLegend.svelte';
     import type { LegendPositions, CategoryLegend as CategoryLegendType } from '../Legend/types';
     import { ChartSeriesType } from './types';
-    import type { ChartOptions, ChartSeries, ScriptableTreemapContext, Treemap } from './types';
+    import type {
+        ChartOptions,
+        ChartSeries,
+        Parsed,
+        ScriptableTreemapContext,
+        Treemap,
+    } from './types';
     import { defaultValue } from './utils';
     import toDataset from './datasets';
     import buildScales from './scales';
@@ -127,15 +133,15 @@
                         if (seriesType && parsed) {
                             if (seriesType === ChartSeriesType.Bar) {
                                 if (options.series[0]?.indexAxis === 'y') {
-                                    return prefix + format(parsed.x) + suffix;
+                                    return prefix + format((parsed as Parsed).x) + suffix;
                                 }
-                                return prefix + format(parsed.y) + suffix;
+                                return prefix + format((parsed as Parsed).y) + suffix;
                             }
                             if (seriesType === ChartSeriesType.Line) {
-                                return prefix + format(parsed.y) + suffix;
+                                return prefix + format((parsed as Parsed).y) + suffix;
                             }
                             if (seriesType === ChartSeriesType.Radar) {
-                                return prefix + format(parsed.r);
+                                return prefix + format((parsed as Parsed).r);
                             }
                             if (
                                 [ChartSeriesType.Pie, ChartSeriesType.Doughnut].includes(seriesType)
@@ -145,7 +151,9 @@
                                 return `${dataFrame[dataIndex].x}: ${format(parsed as number)}`;
                             }
                             if (seriesType === ChartSeriesType.Scatter) {
-                                const formattedValues = `${format(parsed.x)}, ${format(parsed.y)}`;
+                                const formattedValues = `${format((parsed as Parsed).x)}, ${format(
+                                    (parsed as Parsed).y
+                                )}`;
                                 // e.g. dataset 1: (4.5, 54)
                                 if (prefix) return `${prefix}(${formattedValues})`;
                                 // 4.5, 54
