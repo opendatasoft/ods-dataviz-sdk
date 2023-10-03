@@ -11,13 +11,7 @@
     import CategoryLegend from '../Legend/CategoryLegend.svelte';
     import type { LegendPositions, CategoryLegend as CategoryLegendType } from '../Legend/types';
     import { ChartSeriesType } from './types';
-    import type {
-        ChartOptions,
-        ChartSeries,
-        Parsed,
-        ScriptableTreemapContext,
-        Treemap,
-    } from './types';
+    import type { ChartOptions, ChartSeries, ScriptableTreemapContext, Treemap } from './types';
     import { defaultValue } from './utils';
     import toDataset from './datasets';
     import buildScales from './scales';
@@ -88,6 +82,7 @@
         chartOptions.layout = {
             padding: defaultValue(options?.padding, 12),
         };
+        const { type: seriesType } = options.series[0];
         chartOptions.plugins = {
             legend,
             title: {
@@ -106,7 +101,6 @@
                             dataIndex,
                             dataset: { label },
                         } = context;
-                        const { type: seriesType } = options.series[0];
                         const format = options?.tooltip?.numberFormatter || defaultNumberFormat;
 
                         // Treemap tooltips only display the category name and count
@@ -133,15 +127,15 @@
                         if (seriesType && parsed) {
                             if (seriesType === ChartSeriesType.Bar) {
                                 if (options.series[0]?.indexAxis === 'y') {
-                                    return prefix + format((parsed as Parsed).x) + suffix;
+                                    return prefix + format(parsed.x) + suffix;
                                 }
-                                return prefix + format((parsed as Parsed).y) + suffix;
+                                return prefix + format(parsed.y) + suffix;
                             }
                             if (seriesType === ChartSeriesType.Line) {
-                                return prefix + format((parsed as Parsed).y) + suffix;
+                                return prefix + format(parsed.y) + suffix;
                             }
                             if (seriesType === ChartSeriesType.Radar) {
-                                return prefix + format((parsed as Parsed).r);
+                                return prefix + format(parsed.r);
                             }
                             if (
                                 [ChartSeriesType.Pie, ChartSeriesType.Doughnut].includes(seriesType)
@@ -151,9 +145,7 @@
                                 return `${dataFrame[dataIndex].x}: ${format(parsed as number)}`;
                             }
                             if (seriesType === ChartSeriesType.Scatter) {
-                                const formattedValues = `${format((parsed as Parsed).x)}, ${format(
-                                    (parsed as Parsed).y
-                                )}`;
+                                const formattedValues = `${format(parsed.x)}, ${format(parsed.y)}`;
                                 // e.g. dataset 1: (4.5, 54)
                                 if (prefix) return `${prefix}(${formattedValues})`;
                                 // 4.5, 54
@@ -192,7 +184,6 @@
          * We cannot use a type guard due to a bug in ChartJS
          * https://github.com/chartjs/Chart.js/issues/10896#issuecomment-1660559770
          */
-        const { type: seriesType } = options.series[0];
         if (seriesType === ChartSeriesType.Doughnut) {
             (chartOptions as Exclude<ChartConfiguration<'doughnut'>['options'], undefined>).cutout =
                 options.series[0].cutout;

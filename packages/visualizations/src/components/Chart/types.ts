@@ -266,12 +266,6 @@ export interface FillConfiguration {
     below?: Color | Color[];
 }
 
-export type Parsed = {
-    x: number;
-    y: number;
-    r: number;
-};
-
 export interface ScriptableTreemapContext {
     type?: string;
     index?: number;
