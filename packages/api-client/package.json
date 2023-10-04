@@ -13,8 +13,7 @@
         "JavaScript",
         "TypeScript"
     ],
-    "main": "dist/umd/index.umd.js",
-    "module": "dist/index.es.js",
+    "main": "dist/index.es.js",
     "typings": "dist/src/index.d.ts",
     "unpkg": "dist/umd/index.umd.js",
     "files": [
