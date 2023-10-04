@@ -1,6 +1,6 @@
 {
     "name": "@opendatasoft/api-client",
-    "version": "21.1.1",
+    "version": "21.1.1-module",
     "license": "MIT",
     "author": "opendatasoft",
     "homepage": "https://github.com/opendatasoft/ods-dataviz-sdk",
@@ -13,6 +13,7 @@
         "JavaScript",
         "TypeScript"
     ],
+    "type": "module",
     "main": "dist/index.es.js",
     "typings": "dist/src/index.d.ts",
     "unpkg": "dist/umd/index.umd.js",
