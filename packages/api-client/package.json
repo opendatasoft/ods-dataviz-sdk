@@ -15,6 +15,7 @@
     ],
     "type": "module",
     "main": "dist/index.es.js",
+    "module": "dist/index.es.js",
     "typings": "dist/src/index.d.ts",
     "unpkg": "dist/umd/index.umd.js",
     "files": [
