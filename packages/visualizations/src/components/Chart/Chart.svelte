@@ -11,7 +11,13 @@
     import CategoryLegend from '../Legend/CategoryLegend.svelte';
     import type { LegendPositions, CategoryLegend as CategoryLegendType } from '../Legend/types';
     import { ChartSeriesType } from './types';
-    import type { ChartOptions, ChartSeries } from './types';
+    import type {
+        ChartOptions,
+        ChartSeries,
+        Parsed,
+        ScriptableTreemapContext,
+        Treemap,
+    } from './types';
     import { defaultValue } from './utils';
     import toDataset from './datasets';
     import buildScales from './scales';
@@ -82,6 +88,7 @@
         chartOptions.layout = {
             padding: defaultValue(options?.padding, 12),
         };
+        const { type: seriesType } = options.series[0];
         chartOptions.plugins = {
             legend,
             title: {
@@ -100,8 +107,12 @@
                             dataIndex,
                             dataset: { label },
                         } = context;
-                        const { type: seriesType } = options.series[0];
                         const format = options?.tooltip?.numberFormatter || defaultNumberFormat;
+
+                        // Treemap tooltips only display the category name and count
+                        if (seriesType === ChartSeriesType.Treemap) {
+                            return dataFrame[dataIndex][options.series[0].keyColumn];
+                        }
 
                         // If the value has a label, we need to add it to the tooltip
                         let prefix = '';
@@ -122,25 +133,27 @@
                         if (seriesType && parsed) {
                             if (seriesType === ChartSeriesType.Bar) {
                                 if (options.series[0]?.indexAxis === 'y') {
-                                    return prefix + format(parsed.x) + suffix;
+                                    return prefix + format((parsed as Parsed).x) + suffix;
                                 }
-                                return prefix + format(parsed.y) + suffix;
+                                return prefix + format((parsed as Parsed).y) + suffix;
                             }
                             if (seriesType === ChartSeriesType.Line) {
-                                return prefix + format(parsed.y) + suffix;
+                                return prefix + format((parsed as Parsed).y) + suffix;
                             }
                             if (seriesType === ChartSeriesType.Radar) {
-                                return prefix + format(parsed.r);
+                                return prefix + format((parsed as Parsed).r);
                             }
                             if (
                                 [ChartSeriesType.Pie, ChartSeriesType.Doughnut].includes(seriesType)
                             ) {
                                 // For pie and doughnut charts we need to get the label from the dataFrame because, unlike other
                                 // charts, the label is not the series legend, it's the category.
-                                return `${dataFrame[dataIndex].x}: ${format(parsed)}`;
+                                return `${dataFrame[dataIndex].x}: ${format(parsed as number)}`;
                             }
                             if (seriesType === ChartSeriesType.Scatter) {
-                                const formattedValues = `${format(parsed.x)}, ${format(parsed.y)}`;
+                                const formattedValues = `${format((parsed as Parsed).x)}, ${format(
+                                    (parsed as Parsed).y
+                                )}`;
                                 // e.g. dataset 1: (4.5, 54)
                                 if (prefix) return `${prefix}(${formattedValues})`;
                                 // 4.5, 54
@@ -150,7 +163,20 @@
 
                         return prefix + formattedValue + suffix;
                     },
+                    // Treemap tooltips only display the category name and count
+                    ...(seriesType === ChartSeriesType.Treemap && {
+                        title(context: ScriptableTreemapContext[]) {
+                            const { dataIndex } = context[0];
+                            const { keyGroups } = options.series[0] as Treemap;
+                            if (typeof dataIndex === 'number') {
+                                return dataFrame[dataIndex][keyGroups[0]];
+                            }
+                            return '';
+                        },
+                    }),
                 },
+                // Treemap tooltips only display the category name and count
+                ...(seriesType === ChartSeriesType.Treemap && { displayColors: false }),
             },
             subtitle: {
                 display: false,
@@ -166,7 +192,6 @@
          * We cannot use a type guard due to a bug in ChartJS
          * https://github.com/chartjs/Chart.js/issues/10896#issuecomment-1660559770
          */
-        const { type: seriesType } = options.series[0];
         if (seriesType === ChartSeriesType.Doughnut) {
             (chartOptions as Exclude<ChartConfiguration<'doughnut'>['options'], undefined>).cutout =
                 options.series[0].cutout;
@@ -175,7 +200,7 @@
     }
 
     $: {
-        const labels = dataFrame.map((entry) => entry[labelColumn]);
+        const labels = dataFrame.map((entry) => (labelColumn ? entry[labelColumn] : ''));
         chartConfig = update(chartConfig, { data: { labels: { $set: labels } } });
     }
 

@@ -22,7 +22,7 @@ export function defaultCompactLegendNumberFormat(value: number): string {
 }
 
 export function assureMaxLength(value: string, maxLength: number) {
-    if (value.length > maxLength) {
+    if (value?.length > maxLength) {
         return `${value.substring(0, maxLength)}...`;
     }
     return value;

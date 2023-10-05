@@ -1,8 +1,13 @@
 import type { ChartDataset } from 'chart.js';
 import type { Options as DataLabelsOptions } from 'chartjs-plugin-datalabels/types/options';
-import type { ChartSeries, DataLabelsConfiguration, FillConfiguration } from './types';
+import type {
+    ChartSeries,
+    DataLabelsConfiguration,
+    FillConfiguration,
+    ScriptableTreemapContext,
+} from './types';
 import type { DataFrame } from '../types';
-import { defaultCompactNumberFormat } from '../utils/formatter';
+import { defaultCompactNumberFormat, assureMaxLength } from '../utils/formatter';
 import {
     defaultValue,
     singleChartJsColor,
@@ -107,6 +112,56 @@ export default function toDataset(df: DataFrame, s: ChartSeries): ChartDataset {
                 s.backgroundColor?.length ? s.backgroundColor : DEFAULT_GREY_COLOR
             ),
             datalabels: chartJsDataLabels(s.dataLabels),
+        };
+    }
+    if (s.type === 'treemap') {
+        return {
+            tree: df,
+            datalabels: chartJsDataLabels(s.dataLabels),
+            data: [], // from chartjs-chart-treemap index.esm.d.ts: data will be auto-generated from `tree` but appears mandatory in the types
+            key: s.keyColumn,
+            groups: s.keyGroups,
+            borderColor: defaultValue(singleChartJsColor(s.borderColor), 'rgb(255,255,255)'),
+            borderWidth: defaultValue(s.borderWidth, 1),
+            spacing: defaultValue(s.spacing, 0),
+            backgroundColor: (context: ScriptableTreemapContext) => {
+                if (s.colorFormatter && typeof context?.index === 'number') {
+                    return s.colorFormatter(context.index);
+                }
+                return DEFAULT_GREY_COLOR;
+            },
+            labels: s.labels
+                ? {
+                      align: s.labels.align,
+                      display: defaultValue(s.labels.display, false),
+                      formatter(context: ScriptableTreemapContext) {
+                          if (
+                              s.labels &&
+                              s.labels.labelsFormatter &&
+                              typeof context?.index === 'number'
+                          ) {
+                              const { maxLength } = s.labels;
+                              if (maxLength) {
+                                  const formattedLabels = s.labels.labelsFormatter(context.index);
+                                  if (Array.isArray(formattedLabels)) {
+                                      return formattedLabels.map((l) =>
+                                          assureMaxLength(l, maxLength)
+                                      );
+                                  }
+                                  return assureMaxLength(formattedLabels, maxLength);
+                              }
+                              return s.labels.labelsFormatter(context.index);
+                          }
+                          return '';
+                      },
+                      font: s.labels.font,
+                      color: s.labels.color,
+                      overflow: defaultValue(s.labels.overflow, 'cut'),
+                      hoverColor: s.labels.hoverColor,
+                      hoverFont: s.labels.hoverFont,
+                      position: s.labels.position,
+                  }
+                : { display: false },
         };
     }
 

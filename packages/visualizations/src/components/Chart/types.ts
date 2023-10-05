@@ -2,8 +2,8 @@ import type { Color, Source } from '../types';
 import type { LegendConfiguration } from '../Legend/types';
 
 export interface ChartOptions {
-    /** Specify label column in DataFrame */
-    labelColumn: string;
+    /** Specify label column in DataFrame (mandatory for all charts except Treemap) */
+    labelColumn?: string;
     /** Series to display */
     series: ChartSeries[];
     /** Chart aspect ratio */
@@ -147,7 +147,7 @@ export interface DataLabelsConfiguration {
     padding?: number;
 }
 
-export type ChartSeries = Line | Bar | Pie | Radar | Doughnut | Scatter;
+export type ChartSeries = Line | Bar | Pie | Radar | Doughnut | Scatter | Treemap;
 
 export enum ChartSeriesType {
     Line = 'line',
@@ -156,6 +156,7 @@ export enum ChartSeriesType {
     Radar = 'radar',
     Doughnut = 'doughnut',
     Scatter = 'scatter',
+    Treemap = 'treemap',
 }
 
 export interface Line {
@@ -219,6 +220,30 @@ export interface Doughnut {
     indexAxis?: 'x' | 'y';
 }
 
+export interface Treemap {
+    type: ChartSeriesType.Treemap;
+    dataLabels?: DataLabelsConfiguration;
+    keyColumn: string;
+    keyGroups: string[];
+    borderColor?: string;
+    backgroundColor?: Color | Color[];
+    borderWidth?: number;
+    spacing?: number;
+    colorFormatter?: (index: number) => Color;
+    labels?: {
+        display?: boolean;
+        align?: 'left' | 'center' | 'right';
+        labelsFormatter?: (index: number) => string[] | string;
+        font?: { [key: string]: number | string }[] | { [key: string]: number | string };
+        color?: Color[] | Color;
+        hoverColor?: Color[] | Color;
+        hoverFont?: { [key: string]: number | string }[] | { [key: string]: number | string };
+        position?: 'top' | 'middle' | 'bottom';
+        overflow?: 'cut' | 'hidden' | 'fit';
+        maxLength?: number;
+    };
+}
+
 export interface Scatter {
     type: ChartSeriesType.Scatter;
     valueColumn: string;
@@ -239,4 +264,18 @@ export interface FillConfiguration {
     mode?: FillMode;
     above?: Color | Color[];
     below?: Color | Color[];
+}
+
+// FIXME: implement proper types
+export type Parsed = {
+    x: number;
+    y: number;
+    r: number;
+};
+
+// FIXME: implement proper types
+export interface ScriptableTreemapContext {
+    type?: string;
+    index?: number;
+    dataIndex?: number;
 }
