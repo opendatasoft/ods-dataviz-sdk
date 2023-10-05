@@ -164,7 +164,7 @@
                         return prefix + formattedValue + suffix;
                     },
                     // Treemap tooltips only display the category name and count
-                    ...(options.series[0].type === ChartSeriesType.Treemap && {
+                    ...(seriesType === ChartSeriesType.Treemap && {
                         title(context: ScriptableTreemapContext[]) {
                             const { dataIndex } = context[0];
                             const { keyGroups } = options.series[0] as Treemap;
@@ -176,7 +176,7 @@
                     }),
                 },
                 // Treemap tooltips only display the category name and count
-                ...(options.series[0].type === ChartSeriesType.Treemap && { displayColors: false }),
+                ...(seriesType === ChartSeriesType.Treemap && { displayColors: false }),
             },
             subtitle: {
                 display: false,
