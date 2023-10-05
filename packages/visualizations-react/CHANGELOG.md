@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.17.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.16.1...@opendatasoft/visualizations-react@0.17.0) (2023-10-05)
+
+
+### Features
+
+* **Chart:** Implement treemap chart ([#188](https://github.com/opendatasoft/ods-dataviz-sdk/issues/188)) ([cc3c6da](https://github.com/opendatasoft/ods-dataviz-sdk/commit/cc3c6da0635570ab8c674686eb0ef3cc51d79585))
+
+
+
+
+
 ## [0.16.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.16.0...@opendatasoft/visualizations-react@0.16.1) (2023-09-25)
 
 

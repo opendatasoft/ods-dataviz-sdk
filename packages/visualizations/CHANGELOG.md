@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.17.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.16.1...@opendatasoft/visualizations@0.17.0) (2023-10-05)
+
+
+### Bug Fixes
+
+* **POI Map:** add transform request option ([#195](https://github.com/opendatasoft/ods-dataviz-sdk/issues/195)) ([95d38e2](https://github.com/opendatasoft/ods-dataviz-sdk/commit/95d38e2d55f1177e125cbf05c6d1076aee7ef869))
+* **POI Map:** clicked feature is always visible when sidebar popup is open ([e2570b7](https://github.com/opendatasoft/ods-dataviz-sdk/commit/e2570b764b5e248f646b9f4503cc2d274e8c29c7))
+* **POI Map:** improve cursor ([7386dd7](https://github.com/opendatasoft/ods-dataviz-sdk/commit/7386dd7302b8d514c3540c7882607b87eeb8a3af))
+* **POI Map:** improve large content in popup ([a123107](https://github.com/opendatasoft/ods-dataviz-sdk/commit/a123107008e3fd32e3568f2fbc608caff9169394))
+
+
+### Features
+
+* **Chart:** Implement treemap chart ([#188](https://github.com/opendatasoft/ods-dataviz-sdk/issues/188)) ([cc3c6da](https://github.com/opendatasoft/ods-dataviz-sdk/commit/cc3c6da0635570ab8c674686eb0ef3cc51d79585))
+* **POI Map:** add `zoom` and `center` options ([7a6eaae](https://github.com/opendatasoft/ods-dataviz-sdk/commit/7a6eaaebef9753a98ddc89b2643e0f738913e9bf))
+
+
+
+
+
 ## [0.16.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.16.0...@opendatasoft/visualizations@0.16.1) (2023-09-25)
 
 
