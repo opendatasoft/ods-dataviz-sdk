@@ -22,6 +22,8 @@
     // Options
     export let bbox: BBox | undefined;
     export let zoom: number | undefined;
+    export let minZoom: number | undefined;
+    export let maxZoom: number | undefined;
     export let center: LngLatLike | undefined;
     export let aspectRatio: number;
     export let interactive: boolean;
@@ -53,6 +55,8 @@
             bounds: bbox as LngLatBoundsLike,
             ...getCenterZoomOptions({ zoom, center }),
             transformRequest,
+            minZoom,
+            maxZoom,
         };
         map.initialize(style, container, options);
     });
