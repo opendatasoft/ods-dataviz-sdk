@@ -44,6 +44,8 @@
 
     $: map.toggleInteractivity(interactive ? 'enable' : 'disable');
     $: map.setBbox(bbox);
+    $: map.setMinZoom(minZoom);
+    $: map.setMaxZoom(maxZoom);
     $: map.setSourcesAndLayers(sources, layers);
     $: map.setPopupsConfiguration(popupsConfiguration);
     $: map.jumpTo(getCenterZoomOptions({ zoom, center }));
