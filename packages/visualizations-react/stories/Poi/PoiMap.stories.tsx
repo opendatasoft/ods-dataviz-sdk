@@ -172,14 +172,14 @@ const PoiMapLegendCenterArgs = {
 PoiMapLegendCenter.args = PoiMapLegendCenterArgs;
 
 /**
- * STORY: With legend on center align
+ * STORY: with min and max zoom
  */
 export const PoiMapMinMaxZooms: ComponentStory<typeof PoiMap> = Template.bind({});
 const PoiMapMinMaxZoomsArgs = {
     data: { value: { layers: [{ ...layer1, colorMatch: citiesColorMatch }, layer2], sources } },
     options: { 
         ...options,
-        legend: { ...legend, align: 'center' as const },
+        legend,
         minZoom: 3,
         maxZoom: 5,
     },
