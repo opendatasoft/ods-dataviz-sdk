@@ -3,8 +3,14 @@
 export interface Facet {
     name: string;
     count: number;
-    path?: string;
+    value: string;
+    state: 'displayed' | 'refined' | 'excluded';
     facets?: Facet[];
+}
+
+export interface FacetRoot {
+    name: string;
+    facets: Facet[];
 }
 
 export interface Link {
@@ -51,7 +57,7 @@ export interface ApiDatasets {
 
 export interface ApiFacets {
     links: Link[];
-    facets: Facet[];
+    facets: FacetRoot[];
 }
 
 export interface ApiQuery<T> {
