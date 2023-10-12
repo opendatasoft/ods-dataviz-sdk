@@ -3,10 +3,14 @@ name: "Chromatic"
 on: 
   pull_request:
     types: [ready_for_review]
+    path:
+      - ./packages/visualizations-react
+      - ./packages/visualizations
 
 jobs:
   chromatic-deployment:
     runs-on: ubuntu-latest
+    if: ${{ jobs.CI.status == success }}
     strategy:
       matrix:
         node: [">=16 <18"]
