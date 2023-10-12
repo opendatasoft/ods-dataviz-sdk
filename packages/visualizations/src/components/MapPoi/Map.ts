@@ -275,6 +275,18 @@ export default class MapPOI {
         });
     }
 
+    setMinZoom(minZoom?: number) {
+        this.queue((map) => {
+            map.setMinZoom(minZoom);
+        });
+    }
+
+    setMaxZoom(maxZoom?: number) {
+        this.queue((map) => {
+            map.setMaxZoom(maxZoom);
+        });
+    }
+
     setBbox(bbox?: BBox) {
         this.queue((map) => {
             if (!bbox) {

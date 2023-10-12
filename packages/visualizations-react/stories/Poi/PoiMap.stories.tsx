@@ -107,7 +107,7 @@ const meta: ComponentMeta<typeof PoiMap> = {
 
 export default meta;
 
-const Template: ComponentStory<typeof PoiMap> = (args) => (
+const Template: ComponentStory<typeof PoiMap> = args => (
     <div
         style={{
             width: '50%',
@@ -170,3 +170,18 @@ const PoiMapLegendCenterArgs = {
     options: { ...options, legend: { ...legend, align: 'center' as const } },
 };
 PoiMapLegendCenter.args = PoiMapLegendCenterArgs;
+
+/**
+ * STORY: with min and max zoom
+ */
+export const PoiMapMinMaxZooms: ComponentStory<typeof PoiMap> = Template.bind({});
+const PoiMapMinMaxZoomsArgs = {
+    data: { value: { layers: [{ ...layer1, colorMatch: citiesColorMatch }, layer2], sources } },
+    options: { 
+        ...options,
+        legend,
+        minZoom: 3,
+        maxZoom: 5,
+    },
+};
+PoiMapMinMaxZooms.args = PoiMapMinMaxZoomsArgs;

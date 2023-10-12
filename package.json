@@ -28,7 +28,8 @@
         "bootstrap": "lerna bootstrap",
         "watch": "lerna run watch --parallel --stream",
         "lint": "lerna run lint  --parallel --no-bail",
-        "build-package-lock": "lerna run build-package-lock"
+        "build-package-lock": "lerna run build-package-lock",
+        "storybook": "lerna run --scope=@opendatasoft/visualizations-react storybook"
     },
     "devDependencies": {
         "lerna": "^5.5.0",

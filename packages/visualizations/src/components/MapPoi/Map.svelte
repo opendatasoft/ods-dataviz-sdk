@@ -24,8 +24,10 @@
 
     $: ({
         bbox: _bbox,
-        zoom,
         center: _center,
+        zoom,
+        minZoom,
+        maxZoom,
         title,
         subtitle,
         description,
@@ -52,6 +54,8 @@
             bbox={$bbox}
             center={$center}
             {zoom}
+            {minZoom}
+            {maxZoom}
             {title}
             {subtitle}
             {description}
