@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [21.1.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.1.1...@opendatasoft/api-client@21.1.2) (2023-10-12)
+
+
+### Bug Fixes
+
+* **api-client:** Fix Facet types to match API v2.1 ([914e36d](https://github.com/opendatasoft/ods-dataviz-sdk/commit/914e36db2b072b1705e94780c8bc48b27861d543))
+
+
+
+
+
 ## [21.1.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.1.0...@opendatasoft/api-client@21.1.1) (2023-09-22)
 
 

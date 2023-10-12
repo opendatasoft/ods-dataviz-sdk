@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.17.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.17.0...@opendatasoft/visualizations-react@0.17.1) (2023-10-12)
+
+
+### Bug Fixes
+
+* **POI Map:** Add min max zoom options ([#197](https://github.com/opendatasoft/ods-dataviz-sdk/issues/197)) ([a3fbd11](https://github.com/opendatasoft/ods-dataviz-sdk/commit/a3fbd1134772ea47bac7ee6c766eb2f7e160348c))
+
+
+
+
+
 # [0.17.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.16.1...@opendatasoft/visualizations-react@0.17.0) (2023-10-05)
 
 
