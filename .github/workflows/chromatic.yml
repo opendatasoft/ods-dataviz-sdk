@@ -9,7 +9,7 @@ on:
 jobs:
   chromatic-deployment:
     runs-on: ubuntu-latest
-    if: ${{ jobs.CI.status == success && github.events.pull_request.draft == false }}
+    if: ${{ github.events.pull_request.draft == false }}
     strategy:
       matrix:
         node: [">=16 <18"]
