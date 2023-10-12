@@ -4,6 +4,7 @@ import update from 'immutability-helper';
 import { Query } from '../odsql';
 import { AuthenticationError, NotFoundError, ServerError, UserError } from './error';
 
+// hey there, test commit !
 const API_KEY_AUTH_TYPE = 'ApiKey';
 
 // Using the UMD bundle in ObservableHQ, the error "ReferenceError: global is not defined" is returned.
