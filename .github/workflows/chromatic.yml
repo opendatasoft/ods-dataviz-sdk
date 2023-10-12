@@ -2,9 +2,9 @@ name: "Chromatic"
 
 on: 
   push:
-    paths:
-      - ./packages/visualizations-react
-      - ./packages/visualizations
+    # paths:
+    #   - ./packages/visualizations-react
+    #   - ./packages/visualizations
 
 jobs:
   chromatic-deployment:
