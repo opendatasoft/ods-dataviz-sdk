@@ -1,11 +1,16 @@
 name: "Chromatic"
 
-on: push
+on: 
+  push:
+    paths-ignore:
+      - "packages/api-client/**"
+  pull_request:
+    types:
+      - ready_for_review
 
 jobs:
   chromatic-deployment:
     runs-on: ubuntu-latest
-    if: ${{ jobs.CI.status == success && github.events.pull_request.draft == false }}
     strategy:
       matrix:
         node: [">=16 <18"]
