@@ -1,14 +1,11 @@
 name: "Chromatic"
 
-on: 
-  push:
-    paths:
-      - './packages/visualizations-react/**/*'
-      - './packages/visualizations/**/*'
+on: push
 
 jobs:
   chromatic-deployment:
     runs-on: ubuntu-latest
+    if: ${{ jobs.CI.status == success && github.events.pull_request.draft == false }}
     strategy:
       matrix:
         node: [">=16 <18"]
