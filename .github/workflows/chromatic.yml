@@ -8,8 +8,6 @@ on:
 
 jobs:
   chromatic-deployment:
-    runs-on: ubuntu-latest
-    if: ${{ github.events.pull_request.draft == false }}
     strategy:
       matrix:
         node: [">=16 <18"]
