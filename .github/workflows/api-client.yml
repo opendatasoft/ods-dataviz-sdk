@@ -1,6 +1,6 @@
 name: api-client coverage
 on:
-  pull_request:
+  push:
     paths:
     - 'packages/api-client/**'
 jobs:
