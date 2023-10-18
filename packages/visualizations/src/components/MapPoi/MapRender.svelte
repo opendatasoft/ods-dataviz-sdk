@@ -42,7 +42,11 @@
     let container: HTMLElement;
     const map = new Map();
 
-    $: map.toggleInteractivity(interactive ? 'enable' : 'disable');
+    const onDisable = () => {
+        map.setBbox(bbox);
+    };
+
+    $: map.toggleInteractivity(interactive ? 'enable' : 'disable', { onDisable });
     $: map.setBbox(bbox);
     $: map.setMinZoom(minZoom);
     $: map.setMaxZoom(maxZoom);
