@@ -318,7 +318,10 @@ export default class MapPOI {
         this.queue((map) => this.setPopup(map));
     }
 
-    toggleInteractivity(interaction: 'enable' | 'disable') {
+    toggleInteractivity(
+        interaction: 'enable' | 'disable',
+        { onDisable, onEnable }: { onDisable?: () => void; onEnable?: () => void }
+    ) {
         this.queue((map) => {
             map.boxZoom[interaction]();
             map.doubleClickZoom[interaction]();
@@ -335,12 +338,14 @@ export default class MapPOI {
             const hasControl = map.hasControl(this.navigationControl);
 
             if (interaction === 'disable') {
+                onDisable?.();
                 this.popup.remove();
                 if (hasControl) {
                     map.removeControl(this.navigationControl);
                 }
             }
             if (interaction === 'enable') {
+                onEnable?.();
                 if (!hasControl) {
                     map.addControl(this.navigationControl, 'top-right');
                 }
