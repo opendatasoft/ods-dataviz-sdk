@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.17.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.17.1...@opendatasoft/visualizations@0.17.2) (2023-10-19)
+
+
+### Bug Fixes
+
+* **POI Map:** Reset bbox to initial state when interactivity is disabled ([6b14859](https://github.com/opendatasoft/ods-dataviz-sdk/commit/6b14859253f66d9fc230e986e937d426aeeb5f78))
+
+
+
+
+
 ## [0.17.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.17.0...@opendatasoft/visualizations@0.17.1) (2023-10-12)
 
 
