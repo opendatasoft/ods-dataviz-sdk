@@ -275,15 +275,15 @@ export default class MapPOI {
         });
     }
 
-    setMinZoom(minZoom?: number) {
+    setMinZoom(minzoom?: number) {
         this.queue((map) => {
-            map.setMinZoom(minZoom);
+            map.setMinZoom(minzoom);
         });
     }
 
-    setMaxZoom(maxZoom?: number) {
+    setMaxZoom(maxzoom?: number) {
         this.queue((map) => {
-            map.setMaxZoom(maxZoom);
+            map.setMaxZoom(maxzoom);
         });
     }
 

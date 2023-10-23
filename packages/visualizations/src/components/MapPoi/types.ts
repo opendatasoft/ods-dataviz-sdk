@@ -38,8 +38,8 @@ export interface PoiMapOptions {
     bbox?: BBox;
     center?: LngLatLike;
     zoom?: number;
-    minZoom?: number;
-    maxZoom?: number;
+    minzoom?: number;
+    maxzoom?: number;
     // Aspect ratio used to draw the map. The map will take he width available to it, and decide its height based on that ratio.
     aspectRatio?: number;
     // Is the map interactive for the user (zoom, move, tooltips...)
