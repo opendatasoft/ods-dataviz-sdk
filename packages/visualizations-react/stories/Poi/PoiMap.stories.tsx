@@ -177,11 +177,11 @@ PoiMapLegendCenter.args = PoiMapLegendCenterArgs;
 export const PoiMapMinMaxZooms: ComponentStory<typeof PoiMap> = Template.bind({});
 const PoiMapMinMaxZoomsArgs = {
     data: { value: { layers: [{ ...layer1, colorMatch: citiesColorMatch }, layer2], sources } },
-    options: { 
+    options: {
         ...options,
         legend,
-        minZoom: 3,
-        maxZoom: 5,
+        minzoom: 3,
+        maxzoom: 5,
     },
 };
 PoiMapMinMaxZooms.args = PoiMapMinMaxZoomsArgs;
