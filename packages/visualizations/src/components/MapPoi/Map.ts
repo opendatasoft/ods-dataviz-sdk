@@ -339,14 +339,18 @@ export default class MapPOI {
 
             if (interaction === 'disable') {
                 // test
-                onDisable?.();
+                if(onDisable) {
+                    onDisable();
+                }
                 this.popup.remove();
                 if (hasControl) {
                     map.removeControl(this.navigationControl);
                 }
             }
             if (interaction === 'enable') {
-                onEnable?.();
+                if(onEnable) {
+                    onEnable();
+                }
                 if (!hasControl) {
                     map.addControl(this.navigationControl, 'top-right');
                 }
