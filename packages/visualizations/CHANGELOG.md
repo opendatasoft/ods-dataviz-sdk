@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.17.3-beta.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.17.3-beta.0...@opendatasoft/visualizations@0.17.3-beta.1) (2023-10-25)
+
+
+### Bug Fixes
+
+* remove optionnal chaining ([268263a](https://github.com/opendatasoft/ods-dataviz-sdk/commit/268263a0d7584fccf3c849de993d8e9950c91f49))
+
+
+
+
+
 ## [0.17.3-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.17.2...@opendatasoft/visualizations@0.17.3-beta.0) (2023-10-25)
 
 
