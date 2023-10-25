@@ -338,6 +338,7 @@ export default class MapPOI {
             const hasControl = map.hasControl(this.navigationControl);
 
             if (interaction === 'disable') {
+                // test
                 onDisable?.();
                 this.popup.remove();
                 if (hasControl) {
