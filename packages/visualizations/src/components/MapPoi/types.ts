@@ -1,5 +1,6 @@
 import type {
     CircleLayerSpecification,
+    SymbolLayerSpecification,
     StyleSpecification,
     GeoJSONFeature,
     LngLatLike,
@@ -52,22 +53,30 @@ export interface PoiMapOptions {
     /** Link button to source */
     sourceLink?: Source;
     cooperativeGestures?: boolean | GestureOptions;
+    /** Images to load by the Map. keys are image ids  */
+    images?: Record<string, string>;
 }
 
 export type PoiMapStyleOption = Partial<Pick<StyleSpecification, 'sources' | 'layers'>>;
 
 // Supported layers
-export type LayerSpecification = CircleLayerSpecification;
+export type LayerSpecification = CircleLayerSpecification | SymbolLayerSpecification;
 
+type BaseLayer = {
+    id: string;
+    source: string;
+    sourceLayer?: string;
+    /**
+     * A feature for which a popup is defined will update the cursor style in pointer mode
+     */
+    popup?: PopupLayer;
+};
 /**
  * Base on Maplibre layers https://maplibre.org/maplibre-style-spec/layers/
  * Use only part of the configuration to build layers with consistent styles.
  */
-export type Layer = {
-    id: string;
-    source: string;
-    sourceLayer?: string;
-    type: LayerSpecification['type'];
+export type CircleLayer = BaseLayer & {
+    type: CircleLayerSpecification['type'];
     color: Color;
     borderColor?: Color;
     circleRadius?: number;
@@ -81,11 +90,24 @@ export type Layer = {
         colors: { [key: string]: Color };
         borderColors?: { [key: string]: Color };
     };
-    /**
-     * A feature for which a popup is defined will update the cursor style in pointer mode
-     */
-    popup?: PopupLayer;
 };
+
+export type SymbolLayer = BaseLayer & {
+    type: SymbolLayerSpecification['type'];
+    /** id of the image to use as icon-image */
+    iconImageId: string;
+    /**
+     * Set a icon image based on a value.
+     * If no match, default icon image comes from `iconImageId`
+     */
+    iconImageMatch?: {
+        key: string;
+        /** Keys must match from the options.images keys  */
+        imageIds: Record<string, string>;
+    };
+};
+
+export type Layer = CircleLayer | SymbolLayer;
 
 export enum PopupDisplayTypes {
     Tooltip = 'tooltip',

@@ -17,7 +17,7 @@
 
     import Map from './Map';
     import { getCenterZoomOptions } from './utils';
-    import type { PopupsConfiguration } from './types';
+    import type { PopupsConfiguration, PoiMapOptions } from './types';
 
     // Base style, sources and layers
     export let style: MapOptions['style'];
@@ -31,6 +31,7 @@
     export let minZoom: number | undefined;
     export let maxZoom: number | undefined;
     export let center: LngLatLike | undefined;
+    export let images: PoiMapOptions['images'];
     export let aspectRatio: number;
     export let interactive: boolean;
     export let title: string | undefined;
@@ -60,6 +61,7 @@
     $: map.setSourcesAndLayers(sources, layers);
     $: map.setPopupsConfiguration(popupsConfiguration);
     $: map.jumpTo(getCenterZoomOptions({ zoom, center }));
+    $: map.loadImages(images);
     $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
 
     // Lifecycle
