@@ -36,6 +36,7 @@
         sourceLink,
         aspectRatio,
         interactive,
+        images,
         transformRequest,
         cooperativeGestures,
     } = getMapOptions(options));
@@ -65,11 +66,9 @@
             {sourceLink}
             {aspectRatio}
             {interactive}
+            {images}
             {transformRequest}
             {cooperativeGestures}
         />
     {/key}
 </div>
-
-<style>
-</style>

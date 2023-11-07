@@ -4,16 +4,21 @@ import type {
     MapOptions,
     StyleSpecification,
     ExpressionInputType,
+    SymbolLayerSpecification,
+    FilterSpecification,
 } from 'maplibre-gl';
 
 import { isGroupByForMatchExpression, Color } from '../types';
 
 import type {
     CenterZoomOptions,
+    CircleLayer,
+    LayerSpecification,
     Layer,
     PoiMapData,
     PoiMapOptions,
     PopupsConfiguration,
+    SymbolLayer,
 } from './types';
 import { DEFAULT_DARK_GREY, DEFAULT_BASEMAP_STYLE, DEFAULT_ASPECT_RATIO } from './constants';
 
@@ -27,73 +32,115 @@ export const getMapSources = (sources: PoiMapData['sources']): StyleSpecificatio
     return sources;
 };
 
-// Only circle layers are supported
-export const getMapLayers = (layers?: Layer[]): CircleLayerSpecification[] => {
-    if (!layers) return [];
+const getBaseMapLayerConfiguration = (layer: Layer) => {
+    const { id, source, sourceLayer } = layer;
+    const filter: FilterSpecification = ['==', ['geometry-type'], 'Point'];
+    return {
+        id,
+        source,
+        ...(sourceLayer ? { 'source-layer': sourceLayer } : null),
+        filter,
+    };
+};
 
-    return layers.map((layer) => {
-        const {
-            id,
-            type,
-            source,
-            sourceLayer,
-            circleRadius = 7,
-            circleStrokeWidth = 1.5,
-            colorMatch,
-            color: layerColor,
-            borderColor: layerBorderColor,
-        } = layer;
+const getMapCircleLayer = (layer: CircleLayer): CircleLayerSpecification => {
+    const {
+        type,
+        circleRadius = 7,
+        circleStrokeWidth = 1.5,
+        colorMatch,
+        color: layerColor,
+        borderColor: layerBorderColor,
+    } = layer;
 
-        let circleColor: ExpressionSpecification | Color = layerColor;
-        let circleBorderColor: ExpressionSpecification | Color | undefined = layerBorderColor;
+    let circleColor: ExpressionSpecification | Color = layerColor;
+    let circleBorderColor: ExpressionSpecification | Color | undefined = layerBorderColor;
 
-        if (colorMatch) {
-            const { key, colors, borderColors } = colorMatch;
-            const matchExpression: ['match', ExpressionSpecification] = ['match', ['get', key]];
-            const groupByColors: ExpressionInputType[] = [];
-            Object.keys(colors).forEach((color) => {
-                groupByColors.push(color, colors[color]);
+    if (colorMatch) {
+        const { key, colors, borderColors } = colorMatch;
+        const matchExpression: ['match', ExpressionSpecification] = ['match', ['get', key]];
+        const groupByColors: ExpressionInputType[] = [];
+        Object.keys(colors).forEach((color) => {
+            groupByColors.push(color, colors[color]);
+        });
+        groupByColors.push(layerColor);
+        if (!isGroupByForMatchExpression(groupByColors)) {
+            throw new Error('Not the expected type for complete match expression');
+        }
+        circleColor = [...matchExpression, ...groupByColors];
+
+        if (borderColors) {
+            const matchBorderExpression: ['match', ExpressionSpecification] = [
+                'match',
+                ['get', key],
+            ];
+            const groupByBorderColors: ExpressionInputType[] = [];
+            Object.keys(borderColors).forEach((borderColor) => {
+                groupByBorderColors.push(borderColor, borderColors[borderColor]);
             });
-            groupByColors.push(layerColor);
-            if (!isGroupByForMatchExpression(groupByColors)) {
+            groupByBorderColors.push(circleBorderColor || DEFAULT_DARK_GREY);
+            if (!isGroupByForMatchExpression(groupByBorderColors)) {
                 throw new Error('Not the expected type for complete match expression');
             }
-            circleColor = [...matchExpression, ...groupByColors];
-
-            if (borderColors) {
-                const matchBorderExpression: ['match', ExpressionSpecification] = [
-                    'match',
-                    ['get', key],
-                ];
-                const groupByBorderColors: ExpressionInputType[] = [];
-                Object.keys(borderColors).forEach((borderColor) => {
-                    groupByBorderColors.push(borderColor, borderColors[borderColor]);
-                });
-                groupByBorderColors.push(circleBorderColor || DEFAULT_DARK_GREY);
-                if (!isGroupByForMatchExpression(groupByBorderColors)) {
-                    throw new Error('Not the expected type for complete match expression');
-                }
-                circleBorderColor = [...matchBorderExpression, ...groupByBorderColors];
-            }
+            circleBorderColor = [...matchBorderExpression, ...groupByBorderColors];
         }
-        return {
-            id,
-            type,
-            source,
-            ...(sourceLayer ? { 'source-layer': sourceLayer } : undefined),
-            paint: {
-                'circle-radius': [
-                    'case',
-                    ['boolean', ['feature-state', 'popup-feature'], false],
-                    circleRadius * 1.3,
-                    circleRadius,
-                ],
-                ...(circleBorderColor && { 'circle-stroke-width': circleStrokeWidth }),
-                'circle-color': circleColor,
-                ...(circleBorderColor && { 'circle-stroke-color': circleBorderColor }),
-            },
-            filter: ['==', ['geometry-type'], 'Point'],
-        };
+    }
+    return {
+        ...getBaseMapLayerConfiguration(layer),
+        type,
+        paint: {
+            'circle-radius': [
+                'case',
+                ['boolean', ['feature-state', 'popup-feature'], false],
+                circleRadius * 1.3,
+                circleRadius,
+            ],
+            ...(circleBorderColor && { 'circle-stroke-width': circleStrokeWidth }),
+            'circle-color': circleColor,
+            ...(circleBorderColor && { 'circle-stroke-color': circleBorderColor }),
+        },
+    };
+};
+
+const getMapSymbolLayer = (layer: SymbolLayer): SymbolLayerSpecification => {
+    const { type, iconImageId, iconImageMatch } = layer;
+
+    let iconImage: Required<SymbolLayerSpecification>['layout']['icon-image'] = iconImageId;
+    if (iconImageMatch) {
+        const { key, imageIds } = iconImageMatch;
+        const matchExpression: ['match', ExpressionSpecification] = ['match', ['get', key]];
+        const groupByIconImages: ExpressionInputType[] = [];
+        Object.keys(imageIds).forEach((value) => {
+            groupByIconImages.push(value, imageIds[value]);
+        });
+        groupByIconImages.push(iconImageId);
+        if (!isGroupByForMatchExpression(groupByIconImages)) {
+            throw new Error('Not the expected type for complete match expression');
+        }
+        iconImage = [...matchExpression, ...groupByIconImages];
+    }
+
+    return {
+        ...getBaseMapLayerConfiguration(layer),
+        type,
+        layout: {
+            'icon-allow-overlap': true,
+            'icon-image': iconImage,
+        },
+    };
+};
+// Only circle and symbol layers are supported
+export const getMapLayers = (layers?: Layer[]): LayerSpecification[] => {
+    if (!layers) return [];
+    return layers.map((layer) => {
+        switch (layer.type) {
+            case 'circle':
+                return getMapCircleLayer(layer);
+            case 'symbol':
+                return getMapSymbolLayer(layer);
+            default:
+                throw new Error(`Unexepected layer type for layer: ${layer}`);
+        }
     });
 };
 
@@ -123,6 +170,7 @@ export const getMapOptions = (options: PoiMapOptions) => {
         sourceLink,
         transformRequest,
         cooperativeGestures,
+        images,
     } = options;
     return {
         aspectRatio,
@@ -139,6 +187,7 @@ export const getMapOptions = (options: PoiMapOptions) => {
         sourceLink,
         transformRequest,
         cooperativeGestures,
+        images,
     };
 };
 

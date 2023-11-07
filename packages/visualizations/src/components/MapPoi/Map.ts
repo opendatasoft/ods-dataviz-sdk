@@ -1,5 +1,5 @@
 import type { BBox } from 'geojson';
-import { debounce } from 'lodash';
+import { debounce, difference } from 'lodash';
 import maplibregl, {
     LngLatBoundsLike,
     LngLatLike,
@@ -316,6 +316,36 @@ export default class MapPOI {
     setPopupsConfiguration(config: PopupsConfiguration) {
         this.popupsConfiguration = config;
         this.queue((map) => this.setPopup(map));
+    }
+
+    /**
+     * Load images into the map.
+     * Remove automatically any images previously loaded that are no longer defined in the images object.
+     */
+    loadImages(images?: Record<string, string>) {
+        if (!images) return;
+        this.queue((map) => {
+            const loadedImages = map.listImages();
+            const imagesIds = Object.keys(images);
+
+            const imagesToRemove = difference(loadedImages, imagesIds);
+            const imagesToAdd = difference(imagesIds, loadedImages);
+
+            imagesToRemove.forEach((imageId) => {
+                map.removeImage(imageId);
+            });
+
+            imagesToAdd.forEach((imageId) => {
+                map.loadImage(images[imageId], (error, image) => {
+                    if (error || !image) {
+                        // eslint-disable-next-line no-console
+                        console.warn(`Fail to load image: ${imageId}`);
+                    } else {
+                        map.addImage(imageId, image);
+                    }
+                });
+            });
+        });
     }
 
     toggleInteractivity(

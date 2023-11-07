@@ -2,7 +2,7 @@ import React from 'react';
 import { BBox } from 'geojson';
 import { CATEGORY_ITEM_VARIANT, PopupDisplayTypes } from '@opendatasoft/visualizations';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import type { Layer } from '@opendatasoft/visualizations';
+import type { Layer, PoiMapOptions } from '@opendatasoft/visualizations';
 
 import { defaultSource, timeout } from '../utils';
 
@@ -31,9 +31,8 @@ const layer1: Layer = {
 const layer2: Layer = {
     id: 'layer-002',
     source: 'battles',
-    type: 'circle',
-    color: 'red',
-    borderColor: 'white',
+    type: 'symbol',
+    iconImageId: 'battle-icon',
     popup: {
         display: PopupDisplayTypes.Sidebar,
         getContent: async (_, properties) => {
@@ -55,6 +54,11 @@ const citiesColorMatch = {
     key: 'key',
     colors: { Paris: 'blue', Nantes: 'yellow', Bordeaux: 'purple', Marseille: 'lightblue' },
     borderColors: { Paris: 'white', Nantes: 'black', Bordeaux: 'white', Marseille: 'black' },
+};
+
+const battleImageMatch = {
+    key: 'name',
+    imageIds: { 'Battle of Verdun': 'battle-icon-red' },
 };
 
 const bbox: BBox = [-6.855469, 41.343825, 11.645508, 51.37178];
@@ -91,13 +95,19 @@ const legend = {
     align: 'start' as const,
 };
 
-const options = {
+const options: PoiMapOptions = {
     style: BASE_STYLE,
     bbox,
     title: 'Lorem Ipsum',
     subtitle: 'Dolor Sit Amet',
-    desciption: 'More aria description',
+    description: 'More aria description',
     sourceLink: defaultSource,
+    images: {
+        'battle-icon':
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Big_battle_symbol.svg/14px-Big_battle_symbol.svg.png',
+        'battle-icon-red':
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Battle_icon_gladii_red.svg/14px-Battle_icon_gladii_red.svg.png',
+    },
 };
 
 const meta: ComponentMeta<typeof PoiMap> = {
@@ -107,7 +117,7 @@ const meta: ComponentMeta<typeof PoiMap> = {
 
 export default meta;
 
-const Template: ComponentStory<typeof PoiMap> = args => (
+const Template: ComponentStory<typeof PoiMap> = (args) => (
     <div
         style={{
             width: '50%',
@@ -146,7 +156,15 @@ PoiMapNonInteractive.args = PoiMapNonInteractiveArgs;
  */
 export const PoiMapMatchExpression: ComponentStory<typeof PoiMap> = Template.bind({});
 const PoiMapMatchExpressionArgs = {
-    data: { value: { layers: [{ ...layer1, colorMatch: citiesColorMatch }, layer2], sources } },
+    data: {
+        value: {
+            layers: [
+                { ...layer1, colorMatch: citiesColorMatch },
+                { ...layer2, iconImageMatch: battleImageMatch },
+            ],
+            sources,
+        },
+    },
     options,
 };
 PoiMapMatchExpression.args = PoiMapMatchExpressionArgs;
@@ -156,7 +174,15 @@ PoiMapMatchExpression.args = PoiMapMatchExpressionArgs;
  */
 export const PoiMapLegendStart: ComponentStory<typeof PoiMap> = Template.bind({});
 const PoiMapLegendStartArgs = {
-    data: { value: { layers: [{ ...layer1, colorMatch: citiesColorMatch }, layer2], sources } },
+    data: {
+        value: {
+            layers: [
+                { ...layer1, colorMatch: citiesColorMatch },
+                { ...layer2, iconImageMatch: battleImageMatch },
+            ],
+            sources,
+        },
+    },
     options: { ...options, legend },
 };
 PoiMapLegendStart.args = PoiMapLegendStartArgs;
@@ -166,7 +192,15 @@ PoiMapLegendStart.args = PoiMapLegendStartArgs;
  */
 export const PoiMapLegendCenter: ComponentStory<typeof PoiMap> = Template.bind({});
 const PoiMapLegendCenterArgs = {
-    data: { value: { layers: [{ ...layer1, colorMatch: citiesColorMatch }, layer2], sources } },
+    data: {
+        value: {
+            layers: [
+                { ...layer1, colorMatch: citiesColorMatch },
+                { ...layer2, iconImageMatch: battleImageMatch },
+            ],
+            sources,
+        },
+    },
     options: { ...options, legend: { ...legend, align: 'center' as const } },
 };
 PoiMapLegendCenter.args = PoiMapLegendCenterArgs;
@@ -176,7 +210,15 @@ PoiMapLegendCenter.args = PoiMapLegendCenterArgs;
  */
 export const PoiMapMinMaxZooms: ComponentStory<typeof PoiMap> = Template.bind({});
 const PoiMapMinMaxZoomsArgs = {
-    data: { value: { layers: [{ ...layer1, colorMatch: citiesColorMatch }, layer2], sources } },
+    data: {
+        value: {
+            layers: [
+                { ...layer1, colorMatch: citiesColorMatch },
+                { ...layer2, iconImageMatch: battleImageMatch },
+            ],
+            sources,
+        },
+    },
     options: {
         ...options,
         legend,
@@ -191,7 +233,15 @@ PoiMapMinMaxZooms.args = PoiMapMinMaxZoomsArgs;
  */
 export const PoiMapCooperativeGestures: ComponentStory<typeof PoiMap> = Template.bind({});
 const PoiMapCooperativeGesturesArgs = {
-    data: { value: { layers: [{ ...layer1, colorMatch: citiesColorMatch }, layer2], sources } },
+    data: {
+        value: {
+            layers: [
+                { ...layer1, colorMatch: citiesColorMatch },
+                { ...layer2, iconImageMatch: battleImageMatch },
+            ],
+            sources,
+        },
+    },
     options: {
         ...options,
         legend,
