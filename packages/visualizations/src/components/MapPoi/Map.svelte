@@ -16,8 +16,8 @@
 
     export let data: Async<PoiMapData>;
     export let options: PoiMapOptions;
-    $: ({ style: styleOptions} = options);
-    $: style = getMapStyle(styleOptions);
+
+    $: style = getMapStyle(options.style);
     $: sources = getMapSources(data.value?.sources);
     $: layers = getMapLayers(data.value?.layers);
     $: popupsConfiguration = getPopupsConfiguration(data.value?.layers);
