@@ -45,7 +45,7 @@
 </script>
 
 <div>
-    {#key style}
+    {#key options.style}
         <MapRender
             {style}
             {sources}
