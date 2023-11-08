@@ -16,8 +16,8 @@
 
     export let data: Async<PoiMapData>;
     export let options: PoiMapOptions;
-
-    $: style = getMapStyle(options.style);
+    $: ({ style: styleOptions} = options);
+    $: style = getMapStyle(styleOptions);
     $: sources = getMapSources(data.value?.sources);
     $: layers = getMapLayers(data.value?.layers);
     $: popupsConfiguration = getPopupsConfiguration(data.value?.layers);
@@ -45,7 +45,7 @@
 </script>
 
 <div>
-    {#key options.style}
+    {#key style}
         <MapRender
             {style}
             {sources}
