@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.17.5](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.17.4...@opendatasoft/visualizations@0.17.5) (2023-11-10)
+
+
+### Bug Fixes
+POI are now reactive on style, not options, allowing for other options to change, without the style considered as "new". This prevent some maps to flicker, when the style is an object.
+
+
+
+
+
 ## [0.17.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.17.1...@opendatasoft/visualizations@0.17.2) (2023-10-19)
 
 
