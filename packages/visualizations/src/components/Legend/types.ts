@@ -29,6 +29,7 @@ export const CATEGORY_ITEM_VARIANT = {
     Circle: 'circle',
     Line: 'line',
     Box: 'box',
+    Image: 'image',
 } as const;
 
 type BaseCategoryItem = {
@@ -56,7 +57,16 @@ export type LineCategoryItem = BaseCategoryItem & {
     dashed?: boolean;
 };
 
-export type CategoryItem = CircleCategoryItem | BoxCategoryItem | LineCategoryItem;
+export type ImageCategoryItem = BaseCategoryItem & {
+    variant: typeof CATEGORY_ITEM_VARIANT.Image;
+    src: string;
+};
+
+export type CategoryItem =
+    | CircleCategoryItem
+    | BoxCategoryItem
+    | LineCategoryItem
+    | ImageCategoryItem;
 
 export type CategoryLegend = {
     type: 'category';

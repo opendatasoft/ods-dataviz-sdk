@@ -2,6 +2,7 @@
     import BoxSymbol from '../Symbols/BoxSymbol.svelte';
     import LineSymbol from '../Symbols/LineSymbol.svelte';
     import CircleSymbol from '../Symbols/CircleSymbol.svelte';
+    import ImageSymbol from '../Symbols/ImageSymbol.svelte';
     import type { CategoryItem } from '../../types';
     import { CATEGORY_ITEM_VARIANT } from '../../types';
 
@@ -12,6 +13,8 @@
     <CircleSymbol {item} />
 {:else if item.variant === CATEGORY_ITEM_VARIANT.Box}
     <BoxSymbol {item} />
-{:else}
+{:else if item.variant === CATEGORY_ITEM_VARIANT.Line}
     <LineSymbol {item} />
+{:else if item.variant === CATEGORY_ITEM_VARIANT.Image}
+    <ImageSymbol {item} />
 {/if}
