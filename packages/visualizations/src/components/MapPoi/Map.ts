@@ -10,7 +10,7 @@ import maplibregl, {
     StyleSpecification,
 } from 'maplibre-gl';
 
-import { POPUP_OPTIONS, POPUP_WIDTH } from './constants';
+import { POPUP_CLASSNAME, POPUP_OPTIONS, POPUP_WIDTH } from './constants';
 import type { PopupsConfiguration, CenterZoomOptions } from './types';
 
 const CURSOR = {
@@ -190,15 +190,16 @@ export default class MapPOI {
         if (!this.popup.isOpen()) {
             this.popup.addTo(map);
         }
-        this.popup.addClassName('poi-map__popup--loading');
+        this.popup.addClassName(`${POPUP_CLASSNAME}--loading`);
         this.popup.setLngLat(geometry.coordinates as LngLatLike).setHTML(getLoadingContent());
 
         getContent(featureId, properties).then((content) => {
             this.popup.setHTML(content);
+            this.popup.removeClassName(`${POPUP_CLASSNAME}--loading`);
         });
 
         const classnameModifier = display === 'sidebar' ? 'addClassName' : 'removeClassName';
-        this.popup[classnameModifier](`${POPUP_OPTIONS.className}--as-sidebar`);
+        this.popup[classnameModifier](`${POPUP_CLASSNAME}--as-sidebar`);
 
         map.setFeatureState({ source, sourceLayer, id: featureId }, { 'popup-feature': true });
 

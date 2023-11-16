@@ -122,6 +122,8 @@
         }
     }
     .map-card {
+        container-type: inline-size;
+        container-name: map-card;
         display: flex;
         flex-direction: column;
         margin: 0;
@@ -134,32 +136,103 @@
     figcaption h3 {
         margin: 0;
     }
+
     /* To add classes programmatically in svelte we will use a global selector. We place it inside a local selector to obtain some encapsulation and avoid side effects */
+
+    /* --- POPUP ---  */
     .map-card :global(.poi-map__popup) {
         /* To be above map controls (z-index: 2)*/
         z-index: 3;
-        /* 26px is for its padding */
-        max-height: calc(100% - 26px);
         height: auto;
-        overflow-y: auto;
+        max-height: 100%;
+        box-sizing: border-box;
     }
     .map-card :global(.poi-map__popup.poi-map__popup--as-sidebar) {
         /* TO DO: add common stylesheet */
-        transform: translate(13px, 13px) !important;
+        height: 100%;
+        max-height: 100%;
+        transform: translate(0px, 0px) !important;
+        padding: 13px 13px 0px 13px;
     }
+
+    /* --- POPUP TIP ---  */
     .map-card :global(.poi-map__popup.poi-map__popup--as-sidebar > .maplibregl-popup-tip) {
         display: none;
     }
+
+    /* --- POPUP CONTENT ---  */
     .map-card :global(.poi-map__popup > .maplibregl-popup-content) {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
         padding: 13px;
         border-radius: 6px;
-        box-shadow: 0 6px 13px 0 rgba(0, 0, 0, 0.26);
+        max-height: 100%;
+        overflow-y: auto;
+        box-sizing: border-box;
     }
     /* Add a more opacity and blur effect on map when cooperative gesture is shown */
     .map-card :global(.maplibregl-cooperative-gesture-screen) {
         background: rgba(0, 0, 0, 0.6);
         backdrop-filter: blur(2px);
     }
+
+    /* --- POPUP CLOSE BUTTON ---  */
+    .map-card :global(.maplibregl-popup-close-button) {
+        font-size: 16px;
+        padding: 0;
+        width: 24px;
+        height: 24px;
+        margin-bottom: 13px;
+        position: relative;
+        order: -1;
+        flex-shrink: 0;
+        left: calc(100% - 26px);
+    }
+    .map-card :global(.maplibregl-popup-close-button:hover) {
+        background-color: transparent;
+    }
+    /* Hide close button when content is loading */
+    .map-card :global(.poi-map__popup--loading .maplibregl-popup-close-button) {
+        display: none;
+    }
+
+    /* --- CONTROLS --- */
+    .map-card :global(.maplibregl-ctrl.maplibregl-ctrl-group) {
+        margin-top: 13px;
+        margin-right: 13px;
+    }
+
+    /* --- CONTAINER QUERIES ---  */
+    @container map-card (width < 600px) {
+        /* Force tooltip popup to behave like a sidebar popup */
+        .map-card :global(.poi-map__popup) {
+            height: 100%;
+            max-height: 100%;
+            transform: translate(0px, 0px) !important;
+            padding: 13px 13px 0px 13px;
+            width: 100%;
+            max-width: 100% !important;
+        }
+        .map-card :global(.maplibregl-popup-tip) {
+            display: none;
+        }
+        .map-card :global(.poi-map__popup > .maplibregl-popup-content) {
+            width: 100%;
+        }
+    }
+    @container map-card (width >= 600px) {
+        .map-card :global(.poi-map__popup) {
+            max-width: 300px !important;
+        }
+        /* Close button is not visible for tooltip popup */
+        .map-card
+            :global(.poi-map__popup:not(.poi-map__popup--as-sidebar)
+                .maplibregl-popup-close-button) {
+            display: none;
+        }
+    }
+
     .main {
         aspect-ratio: var(--aspect-ratio);
         flex-grow: 1;

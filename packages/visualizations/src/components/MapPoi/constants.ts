@@ -14,8 +14,10 @@ export const DEFAULT_DARK_GREY: Color = '#515457';
 
 export const POPUP_WIDTH = 300;
 
+export const POPUP_CLASSNAME = 'poi-map__popup';
+
 export const POPUP_OPTIONS: PopupOptions = {
-    className: 'poi-map__popup',
-    closeButton: false,
+    className: POPUP_CLASSNAME,
+    closeButton: true,
     closeOnClick: false,
 };

@@ -21,8 +21,8 @@ const layer1: Layer = {
         display: PopupDisplayTypes.Tooltip,
         getContent: async (_, properties) => {
             await timeout(500);
-            const { key } = properties as { key: string };
-            return Promise.resolve(`<h4>${key}</h4>`);
+            const { key, description } = properties as Record<string, unknown>;
+            return Promise.resolve(`<b>${key}</b><div>${description}<div>`);
         },
         getLoadingContent: () => 'Loading...',
     },
@@ -42,7 +42,7 @@ const layer2: Layer = {
                 date: string;
                 description: string;
             };
-            return Promise.resolve(`<h4>${name}</h4><p>${description}<p/><small>${date}</small>`);
+            return Promise.resolve(`<b>${name}</b><p>${description}<p/><small>${date}</small>`);
         },
         getLoadingContent: () => 'Loading...',
     },
