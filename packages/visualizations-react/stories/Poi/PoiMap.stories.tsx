@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BBox } from 'geojson';
-import { CATEGORY_ITEM_VARIANT, PopupDisplayTypes } from '@opendatasoft/visualizations';
+import { CATEGORY_ITEM_VARIANT, POPUP_DISPLAY } from '@opendatasoft/visualizations';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import type { Layer, PoiMapOptions } from '@opendatasoft/visualizations';
+import type {
+    Layer,
+    PoiMapOptions,
+    PopupDisplayTypes,
+    PopupLayer,
+} from '@opendatasoft/visualizations';
 
 import { defaultSource, timeout } from '../utils';
 
@@ -18,11 +23,11 @@ const layer1: Layer = {
     color: 'black',
     borderColor: 'white',
     popup: {
-        display: PopupDisplayTypes.Tooltip,
+        display: POPUP_DISPLAY.tooltip,
         getContent: async (_, properties) => {
             await timeout(500);
-            const { key } = properties as { key: string };
-            return Promise.resolve(`<h4>${key}</h4>`);
+            const { key, description } = properties as Record<string, unknown>;
+            return Promise.resolve(`<b>${key}</b><div>${description}<div>`);
         },
         getLoadingContent: () => 'Loading...',
     },
@@ -34,7 +39,7 @@ const layer2: Layer = {
     type: 'symbol',
     iconImageId: 'battle-icon',
     popup: {
-        display: PopupDisplayTypes.Sidebar,
+        display: POPUP_DISPLAY.sidebar,
         getContent: async (_, properties) => {
             await timeout(500);
             const { name, date, description } = properties as {
@@ -42,7 +47,7 @@ const layer2: Layer = {
                 date: string;
                 description: string;
             };
-            return Promise.resolve(`<h4>${name}</h4><p>${description}<p/><small>${date}</small>`);
+            return Promise.resolve(`<b>${name}</b><p>${description}<p/><small>${date}</small>`);
         },
         getLoadingContent: () => 'Loading...',
     },
@@ -268,3 +273,66 @@ const PoiMapCooperativeGesturesArgs = {
     },
 };
 PoiMapCooperativeGestures.args = PoiMapCooperativeGesturesArgs;
+
+/**
+ * STORY: with cooperative gestures
+ */
+
+const StudioResponsiveUsageTemplate = () => {
+    const [props, setProps] = useState({
+        data: {
+            value: {
+                layers,
+                sources,
+            },
+        },
+        options: {
+            ...options,
+            legend,
+        },
+    });
+
+    useEffect(() => {
+        const onResize = () => {
+            const popupDisplay: PopupDisplayTypes =
+                window.innerWidth > 600 ? POPUP_DISPLAY.sidebar : POPUP_DISPLAY.modal;
+            setProps({
+                ...props,
+                data: {
+                    value: {
+                        layers: [
+                            {
+                                ...layer1,
+                                popup: { ...(layer1.popup as PopupLayer), display: popupDisplay },
+                            },
+                            {
+                                ...layer2,
+                                popup: { ...(layer2.popup as PopupLayer), display: popupDisplay },
+                            },
+                        ],
+                        sources,
+                    },
+                },
+            });
+        };
+
+        window.addEventListener('resize', onResize); // Update the width on resize
+
+        return () => window.removeEventListener('resize', onResize);
+    });
+
+    return (
+        <>
+            <h2>
+                Change the size of the preview (between mobile and tablet) to see popup changes its
+                display to modal{' '}
+            </h2>
+            <PoiMap {...props} />
+        </>
+    );
+};
+export const StudioResponsiveUsage: ComponentStory<typeof PoiMap> = StudioResponsiveUsageTemplate;
+
+StudioResponsiveUsage.parameters = {
+    chromatic: { disableSnapshot: true },
+};

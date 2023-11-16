@@ -9,7 +9,7 @@
         getMapStyle,
         getMapSources,
         getMapLayers,
-        getPopupsConfiguration,
+        getPopupConfigurationByLayers,
         getMapOptions,
     } from './utils';
     import type { PoiMapData, PoiMapOptions } from './types';
@@ -21,7 +21,7 @@
     $: style = getMapStyle(styleOptions);
     $: sources = getMapSources(data.value?.sources);
     $: layers = getMapLayers(data.value?.layers);
-    $: popupsConfiguration = getPopupsConfiguration(data.value?.layers);
+    $: popupConfigurationByLayers = getPopupConfigurationByLayers(data.value?.layers);
 
     $: ({
         bbox: _bbox,
@@ -53,7 +53,7 @@
             {style}
             {sources}
             {layers}
-            {popupsConfiguration}
+            {popupConfigurationByLayers}
             bbox={$bbox}
             center={$center}
             {zoom}

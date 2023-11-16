@@ -17,7 +17,7 @@ import type {
     Layer,
     PoiMapData,
     PoiMapOptions,
-    PopupsConfiguration,
+    PopupConfigurationByLayers,
     SymbolLayer,
 } from './types';
 import { DEFAULT_DARK_GREY, DEFAULT_BASEMAP_STYLE, DEFAULT_ASPECT_RATIO } from './constants';
@@ -144,14 +144,14 @@ export const getMapLayers = (layers?: Layer[]): LayerSpecification[] => {
     });
 };
 
-export const getPopupsConfiguration = (layers?: Layer[]): PopupsConfiguration => {
-    const configuration: PopupsConfiguration = {};
+export const getPopupConfigurationByLayers = (layers?: Layer[]): PopupConfigurationByLayers => {
+    const configurationByLayers: PopupConfigurationByLayers = {};
     layers?.forEach(({ id, popup }) => {
         if (popup) {
-            configuration[id] = popup;
+            configurationByLayers[id] = popup;
         }
     });
-    return configuration;
+    return configurationByLayers;
 };
 
 export const getMapOptions = (options: PoiMapOptions) => {
