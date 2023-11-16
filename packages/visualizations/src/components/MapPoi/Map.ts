@@ -10,8 +10,14 @@ import maplibregl, {
     StyleSpecification,
 } from 'maplibre-gl';
 
-import { POPUP_OPTIONS, POPUP_WIDTH } from './constants';
-import type { PopupsConfiguration, CenterZoomOptions } from './types';
+import {
+    POPUP_CLASSNAME,
+    POPUP_DISPLAY_CLASSNAME_MODIFIER,
+    POPUP_OPTIONS,
+    POPUP_WIDTH,
+} from './constants';
+import type { PopupConfigurationByLayers, CenterZoomOptions, PopupDisplayTypes } from './types';
+import { POPUP_DISPLAY } from './types';
 
 const CURSOR = {
     DEFAULT: 'default',
@@ -19,8 +25,22 @@ const CURSOR = {
     DRAG: 'move',
 };
 
+const POPUP_FEATURE_STATE_KEY = 'popup-feature';
+
 type MapFunction = (map: maplibregl.Map) => unknown;
 
+type ActiveFeatureType = MapGeoJSONFeature | null;
+
+function updateFeatureState(
+    map: maplibregl.Map,
+    feature: ActiveFeatureType,
+    stateKey: string,
+    stateValue: unknown
+) {
+    if (!feature) return;
+    const { id, source, sourceLayer } = feature;
+    map.setFeatureState({ id, source, sourceLayer }, { [stateKey]: stateValue });
+}
 export default class MapPOI {
     /** The Map object representing the maplibregl.Map instance. */
     private map: maplibregl.Map | null = null;
@@ -37,20 +57,20 @@ export default class MapPOI {
     /** Array of layer IDs that are not from the base style of the map */
     private layerIds: string[] = [];
 
-    /** Array of source IDs used in the map */
-    private sourceIds: string[] = [];
-
     /** A navigation control for the map. */
     private navigationControl = new maplibregl.NavigationControl({ showCompass: false });
 
     /** A popup for displaying information on the map. */
     private popup = new maplibregl.Popup(POPUP_OPTIONS);
 
-    /** Popups configurations. One configuration by layer */
-    private popupsConfiguration: PopupsConfiguration = {};
+    /** An object to store popup configurations for each layers */
+    private popupConfigurationByLayers: PopupConfigurationByLayers = {};
+
+    /** Value to represent the active display of the popup */
+    private activePopupDisplay: PopupDisplayTypes | null = null;
 
     /** An active GeoJSONFeature. Its information are displayed within the popup. */
-    private activeFeature: MapGeoJSONFeature | null = null;
+    private activeFeature: ActiveFeatureType = null;
 
     /** An array of functions to be executed when the map is ready. */
     private queuedFunctions: Array<MapFunction> = [];
@@ -88,9 +108,7 @@ export default class MapPOI {
             const features = map.queryRenderedFeatures(point, { layers: this.layerIds });
             const isMovingOverFeatureWithPopup =
                 features.length &&
-                features.some((feature) =>
-                    Object.keys(this.popupsConfiguration).includes(feature.layer.id)
-                );
+                features.some((feature) => feature.layer.id in this.popupConfigurationByLayers);
             canvas.style.cursor = isMovingOverFeatureWithPopup ? CURSOR.HOVER : CURSOR.DEFAULT;
         });
     }
@@ -115,33 +133,118 @@ export default class MapPOI {
      * Currently, is only used to handle popup display.
      * @param {MapLayerMouseEvent} event
      */
-    private onClick({ point }: MapLayerMouseEvent) {
+    private onMapClick({ point }: MapLayerMouseEvent) {
         this.queue((map) => {
-            /**
-             * Get features closed to the click area.
-             * We ask for features that are not in base style layers
-             */
-            const features = map.queryRenderedFeatures(point, { layers: this.layerIds });
-            this.updatePopup(map, features);
+            this.handlePopupAfterMapClick(map, point);
         });
     }
 
-    private bindedOnClick = this.onClick.bind(this);
+    private bindedOnMapClick = this.onMapClick.bind(this);
 
-    private resetLeftPaddingPopup() {
-        this.queue((map) => map.easeTo({ padding: { left: 0 } }));
-        this.popup.off('close', this.bindedResetLeftPaddingPopup);
+    /** Update popup display between tooltip, sidebar and modal modes */
+    private updatePopupDisplay() {
+        if (!this.activeFeature) return;
+        const {
+            layer: { id: layerId },
+        } = this.activeFeature;
+        const oldDisplay = this.activePopupDisplay;
+        const { display: newDisplay } = this.popupConfigurationByLayers[layerId] || {};
+        if (oldDisplay !== newDisplay) {
+            if (oldDisplay) {
+                this.popup.removeClassName(POPUP_DISPLAY_CLASSNAME_MODIFIER[oldDisplay]);
+            }
+            if (!newDisplay) {
+                this.popup.remove();
+            } else {
+                this.popup.addClassName(POPUP_DISPLAY_CLASSNAME_MODIFIER[newDisplay]);
+                this.activePopupDisplay = newDisplay;
+            }
+        }
+        this.onPopupDisplayUpdate(oldDisplay, newDisplay);
     }
 
-    private bindedResetLeftPaddingPopup = this.resetLeftPaddingPopup.bind(this);
+    /** Update popup content. First add a loading state, then replace it with content */
+    private updatePopupContent() {
+        if (!this.activeFeature) return;
+        const {
+            id,
+            properties,
+            layer: { id: layerId },
+        } = this.activeFeature;
+        const popupLayerConfiguration = this.popupConfigurationByLayers[layerId];
+        if (!popupLayerConfiguration) return;
+        const { getLoadingContent, getContent } = popupLayerConfiguration;
 
-    /** Set the popup content and positioning */
-    private updatePopup(map: maplibregl.Map, features: MapGeoJSONFeature[]) {
-        if (this.activeFeature) {
-            const { id, source, sourceLayer } = this.activeFeature;
-            map.setFeatureState({ source, sourceLayer, id }, { 'popup-feature': false });
-        }
+        this.popup.addClassName(`${POPUP_CLASSNAME}--loading`);
+        this.popup.setHTML(getLoadingContent());
 
+        getContent(id, properties).then((content) => {
+            this.popup.setHTML(content);
+            this.popup.removeClassName(`${POPUP_CLASSNAME}--loading`);
+        });
+    }
+
+    /** Handler for popup display changes */
+    private onPopupDisplayUpdate(
+        oldDisplay: PopupDisplayTypes | null,
+        newDisplay: PopupDisplayTypes | null
+    ) {
+        if (oldDisplay === newDisplay) return;
+        this.queue((map) => {
+            /**
+             * When the popup is display as a sidebar, the feature may be behind the the popup.
+             * To avoid this we add a padding to the map, so that the feature remains visible.
+             */
+            if (
+                newDisplay === POPUP_DISPLAY.sidebar &&
+                this.activeFeature &&
+                this.activeFeature.geometry.type === 'Point'
+            ) {
+                map.easeTo({
+                    center: this.activeFeature.geometry.coordinates as LngLatLike,
+                    padding: { left: POPUP_WIDTH },
+                });
+            }
+            if (oldDisplay === POPUP_DISPLAY.sidebar) {
+                map.easeTo({ padding: { left: 0 } });
+            }
+            /*
+             * When the popup is displayed as a modal, it overlaps the navigation controls.
+             * The result is a double shadow in the top right-hand corner.
+             * To get rid of it, we toggle the navigation controls according to the current display.
+             */
+            if (newDisplay === POPUP_DISPLAY.modal && map.hasControl(this.navigationControl)) {
+                map.removeControl(this.navigationControl);
+            } else if (!map.hasControl(this.navigationControl)) {
+                map.addControl(this.navigationControl);
+            }
+        });
+    }
+
+    /**
+     * Is triggered when a click has been made on the map.
+     * Is responsible for opening and closing the popup.
+     *
+     * Opening the popup happens when:
+     * - A feature is clicked for which a popup configuration is available (popup configuration are set by layer)
+     *
+     * Closing the popup happens when:
+     * - No features are near the click
+     * - The clicked feature is the current feature (activeFeature) displayed in the popup
+     * - The button icon button in the popup is clicked
+     *
+     * @param map The map instance
+     * @param point The pixel coordinates of the cursor click, relative to the map
+     */
+    private handlePopupAfterMapClick(map: maplibregl.Map, point: MapMouseEvent['point']) {
+        /*
+         * Get features closed to the click area.
+         * We ask for features that are not in base style layers
+         */
+        const features = map.queryRenderedFeatures(point, { layers: this.layerIds });
+
+        // Removing feature state for the obsolete active feature.
+        updateFeatureState(map, this.activeFeature, POPUP_FEATURE_STATE_KEY, false);
         const hasFeatures = !!features.length;
         // Current rule: use the first feature to build the popup.
         // TO DO: Create a menu to display a list of feature to choose from.
@@ -163,57 +266,17 @@ export default class MapPOI {
         // eslint-disable-next-line prefer-destructuring
         this.activeFeature = features[0];
 
-        const {
-            id: featureId,
-            layer: { id: layerId },
-            geometry,
-            properties,
-            source,
-            sourceLayer,
-        } = this.activeFeature;
+        const { geometry } = this.activeFeature;
 
         if (geometry.type !== 'Point') return;
-
-        /*
-         * We remove the popup if:
-         * - no popup configuration for a layer
-         * - popup's source is no longer used in the map
-         */
-        const popupConfiguration = this.popupsConfiguration[layerId];
-        if (!popupConfiguration || !this.sourceIds.includes(source)) {
-            this.popup.remove();
-            return;
-        }
-
-        const { display, getContent, getLoadingContent } = popupConfiguration;
-
         if (!this.popup.isOpen()) {
             this.popup.addTo(map);
         }
-        this.popup.addClassName('poi-map__popup--loading');
-        this.popup.setLngLat(geometry.coordinates as LngLatLike).setHTML(getLoadingContent());
+        this.popup.setLngLat(geometry.coordinates as LngLatLike);
 
-        getContent(featureId, properties).then((content) => {
-            this.popup.setHTML(content);
-        });
-
-        const classnameModifier = display === 'sidebar' ? 'addClassName' : 'removeClassName';
-        this.popup[classnameModifier](`${POPUP_OPTIONS.className}--as-sidebar`);
-
-        map.setFeatureState({ source, sourceLayer, id: featureId }, { 'popup-feature': true });
-
-        this.popup.once('close', () => {
-            this.activeFeature = null;
-            map.setFeatureState({ source, sourceLayer, id: featureId }, { 'popup-feature': false });
-        });
-
-        if (display === 'sidebar') {
-            map.easeTo({
-                center: geometry.coordinates as LngLatLike,
-                padding: { left: POPUP_WIDTH },
-            });
-            this.popup.on('close', this.bindedResetLeftPaddingPopup);
-        }
+        this.updatePopupContent();
+        this.updatePopupDisplay();
+        updateFeatureState(map, this.activeFeature, POPUP_FEATURE_STATE_KEY, true);
     }
 
     initialize(
@@ -230,13 +293,14 @@ export default class MapPOI {
             this.isReady = true;
             if (this.map) {
                 // Store base style after the first load
-                this.baseStyle = this.map?.getStyle();
+                this.baseStyle = this.map.getStyle();
                 this.enqueue(this.map);
             }
         });
     }
 
     destroy() {
+        this.activePopupDisplay = null;
         this.activeFeature = null;
         this.popup.remove();
         this.queue((map) => map.remove());
@@ -271,7 +335,6 @@ export default class MapPOI {
                 });
             }
             this.layerIds = layers.map(({ id }) => id);
-            this.sourceIds = Object.keys(sources);
         });
     }
 
@@ -313,13 +376,16 @@ export default class MapPOI {
         this.queue((map) => map.jumpTo(options));
     }
 
-    setPopupsConfiguration(config: PopupsConfiguration) {
-        this.popupsConfiguration = config;
-        this.queue((map) => {
-            if (this.activeFeature) {
-                this.updatePopup(map, [this.activeFeature]);
-            }
-        });
+    /**
+     * Store the new popup configuration for each layer.
+     * When this configuration is updated, we need to update the popup content and display
+     * to reflect the new configuration.
+     * @param config Popups configuration
+     */
+    setpopupConfigurationByLayers(config: PopupConfigurationByLayers) {
+        this.popupConfigurationByLayers = config;
+        this.updatePopupContent();
+        this.updatePopupDisplay();
     }
 
     /**
@@ -366,7 +432,7 @@ export default class MapPOI {
             map.touchZoomRotate[interaction]();
 
             const eventFunction = interaction === 'enable' ? 'on' : 'off';
-            map[eventFunction]('click', this.bindedOnClick);
+            map[eventFunction]('click', this.bindedOnMapClick);
             map[eventFunction]('mousemove', this.bindedOnMouseMove);
 
             const hasControl = map.hasControl(this.navigationControl);
@@ -384,6 +450,17 @@ export default class MapPOI {
                     map.addControl(this.navigationControl, 'top-right');
                 }
             }
+        });
+    }
+
+    constructor() {
+        this.popup.on('close', () => {
+            this.queue((map) => {
+                updateFeatureState(map, this.activeFeature, POPUP_FEATURE_STATE_KEY, false);
+            });
+            this.onPopupDisplayUpdate(this.activePopupDisplay, null);
+            this.activePopupDisplay = null;
+            this.activeFeature = null;
         });
     }
 }

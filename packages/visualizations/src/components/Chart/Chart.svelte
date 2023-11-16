@@ -245,6 +245,7 @@
             </div>
         {/if}
         <figure class="chart legend--{legendPosition}">
+            <!-- svelte-ignore a11y-no-interactive-element-to-noninteractive-role -->
             <canvas
                 role="img"
                 use:chartJs={chartConfig}

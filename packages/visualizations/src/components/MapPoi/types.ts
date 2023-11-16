@@ -109,16 +109,20 @@ export type SymbolLayer = BaseLayer & {
 
 export type Layer = CircleLayer | SymbolLayer;
 
-export enum PopupDisplayTypes {
-    Tooltip = 'tooltip',
-    Sidebar = 'sidebar',
-}
+export const POPUP_DISPLAY = {
+    tooltip: 'tooltip',
+    sidebar: 'sidebar',
+    modal: 'modal',
+} as const;
+
+export type PopupDisplayTypes = keyof typeof POPUP_DISPLAY;
 
 export type PopupLayer = {
     /**
      * Control where to display the popup
      * - `sidebar`: As a side element (on the left)
      * - `tooltip`: Above the feature that has been clicked
+     * - `modal`: As a modal (takes all width)
      */
     display: PopupDisplayTypes;
     getContent: (id?: GeoJSONFeature['id'], properties?: GeoJsonProperties) => Promise<string>;
@@ -129,7 +133,7 @@ export type GeoPoint = {
     lat: number;
     lon: number;
 };
-
-export type PopupsConfiguration = { [key: string]: PopupLayer };
+/** A configuration map for popups where keys are layer ids and values are PopupLayer object. */
+export type PopupConfigurationByLayers = { [key: string]: PopupLayer };
 
 export type CenterZoomOptions = { zoom?: number; center?: LngLatLike };
