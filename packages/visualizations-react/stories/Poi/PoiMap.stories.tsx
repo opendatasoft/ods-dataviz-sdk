@@ -59,35 +59,50 @@ const citiesColorMatch = {
 
 const bbox: BBox = [-6.855469, 41.343825, 11.645508, 51.37178];
 
+const legendCitiesItems = [
+    {
+        label: 'Paris',
+        color: citiesColorMatch.colors.Paris,
+        borderColor: citiesColorMatch.borderColors.Paris,
+        variant: CATEGORY_ITEM_VARIANT.Circle,
+    },
+    {
+        label: 'Nantes',
+        color: citiesColorMatch.colors.Nantes,
+        borderColor: citiesColorMatch.borderColors.Nantes,
+        variant: CATEGORY_ITEM_VARIANT.Circle,
+    },
+    {
+        label: 'Bordeaux',
+        color: citiesColorMatch.colors.Bordeaux,
+        borderColor: citiesColorMatch.borderColors.Bordeaux,
+        variant: CATEGORY_ITEM_VARIANT.Circle,
+    },
+    {
+        label: 'Marseille',
+        color: citiesColorMatch.colors.Marseille,
+        borderColor: citiesColorMatch.borderColors.Marseille,
+        variant: CATEGORY_ITEM_VARIANT.Circle,
+    },
+];
+
+const legendbattleItems = [
+    {
+        variant: CATEGORY_ITEM_VARIANT.Image,
+        label: 'Battle of Verdun',
+        src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Battle_icon_gladii_red.svg/14px-Battle_icon_gladii_red.svg.png',
+    },
+    {
+        variant: CATEGORY_ITEM_VARIANT.Image,
+        label: 'Battle of the Somme',
+        src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Big_battle_symbol.svg/14px-Big_battle_symbol.svg.png',
+    },
+];
+
 const legend = {
     type: 'category' as const,
-    title: 'French cities',
-    items: [
-        {
-            label: 'Paris',
-            color: citiesColorMatch.colors.Paris,
-            borderColor: citiesColorMatch.borderColors.Paris,
-            variant: CATEGORY_ITEM_VARIANT.Circle,
-        },
-        {
-            label: 'Nantes',
-            color: citiesColorMatch.colors.Nantes,
-            borderColor: citiesColorMatch.borderColors.Nantes,
-            variant: CATEGORY_ITEM_VARIANT.Circle,
-        },
-        {
-            label: 'Bordeaux',
-            color: citiesColorMatch.colors.Bordeaux,
-            borderColor: citiesColorMatch.borderColors.Bordeaux,
-            variant: CATEGORY_ITEM_VARIANT.Circle,
-        },
-        {
-            label: 'Marseille',
-            color: citiesColorMatch.colors.Marseille,
-            borderColor: citiesColorMatch.borderColors.Marseille,
-            variant: CATEGORY_ITEM_VARIANT.Circle,
-        },
-    ],
+    title: 'French cities and famous battles',
+    items: [...legendCitiesItems, ...legendbattleItems],
     align: 'start' as const,
 };
 
