@@ -398,3 +398,31 @@ const StudioChoroplethPreventWorldCopiesArgs: Props<DataFrame, ChoroplethGeoJson
     },
 };
 StudioChoroplethPreventWorldCopies.args = StudioChoroplethPreventWorldCopiesArgs;
+
+export const StudioChoroplethCooperativeGestures = Template.bind({});
+const StudioChoroplethCooperativeGesturesArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
+    data: {
+        loading: false,
+        value: [
+            { x: 'France', y: 60 },
+            { x: 'Île de France', y: 35 },
+            { x: 'Corsica', y: 95 },
+        ],
+    },
+    options: {
+        shapes,
+        emptyValueColor: 'red',
+        tooltip: {
+            formatter: defaultLabelCallback,
+        },
+        aspectRatio: 1,
+        attribution: 'Testing attribution',
+        description: 'Accessible description',
+        cooperativeGestures: {
+            windowsHelpText: 'Use Ctrl + scroll to zoom the map',
+            macHelpText: 'Use ⌘ + scroll to zoom the map',
+            mobileHelpText: 'Use two fingers to move the map',
+        },
+    },
+};
+StudioChoroplethCooperativeGestures.args = StudioChoroplethCooperativeGesturesArgs;

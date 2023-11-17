@@ -4,6 +4,7 @@ import type {
     GeoJSONFeature,
     LngLatLike,
     RequestTransformFunction,
+    GestureOptions,
 } from 'maplibre-gl';
 import type { BBox, GeoJsonProperties } from 'geojson';
 
@@ -50,6 +51,7 @@ export interface PoiMapOptions {
     legend?: CategoryLegend;
     /** Link button to source */
     sourceLink?: Source;
+    cooperativeGestures?: boolean | GestureOptions;
 }
 
 export type PoiMapStyleOption = Partial<Pick<StyleSpecification, 'sources' | 'layers'>>;

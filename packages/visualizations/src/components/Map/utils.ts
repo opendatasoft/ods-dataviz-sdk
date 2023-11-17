@@ -1,6 +1,6 @@
 import chroma from 'chroma-js';
 import turfBbox from '@turf/bbox';
-import maplibregl, { FilterSpecification } from 'maplibre-gl';
+import maplibregl, { ExpressionSpecification, ExpressionInputType } from 'maplibre-gl';
 import geoViewport from '@mapbox/geo-viewport';
 import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
 import type { Scale } from 'chroma-js';
@@ -220,17 +220,19 @@ export const getFixedTooltips = (
 };
 
 /** Transform a filter object from the options into a Maplibre filter expression */
-export const computeFilterExpression = (filterConfig: MapFilter): FilterSpecification => {
+export const computeFilterExpression = (filterConfig: MapFilter): ExpressionSpecification => {
     const { key, value } = filterConfig;
     // The matching is case-insensitive to make it easier with unique administrative codes
     // that may have varying case but still represent the same entity.
-    const filterMatchExpression: FilterSpecification = ['in', ['downcase', ['get', key]]];
-    const matchingValues: string[] = [];
+    // FIXME: better typing and check if impact on usage
+    const filterMatchExpression: any = ['in', ['downcase', ['get', key]]];
+    const matchingValues: ExpressionInputType[] = [];
     (Array.isArray(value) ? value : [value]).forEach((filterValue) => {
         matchingValues.push(filterValue.toString().toLowerCase());
     });
-    filterMatchExpression.push(['literal', matchingValues]);
-    return filterMatchExpression;
+    const additionalExpression: ['literal', ExpressionInputType[]] = ['literal', matchingValues];
+    filterMatchExpression.push(additionalExpression);
+    return filterMatchExpression as ExpressionSpecification;
 };
 
 export const defaultTooltipFormat: ChoroplethTooltipFormatter = ({ value, label }) =>
@@ -272,7 +274,7 @@ export const computeTooltip: ComputeTooltipFunction = (
 };
 
 export const computeBaseLayer = (
-    fillColor: string | (string | string[])[] | FilterSpecification,
+    fillColor: string | ExpressionSpecification,
     DefaultColor: Color
 ): ChoroplethLayer => ({
     type: 'fill',
@@ -288,9 +290,14 @@ export const computeMatchExpression = (
     colors: { [s: string]: string },
     matchKey: string,
     emptyValueColor: Color
-): FilterSpecification => {
-    const matchExpression = ['match', ['get', matchKey]];
-    Object.entries(colors).forEach((e) => matchExpression.push(...e));
-    matchExpression.push(emptyValueColor); // Default fallback color
-    return matchExpression;
+): ExpressionSpecification => {
+    const matchExpression: ["match", ExpressionSpecification] = ['match', ['get', matchKey]];
+    const groupByColors: ExpressionInputType[] = [];
+    Object.entries(colors).forEach((e) => groupByColors.push(...e));
+    groupByColors.push(emptyValueColor); // Default fallback color
+    // We constructed a match expression so we can cast here the final type
+    return [
+        ...matchExpression,
+        ...groupByColors as [ExpressionInputType, ExpressionInputType, ExpressionInputType]
+    ];
 };

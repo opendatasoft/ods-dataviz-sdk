@@ -177,7 +177,7 @@ PoiMapLegendCenter.args = PoiMapLegendCenterArgs;
 export const PoiMapMinMaxZooms: ComponentStory<typeof PoiMap> = Template.bind({});
 const PoiMapMinMaxZoomsArgs = {
     data: { value: { layers: [{ ...layer1, colorMatch: citiesColorMatch }, layer2], sources } },
-    options: { 
+    options: {
         ...options,
         legend,
         minZoom: 3,
@@ -185,3 +185,21 @@ const PoiMapMinMaxZoomsArgs = {
     },
 };
 PoiMapMinMaxZooms.args = PoiMapMinMaxZoomsArgs;
+
+/**
+ * STORY: with cooperative gestures
+ */
+export const PoiMapCooperativeGestures: ComponentStory<typeof PoiMap> = Template.bind({});
+const PoiMapCooperativeGesturesArgs = {
+    data: { value: { layers: [{ ...layer1, colorMatch: citiesColorMatch }, layer2], sources } },
+    options: {
+        ...options,
+        legend,
+        cooperativeGestures: {
+            windowsHelpText: 'Use Ctrl + scroll to zoom the map',
+            macHelpText: 'Use ⌘ + scroll to zoom the map',
+            mobileHelpText: 'Use two fingers to move the map',
+        },
+    },
+};
+PoiMapCooperativeGestures.args = PoiMapCooperativeGesturesArgs;

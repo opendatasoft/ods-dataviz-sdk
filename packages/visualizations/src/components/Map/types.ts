@@ -1,5 +1,5 @@
 import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
-import type { FillLayerSpecification, Popup } from 'maplibre-gl';
+import type { FillLayerSpecification, Popup, GestureOptions } from 'maplibre-gl';
 import type { DebouncedFunc } from 'lodash';
 import type { LegendPositions } from '../Legend/types';
 import type { ColorScale, Color, Source } from '../types';
@@ -46,6 +46,7 @@ export interface ChoroplethOptions {
     navigationMaps?: NavigationMap[];
     /** Link button to source */
     sourceLink?: Source;
+    cooperativeGestures?: boolean | GestureOptions;
 }
 
 export interface MapFilter {
