@@ -222,10 +222,15 @@ export const getFixedTooltips = (
 /** Transform a filter object from the options into a Maplibre filter expression */
 export const computeFilterExpression = (filterConfig: MapFilter): ExpressionSpecification => {
     const { key, value } = filterConfig;
-    const filterMatchExpression: ExpressionSpecification = ['in', ['downcase', ['get', key]], ['literal', []]];
+    const filterMatchExpression: ExpressionSpecification = [
+        'in',
+        ['downcase', ['get', key]],
+        ['literal', []],
+    ];
 
     const matchingValues: string[] = Array.isArray(value)
-    ? value.map(v => v.toString().toLowerCase()) : [value.toString().toLowerCase()];
+        ? value.map((v) => v.toString().toLowerCase())
+        : [value.toString().toLowerCase()];
 
     filterMatchExpression[2] = ['literal', matchingValues];
     return filterMatchExpression;
@@ -287,13 +292,13 @@ export const computeMatchExpression = (
     matchKey: string,
     emptyValueColor: Color
 ): ExpressionSpecification => {
-    const matchExpression: ["match", ExpressionSpecification] = ['match', ['get', matchKey]];
+    const matchExpression: ['match', ExpressionSpecification] = ['match', ['get', matchKey]];
     const groupByColors: ExpressionInputType[] = [];
     Object.entries(colors).forEach((e) => groupByColors.push(...e));
     groupByColors.push(emptyValueColor); // Default fallback color
     // We constructed a match expression so we can cast here the final type
     return [
         ...matchExpression,
-        ...groupByColors as [ExpressionInputType, ExpressionInputType, ExpressionInputType]
+        ...(groupByColors as [ExpressionInputType, ExpressionInputType, ExpressionInputType]),
     ];
 };

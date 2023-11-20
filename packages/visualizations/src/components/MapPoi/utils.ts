@@ -45,12 +45,11 @@ export const getMapLayers = (layers?: Layer[]): CircleLayerSpecification[] => {
         } = layer;
 
         let circleColor: ExpressionSpecification | Color = layerColor;
-        let circleBorderColor: ExpressionSpecification | Color | undefined =
-            layerBorderColor;
+        let circleBorderColor: ExpressionSpecification | Color | undefined = layerBorderColor;
 
         if (colorMatch) {
             const { key, colors, borderColors } = colorMatch;
-            const matchExpression: ["match", ExpressionSpecification] = ['match', ['get', key]];
+            const matchExpression: ['match', ExpressionSpecification] = ['match', ['get', key]];
             const groupByColors: ExpressionInputType[] = [];
             Object.keys(colors).forEach((color) => {
                 groupByColors.push(color, colors[color]);
@@ -58,11 +57,18 @@ export const getMapLayers = (layers?: Layer[]): CircleLayerSpecification[] => {
             groupByColors.push(layerColor);
             circleColor = [
                 ...matchExpression,
-                ...groupByColors as [ExpressionInputType, ExpressionInputType, ExpressionInputType]
+                ...(groupByColors as [
+                    ExpressionInputType,
+                    ExpressionInputType,
+                    ExpressionInputType
+                ]),
             ];
 
             if (borderColors) {
-                const matchBorderExpression: ["match", ExpressionSpecification] = ['match', ['get', key]];
+                const matchBorderExpression: ['match', ExpressionSpecification] = [
+                    'match',
+                    ['get', key],
+                ];
                 const groupByBorderColors: ExpressionInputType[] = [];
                 Object.keys(borderColors).forEach((borderColor) => {
                     groupByBorderColors.push(borderColor, borderColors[borderColor]);
@@ -71,7 +77,11 @@ export const getMapLayers = (layers?: Layer[]): CircleLayerSpecification[] => {
                 // We constructed a match expression so we can cast here the final type
                 circleBorderColor = [
                     ...matchBorderExpression,
-                    ...groupByBorderColors as [ExpressionInputType, ExpressionInputType, ExpressionInputType]
+                    ...(groupByBorderColors as [
+                        ExpressionInputType,
+                        ExpressionInputType,
+                        ExpressionInputType
+                    ]),
                 ];
             }
         }

@@ -430,7 +430,7 @@
     }
     /* Add a more opacity and blur effect on map when cooperative gesture is shown */
     .map-card :global(.maplibregl-cooperative-gesture-screen) {
-        background: rgba(0,0,0,0.6);
+        background: rgba(0, 0, 0, 0.6);
         backdrop-filter: blur(2px);
     }
     .main {
