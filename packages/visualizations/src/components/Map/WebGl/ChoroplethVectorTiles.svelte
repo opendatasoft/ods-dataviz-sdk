@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { FilterSpecification, SourceSpecification, ExpressionSpecification, GestureOptions } from 'maplibre-gl';
+    import type { SourceSpecification, GestureOptions, ExpressionSpecification } from 'maplibre-gl';
     import type { BBox } from 'geojson';
     import { debounce } from 'lodash';
     import type { ColorScale, DataBounds, Color, Source } from '../../types';
@@ -40,7 +40,7 @@
     let legend: MapLegend | undefined;
     let attribution: string | undefined;
     let filter: MapFilter | undefined;
-    let filterExpression: FilterSpecification | undefined;
+    let filterExpression: ExpressionSpecification | undefined;
     let title: string | undefined;
     let subtitle: string | undefined;
     let description: string | undefined;

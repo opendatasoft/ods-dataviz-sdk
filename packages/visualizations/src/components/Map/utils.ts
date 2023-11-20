@@ -1,6 +1,6 @@
 import chroma from 'chroma-js';
 import turfBbox from '@turf/bbox';
-import maplibregl, { ExpressionSpecification, ExpressionInputType } from 'maplibre-gl';
+import maplibregl, { ExpressionInputType, ExpressionSpecification } from 'maplibre-gl';
 import geoViewport from '@mapbox/geo-viewport';
 import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
 import type { Scale } from 'chroma-js';
@@ -222,17 +222,13 @@ export const getFixedTooltips = (
 /** Transform a filter object from the options into a Maplibre filter expression */
 export const computeFilterExpression = (filterConfig: MapFilter): ExpressionSpecification => {
     const { key, value } = filterConfig;
-    // The matching is case-insensitive to make it easier with unique administrative codes
-    // that may have varying case but still represent the same entity.
-    // FIXME: better typing and check if impact on usage
-    const filterMatchExpression: any = ['in', ['downcase', ['get', key]]];
-    const matchingValues: ExpressionInputType[] = [];
-    (Array.isArray(value) ? value : [value]).forEach((filterValue) => {
-        matchingValues.push(filterValue.toString().toLowerCase());
-    });
-    const additionalExpression: ['literal', ExpressionInputType[]] = ['literal', matchingValues];
-    filterMatchExpression.push(additionalExpression);
-    return filterMatchExpression as ExpressionSpecification;
+    const filterMatchExpression: ExpressionSpecification = ['in', ['downcase', ['get', key]], ['literal', []]];
+
+    const matchingValues: string[] = Array.isArray(value)
+    ? value.map(v => v.toString().toLowerCase()) : [value.toString().toLowerCase()];
+
+    filterMatchExpression[2] = ['literal', matchingValues];
+    return filterMatchExpression;
 };
 
 export const defaultTooltipFormat: ChoroplethTooltipFormatter = ({ value, label }) =>
