@@ -6,8 +6,14 @@ import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
 import type { Scale } from 'chroma-js';
 import { DEFAULT_COLORS } from './constants';
 import { assertUnreachable } from '../utils';
-import { ColorScaleTypes } from '../types';
-import type { Color, ColorScale, DataBounds } from '../types';
+import {
+    Color,
+    ColorScale,
+    DataBounds,
+    isGroupByForMatchExpression,
+    ColorScaleTypes,
+} from '../types';
+
 import type {
     ChoroplethDataValue,
     ChoroplethFixedTooltipDescription,
@@ -296,9 +302,8 @@ export const computeMatchExpression = (
     const groupByColors: ExpressionInputType[] = [];
     Object.entries(colors).forEach((e) => groupByColors.push(...e));
     groupByColors.push(emptyValueColor); // Default fallback color
-    // We constructed a match expression so we can cast here the final type
-    return [
-        ...matchExpression,
-        ...(groupByColors as [ExpressionInputType, ExpressionInputType, ExpressionInputType]),
-    ];
+    if (!isGroupByForMatchExpression(groupByColors)) {
+        throw new Error('Not the expected type for complete match expression');
+    }
+    return [...matchExpression, ...groupByColors];
 };
