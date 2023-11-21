@@ -17,5 +17,5 @@ export const POPUP_WIDTH = 300;
 export const POPUP_OPTIONS: PopupOptions = {
     className: 'poi-map__popup',
     closeButton: false,
-    maxWidth: `${POPUP_WIDTH}px`,
+    closeOnClick: false,
 };
