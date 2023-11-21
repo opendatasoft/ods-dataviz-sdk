@@ -6,7 +6,7 @@ import type {
     ExpressionInputType,
 } from 'maplibre-gl';
 
-import { isGroupByForMatchExpression, type Color } from '../types';
+import { isGroupByForMatchExpression, Color } from '../types';
 
 import type {
     CenterZoomOptions,
@@ -58,10 +58,7 @@ export const getMapLayers = (layers?: Layer[]): CircleLayerSpecification[] => {
             if (!isGroupByForMatchExpression(groupByColors)) {
                 throw new Error('Not the expected type for complete match expression');
             }
-            circleColor = [
-                ...matchExpression,
-                ...groupByColors,
-            ];
+            circleColor = [...matchExpression, ...groupByColors];
 
             if (borderColors) {
                 const matchBorderExpression: ['match', ExpressionSpecification] = [
@@ -76,10 +73,7 @@ export const getMapLayers = (layers?: Layer[]): CircleLayerSpecification[] => {
                 if (!isGroupByForMatchExpression(groupByBorderColors)) {
                     throw new Error('Not the expected type for complete match expression');
                 }
-                circleBorderColor = [
-                    ...matchBorderExpression,
-                    ...groupByBorderColors,
-                ];
+                circleBorderColor = [...matchBorderExpression, ...groupByBorderColors];
             }
         }
         return {
