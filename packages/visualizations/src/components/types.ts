@@ -39,6 +39,12 @@ export type ColorScale = GradientScale | PaletteScale;
 // We expect an array with couples of values and ExpressionInput and for the last element a default ExpressionInput
 export function isGroupByForMatchExpression(
     value: ExpressionInputType[]
-): value is [ExpressionInputType, ExpressionInputType, ExpressionInputType] {
+): value is [
+    ExpressionInputType,
+    ExpressionInputType,
+    ExpressionInputType,
+    ...ExpressionInputType[],
+    ExpressionInputType
+] {
     return value.length >= 3 && value.length % 2 === 1;
 }
