@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.17.5...@opendatasoft/visualizations-react@0.18.0) (2023-11-24)
+
+
+### Bug Fixes
+
+* new legend symbol: Image ([d9666b6](https://github.com/opendatasoft/ods-dataviz-sdk/commit/d9666b636f842f4c88e5ecde3dd475132f8ca91f))
+* **visualizations:** add cooperative gestures for maps ([#206](https://github.com/opendatasoft/ods-dataviz-sdk/issues/206)) ([c51854f](https://github.com/opendatasoft/ods-dataviz-sdk/commit/c51854f04beb0814dabd0de6f3365dc69e5137be))
+
+
+### Features
+
+* **POI Map:** allow symbol layers ([5b7b89d](https://github.com/opendatasoft/ods-dataviz-sdk/commit/5b7b89d1352f95ea38a55df7e5a705fe841f0efa))
+
+
+
+
+
 ## [0.17.5](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.17.4...@opendatasoft/visualizations-react@0.17.5) (2023-11-10)
 
 **Note:** Version bump only for package @opendatasoft/visualizations-react
