@@ -1,6 +1,6 @@
 {
     "name": "@opendatasoft/visualizations-react",
-    "version": "0.17.5",
+    "version": "0.17.5-migration",
     "license": "MIT",
     "author": "opendatasoft",
     "homepage": "https://github.com/opendatasoft/ods-dataviz-sdk",
@@ -22,7 +22,7 @@
         "src"
     ],
     "engines": {
-        "node": ">=10 <18"
+        "node": ">=10"
     },
     "scripts": {
         "watch": "rollup --config --watch",

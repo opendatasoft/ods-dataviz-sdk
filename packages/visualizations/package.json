@@ -1,6 +1,6 @@
 {
     "name": "@opendatasoft/visualizations",
-    "version": "0.17.5",
+    "version": "0.17.5-migration",
     "license": "MIT",
     "author": "opendatasoft",
     "homepage": "https://github.com/opendatasoft/ods-dataviz-sdk",
@@ -15,7 +15,7 @@
         "Svelte"
     ],
     "engines": {
-        "node": ">=10 <18"
+        "node": ">=10"
     },
     "main": "dist/index.umd.js",
     "module": "dist/index.es.js",
