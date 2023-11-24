@@ -2,7 +2,13 @@
 
 <script lang="ts">
     import type { BBox } from 'geojson';
-    import type { LngLatBoundsLike, LngLatLike, MapOptions, StyleSpecification } from 'maplibre-gl';
+    import type {
+        LngLatBoundsLike,
+        LngLatLike,
+        MapOptions,
+        StyleSpecification,
+        GestureOptions,
+    } from 'maplibre-gl';
     import { onDestroy, onMount } from 'svelte';
     import CategoryLegend from '../Legend/CategoryLegend.svelte';
     import type { CategoryLegend as CategoryLegendType } from '../Legend/types';
@@ -31,6 +37,7 @@
     export let subtitle: string | undefined;
     export let legend: CategoryLegendType | undefined;
     export let description: string | undefined;
+    export let cooperativeGestures: boolean | GestureOptions | undefined;
     // Data source link
     export let sourceLink: Source | undefined;
 
@@ -63,6 +70,7 @@
             transformRequest,
             minZoom,
             maxZoom,
+            cooperativeGestures,
         };
         map.initialize(style, container, options);
     });
@@ -144,6 +152,11 @@
         padding: 13px;
         border-radius: 6px;
         box-shadow: 0 6px 13px 0 rgba(0, 0, 0, 0.26);
+    }
+    /* Add a more opacity and blur effect on map when cooperative gesture is shown */
+    .map-card :global(.maplibregl-cooperative-gesture-screen) {
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(2px);
     }
     .main {
         aspect-ratio: var(--aspect-ratio);

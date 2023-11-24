@@ -1,6 +1,6 @@
 <script lang="ts">
     import turfBbox from '@turf/bbox';
-    import type { FilterSpecification, SourceSpecification } from 'maplibre-gl';
+    import type { ExpressionSpecification, SourceSpecification, GestureOptions } from 'maplibre-gl';
     import type { BBox, FeatureCollection } from 'geojson';
     import { debounce } from 'lodash';
     import type { ColorScale, DataBounds, Color, Source } from '../../types';
@@ -43,6 +43,7 @@
     let navigationMaps: NavigationMap[] | undefined;
     // Data source link
     let sourceLink: Source | undefined;
+    let cooperativeGestures: boolean | GestureOptions | undefined;
 
     // Used to apply a chosen color for shapes without values (default: #cccccc)
     let emptyValueColor: Color;
@@ -66,6 +67,7 @@
         description,
         navigationMaps,
         sourceLink,
+        cooperativeGestures,
     } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
@@ -81,7 +83,7 @@
         values: ChoroplethDataValue[] = []
     ) {
         let colors;
-        let fillColor: string | (string | string[])[] | FilterSpecification = emptyValueColor;
+        let fillColor: string | ExpressionSpecification = emptyValueColor;
 
         if (values.length > 0) {
             dataBounds = getDataBounds(values);
@@ -131,6 +133,7 @@
         {navigationMaps}
         {data}
         {sourceLink}
+        {cooperativeGestures}
     />
 </div>
 

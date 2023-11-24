@@ -1,11 +1,12 @@
 import type {
     CircleLayerSpecification,
-    DataDrivenPropertyValueSpecification,
+    ExpressionSpecification,
     MapOptions,
     StyleSpecification,
+    ExpressionInputType,
 } from 'maplibre-gl';
 
-import type { Color } from '../types';
+import { isGroupByForMatchExpression, Color } from '../types';
 
 import type {
     CenterZoomOptions,
@@ -43,26 +44,36 @@ export const getMapLayers = (layers?: Layer[]): CircleLayerSpecification[] => {
             borderColor: layerBorderColor,
         } = layer;
 
-        let circleColor: DataDrivenPropertyValueSpecification<Color> | Color = layerColor;
-        let circleBorderColor: DataDrivenPropertyValueSpecification<Color> | Color | undefined =
-            layerBorderColor;
+        let circleColor: ExpressionSpecification | Color = layerColor;
+        let circleBorderColor: ExpressionSpecification | Color | undefined = layerBorderColor;
 
         if (colorMatch) {
             const { key, colors, borderColors } = colorMatch;
-            const groupByColors = ['match', ['get', key]];
+            const matchExpression: ['match', ExpressionSpecification] = ['match', ['get', key]];
+            const groupByColors: ExpressionInputType[] = [];
             Object.keys(colors).forEach((color) => {
                 groupByColors.push(color, colors[color]);
             });
             groupByColors.push(layerColor);
-            circleColor = groupByColors;
+            if (!isGroupByForMatchExpression(groupByColors)) {
+                throw new Error('Not the expected type for complete match expression');
+            }
+            circleColor = [...matchExpression, ...groupByColors];
 
             if (borderColors) {
-                const groupBordersByColors = ['match', ['get', key]];
+                const matchBorderExpression: ['match', ExpressionSpecification] = [
+                    'match',
+                    ['get', key],
+                ];
+                const groupByBorderColors: ExpressionInputType[] = [];
                 Object.keys(borderColors).forEach((borderColor) => {
-                    groupBordersByColors.push(borderColor, borderColors[borderColor]);
+                    groupByBorderColors.push(borderColor, borderColors[borderColor]);
                 });
-                groupBordersByColors.push(circleBorderColor || DEFAULT_DARK_GREY);
-                circleBorderColor = groupBordersByColors;
+                groupByBorderColors.push(circleBorderColor || DEFAULT_DARK_GREY);
+                if (!isGroupByForMatchExpression(groupByBorderColors)) {
+                    throw new Error('Not the expected type for complete match expression');
+                }
+                circleBorderColor = [...matchBorderExpression, ...groupByBorderColors];
             }
         }
         return {
@@ -111,6 +122,7 @@ export const getMapOptions = (options: PoiMapOptions) => {
         legend,
         sourceLink,
         transformRequest,
+        cooperativeGestures,
     } = options;
     return {
         aspectRatio,
@@ -126,6 +138,7 @@ export const getMapOptions = (options: PoiMapOptions) => {
         legend,
         sourceLink,
         transformRequest,
+        cooperativeGestures,
     };
 };
 

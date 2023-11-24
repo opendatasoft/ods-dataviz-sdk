@@ -65,6 +65,7 @@ const StudioChoroplethVectorGradientArgs: Props<DataFrame, ChoroplethVectorTiles
         value: dataReg,
     },
     options: {
+        bbox: [-17.529298, 38.79776, 23.889159, 52.836618],
         shapesTiles,
         colorScale: {
             type: ColorScaleTypes.Gradient,
@@ -310,6 +311,42 @@ const StudioChoroplethNavigationMapButtonsArgs: Props<DataFrame, ChoroplethVecto
     },
 };
 StudioChoroplethNavigationMapButtons.args = StudioChoroplethNavigationMapButtonsArgs;
+
+export const StudioChoroplethVectorCooperativeGestures = Template.bind({});
+const StudioChoroplethVectorCooperativeGesturesArgs: Props<DataFrame, ChoroplethVectorTilesOptions> = {
+    data: {
+        loading: false,
+        value: dataReg,
+    },
+    options: {
+        shapesTiles,
+        colorScale: {
+            type: ColorScaleTypes.Gradient,
+            colors: {
+                start: '#bcf5f9',
+                end: '#0229bf',
+            },
+        },
+        legend: {
+            title: 'I Am Legend',
+        },
+        aspectRatio: 1,
+        activeShapes: ['11', '93'],
+        emptyValueColor: 'red',
+        tooltip: {
+            formatter: defaultLabelCallback,
+        },
+        bbox: [-17.529298, 38.79776, 23.889159, 52.836618],
+        navigationMaps: [...makeMiniMaps(15),],
+        sourceLink: defaultSource,
+        cooperativeGestures: {
+            windowsHelpText: 'Use Ctrl + scroll to zoom the map',
+            macHelpText: 'Use ⌘ + scroll to zoom the map',
+            mobileHelpText: 'Use two fingers to move the map',
+        },
+    },
+};
+StudioChoroplethVectorCooperativeGestures.args = StudioChoroplethVectorCooperativeGesturesArgs;
 
 /* The next story was used for the demo, but its too big for chromatic, keeping it hear for future ref on loading/wathever */
 // const LoaderTemplate: ComponentStory<typeof Choropleth> = (args, { loaded: { data } }) => (

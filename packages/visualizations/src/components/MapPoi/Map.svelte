@@ -37,6 +37,7 @@
         aspectRatio,
         interactive,
         transformRequest,
+        cooperativeGestures,
     } = getMapOptions(options));
 
     const bbox = createDeepEqual(_bbox);
@@ -65,6 +66,7 @@
             {aspectRatio}
             {interactive}
             {transformRequest}
+            {cooperativeGestures}
         />
     {/key}
 </div>

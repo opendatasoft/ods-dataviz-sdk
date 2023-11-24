@@ -11,6 +11,7 @@
         MapLayerMouseEvent,
         LngLatLike,
         FilterSpecification,
+        GestureOptions,
     } from 'maplibre-gl';
     import { onMount } from 'svelte';
     import { debounce } from 'lodash';
@@ -67,6 +68,7 @@
     export let data: { value: ChoroplethDataValue[] };
     // Data source link
     export let sourceLink: Source | undefined;
+    export let cooperativeGestures: boolean | GestureOptions | undefined;
 
     let clientWidth: number;
     let legendVariant: LegendVariant;
@@ -123,6 +125,7 @@
             zoom: 5,
             customAttribution: attribution,
             renderWorldCopies: false,
+            cooperativeGestures,
         };
 
         map = new maplibregl.Map({
@@ -425,7 +428,11 @@
         border-left-color: transparent;
         border-right-color: transparent;
     }
-
+    /* Add a more opacity and blur effect on map when cooperative gesture is shown */
+    .map-card :global(.maplibregl-cooperative-gesture-screen) {
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(2px);
+    }
     .main {
         aspect-ratio: var(--aspect-ratio);
         flex-grow: 1;
@@ -438,7 +445,6 @@
         justify-content: flex-start;
         pointer-events: var(--buttons-events);
     }
-
     /* Suitable for elements that are used via aria-describedby or aria-labelledby */
     .a11y-invisible-description {
         display: none;

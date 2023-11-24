@@ -1,3 +1,5 @@
+import type { ExpressionInputType } from 'maplibre-gl';
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type DataFrame = Record<string, any>[];
 
@@ -33,3 +35,16 @@ export type PaletteScale = {
 };
 
 export type ColorScale = GradientScale | PaletteScale;
+
+// We expect an array with couples of values and ExpressionInput and for the last element a default ExpressionInput
+export function isGroupByForMatchExpression(
+    value: ExpressionInputType[]
+): value is [
+    ExpressionInputType,
+    ExpressionInputType,
+    ExpressionInputType,
+    ...ExpressionInputType[],
+    ExpressionInputType
+] {
+    return value.length >= 3 && value.length % 2 === 1;
+}
