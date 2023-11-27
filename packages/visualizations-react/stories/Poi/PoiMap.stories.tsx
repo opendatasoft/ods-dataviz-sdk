@@ -1,6 +1,6 @@
 import React from 'react';
 import { BBox } from 'geojson';
-import { CATEGORY_ITEM_VARIANT, PopupDisplayTypes } from '@opendatasoft/visualizations';
+import { CATEGORY_ITEM_VARIANT, POPUP_DISPLAY } from '@opendatasoft/visualizations';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import type { Layer, PoiMapOptions } from '@opendatasoft/visualizations';
 
@@ -18,7 +18,7 @@ const layer1: Layer = {
     color: 'black',
     borderColor: 'white',
     popup: {
-        display: PopupDisplayTypes.Tooltip,
+        display: POPUP_DISPLAY.tooltip,
         getContent: async (_, properties) => {
             await timeout(500);
             const { key, description } = properties as Record<string, unknown>;
@@ -34,7 +34,7 @@ const layer2: Layer = {
     type: 'symbol',
     iconImageId: 'battle-icon',
     popup: {
-        display: PopupDisplayTypes.Sidebar,
+        display: POPUP_DISPLAY.sidebar,
         getContent: async (_, properties) => {
             await timeout(500);
             const { name, date, description } = properties as {

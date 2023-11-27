@@ -140,13 +140,17 @@ export default class MapPOI {
 
     private bindedResetLeftPaddingPopup = this.resetLeftPaddingPopup.bind(this);
 
+    /** Update popup display between tooltip, sidebar and modal mode */
+    private updatePopupDisplay(display: PopupDisplayTypes) {
+        // Remove all popup display classname modifier before adding the current modifier.
+        Object.keys(POPUP_DISPLAY_CLASSNAME_MODIFIER).forEach((d) => {
+            this.popup.removeClassName(POPUP_DISPLAY_CLASSNAME_MODIFIER[d as PopupDisplayTypes]);
+        });
+        this.popup.addClassName(POPUP_DISPLAY_CLASSNAME_MODIFIER[display]);
+    }
+
     /** Set the popup content and positioning */
     private updatePopup(map: maplibregl.Map, features: MapGeoJSONFeature[]) {
-        if (this.activeFeature) {
-            const { id, source, sourceLayer } = this.activeFeature;
-            map.setFeatureState({ source, sourceLayer, id }, { 'popup-feature': false });
-        }
-
         const hasFeatures = !!features.length;
         // Current rule: use the first feature to build the popup.
         // TO DO: Create a menu to display a list of feature to choose from.
@@ -161,6 +165,10 @@ export default class MapPOI {
         // - Selected feature is the same as the active feature: This means that I clicked on the feature for which the popup is open.
         if (!hasFeatures || isSelectedFeatureSameAsActiveFeature) {
             this.popup.remove();
+            if (this.activeFeature) {
+                const { id, source, sourceLayer } = this.activeFeature;
+                map.setFeatureState({ source, sourceLayer, id }, { 'popup-feature': false });
+            }
             return;
         }
 
@@ -202,13 +210,7 @@ export default class MapPOI {
             this.popup.setHTML(content);
             this.popup.removeClassName(`${POPUP_CLASSNAME}--loading`);
         });
-
-        // Remove all popup display classname modifier before adding the current modifier.
-        Object.keys(POPUP_DISPLAY_CLASSNAME_MODIFIER).forEach((d) => {
-            this.popup.removeClassName(POPUP_DISPLAY_CLASSNAME_MODIFIER[d as PopupDisplayTypes]);
-        });
-        this.popup.addClassName(POPUP_DISPLAY_CLASSNAME_MODIFIER[display]);
-
+        this.updatePopupDisplay(display);
         map.setFeatureState({ source, sourceLayer, id: featureId }, { 'popup-feature': true });
 
         this.popup.once('close', () => {
@@ -324,11 +326,10 @@ export default class MapPOI {
 
     setPopupsConfiguration(config: PopupsConfiguration) {
         this.popupsConfiguration = config;
-        this.queue((map) => {
-            if (this.activeFeature) {
-                this.updatePopup(map, [this.activeFeature]);
-            }
-        });
+        if (!this.activeFeature) return;
+        const newPopupConfiguration = this.popupsConfiguration[this.activeFeature.layer.id];
+        if (!newPopupConfiguration) return;
+        this.updatePopupDisplay(newPopupConfiguration.display);
     }
 
     /**

@@ -1,6 +1,6 @@
 import type { PopupOptions, StyleSpecification } from 'maplibre-gl';
 import type { Color } from '../types';
-import { PopupDisplayTypes } from './types';
+import { POPUP_DISPLAY, PopupDisplayTypes } from './types';
 
 export const DEFAULT_BASEMAP_STYLE: StyleSpecification = {
     version: 8,
@@ -19,9 +19,9 @@ export const POPUP_WIDTH = 300;
 export const POPUP_CLASSNAME = 'poi-map__popup';
 
 export const POPUP_DISPLAY_CLASSNAME_MODIFIER: Record<PopupDisplayTypes, string> = {
-    [PopupDisplayTypes.Tooltip]: `${POPUP_CLASSNAME}--as-tooltip`,
-    [PopupDisplayTypes.Sidebar]: `${POPUP_CLASSNAME}--as-sidebar`,
-    [PopupDisplayTypes.Modal]: `${POPUP_CLASSNAME}--as-modal`,
+    [POPUP_DISPLAY.tooltip]: `${POPUP_CLASSNAME}--as-tooltip`,
+    [POPUP_DISPLAY.sidebar]: `${POPUP_CLASSNAME}--as-sidebar`,
+    [POPUP_DISPLAY.modal]: `${POPUP_CLASSNAME}--as-modal`,
 };
 
 export const POPUP_OPTIONS: PopupOptions = {

@@ -109,11 +109,13 @@ export type SymbolLayer = BaseLayer & {
 
 export type Layer = CircleLayer | SymbolLayer;
 
-export enum PopupDisplayTypes {
-    Tooltip = 'tooltip',
-    Sidebar = 'sidebar',
-    Modal = 'modal',
-}
+export const POPUP_DISPLAY = {
+    tooltip: 'tooltip',
+    sidebar: 'sidebar',
+    modal: 'modal',
+} as const;
+
+export type PopupDisplayTypes = keyof typeof POPUP_DISPLAY;
 
 export type PopupLayer = {
     /**
