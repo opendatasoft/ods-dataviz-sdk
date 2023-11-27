@@ -246,7 +246,6 @@
         {/if}
         <figure class="chart legend--{legendPosition}">
             <canvas
-                role="img"
                 use:chartJs={chartConfig}
                 aria-describedby={options.description ? chartId : undefined}
             />

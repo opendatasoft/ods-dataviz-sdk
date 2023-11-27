@@ -1,5 +1,3 @@
-import svelte from 'rollup-plugin-svelte';
-import autoPreprocess from 'svelte-preprocess';
 import postcss from 'rollup-plugin-postcss';
 import autoprefixer from 'autoprefixer';
 import visualizer from 'rollup-plugin-visualizer';
@@ -11,29 +9,17 @@ import json from '@rollup/plugin-json';
 import { babel } from '@rollup/plugin-babel';
 import replace from '@rollup/plugin-replace';
 import { defineConfig } from 'rollup';
-import pkg from './package.json';
+import pkg from './package.json' assert { type: 'json' };
 
 const production = !process.env.ROLLUP_WATCH;
 
 function basePlugins() {
     return [
-        svelte({
-            // enable run-time checks when not in production
-            dev: !production,
-            include: 'src/**/*.svelte',
-            emitCss: true,
-            immutable: true,
-            preprocess: autoPreprocess({
-                scss: {
-                    includePaths: ['src'],
-                },
-            }),
-        }),
         typescript({
             sourceMap: true,
             declaration: true,
             declarationDir: 'dist',
-            rootDir: 'src',
+            rootDirs: ['src', 'test'],
         }),
         nodeResolve(),
         commonjs(),
@@ -46,8 +32,8 @@ function basePlugins() {
         production &&
             babel({
                 babelHelpers: 'bundled',
-                extensions: ['.ts', '.mjs', '.js', '.svelte'],
-                include: ['src/**', 'node_modules/chart.js/**', 'node_modules/svelte/**'],
+                extensions: ['.ts', '.mjs', '.js'],
+                include: ['src/**', 'node_modules/chart.js/**'],
                 presets: ['@babel/preset-env'],
             }),
     ];
@@ -89,10 +75,10 @@ const umd = defineConfig({
     input: 'src/index.ts',
     output: {
         dir: 'dist',
-        entryFileNames: '[name].umd.js',
+        entryFileNames: 'umd/[name].umd.js',
         format: 'umd',
         sourcemap: true,
-        name: 'opendatasoft.visualizations',
+        name: 'opendatasoft.apiclient',
         plugins: [],
     },
     plugins: [

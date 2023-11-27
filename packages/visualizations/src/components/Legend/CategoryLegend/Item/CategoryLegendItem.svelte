@@ -12,7 +12,7 @@
         item.label &&
         (typeof item.label === 'string' ? item.label : item?.label?.text?.(itemIndex));
 </script>
-
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
     class:refined
     style="--cursor-style: {item.onClick ? 'pointer' : 'default'};"

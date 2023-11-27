@@ -1,6 +1,6 @@
 import postcss from 'rollup-plugin-postcss';
 import autoprefixer from 'autoprefixer';
-import visualizer from 'rollup-plugin-visualizer';
+import { visualizer } from 'rollup-plugin-visualizer';
 import { terser } from 'rollup-plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
@@ -9,7 +9,7 @@ import json from '@rollup/plugin-json';
 import { babel } from '@rollup/plugin-babel';
 import replace from '@rollup/plugin-replace';
 import { defineConfig } from 'rollup';
-import pkg from './package.json';
+import pkg from './package.json' assert { type: 'json' };
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -19,7 +19,7 @@ function basePlugins() {
             sourceMap: true,
             declaration: true,
             declarationDir: 'dist',
-            rootDirs: ['src', 'test'],
+            rootDirs: ['src', 'test', 'stories'],
         }),
         nodeResolve(),
         commonjs(),
@@ -32,8 +32,8 @@ function basePlugins() {
         production &&
             babel({
                 babelHelpers: 'bundled',
-                extensions: ['.ts', '.mjs', '.js'],
-                include: ['src/**', 'node_modules/chart.js/**'],
+                extensions: ['.ts', '.mjs', '.js', '.tsx', 'jsx'],
+                include: ['src/**'],
                 presets: ['@babel/preset-env'],
             }),
     ];
@@ -42,7 +42,7 @@ function basePlugins() {
 function onwarn(warning, warn) {
     // https://github.com/moment/luxon/issues/193
     if (warning.code === 'CIRCULAR_DEPENDENCY') {
-        if (warning.importer.includes('node_modules/luxon')) {
+        if (warning.ids.some((el) => el?.match(/luxon/))) {
             return;
         }
     }
@@ -50,9 +50,15 @@ function onwarn(warning, warn) {
 }
 
 const esm = defineConfig({
-    input: 'src/index.ts',
+    input: 'src/index.tsx',
     // Externalize all dependencies
-    external: (id) => Object.keys(pkg.dependencies).includes(id),
+    external: (id) => {
+        // Both peer and regular dependencies can be imported from our files, but we don't want to package it
+        return (
+            Object.keys(pkg.dependencies).includes(id) ||
+            Object.keys(pkg.peerDependencies).includes(id)
+        );
+    },
     output: {
         dir: 'dist',
         entryFileNames: '[name].es.js',
@@ -72,13 +78,13 @@ const esm = defineConfig({
 });
 
 const umd = defineConfig({
-    input: 'src/index.ts',
+    input: 'src/index.tsx',
     output: {
         dir: 'dist',
-        entryFileNames: 'umd/[name].umd.js',
+        entryFileNames: '[name].umd.js',
         format: 'umd',
         sourcemap: true,
-        name: 'opendatasoft.apiclient',
+        name: 'opendatasoft.visualizationsReact',
         plugins: [],
     },
     plugins: [

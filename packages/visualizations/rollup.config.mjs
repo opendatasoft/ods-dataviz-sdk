@@ -1,6 +1,8 @@
+import svelte from 'rollup-plugin-svelte';
+import autoPreprocess from 'svelte-preprocess';
 import postcss from 'rollup-plugin-postcss';
 import autoprefixer from 'autoprefixer';
-import visualizer from 'rollup-plugin-visualizer';
+import { visualizer } from 'rollup-plugin-visualizer';
 import { terser } from 'rollup-plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
@@ -9,19 +11,33 @@ import json from '@rollup/plugin-json';
 import { babel } from '@rollup/plugin-babel';
 import replace from '@rollup/plugin-replace';
 import { defineConfig } from 'rollup';
-import pkg from './package.json';
+import pkg from './package.json' assert { type: 'json' };
 
 const production = !process.env.ROLLUP_WATCH;
 
 function basePlugins() {
     return [
+        svelte({
+            // enable run-time checks when not in production
+            dev: !production,
+            include: 'src/**/*.svelte',
+            emitCss: true,
+            immutable: true,
+            preprocess: autoPreprocess({
+                scss: {
+                    includePaths: ['src'],
+                },
+            }),
+        }),
         typescript({
             sourceMap: true,
             declaration: true,
             declarationDir: 'dist',
-            rootDirs: ['src', 'test', 'stories'],
+            rootDir: 'src',
         }),
-        nodeResolve(),
+        nodeResolve({
+            preferBuiltins: true,
+        }),
         commonjs(),
         json(),
         postcss({
@@ -32,8 +48,8 @@ function basePlugins() {
         production &&
             babel({
                 babelHelpers: 'bundled',
-                extensions: ['.ts', '.mjs', '.js', '.tsx', 'jsx'],
-                include: ['src/**'],
+                extensions: ['.ts', '.mjs', '.js', '.svelte'],
+                include: ['src/**', 'node_modules/chart.js/**', 'node_modules/svelte/**'],
                 presets: ['@babel/preset-env'],
             }),
     ];
@@ -42,7 +58,7 @@ function basePlugins() {
 function onwarn(warning, warn) {
     // https://github.com/moment/luxon/issues/193
     if (warning.code === 'CIRCULAR_DEPENDENCY') {
-        if (warning.importer.includes('node_modules/luxon')) {
+        if (warning.ids.some((el) => el?.match(/luxon/))) {
             return;
         }
     }
@@ -50,12 +66,9 @@ function onwarn(warning, warn) {
 }
 
 const esm = defineConfig({
-    input: 'src/index.tsx',
+    input: 'src/index.ts',
     // Externalize all dependencies
-    external: (id) => {
-        // Both peer and regular dependencies can be imported from our files, but we don't want to package it
-        return Object.keys(pkg.dependencies).includes(id) || Object.keys(pkg.peerDependencies).includes(id)
-    },
+    external: (id) => Object.keys(pkg.dependencies)?.includes(id),
     output: {
         dir: 'dist',
         entryFileNames: '[name].es.js',
@@ -75,13 +88,13 @@ const esm = defineConfig({
 });
 
 const umd = defineConfig({
-    input: 'src/index.tsx',
+    input: 'src/index.ts',
     output: {
         dir: 'dist',
         entryFileNames: '[name].umd.js',
         format: 'umd',
         sourcemap: true,
-        name: 'opendatasoft.visualizationsReact',
+        name: 'opendatasoft.visualizations',
         plugins: [],
     },
     plugins: [
