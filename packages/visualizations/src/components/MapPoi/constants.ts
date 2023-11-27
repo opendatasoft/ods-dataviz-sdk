@@ -15,6 +15,7 @@ export const DEFAULT_DARK_GREY: Color = '#515457';
 
 export const POPUP_WIDTH = 300;
 
+// Update styles in ./MapRender.svelte if this classname changes
 export const POPUP_CLASSNAME = 'poi-map__popup';
 
 export const POPUP_DISPLAY_CLASSNAME_MODIFIER: Record<PopupDisplayTypes, string> = {
