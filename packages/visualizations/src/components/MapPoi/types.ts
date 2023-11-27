@@ -112,6 +112,7 @@ export type Layer = CircleLayer | SymbolLayer;
 export enum PopupDisplayTypes {
     Tooltip = 'tooltip',
     Sidebar = 'sidebar',
+    Modal = 'modal',
 }
 
 export type PopupLayer = {

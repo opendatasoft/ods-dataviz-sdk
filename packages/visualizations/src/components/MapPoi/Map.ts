@@ -10,8 +10,13 @@ import maplibregl, {
     StyleSpecification,
 } from 'maplibre-gl';
 
-import { POPUP_CLASSNAME, POPUP_OPTIONS, POPUP_WIDTH } from './constants';
-import type { PopupsConfiguration, CenterZoomOptions } from './types';
+import {
+    POPUP_CLASSNAME,
+    POPUP_DISPLAY_CLASSNAME_MODIFIER,
+    POPUP_OPTIONS,
+    POPUP_WIDTH,
+} from './constants';
+import type { PopupsConfiguration, CenterZoomOptions, PopupDisplayTypes } from './types';
 
 const CURSOR = {
     DEFAULT: 'default',
@@ -198,8 +203,11 @@ export default class MapPOI {
             this.popup.removeClassName(`${POPUP_CLASSNAME}--loading`);
         });
 
-        const classnameModifier = display === 'sidebar' ? 'addClassName' : 'removeClassName';
-        this.popup[classnameModifier](`${POPUP_CLASSNAME}--as-sidebar`);
+        // Remove all popup display classname modifier before adding the current modifier.
+        Object.keys(POPUP_DISPLAY_CLASSNAME_MODIFIER).forEach((d) => {
+            this.popup.removeClassName(POPUP_DISPLAY_CLASSNAME_MODIFIER[d as PopupDisplayTypes]);
+        });
+        this.popup.addClassName(POPUP_DISPLAY_CLASSNAME_MODIFIER[display]);
 
         map.setFeatureState({ source, sourceLayer, id: featureId }, { 'popup-feature': true });
 

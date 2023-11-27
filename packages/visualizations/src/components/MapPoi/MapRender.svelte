@@ -122,8 +122,6 @@
         }
     }
     .map-card {
-        container-type: inline-size;
-        container-name: map-card;
         display: flex;
         flex-direction: column;
         margin: 0;
@@ -147,16 +145,25 @@
         max-height: 100%;
         box-sizing: border-box;
     }
-    .map-card :global(.poi-map__popup.poi-map__popup--as-sidebar) {
-        /* TO DO: add common stylesheet */
-        height: 100%;
-        max-height: 100%;
+    .map-card :global(.poi-map__popup.poi-map__popup--as-sidebar),
+    .map-card :global(.poi-map__popup.poi-map__popup--as-modal) {
+        flex-direction: column;
         transform: translate(0px, 0px) !important;
         padding: 13px 13px 0px 13px;
     }
 
+    .map-card :global(.poi-map__popup.poi-map__popup--as-modal) {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    .map-card :global(.poi-map__popup.poi-map__popup--as-sidebar) {
+        max-width: 100% !important;
+        width: 300px !important;
+    }
+
     /* --- POPUP TIP ---  */
-    .map-card :global(.poi-map__popup.poi-map__popup--as-sidebar > .maplibregl-popup-tip) {
+    .map-card :global(.poi-map__popup.poi-map__popup--as-sidebar > .maplibregl-popup-tip),
+    :global(.poi-map__popup.poi-map__popup--as-modal > .maplibregl-popup-tip) {
         display: none;
     }
 
@@ -192,8 +199,9 @@
     .map-card :global(.maplibregl-popup-close-button:hover) {
         background-color: transparent;
     }
-    /* Hide close button when content is loading */
-    .map-card :global(.poi-map__popup--loading .maplibregl-popup-close-button) {
+    /* Hide close button when content is loading or when its display is as a tooltip */
+    .map-card :global(.poi-map__popup--loading .maplibregl-popup-close-button),
+    .map-card :global(.poi-map__popup--as-tooltip .maplibregl-popup-close-button) {
         display: none;
     }
 
@@ -202,37 +210,6 @@
         margin-top: 13px;
         margin-right: 13px;
     }
-
-    /* --- CONTAINER QUERIES ---  */
-    @container map-card (width < 600px) {
-        /* Force tooltip popup to behave like a sidebar popup */
-        .map-card :global(.poi-map__popup) {
-            height: 100%;
-            max-height: 100%;
-            transform: translate(0px, 0px) !important;
-            padding: 13px 13px 0px 13px;
-            width: 100%;
-            max-width: 100% !important;
-        }
-        .map-card :global(.maplibregl-popup-tip) {
-            display: none;
-        }
-        .map-card :global(.poi-map__popup > .maplibregl-popup-content) {
-            width: 100%;
-        }
-    }
-    @container map-card (width >= 600px) {
-        .map-card :global(.poi-map__popup) {
-            max-width: 300px !important;
-        }
-        /* Close button is not visible for tooltip popup */
-        .map-card
-            :global(.poi-map__popup:not(.poi-map__popup--as-sidebar)
-                .maplibregl-popup-close-button) {
-            display: none;
-        }
-    }
-
     .main {
         aspect-ratio: var(--aspect-ratio);
         flex-grow: 1;
