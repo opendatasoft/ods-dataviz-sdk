@@ -8,14 +8,23 @@
     export let toggleSerie: (index: number) => void;
     export let refined: boolean;
 
+    const onKeyDown = (event: KeyboardEvent) => {
+        if (event.key !== 'Enter' || !item.onClick) return;
+        toggleSerie(itemIndex);
+        item.onClick(itemIndex);
+    };
+
     $: stringLabel =
         item.label &&
         (typeof item.label === 'string' ? item.label : item?.label?.text?.(itemIndex));
 </script>
 
 <div
+    role="button"
+    tabindex={item.onClick ? 0 : -1}
     class:refined
     style="--cursor-style: {item.onClick ? 'pointer' : 'default'};"
+    on:keydown={onKeyDown}
     on:click={() => {
         if (item.onClick) {
             toggleSerie(itemIndex);
