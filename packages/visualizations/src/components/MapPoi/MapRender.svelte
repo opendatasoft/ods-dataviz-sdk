@@ -177,6 +177,7 @@
         max-height: 100%;
         overflow-y: auto;
         box-sizing: border-box;
+        box-shadow: 0 6px 13px 0 rgba(0, 0, 0, 0.26);
     }
     /* Add a more opacity and blur effect on map when cooperative gesture is shown */
     .map-card :global(.maplibregl-cooperative-gesture-screen) {
@@ -209,6 +210,7 @@
     .map-card :global(.maplibregl-ctrl.maplibregl-ctrl-group) {
         margin-top: 13px;
         margin-right: 13px;
+        box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.26);
     }
     .main {
         aspect-ratio: var(--aspect-ratio);
