@@ -1,7 +1,9 @@
+import { BBox } from 'geojson';
+import { Async, CATEGORY_ITEM_VARIANT, Layer, POPUP_DISPLAY, PoiMapData, PoiMapOptions } from '@opendatasoft/visualizations';
 
-import { PoiMapData } from '@opendatasoft/visualizations';
+import { defaultSource, timeout } from '../utils';
 
-const sources : PoiMapData["sources"] = {
+export const sources : PoiMapData["sources"] = {
     cities : {
         type: 'geojson', 
         data: {
@@ -95,7 +97,136 @@ const sources : PoiMapData["sources"] = {
     }
 };
 
-export default sources;
+export const BASE_STYLE = 'https://demotiles.maplibre.org/style.json';
+
+export const citiesColorMatch = {
+    key: 'key',
+    colors: { Paris: 'blue', Nantes: 'yellow', Bordeaux: 'purple', Marseille: 'lightblue' },
+    borderColors: { Paris: 'white', Nantes: 'black', Bordeaux: 'white', Marseille: 'black' },
+};
+
+export const battleImageMatch = {
+    key: 'name',
+    imageIds: { 'Battle of Verdun': 'battle-icon-red' },
+};
+
+export const layer1: Layer = {
+    id: 'layer-001',
+    source: 'cities',
+    type: 'circle',
+    color: 'black',
+    borderColor: 'white',
+    colorMatch: citiesColorMatch,
+    popup: {
+        display: POPUP_DISPLAY.tooltip,
+        getContent: async (_, properties) => {
+            await timeout(500);
+            const { key, description } = properties as Record<string, unknown>;
+            return Promise.resolve(`<b>${key}</b><div>${description}<div>`);
+        },
+        getLoadingContent: () => 'Loading...',
+    },
+};
+
+export const layer2: Layer = {
+    id: 'layer-002',
+    source: 'battles',
+    type: 'symbol',
+    iconImageId: 'battle-icon',
+    iconImageMatch: battleImageMatch,
+    popup: {
+        display: POPUP_DISPLAY.sidebar,
+        getContent: async (_, properties) => {
+            await timeout(500);
+            const { name, date, description } = properties as {
+                name: string;
+                date: string;
+                description: string;
+            };
+            return Promise.resolve(`<b>${name}</b><p>${description}<p/><small>${date}</small>`);
+        },
+        getLoadingContent: () => 'Loading...',
+    },
+};
+
+export const legendCitiesItems = [
+    {
+        label: 'Paris',
+        color: citiesColorMatch.colors.Paris,
+        borderColor: citiesColorMatch.borderColors.Paris,
+        variant: CATEGORY_ITEM_VARIANT.Circle,
+    },
+    {
+        label: 'Nantes',
+        color: citiesColorMatch.colors.Nantes,
+        borderColor: citiesColorMatch.borderColors.Nantes,
+        variant: CATEGORY_ITEM_VARIANT.Circle,
+    },
+    {
+        label: 'Bordeaux',
+        color: citiesColorMatch.colors.Bordeaux,
+        borderColor: citiesColorMatch.borderColors.Bordeaux,
+        variant: CATEGORY_ITEM_VARIANT.Circle,
+    },
+    {
+        label: 'Marseille',
+        color: citiesColorMatch.colors.Marseille,
+        borderColor: citiesColorMatch.borderColors.Marseille,
+        variant: CATEGORY_ITEM_VARIANT.Circle,
+    },
+];
+
+export const legendbattleItems = [
+    {
+        variant: CATEGORY_ITEM_VARIANT.Image,
+        label: 'Battle of Verdun',
+        src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Battle_icon_gladii_red.svg/14px-Battle_icon_gladii_red.svg.png',
+    },
+    {
+        variant: CATEGORY_ITEM_VARIANT.Image,
+        label: 'Battle of the Somme',
+        src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Big_battle_symbol.svg/14px-Big_battle_symbol.svg.png',
+    },
+];
+
+export function getDataAndOptions(withMatch = false) : {data: Async<PoiMapData>, options: PoiMapOptions}  {
+    return {
+        layers: [
+            {
+                ...layer1, 
+                ...(withMatch ? {colorMatch: citiesColorMatch} : null)
+            }, 
+            {
+                ...layer2, 
+                ...(withMatch ? {iconImageMatch: battleImageMatch} : null)
+            }
+        ],
+        legend: {
+            type: 'category' as const,
+            title: 'French cities and famous battles',
+            items: withMatch ? [...legendCitiesItems, ...legendbattleItems] : [],
+            align: 'start' as const,
+        }
+    };
+};
+
+export const layers = [layer1, layer2];
+
+export const bbox: BBox = [-6.855469, 41.343825, 11.645508, 51.37178];
 
 
 
+export const options: PoiMapOptions = {
+    style: BASE_STYLE,
+    bbox,
+    title: 'Lorem Ipsum',
+    subtitle: 'Dolor Sit Amet',
+    description: 'More aria description',
+    sourceLink: defaultSource,
+    images: {
+        'battle-icon':
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Big_battle_symbol.svg/14px-Big_battle_symbol.svg.png',
+        'battle-icon-red':
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Battle_icon_gladii_red.svg/14px-Battle_icon_gladii_red.svg.png',
+    },
+};
