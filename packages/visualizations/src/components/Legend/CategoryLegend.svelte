@@ -51,7 +51,7 @@
         display: grid;
         justify-content: var(--align);
         grid-gap: 3px 13px;
-        grid-template-columns: repeat(auto-fit, minmax(80px, max-content));
+        grid-template-columns: repeat(auto-fit, minmax(120px, max-content));
         padding: 13px 0;
     }
 </style>
