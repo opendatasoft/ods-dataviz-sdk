@@ -163,6 +163,7 @@
 
     .map-card :global(.poi-map__popup.poi-map__popup--as-tooltip) {
         width: 300px !important;
+        max-height: 50%;
     }
 
     /* --- POPUP TIP ---  */
@@ -180,6 +181,7 @@
         border-radius: 6px;
         max-height: 100%;
         overflow-y: auto;
+        overflow-x: hidden;
         box-sizing: border-box;
         box-shadow: 0 6px 13px 0 rgba(0, 0, 0, 0.26);
     }
