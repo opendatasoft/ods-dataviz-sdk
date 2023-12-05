@@ -387,6 +387,7 @@ export default class MapPOI {
     destroy() {
         this.activePopupDisplay = null;
         this.activeFeature = null;
+        this.availableFeaturesOnClick = [];
         this.popup.remove();
         this.queue((map) => map.remove());
         this.mapResizeObserver?.disconnect();
