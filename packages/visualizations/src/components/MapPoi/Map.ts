@@ -191,12 +191,12 @@ export default class MapPOI {
         popupNavigationDiv.innerHTML = `
                 <div class="${POPUP_NAVIGATION_CONTROLS_CLASSNAME}">
                     <button class="${POPUP_NAVIGATION_ARROW_CLASSNAME}" id="prevButton" ${
-                        activeFeatureHumanIndex === 1 ? 'disabled' : ''
-                    }><</button>
+            activeFeatureHumanIndex === 1 ? 'disabled' : ''
+        }><</button>
                     <div class="feature-count">${activeFeatureHumanIndex} / ${availableFeaturesTotal}</div>
                     <button class="${POPUP_NAVIGATION_ARROW_CLASSNAME}" id="nextButton" ${
-                        activeFeatureHumanIndex === availableFeaturesTotal ? 'disabled' : ''
-                    }>></button>
+            activeFeatureHumanIndex === availableFeaturesTotal ? 'disabled' : ''
+        }>></button>
                 </div>
             `;
 
