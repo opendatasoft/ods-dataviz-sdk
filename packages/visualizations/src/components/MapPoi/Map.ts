@@ -14,6 +14,8 @@ import {
     CONTROL_POSITION,
     POPUP_CLASSNAME,
     POPUP_DISPLAY_CLASSNAME_MODIFIER,
+    POPUP_NAVIGATION_CONTROLS_CLASSNAME,
+    POPUP_NAVIGATION_ARROW_CLASSNAME,
     POPUP_OPTIONS,
     POPUP_WIDTH,
 } from './constants';
@@ -80,6 +82,9 @@ export default class MapPOI {
 
     /** An active GeoJSONFeature. Its information are displayed within the popup. */
     private activeFeature: ActiveFeatureType = null;
+
+    /** All available GeoJSONFeatures on click event */
+    private availableFeaturesOnClick: ActiveFeatureType[] = [];
 
     /** An array of functions to be executed when the map is ready. */
     private queuedFunctions: Array<MapFunction> = [];
@@ -172,6 +177,37 @@ export default class MapPOI {
         this.onPopupDisplayUpdate(oldDisplay, newDisplay);
     }
 
+    private navigateToFeature(direction: number) {
+        const activeFeatureIndex = this.availableFeaturesOnClick.indexOf(this.activeFeature);
+        this.activeFeature = this.availableFeaturesOnClick[activeFeatureIndex + direction];
+        this.updatePopupContent();
+    }
+
+    private renderFeaturesNavigationControls() {
+        const popupNavigationDiv = document.createElement('div');
+        const availableFeaturesTotal = this.availableFeaturesOnClick.length;
+        const activeFeatureHumanIndex =
+            this.availableFeaturesOnClick.indexOf(this.activeFeature) + 1;
+        popupNavigationDiv.innerHTML = `
+                <div class="${POPUP_NAVIGATION_CONTROLS_CLASSNAME}">
+                    <button class="${POPUP_NAVIGATION_ARROW_CLASSNAME}" id="prevButton" ${
+                        activeFeatureHumanIndex === 1 ? 'disabled' : ''
+                    }><</button>
+                    <div class="feature-count">${activeFeatureHumanIndex} / ${availableFeaturesTotal}</div>
+                    <button class="${POPUP_NAVIGATION_ARROW_CLASSNAME}" id="nextButton" ${
+                        activeFeatureHumanIndex === availableFeaturesTotal ? 'disabled' : ''
+                    }>></button>
+                </div>
+            `;
+
+        const prevButton = popupNavigationDiv.querySelector('#prevButton');
+        prevButton?.addEventListener('click', () => this.navigateToFeature(-1));
+
+        const nextButton = popupNavigationDiv.querySelector('#nextButton');
+        nextButton?.addEventListener('click', () => this.navigateToFeature(1));
+        return popupNavigationDiv;
+    }
+
     /** Update popup content. First add a loading state, then replace it with content */
     private updatePopupContent() {
         if (!this.activeFeature) return;
@@ -188,7 +224,15 @@ export default class MapPOI {
         this.popup.setHTML(getLoadingContent());
 
         getContent(id, properties).then((content) => {
-            this.popup.setHTML(content);
+            const popupContainerDiv = document.createElement('div');
+            if (this.availableFeaturesOnClick.length > 1) {
+                popupContainerDiv.appendChild(this.renderFeaturesNavigationControls());
+            }
+            const popupContentDiv = document.createElement('div');
+            popupContentDiv.innerHTML = `<div class="popup-content">${content}</div>`;
+            popupContainerDiv.appendChild(popupContentDiv);
+
+            this.popup.setDOMContent(popupContainerDiv);
             this.popup.removeClassName(`${POPUP_CLASSNAME}--loading`);
         });
     }
@@ -268,13 +312,14 @@ export default class MapPOI {
         // - Selected feature is the same as the active feature: This means that I clicked on the feature for which the popup is open.
         if (!hasFeatures || isSelectedFeatureSameAsActiveFeature) {
             this.popup.remove();
+            this.availableFeaturesOnClick = [];
             return;
         }
 
         // FIXME: remove eslint comment.
         // eslint-disable-next-line prefer-destructuring
         this.activeFeature = features[0];
-
+        this.availableFeaturesOnClick = features;
         const { geometry } = this.activeFeature;
 
         if (geometry.type !== 'Point') return;

@@ -212,6 +212,25 @@
         display: none;
     }
 
+    /* --- POPUP NAVIGATION CONTROLS ---  */
+    .map-card :global(.poi-map__popup-navigation-controls) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 12px;
+        font-weight: 400;
+    }
+    .map-card :global(.poi-map__popup-navigation-arrow) {
+        margin: 6px;
+        cursor: pointer;
+        border: none;
+        background: none;
+    }
+    .map-card :global(.poi-map__popup-navigation-arrow:disabled) {
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+
     /* --- CONTROLS --- */
     .map-card :global(.maplibregl-ctrl.maplibregl-ctrl-group) {
         margin-top: 13px;
