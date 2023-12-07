@@ -16,7 +16,12 @@ import {
     POPUP_OPTIONS,
     POPUP_WIDTH,
 } from './constants';
-import type { PopupConfigurationByLayers, CenterZoomOptions, PopupDisplayTypes } from './types';
+import type {
+    PopupConfigurationByLayers,
+    CenterZoomOptions,
+    PopupDisplayTypes,
+    Images,
+} from './types';
 import { POPUP_DISPLAY } from './types';
 
 const CURSOR = {
@@ -392,11 +397,11 @@ export default class MapPOI {
      * Load images into the map.
      * Remove automatically any images previously loaded that are no longer defined in the images object.
      */
-    loadImages(images?: Record<string, string>) {
+    loadImages(images?: Images) {
         if (!images) return;
         this.queue((map) => {
             const loadedImages = map.listImages();
-            const imagesIds = Object.keys(images);
+            const imagesIds = Object.values(images).map(({ id }) => id);
 
             const imagesToRemove = difference(loadedImages, imagesIds);
             const imagesToAdd = difference(imagesIds, loadedImages);
@@ -406,12 +411,13 @@ export default class MapPOI {
             });
 
             imagesToAdd.forEach((imageId) => {
-                map.loadImage(images[imageId], (error, image) => {
+                const { url, options } = images[imageId];
+                map.loadImage(url, (error, image) => {
                     if (error || !image) {
                         // eslint-disable-next-line no-console
                         console.warn(`Fail to load image: ${imageId}`);
                     } else {
-                        map.addImage(imageId, image);
+                        map.addImage(imageId, image, options);
                     }
                 });
             });

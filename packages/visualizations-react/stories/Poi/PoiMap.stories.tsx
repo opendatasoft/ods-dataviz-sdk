@@ -115,6 +115,16 @@ const legend = {
     align: 'start' as const,
 };
 
+const images: PoiMapOptions['images'] = {
+    'battle-icon': {
+        id: 'battle-icon',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Big_battle_symbol.svg/14px-Big_battle_symbol.svg.png',
+    },
+    'battle-icon-red': {
+        id: 'battle-icon-red',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Battle_icon_gladii_red.svg/14px-Battle_icon_gladii_red.svg.png',
+    },
+};
 const options: PoiMapOptions = {
     style: BASE_STYLE,
     bbox,
@@ -122,12 +132,7 @@ const options: PoiMapOptions = {
     subtitle: 'Dolor Sit Amet',
     description: 'More aria description',
     sourceLink: defaultSource,
-    images: {
-        'battle-icon':
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Big_battle_symbol.svg/14px-Big_battle_symbol.svg.png',
-        'battle-icon-red':
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Battle_icon_gladii_red.svg/14px-Battle_icon_gladii_red.svg.png',
-    },
+    images,
 };
 
 const meta: ComponentMeta<typeof PoiMap> = {
