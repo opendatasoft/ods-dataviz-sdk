@@ -6,6 +6,7 @@ import type {
     LngLatLike,
     RequestTransformFunction,
     GestureOptions,
+    StyleImageMetadata,
 } from 'maplibre-gl';
 import type { BBox, GeoJsonProperties } from 'geojson';
 
@@ -18,6 +19,10 @@ export type PoiMapData = Partial<{
     layers: Layer[];
 }>;
 
+export type Images = Record<
+    string,
+    { id: string; url: string; options?: Partial<StyleImageMetadata> }
+>;
 export interface PoiMapOptions {
     /*
      * To render a basemap. Could be:
@@ -54,7 +59,7 @@ export interface PoiMapOptions {
     sourceLink?: Source;
     cooperativeGestures?: boolean | GestureOptions;
     /** Images to load by the Map. keys are image ids  */
-    images?: Record<string, string>;
+    images?: Images;
 }
 
 export type PoiMapStyleOption = Partial<Pick<StyleSpecification, 'sources' | 'layers'>>;
