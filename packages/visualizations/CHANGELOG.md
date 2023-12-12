@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.18.0...@opendatasoft/visualizations@0.18.1) (2023-12-12)
+
+
+### Bug Fixes
+
+* **a11y:** Category legend items are now accessible ([c11c6f0](https://github.com/opendatasoft/ods-dataviz-sdk/commit/c11c6f0ec56309699da34906872d689469bab63d))
+* **POI Map:** New popup display: modal ([9cfd024](https://github.com/opendatasoft/ods-dataviz-sdk/commit/9cfd024dca8b199aaa0dfb86deb5cab41672de5a))
+* **POI Maps:** add pixel ratio option for image ([5a2c299](https://github.com/opendatasoft/ods-dataviz-sdk/commit/5a2c299e6bdb4adf343d0fb8290e082e3a64c00d))
+
+
+
+
+
 # [0.18.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.17.5...@opendatasoft/visualizations@0.18.0) (2023-11-24)
 
 
