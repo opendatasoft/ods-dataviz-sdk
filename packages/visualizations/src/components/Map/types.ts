@@ -1,5 +1,5 @@
 import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
-import type { FillLayerSpecification, Popup, GestureOptions } from 'maplibre-gl';
+import type { FillLayerSpecification, Popup, GestureOptions, LngLatBoundsLike } from 'maplibre-gl';
 import type { DebouncedFunc } from 'lodash';
 import type { LegendPositions } from '../Legend/types';
 import type { ColorScale, Color, Source } from '../types';
@@ -64,6 +64,8 @@ export interface ChoroplethVectorTilesOptions extends ChoroplethOptions {
     shapesTiles: ChoroplethShapeVectorTilesValue;
     /** Only draw shapes that match the given filter */
     filter?: MapFilter;
+    /** Override the default automatic adjustment of bounds from map instance, it is useful in cases where it doesn't work and, in particular, to display the world map without the extreme poles */
+    fixedMaxBounds?: LngLatBoundsLike;
 }
 
 export type NavigationMap = {
