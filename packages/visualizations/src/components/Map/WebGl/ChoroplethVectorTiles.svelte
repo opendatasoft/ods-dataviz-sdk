@@ -1,5 +1,10 @@
 <script lang="ts">
-    import type { SourceSpecification, GestureOptions, ExpressionSpecification } from 'maplibre-gl';
+    import type {
+        SourceSpecification,
+        GestureOptions,
+        ExpressionSpecification,
+        LngLatBoundsLike,
+    } from 'maplibre-gl';
     import type { BBox } from 'geojson';
     import { debounce } from 'lodash';
     import type { ColorScale, DataBounds, Color, Source } from '../../types';
@@ -48,6 +53,7 @@
     // Data source link
     let sourceLink: Source | undefined;
     let cooperativeGestures: boolean | GestureOptions | undefined;
+    let fixedMaxBounds: LngLatBoundsLike | undefined;
 
     // Used to apply a chosen color for shapes without values (default: #cccccc)
     let emptyValueColor: Color;
@@ -75,6 +81,7 @@
         navigationMaps,
         sourceLink,
         cooperativeGestures,
+        fixedMaxBounds,
     } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
@@ -153,6 +160,7 @@
     {data}
     {sourceLink}
     {cooperativeGestures}
+    {fixedMaxBounds}
 />
 
 <style>

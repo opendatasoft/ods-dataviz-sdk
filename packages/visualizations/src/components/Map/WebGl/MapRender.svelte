@@ -69,6 +69,8 @@
     // Data source link
     export let sourceLink: Source | undefined;
     export let cooperativeGestures: boolean | GestureOptions | undefined;
+    // Fixed max bounds that will overide the automatic map.getBounds when setting the bbox
+    export let fixedMaxBounds: LngLatBoundsLike | undefined | null = null;
 
     let clientWidth: number;
     let legendVariant: LegendVariant;
@@ -115,7 +117,7 @@
             padding: 40,
         });
         // Set new map max bounds after bbox changes
-        map.setMaxBounds(map.getBounds());
+        map.setMaxBounds(fixedMaxBounds || map.getBounds());
     };
 
     function initializeMap() {
