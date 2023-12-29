@@ -1,12 +1,9 @@
-name: "Chromatic"
+name: "Visualizations"
 
 on:
   push:
     paths-ignore:
       - "packages/api-client/**"
-  pull_request:
-    types:
-      - ready_for_review
 
 jobs:
   test:
@@ -64,14 +61,14 @@ jobs:
         run: npm run lint
 
   chromatic-deployment:
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node: [">=16 <18"]
 
     needs: [test, lint]
-    if: github.event.pull_request.draft == false
-
+    
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
