@@ -1,6 +1,7 @@
 export { default as Chart, _ChartJs, _ChartDataLabels } from './components/Chart';
 export { default as MarkdownText } from './components/MarkdownText';
 export { default as KpiCard } from './components/KpiCard';
+export { KpiCardImpl } from './components/KpiCard';
 export { ChoroplethGeoJson, ChoroplethVectorTiles } from './components/Map/WebGl';
 export { default as ChoroplethSvg } from './components/Map/Svg';
 export { default as PoiMap } from './components/MapPoi';

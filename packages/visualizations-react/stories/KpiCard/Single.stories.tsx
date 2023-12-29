@@ -9,7 +9,7 @@ const meta: ComponentMeta<typeof KpiCard> = {
         data: {
             value: CONTROLS.number,
         },
-        options: {
+        lolptions: {
             header: CONTROLS.text,
             imgSrc: CONTROLS.image,
             title: CONTROLS.text,
@@ -64,7 +64,7 @@ const meta: ComponentMeta<typeof KpiCard> = {
 
 export default meta;
 
-const Template: ComponentStory<typeof KpiCard> = args => (
+const Template: ComponentStory<typeof KpiCard> = (args) => (
     <div
         style={{
             display: 'flex',
@@ -82,7 +82,7 @@ Default.args = {
         loading: false,
         value: 1000,
     },
-    options: {
+    lolptions: {
         header: 'Header',
         title: 'KPI Card',
         description: 'This is a description',
@@ -103,7 +103,7 @@ FullCustom.args = {
         loading: false,
         value: 12345,
     },
-    options: {
+    lolptions: {
         header: 'Header',
         imgSrc: IMAGES.gov,
         title: 'Title',

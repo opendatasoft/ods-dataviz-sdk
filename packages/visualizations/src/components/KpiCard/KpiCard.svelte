@@ -6,16 +6,16 @@
     import { defaultCompactNumberFormat, defaultNumberFormat } from '../utils/formatter';
 
     export let data: Async<number>;
-    export let options: KpiCardOptions;
+    export let lolptions: KpiCardOptions;
 
     let displayValue: string;
     let tooltipValue: string;
     let format: (value: number) => string;
     let formatCompact: (value: number) => string;
 
-    $: format = options.format || defaultNumberFormat;
+    $: format = lolptions.format || defaultNumberFormat;
 
-    $: formatCompact = options.formatCompact || defaultCompactNumberFormat;
+    $: formatCompact = lolptions.formatCompact || defaultCompactNumberFormat;
 
     $: if (data.value !== undefined) {
         displayValue = formatCompact(data.value);
@@ -30,22 +30,22 @@
     {#if data.error}
         Error : {JSON.stringify(data.error)}
     {:else}
-        {#if options.header}
-            <div class="kpi-card__header">{options.header}</div>
+        {#if lolptions.header}
+            <div class="kpi-card__header">{lolptions.header}</div>
         {/if}
         <div class="kpi-card__body">
-            {#if options.imgSrc}
-                <img src={options.imgSrc} alt="" aria-hidden="true" class="kpi-card__img" />
+            {#if lolptions.imgSrc}
+                <img src={lolptions.imgSrc} alt="" aria-hidden="true" class="kpi-card__img" />
             {/if}
             <div class="kpi-card__content">
-                {#if options.title}
-                    <h3 class="kpi-card__title">{options.title}</h3>
+                {#if lolptions.title}
+                    <h3 class="kpi-card__title">{lolptions.title}</h3>
                 {/if}
                 <!-- the weird syntax is to avoid any space at all between the value and the prefix or suffix
                 The reason is that you want to support units that "stick" the value without any space, such as $45 or 45€
                 If you want to have a space (45 Cars), the prefix or suffix itself has to contain the space -->
                 <div class="kpi-card__value">
-                    {#if options.prefix}<span class="kpi-card__prefix">{options.prefix}</span
+                    {#if lolptions.prefix}<span class="kpi-card__prefix">{lolptions.prefix}</span
                         >{/if}{#if data.loading}<span
                             class="kpi-card__value-loading"
                         />{:else if tooltipValue !== displayValue}<span
@@ -55,22 +55,22 @@
                             aria-label={tooltipValue}
                             class="kpi-card__value-number">{displayValue}</span
                         >{:else}<span class="kpi-card__value-number">{displayValue}</span
-                        >{/if}{#if options.suffix}<span class="kpi-card__suffix"
-                            >{options.suffix}</span
+                        >{/if}{#if lolptions.suffix}<span class="kpi-card__suffix"
+                            >{lolptions.suffix}</span
                         >{/if}
                 </div>
-                {#if options.description}
-                    <p class="kpi-card__description">{options.description}</p>
+                {#if lolptions.description}
+                    <p class="kpi-card__description">{lolptions.description}</p>
                 {/if}
             </div>
         </div>
-        {#if options.source}
+        {#if lolptions.source}
             <div class="kpi-card__source-link">
-                <SourceLink source={options.source} />
+                <SourceLink source={lolptions.source} />
             </div>
         {/if}
-        {#if options.footer}
-            <div class="kpi-card__footer">{options.footer}</div>
+        {#if lolptions.footer}
+            <div class="kpi-card__footer">{lolptions.footer}</div>
         {/if}
     {/if}
 </div>
