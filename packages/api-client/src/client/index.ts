@@ -26,6 +26,7 @@ export interface ApiClientOptions {
     domain?: string;
     apiKey?: string;
     fetch?: WindowOrWorkerGlobalScope['fetch'];
+    headers?: HeadersInit;
     interceptRequest?: RequestInterceptor;
     interceptResponse?: ResponseInterceptor;
     hideDeprecatedWarning?: boolean;
@@ -35,6 +36,7 @@ export interface ApiClientConfiguration {
     baseUrl: string;
     apiKey?: string;
     fetch: WindowOrWorkerGlobalScope['fetch'];
+    headers?: Headers;
     interceptRequest?: RequestInterceptor;
     interceptResponse?: ResponseInterceptor;
     hideDeprecatedWarning?: boolean;
@@ -63,16 +65,22 @@ function buildConfig(
         return defaultConfig;
     }
 
-    // FIXME: Rules conflict between prettier and eslint
-    // eslint-disable-next-line object-curly-newline
-    const { domain, fetch, apiKey, interceptRequest, interceptResponse, hideDeprecatedWarning } =
-        apiClientOptions;
+    const {
+        domain,
+        fetch,
+        apiKey,
+        headers,
+        interceptRequest,
+        interceptResponse,
+        hideDeprecatedWarning,
+    } = apiClientOptions;
 
     const newConfig: Partial<ApiClientConfiguration> = {};
 
     if (domain) newConfig.baseUrl = computeBaseUrl(domain);
     if (apiKey) newConfig.apiKey = apiKey;
     if (fetch) newConfig.fetch = fetch;
+    if (headers) newConfig.headers = new Headers(headers);
     if (interceptRequest) newConfig.interceptRequest = interceptRequest;
     if (interceptResponse) newConfig.interceptResponse = interceptResponse;
     newConfig.hideDeprecatedWarning = Boolean(hideDeprecatedWarning);
@@ -118,7 +126,7 @@ export class ApiClient {
         url.searchParams.sort(); // Url stability is HTTP cache friendly
 
         // Build the Headers
-        const headers = new Headers();
+        const headers = config.headers || new Headers();
         headers.append('Accept', 'application/json');
         if (config.apiKey) {
             headers.append('Authorization', `${API_KEY_AUTH_TYPE} ${config.apiKey}`);

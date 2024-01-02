@@ -49,6 +49,33 @@ describe('Api client', () => {
         expect(fetch).toHaveBeenCalledTimes(1);
     });
 
+    it('should add HTTP headers', async () => {
+        const apiResponse = { any: 'any' };
+        fetchMock.once(async (req) => {
+            expect(req.headers.get('headerKey')).toEqual('headerValue');
+            return JSON.stringify(apiResponse);
+        });
+        const headers = { headerKey: 'headerValue' };
+        const client = new ApiClient({ headers });
+        const response = await client.get(fromCatalog().itself());
+        expect(response).toEqual(apiResponse);
+        expect(fetch).toHaveBeenCalledTimes(1);
+    });
+
+    it('should add the api key with HTTP headers', async () => {
+        const apiResponse = { any: 'any' };
+        fetchMock.once(async (req) => {
+            expect(req.headers.get('headerKey')).toEqual('headerValue');
+            expect(req.headers.get('Authorization')).toEqual('ApiKey 1234');
+            return JSON.stringify(apiResponse);
+        });
+        const headers = { headerKey: 'headerValue' };
+        const client = new ApiClient({ headers, apiKey: '1234' });
+        const response = await client.get(fromCatalog().itself());
+        expect(response).toEqual(apiResponse);
+        expect(fetch).toHaveBeenCalledTimes(1);
+    });
+
     it('works with the query builder', async () => {
         const apiResponse = { any: 'any' };
         fetchMock.once(async (req) => {
