@@ -62,9 +62,6 @@ export default class MapPOI {
     /** The base style of the map */
     private baseStyle: StyleSpecification | null = null;
 
-    /** Array of layer IDs that are not from the base style of the map */
-    private layerIds: string[] = [];
-
     /** A navigation control for the map. */
     private navigationControl = new maplibregl.NavigationControl({ showCompass: false });
 
@@ -119,11 +116,10 @@ export default class MapPOI {
     private onMouseMove({ point }: MapMouseEvent) {
         this.queue((map) => {
             const canvas = map.getCanvas();
-            const features = map.queryRenderedFeatures(point, { layers: this.layerIds });
-            const isMovingOverFeatureWithPopup =
-                features.length &&
-                features.some((feature) => feature.layer.id in this.popupConfigurationByLayers);
-            canvas.style.cursor = isMovingOverFeatureWithPopup ? CURSOR.HOVER : CURSOR.DEFAULT;
+            const features = map.queryRenderedFeatures(point, {
+                layers: Object.keys(this.popupConfigurationByLayers),
+            });
+            canvas.style.cursor = features.length ? CURSOR.HOVER : CURSOR.DEFAULT;
         });
     }
 
@@ -292,9 +288,11 @@ export default class MapPOI {
     private handlePopupAfterMapClick(map: maplibregl.Map, point: MapMouseEvent['point']) {
         /*
          * Get features closed to the click area.
-         * We ask for features that are not in base style layers
+         * We ask for features that are not in base style layers and for which a popup config is defined.
          */
-        const features = map.queryRenderedFeatures(point, { layers: this.layerIds });
+        const features = map.queryRenderedFeatures(point, {
+            layers: Object.keys(this.popupConfigurationByLayers),
+        });
 
         // Removing feature state for the obsolete active feature.
         updateFeatureState(map, this.activeFeature, POPUP_FEATURE_STATE_KEY, false);
@@ -420,7 +418,6 @@ export default class MapPOI {
                     layers: [...this.baseStyle.layers, ...layers],
                 });
             }
-            this.layerIds = layers.map(({ id }) => id);
         });
     }
 
