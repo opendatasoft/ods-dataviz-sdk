@@ -12,10 +12,14 @@ import maplibregl, {
 
 import {
     CONTROL_POSITION,
-    POPUP_CLASSNAME,
+    POPUP_CONTENT,
+    POPUP_LOADING_CONTENT,
     POPUP_DISPLAY_CLASSNAME_MODIFIER,
     POPUP_NAVIGATION_CONTROLS_CLASSNAME,
-    POPUP_NAVIGATION_ARROW_CLASSNAME,
+    POPUP_NAVIGATION_ARROW_BUTTON_CLASSNAME,
+    POPUP_NAVIGATION_ARROW_BUTTON_ICON_CLASSNAME,
+    POPUP_NAVIGATION_CLOSE_BUTTON_CLASSNAME,
+    POPUP_NAVIGATION_CLOSE_BUTTON_ICON_CLASSNAME,
     POPUP_OPTIONS,
     POPUP_WIDTH,
 } from './constants';
@@ -39,16 +43,6 @@ type MapFunction = (map: maplibregl.Map) => unknown;
 
 type ActiveFeatureType = MapGeoJSONFeature | null;
 
-function updateFeatureState(
-    map: maplibregl.Map,
-    feature: ActiveFeatureType,
-    stateKey: string,
-    stateValue: unknown
-) {
-    if (!feature) return;
-    const { id, source, sourceLayer } = feature;
-    map.setFeatureState({ id, source, sourceLayer }, { [stateKey]: stateValue });
-}
 export default class MapPOI {
     /** The Map object representing the maplibregl.Map instance. */
     private map: maplibregl.Map | null = null;
@@ -96,6 +90,14 @@ export default class MapPOI {
     private enqueue(map: maplibregl.Map) {
         this.queuedFunctions.forEach((fn) => fn(map));
         this.queuedFunctions = [];
+    }
+
+    private updateFeatureState(feature: ActiveFeatureType, stateKey: string, stateValue: unknown) {
+        if (!feature) return;
+        const { id, source, sourceLayer } = feature;
+        this.queue((map) => {
+            map.setFeatureState({ id, source, sourceLayer }, { [stateKey]: stateValue });
+        });
     }
 
     /** Initialize a resize observer to always fit the map to its container */
@@ -174,33 +176,50 @@ export default class MapPOI {
     }
 
     private navigateToFeature(direction: number) {
+        this.updateFeatureState(this.activeFeature, POPUP_FEATURE_STATE_KEY, false);
         const activeFeatureIndex = this.availableFeaturesOnClick.indexOf(this.activeFeature);
         this.activeFeature = this.availableFeaturesOnClick[activeFeatureIndex + direction];
         this.updatePopupContent();
+        this.updatePopupDisplay();
+        if (this.activeFeature?.geometry.type === 'Point') {
+            this.popup.setLngLat(this.activeFeature?.geometry.coordinates as LngLatLike);
+        }
+        this.updateFeatureState(this.activeFeature, POPUP_FEATURE_STATE_KEY, true);
     }
 
     private renderFeaturesNavigationControls() {
         const popupNavigationDiv = document.createElement('div');
         const availableFeaturesTotal = this.availableFeaturesOnClick.length;
-        const activeFeatureHumanIndex =
-            this.availableFeaturesOnClick.indexOf(this.activeFeature) + 1;
+        let arrows = '';
+        if (availableFeaturesTotal > 1) {
+            const activeFeatureHumanIndex =
+                this.availableFeaturesOnClick.indexOf(this.activeFeature) + 1;
+            arrows = `<button class="${POPUP_NAVIGATION_ARROW_BUTTON_CLASSNAME}" id="prevButton" ${
+                activeFeatureHumanIndex === 1 ? 'disabled' : ''
+            }><span class="${POPUP_NAVIGATION_ARROW_BUTTON_ICON_CLASSNAME}"></span></button>
+                        <div class="feature-count">${activeFeatureHumanIndex} / ${availableFeaturesTotal}</div>
+                        <button class="${POPUP_NAVIGATION_ARROW_BUTTON_CLASSNAME}" id="nextButton" ${
+                activeFeatureHumanIndex === availableFeaturesTotal ? 'disabled' : ''
+            }><span class="${POPUP_NAVIGATION_ARROW_BUTTON_ICON_CLASSNAME}"></span></button>`;
+        }
+
         popupNavigationDiv.innerHTML = `
-                <div class="${POPUP_NAVIGATION_CONTROLS_CLASSNAME}">
-                    <button class="${POPUP_NAVIGATION_ARROW_CLASSNAME}" id="prevButton" ${
-            activeFeatureHumanIndex === 1 ? 'disabled' : ''
-        }><</button>
-                    <div class="feature-count">${activeFeatureHumanIndex} / ${availableFeaturesTotal}</div>
-                    <button class="${POPUP_NAVIGATION_ARROW_CLASSNAME}" id="nextButton" ${
-            activeFeatureHumanIndex === availableFeaturesTotal ? 'disabled' : ''
-        }>></button>
-                </div>
-            `;
+            <div class="${POPUP_NAVIGATION_CONTROLS_CLASSNAME}">
+                ${arrows} 
+                <button class="${POPUP_NAVIGATION_CLOSE_BUTTON_CLASSNAME}"><span class="${POPUP_NAVIGATION_CLOSE_BUTTON_ICON_CLASSNAME}"></span></button>
+            </div>
+        `;
 
         const prevButton = popupNavigationDiv.querySelector('#prevButton');
         prevButton?.addEventListener('click', () => this.navigateToFeature(-1));
 
         const nextButton = popupNavigationDiv.querySelector('#nextButton');
         nextButton?.addEventListener('click', () => this.navigateToFeature(1));
+
+        const closeButton = popupNavigationDiv.querySelector(
+            `.${POPUP_NAVIGATION_CLOSE_BUTTON_CLASSNAME}`
+        );
+        closeButton?.addEventListener('click', () => this.popup.remove());
         return popupNavigationDiv;
     }
 
@@ -216,20 +235,17 @@ export default class MapPOI {
         if (!popupLayerConfiguration) return;
         const { getLoadingContent, getContent } = popupLayerConfiguration;
 
-        this.popup.addClassName(`${POPUP_CLASSNAME}--loading`);
-        this.popup.setHTML(getLoadingContent());
+        this.popup.setHTML(`<div class="${POPUP_LOADING_CONTENT}">${getLoadingContent()}</div>`);
 
         getContent(id, properties).then((content) => {
             const popupContainerDiv = document.createElement('div');
-            if (this.availableFeaturesOnClick.length > 1) {
-                popupContainerDiv.appendChild(this.renderFeaturesNavigationControls());
-            }
+            const controlsDiv = this.renderFeaturesNavigationControls();
+
             const popupContentDiv = document.createElement('div');
-            popupContentDiv.innerHTML = `<div class="popup-content">${content}</div>`;
-            popupContainerDiv.appendChild(popupContentDiv);
+            popupContentDiv.innerHTML = `<div class="${POPUP_CONTENT}">${content}</div>`;
+            popupContainerDiv.append(controlsDiv, popupContentDiv);
 
             this.popup.setDOMContent(popupContainerDiv);
-            this.popup.removeClassName(`${POPUP_CLASSNAME}--loading`);
         });
     }
 
@@ -295,7 +311,7 @@ export default class MapPOI {
         });
 
         // Removing feature state for the obsolete active feature.
-        updateFeatureState(map, this.activeFeature, POPUP_FEATURE_STATE_KEY, false);
+        this.updateFeatureState(this.activeFeature, POPUP_FEATURE_STATE_KEY, false);
         const hasFeatures = !!features.length;
         // Current rule: use the first feature to build the popup.
         // TO DO: Create a menu to display a list of feature to choose from.
@@ -328,7 +344,7 @@ export default class MapPOI {
 
         this.updatePopupContent();
         this.updatePopupDisplay();
-        updateFeatureState(map, this.activeFeature, POPUP_FEATURE_STATE_KEY, true);
+        this.updateFeatureState(this.activeFeature, POPUP_FEATURE_STATE_KEY, true);
     }
 
     /**
@@ -465,7 +481,7 @@ export default class MapPOI {
      * to reflect the new configuration.
      * @param config Popups configuration
      */
-    setpopupConfigurationByLayers(config: PopupConfigurationByLayers) {
+    setPopupConfigurationByLayers(config: PopupConfigurationByLayers) {
         this.popupConfigurationByLayers = config;
         this.updatePopupContent();
         this.updatePopupDisplay();
@@ -533,9 +549,7 @@ export default class MapPOI {
 
     constructor() {
         this.popup.on('close', () => {
-            this.queue((map) => {
-                updateFeatureState(map, this.activeFeature, POPUP_FEATURE_STATE_KEY, false);
-            });
+            this.updateFeatureState(this.activeFeature, POPUP_FEATURE_STATE_KEY, false);
             this.onPopupDisplayUpdate(this.activePopupDisplay, null);
             this.activePopupDisplay = null;
             this.activeFeature = null;

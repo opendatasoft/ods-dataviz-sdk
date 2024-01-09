@@ -15,12 +15,24 @@ const sources : PoiMapData["sources"] = {
                         coordinates: [2.357573,48.837904],
                     },
                     properties: {
+                        key: 'Paris--duplicate',
+                        description: 'Same location as Paris'
+                    },
+                },
+                {
+                    id: 2,
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [2.357573,48.837904],
+                    },
+                    properties: {
                         key: 'Paris',
                         description: 'Officia deserunt commodo enim ea ad veniam enim consectetur aliquip adipisicing duis. Exercitation aute velit pariatur est et ea qui veniam ad duis quis ad aliquip. Ipsum exercitation dolor tempor deserunt sunt amet laborum tempor excepteur est sunt ea quis.'
                     },
                 },
                 {
-                    id: 2,
+                    id: 3,
                     type: 'Feature',
                     geometry: {
                         type: 'Point',
@@ -32,7 +44,7 @@ const sources : PoiMapData["sources"] = {
                     },
                 },
                 {
-                    id: 3,
+                    id: 4,
                     type: 'Feature',
                     geometry: {
                         type: 'Point',
@@ -44,7 +56,7 @@ const sources : PoiMapData["sources"] = {
                     },
                 },
                 {
-                    id: 4,
+                    id: 5,
                     type: 'Feature',
                     geometry: {
                         type: 'Point',

@@ -59,7 +59,7 @@
     $: map.setMinZoom(minZoom);
     $: map.setMaxZoom(maxZoom);
     $: map.setSourcesAndLayers(sources, layers);
-    $: map.setpopupConfigurationByLayers(popupConfigurationByLayers);
+    $: map.setPopupConfigurationByLayers(popupConfigurationByLayers);
     $: map.jumpTo(getCenterZoomOptions({ zoom, center }));
     $: map.loadImages(images);
     $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
@@ -177,13 +177,17 @@
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
-        padding: 13px;
+        padding: 0px;
         border-radius: 6px;
         max-height: 100%;
         overflow-y: auto;
         overflow-x: hidden;
         box-sizing: border-box;
         box-shadow: 0 6px 13px 0 rgba(0, 0, 0, 0.26);
+    }
+    .map-card :global(.poi-map__popup .poi-map__popup-content),
+    .map-card :global(.poi-map__popup .poi-map__popup-content--loading) {
+        margin: 13px;
     }
     /* Add a more opacity and blur effect on map when cooperative gesture is shown */
     .map-card :global(.maplibregl-cooperative-gesture-screen) {
@@ -192,43 +196,94 @@
     }
 
     /* --- POPUP CLOSE BUTTON ---  */
-    .map-card :global(.maplibregl-popup-close-button) {
-        font-size: 16px;
-        padding: 0;
-        width: 24px;
-        height: 24px;
-        margin-bottom: 13px;
-        position: relative;
-        order: -1;
-        flex-shrink: 0;
-        left: calc(100% - 26px);
-    }
-    .map-card :global(.maplibregl-popup-close-button:hover) {
-        background-color: transparent;
-    }
-    /* Hide close button when content is loading or when its display is as a tooltip */
-    .map-card :global(.poi-map__popup--loading .maplibregl-popup-close-button),
-    .map-card :global(.poi-map__popup--as-tooltip .maplibregl-popup-close-button) {
+    /* Hide close button when its display is as a tooltip */
+    .map-card :global(.poi-map__popup--as-tooltip .poi-map__popup-navigation-close-button) {
         display: none;
     }
 
     /* --- POPUP NAVIGATION CONTROLS ---  */
     .map-card :global(.poi-map__popup-navigation-controls) {
+        position: relative;
         display: flex;
+        gap: 6px;
         justify-content: center;
         align-items: center;
-        margin-bottom: 12px;
-        font-weight: 400;
+        margin: 6px 6px 0px 6px;
     }
-    .map-card :global(.poi-map__popup-navigation-arrow) {
-        margin: 6px;
+    .map-card :global(.poi-map__popup-navigation-arrow-button) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0px;
+        width: 36px;
+        height: 36px;
+        background: none;
+        border: none;
         cursor: pointer;
+    }
+    .map-card :global(.poi-map__popup-navigation-arrow-button:disabled) {
+        cursor: not-allowed;
+    }
+    .map-card :global(.poi-map__popup-navigation-arrow-button-icon) {
+        width: 6px;
+        height: 6px;
+        border-top: 2px solid;
+        border-left: 2px solid;
+    }
+    .map-card
+        :global(#prevButton.poi-map__popup-navigation-arrow-button
+            .poi-map__popup-navigation-arrow-button-icon) {
+        transform: rotate(-45deg);
+    }
+    .map-card
+        :global(#nextButton.poi-map__popup-navigation-arrow-button
+            .poi-map__popup-navigation-arrow-button-icon) {
+        transform: rotate(135deg);
+    }
+
+    .map-card
+        :global(.poi-map__popup-navigation-arrow-button:disabled
+            .poi-map__popup-navigation-arrow-button-icon) {
+        opacity: 0.5;
+    }
+
+    .map-card :global(.poi-map__popup-navigation-close-button) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        padding: 0px;
         border: none;
         background: none;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
     }
-    .map-card :global(.poi-map__popup-navigation-arrow:disabled) {
-        cursor: not-allowed;
-        opacity: 0.5;
+    .map-card :global(.poi-map__popup-navigation-close-button-icon) {
+        position: relative;
+        display: block;
+        width: 14px;
+        height: 14px;
+    }
+
+    .map-card :global(.poi-map__popup-navigation-close-button-icon:before),
+    .map-card :global(.poi-map__popup-navigation-close-button-icon:after) {
+        position: absolute;
+        left: 6px;
+        content: '';
+        height: 100%;
+        width: 2px;
+        border-radius: 2px;
+        background-color: #333;
+    }
+    .map-card :global(.poi-map__popup-navigation-close-button-icon:before) {
+        transform: rotate(45deg);
+    }
+    .map-card :global(.poi-map__popup-navigation-close-button-icon:after) {
+        transform: rotate(-45deg);
     }
 
     /* --- CONTROLS --- */
