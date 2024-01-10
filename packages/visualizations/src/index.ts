@@ -5,6 +5,7 @@ export { ChoroplethGeoJson, ChoroplethVectorTiles } from './components/Map/WebGl
 export { default as ChoroplethSvg } from './components/Map/Svg';
 export { default as PoiMap } from './components/MapPoi';
 // testing again
+const a = 0;
 export * from './types';
 export * from './components/types';
 export * from './components/Chart/types';
