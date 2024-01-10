@@ -27,7 +27,8 @@ jobs:
         working-directory: ./packages/api-client
       
       - name: test
-        run: cd packages/api-client/ && npm run test
+        run: npm run test
+        working-directory: ./packages/api-client
 
       - name: Coverage
         run: npm run test:coverage
