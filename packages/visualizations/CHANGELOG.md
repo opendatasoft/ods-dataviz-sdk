@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.19.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.18.1...@opendatasoft/visualizations@0.19.0) (2024-01-10)
+
+
+### Features
+
+* add fixed max bounds props ([f304ad2](https://github.com/opendatasoft/ods-dataviz-sdk/commit/f304ad2ac6fd0661fee2ab73ba83925751a6bc04))
+
+
+
+
+
 ## [0.18.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.18.0...@opendatasoft/visualizations@0.18.1) (2023-12-12)
 
 

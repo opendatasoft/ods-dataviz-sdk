@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [21.2.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.1.2...@opendatasoft/api-client@21.2.0) (2024-01-10)
+
+
+### Features
+
+* **api-client:** Add new api client option: headers ([985f883](https://github.com/opendatasoft/ods-dataviz-sdk/commit/985f8839ccb857b60f35bdc1187558cb018a2a95))
+
+
+
+
+
 ## [21.1.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.1.1...@opendatasoft/api-client@21.1.2) (2023-10-12)
 
 
