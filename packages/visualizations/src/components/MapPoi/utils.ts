@@ -194,7 +194,7 @@ export const getMapOptions = (options: PoiMapOptions) => {
 /**
  * Generates a valid CenterZoomOptions object by combining optional zoom and center properties.
  *
- * @param {CenterZoomOptions} options - An object with optional zoom and center properties.
+ * @param options - An object with optional zoom and center properties.
  * @returns A CenterZoomOptions object with valid zoom and center properties is defined.
  */
 export const getCenterZoomOptions: (options: CenterZoomOptions) => CenterZoomOptions = ({
