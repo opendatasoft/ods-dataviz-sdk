@@ -1,4 +1,4 @@
-name: "Visualizations"
+name: "Visualizations - test & lint"
 
 on:
   pull_request:
