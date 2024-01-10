@@ -8,6 +8,8 @@ import maplibregl, {
     MapMouseEvent,
     MapOptions,
     StyleSpecification,
+    CircleLayerSpecification,
+    SymbolLayerSpecification,
 } from 'maplibre-gl';
 
 import {
@@ -37,7 +39,26 @@ const CURSOR = {
     DRAG: 'move',
 };
 
-const POPUP_FEATURE_STATE_KEY = 'popup-feature';
+const ACTIVE_FEATURE_RATIO_SIZE = 1.3;
+
+/** Sorts features in a layer by setting a sort key for a specific feature. */
+const sortLayerFeatures = (
+    map: maplibregl.Map,
+    layer: MapGeoJSONFeature['layer'],
+    feature: MapGeoJSONFeature
+) => {
+    map.setLayoutProperty(layer.id, `${layer.type}-sort-key`, [
+        'case',
+        ['==', ['id'], feature.id],
+        1,
+        0,
+    ]);
+};
+
+/** Restores the original sorting order of features in a layer */
+const unsortLayerFeatures = (map: maplibregl.Map, layer: MapGeoJSONFeature['layer']) => {
+    map.setLayoutProperty(layer.id, `${layer.type}-sort-key`, 0);
+};
 
 type MapFunction = (map: maplibregl.Map) => unknown;
 
@@ -92,11 +113,66 @@ export default class MapPOI {
         this.queuedFunctions = [];
     }
 
-    private updateFeatureState(feature: ActiveFeatureType, stateKey: string, stateValue: unknown) {
+    /** Make active feature bigger and sort it on top of other features in the layer */
+    private highlightFeature(feature: ActiveFeatureType) {
         if (!feature) return;
-        const { id, source, sourceLayer } = feature;
+        const { layer } = feature;
         this.queue((map) => {
-            map.setFeatureState({ id, source, sourceLayer }, { [stateKey]: stateValue });
+            sortLayerFeatures(map, layer, feature);
+            switch (layer.type) {
+                case 'symbol':
+                    // eslint-disable-next-line no-case-declarations
+                    const iconSize = ((layer as SymbolLayerSpecification).layout?.['icon-size'] ||
+                        1) as number;
+                    map.setLayoutProperty(layer.id, 'icon-size', [
+                        'case',
+                        ['==', ['id'], feature.id],
+                        iconSize * ACTIVE_FEATURE_RATIO_SIZE,
+                        iconSize,
+                    ]);
+                    break;
+                case 'circle':
+                    // eslint-disable-next-line no-case-declarations
+                    const circleRadius = (layer as CircleLayerSpecification).paint?.[
+                        'circle-radius'
+                    ] as number;
+                    map.setPaintProperty(layer.id, 'circle-radius', [
+                        'case',
+                        ['==', ['id'], feature.id],
+                        circleRadius * ACTIVE_FEATURE_RATIO_SIZE,
+                        circleRadius,
+                    ]);
+                    break;
+                default:
+                    break;
+            }
+        });
+    }
+
+    /** Reset active feature highlight state */
+    private unhighlightFeature(feature: ActiveFeatureType) {
+        if (!feature) return;
+        const { layer } = feature;
+        this.queue((map) => {
+            unsortLayerFeatures(map, layer);
+            switch (layer.type) {
+                case 'symbol':
+                    map.setLayoutProperty(
+                        layer.id,
+                        'icon-size',
+                        (layer as SymbolLayerSpecification).layout?.['icon-size'] || 1
+                    );
+                    break;
+                case 'circle':
+                    map.setPaintProperty(
+                        layer.id,
+                        'circle-radius',
+                        (layer as CircleLayerSpecification).paint?.['circle-radius']
+                    );
+                    break;
+                default:
+                    break;
+            }
         });
     }
 
@@ -176,7 +252,7 @@ export default class MapPOI {
     }
 
     private navigateToFeature(direction: number) {
-        this.updateFeatureState(this.activeFeature, POPUP_FEATURE_STATE_KEY, false);
+        this.unhighlightFeature(this.activeFeature);
         const activeFeatureIndex = this.availableFeaturesOnClick.indexOf(this.activeFeature);
         this.activeFeature = this.availableFeaturesOnClick[activeFeatureIndex + direction];
         this.updatePopupContent();
@@ -184,7 +260,7 @@ export default class MapPOI {
         if (this.activeFeature?.geometry.type === 'Point') {
             this.popup.setLngLat(this.activeFeature?.geometry.coordinates as LngLatLike);
         }
-        this.updateFeatureState(this.activeFeature, POPUP_FEATURE_STATE_KEY, true);
+        this.highlightFeature(this.activeFeature);
     }
 
     private renderFeaturesNavigationControls() {
@@ -311,7 +387,7 @@ export default class MapPOI {
         });
 
         // Removing feature state for the obsolete active feature.
-        this.updateFeatureState(this.activeFeature, POPUP_FEATURE_STATE_KEY, false);
+        this.unhighlightFeature(this.activeFeature);
         const hasFeatures = !!features.length;
         // Current rule: use the first feature to build the popup.
         // TO DO: Create a menu to display a list of feature to choose from.
@@ -344,7 +420,7 @@ export default class MapPOI {
 
         this.updatePopupContent();
         this.updatePopupDisplay();
-        this.updateFeatureState(this.activeFeature, POPUP_FEATURE_STATE_KEY, true);
+        this.highlightFeature(this.activeFeature);
     }
 
     /**
@@ -549,7 +625,7 @@ export default class MapPOI {
 
     constructor() {
         this.popup.on('close', () => {
-            this.updateFeatureState(this.activeFeature, POPUP_FEATURE_STATE_KEY, false);
+            this.unhighlightFeature(this.activeFeature);
             this.onPopupDisplayUpdate(this.activePopupDisplay, null);
             this.activePopupDisplay = null;
             this.activeFeature = null;

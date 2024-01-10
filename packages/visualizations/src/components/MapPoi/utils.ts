@@ -89,12 +89,7 @@ const getMapCircleLayer = (layer: CircleLayer): CircleLayerSpecification => {
         ...getBaseMapLayerConfiguration(layer),
         type,
         paint: {
-            'circle-radius': [
-                'case',
-                ['boolean', ['feature-state', 'popup-feature'], false],
-                circleRadius * 1.3,
-                circleRadius,
-            ],
+            'circle-radius': circleRadius,
             ...(circleBorderColor && { 'circle-stroke-width': circleStrokeWidth }),
             'circle-color': circleColor,
             ...(circleBorderColor && { 'circle-stroke-color': circleBorderColor }),
@@ -124,6 +119,7 @@ const getMapSymbolLayer = (layer: SymbolLayer): SymbolLayerSpecification => {
         ...getBaseMapLayerConfiguration(layer),
         type,
         layout: {
+            'icon-size': 1,
             'icon-allow-overlap': true,
             'icon-image': iconImage,
         },
