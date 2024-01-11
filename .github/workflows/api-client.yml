@@ -1,6 +1,6 @@
 name: api-client coverage
 on:
-  pull_request:
+  push:
     paths:
     - 'packages/api-client/**'
 jobs:
@@ -25,13 +25,17 @@ jobs:
       - name: Install
         run: npm ci
         working-directory: ./packages/api-client
+      
+      - name: test
+        run: npm run test
+        working-directory: ./packages/api-client
 
       - name: Coverage
         run: npm run test:coverage
         working-directory: ./packages/api-client
 
       - name: Comment
-        uses: romeovs/lcov-reporter-action@v0.2.16
+        uses: romeovs/lcov-reporter-action@v0.2.19
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           lcov-file: ./packages/api-client/coverage/lcov.info
