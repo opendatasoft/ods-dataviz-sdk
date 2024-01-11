@@ -27,6 +27,7 @@
     export let options: ChartOptions;
 
     const chartId = `chart-${generateId()}`;
+    console.log('chartId', chartId)
 
     let chart: Chart;
     let clientWidth: number;
