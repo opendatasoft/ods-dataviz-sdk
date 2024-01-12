@@ -164,11 +164,22 @@ export default class MapPOI {
                     );
                     break;
                 case 'circle':
-                    map.setPaintProperty(
-                        layer.id,
-                        'circle-radius',
-                        (layer as CircleLayerSpecification).paint?.['circle-radius']
-                    );
+                    // eslint-disable-next-line no-case-declarations
+                    const circleRadius = (layer as CircleLayerSpecification).paint?.[
+                        'circle-radius'
+                    ];
+                    /*
+                     * FIXME: As of Maplibre 2.2.1, resetting 'circle-radius' with a numeric value alone is not sufficient.
+                     * An expression with a case statement based on the feature ID is still required.
+                     * Without this, the feature's clickability is compromised, as the hitbox becomes minimal,
+                     * failing to reflect the expected behavior of the circleRadius property.
+                     */
+                    map.setPaintProperty(layer.id, 'circle-radius', [
+                        'case',
+                        ['==', ['id'], ''],
+                        circleRadius,
+                        circleRadius,
+                    ]);
                     break;
                 default:
                     break;
