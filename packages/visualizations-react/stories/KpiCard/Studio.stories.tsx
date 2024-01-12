@@ -1,7 +1,9 @@
 import React, { CSSProperties } from 'react';
 import { Async, KpiCardOptions } from '@opendatasoft/visualizations';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { KpiCard, Props } from '../../src';
+import { KpiCard } from 'src';
+import { Props } from 'reactify';
+;
 import {
     IMAGES,
     defaultSource,

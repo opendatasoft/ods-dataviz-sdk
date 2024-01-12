@@ -1,6 +1,8 @@
 import React, { CSSProperties } from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { KpiCard } from '../../src';
+import { KpiCardOptions } from '@opendatasoft/visualizations';
+import { KpiCard } from 'src';
+import { Props } from 'reactify';
 import { COLORS, CONTROLS, IMAGES, defaultSource } from '../utils';
 
 const meta: ComponentMeta<typeof KpiCard> = {
@@ -9,7 +11,7 @@ const meta: ComponentMeta<typeof KpiCard> = {
         data: {
             value: CONTROLS.number,
         },
-        lolptions: {
+        options: {
             header: CONTROLS.text,
             imgSrc: CONTROLS.image,
             title: CONTROLS.text,
@@ -64,25 +66,34 @@ const meta: ComponentMeta<typeof KpiCard> = {
 
 export default meta;
 
-const Template: ComponentStory<typeof KpiCard> = (args) => (
+const WrappedKpi = ({
+    style,
+    ...kpiProps
+}: {
+    style: CSSProperties;
+} & Props<number, KpiCardOptions>) => (
     <div
         style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             height: '80vh',
+            ...style,
         }}
     >
-        <KpiCard {...args} />
+        <KpiCard {...kpiProps} />
     </div>
 );
+// eslint-disable-next-line arrow-parens
+const Template: ComponentStory<typeof WrappedKpi> = (args) => <WrappedKpi {...args} />;
+
 export const Default = Template.bind({});
 Default.args = {
     data: {
         loading: false,
         value: 1000,
     },
-    lolptions: {
+    options: {
         header: 'Header',
         title: 'KPI Card',
         description: 'This is a description',
@@ -103,7 +114,7 @@ FullCustom.args = {
         loading: false,
         value: 12345,
     },
-    lolptions: {
+    options: {
         header: 'Header',
         imgSrc: IMAGES.gov,
         title: 'Title',

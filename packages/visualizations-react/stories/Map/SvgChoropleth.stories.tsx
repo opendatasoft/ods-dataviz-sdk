@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { ChoroplethGeoJsonOptions, ColorScale, ColorScaleTypes } from '@opendatasoft/visualizations';
-import { ChoroplethSvg } from '../../src';
+import { ChoroplethSvg } from 'src';
 import { shapes } from './data';
 
 const scales: { [key: string]: ColorScale | undefined } = {

@@ -1,7 +1,8 @@
 import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
-import { Props } from '../../../src';
+import type { Props } from 'reactify';
+
 import { defaultSource } from '../../utils';
 import ChartTemplate from '../ChartTemplate';
 
@@ -266,13 +267,13 @@ const AreaTitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
-                    align(index) {
+                    align(index: number) {
                         if (df[index].y >= 0) {
                             return 'end';
                         }
                         return 'start';
                     },
-                    anchor(index) {
+                    anchor(index: number) {
                         if (df[index].y >= 0) {
                             return 'end';
                         }
@@ -340,13 +341,13 @@ const AreaDataValuesOnlyArgs: Props<DataFrame, ChartOptions> = {
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
-                    align(index) {
+                    align(index: number) {
                         if (df[index].y >= 0) {
                             return 'end';
                         }
                         return 'start';
                     },
-                    anchor(index) {
+                    anchor(index: number) {
                         if (df[index].y >= 0) {
                             return 'end';
                         }

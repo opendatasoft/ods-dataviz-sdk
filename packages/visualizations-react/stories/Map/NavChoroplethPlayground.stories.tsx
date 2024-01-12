@@ -6,7 +6,8 @@ import {
     DataFrame,
 } from '@opendatasoft/visualizations';
 import * as turf from '@turf/turf';
-import { ChoroplethVectorTiles, Props } from '../../src';
+import { ChoroplethVectorTiles } from 'src';
+import type { Props } from 'reactify';
 import { shapesTiles, regShapes, dataReg } from './data';
 
 const meta: ComponentMeta<typeof ChoroplethVectorTiles> = {

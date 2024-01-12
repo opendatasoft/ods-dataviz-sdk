@@ -5,7 +5,9 @@ import type {
     DataFrame,
     TooltipParams,
 } from '@opendatasoft/visualizations';
-import { ChoroplethGeoJson, Props } from '../../src';
+import { ChoroplethGeoJson } from 'src';
+import type { Props } from 'reactify';
+
 import { IMAGES } from '../utils';
 import { shapes } from './data';
 
@@ -15,9 +17,7 @@ const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
 };
 
 export default meta;
-const Template: ComponentStory<typeof ChoroplethGeoJson> = (
-    args: Props<DataFrame, ChoroplethGeoJsonOptions>
-) => (
+const Template: ComponentStory<typeof ChoroplethGeoJson> = (args) => (
     <div
         style={{
             width: '50%',

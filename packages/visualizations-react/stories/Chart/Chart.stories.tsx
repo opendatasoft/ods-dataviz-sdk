@@ -1,7 +1,8 @@
 import { ComponentMeta } from '@storybook/react';
 import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
-import { Chart, Props } from '../../src';
+import { Chart } from 'src';
+import { Props } from 'reactify';
 import { COLORS, defaultSource } from '../utils';
 import ChartTemplate from './ChartTemplate';
 

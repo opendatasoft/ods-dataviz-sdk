@@ -4,7 +4,8 @@ import { Story, Meta } from '@storybook/react';
 import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
 
-import { Chart, Props } from '../../../src';
+import { Chart } from 'src';
+import type { Props } from 'reactify';
 import { defaultSource } from '../../utils';
 
 enum Locales {
@@ -110,11 +111,14 @@ function Template(args: TemplateProps): React.ReactElement {
         chartOptions: { data, options },
     } = args;
 
-    const numberFormatter = useCallback((value: number) => (
-        new Intl.NumberFormat(locale, decimalFormatOptions(notation, decimals)).format(value)
-    ), [locale, notation, decimals]);
+    const numberFormatter = useCallback(
+        (value: number) =>
+            new Intl.NumberFormat(locale, decimalFormatOptions(notation, decimals)).format(value),
+        [locale, notation, decimals]
+    );
 
-    const chartOptions = useMemo(() => ({
+    const chartOptions = useMemo(
+        () => ({
             ...options,
             title: {
                 text: `Current locale: ${LOCALES_MAPPING[locale]}`,
@@ -128,19 +132,25 @@ function Template(args: TemplateProps): React.ReactElement {
             axis: {
                 ...options.axis,
                 assemblage: {
-                    stacked: assemblage === Assemblage.Stacked || assemblage === Assemblage.Percentage,
+                    stacked:
+                        assemblage === Assemblage.Stacked || assemblage === Assemblage.Percentage,
                     percentaged: assemblage === Assemblage.Percentage,
                 },
-            }
-    }), [locale, assemblage, options, numberFormatter]);
+            },
+        }),
+        [locale, assemblage, options, numberFormatter]
+    );
 
     return (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Chart
-                style={{ width: '60vw' }}
-                data={data}
-                options={chartOptions}
-            />
+        <div
+            style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '60vw',
+            }}
+        >
+            <Chart data={data} options={chartOptions} />
         </div>
     );
 }

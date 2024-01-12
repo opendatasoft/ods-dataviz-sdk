@@ -6,7 +6,9 @@ import {
     TooltipParams,
     ColorScaleTypes,
 } from '@opendatasoft/visualizations';
-import { ChoroplethGeoJson, Props } from '../../src';
+import { ChoroplethGeoJson } from 'src';
+import type { Props } from 'reactify';
+
 import { shapes } from './data';
 
 const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
@@ -22,9 +24,7 @@ const tooltip = {
         }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
 };
 
-const Template: ComponentStory<typeof ChoroplethGeoJson> = (
-    args: Props<DataFrame, ChoroplethGeoJsonOptions>
-) => (
+const Template: ComponentStory<typeof ChoroplethGeoJson> = (args) => (
     <div
         style={{
             width: '180px',

@@ -9,7 +9,8 @@ import {
     ChoroplethTooltipMatcherTypes,
     TooltipParams,
 } from '@opendatasoft/visualizations';
-import { ChoroplethVectorTiles, Props } from '../../src';
+import { ChoroplethVectorTiles } from 'src';
+import type { Props } from 'reactify';
 import { shapesTiles, regShapes, dataReg } from './data';
 import { defaultSource } from '../utils';
 
@@ -42,9 +43,7 @@ const defaultLabelCallback: ChoroplethTooltipFormatter = ({ label, value }: Tool
     `<b>${label}:</b> ${value}`;
 
 export default meta;
-const Template: ComponentStory<typeof ChoroplethVectorTiles> = (
-    args: Props<DataFrame, ChoroplethVectorTilesOptions>
-) => (
+const Template: ComponentStory<typeof ChoroplethVectorTiles> = (args) => (
     <div
         style={{
             width: '50%',

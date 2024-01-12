@@ -1,14 +1,12 @@
 import React from 'react';
-import { MarkdownTextOptions } from '@opendatasoft/visualizations';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import type { Props } from '../src';
-import { MarkdownText } from '../src';
+import { MarkdownText } from 'src';
 
 const meta: ComponentMeta<typeof MarkdownText> = {
     title: 'MarkdownText',
     component: MarkdownText,
     decorators: [
-        Story => (
+        (Story) => (
             <div>
                 <div
                     style={{
@@ -27,9 +25,7 @@ const meta: ComponentMeta<typeof MarkdownText> = {
 
 export default meta;
 
-const Template: ComponentStory<typeof MarkdownText> = (
-    args: Props<string, MarkdownTextOptions>
-) => <MarkdownText {...args} />;
+const Template: ComponentStory<typeof MarkdownText> = (args) => <MarkdownText {...args} />;
 
 export const Default = Template.bind({});
 

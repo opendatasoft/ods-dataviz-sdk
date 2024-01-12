@@ -1,7 +1,7 @@
 import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
-import { Props } from '../../../src';
+import type { Props } from 'reactify';
 import { compactNumberFormatter, defaultSource } from '../../utils';
 import ChartTemplate from '../ChartTemplate';
 
@@ -133,7 +133,7 @@ const radarDataFrame = [
 ];
 
 export const RadarLongDataLabels = ChartTemplate.bind({});
-    const RadarLongDataLabelsArgs: Props<DataFrame, ChartOptions> = {
+const RadarLongDataLabelsArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: radarDataFrame,
@@ -163,13 +163,14 @@ export const RadarLongDataLabels = ChartTemplate.bind({});
                 dataLabels: {
                     display: 'auto',
                     borderRadius: 4,
-                    align (index) {
+                    align(index: number) {
                         if (radarDataFrame[index].y > 0) {
                             return 'end';
-                        } if (radarDataFrame[index].y === 0) {
+                        }
+                        if (radarDataFrame[index].y === 0) {
                             return 'center';
                         }
-                            return 'start';
+                        return 'start';
                     },
                     color: 'rgb(127,10,210)',
                 },

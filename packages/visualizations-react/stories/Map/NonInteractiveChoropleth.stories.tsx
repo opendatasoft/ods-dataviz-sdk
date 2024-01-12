@@ -2,7 +2,9 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import * as turf from '@turf/turf';
 import { ChoroplethGeoJsonOptions, DataFrame } from '@opendatasoft/visualizations';
-import { ChoroplethGeoJson, Props } from '../../src';
+import { ChoroplethGeoJson } from 'src';
+import type { Props } from 'reactify';
+
 import { shapes } from './data';
 
 const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
@@ -25,7 +27,7 @@ const makeMiniMaps = (n: number) =>
         };
     });
 
-const Template: ComponentStory<typeof ChoroplethGeoJson> = (args: Props<DataFrame, ChoroplethGeoJsonOptions>) => (
+const Template: ComponentStory<typeof ChoroplethGeoJson> = (args) => (
     <div
         style={{
             width: '50%',

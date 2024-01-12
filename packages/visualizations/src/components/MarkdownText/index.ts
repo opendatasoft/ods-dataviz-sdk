@@ -1,9 +1,3 @@
-import type { MarkdownTextOptions } from './types';
-import MarkdownTextImpl from './MarkdownText.svelte';
-import SvelteImpl from '../SvelteImpl';
+import MarkdownText from './MarkdownText.svelte';
 
-export default class MarkdownText extends SvelteImpl<string, MarkdownTextOptions> {
-    protected getSvelteComponentClass(): typeof MarkdownTextImpl {
-        return MarkdownTextImpl;
-    }
-}
+export default MarkdownText;

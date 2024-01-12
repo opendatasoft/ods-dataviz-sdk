@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { KpiCardOptions } from '@opendatasoft/visualizations';
-import { KpiCard } from '../src';
+import { KpiCard } from 'src';
 
 const source = {
     href: 'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',

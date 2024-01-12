@@ -1,7 +1,8 @@
 import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
-import { Props } from '../../../src';
+import type { Props } from 'reactify';
+
 import { compactNumberFormatter, defaultSource } from '../../utils';
 import ChartTemplate from '../ChartTemplate';
 

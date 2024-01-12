@@ -9,10 +9,10 @@ import type {
     PopupLayer,
 } from '@opendatasoft/visualizations';
 
+import { PoiMap } from 'src';
 import { defaultSource, timeout } from '../utils';
 
 import sources from './sources';
-import { PoiMap } from '../../src';
 
 const BASE_STYLE = 'https://demotiles.maplibre.org/style.json';
 
