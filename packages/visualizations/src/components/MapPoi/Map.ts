@@ -11,6 +11,7 @@ import maplibregl, {
 } from 'maplibre-gl';
 
 import {
+    CONTROL_POSITION,
     POPUP_CLASSNAME,
     POPUP_DISPLAY_CLASSNAME_MODIFIER,
     POPUP_OPTIONS,
@@ -65,6 +66,9 @@ export default class MapPOI {
     /** A navigation control for the map. */
     private navigationControl = new maplibregl.NavigationControl({ showCompass: false });
 
+    /** A fullscreen control for the map. */
+    private fullscreenControl = new maplibregl.FullscreenControl({});
+
     /** A popup for displaying information on the map. */
     private popup = new maplibregl.Popup(POPUP_OPTIONS);
 
@@ -82,8 +86,8 @@ export default class MapPOI {
 
     /** To queue functions that depend on map readiness. Will be executed when the card is ready. */
     private queue(fn: MapFunction) {
-        if (this.isReady && this.map) fn(this.map);
-        else this.queuedFunctions.push(fn);
+        if (this.isReady && this.map) return fn(this.map);
+        return this.queuedFunctions.push(fn);
     }
 
     /** Execute queued functions */
@@ -214,14 +218,14 @@ export default class MapPOI {
                 map.easeTo({ padding: { left: 0 } });
             }
             /*
-             * When the popup is displayed as a modal, it overlaps the navigation controls.
+             * When the popup is displayed as a modal, it overlaps the controls.
              * The result is a double shadow in the top right-hand corner.
-             * To get rid of it, we toggle the navigation controls according to the current display.
+             * To get rid of it, we toggle the controls according to the current display.
              */
-            if (newDisplay === POPUP_DISPLAY.modal && map.hasControl(this.navigationControl)) {
-                map.removeControl(this.navigationControl);
-            } else if (!map.hasControl(this.navigationControl)) {
-                map.addControl(this.navigationControl);
+            if (newDisplay === POPUP_DISPLAY.modal) {
+                this.removeControls();
+            } else {
+                this.addControls();
             }
         });
     }
@@ -282,6 +286,37 @@ export default class MapPOI {
         this.updatePopupContent();
         this.updatePopupDisplay();
         updateFeatureState(map, this.activeFeature, POPUP_FEATURE_STATE_KEY, true);
+    }
+
+    /**
+     * Check if all specified controls exist on the map.
+     */
+    private hasAllControls(map: maplibregl.Map) {
+        return [this.navigationControl, this.fullscreenControl].every((control) =>
+            map.hasControl(control)
+        );
+    }
+
+    /**
+     * Add navigation and fullscreen controls to the map.
+     */
+    private addControls() {
+        this.queue((map) => {
+            if (this.hasAllControls(map)) return;
+            map.addControl(this.navigationControl, CONTROL_POSITION);
+            map.addControl(this.fullscreenControl, CONTROL_POSITION);
+        });
+    }
+
+    /*
+     * Remove navigation and fullscreen controls from the map.
+     */
+    private removeControls() {
+        this.queue((map) => {
+            if (!this.hasAllControls(map)) return;
+            map.removeControl(this.navigationControl);
+            map.removeControl(this.fullscreenControl);
+        });
     }
 
     initialize(
@@ -441,20 +476,14 @@ export default class MapPOI {
             map[eventFunction]('click', this.bindedOnMapClick);
             map[eventFunction]('mousemove', this.bindedOnMouseMove);
 
-            const hasControl = map.hasControl(this.navigationControl);
-
             if (interaction === 'disable') {
                 onDisable?.();
                 this.popup.remove();
-                if (hasControl) {
-                    map.removeControl(this.navigationControl);
-                }
+                this.removeControls();
             }
             if (interaction === 'enable') {
                 onEnable?.();
-                if (!hasControl) {
-                    map.addControl(this.navigationControl, 'top-right');
-                }
+                this.addControls();
             }
         });
     }

@@ -1,4 +1,4 @@
-import type { PopupOptions, StyleSpecification } from 'maplibre-gl';
+import type { ControlPosition, PopupOptions, StyleSpecification } from 'maplibre-gl';
 import type { Color } from '../types';
 import { POPUP_DISPLAY, PopupDisplayTypes } from './types';
 
@@ -14,6 +14,8 @@ export const DEFAULT_ASPECT_RATIO = 1;
 export const DEFAULT_DARK_GREY: Color = '#515457';
 
 export const POPUP_WIDTH = 300;
+
+export const CONTROL_POSITION: ControlPosition = 'top-right';
 
 // Update styles in ./MapRender.svelte if this classname changes
 export const POPUP_CLASSNAME = 'poi-map__popup';
