@@ -185,8 +185,8 @@
         box-sizing: border-box;
         box-shadow: 0 6px 13px 0 rgba(0, 0, 0, 0.26);
     }
-    .map-card :global(.poi-map__popup .poi-map__popup-content),
-    .map-card :global(.poi-map__popup .poi-map__popup-content--loading) {
+    .map-card :global(.poi-map__popup .poi-map__popup-feature-content),
+    .map-card :global(.poi-map__popup .poi-map__popup-feature-content--loading) {
         margin: 13px;
     }
     /* Add a more opacity and blur effect on map when cooperative gesture is shown */
@@ -196,27 +196,42 @@
     }
 
     /* --- POPUP CLOSE BUTTON ---  */
-    /* Hide close button when its display is as a tooltip */
-    .map-card :global(.poi-map__popup--as-tooltip .poi-map__popup-navigation-close-button) {
+    /* Hide close button and offset when its display is as a tooltip
+     * Hidden offset allow to center the arrows wrapper
+     */
+    .map-card :global(.poi-map__popup--as-tooltip .poi-map__popup-navigation-close-button),
+    .map-card :global(.poi-map__popup--as-tooltip .poi-map__popup-navigation-controls-offset) {
         display: none;
     }
 
     /* --- POPUP NAVIGATION CONTROLS ---  */
     .map-card :global(.poi-map__popup-navigation-controls) {
+        --navigation-button-size: 36px;
         position: relative;
         display: flex;
+        justify-content: end;
         gap: 6px;
+        margin: 6px;
+        max-height: var(--navigation-button-size);
+    }
+    .map-card :global(.poi-map__popup-arrows-wrapper) {
+        flex-grow: 1;
+        display: flex;
         justify-content: center;
         align-items: center;
-        margin: 6px 6px 0px 6px;
     }
+    .map-card :global(.poi-map__popup-navigation-controls-offset) {
+        width: var(--navigation-button-size);
+        flex-shrink: 0;
+    }
+
     .map-card :global(.poi-map__popup-navigation-arrow-button) {
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 0px;
-        width: 36px;
-        height: 36px;
+        width: var(--navigation-button-size);
+        height: var(--navigation-button-size);
         background: none;
         border: none;
         cursor: pointer;
@@ -251,16 +266,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 36px;
-        height: 36px;
+        width: var(--navigation-button-size);
+        height: var(--navigation-button-size);
         padding: 0px;
         border: none;
         background: none;
         cursor: pointer;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 0;
+        flex-shrink: 0;
     }
     .map-card :global(.poi-map__popup-navigation-close-button-icon) {
         position: relative;

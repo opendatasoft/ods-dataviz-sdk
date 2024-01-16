@@ -20,9 +20,12 @@ export const CONTROL_POSITION: ControlPosition = 'top-right';
 
 // Update styles in ./MapRender.svelte if one of these classnames must change.
 const POPUP_CLASSNAME = 'poi-map__popup';
-export const POPUP_CONTENT = 'poi-map__popup-content';
-export const POPUP_LOADING_CONTENT = 'poi-map__popup-content--loading';
+export const POPUP_FEATURE_CONTENT = 'poi-map__popup-feature-content';
+export const POPUP_FEATURE_CONTENT_LOADING = 'poi-map__popup-feature-content--loading';
 export const POPUP_NAVIGATION_CONTROLS_CLASSNAME = 'poi-map__popup-navigation-controls';
+export const POPUP_NAVIGATION_CONTROLS_OFFSET_CLASSNAME =
+    'poi-map__popup-navigation-controls-offset';
+export const POPUP_NAVIGATION_ARROWS_WRAPPER_CLASSNAME = 'poi-map__popup-arrows-wrapper';
 export const POPUP_NAVIGATION_ARROW_BUTTON_CLASSNAME = 'poi-map__popup-navigation-arrow-button';
 export const POPUP_NAVIGATION_ARROW_BUTTON_ICON_CLASSNAME =
     'poi-map__popup-navigation-arrow-button-icon';

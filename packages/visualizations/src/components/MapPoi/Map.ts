@@ -14,16 +14,18 @@ import maplibregl, {
 
 import {
     CONTROL_POSITION,
-    POPUP_CONTENT,
-    POPUP_LOADING_CONTENT,
+    POPUP_FEATURE_CONTENT,
+    POPUP_FEATURE_CONTENT_LOADING,
     POPUP_DISPLAY_CLASSNAME_MODIFIER,
     POPUP_NAVIGATION_CONTROLS_CLASSNAME,
+    POPUP_NAVIGATION_ARROWS_WRAPPER_CLASSNAME,
     POPUP_NAVIGATION_ARROW_BUTTON_CLASSNAME,
     POPUP_NAVIGATION_ARROW_BUTTON_ICON_CLASSNAME,
     POPUP_NAVIGATION_CLOSE_BUTTON_CLASSNAME,
     POPUP_NAVIGATION_CLOSE_BUTTON_ICON_CLASSNAME,
     POPUP_OPTIONS,
     POPUP_WIDTH,
+    POPUP_NAVIGATION_CONTROLS_OFFSET_CLASSNAME,
 } from './constants';
 import type {
     PopupConfigurationByLayers,
@@ -276,25 +278,24 @@ export default class MapPOI {
 
     private renderFeaturesNavigationControls() {
         const popupNavigationDiv = document.createElement('div');
+        popupNavigationDiv.classList.add(POPUP_NAVIGATION_CONTROLS_CLASSNAME);
         const availableFeaturesTotal = this.availableFeaturesOnClick.length;
         let arrows = '';
         if (availableFeaturesTotal > 1) {
             const activeFeatureHumanIndex =
                 this.availableFeaturesOnClick.indexOf(this.activeFeature) + 1;
-            arrows = `<button class="${POPUP_NAVIGATION_ARROW_BUTTON_CLASSNAME}" id="prevButton" ${
+            arrows = `<div class="${POPUP_NAVIGATION_CONTROLS_OFFSET_CLASSNAME}"></div><div class="${POPUP_NAVIGATION_ARROWS_WRAPPER_CLASSNAME}"><button class="${POPUP_NAVIGATION_ARROW_BUTTON_CLASSNAME}" id="prevButton" ${
                 activeFeatureHumanIndex === 1 ? 'disabled' : ''
             }><span class="${POPUP_NAVIGATION_ARROW_BUTTON_ICON_CLASSNAME}"></span></button>
                         <div class="feature-count">${activeFeatureHumanIndex} / ${availableFeaturesTotal}</div>
                         <button class="${POPUP_NAVIGATION_ARROW_BUTTON_CLASSNAME}" id="nextButton" ${
                 activeFeatureHumanIndex === availableFeaturesTotal ? 'disabled' : ''
-            }><span class="${POPUP_NAVIGATION_ARROW_BUTTON_ICON_CLASSNAME}"></span></button>`;
+            }><span class="${POPUP_NAVIGATION_ARROW_BUTTON_ICON_CLASSNAME}"></span></button></div>`;
         }
 
         popupNavigationDiv.innerHTML = `
-            <div class="${POPUP_NAVIGATION_CONTROLS_CLASSNAME}">
                 ${arrows} 
                 <button class="${POPUP_NAVIGATION_CLOSE_BUTTON_CLASSNAME}"><span class="${POPUP_NAVIGATION_CLOSE_BUTTON_ICON_CLASSNAME}"></span></button>
-            </div>
         `;
 
         const prevButton = popupNavigationDiv.querySelector('#prevButton');
@@ -310,7 +311,13 @@ export default class MapPOI {
         return popupNavigationDiv;
     }
 
-    /** Update popup content. First add a loading state, then replace it with content */
+    /**
+     * Update popup content.
+     * - First add a loading state,
+     * - Then replace it with content
+     *
+     * Navigation controls element is always displayed
+     */
     private updatePopupContent() {
         if (!this.activeFeature) return;
         const {
@@ -322,17 +329,26 @@ export default class MapPOI {
         if (!popupLayerConfiguration) return;
         const { getLoadingContent, getContent } = popupLayerConfiguration;
 
-        this.popup.setHTML(`<div class="${POPUP_LOADING_CONTENT}">${getLoadingContent()}</div>`);
+        const controlsDiv = this.renderFeaturesNavigationControls();
+
+        const loadingWrapper = document.createElement('div');
+
+        const popupFeatureContentLoading = document.createElement('div');
+        popupFeatureContentLoading.classList.add(POPUP_FEATURE_CONTENT_LOADING);
+        popupFeatureContentLoading.innerHTML = getLoadingContent();
+
+        loadingWrapper.append(controlsDiv, popupFeatureContentLoading);
+        this.popup.setDOMContent(loadingWrapper);
 
         getContent(id, properties).then((content) => {
-            const popupContainerDiv = document.createElement('div');
-            const controlsDiv = this.renderFeaturesNavigationControls();
+            const wrapper = document.createElement('div');
 
-            const popupContentDiv = document.createElement('div');
-            popupContentDiv.innerHTML = `<div class="${POPUP_CONTENT}">${content}</div>`;
-            popupContainerDiv.append(controlsDiv, popupContentDiv);
+            const popupFeatureContent = document.createElement('div');
+            popupFeatureContent.classList.add(POPUP_FEATURE_CONTENT);
+            popupFeatureContent.innerHTML = content;
 
-            this.popup.setDOMContent(popupContainerDiv);
+            wrapper.append(controlsDiv, popupFeatureContent);
+            this.popup.setDOMContent(wrapper);
         });
     }
 
