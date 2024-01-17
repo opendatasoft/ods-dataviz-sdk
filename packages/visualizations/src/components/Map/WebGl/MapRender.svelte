@@ -414,6 +414,9 @@
     #map {
         height: 400px;
     }
+    #map :global(canvas) {
+        cursor: default;
+    }
     @supports (aspect-ratio: auto) {
         #map {
             height: auto;
