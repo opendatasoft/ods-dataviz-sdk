@@ -100,7 +100,6 @@
 
     const CURSOR = {
         DEFAULT: 'default',
-        HOVER: 'pointer',
         DRAG: 'move',
     };
 
