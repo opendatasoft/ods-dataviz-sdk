@@ -1,6 +1,9 @@
 name: "Visualizations"
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     types:
       - opened
@@ -66,7 +69,7 @@ jobs:
         run: npm run lint
 
   chromatic-deployment:
-    if: github.event.pull_request.draft == false
+    if: github.event.pull_request.draft == false || github.ref_name == 'main'
     runs-on: ubuntu-latest
     strategy:
       matrix:
