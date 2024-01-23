@@ -1,8 +1,11 @@
 name: api-client coverage
 on:
-  push:
+  pull_request:
     paths:
     - 'packages/api-client/**'
+  push:
+    branches:
+      - main
 jobs:
   build:
     name: Get api client test coverage on node ${{ matrix.node }} and ${{ matrix.os }}
