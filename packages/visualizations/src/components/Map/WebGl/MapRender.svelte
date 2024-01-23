@@ -98,6 +98,11 @@
         className: 'tooltip-on-hover',
     }).trackPointer();
 
+    const CURSOR = {
+        DEFAULT: 'default',
+        DRAG: 'move',
+    };
+
     // Used in front of console and error messages to debug multiple maps on a same page
     const mapId = Math.floor(Math.random() * 1000);
     const sourceId = `shape-source-${mapId}`;
@@ -244,6 +249,15 @@
             map.keyboard.enable();
             map.scrollZoom.enable();
             map.touchZoomRotate.enable();
+
+            // Pointer style consistency across SDK maps
+            const canvas = map.getCanvas();
+            map.on('dragstart', () => {
+                canvas.style.cursor = CURSOR.DRAG;
+            });
+            map.on('dragend', () => {
+                canvas.style.cursor = CURSOR.DEFAULT;
+            });
 
             // Add navigation control to map
             if (!map.hasControl(nav)) {
@@ -398,6 +412,9 @@
 <style>
     #map {
         height: 400px;
+    }
+    #map :global(canvas) {
+        cursor: default;
     }
     @supports (aspect-ratio: auto) {
         #map {
