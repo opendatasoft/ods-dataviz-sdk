@@ -1,7 +1,8 @@
 import type { BBox } from 'geojson';
 import { debounce, difference } from 'lodash';
-import { Map, NavigationControl, FullscreenControl, Popup } from 'maplibre-gl';
+import MaplibreGl from 'maplibre-gl';
 import type {
+    Map,
     LngLatBoundsLike,
     LngLatLike,
     MapGeoJSONFeature,
@@ -81,13 +82,13 @@ export default class MapPOI {
     private baseStyle: StyleSpecification | null = null;
 
     /** A navigation control for the map. */
-    private navigationControl = new NavigationControl({ showCompass: false });
+    private navigationControl = new MaplibreGl.NavigationControl({ showCompass: false });
 
     /** A fullscreen control for the map. */
-    private fullscreenControl = new FullscreenControl({});
+    private fullscreenControl = new MaplibreGl.FullscreenControl({});
 
     /** A popup for displaying information on the map. */
-    private popup = new Popup(POPUP_OPTIONS);
+    private popup = new MaplibreGl.Popup(POPUP_OPTIONS);
 
     /** An object to store popup configurations for each layers */
     private popupConfigurationByLayers: PopupConfigurationByLayers = {};
@@ -487,7 +488,7 @@ export default class MapPOI {
         container: HTMLElement,
         options: Omit<MapOptions, 'style' | 'container'>
     ) {
-        this.map = new Map({ style, container, ...options });
+        this.map = new MaplibreGl.Map({ style, container, ...options });
 
         this.queue((map) => this.initializeMapResizer(map, container));
         this.queue((map) => this.initializeCursorBehavior(map));
