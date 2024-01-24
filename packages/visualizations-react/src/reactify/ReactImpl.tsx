@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useLayoutEffect, FC } from 'react';
+import React, { useEffect, useRef, useLayoutEffect } from 'react';
 import { SvelteComponent, ComponentProps, ComponentConstructorOptions } from 'svelte';
 
 /* Your ComponentProps type definition here */
 function reactifySvelte<C extends SvelteComponent>(
     Component: new (options: ComponentConstructorOptions) => C // Correct constructor signature
-): FC<ComponentProps<C>> {
-    return function ReactComponent(props: ComponentProps<C>) {
+) {
+    return (props: ComponentProps<C>) => {
         const svelteComponentRef = useRef<C | null>(null);
         const mountRef = useRef<HTMLDivElement | null>(null);
 
@@ -21,11 +21,13 @@ function reactifySvelte<C extends SvelteComponent>(
             return () => {
                 svelteComponentRef.current?.$destroy();
             };
-        }, [mountRef, props]);
+            // We especially don't want to react to props to avoid creating a new component each render
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [mountRef]);
 
         useEffect(() => {
             if (svelteComponentRef?.current) {
-                svelteComponentRef.current.$set(props);
+                svelteComponentRef.current.$set({ ...props });
             }
         }, [props]);
 
