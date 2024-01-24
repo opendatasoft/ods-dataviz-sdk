@@ -1,6 +1,7 @@
 import type { BBox } from 'geojson';
 import { debounce, difference } from 'lodash';
-import maplibregl, {
+import { Map, NavigationControl, FullscreenControl, Popup } from 'maplibre-gl';
+import type {
     LngLatBoundsLike,
     LngLatLike,
     MapGeoJSONFeature,
@@ -45,7 +46,7 @@ const ACTIVE_FEATURE_RATIO_SIZE = 1.3;
 
 /** Sorts features in a layer by setting a sort key for a specific feature. */
 const sortLayerFeatures = (
-    map: maplibregl.Map,
+    map: Map,
     layer: MapGeoJSONFeature['layer'],
     feature: MapGeoJSONFeature
 ) => {
@@ -58,17 +59,17 @@ const sortLayerFeatures = (
 };
 
 /** Restores the original sorting order of features in a layer */
-const unsortLayerFeatures = (map: maplibregl.Map, layer: MapGeoJSONFeature['layer']) => {
+const unsortLayerFeatures = (map: Map, layer: MapGeoJSONFeature['layer']) => {
     map.setLayoutProperty(layer.id, `${layer.type}-sort-key`, 0);
 };
 
-type MapFunction = (map: maplibregl.Map) => unknown;
+type MapFunction = (map: Map) => unknown;
 
 type ActiveFeatureType = MapGeoJSONFeature | null;
 
 export default class MapPOI {
-    /** The Map object representing the maplibregl.Map instance. */
-    private map: maplibregl.Map | null = null;
+    /** The Map object representing the Map instance. */
+    private map: Map | null = null;
 
     /** Map resize observer */
     private mapResizeObserver: ResizeObserver | null = null;
@@ -80,13 +81,13 @@ export default class MapPOI {
     private baseStyle: StyleSpecification | null = null;
 
     /** A navigation control for the map. */
-    private navigationControl = new maplibregl.NavigationControl({ showCompass: false });
+    private navigationControl = new NavigationControl({ showCompass: false });
 
     /** A fullscreen control for the map. */
-    private fullscreenControl = new maplibregl.FullscreenControl({});
+    private fullscreenControl = new FullscreenControl({});
 
     /** A popup for displaying information on the map. */
-    private popup = new maplibregl.Popup(POPUP_OPTIONS);
+    private popup = new Popup(POPUP_OPTIONS);
 
     /** An object to store popup configurations for each layers */
     private popupConfigurationByLayers: PopupConfigurationByLayers = {};
@@ -110,7 +111,7 @@ export default class MapPOI {
     }
 
     /** Execute queued functions */
-    private enqueue(map: maplibregl.Map) {
+    private enqueue(map: Map) {
         this.queuedFunctions.forEach((fn) => fn(map));
         this.queuedFunctions = [];
     }
@@ -190,7 +191,7 @@ export default class MapPOI {
     }
 
     /** Initialize a resize observer to always fit the map to its container */
-    private initializeMapResizer(map: maplibregl.Map, container: HTMLElement) {
+    private initializeMapResizer(map: Map, container: HTMLElement) {
         // Set a resizeObserver to resize map on container size changes
         this.mapResizeObserver = new ResizeObserver(
             debounce(() => {
@@ -219,7 +220,7 @@ export default class MapPOI {
     /**
      * How cursor should react on drag and when mouse move over the map
      */
-    private initializeCursorBehavior(map: maplibregl.Map) {
+    private initializeCursorBehavior(map: Map) {
         const canvas = map.getCanvas();
         map.on('dragstart', () => {
             canvas.style.cursor = CURSOR.DRAG;
@@ -404,7 +405,7 @@ export default class MapPOI {
      * @param map The map instance
      * @param point The pixel coordinates of the cursor click, relative to the map
      */
-    private handlePopupAfterMapClick(map: maplibregl.Map, point: MapMouseEvent['point']) {
+    private handlePopupAfterMapClick(map: Map, point: MapMouseEvent['point']) {
         /*
          * Get features closed to the click area.
          * We ask for features that are not in base style layers and for which a popup config is defined.
@@ -453,7 +454,7 @@ export default class MapPOI {
     /**
      * Check if all specified controls exist on the map.
      */
-    private hasAllControls(map: maplibregl.Map) {
+    private hasAllControls(map: Map) {
         return [this.navigationControl, this.fullscreenControl].every((control) =>
             map.hasControl(control)
         );
@@ -486,7 +487,7 @@ export default class MapPOI {
         container: HTMLElement,
         options: Omit<MapOptions, 'style' | 'container'>
     ) {
-        this.map = new maplibregl.Map({ style, container, ...options });
+        this.map = new Map({ style, container, ...options });
 
         this.queue((map) => this.initializeMapResizer(map, container));
         this.queue((map) => this.initializeCursorBehavior(map));
