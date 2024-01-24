@@ -17,7 +17,6 @@ export const POPUP_WIDTH = 300;
 
 export const CONTROL_POSITION: ControlPosition = 'top-right';
 
-
 // Update styles in ./MapRender.svelte if one of these classnames must change.
 const POPUP_CLASSNAME = 'poi-map__popup';
 export const POPUP_FEATURE_CONTENT = 'poi-map__popup-feature-content';
