@@ -209,7 +209,7 @@
         --navigation-button-size: 36px;
         position: relative;
         display: flex;
-        justify-content: end;
+        justify-content: flex-end;
         gap: 6px;
         margin: 6px;
         max-height: var(--navigation-button-size);
