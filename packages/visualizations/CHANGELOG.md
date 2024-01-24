@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.20.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.19.0...@opendatasoft/visualizations@0.20.0) (2024-01-24)
+
+
+### Features
+
+* **POI maps:** add controls for popup ([#209](https://github.com/opendatasoft/ods-dataviz-sdk/issues/209)) ([5c6f91b](https://github.com/opendatasoft/ods-dataviz-sdk/commit/5c6f91bbef6b0c5078dadf25b00d5c9181689189))
+* **POI Maps:** add fullscreen control ([d046d1a](https://github.com/opendatasoft/ods-dataviz-sdk/commit/d046d1a5fb7726668a26399515dc54949e2507b9))
+
+
+
+
+
 # [0.19.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.18.1...@opendatasoft/visualizations@0.19.0) (2024-01-10)
 
 

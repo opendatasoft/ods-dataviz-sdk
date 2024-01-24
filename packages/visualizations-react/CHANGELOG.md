@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.20.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.19.0...@opendatasoft/visualizations-react@0.20.0) (2024-01-24)
+
+
+### Features
+
+* **POI maps:** add controls for popup ([#209](https://github.com/opendatasoft/ods-dataviz-sdk/issues/209)) ([5c6f91b](https://github.com/opendatasoft/ods-dataviz-sdk/commit/5c6f91bbef6b0c5078dadf25b00d5c9181689189))
+
+
+
+
+
 ## [0.18.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.18.1...@opendatasoft/visualizations-react@0.18.2) (2024-01-10)
 
 **Note:** Version bump only for package @opendatasoft/visualizations-react
