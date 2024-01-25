@@ -1,6 +1,8 @@
 import type { BBox } from 'geojson';
 import { debounce, difference } from 'lodash';
-import maplibregl, {
+import MaplibreGl from 'maplibre-gl';
+import type {
+    Map,
     LngLatBoundsLike,
     LngLatLike,
     MapGeoJSONFeature,
@@ -8,14 +10,24 @@ import maplibregl, {
     MapMouseEvent,
     MapOptions,
     StyleSpecification,
+    CircleLayerSpecification,
+    SymbolLayerSpecification,
 } from 'maplibre-gl';
 
 import {
     CONTROL_POSITION,
-    POPUP_CLASSNAME,
+    POPUP_FEATURE_CONTENT,
+    POPUP_FEATURE_CONTENT_LOADING,
     POPUP_DISPLAY_CLASSNAME_MODIFIER,
+    POPUP_NAVIGATION_CONTROLS_CLASSNAME,
+    POPUP_NAVIGATION_ARROWS_WRAPPER_CLASSNAME,
+    POPUP_NAVIGATION_ARROW_BUTTON_CLASSNAME,
+    POPUP_NAVIGATION_ARROW_BUTTON_ICON_CLASSNAME,
+    POPUP_NAVIGATION_CLOSE_BUTTON_CLASSNAME,
+    POPUP_NAVIGATION_CLOSE_BUTTON_ICON_CLASSNAME,
     POPUP_OPTIONS,
     POPUP_WIDTH,
+    POPUP_NAVIGATION_CONTROLS_OFFSET_CLASSNAME,
 } from './constants';
 import type {
     PopupConfigurationByLayers,
@@ -31,25 +43,34 @@ const CURSOR = {
     DRAG: 'move',
 };
 
-const POPUP_FEATURE_STATE_KEY = 'popup-feature';
+const ACTIVE_FEATURE_RATIO_SIZE = 1.3;
 
-type MapFunction = (map: maplibregl.Map) => unknown;
+/** Sorts features in a layer by setting a sort key for a specific feature. */
+const sortLayerFeatures = (
+    map: Map,
+    layer: MapGeoJSONFeature['layer'],
+    feature: MapGeoJSONFeature
+) => {
+    map.setLayoutProperty(layer.id, `${layer.type}-sort-key`, [
+        'case',
+        ['==', ['id'], feature.id],
+        1,
+        0,
+    ]);
+};
+
+/** Restores the original sorting order of features in a layer */
+const unsortLayerFeatures = (map: Map, layer: MapGeoJSONFeature['layer']) => {
+    map.setLayoutProperty(layer.id, `${layer.type}-sort-key`, 0);
+};
+
+type MapFunction = (map: Map) => unknown;
 
 type ActiveFeatureType = MapGeoJSONFeature | null;
 
-function updateFeatureState(
-    map: maplibregl.Map,
-    feature: ActiveFeatureType,
-    stateKey: string,
-    stateValue: unknown
-) {
-    if (!feature) return;
-    const { id, source, sourceLayer } = feature;
-    map.setFeatureState({ id, source, sourceLayer }, { [stateKey]: stateValue });
-}
 export default class MapPOI {
-    /** The Map object representing the maplibregl.Map instance. */
-    private map: maplibregl.Map | null = null;
+    /** The Map object representing the Map instance. */
+    private map: Map | null = null;
 
     /** Map resize observer */
     private mapResizeObserver: ResizeObserver | null = null;
@@ -60,17 +81,14 @@ export default class MapPOI {
     /** The base style of the map */
     private baseStyle: StyleSpecification | null = null;
 
-    /** Array of layer IDs that are not from the base style of the map */
-    private layerIds: string[] = [];
-
     /** A navigation control for the map. */
-    private navigationControl = new maplibregl.NavigationControl({ showCompass: false });
+    private navigationControl = new MaplibreGl.NavigationControl({ showCompass: false });
 
     /** A fullscreen control for the map. */
-    private fullscreenControl = new maplibregl.FullscreenControl({});
+    private fullscreenControl = new MaplibreGl.FullscreenControl({});
 
     /** A popup for displaying information on the map. */
-    private popup = new maplibregl.Popup(POPUP_OPTIONS);
+    private popup = new MaplibreGl.Popup(POPUP_OPTIONS);
 
     /** An object to store popup configurations for each layers */
     private popupConfigurationByLayers: PopupConfigurationByLayers = {};
@@ -80,6 +98,9 @@ export default class MapPOI {
 
     /** An active GeoJSONFeature. Its information are displayed within the popup. */
     private activeFeature: ActiveFeatureType = null;
+
+    /** All available GeoJSONFeatures on click event */
+    private availableFeaturesOnClick: ActiveFeatureType[] = [];
 
     /** An array of functions to be executed when the map is ready. */
     private queuedFunctions: Array<MapFunction> = [];
@@ -91,13 +112,87 @@ export default class MapPOI {
     }
 
     /** Execute queued functions */
-    private enqueue(map: maplibregl.Map) {
+    private enqueue(map: Map) {
         this.queuedFunctions.forEach((fn) => fn(map));
         this.queuedFunctions = [];
     }
 
+    /** Make active feature bigger and sort it on top of other features in the layer */
+    private highlightFeature(feature: ActiveFeatureType) {
+        if (!feature) return;
+        const { layer } = feature;
+        this.queue((map) => {
+            sortLayerFeatures(map, layer, feature);
+            switch (layer.type) {
+                case 'symbol':
+                    // eslint-disable-next-line no-case-declarations
+                    const iconSize = ((layer as SymbolLayerSpecification).layout?.['icon-size'] ||
+                        1) as number;
+                    map.setLayoutProperty(layer.id, 'icon-size', [
+                        'case',
+                        ['==', ['id'], feature.id],
+                        iconSize * ACTIVE_FEATURE_RATIO_SIZE,
+                        iconSize,
+                    ]);
+                    break;
+                case 'circle':
+                    // eslint-disable-next-line no-case-declarations
+                    const circleRadius = (layer as CircleLayerSpecification).paint?.[
+                        'circle-radius'
+                    ] as number;
+                    map.setPaintProperty(layer.id, 'circle-radius', [
+                        'case',
+                        ['==', ['id'], feature.id],
+                        circleRadius * ACTIVE_FEATURE_RATIO_SIZE,
+                        circleRadius,
+                    ]);
+                    break;
+                default:
+                    break;
+            }
+        });
+    }
+
+    /** Reset active feature highlight state */
+    private unhighlightFeature(feature: ActiveFeatureType) {
+        if (!feature) return;
+        const { layer } = feature;
+        this.queue((map) => {
+            unsortLayerFeatures(map, layer);
+            switch (layer.type) {
+                case 'symbol':
+                    map.setLayoutProperty(
+                        layer.id,
+                        'icon-size',
+                        (layer as SymbolLayerSpecification).layout?.['icon-size'] || 1
+                    );
+                    break;
+                case 'circle':
+                    // eslint-disable-next-line no-case-declarations
+                    const circleRadius = (layer as CircleLayerSpecification).paint?.[
+                        'circle-radius'
+                    ];
+                    /*
+                     * FIXME: As of Maplibre 2.2.1, resetting 'circle-radius' with a numeric value alone is not sufficient.
+                     * An expression with a case statement based on the feature ID is still required.
+                     * Without this, the feature's clickability is compromised, as the hitbox becomes minimal,
+                     * failing to reflect the expected behavior of the circleRadius property.
+                     */
+                    map.setPaintProperty(layer.id, 'circle-radius', [
+                        'case',
+                        ['==', ['id'], ''],
+                        circleRadius,
+                        circleRadius,
+                    ]);
+                    break;
+                default:
+                    break;
+            }
+        });
+    }
+
     /** Initialize a resize observer to always fit the map to its container */
-    private initializeMapResizer(map: maplibregl.Map, container: HTMLElement) {
+    private initializeMapResizer(map: Map, container: HTMLElement) {
         // Set a resizeObserver to resize map on container size changes
         this.mapResizeObserver = new ResizeObserver(
             debounce(() => {
@@ -114,11 +209,10 @@ export default class MapPOI {
     private onMouseMove({ point }: MapMouseEvent) {
         this.queue((map) => {
             const canvas = map.getCanvas();
-            const features = map.queryRenderedFeatures(point, { layers: this.layerIds });
-            const isMovingOverFeatureWithPopup =
-                features.length &&
-                features.some((feature) => feature.layer.id in this.popupConfigurationByLayers);
-            canvas.style.cursor = isMovingOverFeatureWithPopup ? CURSOR.HOVER : CURSOR.DEFAULT;
+            const features = map.queryRenderedFeatures(point, {
+                layers: Object.keys(this.popupConfigurationByLayers),
+            });
+            canvas.style.cursor = features.length ? CURSOR.HOVER : CURSOR.DEFAULT;
         });
     }
 
@@ -127,7 +221,7 @@ export default class MapPOI {
     /**
      * How cursor should react on drag and when mouse move over the map
      */
-    private initializeCursorBehavior(map: maplibregl.Map) {
+    private initializeCursorBehavior(map: Map) {
         const canvas = map.getCanvas();
         map.on('dragstart', () => {
             canvas.style.cursor = CURSOR.DRAG;
@@ -172,7 +266,60 @@ export default class MapPOI {
         this.onPopupDisplayUpdate(oldDisplay, newDisplay);
     }
 
-    /** Update popup content. First add a loading state, then replace it with content */
+    private navigateToFeature(direction: number) {
+        this.unhighlightFeature(this.activeFeature);
+        const activeFeatureIndex = this.availableFeaturesOnClick.indexOf(this.activeFeature);
+        this.activeFeature = this.availableFeaturesOnClick[activeFeatureIndex + direction];
+        this.updatePopupContent();
+        this.updatePopupDisplay();
+        if (this.activeFeature?.geometry.type === 'Point') {
+            this.popup.setLngLat(this.activeFeature?.geometry.coordinates as LngLatLike);
+        }
+        this.highlightFeature(this.activeFeature);
+    }
+
+    private renderFeaturesNavigationControls() {
+        const popupNavigationDiv = document.createElement('div');
+        popupNavigationDiv.classList.add(POPUP_NAVIGATION_CONTROLS_CLASSNAME);
+        const availableFeaturesTotal = this.availableFeaturesOnClick.length;
+        let arrows = '';
+        if (availableFeaturesTotal > 1) {
+            const activeFeatureHumanIndex =
+                this.availableFeaturesOnClick.indexOf(this.activeFeature) + 1;
+            arrows = `<div class="${POPUP_NAVIGATION_CONTROLS_OFFSET_CLASSNAME}"></div><div class="${POPUP_NAVIGATION_ARROWS_WRAPPER_CLASSNAME}"><button class="${POPUP_NAVIGATION_ARROW_BUTTON_CLASSNAME}" id="prevButton" ${
+                activeFeatureHumanIndex === 1 ? 'disabled' : ''
+            }><span class="${POPUP_NAVIGATION_ARROW_BUTTON_ICON_CLASSNAME}"></span></button>
+                        <div class="feature-count">${activeFeatureHumanIndex} / ${availableFeaturesTotal}</div>
+                        <button class="${POPUP_NAVIGATION_ARROW_BUTTON_CLASSNAME}" id="nextButton" ${
+                activeFeatureHumanIndex === availableFeaturesTotal ? 'disabled' : ''
+            }><span class="${POPUP_NAVIGATION_ARROW_BUTTON_ICON_CLASSNAME}"></span></button></div>`;
+        }
+
+        popupNavigationDiv.innerHTML = `
+                ${arrows} 
+                <button class="${POPUP_NAVIGATION_CLOSE_BUTTON_CLASSNAME}"><span class="${POPUP_NAVIGATION_CLOSE_BUTTON_ICON_CLASSNAME}"></span></button>
+        `;
+
+        const prevButton = popupNavigationDiv.querySelector('#prevButton');
+        prevButton?.addEventListener('click', () => this.navigateToFeature(-1));
+
+        const nextButton = popupNavigationDiv.querySelector('#nextButton');
+        nextButton?.addEventListener('click', () => this.navigateToFeature(1));
+
+        const closeButton = popupNavigationDiv.querySelector(
+            `.${POPUP_NAVIGATION_CLOSE_BUTTON_CLASSNAME}`
+        );
+        closeButton?.addEventListener('click', () => this.popup.remove());
+        return popupNavigationDiv;
+    }
+
+    /**
+     * Update popup content.
+     * - First add a loading state,
+     * - Then replace it with content
+     *
+     * Navigation controls element is always displayed
+     */
     private updatePopupContent() {
         if (!this.activeFeature) return;
         const {
@@ -184,12 +331,26 @@ export default class MapPOI {
         if (!popupLayerConfiguration) return;
         const { getLoadingContent, getContent } = popupLayerConfiguration;
 
-        this.popup.addClassName(`${POPUP_CLASSNAME}--loading`);
-        this.popup.setHTML(getLoadingContent());
+        const controlsDiv = this.renderFeaturesNavigationControls();
+
+        const loadingWrapper = document.createElement('div');
+
+        const popupFeatureContentLoading = document.createElement('div');
+        popupFeatureContentLoading.classList.add(POPUP_FEATURE_CONTENT_LOADING);
+        popupFeatureContentLoading.innerHTML = getLoadingContent();
+
+        loadingWrapper.append(controlsDiv, popupFeatureContentLoading);
+        this.popup.setDOMContent(loadingWrapper);
 
         getContent(id, properties).then((content) => {
-            this.popup.setHTML(content);
-            this.popup.removeClassName(`${POPUP_CLASSNAME}--loading`);
+            const wrapper = document.createElement('div');
+
+            const popupFeatureContent = document.createElement('div');
+            popupFeatureContent.classList.add(POPUP_FEATURE_CONTENT);
+            popupFeatureContent.innerHTML = content;
+
+            wrapper.append(controlsDiv, popupFeatureContent);
+            this.popup.setDOMContent(wrapper);
         });
     }
 
@@ -245,15 +406,17 @@ export default class MapPOI {
      * @param map The map instance
      * @param point The pixel coordinates of the cursor click, relative to the map
      */
-    private handlePopupAfterMapClick(map: maplibregl.Map, point: MapMouseEvent['point']) {
+    private handlePopupAfterMapClick(map: Map, point: MapMouseEvent['point']) {
         /*
          * Get features closed to the click area.
-         * We ask for features that are not in base style layers
+         * We ask for features that are not in base style layers and for which a popup config is defined.
          */
-        const features = map.queryRenderedFeatures(point, { layers: this.layerIds });
+        const features = map.queryRenderedFeatures(point, {
+            layers: Object.keys(this.popupConfigurationByLayers),
+        });
 
         // Removing feature state for the obsolete active feature.
-        updateFeatureState(map, this.activeFeature, POPUP_FEATURE_STATE_KEY, false);
+        this.unhighlightFeature(this.activeFeature);
         const hasFeatures = !!features.length;
         // Current rule: use the first feature to build the popup.
         // TO DO: Create a menu to display a list of feature to choose from.
@@ -268,13 +431,14 @@ export default class MapPOI {
         // - Selected feature is the same as the active feature: This means that I clicked on the feature for which the popup is open.
         if (!hasFeatures || isSelectedFeatureSameAsActiveFeature) {
             this.popup.remove();
+            this.availableFeaturesOnClick = [];
             return;
         }
 
         // FIXME: remove eslint comment.
         // eslint-disable-next-line prefer-destructuring
         this.activeFeature = features[0];
-
+        this.availableFeaturesOnClick = features;
         const { geometry } = this.activeFeature;
 
         if (geometry.type !== 'Point') return;
@@ -285,13 +449,13 @@ export default class MapPOI {
 
         this.updatePopupContent();
         this.updatePopupDisplay();
-        updateFeatureState(map, this.activeFeature, POPUP_FEATURE_STATE_KEY, true);
+        this.highlightFeature(this.activeFeature);
     }
 
     /**
      * Check if all specified controls exist on the map.
      */
-    private hasAllControls(map: maplibregl.Map) {
+    private hasAllControls(map: Map) {
         return [this.navigationControl, this.fullscreenControl].every((control) =>
             map.hasControl(control)
         );
@@ -324,7 +488,7 @@ export default class MapPOI {
         container: HTMLElement,
         options: Omit<MapOptions, 'style' | 'container'>
     ) {
-        this.map = new maplibregl.Map({ style, container, ...options });
+        this.map = new MaplibreGl.Map({ style, container, ...options });
 
         this.queue((map) => this.initializeMapResizer(map, container));
         this.queue((map) => this.initializeCursorBehavior(map));
@@ -342,6 +506,7 @@ export default class MapPOI {
     destroy() {
         this.activePopupDisplay = null;
         this.activeFeature = null;
+        this.availableFeaturesOnClick = [];
         this.popup.remove();
         this.queue((map) => map.remove());
         this.mapResizeObserver?.disconnect();
@@ -374,7 +539,6 @@ export default class MapPOI {
                     layers: [...this.baseStyle.layers, ...layers],
                 });
             }
-            this.layerIds = layers.map(({ id }) => id);
         });
     }
 
@@ -422,7 +586,7 @@ export default class MapPOI {
      * to reflect the new configuration.
      * @param config Popups configuration
      */
-    setpopupConfigurationByLayers(config: PopupConfigurationByLayers) {
+    setPopupConfigurationByLayers(config: PopupConfigurationByLayers) {
         this.popupConfigurationByLayers = config;
         this.updatePopupContent();
         this.updatePopupDisplay();
@@ -490,9 +654,7 @@ export default class MapPOI {
 
     constructor() {
         this.popup.on('close', () => {
-            this.queue((map) => {
-                updateFeatureState(map, this.activeFeature, POPUP_FEATURE_STATE_KEY, false);
-            });
+            this.unhighlightFeature(this.activeFeature);
             this.onPopupDisplayUpdate(this.activePopupDisplay, null);
             this.activePopupDisplay = null;
             this.activeFeature = null;

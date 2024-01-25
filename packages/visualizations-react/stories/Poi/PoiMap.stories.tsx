@@ -57,8 +57,20 @@ const layers = [layer1, layer2];
 
 const citiesColorMatch = {
     key: 'key',
-    colors: { Paris: 'blue', Nantes: 'yellow', Bordeaux: 'purple', Marseille: 'lightblue' },
-    borderColors: { Paris: 'white', Nantes: 'black', Bordeaux: 'white', Marseille: 'black' },
+    colors: {
+        Paris: 'blue',
+        'Paris--duplicate': 'lightblue',
+        Nantes: 'yellow',
+        Bordeaux: 'purple',
+        Marseille: 'lightblue',
+    },
+    borderColors: {
+        Paris: 'white',
+        'Paris--duplicate': 'white',
+        Nantes: 'black',
+        Bordeaux: 'white',
+        Marseille: 'black',
+    },
 };
 
 const battleImageMatch = {
