@@ -20,7 +20,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node: ["v16.20.2"]
+        node: ["14.x", "16.17.1"]
         os: [ubuntu-latest]
 
     steps:
@@ -47,7 +47,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node: ["v16.20.2"]
+        node: ["16.17.1"]
         os: [ubuntu-latest]
 
     steps:

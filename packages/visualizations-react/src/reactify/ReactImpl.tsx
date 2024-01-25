@@ -1,5 +1,9 @@
 import React, { useEffect, useRef, useLayoutEffect } from 'react';
-import { SvelteComponent, ComponentProps, ComponentConstructorOptions } from 'svelte';
+import {
+    SvelteComponent,
+    ComponentProps,
+    ComponentConstructorOptions,
+} from '@opendatasoft/visualizations'; // we export from the main package to avoid having different versions of svelte
 
 /* Your ComponentProps type definition here */
 function reactifySvelte<C extends SvelteComponent>(
