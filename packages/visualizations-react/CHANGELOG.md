@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.20.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.19.0...@opendatasoft/visualizations-react@0.20.0) (2024-01-25)
+
+
+### Bug Fixes
+
+* split into two useEffect to avoid remount ([e54cc8f](https://github.com/opendatasoft/ods-dataviz-sdk/commit/e54cc8f1517e2a51384c3d9567caf2cc896fed7c))
+
+
+### Features
+
+* add basic KPI poc ([067007d](https://github.com/opendatasoft/ods-dataviz-sdk/commit/067007d4629eb6a6fcf671de8989ed2b4ce250be))
+
+
+
+
+
 ## [0.18.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.18.1...@opendatasoft/visualizations-react@0.18.2) (2024-01-10)
 
 **Note:** Version bump only for package @opendatasoft/visualizations-react
