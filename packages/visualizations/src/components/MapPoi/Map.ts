@@ -28,6 +28,7 @@ import {
     POPUP_OPTIONS,
     POPUP_WIDTH,
     POPUP_NAVIGATION_CONTROLS_OFFSET_CLASSNAME,
+    DEFAULT_SORT_KEY_VALUE,
 } from './constants';
 import type {
     PopupConfigurationByLayers,
@@ -61,7 +62,7 @@ const sortLayerFeatures = (
 
 /** Restores the original sorting order of features in a layer */
 const unsortLayerFeatures = (map: Map, layer: MapGeoJSONFeature['layer']) => {
-    map.setLayoutProperty(layer.id, `${layer.type}-sort-key`, 0);
+    map.setLayoutProperty(layer.id, `${layer.type}-sort-key`, DEFAULT_SORT_KEY_VALUE);
 };
 
 type MapFunction = (map: Map) => unknown;
