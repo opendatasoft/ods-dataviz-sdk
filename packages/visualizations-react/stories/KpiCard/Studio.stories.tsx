@@ -3,7 +3,6 @@ import { Async, KpiCardOptions } from '@opendatasoft/visualizations';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { KpiCard } from 'src';
 import { Props } from 'reactify';
-;
 import {
     IMAGES,
     defaultSource,

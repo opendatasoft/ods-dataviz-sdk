@@ -6,7 +6,7 @@ module.exports = {
     extends: [
         'eslint:recommended',
         'plugin:@typescript-eslint/recommended',
-        "plugin:react/recommended",
+        'plugin:react/recommended',
         'airbnb',
         'airbnb/hooks',
         'airbnb-typescript',
@@ -17,8 +17,8 @@ module.exports = {
         project: './tsconfig.json',
         tsconfigRootDir: __dirname,
         ecmaFeatures: {
-            "jsx": true
-        }
+            jsx: true,
+        },
     },
     settings: {
         react: {
@@ -27,7 +27,7 @@ module.exports = {
     },
     plugins: ['@typescript-eslint', 'prettier', 'react', 'no-only-tests'],
     globals: {
-        'jest': true
+        jest: true,
     },
     rules: {
         semi: ['error', 'always'],
@@ -78,15 +78,18 @@ module.exports = {
         ],
         'no-underscore-dangle': 0,
         'react/jsx-one-expression-per-line': 0,
-        'arrow-parens': [2, 'as-needed', { requireForBlockBody: true }],
+        'arrow-parens': [2, 'as-needed'],
         'react/jsx-props-no-spreading': 0,
         'jsx-a11y/label-has-for': 0,
         'react-hooks/rules-of-hooks': 'error',
         'react-hooks/exhaustive-deps': 'warn',
-        'object-curly-newline': ['error', {
-            ObjectExpression: { minProperties: 6, multiline: true, consistent: true },
-            ObjectPattern: { minProperties: 6, multiline: true, consistent: true },
-        }],
+        'object-curly-newline': [
+            'error',
+            {
+                ObjectExpression: { minProperties: 6, multiline: true, consistent: true },
+                ObjectPattern: { minProperties: 6, multiline: true, consistent: true },
+            },
+        ],
         'react/jsx-filename-extension': [2, { extensions: ['.jsx', '.tsx'] }],
         'react/react-in-jsx-scope': 'off',
         'import/no-named-as-default': 'off',
@@ -97,6 +100,12 @@ module.exports = {
         '@typescript-eslint/no-var-requires': 'off',
         // avoid the usage of test.only
         'no-only-tests/no-only-tests': 'error',
-        "react/function-component-definition": [0, { namedComponents: ["function-expression", "arrow-function"], unnamedComponents: "arrow-function" }],
+        'react/function-component-definition': [
+            0,
+            {
+                namedComponents: ['function-expression', 'arrow-function'],
+                unnamedComponents: 'arrow-function',
+            },
+        ],
     },
 };

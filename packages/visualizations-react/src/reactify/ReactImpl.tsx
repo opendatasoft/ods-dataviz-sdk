@@ -12,12 +12,14 @@ function reactifySvelte<C extends SvelteComponent>(
     return (props: ComponentProps<C>) => {
         const svelteComponentRef = useRef<C | null>(null);
         const mountRef = useRef<HTMLDivElement | null>(null);
+        // FIXME: temporary props dispatch to match the old implem
+        const { style, ...componentProps } = props;
 
         useLayoutEffect(() => {
             if (mountRef?.current) {
                 const component = new Component({
                     target: mountRef.current,
-                    props,
+                    props: componentProps,
                 });
                 svelteComponentRef.current = component;
             }
@@ -31,11 +33,12 @@ function reactifySvelte<C extends SvelteComponent>(
 
         useEffect(() => {
             if (svelteComponentRef?.current) {
-                svelteComponentRef.current.$set({ ...props });
+                svelteComponentRef.current.$set({ ...componentProps });
             }
-        }, [props]);
+        }, [componentProps]);
 
-        return <div ref={mountRef} />;
+        // FIXME: ideally, we want to
+        return <div ref={mountRef} style={style} />;
     };
 }
 

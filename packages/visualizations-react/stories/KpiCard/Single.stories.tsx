@@ -1,8 +1,6 @@
 import React, { CSSProperties } from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { KpiCardOptions } from '@opendatasoft/visualizations';
 import { KpiCard } from 'src';
-import { Props } from 'reactify';
 import { COLORS, CONTROLS, IMAGES, defaultSource } from '../utils';
 
 const meta: ComponentMeta<typeof KpiCard> = {
@@ -66,26 +64,19 @@ const meta: ComponentMeta<typeof KpiCard> = {
 
 export default meta;
 
-const WrappedKpi = ({
-    style,
-    ...kpiProps
-}: {
-    style: CSSProperties;
-} & Props<number, KpiCardOptions>) => (
+const Template: ComponentStory<typeof KpiCard> = args => (
     <div
         style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             height: '80vh',
-            ...style,
         }}
     >
-        <KpiCard {...kpiProps} />
+        <KpiCard {...args} />
     </div>
 );
-// eslint-disable-next-line arrow-parens
-const Template: ComponentStory<typeof WrappedKpi> = (args) => <WrappedKpi {...args} />;
+
 
 export const Default = Template.bind({});
 Default.args = {
