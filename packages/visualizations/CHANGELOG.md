@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.20.1...@opendatasoft/visualizations@0.20.2) (2024-01-29)
+
+
+### Bug Fixes
+
+* **POI Maps:** prevent symbol layer to flicker ([13ed527](https://github.com/opendatasoft/ods-dataviz-sdk/commit/13ed527a3eac930e103050a9eb38d6e33579162a))
+
+
+
+
+
 # [0.20.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.19.0...@opendatasoft/visualizations@0.20.0) (2024-01-24)
 
 
