@@ -1,0 +1,16 @@
+.myClass {
+    table {
+        border: 1px solid black;
+        border-radius: 3px;
+    }
+
+    th {
+        border: 2px solid;
+        background: blue;
+    }
+
+    tr {
+        background: lightgrey;
+        border-bottom: 1px solidy;
+    }
+}
