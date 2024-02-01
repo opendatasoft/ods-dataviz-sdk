@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { DataFrame, Column , TableOptions } from "@opendatasoft/visualizations";
+import { DataFrame, Column, TableOptions } from '@opendatasoft/visualizations';
 import { Table } from '../../src';
-import type { Props } from "../../src";
+import type { Props } from '../../src';
 
 import './my-class.css';
 
@@ -34,12 +34,22 @@ const value: DataFrame = [
     },
 ];
 
+const longValue: DataFrame = [...Array(50).keys()].map((i: number) => ({
+    name: `John ${i}`,
+    address: `${i} street, New York`,
+    number: i * i,
+}));
+
 const data = {
     value,
     isLoading: false,
 };
+const longData = {
+    value: longValue,
+    isLoading: false,
+};
 
-const sortName = (a: any, b: any) => (a.name < b.name) ? -1 : 1;
+const sortName = (a: any, b: any) => (a.name < b.name ? -1 : 1);
 const sortAddress = (a: any, b: any) => a.address.length - b.address.length;
 
 const columns: Column[] = [
@@ -79,16 +89,7 @@ const sortableColumns: Column[] = [
     },
 ];
 
-const buildTemplate = (className?: string) => {
-    const Template: ComponentStory<typeof Table> = args => (
-    <div className={className}>
-        <Table {...args} />
-    </div>
-    );
-    return Template;
-};
-const Template = buildTemplate();
-const StyledTemplate = buildTemplate('myClass');
+const Template: ComponentStory<typeof Table> = args => <Table {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -99,9 +100,23 @@ Default.args = {
             current: 1,
             total: 1,
             setPage: () => {},
-        }
-    }
+        },
+    },
 } as Props<DataFrame, TableOptions>;
+
+const StyledTemplate: ComponentStory<typeof Table> = args => (
+    <div className="myClass">
+        <Table {...args} />;
+    </div>
+);
+
+export const Styled = StyledTemplate.bind({});
+Styled.args = {
+    data,
+    options: {
+        columns,
+    },
+};
 
 export const DefaultSorted = Template.bind({});
 DefaultSorted.args = {
@@ -109,12 +124,7 @@ DefaultSorted.args = {
     options: {
         columns,
         defaultSortKey: 'name',
-        pages: {
-            current: 1,
-            total: 1,
-            setPage: () => {},
-        }
-    }
+    },
 } as Props<DataFrame, TableOptions>;
 
 export const Sortable = Template.bind({});
@@ -122,24 +132,48 @@ Sortable.args = {
     data,
     options: {
         columns: sortableColumns,
-        defaultSort: 'name',
-        pages: {
-            current: 1,
-            total: 1,
-            setPage: () => {},
-        }
-    }
+    },
 } as Props<DataFrame, TableOptions>;
 
-export const Styled = StyledTemplate.bind({});
-Styled.args = {
-    data,
+export const FixedHeader = Template.bind({});
+FixedHeader.args = {
+    data: longData,
     options: {
+        fixedHeader: true,
+        columns,
+    },
+} as Props<DataFrame, TableOptions>;
+
+const sliceData5 = (fullData: typeof longData, page: number) => {
+    const startIndex = page *5;
+    return fullData.value.slice(startIndex, startIndex + 5);
+};
+const PaginatedTemplate: ComponentStory<typeof Table> = (args) => {
+    const { data: rawData, options } = args;
+    const { initial } = options.pages || {};
+    const [records, setRecords] = useState(sliceData5(rawData, initial || 0));
+
+    if (options.pages) {
+        options.pages.setPage = (page: number) => {
+            const start = page * 5;
+            setRecords(rawData.value.slice(start, start + 5));
+        };
+    }
+
+    const paginatedData = { value: records, isLoading: false };
+    return <Table data={paginatedData} options={options} />;
+};
+
+export const Paginated = PaginatedTemplate.bind({});
+Paginated.args = {
+    data: longData,
+    options: {
+        fixedHeader: true,
         columns,
         pages: {
-            current: 1,
-            total: 1,
-            setPage: () => {},
-        }
-    }
-};
+            initial: 3,
+            total: 10,
+            // set page is set in the template
+        },
+    },
+} as Props<DataFrame, TableOptions>;

@@ -1,5 +1,3 @@
-import type { DataFrame } from "../types";
-
 export const DataType = {
     'long-text': 'long-text',
     'short-text': 'short-text',
@@ -27,7 +25,7 @@ export type TableOptions = {
     unstyled?: boolean;
     defaultSortKey?: string;
     pages?: {
-        current: number;
+        initial: number;
         total: number;
         setPage: (next: number) => void;
     }

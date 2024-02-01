@@ -2,20 +2,31 @@
     import type { TableOptions } from "./types";
 
     export let setPage: Required<TableOptions>['pages']['setPage'];
-    export let current: number;
+    export let initial: number;
     export let total: number;
+    
+    let current = initial;
+    const changePage = (page: number) => {
+        setPage(page);
+        current = page;
+    };
 
-    $: pagination = Array.from({length: total - 1}, (_, i) => i + 2);
+    $: pages = [...Array(total).keys()];
 </script>
 
 <ul>
-    <li on:click={() => setPage(current - 1)}>
+    <li on:click={() => changePage(current - 1)}>
         <button>{'<<'}</button>
     </li>
-    {#each pagination as page}
-        <li on:click={() => setPage(page)}>{page}</li>
+    {#each pages as page}
+        <li 
+            on:click={() => changePage(page)}
+            class:current={page === current}
+        >
+            {page}
+        </li>
     {/each}
-    <li on:click={() => setPage(current + 1)}>
+    <li on:click={() => changePage(current + 1)}>
         <button>{'>>'}</button>
     </li>
 </ul>
@@ -24,6 +35,17 @@
     ul {
         display: flex;
         list-style: none;
+    }
+
+    li {
+        cursor: pointer;
+        margin-left: 6px;
+    }
+
+    .current {
+        color: red;
+        border: 1px solid;
+        padding: 3px;
     }
 </style>
 

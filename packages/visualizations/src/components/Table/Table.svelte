@@ -25,7 +25,6 @@
             sorted = key;
         }
     };
-    $: console.log(defaultSortKey, sorted);
     
 </script>
 
@@ -74,6 +73,12 @@
     th, td {
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+
+    .defaultStyle th {
+        padding: 13px;
+        background: white;
+        border-bottom: 1px solid lightgray;
     }
 
     thead.fixedHeader {
