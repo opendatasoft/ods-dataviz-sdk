@@ -14,10 +14,13 @@ export type Column = {
     key: string;
     /** how to render the data. Outputs an HTML string */
     format?: SupportedDataTypes | ((datum: unknown) => string);
-    fixed?: boolean;
+    fixed?: 'left' | 'right';
     width?: number;
     /** To be passed to an Array.sort */
-    onSort?: (a: Record<string, unknown>, b: Record<string, unknown>) => number;
+    sort?: {
+        onSort: (a: Record<string, unknown>, b: Record<string, unknown>) => number;
+        label: string;
+    }
 };
 
 export type TableOptions = {

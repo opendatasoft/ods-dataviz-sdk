@@ -98,13 +98,19 @@ const sortableColumns: Column[] = [
         title: 'Name',
         key: 'name',
         format: string => `<span>${string}</span>`,
-        onSort: sortName,
+        sort: {
+            onSort: sortName,
+            label: 'sort alphabetically'
+        }
     },
     {
         title: 'Address',
         key: 'address',
         format: string => `<span>${string}</span>`,
-        onSort: sortAddress,
+        sort: {
+            onSort: sortName,
+            label: 'sort by length'
+        }
     },
     {
         title: 'Number',
@@ -147,6 +153,14 @@ DefaultSorted.args = {
 } as Props<DataFrame, TableOptions>;
 
 export const Sortable = Template.bind({});
+Sortable.args = {
+    data,
+    options: {
+        columns: sortableColumns,
+    },
+} as Props<DataFrame, TableOptions>;
+
+export const SortAriaButton = Template.bind({});
 Sortable.args = {
     data,
     options: {

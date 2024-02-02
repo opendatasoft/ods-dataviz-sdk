@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { sum, sumBy } from 'lodash';
+    import { sumBy } from 'lodash';
     import type { DataFrame } from '../types';
     import type { Column, TableOptions } from './types';
     import type { Async } from '../../types';
@@ -27,13 +27,11 @@
         }
     };
 
-    const columnOffSet = (cols: Column[], index: number) => {
-        return sumBy(cols.slice(0, index), col => col.width || 0);
-    };
+    const columnOffSet = (cols: Column[], index: number) => sumBy(cols.slice(0, index), col => col.width || 0);
 </script>
 
 <div class="scroll-container">
-    <table class:defaultStyle style="width: 1400px;">
+    <table class:defaultStyle style="width: {sumBy(columns, col => col?.width || 0)}px;">
         <colgroup>
             {#each columns as column}
                 <col style="width: {column.width}px;">
@@ -44,8 +42,13 @@
                 {#each columns as column, i}
                     <th style="position: {column.fixed ? 'sticky' : ''}; left: {column.fixed ? columnOffSet(columns, i): ''}px;">
                         {column.title}
-                        {#if column?.onSort}
-                            <button on:click={() => reOrder(column.onSort, column.key)}>sort</button>
+                        {#if column?.sort}
+                            <button 
+                                on:click={() => reOrder(column.sort.onSort, column.key)}
+                                aria-label={column.sort.label}
+                            >
+                                sort
+                            </button>
                         {/if}
                         {#if sorted === column.key}
                             <span>I'm sorted</span>
@@ -79,6 +82,7 @@
         overflow: auto hidden;
     }
     table {
+        min-width: 100%;
         table-layout: fixed;
     }
     table.defaultStyle {
