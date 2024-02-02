@@ -7,7 +7,7 @@ export const DataType = {
 } as const;
 
 export type SupportedDataTypes = keyof typeof DataType;
-
+export type ColumnSorter = (a: Record<string, unknown>, b: Record<string, unknown>) => number;
 export type Column = {
     title: string;
     /** key name in the data object */
@@ -18,7 +18,7 @@ export type Column = {
     width?: number;
     /** To be passed to an Array.sort */
     sort?: {
-        onSort: (a: Record<string, unknown>, b: Record<string, unknown>) => number;
+        onSort: ColumnSorter;
         label: string;
     }
 };

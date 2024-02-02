@@ -76,14 +76,14 @@ const fixedColumns: Column[] = [
         key: 'name',
         format: string => `<span>${string}</span>`,
         width: 200,
-        fixed: true,
+        fixed: 'left',
     },
     {
         title: 'Address',
         key: 'address',
         format: string => `<span>${string}</span>`,
         width: 200,
-        fixed: true,
+        fixed: 'left',
     },
     {
         title: 'Number',
@@ -108,7 +108,7 @@ const sortableColumns: Column[] = [
         key: 'address',
         format: string => `<span>${string}</span>`,
         sort: {
-            onSort: sortName,
+            onSort: sortAddress,
             label: 'sort by length'
         }
     },
@@ -153,14 +153,6 @@ DefaultSorted.args = {
 } as Props<DataFrame, TableOptions>;
 
 export const Sortable = Template.bind({});
-Sortable.args = {
-    data,
-    options: {
-        columns: sortableColumns,
-    },
-} as Props<DataFrame, TableOptions>;
-
-export const SortAriaButton = Template.bind({});
 Sortable.args = {
     data,
     options: {
