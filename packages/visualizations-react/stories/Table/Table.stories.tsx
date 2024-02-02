@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { DataFrame, Column, TableOptions } from '@opendatasoft/visualizations';
+import { DataFrame, Column, TableOptions, Async } from '@opendatasoft/visualizations';
 import { Table } from '../../src';
 import type { Props } from '../../src';
 
@@ -34,7 +34,7 @@ const value: DataFrame = [
     },
 ];
 
-const longValue: DataFrame = [...Array(50).keys()].map((i: number) => ({
+const longValue: DataFrame = Array.from(Array(50).keys()).map((i: number) => ({
     name: `John ${i}`,
     address: `${i} street, New York`,
     number: i * i,
@@ -69,6 +69,30 @@ const columns: Column[] = [
         format: number => `<span>${number}</span>`,
     },
 ];
+
+const fixedColumns: Column[] = [
+    {
+        title: 'Name',
+        key: 'name',
+        format: string => `<span>${string}</span>`,
+        width: 200,
+        fixed: true,
+    },
+    {
+        title: 'Address',
+        key: 'address',
+        format: string => `<span>${string}</span>`,
+        width: 200,
+        fixed: true,
+    },
+    {
+        title: 'Number',
+        key: 'number',
+        format: number => `<span style="text-align: right;">${number}</span>`,
+        width: 1000,
+    },
+];
+
 const sortableColumns: Column[] = [
     {
         title: 'Name',
@@ -96,11 +120,6 @@ Default.args = {
     data,
     options: {
         columns,
-        pages: {
-            current: 1,
-            total: 1,
-            setPage: () => {},
-        },
     },
 } as Props<DataFrame, TableOptions>;
 
@@ -144,19 +163,26 @@ FixedHeader.args = {
     },
 } as Props<DataFrame, TableOptions>;
 
-const sliceData5 = (fullData: typeof longData, page: number) => {
+export const FixedColumns = Template.bind({});
+FixedColumns.args = {
+    data,
+    options: {
+        columns: fixedColumns,
+    },
+} as Props<DataFrame, TableOptions>;
+
+const sliceData5 = (fullData: Async<DataFrame>, page: number) => {
     const startIndex = page *5;
-    return fullData.value.slice(startIndex, startIndex + 5);
+    return fullData.value?.slice(startIndex, startIndex + 5);
 };
 const PaginatedTemplate: ComponentStory<typeof Table> = (args) => {
     const { data: rawData, options } = args;
     const { initial } = options.pages || {};
     const [records, setRecords] = useState(sliceData5(rawData, initial || 0));
 
-    if (options.pages) {
+    if (options.pages && rawData.value) {
         options.pages.setPage = (page: number) => {
-            const start = page * 5;
-            setRecords(rawData.value.slice(start, start + 5));
+            setRecords(sliceData5(rawData, page));
         };
     }
 
@@ -173,7 +199,8 @@ Paginated.args = {
         pages: {
             initial: 3,
             total: 10,
-            // set page is set in the template
+            setPage: () => {} // set in template
         },
     },
 } as Props<DataFrame, TableOptions>;
+

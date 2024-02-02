@@ -15,6 +15,7 @@ export type Column = {
     /** how to render the data. Outputs an HTML string */
     format?: SupportedDataTypes | ((datum: unknown) => string);
     fixed?: boolean;
+    width?: number;
     /** To be passed to an Array.sort */
     onSort?: (a: Record<string, unknown>, b: Record<string, unknown>) => number;
 };
