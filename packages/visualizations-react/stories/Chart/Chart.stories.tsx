@@ -1,8 +1,6 @@
 import { ComponentMeta } from '@storybook/react';
-import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Chart } from 'src';
-import { Props } from 'reactify';
 import { COLORS, defaultSource } from '../utils';
 import ChartTemplate from './ChartTemplate';
 
@@ -14,7 +12,9 @@ const meta: ComponentMeta<typeof Chart> = {
 export default meta;
 
 export const Sample = ChartTemplate.bind({});
-const SampleArgs: Props<DataFrame, ChartOptions> = {
+const SampleArgs = {
+    height: 100,
+    width: 100, // should crash TS
     data: {
         loading: false,
         value: [

@@ -1,25 +1,22 @@
-import React, { useEffect, useRef, useLayoutEffect } from 'react';
+import React, { useRef, useLayoutEffect} from 'react';
 import {
-    SvelteComponent,
-    ComponentProps,
     ComponentConstructorOptions,
 } from '@opendatasoft/visualizations'; // we export from the main package to avoid having different versions of svelte
+import type { SvelteComponentTyped } from 'svelte';
 
-/* Your ComponentProps type definition here */
-function reactifySvelte<C extends SvelteComponent>(
-    Component: new (options: ComponentConstructorOptions) => C // Correct constructor signature
+function reactifySvelte<P extends Record<string, unknown>>(
+    Component: new (options: ComponentConstructorOptions) => SvelteComponentTyped<P>,
+    className: string,
 ) {
-    return (props: ComponentProps<C>) => {
-        const svelteComponentRef = useRef<C | null>(null);
+    return (props: P) => {
+        const svelteComponentRef = useRef<SvelteComponentTyped<P>| null>(null);
         const mountRef = useRef<HTMLDivElement | null>(null);
-        // FIXME: temporary props dispatch to match the old implem
-        const { style, ...componentProps } = props;
 
         useLayoutEffect(() => {
             if (mountRef?.current) {
                 const component = new Component({
                     target: mountRef.current,
-                    props: componentProps,
+                    props,
                 });
                 svelteComponentRef.current = component;
             }
@@ -31,14 +28,11 @@ function reactifySvelte<C extends SvelteComponent>(
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [mountRef]);
 
-        useEffect(() => {
-            if (svelteComponentRef?.current) {
-                svelteComponentRef.current.$set({ ...componentProps });
-            }
-        }, [componentProps]);
+        if (svelteComponentRef?.current) {
+            svelteComponentRef.current.$set({...props});
+        }
 
-        // FIXME: ideally, we want to
-        return <div ref={mountRef} style={style} />;
+        return <div className={`ods-visualization ${className}`} ref={mountRef} />;
     };
 }
 

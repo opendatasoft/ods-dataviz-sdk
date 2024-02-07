@@ -25,7 +25,8 @@
 
     export let data: Async<DataFrame>;
     export let options: ChartOptions;
-
+    export let height: number;
+        
     const chartId = `chart-${generateId()}`;
 
     let chart: Chart;
