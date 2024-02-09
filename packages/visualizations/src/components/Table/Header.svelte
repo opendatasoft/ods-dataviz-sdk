@@ -1,27 +1,32 @@
 <script lang="ts">
-    import type { Column, ColumnSorter } from './types';
+    import { assertUnreachable } from '../utils';
+    import type { Column, ColumnSorter, Order, SortKey } from './types';
     import { columnOffset } from './utils';
 
     export let columns: Column[];
     export let fixed: boolean | undefined;
-    export let sortRecords: ((onSort: ColumnSorter) => void)| undefined;
-    export let defaultSortKey: string | undefined;
+    export let defaultSortKey: SortKey | undefined;
     
-    let sortedCol = {
-        key: defaultSortKey || null,
-        ascending: true,
+    let sortedCol = defaultSortKey;
+
+    const nextOrder = (order?: Order) => {
+        switch(order) {
+            case null: return 'desc';
+            case 'desc': return 'asc';
+            case 'asc': return null;
+            default: return 'asc';
+        }
     };
-
     const sortColumn = (column: Column) => {
-        if (!sortRecords || !column?.sort) return;
+        if (!column?.sort) return;
 
-        const isSorted = sortedCol.key === column.key;
         const { onSort } = column.sort;
+        onSort();
+
         sortedCol = {
             key: column.key,
-            ascending: isSorted ? !sortedCol.ascending : true,
-        };
-        sortRecords(onSort);
+            order: nextOrder(sortedCol?.order)
+        };         
     };
     
 </script>

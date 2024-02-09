@@ -12,14 +12,15 @@
     export let options: TableOptions;
 
     $: ({ value: records } = data);
-    $: ({ unstyled = false, columns, pages, fixedHeader, defaultSortKey } = options);
+    $: ({ 
+            unstyled = false,
+            columns,
+            pages,
+            fixedHeader = true,
+            size = 'medium',
+            defaultSortKey
+        } = options);
     $: defaultStyle = !unstyled;
-
-    const sortRecords = (onSort: Required<Column>['sort']['onSort']) => {
-        if (records?.sort) {
-            records = [...records.sort(onSort)];
-        }
-    };
 </script>
 
 <div class="scroll-container">
@@ -27,7 +28,6 @@
         <ColGroup {columns} />
         <Header 
             {columns}
-            {sortRecords}
             {defaultSortKey}
             fixed={fixedHeader}
         />

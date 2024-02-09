@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { DataFrame, Column, TableOptions, Async } from '@opendatasoft/visualizations';
+import { DataFrame, Column, TableOptions, Async, DATA_FORMATS } from '@opendatasoft/visualizations';
 import { Table } from '../../src';
 import type { Props } from '../../src';
 
@@ -56,17 +56,18 @@ const columns: Column[] = [
     {
         title: 'Name',
         key: 'name',
-        format: string => `<span>${string}</span>`,
+        dataFormat: DATA_FORMATS.shortText,
     },
     {
         title: 'Address',
         key: 'address',
-        format: string => `<span>${string}</span>`,
+        dataFormat: DATA_FORMATS.longText,
+
     },
     {
         title: 'Number',
         key: 'number',
-        format: number => `<span>${number}</span>`,
+        dataFormat: DATA_FORMATS.integer,
     },
 ];
 
@@ -74,48 +75,22 @@ const fixedColumns: Column[] = [
     {
         title: 'Name',
         key: 'name',
-        format: string => `<span>${string}</span>`,
+        dataFormat: DATA_FORMATS.shortText,
         width: 200,
         fixed: 'left',
     },
     {
         title: 'Address',
         key: 'address',
-        format: string => `<span>${string}</span>`,
+        dataFormat: DATA_FORMATS.longText,
         width: 200,
         fixed: 'left',
     },
     {
         title: 'Number',
         key: 'number',
-        format: number => `<span style="text-align: right;">${number}</span>`,
+        dataFormat: DATA_FORMATS.integer,
         width: 1000,
-    },
-];
-
-const sortableColumns: Column[] = [
-    {
-        title: 'Name',
-        key: 'name',
-        format: string => `<span>${string}</span>`,
-        sort: {
-            onSort: sortName,
-            label: 'sort alphabetically'
-        }
-    },
-    {
-        title: 'Address',
-        key: 'address',
-        format: string => `<span>${string}</span>`,
-        sort: {
-            onSort: sortAddress,
-            label: 'sort by length'
-        }
-    },
-    {
-        title: 'Number',
-        key: 'number',
-        format: number => `<span>${number}</span>`,
     },
 ];
 
