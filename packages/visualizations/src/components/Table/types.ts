@@ -13,4 +13,9 @@ export type TableOptions = {
     subtitle?: string;
     description?: string;
     source?: Source;
+    /**
+     * Removes all the presentational styles.
+     * Default is `false`.
+     */
+    unstyled?: boolean;
 };

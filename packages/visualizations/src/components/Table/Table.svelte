@@ -14,18 +14,23 @@
     const tableId = `table-${generateId()}`;
 
     $: ({ value: records } = data);
-    $: ({ columns, title, subtitle, description, source } = options);
+    // FIXME: Eslint is in conflict with prettier
+    // eslint-disable-next-line object-curly-newline
+    $: ({ columns, title, subtitle, description, source, unstyled } = options);
+    $: defaultStyle = !unstyled;
 </script>
 
-<div class="container">
-    <div class="header">
-        {#if title}
-            <h3>{title}</h3>
-        {/if}
-        {#if subtitle}
-            <p>{subtitle}</p>
-        {/if}
-    </div>
+<div class="ods-dataviz-sdk-table" class:ods-dataviz-sdk-table--default={defaultStyle}>
+    {#if title || subtitle}
+        <div class="dataviz-header">
+            {#if title}
+                <h3>{title}</h3>
+            {/if}
+            {#if subtitle}
+                <p>{subtitle}</p>
+            {/if}
+        </div>
+    {/if}
     <div class="table-wrapper">
         <table aria-describedby={description ? tableId : undefined}>
             <Header {columns} />
@@ -42,8 +47,8 @@
     {/if}
 </div>
 
-<style>
-    .container {
+<style lang="scss">
+    .ods-dataviz-sdk-table {
         --spacing-50: 6px;
         --spacing-75: 9px;
         --spacing-100: 13px;
@@ -61,49 +66,33 @@
         flex-direction: column;
         width: 100%;
     }
-    .header {
-        margin-bottom: var(--spacing-100);
-    }
-    .header h3,
-    .header p {
-        margin: 0;
-    }
-    .table-wrapper {
-        border: solid 1px var(--border-color);
-        border-radius: var(--spacing-50);
-        overflow-x: auto;
-        overscroll-behavior-x: none;
-        width: inherit;
-        max-width: 100%;
-        margin-bottom: var(--spacing-100);
-    }
-    table {
-        border-collapse: collapse;
-        color: var(--text-color);
-        white-space: nowrap;
-        width: inherit;
-    }
-    :global(.container th),
-    :global(.container td) {
-        padding: var(--spacing-75);
-        font-weight: normal;
-        text-align: left;
-    }
-    :global(.container th) {
-        color: var(--header-text-color);
-        background-color: var(--header-background-color);
-    }
-    :global(.container thead) {
-        border-bottom: 2px solid var(--header-border-bottom-color);
-    }
-    :global(.container tbody tr:not(:last-child)) {
-        border-bottom: 1px solid var(--border-color);
-    }
-    :global(.container tbody tr:hover) {
-        background-color: var(--active-row-background-color);
-    }
     /* Suitable for elements that are used via aria-describedby or aria-labelledby */
     .a11y-invisible-description {
         display: none;
+    }
+
+    .ods-dataviz-sdk-table--default {
+        .dataviz-header {
+            margin-bottom: var(--spacing-100);
+            h3,
+            p {
+                margin: 0;
+            }
+        }
+        .table-wrapper {
+            border: solid 1px var(--border-color);
+            border-radius: var(--spacing-50);
+            overflow-x: auto;
+            overscroll-behavior-x: none;
+            max-width: 100%;
+            width: inherit;
+            margin-bottom: var(--spacing-100);
+            table {
+                border-collapse: collapse;
+                color: var(--text-color);
+                white-space: nowrap;
+                width: inherit;
+            }
+        }
     }
 </style>
