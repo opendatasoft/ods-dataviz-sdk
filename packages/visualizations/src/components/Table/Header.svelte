@@ -7,7 +7,7 @@
 <thead>
     <tr>
         {#each columns as column}
-            <th>
+            <th class={`table-header--${column.dataFormat}`}>
                 {column.title}
             </th>
         {/each}
@@ -23,6 +23,9 @@
             padding: var(--spacing-75);
             font-weight: normal;
             text-align: left;
+            &.table-header--number {
+                text-align: right;
+            }
         }
     }
 </style>
