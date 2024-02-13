@@ -92,3 +92,9 @@ CustomStyle.args = {
     data,
     options,
 };
+
+export const Unstyled = Template.bind({});
+Unstyled.args = {
+    data,
+    options: { ...options, unstyled: true },
+};

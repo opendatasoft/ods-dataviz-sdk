@@ -19,3 +19,16 @@
         </tr>
     {/each}
 </tbody>
+
+<style lang="scss">
+    :global(.ods-dataviz-sdk-table--default) {
+        tbody tr {
+            &:not(:last-child) {
+                border-bottom: 1px solid var(--border-color);
+            }
+            &:hover {
+                background-color: var(--active-row-background-color);
+            }
+        }
+    }
+</style>
