@@ -73,6 +73,7 @@ const options: TableOptions = {
     source: {
         href: '',
     },
+    locale: 'fr',
 };
 
 const Template: ComponentStory<typeof Table> = (args) => <Table {...args} />;
