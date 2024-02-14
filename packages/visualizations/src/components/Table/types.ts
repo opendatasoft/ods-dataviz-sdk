@@ -71,6 +71,8 @@ export type TableOptions = {
     subtitle?: string;
     description?: string;
     source?: Source;
+    /** To format date and number with the right locale. Default is from browser language */
+    locale?: string;
     /**
      * Removes all the presentational styles.
      * Default is `false`.
