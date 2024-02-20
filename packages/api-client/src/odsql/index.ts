@@ -137,6 +137,7 @@ function root(source: string) {
         itself: () => new Query(`${source}/`),
         facets: () => new Query(`${source}/facets/`),
         datasets: () => new Query(`${source}/datasets/`),
+        assets: () => new Query(`${source}/assets/`),
         export: (format: ExportCatalogFormat) => new Query(`${source}/exports/${format}/`),
         dataset: (datasetId: string) => ({
             itself: () => new Query(`${source}/datasets/${datasetId}/`),
