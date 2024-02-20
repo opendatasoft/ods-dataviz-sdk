@@ -6,10 +6,15 @@
     export let rawValue: unknown;
     export let column: Column;
 
+    const title =
+        ['short-text', 'long-text'].includes(column.dataFormat) && typeof rawValue === 'string'
+            ? rawValue
+            : undefined;
+
     $: ({ dataFormat } = column);
 </script>
 
-<td class={`table-data--${dataFormat}`}>
+<td class={`table-data--${dataFormat}`} {title}>
     <!-- To format, rawValue must be different from undefined or null -->
     {#if isValidRawValue(rawValue)}
         {#if column.dataFormat === 'url'}
@@ -21,7 +26,7 @@
         {:else if column.dataFormat === 'boolean'}
             <Format.BooleanFormat {rawValue} />
         {:else if column.dataFormat === 'long-text' || column.dataFormat === 'short-text'}
-            <Format.TextFormat {rawValue} />
+            <Format.TextFormat {rawValue} format={column.dataFormat} />
         {/if}
     {/if}
 </td>
@@ -36,17 +41,13 @@
                 &--number {
                     text-align: right;
                 }
-                // FIXME: Arbitrary style; to be refined later
                 &--short-text,
                 &--url {
                     text-overflow: ellipsis;
                     overflow: hidden;
-                    max-width: 150px;
-                }
-                &--long-text {
-                    min-width: 300px;
-                    max-width: 500px;
-                    white-space: initial;
+                    width: max-content;
+                    min-width: 40px;
+                    max-width: 240px;
                 }
             }
         }
