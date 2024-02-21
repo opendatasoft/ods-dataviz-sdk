@@ -7,7 +7,6 @@
     import SourceLink from '../utils/SourceLink.svelte';
     import Header from './Header.svelte';
     import Body from './Body.svelte';
-    import parseTheme from './utils/theme';
 
     export let data: Async<TableData>;
     export let options: TableOptions;
@@ -15,14 +14,10 @@
     const tableId = `table-${generateId()}`;
 
     $: ({ value: records } = data);
-    // FIXME: Eslint is in conflict with prettier
-    // eslint-disable-next-line object-curly-newline
-    $: ({ columns, title, subtitle, description, source, theme } = options);
-
-    $: style = parseTheme(theme);
+    $: ({ columns, title, subtitle, description, source } = options);
 </script>
 
-<div class="container" {style}>
+<div class="container">
     <div class="header">
         {#if title}
             <h3>{title}</h3>
@@ -52,6 +47,13 @@
         --spacing-50: 6px;
         --spacing-75: 9px;
         --spacing-100: 13px;
+
+        --text-color: var(--ods-sdk-table-text-color, #565656);
+        --border-color: var(--ods-sdk-table-border-color, #cbd2db);
+        --header-text-color: var(--ods-sdk-table-header-text-color, #3c3c3c);
+        --header-background-color: var(--ods-sdk-table-header-background-color, #f2f3f8);
+        --header-border-bottom-color: var(--ods-sdk-table-header-border-bottom-color, #dee5ef);
+        --active-row-background-color: var(--ods-sdk-table-active-row-background-color, #f6f8fb);
 
         /* FIXME: Only using flex style to center source link */
         display: flex;
@@ -88,7 +90,7 @@
         background-color: var(--header-background-color);
     }
     :global(.container thead) {
-        border-bottom: 2px solid var(--header-border-color);
+        border-bottom: 2px solid var(--header-border-bottom-color);
     }
     :global(.container tbody tr:not(:last-child)) {
         border-bottom: 1px solid var(--border-color);

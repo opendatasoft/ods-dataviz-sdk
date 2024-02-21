@@ -1,23 +1,10 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Column, TableOptions, TableData, Async, Theme } from '@opendatasoft/visualizations';
+import { Column, TableOptions, TableData, Async } from '@opendatasoft/visualizations';
 
 import { Table } from '../../src';
 
 import value from './data';
-
-const theme: Required<Theme> = {
-    textColor: '#000000',
-    borderColor: '#fcd4cf',
-    header: {
-        textColor: '#ffffff',
-        backgroundColor: '#fd635d',
-        borderColor: '#f94346',
-    },
-    dataRow: {
-        activeBackgroundColor: '#f9aea4',
-    },
-};
 
 const meta: ComponentMeta<typeof Table> = {
     title: 'Table/Table',
@@ -84,8 +71,24 @@ Playground.args = {
     options,
 };
 
-export const CustomTheme = Template.bind({});
-CustomTheme.args = {
+const CustomStyleTemplate: ComponentStory<typeof Table> = (args) => (
+    <div
+        style={
+            {
+                '--ods-sdk-table-text-color': '#000000',
+                '--ods-sdk-table-border-color': '#fcd4cf',
+                '--ods-sdk-table-header-text-color': '#ffffff',
+                '--ods-sdk-table-header-background-color': '#fd635d',
+                '--ods-sdk-table-header-border-bottom-color': '#f94346',
+                '--ods-sdk-table-active-row-background-color': '#f9aea4',
+            } as React.CSSProperties
+        }
+    >
+        <Table {...args} />
+    </div>
+);
+export const CustomStyle = CustomStyleTemplate.bind({});
+CustomStyle.args = {
     data,
-    options: { ...options, theme },
+    options,
 };

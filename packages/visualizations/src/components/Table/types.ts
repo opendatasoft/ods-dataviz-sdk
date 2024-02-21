@@ -7,24 +7,10 @@ export type Column = {
     title: string;
 };
 
-export type Theme = Partial<{
-    textColor: string;
-    borderColor: string;
-    dataRow: {
-        activeBackgroundColor: string;
-    };
-    header: {
-        textColor: string;
-        backgroundColor: string;
-        borderColor: string;
-    };
-}>;
-
 export type TableOptions = {
     columns: Column[];
     title?: string;
     subtitle?: string;
     description?: string;
     source?: Source;
-    theme?: Theme;
 };
