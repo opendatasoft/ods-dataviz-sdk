@@ -59,6 +59,7 @@
         display: flex;
         flex-wrap: wrap;
         flex-direction: column;
+        width: 100%;
     }
     .header {
         margin-bottom: var(--spacing-100);
@@ -72,6 +73,7 @@
         border-radius: var(--spacing-50);
         overflow-x: auto;
         overscroll-behavior-x: none;
+        width: inherit;
         max-width: 100%;
         margin-bottom: var(--spacing-100);
     }
@@ -79,6 +81,7 @@
         border-collapse: collapse;
         color: var(--text-color);
         white-space: nowrap;
+        width: inherit;
     }
     :global(.container th),
     :global(.container td) {
