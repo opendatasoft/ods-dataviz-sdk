@@ -71,6 +71,7 @@
         border: solid 1px var(--border-color);
         border-radius: var(--spacing-50);
         overflow-x: auto;
+        overscroll-behavior-x: none;
         max-width: 100%;
         margin-bottom: var(--spacing-100);
     }
