@@ -1,8 +1,9 @@
 <script lang="ts">
+    import type { URLColumn } from '../../types';
     import { warn } from './utils';
 
     export let rawValue: unknown;
-    export let target = '_blank';
+    export let options: URLColumn['options'] = {};
 
     function displayValue(v: unknown) {
         try {
@@ -19,7 +20,7 @@
 </script>
 
 {#if value}
-    <a href={value} target={target || '_blank'}>{value}</a>
+    <a href={value} target={options?.target || '_blank'}>{value}</a>
 {:else}
     {rawValue}
 {/if}

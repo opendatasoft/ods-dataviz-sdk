@@ -82,11 +82,11 @@ export default [
     {
       title: "Undefined row",
       price: undefined,
-      content: undefined,
+      content: null,
       datePublished: undefined,
-      isFeatured: undefined,
+      isFeatured: null,
       wordCount: undefined,
-      readingTime: undefined,
+      readingTime: null,
       url: undefined
     },
     {
