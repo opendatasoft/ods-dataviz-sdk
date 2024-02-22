@@ -13,10 +13,12 @@ type BaseColumn = {
 
 export type ShortTextColumn = BaseColumn & {
     dataFormat: typeof DATA_FORMAT.shortText;
+    options?: never;
 };
 
 export type LongTextColumn = BaseColumn & {
     dataFormat: typeof DATA_FORMAT.longText;
+    options?: never;
 };
 
 export type NumberColumn = BaseColumn & {
@@ -41,6 +43,7 @@ export type DateColumn = BaseColumn & {
 
 export type BooleanColumn = BaseColumn & {
     dataFormat: typeof DATA_FORMAT.boolean;
+    options?: never;
 };
 
 /**
@@ -48,8 +51,10 @@ export type BooleanColumn = BaseColumn & {
  */
 export type URLColumn = BaseColumn & {
     dataFormat: typeof DATA_FORMAT.url;
-    /** Default is `_blank` */
-    target?: string;
+    options?: {
+        /** Default is `_blank` */
+        target?: string;
+    };
 };
 
 export type Column =

@@ -1,9 +1,19 @@
 import BooleanFormat from './BooleanFormat.svelte';
 import DateFormat from './DateFormat.svelte';
 import NumberFormat from './NumberFormat.svelte';
-import TextFormat from './TextFormat.svelte';
 import URLFormat from './URLFormat.svelte';
+import ShortTextFormat from './ShortTextFormat.svelte';
+import LongTextFormat from './LongTextFormat.svelte';
 import { isValidRawValue } from './utils';
 
-export default { BooleanFormat, DateFormat, NumberFormat, TextFormat, URLFormat };
+const Format = {
+    boolean: BooleanFormat,
+    date: DateFormat,
+    'short-text': ShortTextFormat,
+    'long-text': LongTextFormat,
+    url: URLFormat,
+    number: NumberFormat,
+};
+
 export { isValidRawValue };
+export default Format;

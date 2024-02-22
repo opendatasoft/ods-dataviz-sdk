@@ -13,19 +13,3 @@
         {/each}
     </tr>
 </thead>
-
-<style lang="scss">
-    :global(.ods-dataviz-sdk-table--default) {
-        :global(thead) {
-            border-bottom: 1px solid var(--border-color);
-        }
-        :global(th) {
-            padding: var(--spacing-75);
-            font-weight: normal;
-            text-align: left;
-            &.table-header--number {
-                text-align: right;
-            }
-        }
-    }
-</style>
