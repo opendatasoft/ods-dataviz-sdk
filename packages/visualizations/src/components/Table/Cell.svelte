@@ -6,7 +6,7 @@
 
 <style lang="scss">
     :global(.ods-dataviz-sdk-table--default) {
-        td {
+        :global(td) {
             padding: var(--spacing-75);
             font-weight: normal;
             text-align: left;

@@ -72,18 +72,7 @@ Playground.args = {
 };
 
 const CustomStyleTemplate: ComponentStory<typeof Table> = (args) => (
-    <div
-        style={
-            {
-                '--ods-sdk-table-text-color': '#000000',
-                '--ods-sdk-table-border-color': '#fcd4cf',
-                '--ods-sdk-table-header-text-color': '#ffffff',
-                '--ods-sdk-table-header-background-color': '#fd635d',
-                '--ods-sdk-table-header-border-bottom-color': '#f94346',
-                '--ods-sdk-table-active-row-background-color': '#f9aea4',
-            } as React.CSSProperties
-        }
-    >
+    <div className="table-story--custom-style">
         <Table {...args} />
     </div>
 );

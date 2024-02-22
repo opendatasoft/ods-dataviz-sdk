@@ -53,12 +53,7 @@
         --spacing-75: 9px;
         --spacing-100: 13px;
 
-        --text-color: var(--ods-sdk-table-text-color, #565656);
-        --border-color: var(--ods-sdk-table-border-color, #cbd2db);
-        --header-text-color: var(--ods-sdk-table-header-text-color, #3c3c3c);
-        --header-background-color: var(--ods-sdk-table-header-background-color, #f2f3f8);
-        --header-border-bottom-color: var(--ods-sdk-table-header-border-bottom-color, #dee5ef);
-        --active-row-background-color: var(--ods-sdk-table-active-row-background-color, #f6f8fb);
+        --border-color: #cbd2db;
 
         /* FIXME: Only using flex style to center source link */
         display: flex;
@@ -71,7 +66,7 @@
         display: none;
     }
 
-    .ods-dataviz-sdk-table--default {
+    :global(.ods-dataviz-sdk-table--default) {
         .dataviz-header {
             margin-bottom: var(--spacing-100);
             h3,
@@ -79,7 +74,7 @@
                 margin: 0;
             }
         }
-        .table-wrapper {
+        :global(.table-wrapper) {
             border: solid 1px var(--border-color);
             border-radius: var(--spacing-50);
             overflow-x: auto;
@@ -89,7 +84,6 @@
             margin-bottom: var(--spacing-100);
             table {
                 border-collapse: collapse;
-                color: var(--text-color);
                 white-space: nowrap;
                 width: inherit;
             }

@@ -16,15 +16,13 @@
 
 <style lang="scss">
     :global(.ods-dataviz-sdk-table--default) {
-        thead {
-            border-bottom: 2px solid var(--header-border-bottom-color);
+        :global(thead) {
+            border-bottom: 1px solid var(--border-color);
         }
-        th {
+        :global(th) {
             padding: var(--spacing-75);
             font-weight: normal;
             text-align: left;
-            color: var(--header-text-color);
-            background-color: var(--header-background-color);
         }
     }
 </style>
