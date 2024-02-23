@@ -6,3 +6,4 @@ export { default as ChoroplethGeoJson } from './components/ChoroplethGeoJson';
 export { default as ChoroplethVectorTiles } from './components/ChoroplethVectorTiles';
 export { default as ChoroplethSvg } from './components/ChoroplethSvg';
 export { default as PoiMap } from './components/PoiMap';
+export { default as Table } from './components/Table';
