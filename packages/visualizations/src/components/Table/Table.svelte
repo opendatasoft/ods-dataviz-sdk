@@ -22,7 +22,7 @@
 
 <div class="ods-dataviz-sdk-table" class:ods-dataviz-sdk-table--default={defaultStyle}>
     {#if title || subtitle}
-        <div class="dataviz-header">
+        <div class="header">
             {#if title}
                 <h3>{title}</h3>
             {/if}
