@@ -1,0 +1,89 @@
+.ods-dataviz-sdk-table {
+    --spacing-50: 6px;
+    --spacing-75: 9px;
+    --spacing-100: 13px;
+
+    --border-color: #cbd2db;
+
+    /* FIXME: Only using flex style to center source link */
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 100%;
+}
+
+.header {
+    margin-bottom: var(--spacing-100);
+    h3,
+    p {
+        margin: 0;
+    }
+}
+
+/* Suitable for elements that are used via aria-describedby or aria-labelledby */
+.a11y-invisible-description {
+    display: none;
+}
+
+// Default Table visual style. Not applied if 'unstyled' prop is set.
+:global(.ods-dataviz-sdk-table--default) {
+    :global(.table-wrapper) {
+        border: solid 1px var(--border-color);
+        border-radius: var(--spacing-50);
+        overflow-x: auto;
+        overscroll-behavior-x: none;
+        max-width: 100%;
+        width: inherit;
+        margin-bottom: var(--spacing-100);
+
+        :global(table) {
+            border-collapse: collapse;
+            white-space: nowrap;
+            width: inherit;
+        }
+        :global(thead) {
+            border-bottom: 1px solid var(--border-color);
+        }
+    }
+
+    :global(tbody td),
+    :global(th) {
+        text-align: left;
+        padding: var(--spacing-75);
+    }
+    :global(tbody tr) {
+        border-bottom: 1px solid var(--border-color);
+    }
+    :global(tbody tr:last-child) {
+        border-bottom: none;
+    }
+}
+
+// Data formatting style
+:global(.ods-dataviz-sdk-table) {
+    // Table header
+    :global(.table-header--number) {
+        text-align: right;
+    }
+
+    // Table data
+    :global(.table-data--long-text > span),
+    :global(.table-data--short-text),
+    :global(.table-data--url) {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: max-content;
+        min-width: 40px;
+        max-width: 240px;
+    }
+    :global(.table-data--long-text > span) {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        white-space: pre-wrap;
+    }
+    :global(.table-data--number) {
+        text-align: right;
+    }
+}

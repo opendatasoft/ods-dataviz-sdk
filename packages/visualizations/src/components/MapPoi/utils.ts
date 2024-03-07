@@ -20,7 +20,12 @@ import type {
     PopupConfigurationByLayers,
     SymbolLayer,
 } from './types';
-import { DEFAULT_DARK_GREY, DEFAULT_BASEMAP_STYLE, DEFAULT_ASPECT_RATIO } from './constants';
+import {
+    DEFAULT_DARK_GREY,
+    DEFAULT_BASEMAP_STYLE,
+    DEFAULT_ASPECT_RATIO,
+    DEFAULT_SORT_KEY_VALUE,
+} from './constants';
 
 export const getMapStyle = (style: PoiMapOptions['style']): MapOptions['style'] => {
     if (!style) return DEFAULT_BASEMAP_STYLE;
@@ -122,6 +127,7 @@ const getMapSymbolLayer = (layer: SymbolLayer): SymbolLayerSpecification => {
             'icon-size': 1,
             'icon-allow-overlap': true,
             'icon-image': iconImage,
+            'symbol-sort-key': DEFAULT_SORT_KEY_VALUE,
         },
     };
 };
