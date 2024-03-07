@@ -14,11 +14,14 @@ const meta: ComponentMeta<typeof MarkdownText> = {
                         alignItems: 'center',
                         justifyContent: 'center',
                         height: '90vh',
-                        width: '50%',
-                        maxWidth: '500px',
                     }}
                 >
-                    {Story()}
+                    <div style={{
+                        width: '50%',
+                        maxWidth: '500px',
+                    }}>
+                        {Story()}
+                    </div>
                 </div>
             </div>
         ),

@@ -1,8 +1,8 @@
 import React, { CSSProperties } from 'react';
 import { Async, KpiCardOptions } from '@opendatasoft/visualizations';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { KpiProps } from '@opendatasoft/visualizations';
 import { KpiCard } from 'src';
-import { Props } from 'reactify';
 import {
     IMAGES,
     defaultSource,
@@ -17,32 +17,30 @@ const meta: ComponentMeta<typeof KpiCard> = {
 
 export default meta;
 
-type KpiCardStoryProps = Props<number, KpiCardOptions> & { style?: CSSProperties };
+type KpiCardStoryProps = KpiProps & { style?: CSSProperties };
 
 /* Makes the mapping easier to type as component stories */
 const DemoCards = (stories: { [key: string]: KpiCardStoryProps }) => (
-    <>
-        {Object.values(stories).map(args => (
-            <KpiCard {...args} />
+    <div
+        style={{
+            display: 'grid',
+            maxWidth: '800px',
+            margin: '0 auto',
+            gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+            gridTemplateRows: 'repeat(2, minmax(0, 1fr))',
+            gap: '1rem',
+            '--kpi-card-value-color': '#198276',
+        } as CSSProperties}
+    >   
+        {Object.values(stories).map(({ style, ...props }) => (
+            <div style={style}>
+                <KpiCard {...props} />
+            </div>
         ))}
-    </>
+    </div>
 );
 
-const Template: ComponentStory<typeof DemoCards> = args => (
-        <div
-            style={{
-                display: 'grid',
-                maxWidth: '800px',
-                margin: '0 auto',
-                gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-                gridTemplateRows: 'repeat(2, minmax(0, 1fr))',
-                gap: '1rem',
-                '--kpi-card-value-color': '#198276',
-            } as CSSProperties}
-        >
-            <DemoCards {...args} />
-        </div>
-    );
+const Template: ComponentStory<typeof DemoCards> = args => <DemoCards {...args} />;
 
 function withDataOptions({data, options}: { data: Async<number>, options: KpiCardOptions}) {
     return {
