@@ -69,7 +69,6 @@ const ChoroPlethWithSelect = ({
             <ChoroplethSvg
                 options={optionsWithScale}
                 data={selectedDataset}
-                style={{ height: '100%', width: '100%' }} // Necessary to remove storybook wrapper
             />
         </div>
     );

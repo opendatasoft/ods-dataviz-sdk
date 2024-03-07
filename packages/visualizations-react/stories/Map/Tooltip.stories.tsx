@@ -1,12 +1,10 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import type {
-    ChoroplethGeoJsonOptions,
-    DataFrame,
+    ChoroplethGeoJsonProps,
     TooltipParams,
 } from '@opendatasoft/visualizations';
 import { ChoroplethGeoJson } from 'src';
-import type { Props } from 'reactify';
 
 import { IMAGES } from '../utils';
 import { shapes } from './data';
@@ -17,7 +15,7 @@ const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
 };
 
 export default meta;
-const Template: ComponentStory<typeof ChoroplethGeoJson> = (args) => (
+const Template: ComponentStory<typeof ChoroplethGeoJson> = args => (
     <div
         style={{
             width: '50%',
@@ -32,9 +30,8 @@ const Template: ComponentStory<typeof ChoroplethGeoJson> = (args) => (
 );
 
 export const DefaultTooltip = Template.bind({});
-const DefaultTooltipArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
-    data: {
-        loading: false,
+const DefaultTooltipArgs: ChoroplethGeoJsonProps = {
+    data: {       
         value: [
             { x: 'France', y: 60 },
             { x: 'Île de France', y: 35 },
@@ -50,9 +47,8 @@ const DefaultTooltipArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
 DefaultTooltip.args = DefaultTooltipArgs;
 
 export const CustomSimpleTooltip = Template.bind({});
-const CustomSimpleTooltipArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
-    data: {
-        loading: false,
+const CustomSimpleTooltipArgs: ChoroplethGeoJsonProps = {
+    data: {      
         value: [
             { x: 'France', y: 60 },
             { x: 'Île de France', y: 35 },
@@ -74,9 +70,8 @@ const CustomSimpleTooltipArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
 CustomSimpleTooltip.args = CustomSimpleTooltipArgs;
 
 export const CustomComplexTooltip = Template.bind({});
-const CustomComplexTooltipArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
-    data: {
-        loading: false,
+const CustomComplexTooltipArgs: ChoroplethGeoJsonProps = {
+    data: {  
         value: [
             { x: 'France', y: 60 },
             { x: 'Île de France', y: 35 },

@@ -1,10 +1,5 @@
 import type { ExpressionInputType } from 'maplibre-gl';
-import type { ComponentProps } from 'svelte';
-import type Chart from './Chart';
-// import type { ChartOptions } from 'chart.js';
-// import type { Async } from '../types';
 
-export type ChartProps = ComponentProps<Chart>;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type DataFrame = Record<string, any>[];
 

@@ -22,7 +22,11 @@
         MapRenderTooltipFunction,
         MapLegend,
         NavigationMap,
+        ChoroplethGeoJsonProps,
     } from '../types';
+
+    // ensure exported type matches declared props
+    type $$Props = ChoroplethGeoJsonProps;
 
     export let data: { value: ChoroplethDataValue[] }; // values, and the key to match
     export let options: ChoroplethGeoJsonOptions; // contains the shapes to display & match

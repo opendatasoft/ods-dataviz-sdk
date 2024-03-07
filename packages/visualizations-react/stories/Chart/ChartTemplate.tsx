@@ -8,9 +8,10 @@ const ChartTemplate: ComponentStory<typeof Chart> = args => (
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            width: '60vw',
         }}
     >
-        <Chart {...args} style={{ width: '60vw' }} />
+        <Chart {...args} />
     </div>
 );
 

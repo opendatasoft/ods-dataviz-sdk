@@ -4,7 +4,14 @@
     import { DEFAULT_COLORSCALE, DEFAULT_COLORS, EMPTY_FC } from '../constants';
     import Map from './Map.svelte';
 
-    import type { ChoroplethGeoJsonOptions, ChoroplethDataValue } from '../types';
+    import type {
+        ChoroplethGeoJsonOptions,
+        ChoroplethGeoJsonProps,
+        ChoroplethDataValue,
+    } from '../types';
+
+    // ensure exported type matches declared props
+    type $$Props = ChoroplethGeoJsonProps;
 
     export let data: { value: ChoroplethDataValue[] };
     export let options: ChoroplethGeoJsonOptions;

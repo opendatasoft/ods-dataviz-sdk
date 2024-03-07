@@ -21,6 +21,7 @@
     } from '../utils';
     import { DEFAULT_COLORS, DEFAULT_COLORSCALE } from '../constants';
     import type {
+        ChoroplethVectorTilesProps,
         ChoroplethDataValue,
         ChoroplethLayer,
         ChoroplethVectorTilesOptions,
@@ -30,6 +31,9 @@
         MapRenderTooltipFunction,
         NavigationMap,
     } from '../types';
+
+    // ensure exported type matches declared props
+    type $$Props = ChoroplethVectorTilesProps;
 
     export let data: { value: ChoroplethDataValue[] }; // values, and the key to match
     export let options: ChoroplethVectorTilesOptions; // contains the shapes to display & match

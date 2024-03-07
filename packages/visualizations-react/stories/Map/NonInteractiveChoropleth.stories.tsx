@@ -1,9 +1,8 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import * as turf from '@turf/turf';
-import { ChoroplethGeoJsonOptions, DataFrame } from '@opendatasoft/visualizations';
+import { ChoroplethGeoJsonProps } from '@opendatasoft/visualizations';
 import { ChoroplethGeoJson } from 'src';
-import type { Props } from 'reactify';
 
 import { shapes } from './data';
 
@@ -27,7 +26,7 @@ const makeMiniMaps = (n: number) =>
         };
     });
 
-const Template: ComponentStory<typeof ChoroplethGeoJson> = (args) => (
+const Template: ComponentStory<typeof ChoroplethGeoJson> = args => (
     <div
         style={{
             width: '50%',
@@ -42,9 +41,8 @@ const Template: ComponentStory<typeof ChoroplethGeoJson> = (args) => (
 );
 
 export const NonInteractiveChoropleth = Template.bind({});
-const NonInteractiveChoroplethArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
+const NonInteractiveChoroplethArgs: ChoroplethGeoJsonProps = {
     data: {
-        loading: false,
         value: [
             { x: 'France', y: 60 },
             { x: 'Île de France', y: 35 },
@@ -56,7 +54,7 @@ const NonInteractiveChoroplethArgs: Props<DataFrame, ChoroplethGeoJsonOptions> =
         aspectRatio: 1,
         activeShapes: ['France'],
         interactive: false,
-        navigationMaps: [...makeMiniMaps(3),],
+        navigationMaps: [...makeMiniMaps(3)],
     },
 };
 NonInteractiveChoropleth.args = NonInteractiveChoroplethArgs;

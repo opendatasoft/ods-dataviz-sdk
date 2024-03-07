@@ -1,13 +1,11 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import {
-    ChoroplethGeoJsonOptions,
-    DataFrame,
+    ChoroplethGeoJsonProps,
     TooltipParams,
     ColorScaleTypes,
 } from '@opendatasoft/visualizations';
 import { ChoroplethGeoJson } from 'src';
-import type { Props } from 'reactify';
 
 import { shapes } from './data';
 
@@ -24,7 +22,7 @@ const tooltip = {
         }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
 };
 
-const Template: ComponentStory<typeof ChoroplethGeoJson> = (args) => (
+const Template: ComponentStory<typeof ChoroplethGeoJson> = args => (
     <div
         style={{
             width: '180px',
@@ -39,9 +37,8 @@ const Template: ComponentStory<typeof ChoroplethGeoJson> = (args) => (
 );
 
 export const ChoroplethLongLabels = Template.bind({});
-const ChoroplethLongLabelsArgs: Props<DataFrame, ChoroplethGeoJsonOptions> = {
+const ChoroplethLongLabelsArgs: ChoroplethGeoJsonProps = {
     data: {
-        loading: false,
         value: [
             { x: 'France', y: 600.05 },
             { x: 'Île de France', y: 350.05 },

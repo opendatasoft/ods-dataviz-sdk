@@ -13,6 +13,7 @@
     import { ChartSeriesType } from './types';
     import type {
         ChartOptions,
+        ChartProps,
         ChartSeries,
         Parsed,
         ScriptableTreemapContext,
@@ -23,10 +24,12 @@
     import buildScales from './scales';
     import { buildLegend, buildPieAndDoughnutCustomLegend } from './legend';
 
+    // ensure exported type matches declared props
+    type $$Props = ChartProps;
+
     export let data: Async<DataFrame>;
     export let options: ChartOptions;
-    export let height: number;
-        
+
     const chartId = `chart-${generateId()}`;
 
     let chart: Chart;

@@ -22,7 +22,6 @@ function basePlugins() {
             dev: !production,
             include: 'src/**/*.svelte',
             emitCss: true,
-            customElement: true,
             immutable: true,
             preprocess: autoPreprocess({
                 scss: {

@@ -1,5 +1,5 @@
 import { ComponentMeta } from '@storybook/react';
-import { ChartSeriesType } from '@opendatasoft/visualizations';
+import { ChartSeries, ChartSeriesType } from '@opendatasoft/visualizations';
 import { Chart } from 'src';
 import { COLORS, defaultSource } from '../utils';
 import ChartTemplate from './ChartTemplate';
@@ -13,8 +13,6 @@ export default meta;
 
 export const Sample = ChartTemplate.bind({});
 const SampleArgs = {
-    height: 100,
-    width: 100, // should crash TS
     data: {
         loading: false,
         value: [
@@ -36,23 +34,23 @@ const SampleArgs = {
                 valueColumn: 'y',
                 tension: 0,
                 borderColor: COLORS.green,
-            },
+            } as ChartSeries,
             {
                 label: 'Blue',
                 type: ChartSeriesType.Line,
                 valueColumn: 'z',
                 tension: 0,
                 borderColor: COLORS.blue,
-            },
+            } as ChartSeries,
         ],
         axis: {
             x: {
                 display: true,
-                type: 'linear',
+                type: 'linear' as const,
                 title: {
                     display: true,
                     text: 'Date de plantation',
-                    align: 'center',
+                    align: 'center' as const,
                 },
                 gridLines: {
                     display: false,
@@ -63,7 +61,7 @@ const SampleArgs = {
                 title: {
                     display: true,
                     text: 'Hello / km',
-                    align: 'center',
+                    align: 'center' as const,
                 },
                 gridLines: {
                     display: true,

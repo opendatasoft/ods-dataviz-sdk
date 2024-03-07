@@ -1,10 +1,11 @@
 <script lang="ts">
     import tippy from '../utils/tippy';
     import type { Async } from '../../types';
-    import type { KpiCardOptions } from './types';
+    import type { KpiProps, KpiCardOptions } from './types';
     import SourceLink from '../utils/SourceLink.svelte';
     import { defaultCompactNumberFormat, defaultNumberFormat } from '../utils/formatter';
 
+    type $$Props = KpiProps;
     export let data: Async<number>;
     export let options: KpiCardOptions;
 

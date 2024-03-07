@@ -6,7 +6,7 @@ const meta: ComponentMeta<typeof MarkdownText> = {
     title: 'MarkdownText',
     component: MarkdownText,
     decorators: [
-        (Story) => (
+        Story => (
             <div>
                 <div
                     style={{
@@ -14,6 +14,8 @@ const meta: ComponentMeta<typeof MarkdownText> = {
                         alignItems: 'center',
                         justifyContent: 'center',
                         height: '90vh',
+                        width: '50%',
+                        maxWidth: '500px',
                     }}
                 >
                     {Story()}
@@ -25,17 +27,11 @@ const meta: ComponentMeta<typeof MarkdownText> = {
 
 export default meta;
 
-const Template: ComponentStory<typeof MarkdownText> = (args) => <MarkdownText {...args} />;
+const Template: ComponentStory<typeof MarkdownText> = args => <MarkdownText {...args} />;
 
 export const Default = Template.bind({});
 
-const style = {
-    width: '50%',
-    maxWidth: '500px',
-};
-
 Default.args = {
-    style,
     data: {
         value:
             '' +
@@ -52,7 +48,6 @@ Default.args = {
 
 export const Link = Template.bind({});
 Link.args = {
-    style,
     data: {
         value: `
         [This link should have target=_blank](https://www.opendatasoft.com) \n

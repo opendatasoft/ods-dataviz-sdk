@@ -17,4 +17,4 @@ export * from './components/Legend/types';
 /* We export Svelte types from the main package to avoid conflicting versions
 It still is purely a dev thing and we'll bundle they types directly */
 // eslint-disable-next-line import/no-extraneous-dependencies
-export type { SvelteComponentTyped, ComponentConstructorOptions } from 'svelte';
+export type { SvelteComponent, ComponentProps, ComponentConstructorOptions } from 'svelte';

@@ -8,16 +8,32 @@ import {
     PoiMap as _PoiMap,
 } from '@opendatasoft/visualizations';
 import type {
-    ChartProps
+    ChartProps,
+    KpiProps,
+    MarkdownTextProps,
+    ChoroplethGeoJsonProps,
+    ChoroplethVectorTilesProps,
+    MapPoiProps,
 } from '@opendatasoft/visualizations';
 import reactifySvelte from 'reactify';
 
-
 export const Chart = reactifySvelte<ChartProps>(_Chart, 'ods-visualizations-chart');
-export const KpiCard = reactifySvelte(_KpiCard, 'ods-visualizations-kpi');
-export const MarkdownText = reactifySvelte(_MarkdownText, 'ods-visualizations-md-text');
-export const ChoroplethGeoJson = reactifySvelte(_ChoroplethGeoJson, 'ods-visualizations-choropleth');
-export const ChoroplethVectorTiles = reactifySvelte(_ChoroplethVectorTiles, 'ods-visualizations-choropleth');
-export const ChoroplethSvg = reactifySvelte(_ChoroplethSvg, 'ods-visualizations-choropleth-svg');
-export const PoiMap = reactifySvelte(_PoiMap, 'ods-visualizations-poi-map');
+export const KpiCard = reactifySvelte<KpiProps>(_KpiCard, 'ods-visualizations-kpi');
+export const MarkdownText = reactifySvelte<MarkdownTextProps>(
+    _MarkdownText,
+    'ods-visualizations-md-text'
+);
+export const ChoroplethGeoJson = reactifySvelte<ChoroplethGeoJsonProps>(
+    _ChoroplethGeoJson,
+    'ods-visualizations-choropleth'
+);
+export const ChoroplethVectorTiles = reactifySvelte<ChoroplethVectorTilesProps>(
+    _ChoroplethVectorTiles,
+    'ods-visualizations-choropleth'
+);
+export const ChoroplethSvg = reactifySvelte<ChoroplethGeoJsonProps>(
+    _ChoroplethSvg,
+    'ods-visualizations-choropleth-svg'
+);
+export const PoiMap = reactifySvelte<MapPoiProps>(_PoiMap, 'ods-visualizations-poi-map');
 export type { Props } from 'reactify';

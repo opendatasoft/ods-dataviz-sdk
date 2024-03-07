@@ -142,8 +142,8 @@ function Template(args: TemplateProps): React.ReactElement {
     );
 
     return (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Chart style={{ width: '60vw' }} data={data} options={chartOptions} />
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '60vw' }}>
+            <Chart data={data} options={chartOptions} />
         </div>
     );
 }

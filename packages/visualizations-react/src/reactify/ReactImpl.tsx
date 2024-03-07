@@ -1,15 +1,12 @@
-import React, { useRef, useLayoutEffect} from 'react';
-import {
-    ComponentConstructorOptions,
-} from '@opendatasoft/visualizations'; // we export from the main package to avoid having different versions of svelte
-import type { SvelteComponentTyped } from 'svelte';
+import React, { useRef, useLayoutEffect } from 'react';
+import { ComponentConstructorOptions, SvelteComponent } from '@opendatasoft/visualizations'; // we export from the main package to avoid having different versions of svelte
 
 function reactifySvelte<P extends Record<string, unknown>>(
-    Component: new (options: ComponentConstructorOptions) => SvelteComponentTyped<P>,
-    className: string,
+    Component: new (options: ComponentConstructorOptions) => SvelteComponent,
+    className: string
 ) {
     return (props: P) => {
-        const svelteComponentRef = useRef<SvelteComponentTyped<P>| null>(null);
+        const svelteComponentRef = useRef<SvelteComponent | null>(null);
         const mountRef = useRef<HTMLDivElement | null>(null);
 
         useLayoutEffect(() => {
@@ -29,7 +26,7 @@ function reactifySvelte<P extends Record<string, unknown>>(
         }, [mountRef]);
 
         if (svelteComponentRef?.current) {
-            svelteComponentRef.current.$set({...props});
+            svelteComponentRef.current.$set({ ...props });
         }
 
         return <div className={`ods-visualization ${className}`} ref={mountRef} />;

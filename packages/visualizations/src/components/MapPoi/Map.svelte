@@ -12,7 +12,10 @@
         getPopupConfigurationByLayers,
         getMapOptions,
     } from './utils';
-    import type { PoiMapData, PoiMapOptions } from './types';
+    import type { MapPoiProps, PoiMapData, PoiMapOptions } from './types';
+
+    // ensure exported type matches declared props
+    type $$Props = MapPoiProps;
 
     export let data: Async<PoiMapData>;
     export let options: PoiMapOptions;
