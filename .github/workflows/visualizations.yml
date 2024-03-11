@@ -47,7 +47,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node: ["16.17.1"]
+        node: ["18.x", "20.x"]
         os: [ubuntu-latest]
 
     steps:
@@ -73,7 +73,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [">=16 <18"]
+        node: ["18.x", "20.x"]
 
     needs: [test, lint]
     
