@@ -1,6 +1,5 @@
 <script lang="ts">
-    import type { Async } from '../../types';
-    import type { TableData, TableOptions, TableProps } from './types';
+    import type { TableProps } from './types';
 
     import { generateId } from '../utils';
 
@@ -12,8 +11,8 @@
     // ensure exported type matches declared props
     type $$Props = TableProps;
 
-    export let data: Async<TableData>;
-    export let options: TableOptions;
+    export let data: $$Props['data'];
+    export let options: $$Props['options'];
 
     const tableId = `table-${generateId()}`;
 

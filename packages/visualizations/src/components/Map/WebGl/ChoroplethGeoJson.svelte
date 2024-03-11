@@ -18,7 +18,6 @@
     import type {
         ChoroplethDataValue,
         ChoroplethLayer,
-        ChoroplethGeoJsonOptions,
         MapRenderTooltipFunction,
         MapLegend,
         NavigationMap,
@@ -28,8 +27,8 @@
     // ensure exported type matches declared props
     type $$Props = ChoroplethGeoJsonProps;
 
-    export let data: { value: ChoroplethDataValue[] }; // values, and the key to match
-    export let options: ChoroplethGeoJsonOptions; // contains the shapes to display & match
+    export let data: $$Props['data']; // values, and the key to match
+    export let options: $$Props['options']; // contains the shapes to display & match
 
     let shapes: FeatureCollection;
     let colorScale: ColorScale;

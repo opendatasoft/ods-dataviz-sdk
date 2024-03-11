@@ -30,11 +30,11 @@ const SampleArgs = {
         series: [
             {
                 label: 'Green',
-                type: ChartSeriesType.Line,
+                type: ChartSeriesType.Line as const,
                 valueColumn: 'y',
                 tension: 0,
                 borderColor: COLORS.green,
-            } as ChartSeries,
+            },
             {
                 label: 'Blue',
                 type: ChartSeriesType.Line,

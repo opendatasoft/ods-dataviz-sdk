@@ -3,7 +3,6 @@
     import type { ChartConfiguration } from 'chart.js';
     import { Chart } from 'chart.js';
     import 'chartjs-adapter-luxon';
-    import type { Async } from '../../types';
     import type { DataFrame } from '../types';
     import { generateId } from '../utils';
     import SourceLink from '../utils/SourceLink.svelte';
@@ -12,7 +11,6 @@
     import type { LegendPositions, CategoryLegend as CategoryLegendType } from '../Legend/types';
     import { ChartSeriesType } from './types';
     import type {
-        ChartOptions,
         ChartProps,
         ChartSeries,
         Parsed,
@@ -27,8 +25,8 @@
     // ensure exported type matches declared props
     type $$Props = ChartProps;
 
-    export let data: Async<DataFrame>;
-    export let options: ChartOptions;
+    export let data: $$Props['data'];
+    export let options: $$Props['options'];
 
     const chartId = `chart-${generateId()}`;
 

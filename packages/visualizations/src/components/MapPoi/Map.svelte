@@ -3,8 +3,6 @@
 
     import MapRender from './MapRender.svelte';
 
-    import type { Async } from '../../types';
-
     import {
         getMapStyle,
         getMapSources,
@@ -12,13 +10,13 @@
         getPopupConfigurationByLayers,
         getMapOptions,
     } from './utils';
-    import type { MapPoiProps, PoiMapData, PoiMapOptions } from './types';
+    import type { MapPoiProps } from './types';
 
     // ensure exported type matches declared props
     type $$Props = MapPoiProps;
 
-    export let data: Async<PoiMapData>;
-    export let options: PoiMapOptions;
+    export let data: $$Props['data'];
+    export let options: $$Props['options'];
 
     $: ({ style: styleOptions } = options);
     $: style = getMapStyle(styleOptions);
