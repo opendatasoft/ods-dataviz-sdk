@@ -23,16 +23,16 @@
     "bugs": {
         "url": "https://github.com/opendatasoft/ods-dataviz-sdk/issues"
     },
+    "workspaces": ["packages/*"],
     "scripts": {
         "test": "lerna run test --parallel --no-bail",
-        "bootstrap": "lerna bootstrap",
         "watch": "lerna run watch --parallel --stream",
         "lint": "lerna run lint  --parallel --no-bail",
         "build-package-lock": "lerna run build-package-lock",
         "storybook": "lerna run --scope=@opendatasoft/visualizations-react storybook"
     },
     "devDependencies": {
-        "lerna": "^5.5.0",
+        "lerna": "^8.1.2",
         "nx": "^14.7.11"
     }
 }

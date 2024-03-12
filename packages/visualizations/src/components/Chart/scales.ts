@@ -7,7 +7,7 @@ import type {
     GridLineOptions,
 } from 'chart.js';
 import { DateTime } from 'luxon';
-import type { _DeepPartialObject } from 'chart.js/types/utils';
+import type { DeepPartial } from 'chart.js/dist/types/utils';
 import type {
     CartesianAxisConfiguration,
     ChartOptions,
@@ -127,7 +127,7 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
                     defaultValue(options?.axis?.x?.ticks?.format, defaultCompactNumberFormat)
                 ),
             },
-        } as _DeepPartialObject<CartesianScaleOptions>;
+        } as DeepPartial<CartesianScaleOptions>;
     }
 
     // Y Axis
@@ -172,7 +172,7 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
                     defaultValue(options?.axis?.y?.ticks?.format, defaultCompactNumberFormat)
                 ),
             },
-        } as _DeepPartialObject<CartesianScaleOptions>;
+        } as DeepPartial<CartesianScaleOptions>;
     } else {
         scales.y = { display: false };
     }
@@ -198,7 +198,7 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
                     defaultValue(options.axis?.r?.gridLines?.display, true)
                 ),
             },
-        } as _DeepPartialObject<RadialLinearScaleOptions>;
+        } as DeepPartial<RadialLinearScaleOptions>;
     }
 
     return scales;

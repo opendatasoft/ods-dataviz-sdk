@@ -91,7 +91,7 @@
     "dependencies": {
         "@mapbox/geo-viewport": "^0.5.0",
         "@turf/bbox": "^6.5.0",
-        "chart.js": "^3.8.2",
+        "chart.js": "^4.4.2",
         "chartjs-adapter-luxon": "^1.1.0",
         "chartjs-chart-treemap": "^2.3.0",
         "chartjs-plugin-datalabels": "^2.0.0",
