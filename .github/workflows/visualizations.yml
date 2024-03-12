@@ -35,8 +35,8 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Bootstrap
-        run: npm run bootstrap
+      - name: Build
+        run: npm install
 
       - name: Test
         run: npm test
@@ -62,8 +62,8 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Bootstrap
-        run: npm run bootstrap
+      - name: Build
+        run: npm install
 
       - name: Lint
         run: npm run lint
@@ -91,8 +91,8 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Bootstrap
-        run: npm run bootstrap
+      - name: Build
+        run: npm install
 
       - name: Build storybook
         run: npm run build-storybook
