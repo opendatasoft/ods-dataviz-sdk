@@ -1,5 +1,5 @@
 import { ComponentMeta } from '@storybook/react';
-import { ChartSeries, ChartSeriesType } from '@opendatasoft/visualizations';
+import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Chart } from 'src';
 import { COLORS, defaultSource } from '../utils';
 import ChartTemplate from './ChartTemplate';
@@ -37,11 +37,11 @@ const SampleArgs = {
             },
             {
                 label: 'Blue',
-                type: ChartSeriesType.Line,
+                type: ChartSeriesType.Line as const,
                 valueColumn: 'z',
                 tension: 0,
                 borderColor: COLORS.blue,
-            } as ChartSeries,
+            },
         ],
         axis: {
             x: {
