@@ -23,7 +23,9 @@
     "bugs": {
         "url": "https://github.com/opendatasoft/ods-dataviz-sdk/issues"
     },
-    "workspaces": ["packages/*"],
+    "workspaces": [
+        "packages/*"
+    ],
     "scripts": {
         "test": "lerna run test --parallel --no-bail",
         "watch": "lerna run watch --parallel --stream",
@@ -33,6 +35,6 @@
     },
     "devDependencies": {
         "lerna": "^8.1.2",
-        "nx": "^14.7.11"
+        "nx": "^18.0.8"
     }
 }
