@@ -28,6 +28,7 @@
         "test": "lerna run test --parallel --no-bail",
         "watch": "lerna run watch --parallel --stream",
         "lint": "lerna run lint  --parallel --no-bail",
+        "lint:prettier:fix": "lerna run lint:prettier:fix --parallel --no-bail",
         "build-package-lock": "lerna run build-package-lock",
         "storybook": "lerna run --scope=@opendatasoft/visualizations-react storybook"
     },
