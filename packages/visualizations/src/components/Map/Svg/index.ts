@@ -1,10 +1,3 @@
-import type { DataFrame } from '../../types';
-import type { ChoroplethOptions } from '../types';
-import ChoroplethImpl from './Choropleth.svelte';
-import SvelteImpl from '../../SvelteImpl';
+import Choropleth from './Choropleth.svelte';
 
-export default class ChoroplethSvg extends SvelteImpl<DataFrame, ChoroplethOptions> {
-    protected getSvelteComponentClass(): typeof ChoroplethImpl {
-        return ChoroplethImpl;
-    }
-}
+export default Choropleth;

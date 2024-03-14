@@ -1,9 +1,3 @@
-import KpiCardImpl from './KpiCard.svelte';
-import SvelteImpl from '../SvelteImpl';
-import type { KpiCardOptions } from './types';
+import KpiCard from './KpiCard.svelte';
 
-export default class KpiCard extends SvelteImpl<number, KpiCardOptions> {
-    protected getSvelteComponentClass(): typeof KpiCardImpl {
-        return KpiCardImpl;
-    }
-}
+export default KpiCard;

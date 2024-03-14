@@ -1,9 +1,3 @@
-import TableImpl from './Table.svelte';
-import SvelteImpl from '../SvelteImpl';
-import type { TableData, TableOptions } from './types';
+import Table from './Table.svelte';
 
-export default class KpiCard extends SvelteImpl<TableData, TableOptions> {
-    protected getSvelteComponentClass(): typeof TableImpl {
-        return TableImpl;
-    }
-}
+export default Table;

@@ -9,7 +9,7 @@ import type {
     StyleImageMetadata,
 } from 'maplibre-gl';
 import type { BBox, GeoJsonProperties } from 'geojson';
-
+import type { Async } from '../../types';
 import type { Color, Source } from '../types';
 import type { CategoryLegend } from '../Legend/types';
 
@@ -142,3 +142,8 @@ export type GeoPoint = {
 export type PopupConfigurationByLayers = { [key: string]: PopupLayer };
 
 export type CenterZoomOptions = { zoom?: number; center?: LngLatLike };
+
+export type MapPoiProps = {
+    data: Async<PoiMapData>;
+    options: PoiMapOptions;
+};

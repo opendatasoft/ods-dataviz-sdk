@@ -1,5 +1,6 @@
 import type { DataFrame, Source } from '../types';
 import type { DATA_FORMAT } from './constants';
+import type { Async } from '../../types';
 
 type DataFormatKey = keyof typeof DATA_FORMAT;
 export type DataFormat = typeof DATA_FORMAT[DataFormatKey];
@@ -78,4 +79,9 @@ export type TableOptions = {
      * Default is `false`.
      */
     unstyled?: boolean;
+};
+
+export type TableProps = {
+    data: Async<TableData>;
+    options: TableOptions;
 };

@@ -3,10 +3,10 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import {
     ColorScaleTypes,
     ChoroplethVectorTilesOptions,
-    DataFrame,
+    ChoroplethVectorTilesProps,
 } from '@opendatasoft/visualizations';
 import * as turf from '@turf/turf';
-import { ChoroplethVectorTiles, Props } from '../../src';
+import { ChoroplethVectorTiles } from 'src';
 import { shapesTiles, regShapes, dataReg } from './data';
 
 const meta: ComponentMeta<typeof ChoroplethVectorTiles> = {
@@ -30,7 +30,7 @@ const makeMiniMaps = (n: number) =>
     });
 
 // We pass a number of maps to generate them for the story
-type Args = Props<DataFrame, Omit<ChoroplethVectorTilesOptions, 'navigationMaps'>> & {
+type Args = ChoroplethVectorTilesProps & {
     numMaps: number;
 };
 

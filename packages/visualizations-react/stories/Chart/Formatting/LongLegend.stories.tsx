@@ -1,7 +1,7 @@
 import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
-import { Props } from '../../../src';
+import type { Props } from 'reactify';
 import { compactNumberFormatter, defaultSource } from '../../utils';
 import ChartTemplate from '../ChartTemplate';
 
@@ -115,7 +115,7 @@ const PieLongLegendArgs: Props<DataFrame, ChartOptions> = {
             display: true,
             position: 'right',
             labels: {
-                text(index) {
+                text(index: number) {
                     const xData = pieDf[index].x;
                     const yData = compactNumberFormatter.format(pieDf[index].y);
                     return `${xData} - ${yData}`;

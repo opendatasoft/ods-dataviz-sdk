@@ -1,8 +1,6 @@
 import React from 'react';
-import { MarkdownTextOptions } from '@opendatasoft/visualizations';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import type { Props } from '../src';
-import { MarkdownText } from '../src';
+import { MarkdownText } from 'src';
 
 const meta: ComponentMeta<typeof MarkdownText> = {
     title: 'MarkdownText',
@@ -18,7 +16,12 @@ const meta: ComponentMeta<typeof MarkdownText> = {
                         height: '90vh',
                     }}
                 >
-                    {Story()}
+                    <div style={{
+                        width: '50%',
+                        maxWidth: '500px',
+                    }}>
+                        {Story()}
+                    </div>
                 </div>
             </div>
         ),
@@ -27,19 +30,11 @@ const meta: ComponentMeta<typeof MarkdownText> = {
 
 export default meta;
 
-const Template: ComponentStory<typeof MarkdownText> = (
-    args: Props<string, MarkdownTextOptions>
-) => <MarkdownText {...args} />;
+const Template: ComponentStory<typeof MarkdownText> = args => <MarkdownText {...args} />;
 
 export const Default = Template.bind({});
 
-const style = {
-    width: '50%',
-    maxWidth: '500px',
-};
-
 Default.args = {
-    style,
     data: {
         value:
             '' +
@@ -56,7 +51,6 @@ Default.args = {
 
 export const Link = Template.bind({});
 Link.args = {
-    style,
     data: {
         value: `
         [This link should have target=_blank](https://www.opendatasoft.com) \n

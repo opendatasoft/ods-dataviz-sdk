@@ -13,6 +13,15 @@
         "sourceMap": true,
         // match output dir to input dir. e.g. dist/index instead of dist/src/index
         "rootDirs": ["./src", "./test", "./stories"],
+        "baseUrl": "./",
+        "paths": {
+            "src": [
+                "src"
+            ],
+            "reactify": [
+                "src/reactify"
+            ],
+        },
         // stricter type-checking for stronger correctness. Recommended by TS
         "strict": true,
         // linter checks for common issues

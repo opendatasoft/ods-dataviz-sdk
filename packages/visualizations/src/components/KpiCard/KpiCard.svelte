@@ -1,12 +1,12 @@
 <script lang="ts">
     import tippy from '../utils/tippy';
-    import type { Async } from '../../types';
-    import type { KpiCardOptions } from './types';
+    import type { KpiProps } from './types';
     import SourceLink from '../utils/SourceLink.svelte';
     import { defaultCompactNumberFormat, defaultNumberFormat } from '../utils/formatter';
 
-    export let data: Async<number>;
-    export let options: KpiCardOptions;
+    type $$Props = KpiProps;
+    export let data: $$Props['data'];
+    export let options: $$Props['options'];
 
     let displayValue: string;
     let tooltipValue: string;

@@ -1,9 +1,32 @@
 import React, { CSSProperties } from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { KpiCard } from '../../src';
+import type { KpiProps } from '@opendatasoft/visualizations';
+import { KpiCard } from 'src';
 import { COLORS, CONTROLS, IMAGES, defaultSource } from '../utils';
 
-const meta: ComponentMeta<typeof KpiCard> = {
+function StyledKpi({ 
+    style,
+    ...props
+}: KpiProps & {
+    style: CSSProperties,
+}) {
+    return (
+        <div
+            style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '80vh',
+            }}
+        >
+            <div style={style}>
+                <KpiCard {...props} />
+            </div>
+        </div>
+    );
+}
+
+const meta: ComponentMeta<typeof StyledKpi> = {
     title: 'KPI Card/Single',
     argTypes: {
         data: {
@@ -15,10 +38,10 @@ const meta: ComponentMeta<typeof KpiCard> = {
             title: CONTROLS.text,
             prefix: CONTROLS.text,
             suffix: CONTROLS.text,
+            footer: CONTROLS.text,
             // description: CONTROLS.text,
         },
         style: {
-            footer: CONTROLS.text,
             height: CONTROLS.text,
             width: CONTROLS.text,
             // Kpi Card
@@ -64,18 +87,8 @@ const meta: ComponentMeta<typeof KpiCard> = {
 
 export default meta;
 
-const Template: ComponentStory<typeof KpiCard> = args => (
-    <div
-        style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '80vh',
-        }}
-    >
-        <KpiCard {...args} />
-    </div>
-);
+const Template: ComponentStory<typeof StyledKpi> =  args => <StyledKpi {...args} />;
+
 export const Default = Template.bind({});
 Default.args = {
     data: {

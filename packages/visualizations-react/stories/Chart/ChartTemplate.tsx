@@ -1,11 +1,8 @@
 import React from 'react';
 import { ComponentStory } from '@storybook/react';
-import { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
-import { Chart, Props } from '../../src';
+import { Chart } from 'src';
 
-const ChartTemplate: ComponentStory<typeof Chart> = (
-    args: Props<DataFrame, ChartOptions>
-) => (
+const ChartTemplate: ComponentStory<typeof Chart> = args => (
     <div
         style={{
             display: 'flex',
@@ -13,7 +10,9 @@ const ChartTemplate: ComponentStory<typeof Chart> = (
             justifyContent: 'center',
         }}
     >
-        <Chart {...args} style={{ width: '60vw' }} />
+        <div style={{width: '60vw'}}>
+            <Chart {...args} />
+        </div>
     </div>
 );
 

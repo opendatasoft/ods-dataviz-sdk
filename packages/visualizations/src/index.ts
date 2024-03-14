@@ -15,3 +15,8 @@ export * from './components/MarkdownText/types';
 export * from './components/MapPoi/types';
 export * from './components/Legend/types';
 export * from './components/Table/types';
+
+/* We export Svelte types from the main package to avoid conflicting versions
+It still is purely a dev thing and we'll bundle they types directly */
+// eslint-disable-next-line import/no-extraneous-dependencies
+export type { SvelteComponent, ComponentConstructorOptions } from 'svelte';
