@@ -38,6 +38,7 @@
     let colorScale: ColorScale;
 
     let aspectRatio: number | undefined;
+    let maxZoom: number;
     let renderTooltip: MapRenderTooltipFunction;
     let bbox: BBox | undefined;
     let activeShapes: string[] | undefined;
@@ -69,6 +70,7 @@
         colorScale = DEFAULT_COLORSCALE,
         legend,
         aspectRatio,
+        maxZoom = 4,
         activeShapes,
         interactive = defaultInteractive,
         emptyValueColor = DEFAULT_COLORS.Default,
@@ -143,6 +145,7 @@
     {source}
     {layer}
     {aspectRatio}
+    {maxZoom}
     {dataBounds}
     {colorScale}
     {legend}
