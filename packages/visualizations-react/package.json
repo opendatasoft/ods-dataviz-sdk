@@ -53,7 +53,6 @@
         "trailingComma": "es5"
     },
     "dependencies": {
-        "@opendatasoft/visualizations": "file:../visualizations",
         "use-callback-ref": "^1.2.4"
     },
     "devDependencies": {
