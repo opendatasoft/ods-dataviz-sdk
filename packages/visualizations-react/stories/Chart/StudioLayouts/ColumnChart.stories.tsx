@@ -1,7 +1,8 @@
 import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
-import { Props } from '../../../src';
+import type { Props } from 'reactify';
+
 import { defaultSource } from '../../utils';
 import ChartTemplate from '../ChartTemplate';
 
@@ -164,13 +165,13 @@ const ColumnTitleSubtitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
                 ],
                 dataLabels: {
                     display: true,
-                    align(index) {
+                    align(index: number) {
                         if (df[index].y >= 0) {
                             return 'end';
                         }
                         return 'start';
                     },
-                    anchor(index) {
+                    anchor(index: number) {
                         if (df[index].y >= 0) {
                             return 'end';
                         }
@@ -254,13 +255,13 @@ const ColumnDataValuesArgs: Props<DataFrame, ChartOptions> = {
                 ],
                 dataLabels: {
                     display: true,
-                    align(index) {
+                    align(index: number) {
                         if (df[index].y >= 0) {
                             return 'end';
                         }
                         return 'start';
                     },
-                    anchor(index) {
+                    anchor(index: number) {
                         if (df[index].y >= 0) {
                             return 'end';
                         }
@@ -338,13 +339,13 @@ const ColumnAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
                 ],
                 dataLabels: {
                     display: true,
-                    align(index) {
+                    align(index: number) {
                         if (df[index].y >= 0) {
                             return 'end';
                         }
                         return 'start';
                     },
-                    anchor(index) {
+                    anchor(index: number) {
                         if (df[index].y >= 0) {
                             return 'end';
                         }

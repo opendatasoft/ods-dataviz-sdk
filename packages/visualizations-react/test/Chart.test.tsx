@@ -3,7 +3,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import type { ChartOptions } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
-import { Chart } from '../src';
+import { Chart } from 'src';
 
 const data = {
     loading: false,

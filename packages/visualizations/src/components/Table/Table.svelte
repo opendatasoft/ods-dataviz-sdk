@@ -1,6 +1,5 @@
 <script lang="ts">
-    import type { Async } from '../../types';
-    import type { TableData, TableOptions } from './types';
+    import type { TableProps } from './types';
 
     import { generateId } from '../utils';
 
@@ -9,8 +8,11 @@
     import Body from './Body.svelte';
     import { updateLocale } from './store';
 
-    export let data: Async<TableData>;
-    export let options: TableOptions;
+    // ensure exported type matches declared props
+    type $$Props = TableProps;
+
+    export let data: $$Props['data'];
+    export let options: $$Props['options'];
 
     const tableId = `table-${generateId()}`;
 

@@ -1,7 +1,6 @@
 import { ComponentMeta } from '@storybook/react';
-import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
-import { Chart, Props } from '../../src';
+import { Chart } from 'src';
 import { COLORS, defaultSource } from '../utils';
 import ChartTemplate from './ChartTemplate';
 
@@ -13,7 +12,7 @@ const meta: ComponentMeta<typeof Chart> = {
 export default meta;
 
 export const Sample = ChartTemplate.bind({});
-const SampleArgs: Props<DataFrame, ChartOptions> = {
+const SampleArgs = {
     data: {
         loading: false,
         value: [
@@ -31,14 +30,14 @@ const SampleArgs: Props<DataFrame, ChartOptions> = {
         series: [
             {
                 label: 'Green',
-                type: ChartSeriesType.Line,
+                type: ChartSeriesType.Line as const,
                 valueColumn: 'y',
                 tension: 0,
                 borderColor: COLORS.green,
             },
             {
                 label: 'Blue',
-                type: ChartSeriesType.Line,
+                type: ChartSeriesType.Line as const,
                 valueColumn: 'z',
                 tension: 0,
                 borderColor: COLORS.blue,
@@ -47,11 +46,11 @@ const SampleArgs: Props<DataFrame, ChartOptions> = {
         axis: {
             x: {
                 display: true,
-                type: 'linear',
+                type: 'linear' as const,
                 title: {
                     display: true,
                     text: 'Date de plantation',
-                    align: 'center',
+                    align: 'center' as const,
                 },
                 gridLines: {
                     display: false,
@@ -62,7 +61,7 @@ const SampleArgs: Props<DataFrame, ChartOptions> = {
                 title: {
                     display: true,
                     text: 'Hello / km',
-                    align: 'center',
+                    align: 'center' as const,
                 },
                 gridLines: {
                     display: true,

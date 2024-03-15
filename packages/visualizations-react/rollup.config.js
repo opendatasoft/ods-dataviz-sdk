@@ -1,5 +1,6 @@
 import postcss from 'rollup-plugin-postcss';
 import autoprefixer from 'autoprefixer';
+import path from 'path';
 // import visualizer from 'rollup-plugin-visualizer';
 import { terser } from 'rollup-plugin-terser';
 import typescript from '@rollup/plugin-typescript';
@@ -8,13 +9,22 @@ import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import { babel } from '@rollup/plugin-babel';
 import replace from '@rollup/plugin-replace';
+import alias from '@rollup/plugin-alias';
 import { defineConfig } from 'rollup';
 import pkg from './package.json';
 
 const production = !process.env.ROLLUP_WATCH;
+const projectRootDir = path.resolve(__dirname);
 
 function basePlugins() {
     return [
+        alias({
+            entries: {
+                src: path.resolve(projectRootDir, 'src'),
+                reactify: path.resolve(projectRootDir, 'src/reactify'),
+                stories: path.resolve(projectRootDir, 'stories'),
+            },
+        }),
         typescript({
             sourceMap: true,
             declaration: true,
@@ -50,11 +60,14 @@ function onwarn(warning, warn) {
 }
 
 const esm = defineConfig({
-    input: 'src/index.tsx',
+    input: 'src/index.ts',
     // Externalize all dependencies
     external: (id) => {
         // Both peer and regular dependencies can be imported from our files, but we don't want to package it
-        return Object.keys(pkg.dependencies).includes(id) || Object.keys(pkg.peerDependencies).includes(id)
+        return (
+            Object.keys(pkg.dependencies).includes(id) ||
+            Object.keys(pkg.peerDependencies).includes(id)
+        );
     },
     output: {
         dir: 'dist',
@@ -75,7 +88,7 @@ const esm = defineConfig({
 });
 
 const umd = defineConfig({
-    input: 'src/index.tsx',
+    input: 'src/index.ts',
     output: {
         dir: 'dist',
         entryFileNames: '[name].umd.js',

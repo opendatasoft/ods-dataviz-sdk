@@ -1,4 +1,5 @@
 import type { Color, Source } from '../types';
+import type { Async } from '../../types';
 
 export interface KpiCardOptions {
     title?: string;
@@ -16,3 +17,8 @@ export interface KpiCardOptions {
     /** Custom formatting function for tooltips content */
     format?: (value: number) => string;
 }
+
+export type KpiProps = {
+    data: Async<number>;
+    options: KpiCardOptions;
+};

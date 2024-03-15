@@ -81,7 +81,7 @@ module.exports = {
         ],
         'no-underscore-dangle': 0,
         'react/jsx-one-expression-per-line': 0,
-        'arrow-parens': [2, 'as-needed', { requireForBlockBody: true }],
+        'arrow-parens': [2, 'as-needed'],
         'react/jsx-props-no-spreading': 0,
         'jsx-a11y/label-has-for': 0,
         'react-hooks/rules-of-hooks': 'error',

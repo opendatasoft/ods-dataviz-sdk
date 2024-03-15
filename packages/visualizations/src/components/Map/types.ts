@@ -153,3 +153,13 @@ export type ComputeTooltipFunction = (
 export type ChoroplethLayer = Omit<FillLayerSpecification, 'id' | 'source'>;
 
 export type MapLayer = ChoroplethLayer;
+
+export type ChoroplethGeoJsonProps = {
+    data: { value: ChoroplethDataValue[] };
+    options: ChoroplethGeoJsonOptions;
+};
+
+export type ChoroplethVectorTilesProps = {
+    data: { value: ChoroplethDataValue[] };
+    options: ChoroplethVectorTilesOptions;
+};

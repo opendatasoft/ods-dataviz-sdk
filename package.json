@@ -1,41 +1,41 @@
 {
-    "private": true,
-    "name": "ods-dataviz-sdk",
-    "version": "0.0.1",
-    "license": "MIT",
-    "author": "opendatasoft",
-    "homepage": "https://github.com/opendatasoft/ods-dataviz-sdk",
-    "description": "Opendatasoft librairies for Data Visualization.",
-    "keywords": [
-        "Opendatasoft",
-        "ODS",
-        "Data visualization",
-        "Dataviz",
-        "JavaScript",
-        "TypeScript",
-        "Svelte"
-    ],
-    "main": "index.js",
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:opendatasoft/ods-dataviz-sdk.git"
-    },
-    "bugs": {
-        "url": "https://github.com/opendatasoft/ods-dataviz-sdk/issues"
-    },
-    "workspaces": [
-        "packages/*"
-    ],
-    "scripts": {
-        "test": "lerna run test --parallel --no-bail",
-        "watch": "lerna run watch --parallel --stream",
-        "lint": "lerna run lint  --parallel --no-bail",
-        "lint:prettier:fix": "lerna run lint:prettier:fix --parallel --no-bail",
-        "build-package-lock": "lerna run build-package-lock",
-        "storybook": "lerna run --scope=@opendatasoft/visualizations-react storybook"
-    },
-    "devDependencies": {
-        "lerna": "^8.1.2",
-        "nx": "^14.7.11"
-    }
+  "private": true,
+  "name": "ods-dataviz-sdk",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "opendatasoft",
+  "homepage": "https://github.com/opendatasoft/ods-dataviz-sdk",
+  "description": "Opendatasoft librairies for Data Visualization.",
+  "keywords": [
+    "Opendatasoft",
+    "ODS",
+    "Data visualization",
+    "Dataviz",
+    "JavaScript",
+    "TypeScript",
+    "Svelte"
+  ],
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:opendatasoft/ods-dataviz-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/opendatasoft/ods-dataviz-sdk/issues"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "lerna run test --parallel --no-bail",
+    "watch": "lerna run watch --parallel --stream",
+    "lint": "lerna run lint:prettier:check,lint:eslint:check  --parallel --no-bail",
+    "lint:fix": "lerna run lint:prettier:fix,lint:eslint:fix --parallel --no-bail",
+    "build-package-lock": "lerna run build-package-lock",
+    "storybook": "lerna run --scope=@opendatasoft/visualizations-react storybook"
+  },
+  "devDependencies": {
+    "lerna": "^8.1.2",
+    "nx": "^18.0.8"
+  }
 }

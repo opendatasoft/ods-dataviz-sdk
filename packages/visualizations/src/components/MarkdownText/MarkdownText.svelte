@@ -3,8 +3,7 @@
     import MarkdownItMark from 'markdown-it-mark';
     import mila from 'markdown-it-link-attributes';
     import type StateCore from 'markdown-it/lib/rules_core/state_core';
-    import type { MarkdownTextOptions } from './types';
-    import type { Async } from '../../types';
+    import type { MarkdownTextProps } from './types';
 
     // This MarkdownIt plugin enforces lists to be displayed as tight, because we only want to support them
     // at the moment.
@@ -53,8 +52,11 @@
 </script>
 
 <script lang="ts">
-    export let data: Async<string>;
-    export let options: MarkdownTextOptions;
+    // ensure exported type matches declared props
+    type $$Props = MarkdownTextProps;
+
+    export let data: $$Props['data'];
+    export let options: $$Props['options'];
     $: renderedText = md.render(data.value || '');
 </script>
 

@@ -1,4 +1,4 @@
-import { Source } from "@opendatasoft/visualizations/src/components/types";
+import { Source } from '@opendatasoft/visualizations';
 import trophy from './img/trophy.svg';
 import gov from './img/gov.svg';
 import rocket from './img/rocket.png';
@@ -137,6 +137,8 @@ export const comparisonFormatter = new Intl.NumberFormat(undefined, {
     signDisplay: 'exceptZero',
 });
 
-export async function timeout(ms : number) {
-    await new Promise((resolve) => {setTimeout(resolve, ms); });
+export async function timeout(ms: number) {
+    await new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
 }
