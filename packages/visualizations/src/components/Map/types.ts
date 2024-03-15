@@ -11,8 +11,6 @@ export interface ChoroplethOptions {
     legend?: MapLegend;
     /** Aspect ratio used to draw the map. The map will take he width available to it, and decide its height based on that ratio. */
     aspectRatio?: number;
-    /** Maximum zoom the user can scroll-zoom to. Avoids getting lost */
-    maxZoom?: number;
     /** List of keys for which the map will have tooltip displayed from the start. May not work in some situation for VTiles maps (small or out of viewport shapes). */
     activeShapes?: string[];
     /** Is the map interactive for the user (zoom, move, tooltips...)? */

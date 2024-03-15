@@ -1,7 +1,8 @@
 import chroma from 'chroma-js';
 import turfBbox from '@turf/bbox';
 import maplibregl, { ExpressionInputType, ExpressionSpecification } from 'maplibre-gl';
-import type { Feature, FeatureCollection, BBox } from 'geojson';
+import { viewport } from '@placemarkio/geo-viewport';
+import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
 import type { Scale } from 'chroma-js';
 import { DEFAULT_COLORS } from './constants';
 import { assertUnreachable } from '../utils';
@@ -108,6 +109,79 @@ export const mapKeyToColor = (
 
 // This is a default bound that will be extended
 export const VOID_BOUNDS: BBox = [180, 90, -180, -90];
+
+type CoordsPath = Position[];
+
+function computeBboxFromCoords(coordsPath: CoordsPath, bbox: BBox): BBox {
+    return coordsPath.reduce<BBox>(
+        (current: BBox, coords: Position) => [
+            Math.min(coords[0], current[0]),
+            Math.min(coords[1], current[1]),
+            Math.max(coords[0], current[2]),
+            Math.max(coords[1], current[3]),
+        ],
+        bbox
+    );
+}
+
+// The features given by querySourceFeatures are cut based on a tile representation
+// but we need the bounding box of the features themselves, so we need to build them again
+function mergeBboxFromFeaturesWithSameKey(features: Feature[], matchKey: string) {
+    const mergedBboxes: {
+        [key: string]: {
+            bbox: BBox;
+        };
+    } = {};
+    features.forEach((feature) => {
+        // FIXME: supports only shapes for now
+        if (feature.geometry.type === 'Polygon') {
+            // Compute extent first
+            let bbox = VOID_BOUNDS;
+            feature.geometry.coordinates.forEach((coordsPath) => {
+                bbox = computeBboxFromCoords(coordsPath, bbox);
+            });
+            const id: string = feature.properties?.[matchKey];
+            if (!mergedBboxes[id]) {
+                mergedBboxes[id] = { bbox };
+            } else {
+                const storedBbox = mergedBboxes[id].bbox;
+                const mergedBbox: BBox = [
+                    Math.min(bbox[0], storedBbox[0]),
+                    Math.min(bbox[1], storedBbox[1]),
+                    Math.max(bbox[2], storedBbox[2]),
+                    Math.max(bbox[3], storedBbox[3]),
+                ];
+                // Replace the Features at the right id by the merged bbox
+                mergedBboxes[id] = {
+                    bbox: mergedBbox,
+                };
+            }
+        }
+    });
+    return mergedBboxes;
+}
+
+// We're calculating the maximum zoom required to fit the smallest feature we're displaying, to prevent people from zooming "too far" by accident
+export const computeMaxZoomFromGeoJsonFeatures = (
+    mapContainer: HTMLElement,
+    features: Feature[],
+    matchKey: string
+): number => {
+    let maxZoom = 0; // maxZoom lowest value possible
+    const filteredBboxes = mergeBboxFromFeaturesWithSameKey(features, matchKey);
+    // FIXME: any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Object.values(filteredBboxes).forEach((value: any) => {
+        // Vtiles = 512 tile size
+        maxZoom = Math.max(
+            viewport(value.bbox, [mapContainer.clientWidth, mapContainer.clientHeight], {
+                tileSize: 512,
+            }).zoom,
+            maxZoom
+        );
+    });
+    return maxZoom;
+};
 
 const getShapeCenter = (feature: Feature) => {
     const featureBbox = turfBbox(feature.geometry);

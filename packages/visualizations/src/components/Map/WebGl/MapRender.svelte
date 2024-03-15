@@ -17,7 +17,7 @@
     import { debounce } from 'lodash';
     import type { BBox } from 'geojson';
     import SourceLink from '../../utils/SourceLink.svelte';
-    import { getFixedTooltips } from '../utils';
+    import { computeMaxZoomFromGeoJsonFeatures, getFixedTooltips } from '../utils';
     import ColorsLegend from '../../Legend/ColorsLegend.svelte';
     import BackButton from '../../utils/BackButton.svelte';
     import MiniMap from '../../utils/MiniMap.svelte';
@@ -71,8 +71,6 @@
     export let cooperativeGestures: boolean | GestureOptions | undefined;
     // Fixed max bounds that will overide the automatic map.getBounds when setting the bbox
     export let fixedMaxBounds: LngLatBoundsLike | undefined | null = null;
-    // max possible zoom the user can set with scrolling (avoid getting lost)
-    export let maxZoom: number;
 
     let clientWidth: number;
     let legendVariant: LegendVariant;
@@ -185,6 +183,11 @@
                 // TODO: We may not catch the smaller shapes if Maplibre discarded them for rendering reasons, so it's a bit risky. Is it worth it?
                 // A low-cost approach could be to restrict the zoom scale to an arbitrary value (e.g. only 4 from the max zoom)... or not restrict at all.
                 if (e.source.type === 'geojson') {
+                    const maxZoom = computeMaxZoomFromGeoJsonFeatures(
+                        container,
+                        renderedFeatures,
+                        matchKey
+                    );
                     map.setMaxZoom(maxZoom);
                 }
                 if (activeShapes && activeShapes.length > 0 && renderTooltip) {
