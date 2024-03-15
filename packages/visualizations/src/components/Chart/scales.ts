@@ -47,11 +47,7 @@ const computeGridLineColor: (
 ) => GridLineOptions['color'] = (display) => (context) => {
     if (!context?.scale?.ticks) return 'rgba(0, 0, 0, 0)';
     const ticksAbsoluteValues = context.scale.ticks.map((tick) => Math.abs(tick.value));
-    let minAbsoluteTicksIndex = ticksAbsoluteValues.indexOf(Math.min(...ticksAbsoluteValues));
-    if (context.scale.type === 'radialLinear') {
-        // On radar, chartjs compute one supplementary grid line
-        minAbsoluteTicksIndex -= 1;
-    }
+    const minAbsoluteTicksIndex = ticksAbsoluteValues.indexOf(Math.min(...ticksAbsoluteValues));
     if (display) {
         if (context.index === minAbsoluteTicksIndex) return 'rgba(0, 0, 0, 0.4)';
         if (display !== 'single') return 'rgba(0, 0, 0, 0.1)';
