@@ -27,7 +27,6 @@
     {/if}
 </div>
 
-<!-- markup (zero or more items) goes here -->
 <style>
     h3,
     p {
