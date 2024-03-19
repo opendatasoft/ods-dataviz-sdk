@@ -3,14 +3,13 @@
 
     export let icon: ComponentType<SvelteComponentTyped<{color?: string;}>>;
     export let disabled = false;
-    $: color = disabled ? '#C6CBDE' : "#142E7B";
 </script>
 
 <button on:click disabled={disabled}>
-    <svelte:component this={icon} color={color}/>
+    <svelte:component this={icon}/>
 </button>
 
-<style>
+<style lang="scss">
     button {
         height: 28px;
         width: 28px;
@@ -21,5 +20,15 @@
 
     button:disabled {
         cursor: not-allowed;
+    }
+
+    :global(.ods-dataviz-sdk-table--default) {
+        button {
+            color: "#142E7B";
+        }
+
+        button:disabled {
+            color: '#C6CBDE';
+        }
     }
 </style>

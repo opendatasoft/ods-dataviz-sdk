@@ -8,9 +8,6 @@
 </span>
 
 <style>
-    span {
-       color: #898d92; 
-    }
 </style>
 
 <!-- markup (zero or more items) goes here -->
