@@ -11,10 +11,14 @@
     export let setPage: (page: number) => void;
 
     let pages = [current - 1, current , current + 1];
-    $: if ((current - 1) < 1) { 
-            pages = [current, current + 1, current + 2] 
+    $: if (totalPages === 2) {
+            pages = [1, 2];
+        } else if (totalPages === 1) {
+            pages = [1];
+        } else if ((current - 1) < 1) { 
+            pages = [current, current + 1, current + 2]; 
         } else if ((current + 1 ) > totalPages) { 
-            pages = [current - 2, current - 1, current]
+            pages = [current - 2, current - 1, current];
         } else {
             pages = [current - 1, current , current + 1];
         };
@@ -35,7 +39,7 @@
             disabled={current === 1}
         />
     </li>
-    {#if (current - 1) > 1}
+    {#if (current - 2) > 1}
         <span>...</span>
     {/if}
     {#each pages as page}
@@ -46,7 +50,7 @@
             {page}
         </li>
     {/each}
-    {#if (current + 1) < totalPages}
+    {#if (current + 2) < totalPages}
         <span>...</span>
     {/if}
     <li>
@@ -65,7 +69,7 @@
     </li>
 </ul>
 
-<style>
+<style lang="scss">
     ul {
         margin: 0;
         padding: 0;
@@ -89,10 +93,12 @@
         cursor: pointer;
     }
 
-    .current {
-        border-radius: 3px;
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.39);
-        background-color: #FFF;
-        color: #142e7b;
+    :global(.ods-dataviz-sdk-table--default) {
+        .current {
+            border-radius: 3px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.39);
+            background-color: #FFF;
+            color: #142e7b;
+        }
     }
 </style>
