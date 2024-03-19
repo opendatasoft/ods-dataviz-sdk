@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Column, TableOptions, TableData, Async } from '@opendatasoft/visualizations';
 
@@ -76,7 +76,7 @@ const options: TableOptions = {
     locale: 'fr',
 };
 
-const Template: ComponentStory<typeof Table> = (args) => <Table {...args} />;
+const Template: ComponentStory<typeof Table> = args => <Table {...args} />;
 
 export const Playground = Template.bind({});
 Playground.args = {
@@ -84,7 +84,7 @@ Playground.args = {
     options,
 };
 
-const CustomStyleTemplate: ComponentStory<typeof Table> = (args) => (
+const CustomStyleTemplate: ComponentStory<typeof Table> = args => (
     <div className="table-story--custom-style">
         <Table {...args} />
     </div>
@@ -95,7 +95,7 @@ CustomStyle.args = {
     options,
 };
 
-const ScrollTemplate: ComponentStory<typeof Table> = (args) => (
+const ScrollTemplate: ComponentStory<typeof Table> = args => (
     <div style={{ maxWidth: '800px' }}>
         <Table {...args} />
     </div>
@@ -111,4 +111,43 @@ export const Unstyled = Template.bind({});
 Unstyled.args = {
     data,
     options: { ...options, unstyled: true },
+};
+
+const sliceData3 = (fullData: Async<TableData>, page: number) => {
+    const startIndex = page * 3;
+    return fullData.value?.slice(startIndex, startIndex + 3);
+};
+
+const PaginatedTemplate: ComponentStory<typeof Table> = args => {
+    const { data: rawData, options: paginatedOptions } = args;
+    const { pages } = paginatedOptions;
+    const { initial = 0 } = pages || {};
+    const [records, setRecords] = useState(sliceData3(rawData, initial || 0));
+
+    if (paginatedOptions.pages && rawData.value) {
+        paginatedOptions.pages.onChangePage = async (page: number) => {
+            await setTimeout(() => {
+                setRecords(sliceData3(rawData, page));
+            }, 1000);
+        };
+    }
+
+    const paginatedData = { value: records, isLoading: false };
+    return <Table data={paginatedData} options={paginatedOptions} />;
+};
+
+const paginatedOptions = {
+    ...options,
+    pages: {
+        initial: 2,
+        recordsPerPage: 3,
+        totalRecords: value.length,
+        onChangePage: () => {}, // set in template
+    },
+};
+
+export const Paginated = PaginatedTemplate.bind({});
+Paginated.args = {
+    data,
+    options: paginatedOptions,
 };

@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { TableProps } from './types';
-
+    import Pagination from './Pagination';
     import { generateId } from '../utils';
 
     import SourceLink from '../utils/SourceLink.svelte';
@@ -17,9 +17,7 @@
     const tableId = `table-${generateId()}`;
 
     $: ({ value: records } = data);
-    // FIXME: Eslint is in conflict with prettier
-    // eslint-disable-next-line object-curly-newline
-    $: ({ columns, title, subtitle, description, source, unstyled, locale } = options);
+    $: ({ columns, title, subtitle, description, source, unstyled, locale, pages } = options);
     $: defaultStyle = !unstyled;
     $: updateLocale(locale);
 </script>
@@ -43,6 +41,9 @@
             {/if}
         </table>
     </div>
+    {#if pages}
+        <Pagination {...pages} />
+    {/if}
     {#if description}
         <p id={tableId} class="a11y-invisible-description">{description}</p>
     {/if}
