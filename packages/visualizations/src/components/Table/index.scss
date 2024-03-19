@@ -57,6 +57,10 @@
     :global(tbody tr:last-child) {
         border-bottom: none;
     }
+
+    .ods-visualizations-table .pages {
+        flex-grow: 1;
+    }
 }
 
 // Data formatting style
