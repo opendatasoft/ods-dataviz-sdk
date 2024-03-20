@@ -7,7 +7,6 @@
     <b>{current[0]}-{current[1]}/{total}</b> records
 </span>
 
-<style>
-</style>
-
 <!-- markup (zero or more items) goes here -->
+
+<style></style>

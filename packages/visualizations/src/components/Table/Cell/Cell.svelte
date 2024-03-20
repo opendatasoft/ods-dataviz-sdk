@@ -9,7 +9,7 @@
 </script>
 
 <!-- To display a format value, rawValue must be different from undefined or null -->
-<td class={`table-data--${dataFormat}`}>
+<td class={`table-data--${dataFormat}`} style="max-height: {MAX_ROW_HEIGHT}px">
     {#if isValidRawValue(rawValue)}
         <svelte:component this={Format[dataFormat]} {rawValue} {options} />
     {/if}
