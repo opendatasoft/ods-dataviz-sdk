@@ -35,11 +35,21 @@
 </div>
 
 <!-- markup (zero or more items) goes here -->
-
 <style lang="scss">
     div {
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+
+    :global(.ods-dataviz-sdk-table--default) {
+        .pages {
+            flex-grow: 1;
+        }
+
+        .numbering,
+        .spacer {
+            flex: 0 1 120px;
+        }
     }
 </style>
