@@ -1,5 +1,4 @@
-
-<script lang='ts'>
+<script lang="ts">
     import Button from './Button.svelte';
     import DoubleLeft from './DoubleLeft.svelte';
     import DoubleRight from './DoubleRight.svelte';
@@ -10,58 +9,47 @@
     export let current: number;
     export let setPage: (page: number) => void;
 
-    let pages = [current - 1, current , current + 1];
+    let pages = [current - 1, current, current + 1];
     $: if (totalPages === 2) {
-            pages = [1, 2];
-        } else if (totalPages === 1) {
-            pages = [1];
-        } else if ((current - 1) < 1) { 
-            pages = [current, current + 1, current + 2]; 
-        } else if ((current + 1 ) > totalPages) { 
-            pages = [current - 2, current - 1, current];
-        } else {
-            pages = [current - 1, current , current + 1];
-        };
+        pages = [1, 2];
+    } else if (totalPages === 1) {
+        pages = [1];
+    } else if (current - 1 < 1) {
+        pages = [current, current + 1, current + 2];
+    } else if (current + 1 > totalPages) {
+        pages = [current - 2, current - 1, current];
+    } else {
+        pages = [current - 1, current, current + 1];
+    }
 </script>
 
 <ul>
     <li>
-        <Button 
-            on:click={() => setPage(1)}
-            icon={DoubleLeft}
-            disabled={current === 1}
-        />
+        <Button on:click={() => setPage(1)} icon={DoubleLeft} disabled={current === 1} />
     </li>
     <li>
-        <Button
-            on:click={() => setPage(current - 1)}
-            icon={SingleLeft}
-            disabled={current === 1}
-        />
+        <Button on:click={() => setPage(current - 1)} icon={SingleLeft} disabled={current === 1} />
     </li>
-    {#if (current - 2) > 1}
+    {#if current - 2 > 1}
         <span>...</span>
     {/if}
     {#each pages as page}
-        <li 
-            on:click={() => setPage(page)}
-            class:current={page === current}
-        >
+        <li on:click={() => setPage(page)} class:current={page === current}>
             {page}
         </li>
     {/each}
-    {#if (current + 2) < totalPages}
+    {#if current + 2 < totalPages}
         <span>...</span>
     {/if}
     <li>
-        <Button 
+        <Button
             on:click={() => setPage(current + 1)}
             icon={SingleRight}
             disabled={current === totalPages}
         />
     </li>
     <li>
-        <Button 
+        <Button
             on:click={() => setPage(totalPages)}
             icon={DoubleRight}
             disabled={current === totalPages}
@@ -97,7 +85,7 @@
         .current {
             border-radius: 3px;
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.39);
-            background-color: #FFF;
+            background-color: #fff;
             color: #142e7b;
         }
     }

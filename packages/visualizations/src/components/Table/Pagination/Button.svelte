@@ -1,12 +1,12 @@
 <script lang="ts">
-    import type { ComponentType, SvelteComponentTyped } from "svelte";
+    import type { ComponentType, SvelteComponentTyped } from 'svelte';
 
-    export let icon: ComponentType<SvelteComponentTyped<{color?: string;}>>;
+    export let icon: ComponentType<SvelteComponentTyped<{ color?: string }>>;
     export let disabled = false;
 </script>
 
-<button on:click disabled={disabled}>
-    <svelte:component this={icon}/>
+<button on:click {disabled}>
+    <svelte:component this={icon} />
 </button>
 
 <style lang="scss">
@@ -24,7 +24,7 @@
 
     :global(.ods-dataviz-sdk-table--default) {
         button {
-            color: "#142E7B";
+            color: '#142E7B';
         }
 
         button:disabled {
