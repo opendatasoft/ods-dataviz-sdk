@@ -55,4 +55,14 @@
             flex: 0 1 120px;
         }
     }
+
+    :global(.ods-dataviz-sdk-table--default) {
+        .pages {
+            flex-grow: 1;
+        }
+
+        .numbering, .spacer {
+            flex: 0 1 120px;
+        }
+    }
 </style>
