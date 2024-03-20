@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { ComponentType, SvelteComponentTyped } from 'svelte';
 
-    export let icon: ComponentType<SvelteComponentTyped<{ color?: string }>>;
+    export let icon: ComponentType;
     export let disabled = false;
 </script>
 
