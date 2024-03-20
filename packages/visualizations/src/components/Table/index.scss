@@ -32,7 +32,6 @@
         border-radius: var(--spacing-50);
         overflow-x: auto;
         overscroll-behavior-x: none;
-        max-width: 100%;
         width: inherit;
         margin-bottom: var(--spacing-100);
 
@@ -44,6 +43,11 @@
         :global(thead) {
             border-bottom: 1px solid var(--border-color);
         }
+    }
+
+    :global(.table-controls) {
+        min-height: var(--min-height);
+        max-width: 100%;
     }
 
     :global(tbody td),
@@ -58,7 +62,7 @@
         border-bottom: none;
     }
 
-    .ods-visualizations-table .pages {
+    .pagination .pages {
         flex-grow: 1;
     }
 }
