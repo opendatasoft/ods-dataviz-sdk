@@ -1,5 +1,4 @@
 <script lang="ts">
- 
 </script>
 
 <select on:change>
@@ -8,8 +7,8 @@
     {/each}
 </select>
 
+<!-- markup (zero or more items) goes here -->
+
 <style>
     /* your styles go here */
 </style>
-
-<!-- markup (zero or more items) goes here -->
