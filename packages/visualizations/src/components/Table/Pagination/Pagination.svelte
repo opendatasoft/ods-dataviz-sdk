@@ -56,7 +56,7 @@
         }
     }
 
-    :global(.ods-dataviz-sdk-table--default) {
+    :global(.ods-dataviz--default) {
         .pages {
             flex-grow: 1;
         }
