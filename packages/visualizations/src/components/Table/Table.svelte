@@ -1,9 +1,9 @@
 <script lang="ts">
-    import type { DataFrame } from "../types";
-    import type {  Column } from "./types";
+    import type { DataFrame } from '../types';
+    import type { Column } from './types';
     import { generateId } from '../utils';
-    import Header from "./Header.svelte";
-    import Body from "./Body.svelte";
+    import Header from './Header.svelte';
+    import Body from './Body.svelte';
 
     export let columns: Column[];
     export let records: DataFrame | undefined;
@@ -43,5 +43,4 @@
         white-space: nowrap;
         width: inherit;
     }
-
 </style>

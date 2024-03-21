@@ -1,17 +1,14 @@
 <script lang="ts">
-    import type { Source } from "../types";
-    import SourceLink from "./SourceLink.svelte";
-    
+    import type { Source } from '../types';
+    import SourceLink from './SourceLink.svelte';
+
     export let title: string | undefined;
     export let subtitle: string | undefined;
     export let source: Source | undefined;
     export let defaultStyle = true;
 </script>
 
-<div 
-    class="card"
-    class:ods-dataviz--default={defaultStyle}
->
+<div class="card" class:ods-dataviz--default={defaultStyle}>
     {#if title || subtitle}
         <div class="header">
             {#if title}
@@ -24,15 +21,17 @@
     {/if}
 
     <slot />
-    
+
     {#if source}
         <SourceLink {source} />
     {/if}
 </div>
 
+<!-- markup (zero or more items) goes here -->
 
 <style>
-    h3, p {
+    h3,
+    p {
         margin: 0;
     }
 
@@ -55,5 +54,3 @@
         width: 100%;
     }
 </style>
-
-<!-- markup (zero or more items) goes here -->

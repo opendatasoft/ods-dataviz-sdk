@@ -23,7 +23,7 @@
         padding: var(--spacing-75);
     }
 
-        :global(.table-header--number) {
+    :global(.table-header--number) {
         text-align: right;
     }
     /* to be improved in the formatting story */

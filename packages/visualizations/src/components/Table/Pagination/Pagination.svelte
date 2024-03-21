@@ -35,7 +35,6 @@
 </div>
 
 <!-- markup (zero or more items) goes here -->
-
 <style lang="scss">
     .pagination {
         display: flex;
@@ -49,8 +48,20 @@
             flex-grow: 1;
         }
 
-        .numbering, .spacer {
-            flex: 0 1 120px;
+        .numbering,
+        .spacer {
+            flex: 0 1 120px;
+        }
+    }
+
+    :global(.ods-dataviz-sdk-table--default) {
+        .pages {
+            flex-grow: 1;
+        }
+
+        .numbering,
+        .spacer {
+            flex: 0 1 120px;
         }
     }
 </style>
