@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { ComponentType, SvelteComponentTyped } from 'svelte';
+    import type { ComponentType } from 'svelte';
 
     export let icon: ComponentType;
     export let disabled = false;
@@ -13,7 +13,7 @@
     button {
         height: 28px;
         width: 28px;
-        padding: 6px;
+        padding: var(--spacing-50);
         background: none;
         border: none;
     }
@@ -22,7 +22,7 @@
         cursor: not-allowed;
     }
 
-    :global(.ods-dataviz-sdk-table--default) {
+    :global(.ods-dataviz--default) {
         button {
             color: '#142E7B';
         }
