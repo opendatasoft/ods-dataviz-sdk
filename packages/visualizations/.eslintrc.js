@@ -1,3 +1,5 @@
+const eslintSveltePlugin = require('eslint-plugin-svelte');
+
 module.exports = {
     env: {
         browser: true,
@@ -16,25 +18,8 @@ module.exports = {
         extraFileExtensions: ['.svelte'],
         tsconfigRootDir: __dirname,
     },
-    plugins: ['svelte3', '@typescript-eslint', 'prettier'],
-    overrides: [
-        {
-            files: ['*.svelte'],
-            processor: 'svelte3/svelte3',
-            settings: {
-                'import/core-modules': ['svelte'],
-            },
-            rules: {
-                // Allowed in svelte
-                'import/first': 'off',
-                'import/no-mutable-exports': 'off',
-                'import/prefer-default-export': 'off',
-            },
-        },
-    ],
-    settings: {
-        'svelte3/typescript': true,
-    },
+    plugins: ['@typescript-eslint', 'prettier'],
+    ...eslintSveltePlugin.configs['flat/prettier'],
     rules: {
         semi: ['error', 'always'],
         '@typescript-eslint/semi': ['error', 'always'],
