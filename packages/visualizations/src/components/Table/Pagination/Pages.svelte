@@ -81,7 +81,7 @@
         cursor: pointer;
     }
 
-    :global(.ods-dataviz-sdk-table--default) {
+    :global(.ods-dataviz--default) {
         .current {
             border-radius: 3px;
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.39);

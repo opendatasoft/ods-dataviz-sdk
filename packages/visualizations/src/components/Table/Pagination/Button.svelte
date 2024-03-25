@@ -23,7 +23,7 @@
     button {
         height: 28px;
         width: 28px;
-        padding: 6px;
+        padding: var(--spacing-50);
         background: none;
         border: none;
     }
@@ -32,7 +32,7 @@
         cursor: not-allowed;
     }
 
-    :global(.ods-dataviz-sdk-table--default) {
+    :global(.ods-dataviz--default) {
         button {
             color: '#142E7B';
         }

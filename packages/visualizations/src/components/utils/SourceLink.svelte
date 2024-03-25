@@ -16,6 +16,7 @@
         flex-shrink: 1;
         align-self: center;
     }
+
     a {
         font-size: var(--source-link-font-size, 12px);
     }

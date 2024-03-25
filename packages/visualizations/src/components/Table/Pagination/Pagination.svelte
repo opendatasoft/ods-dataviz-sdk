@@ -36,10 +36,33 @@
 
 <!-- markup (zero or more items) goes here -->
 <style lang="scss">
-    div {
+    .pagination {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 13px 0;
+    }
+
+    :global(.ods-dataviz--default) {
+        .pages {
+            flex-grow: 1;
+        }
+
+        .numbering,
+        .spacer {
+            flex: 0 1 120px;
+        }
+    }
+
+    :global(.ods-dataviz-sdk-table--default) {
+        .pages {
+            flex-grow: 1;
+        }
+
+        .numbering,
+        .spacer {
+            flex: 0 1 120px;
+        }
     }
 
     :global(.ods-dataviz-sdk-table--default) {
