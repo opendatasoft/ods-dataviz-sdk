@@ -292,8 +292,8 @@ export default class MapPOI {
             }><span class="${POPUP_NAVIGATION_ARROW_BUTTON_ICON_CLASSNAME}"></span></button>
                         <div class="feature-count">${activeFeatureHumanIndex} / ${availableFeaturesTotal}</div>
                         <button class="${POPUP_NAVIGATION_ARROW_BUTTON_CLASSNAME}" id="nextButton" ${
-                activeFeatureHumanIndex === availableFeaturesTotal ? 'disabled' : ''
-            }><span class="${POPUP_NAVIGATION_ARROW_BUTTON_ICON_CLASSNAME}"></span></button></div>`;
+                            activeFeatureHumanIndex === availableFeaturesTotal ? 'disabled' : ''
+                        }><span class="${POPUP_NAVIGATION_ARROW_BUTTON_ICON_CLASSNAME}"></span></button></div>`;
         }
 
         popupNavigationDiv.innerHTML = `

@@ -44,7 +44,7 @@ export function isGroupByForMatchExpression(
     ExpressionInputType,
     ExpressionInputType,
     ...ExpressionInputType[],
-    ExpressionInputType
+    ExpressionInputType,
 ] {
     return value.length >= 3 && value.length % 2 === 1;
 }

@@ -246,19 +246,25 @@
         border-left: 2px solid;
     }
     .map-card
-        :global(#prevButton.poi-map__popup-navigation-arrow-button
-            .poi-map__popup-navigation-arrow-button-icon) {
+        :global(
+            #prevButton.poi-map__popup-navigation-arrow-button
+                .poi-map__popup-navigation-arrow-button-icon
+        ) {
         transform: rotate(-45deg);
     }
     .map-card
-        :global(#nextButton.poi-map__popup-navigation-arrow-button
-            .poi-map__popup-navigation-arrow-button-icon) {
+        :global(
+            #nextButton.poi-map__popup-navigation-arrow-button
+                .poi-map__popup-navigation-arrow-button-icon
+        ) {
         transform: rotate(135deg);
     }
 
     .map-card
-        :global(.poi-map__popup-navigation-arrow-button:disabled
-            .poi-map__popup-navigation-arrow-button-icon) {
+        :global(
+            .poi-map__popup-navigation-arrow-button:disabled
+                .poi-map__popup-navigation-arrow-button-icon
+        ) {
         opacity: 0.5;
     }
 

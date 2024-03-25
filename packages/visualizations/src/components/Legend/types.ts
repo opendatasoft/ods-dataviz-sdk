@@ -5,7 +5,7 @@ export const LEGEND_POSITIONS = {
     left: 'left',
     right: 'right',
 } as const;
-export type LegendPositions = typeof LEGEND_POSITIONS[keyof typeof LEGEND_POSITIONS];
+export type LegendPositions = (typeof LEGEND_POSITIONS)[keyof typeof LEGEND_POSITIONS];
 
 export interface LegendLabelsConfiguration {
     text?: (legendIndex: number) => string;
