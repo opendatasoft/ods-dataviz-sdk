@@ -2,6 +2,8 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Column, TableOptions, TableData, Async } from '@opendatasoft/visualizations';
 
+import './custom-style.css';
+
 import { Table } from '../../src';
 
 import value from './data';
