@@ -1,3 +1,5 @@
+const eslintSveltePlugin = require('eslint-plugin-svelte');
+
 module.exports = {
     env: {
         browser: true,
