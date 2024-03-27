@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [21.3.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.2.0...@opendatasoft/api-client@21.3.0) (2024-03-27)
+
+
+### Features
+
+* Adding assets to catalog queries ([110d5c8](https://github.com/opendatasoft/ods-dataviz-sdk/commit/110d5c8216e72255aea5a507b96626a1ef76ead7))
+
+
+
+
+
 # [21.2.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.1.2...@opendatasoft/api-client@21.2.0) (2024-01-10)
 
 
