@@ -1,3 +1,5 @@
+import '@opendatasoft/visualizations/dist/index.css';
+
 import {
     Chart as _Chart,
     KpiCard as _KpiCard,
