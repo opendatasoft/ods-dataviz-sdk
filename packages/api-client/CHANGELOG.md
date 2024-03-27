@@ -3,17 +3,6 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [21.3.0-beta-multi-asset.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.2.0...@opendatasoft/api-client@21.3.0-beta-multi-asset.0) (2024-02-21)
-
-
-### Features
-
-* Supports multi-asset queries ([3a967fa](https://github.com/opendatasoft/ods-dataviz-sdk/commit/3a967fa2fa1dcd2818f102ab7b02623d45e9ef29))
-
-
-
-
-
 # [21.2.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.1.2...@opendatasoft/api-client@21.2.0) (2024-01-10)
 
 
