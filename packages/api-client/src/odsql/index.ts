@@ -137,6 +137,12 @@ function root(source: string) {
         itself: () => new Query(`${source}/`),
         facets: () => new Query(`${source}/facets/`),
         datasets: () => new Query(`${source}/datasets/`),
+        /**
+         * FIXME: Update this URL or remove this comment when the endpoint is out of beta.
+         * The assets endpoint is still in development and not yet documented.
+         * Therefore, this URL may change in the future.
+         */
+        assets: () => new Query(`${source}/assets/`),
         export: (format: ExportCatalogFormat) => new Query(`${source}/exports/${format}/`),
         dataset: (datasetId: string) => ({
             itself: () => new Query(`${source}/datasets/${datasetId}/`),

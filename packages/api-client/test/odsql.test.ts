@@ -38,6 +38,8 @@ describe('ODSQL query builder', () => {
         test('with no parameters', () => {
             expect(fromCatalog().datasets().toString()).toEqual('catalog/datasets/');
 
+            expect(fromCatalog().assets().toString()).toEqual('catalog/assets/');
+
             expect(fromMonitoring().itself().toString()).toEqual('monitoring/');
 
             expect(fromDataNetwork().dataset('sirene@data').facets().lang('fr').toString()).toEqual(
@@ -69,6 +71,13 @@ describe('ODSQL query builder', () => {
                     .where(searchTerm && `search(${string(searchTerm)})`)
                     .toString()
             ).toEqual('catalog/datasets/');
+
+            expect(
+                fromCatalog()
+                    .assets()
+                    .where(searchTerm && `search(${string(searchTerm)})`)
+                    .toString()
+            ).toEqual('catalog/assets/');
         });
 
         test('conditional condition', () => {
@@ -79,6 +88,13 @@ describe('ODSQL query builder', () => {
                     .where((prev) => all(prev, searchTerm && `search(${string(searchTerm)})`))
                     .toString()
             ).toEqual('catalog/datasets/?where=%28search%28%22my+search+term%22%29%29');
+
+            expect(
+                fromCatalog()
+                    .assets()
+                    .where((prev) => all(prev, searchTerm && `search(${string(searchTerm)})`))
+                    .toString()
+            ).toEqual('catalog/assets/?where=%28search%28%22my+search+term%22%29%29');
         });
 
         test('list helper', () => {
@@ -89,6 +105,14 @@ describe('ODSQL query builder', () => {
                     .select((prev) => list(prev, 'd'))
                     .toString()
             ).toEqual(`catalog/datasets/?select=${encodeURIComponent('a,b,c,d')}`);
+
+            expect(
+                fromCatalog()
+                    .assets()
+                    .select((prev) => list(prev, 'a', 'b', 'c'))
+                    .select((prev) => list(prev, 'd'))
+                    .toString()
+            ).toEqual(`catalog/assets/?select=${encodeURIComponent('a,b,c,d')}`);
         });
 
         test('date helper', () => {
@@ -162,6 +186,20 @@ describe('ODSQL query builder', () => {
             ).toEqual(
                 'catalog/datasets/?exclude=field%3A2&limit=45&offset=10&order_by=%60x%60&refine=field%3A1'
             );
+
+            expect(
+                fromCatalog()
+                    .assets()
+                    .orderBy(`${field('x')}`)
+                    .limit(40)
+                    .limit((l) => l + 5)
+                    .offset((o) => o + 10)
+                    .refine('field:1')
+                    .exclude('field:2')
+                    .toString()
+            ).toEqual(
+                'catalog/assets/?exclude=field%3A2&limit=45&offset=10&order_by=%60x%60&refine=field%3A1'
+            );
         });
 
         test('export geojson query', () => {
@@ -181,6 +219,13 @@ describe('ODSQL query builder', () => {
             );
             expect(fromCatalog().datasets().where(not(undefined)).toString()).toEqual(
                 'catalog/datasets/'
+            );
+
+            expect(fromCatalog().assets().where(not('x = 1')).toString()).toEqual(
+                'catalog/assets/?where=not+%28x+%3D+1%29'
+            );
+            expect(fromCatalog().assets().where(not(undefined)).toString()).toEqual(
+                'catalog/assets/'
             );
         });
         test('Search clause', () => {
