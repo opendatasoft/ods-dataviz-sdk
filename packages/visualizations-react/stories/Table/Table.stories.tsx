@@ -7,7 +7,7 @@ import './custom-style.css';
 import { Table } from '../../src';
 
 import value from './data';
-import { options } from './config';
+import options from './options';
 
 const meta: ComponentMeta<typeof Table> = {
     title: 'Table/Table',

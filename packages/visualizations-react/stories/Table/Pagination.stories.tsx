@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import { TableData, Async } from '@opendatasoft/visualizations';
+import type { TableProps } from '@opendatasoft/visualizations';
 import { Table } from '../../src';
 import value from './data';
-import { options } from './config';
+import options from './options';
 import './pagination.css';
 
 const meta: ComponentMeta<typeof Table> = {
@@ -12,12 +12,12 @@ const meta: ComponentMeta<typeof Table> = {
 };
 export default meta;
 
-const data: Async<TableData> = {
+const data: TableProps['data'] = {
     value,
     loading: false,
 };
 
-const sliceDataX = (numberPerPage: number) => (fullData: Async<TableData>, page: number) => {
+const sliceDataX = (numberPerPage: number) => (fullData: TableProps['data'], page: number) => {
     const startIndex = (page - 1) * numberPerPage;
     return fullData.value?.slice(startIndex, startIndex + numberPerPage);
 };
@@ -26,11 +26,11 @@ const makeTemplate = (numberPerPage: number) => {
     const sliceData = sliceDataX(numberPerPage);
     const PaginatedTemplate: ComponentStory<typeof Table> = args => {
         const { data: rawData, options: paginatedOptions } = args;
-        const { pages } = paginatedOptions;
-        const { initial = 0 } = pages || {};
+        const { pagination } = paginatedOptions;
+        const { initial = 0 } = pagination || {};
         const [records, setRecords] = useState(sliceData(rawData, initial || 1));
-        if (paginatedOptions.pages && rawData.value) {
-            paginatedOptions.pages.onChangePage = async (page: number) => {
+        if (paginatedOptions.pagination && rawData.value) {
+            paginatedOptions.pagination.onChangePage = async (page: number) => {
                 await setTimeout(() => {
                     setRecords(sliceData(rawData, page));
                 }, 300);

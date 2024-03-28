@@ -48,7 +48,7 @@ export const columns: Column[] = [
     },
 ];
 
-export const options: TableOptions = {
+const options: TableOptions = {
     columns,
     title: 'My table',
     subtitle: 'and a subtitle...',
@@ -58,3 +58,5 @@ export const options: TableOptions = {
     },
     locale: 'fr',
 };
+
+export default options;

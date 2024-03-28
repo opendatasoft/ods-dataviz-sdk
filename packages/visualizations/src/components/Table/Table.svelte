@@ -18,13 +18,22 @@
     const tableId = `table-${generateId()}`;
 
     $: ({ value: records } = data);
-    $: ({ columns, title, subtitle, description, source, unstyled, locale, pages } = options);
+    $: ({
+        columns,
+        title,
+        subtitle,
+        description,
+        source,
+        unstyled,
+        locale,
+        pagination,
+    } = options);
     $: defaultStyle = !unstyled;
     $: updateLocale(locale);
     /* Preserves paginations controls positioning
     min heigh of table + controls = max-height of row * (number of rows + 1 for headers)
     */
-    $: minHeight = pages ? `${MAX_ROW_HEIGHT * (pages.recordsPerPage + 1)}px` : 'none';
+    $: minHeight = pagination ? `${MAX_ROW_HEIGHT * (pagination.recordsPerPage + 1)}px` : 'none';
 </script>
 
 <div class="ods-dataviz-sdk-table" class:ods-dataviz-sdk-table--default={defaultStyle}>
@@ -48,8 +57,8 @@
             </table>
         </div>
     </div>
-    {#if pages}
-        <Pagination {...pages} />
+    {#if pagination}
+        <Pagination {...pagination} />
     {/if}
     {#if description}
         <p id={tableId} class="a11y-invisible-description">{description}</p>
