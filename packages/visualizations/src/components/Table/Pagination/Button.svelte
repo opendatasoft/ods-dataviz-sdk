@@ -16,6 +16,7 @@
         padding: var(--spacing-50);
         background: none;
         border: none;
+        cursor: pointer;
     }
 
     button:disabled {
