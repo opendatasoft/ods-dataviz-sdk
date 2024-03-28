@@ -15,8 +15,9 @@ import type {
     TicksConfiguration,
     TimeCartesianAxisConfiguration,
 } from './types';
-import { defaultValue, singleChartJsColor } from './utils';
+import { defaultValue, singleChartJsColor, isRangeTimeUnitCompatible } from './utils';
 import { assureMaxLength, defaultCompactNumberFormat } from '../utils/formatter';
+import type { DataFrame } from '../types';
 
 const TICK_MAX_LENGTH = 40;
 
@@ -75,9 +76,11 @@ function getDateTooltipFormat(unit?: TimeCartesianAxisConfiguration['timeUnit'])
     return undefined;
 }
 
-export default function buildScales(options: ChartOptions): ChartJsChartOptions['scales'] {
+export default function buildScales(
+    options: ChartOptions,
+    dataFrame: DataFrame
+): ChartJsChartOptions['scales'] {
     const scales: ChartJsChartOptions['scales'] = {};
-
     // X Axis
     if (options.axis?.x) {
         scales.x = {
@@ -93,7 +96,13 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
             ...(options?.axis?.x?.type === 'time'
                 ? {
                       time: {
-                          unit: options?.axis?.x?.timeUnit,
+                          ...(isRangeTimeUnitCompatible(
+                              dataFrame[0]?.x,
+                              dataFrame[dataFrame.length - 1]?.x,
+                              options?.axis?.x?.timeUnit
+                          )
+                              ? { unit: options?.axis?.x?.timeUnit }
+                              : {}),
                           tooltipFormat: getDateTooltipFormat(options?.axis?.x?.timeUnit),
                       },
                   }
