@@ -2,7 +2,7 @@ import svelte from 'rollup-plugin-svelte';
 import autoPreprocess from 'svelte-preprocess';
 import postcss from 'rollup-plugin-postcss';
 import autoprefixer from 'autoprefixer';
-import visualizer from 'rollup-plugin-visualizer';
+// import visualizer from 'rollup-plugin-visualizer';
 import { terser } from 'rollup-plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
@@ -76,11 +76,11 @@ const esm = defineConfig({
     plugins: [
         ...basePlugins(),
         // Visualize the generated bundle
-        production &&
-            visualizer({
-                filename: `gen/stats-es.html`,
-                sourcemap: true,
-            }),
+        // production &&
+        //     visualizer({
+        //         filename: `gen/stats-es.html`,
+        //         sourcemap: true,
+        //     }),
     ],
     onwarn,
 });
@@ -106,11 +106,11 @@ const umd = defineConfig({
                 preventAssignment: true,
             }),
         // Visualize the generated bundle
-        production &&
-            visualizer({
-                filename: 'gen/stats-umd.html',
-                sourcemap: true,
-            }),
+        // production &&
+        //     visualizer({
+        //         filename: 'gen/stats-umd.html',
+        //         sourcemap: true,
+        //     }),
     ],
     onwarn,
 });

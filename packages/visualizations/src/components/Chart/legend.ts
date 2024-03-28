@@ -1,5 +1,5 @@
-import type { LegendOptions, ChartTypeRegistry, ChartConfiguration, Chart } from 'chart.js';
-import type { _DeepPartialObject } from 'chart.js/types/utils';
+import type { LegendOptions, ChartConfiguration, Chart } from 'chart.js';
+import type { _DeepPartialObject } from 'chart.js/dist/types/utils';
 import type { ChartOptions } from './types';
 import { assureMaxLength } from '../utils/formatter';
 import { defaultValue, DEFAULT_GREY_COLOR } from './utils';
@@ -32,10 +32,8 @@ const handleLeavePieChart: LegendOptions<'pie'>['onLeave'] = (_evt, _item, legen
     legend.chart.update();
 };
 
-export function buildLegend(
-    options: ChartOptions
-): _DeepPartialObject<LegendOptions<keyof ChartTypeRegistry>> {
-    const legend: _DeepPartialObject<LegendOptions<keyof ChartTypeRegistry>> = {
+export function buildLegend(options: ChartOptions) {
+    const legend: _DeepPartialObject<LegendOptions<'pie'>> = {
         display: defaultValue(options?.legend?.display, false),
         position: defaultValue(options?.legend?.position, 'bottom'),
         align: defaultValue(options?.legend?.align, 'center'),

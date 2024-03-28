@@ -1,7 +1,7 @@
 import chroma from 'chroma-js';
 import turfBbox from '@turf/bbox';
 import maplibregl, { ExpressionInputType, ExpressionSpecification } from 'maplibre-gl';
-import geoViewport from '@mapbox/geo-viewport';
+import { viewport } from '@placemarkio/geo-viewport';
 import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
 import type { Scale } from 'chroma-js';
 import { DEFAULT_COLORS } from './constants';
@@ -174,14 +174,9 @@ export const computeMaxZoomFromGeoJsonFeatures = (
     Object.values(filteredBboxes).forEach((value: any) => {
         // Vtiles = 512 tile size
         maxZoom = Math.max(
-            geoViewport.viewport(
-                value.bbox,
-                [mapContainer.clientWidth, mapContainer.clientHeight],
-                undefined,
-                undefined,
-                512,
-                true
-            ).zoom,
+            viewport(value.bbox, [mapContainer.clientWidth, mapContainer.clientHeight], {
+                tileSize: 512,
+            }).zoom,
             maxZoom
         );
     });

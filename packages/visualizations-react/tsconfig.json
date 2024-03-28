@@ -21,6 +21,9 @@
             "reactify": [
                 "src/reactify"
             ],
+            "@opendatasoft/visualizations": [
+                "../visualizations"
+            ]
         },
         // stricter type-checking for stronger correctness. Recommended by TS
         "strict": true,
