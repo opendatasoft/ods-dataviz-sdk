@@ -2,28 +2,30 @@
     import Pages from './Pages.svelte';
     import Numbering from './Numbering.svelte';
     // import PerPage from "./PerPage.svelte";
-    import type { TableOptions } from '../types';
+    import type { Pagination } from '../types';
 
-    export let onChangePage: Required<TableOptions>['pages']['onChangePage'];
+    export let onChangePage: Pagination['onChangePage'];
     export let totalRecords: number;
     export let recordsPerPage: number;
     export let initial: number;
 
-    let current = initial;
+    $: current = initial;
 
-    const setPage = async (page: number) => {
+    const setPage = (page: number) => {
         onChangePage(page);
         current = page;
     };
 
-    // "floor" because it's ceil but starts at 0
-    const totalPages = Math.floor(totalRecords / recordsPerPage);
+    const totalPages = Math.ceil(totalRecords / recordsPerPage);
 </script>
 
 <div class="pagination">
     <div class="numbering">
         <Numbering
-            current={[recordsPerPage * (current - 1) + 1, recordsPerPage * current]}
+            current={[
+                recordsPerPage * (current - 1) + 1,
+                Math.min(recordsPerPage * current, totalRecords),
+            ]}
             total={totalRecords}
         />
     </div>

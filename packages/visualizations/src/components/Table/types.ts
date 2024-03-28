@@ -67,7 +67,7 @@ export type Column =
     | BooleanColumn
     | URLColumn;
 
-export type Pages = {
+export type Pagination = {
     // position: 'top' | 'bottom' | 'both';
     // style: 'select' | 'buttons';
     initial: number;

@@ -30,7 +30,7 @@
     <li>
         <Button on:click={() => setPage(current - 1)} icon={SingleLeft} disabled={current === 1} />
     </li>
-    {#if current - 2 > 1}
+    {#if current - 1 > 1}
         <span>...</span>
     {/if}
     {#each pages as page}
@@ -38,7 +38,7 @@
             {page}
         </li>
     {/each}
-    {#if current + 2 < totalPages}
+    {#if current + 1 < totalPages}
         <span>...</span>
     {/if}
     <li>
