@@ -42,7 +42,8 @@
                     <h3 class="kpi-card__title">{options.title}</h3>
                 {/if}
                 <!-- the weird syntax is to avoid any space at all between the value and the prefix or suffix
-                The reason is that you want to support units that "stick" the value without any space, such as $45 or 45€
+                The reason is that you want to support units 
+                that "stick" the value without any space, such as $45 or 45€
                 If you want to have a space (45 Cars), the prefix or suffix itself has to contain the space -->
                 <div class="kpi-card__value">
                     {#if options.prefix}<span class="kpi-card__prefix">{options.prefix}</span
