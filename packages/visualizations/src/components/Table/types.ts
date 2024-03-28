@@ -66,6 +66,15 @@ export type Column =
     | BooleanColumn
     | URLColumn;
 
+export type Pagination = {
+    // position: 'top' | 'bottom' | 'both';
+    // style: 'select' | 'buttons';
+    initial: number;
+    totalRecords: number;
+    recordsPerPage: number;
+    onChangePage: (next: number) => void;
+};
+
 export type TableOptions = {
     columns: Column[];
     title?: string;
@@ -79,6 +88,7 @@ export type TableOptions = {
      * Default is `false`.
      */
     unstyled?: boolean;
+    pagination?: Pagination;
 };
 
 export type TableProps = {

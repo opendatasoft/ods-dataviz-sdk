@@ -135,7 +135,8 @@
         margin: 0;
     }
 
-    /* To add classes programmatically in svelte we will use a global selector. We place it inside a local selector to obtain some encapsulation and avoid side effects */
+    /* To add classes programmatically in svelte we will use a global selector. 
+    We place it inside a local selector to obtain some encapsulation and avoid side effects */
 
     /* --- POPUP ---  */
     .map-card :global(.poi-map__popup) {

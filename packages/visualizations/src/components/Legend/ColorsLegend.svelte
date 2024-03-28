@@ -1,6 +1,5 @@
-<svelte:options immutable={true} />
-
 <script lang="ts">
+    // eslint-disable-next-line import/no-extraneous-dependencies
     import { onDestroy } from 'svelte';
     import { debounce } from 'lodash';
     import type { DataBounds, ColorScale } from '../types';
