@@ -1,5 +1,3 @@
-const eslintSveltePlugin = require('eslint-plugin-svelte');
-
 module.exports = {
     env: {
         browser: true,
@@ -37,9 +35,6 @@ module.exports = {
             },
         },
     ],
-    settings: {
-        'svelte3/typescript': true,
-    },
     rules: {
         semi: ['error', 'always'],
         '@typescript-eslint/semi': ['error', 'always'],
@@ -65,21 +60,6 @@ module.exports = {
                     'acc', // for reduce accumulators
                     'e', // for e.returnvalue
                 ],
-            },
-        ],
-        'object-curly-newline': [
-            'error',
-            {
-                ObjectExpression: {
-                    minProperties: 6,
-                    multiline: true,
-                    consistent: true,
-                },
-                ObjectPattern: {
-                    minProperties: 6,
-                    multiline: true,
-                    consistent: true,
-                },
             },
         ],
         'import/no-named-as-default': 'off',
