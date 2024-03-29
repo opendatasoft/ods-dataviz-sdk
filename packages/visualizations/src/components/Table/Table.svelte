@@ -18,16 +18,7 @@
     const tableId = `table-${generateId()}`;
 
     $: ({ value: records } = data);
-    $: ({
-        columns,
-        title,
-        subtitle,
-        description,
-        source,
-        unstyled,
-        locale,
-        pagination,
-    } = options);
+    $: ({ columns, title, subtitle, description, source, unstyled, locale, pagination } = options);
     $: defaultStyle = !unstyled;
     $: updateLocale(locale);
     /* Preserves paginations controls positioning
