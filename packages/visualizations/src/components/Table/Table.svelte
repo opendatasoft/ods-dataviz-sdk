@@ -10,15 +10,6 @@
     export let description: string | undefined;
 
     const tableId = `table-${generateId()}`;
-
-    $: ({ value: records } = data);
-    $: ({ columns, title, subtitle, description, source, unstyled, locale, pages } = options);
-    $: defaultStyle = !unstyled;
-    $: updateLocale(locale);
-    /* Preserves paginations controls positioning
-    min heigh of table + controls = max-height of row * (number of rows + 1 for headers)
-    */
-    $: minHeight = pages ? `${MAX_ROW_HEIGHT * (pages.recordsPerPage + 1)}px` : 'none';
 </script>
 
 <div>

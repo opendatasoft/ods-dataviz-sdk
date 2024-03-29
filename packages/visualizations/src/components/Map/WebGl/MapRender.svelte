@@ -383,14 +383,14 @@
     <!-- Working with index is safe since we don't add/remove items -->
     {#if navigationMaps}
         <div class="buttons" style="--buttons-events:{interactive ? 'auto' : 'none'}">
-            {#each navigationMaps as map, i}
+            {#each navigationMaps as navMap, i}
                 <MiniMap
                     {data}
-                    {map}
+                    map={navMap}
                     {colorScale}
                     active={active === i}
                     showTooltip={interactive}
-                    on:click={setBboxFromButton(map, i)}
+                    on:click={setBboxFromButton(navMap, i)}
                 />
             {/each}
         </div>
@@ -435,7 +435,8 @@
     figcaption h3 {
         margin: 0;
     }
-    /* To add classes programmatically in svelte we will use a global selector. We place it inside a local selector to obtain some encapsulation and avoid side effects */
+    /* To add classes programmatically in svelte we will use a global selector. 
+    We place it inside a local selector to obtain some encapsulation and avoid side effects */
     .map-card :global(.tooltip-on-hover > .maplibregl-popup-content) {
         border-radius: 6px;
         box-shadow: 0px 6px 13px rgba(0, 0, 0, 0.26);

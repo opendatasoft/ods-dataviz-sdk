@@ -14,19 +14,19 @@
     export let options: $$Props['options'];
 
     $: ({ value: records } = data);
-    $: ({ columns, title, subtitle, description, source, unstyled, locale, pages } = options);
+    $: ({ columns, title, subtitle, description, source, unstyled, locale, pagination } = options);
     $: updateLocale(locale);
     /* Preserves paginations controls positioning
     min heigh of table + controls = max-height of row * (number of rows) + headers + pagination
     */
-    $: minHeight = pages ? `${MAX_ROW_HEIGHT * pages.recordsPerPage + 39 + 54}px` : 'none';
+    $: minHeight = pagination ? `${MAX_ROW_HEIGHT * pagination.recordsPerPage + 39 + 54}px` : 'none';
 </script>
 
 <Card {title} {subtitle} {source} defaultStyle={!unstyled}>
     <div style="--min-height: {minHeight};">
         <Table {records} {columns} {description} />
-        {#if pages}
-            <Pagination {...pages} />
+        {#if pagination}
+            <Pagination {...pagination} />
         {/if}
     </div>
 </Card>
