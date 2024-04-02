@@ -45,7 +45,7 @@ const makeTemplate = (numberPerPage: number) => {
 
 const paginatedOptions = {
     ...options,
-    pages: {
+    pagination: {
         initial: 2,
         recordsPerPage: 3,
         totalRecords: value.length,
@@ -61,7 +61,7 @@ Paginated.args = {
 
 const longPagesOptions = {
     ...options,
-    pages: {
+    pagination: {
         initial: 1,
         recordsPerPage: 10,
         totalRecords: value.length,
@@ -77,7 +77,7 @@ LongPages.args = {
 
 const shortPagesOptions = {
     ...options,
-    pages: {
+    pagination: {
         initial: 1,
         recordsPerPage: 2,
         totalRecords: value.length,

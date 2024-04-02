@@ -31,6 +31,12 @@ module.exports = {
                 'import/first': 'off',
                 'import/no-mutable-exports': 'off',
                 'import/prefer-default-export': 'off',
+                'import/no-extraneous-dependencies': [
+                    'error',
+                    {
+                        devDependencies: true, // allows importintg from 'svelte'
+                    },
+                ],
                 '@typescript-eslint/no-unused-vars': 'off', // is reinjected inside <script>, but off in template
             },
         },
