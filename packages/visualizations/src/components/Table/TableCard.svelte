@@ -24,7 +24,7 @@
     <div>
         <Table {records} {columns} {description} />
         {#if pagination}
-            <Pagination {...pagination} />
+            <Pagination {...pagination}/>
         {/if}
     </div>
 </Card>
