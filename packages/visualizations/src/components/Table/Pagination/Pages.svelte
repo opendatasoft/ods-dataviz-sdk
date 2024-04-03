@@ -4,23 +4,13 @@
     import DoubleRight from './DoubleRight.svelte';
     import SingleLeft from './SingleLeft.svelte';
     import SingleRight from './SingleRight.svelte';
+    import { getPages } from './utils';
 
     export let totalPages: number;
     export let current: number;
     export let setPage: (page: number) => void;
 
-    let pages = [current - 1, current, current + 1];
-    $: if (totalPages === 2) {
-        pages = [1, 2];
-    } else if (totalPages === 1) {
-        pages = [1];
-    } else if (current - 1 < 1) {
-        pages = [current, current + 1, current + 2];
-    } else if (current + 1 > totalPages) {
-        pages = [current - 2, current - 1, current];
-    } else {
-        pages = [current - 1, current, current + 1];
-    }
+    $: pages = getPages({ current, totalPages });
 </script>
 
 <ul>
@@ -30,7 +20,7 @@
     <li>
         <Button on:click={() => setPage(current - 1)} icon={SingleLeft} disabled={current === 1} />
     </li>
-    {#if current - 1 > 1}
+    {#if current - 1 > 1 && totalPages < 3}
         <span>...</span>
     {/if}
     {#each pages as page}
@@ -38,7 +28,7 @@
             {page}
         </li>
     {/each}
-    {#if current + 1 < totalPages}
+    {#if current + 1 < totalPages && totalPages > 3}
         <span>...</span>
     {/if}
     <li>
