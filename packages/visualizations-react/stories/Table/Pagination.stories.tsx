@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import type { TableProps } from '@opendatasoft/visualizations';
+import type { TableProps, DataFrame } from '@opendatasoft/visualizations';
 import { Table } from '../../src';
 import value from './data';
 import options from './options';
+import { fetchData } from './utils';
+
 import './pagination.css';
 
 const meta: ComponentMeta<typeof Table> = {
@@ -17,78 +19,77 @@ const data: TableProps['data'] = {
     loading: false,
 };
 
-const sliceDataX = (numberPerPage: number) => (fullData: TableProps['data'], page: number) => {
-    const startIndex = (page - 1) * numberPerPage;
-    return fullData.value?.slice(startIndex, startIndex + numberPerPage);
-};
+const PaginatedTemplate: ComponentStory<typeof Table> = args => {
+    const { data: rawData, options: paginatedOptions } = args;
+    const { pagination } = paginatedOptions;
+    const { current = 1, recordsPerPage } = pagination || {};
+    const [records, setRecords] = useState<DataFrame>([]);
+    const [page, setPage] = useState(current);
+    if (paginatedOptions.pagination && rawData.value) {
+        paginatedOptions.pagination.onPageChange = (newPage: number) => {
+            setPage(newPage);
+        };
+    }
 
-const makeTemplate = (numberPerPage: number) => {
-    const sliceData = sliceDataX(numberPerPage);
-    const PaginatedTemplate: ComponentStory<typeof Table> = args => {
-        const { data: rawData, options: paginatedOptions } = args;
-        const { pagination } = paginatedOptions;
-        const { initial = 0 } = pagination || {};
-        const [records, setRecords] = useState(sliceData(rawData, initial || 1));
-        if (paginatedOptions.pagination && rawData.value) {
-            paginatedOptions.pagination.onChangePage = async (page: number) => {
-                await setTimeout(() => {
-                    setRecords(sliceData(rawData, page));
-                }, 300);
-            };
-        }
+    useEffect(() => {
+        (async () => {
+            const newRecords = await fetchData({
+                size: recordsPerPage,
+                page,
+                data: value,
+            });
+            setRecords(newRecords);
+        })();
+    }, [recordsPerPage, page, setRecords]);
 
-        const paginatedData = { value: records, isLoading: false };
-        return <Table data={paginatedData} options={paginatedOptions} />;
+    const paginatedData = { value: records, isLoading: false };
+    const stateFulOptions = {
+        ...paginatedOptions,
+        pagination: { ...paginatedOptions.pagination, current: page },
     };
-    return PaginatedTemplate;
+    return <Table data={paginatedData} options={stateFulOptions} />;
 };
 
-const paginatedOptions = {
-    ...options,
-    pagination: {
-        initial: 2,
-        recordsPerPage: 3,
-        totalRecords: value.length,
-        onChangePage: () => {}, // set in template
-    },
-};
-const PaginatedTemplate = makeTemplate(3);
 export const Paginated = PaginatedTemplate.bind({});
 Paginated.args = {
     data,
-    options: paginatedOptions,
-};
-
-const longpaginationOptions = {
-    ...options,
-    pagination: {
-        initial: 1,
-        recordsPerPage: 10,
-        totalRecords: value.length,
-        onChangePage: () => {}, // set in template
+    options: {
+        ...options,
+        pagination: {
+            current: 2,
+            recordsPerPage: 3,
+            totalRecords: value.length,
+            onPageChange: () => {}, // set in template
+        },
     },
 };
-const LongPaginatedTemplate = makeTemplate(10);
-export const Longpagination = LongPaginatedTemplate.bind({});
+
+export const Longpagination = PaginatedTemplate.bind({});
 Longpagination.args = {
     data,
-    options: longpaginationOptions,
-};
-
-const shortpaginationOptions = {
-    ...options,
-    pagination: {
-        initial: 1,
-        recordsPerPage: 2,
-        totalRecords: value.length,
-        onChangePage: () => {}, // set in template
+    options: {
+        ...options,
+        pagination: {
+            current: 1,
+            recordsPerPage: 10,
+            totalRecords: value.length,
+            onPageChange: () => {}, // set in template
+        },
     },
 };
-const ShortPaginatedTemplate = makeTemplate(2);
-export const Shortpagination = ShortPaginatedTemplate.bind({});
+
+export const Shortpagination = PaginatedTemplate.bind({});
 Shortpagination.args = {
     data,
-    options: shortpaginationOptions,
+    options: {
+        ...options,
+        pagination: {
+            current: 1,
+            recordsPerPage: 2,
+            totalRecords: value.length,
+            onPageChange: () => {}, // set in template
+        },
+    },
 };
 
 const StyledPaginated: ComponentStory<typeof Table> = args => (
@@ -101,50 +102,151 @@ export const CustomStyle = StyledPaginated.bind({});
 CustomStyle.args = {
     data,
     options: {
-        ...paginatedOptions,
+        ...options,
+        pagination: {
+            current: 2,
+            recordsPerPage: 3,
+            totalRecords: value.length,
+            onPageChange: () => {}, // set in template
+        },
         unstyled: true,
     },
 };
 
-const pageSizeOptions = [
-    { label: '2 / pages', value: 2 },
-    { label: '5 / pages', value: 5 },
-    { label: '10 / pages', value: 10 },
-];
-
 const PageSizeTemplate: ComponentStory<typeof Table> = args => {
-    const { data: rawData, options: templateOptions } = args;
-    const { pagination } = templateOptions;
-    const { initial = 1 } = pagination || {};
-    const [sliceData, setSliceData] = useState(sliceDataX(10));
-    const [pagesSize, setPageSize] = useState<number>(10);
-    const [records, setRecords] = useState(sliceData(rawData, initial || 1));
+    const { data: rawData, options: paginatedOptions } = args;
+    const { pagination } = paginatedOptions;
+    const { current = 1, recordsPerPage = 10 } = pagination || {};
+    const [records, setRecords] = useState<DataFrame>();
+    const [pageSize, setPageSize] = useState(recordsPerPage);
+    const [page, setPage] = useState(current);
 
-    const onPageSizeChange = (size: number) => {
-        setPageSize(size);
-    };
-    console.log(records);
-    if (templateOptions.pagination && rawData.value) {
-        templateOptions.pagination.onChangePage = async (page: number) => {
-            await setTimeout(() => {
-                setRecords(sliceData(rawData, page));
-            }, 300);
-        };
-
-        templateOptions.pagination.pageSizeSelect = {
-            options: pageSizeOptions,
-            onChange: onPageSizeChange,
+    if (paginatedOptions.pagination && rawData.value) {
+        paginatedOptions.pagination.onPageChange = (newPage: number) => {
+            setPage(newPage);
         };
     }
 
+    if (paginatedOptions.pagination?.pageSizeSelect) {
+        paginatedOptions.pagination.pageSizeSelect.onChange = (newSize: number) => {
+            setPageSize(newSize);
+            setPage(1);
+        };
+    }
+
+    useEffect(() => {
+        (async () => {
+            const newRecords = await fetchData({
+                size: pageSize,
+                page,
+                data: value,
+            });
+            setRecords(newRecords);
+        })();
+    }, [recordsPerPage, page, pageSize, setRecords]);
+
     const paginatedData = { value: records, isLoading: false };
-    return <Table data={paginatedData} options={templateOptions} />;
+    const stateFulOptions = {
+        ...paginatedOptions,
+        pagination: {
+            ...paginatedOptions.pagination,
+            current: page,
+            recordsPerPage: pageSize,
+        },
+    };
+    return <Table data={paginatedData} options={stateFulOptions} />;
 };
 
 export const PageSize = PageSizeTemplate.bind({});
 PageSize.args = {
     data,
     options: {
+        ...options,
+        pagination: {
+            current: 2,
+            recordsPerPage: 5,
+            totalRecords: value.length,
+            onPageChange: () => {}, //
+            pageSizeSelect: {
+                options: [
+                    { label: '2 / pages', value: 2 },
+                    { label: '5 / pages', value: 5 },
+                    { label: '10 / pages', value: 10 },
+                ],
+                onChange: () => {}, // stateful, defined in template
+            },
+        },
+    },
+};
+
+/* This template will fail to catch a new page and returns previous data, page and pageSize
+simulating e.g. an API call fail.
+The select should stay on it's previous value, not the clicked one.
+*/
+const PageSizeFailTemplate: ComponentStory<typeof Table> = args => {
+    const { data: rawData, options: paginatedOptions } = args;
+    const { pagination } = paginatedOptions;
+    const { current = 1, recordsPerPage = 10 } = pagination || {};
+    const [records, setRecords] = useState<DataFrame>();
+    const [pageSize, setPageSize] = useState(recordsPerPage);
+    const [page, setPage] = useState(current);
+
+    if (paginatedOptions.pagination && rawData.value) {
+        paginatedOptions.pagination.onPageChange = () => {
+            /* Forces 2 no matter what is clicked */
+            setPage(2);
+        };
+    }
+
+    if (paginatedOptions.pagination?.pageSizeSelect) {
+        paginatedOptions.pagination.pageSizeSelect.onChange = () => {
+            /* Forces 5 no matter the selected value */
+            setPageSize(5);
+        };
+    }
+
+    useEffect(() => {
+        (async () => {
+            const newRecords = await fetchData({
+                size: pageSize,
+                page,
+                data: value,
+            });
+            setRecords(newRecords);
+        })();
+    }, [recordsPerPage, page, pageSize, setRecords]);
+
+    const paginatedData = { value: records, isLoading: false };
+    const stateFulOptions = {
         ...paginatedOptions,
+        pagination: {
+            ...paginatedOptions.pagination,
+            current: page,
+            recordsPerPage: pageSize,
+        },
+    };
+    return <Table data={paginatedData} options={stateFulOptions} />;
+};
+export const PageSizeFail = PageSizeFailTemplate.bind({});
+PageSizeFail.args = {
+    data,
+    options: {
+        ...options,
+        title: 'I should fail and stay on page 2 and size 5',
+        subtitle: 'click as hard as you want…',
+        pagination: {
+            current: 2,
+            recordsPerPage: 5,
+            totalRecords: value.length,
+            onPageChange: () => {}, //
+            pageSizeSelect: {
+                options: [
+                    { label: '2 / pages', value: 2 },
+                    { label: '5 / pages', value: 5 },
+                    { label: '10 / pages', value: 10 },
+                ],
+                onChange: () => {}, // stateful, defined in template
+            },
+        },
     },
 };

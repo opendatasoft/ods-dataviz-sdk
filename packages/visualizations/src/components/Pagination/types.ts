@@ -8,9 +8,9 @@ export type PageSizeSelect = {
 export type Pagination = {
     // position: 'top' | 'bottom' | 'both';
     // style: 'select' | 'buttons';
-    initial: number;
+    current: number;
     totalRecords: number;
     recordsPerPage: number;
-    onChangePage: (next: number) => void;
+    onPageChange: (next: number) => void;
     pageSizeSelect?: PageSizeSelect;
 };
