@@ -28,7 +28,9 @@
 // Default Table visual style. Not applied if 'unstyled' prop is set.
 :global(.ods-dataviz-sdk-table--default) {
     :global(.table-wrapper) {
+        position: relative;
         border: solid 1px var(--border-color);
+        border-bottom: none;
         border-radius: var(--spacing-50);
         overflow-x: auto;
         overscroll-behavior-x: none;
@@ -46,7 +48,7 @@
     }
 
     :global(.table-controls) {
-        min-height: var(--min-height);
+        height: 100%;
         max-width: 100%;
     }
 
@@ -54,6 +56,8 @@
     :global(th) {
         text-align: left;
         padding: var(--spacing-75);
+        position: sticky;
+        top: o;
     }
     :global(tbody tr) {
         border-bottom: 1px solid var(--border-color);

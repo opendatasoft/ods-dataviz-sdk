@@ -27,7 +27,7 @@
     $: minHeight = pagination ? `${MAX_ROW_HEIGHT * (pagination.recordsPerPage + 1)}px` : 'none';
 </script>
 
-<div class="ods-dataviz-sdk-table" class:ods-dataviz-sdk-table--default={defaultStyle}>
+<div class="ods-dataviz-sdk-table" class:ods-dataviz-sdk-table--default={defaultStyle}></div>
     {#if title || subtitle}
         <div class="header">
             {#if title}
@@ -38,7 +38,7 @@
             {/if}
         </div>
     {/if}
-    <div class="table-controls" style="--min-height: {minHeight}">
+    <div class="table-controls">
         <div class="table-wrapper">
             <table aria-describedby={description ? tableId : undefined}>
                 <Header {columns} />
@@ -47,10 +47,10 @@
                 {/if}
             </table>
         </div>
+        {#if pagination}
+            <Pagination {...pagination} />
+        {/if}
     </div>
-    {#if pagination}
-        <Pagination {...pagination} />
-    {/if}
     {#if description}
         <p id={tableId} class="a11y-invisible-description">{description}</p>
     {/if}
