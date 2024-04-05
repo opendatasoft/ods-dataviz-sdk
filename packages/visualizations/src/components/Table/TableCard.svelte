@@ -10,7 +10,7 @@
     type $$Props = TableProps;
 
     export let data: $$Props['data'];
-    export let options: $$Props['options'];
+    export let options: $$Props['options'];    
 
     $: ({ value: records } = data);
     $: ({ columns, title, subtitle, description, source, unstyled, locale, pagination } = options);
@@ -24,7 +24,7 @@
     <div>
         <Table {records} {columns} {description} />
         {#if pagination}
-            <Pagination {...pagination}/>
+            <Pagination {...pagination} />
         {/if}
     </div>
 </Card>

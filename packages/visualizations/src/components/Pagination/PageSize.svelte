@@ -23,6 +23,7 @@
     {/each}
 </select>
 
+
 <style>
     :global(.ods-dataviz--default) select {
         background-color: white;
