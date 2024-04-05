@@ -27,6 +27,7 @@
     "packages/*"
   ],
   "scripts": {
+    "build-ci": "npm ci --workspaces --include-workspace-root --install-links",
     "test": "lerna run test --parallel --no-bail",
     "watch": "lerna run watch --parallel --stream",
     "lint": "lerna run lint:prettier:check,lint:eslint:check  --parallel --no-bail",

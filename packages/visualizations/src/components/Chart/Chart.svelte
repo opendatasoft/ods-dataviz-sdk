@@ -85,8 +85,6 @@
          * To be deleted when fully switching to home made one */
         const legend = options.legend?.custom ? { display: false } : buildLegend(options);
         chartOptions.aspectRatio = defaultValue(options.aspectRatio, 4 / 3);
-        chartOptions.maintainAspectRatio = true;
-        chartOptions.responsive = true;
         chartOptions.scales = buildScales(options);
         chartOptions.layout = {
             padding: defaultValue(options?.padding, 12),

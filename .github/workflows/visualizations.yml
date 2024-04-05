@@ -31,12 +31,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      
-      - name: Install
-        run: npm ci
 
       - name: Build
-        run: npm ci --workspaces --include-workspace-root --install-links
+        run: npm run build-ci
 
       - name: Test
         run: npm test
@@ -59,11 +56,8 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Install
-        run: npm ci
-
       - name: Build
-        run: npm install
+        run: npm run build-ci
 
       - name: Lint
         run: npm run lint
@@ -88,11 +82,8 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Install
-        run: npm ci
-
       - name: Build
-        run: npm install
+        run: npm run build-ci
 
       - name: Build storybook
         run: npm run build-storybook
