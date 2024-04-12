@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.22.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.21.1...@opendatasoft/visualizations@0.22.0) (2024-04-12)
+
+
+### Features
+
+* upgrade to node 20 ([#228](https://github.com/opendatasoft/ods-dataviz-sdk/issues/228)) ([2e9803e](https://github.com/opendatasoft/ods-dataviz-sdk/commit/2e9803e19919fee924c8e27fed836ae42b8b1085))
+
+
+
+
+
 ## [0.21.1-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.21.0...@opendatasoft/visualizations@0.21.1-beta.0) (2024-03-08)
 
 **Note:** Version bump only for package @opendatasoft/visualizations
