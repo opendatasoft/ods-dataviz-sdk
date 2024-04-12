@@ -20,13 +20,7 @@ This is a monorepo managed with npm and [lerna](https://github.com/lerna/lerna).
 npm install
 ```
 
-Then bootstrap all the packages:
-
-```shell
-npm run bootstrap
-```
-
-Or if you want to watch and rebuild all packages:
+If you want to watch and rebuild all packages:
 
 ```shell
 npm run watch

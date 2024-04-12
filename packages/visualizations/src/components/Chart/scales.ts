@@ -7,7 +7,7 @@ import type {
     GridLineOptions,
 } from 'chart.js';
 import { DateTime } from 'luxon';
-import type { _DeepPartialObject } from 'chart.js/types/utils';
+import type { DeepPartial } from 'chart.js/dist/types/utils';
 import type {
     CartesianAxisConfiguration,
     ChartOptions,
@@ -25,6 +25,10 @@ function computeFormatTick(
     type: CartesianAxisConfiguration['type'],
     formatNumber: (value: number) => string
 ) {
+    if (type === 'time') {
+        return null;
+    }
+
     function formatTick(this: Scale, tickValue: number, _index: number, ticks: Tick[]) {
         const minAbsTickValue = Math.min(...ticks.map((tick) => Math.abs(tick.value)));
         if (displayTick === 'single' && tickValue !== minAbsTickValue) {
@@ -32,9 +36,6 @@ function computeFormatTick(
         }
         if (type === 'category') {
             return assureMaxLength(this.getLabelForValue(tickValue), TICK_MAX_LENGTH);
-        }
-        if (type === 'time') {
-            return tickValue;
         }
         return formatNumber(tickValue);
     }
@@ -46,11 +47,7 @@ const computeGridLineColor: (
 ) => GridLineOptions['color'] = (display) => (context) => {
     if (!context?.scale?.ticks) return 'rgba(0, 0, 0, 0)';
     const ticksAbsoluteValues = context.scale.ticks.map((tick) => Math.abs(tick.value));
-    let minAbsoluteTicksIndex = ticksAbsoluteValues.indexOf(Math.min(...ticksAbsoluteValues));
-    if (context.scale.type === 'radialLinear') {
-        // On radar, chartjs compute one supplementary grid line
-        minAbsoluteTicksIndex -= 1;
-    }
+    const minAbsoluteTicksIndex = ticksAbsoluteValues.indexOf(Math.min(...ticksAbsoluteValues));
     if (display) {
         if (context.index === minAbsoluteTicksIndex) return 'rgba(0, 0, 0, 0.4)';
         if (display !== 'single') return 'rgba(0, 0, 0, 0.1)';
@@ -81,6 +78,7 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
     // X Axis
     if (options.axis?.x) {
         scales.x = {
+            border: { display: false },
             ...(options.axis.x.type === 'linear' && {
                 beginAtZero: defaultValue(options?.axis?.x?.beginAtZero, true),
             }),
@@ -113,7 +111,6 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
             grid: {
                 display: !!defaultValue(options.axis?.x?.gridLines?.display, true),
                 offset: false,
-                drawBorder: false,
                 color: computeGridLineColor(
                     defaultValue(options.axis?.x?.gridLines?.display, true)
                 ),
@@ -127,12 +124,13 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
                     defaultValue(options?.axis?.x?.ticks?.format, defaultCompactNumberFormat)
                 ),
             },
-        } as _DeepPartialObject<CartesianScaleOptions>;
+        } as DeepPartial<CartesianScaleOptions>;
     }
 
     // Y Axis
     if (options.axis?.y) {
         scales.y = {
+            border: { display: false },
             ...(options.axis.y.type === 'linear' && {
                 beginAtZero: defaultValue(options?.axis?.y?.beginAtZero, true),
             }),
@@ -155,7 +153,6 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
             },
             grid: {
                 display: !!defaultValue(options.axis?.y?.gridLines?.display, true),
-                drawBorder: false,
                 color: computeGridLineColor(
                     defaultValue(options.axis?.y?.gridLines?.display, true)
                 ),
@@ -172,7 +169,7 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
                     defaultValue(options?.axis?.y?.ticks?.format, defaultCompactNumberFormat)
                 ),
             },
-        } as _DeepPartialObject<CartesianScaleOptions>;
+        } as DeepPartial<CartesianScaleOptions>;
     } else {
         scales.y = { display: false };
     }
@@ -180,6 +177,7 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
     // R Axis
     if (options.axis?.r) {
         scales.r = {
+            border: { display: false },
             beginAtZero: defaultValue(options?.axis?.r?.beginAtZero, true),
             ticks: {
                 display: defaultValue(options?.axis?.r?.ticks?.display, true),
@@ -192,13 +190,12 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
             },
             grid: {
                 display: defaultValue(options.axis?.r?.gridLines?.display, true),
-                drawBorder: false,
                 offset: false,
                 color: computeGridLineColor(
                     defaultValue(options.axis?.r?.gridLines?.display, true)
                 ),
             },
-        } as _DeepPartialObject<RadialLinearScaleOptions>;
+        } as DeepPartial<RadialLinearScaleOptions>;
     }
 
     return scales;

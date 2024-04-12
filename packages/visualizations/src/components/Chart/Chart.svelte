@@ -85,7 +85,6 @@
          * To be deleted when fully switching to home made one */
         const legend = options.legend?.custom ? { display: false } : buildLegend(options);
         chartOptions.aspectRatio = defaultValue(options.aspectRatio, 4 / 3);
-        chartOptions.maintainAspectRatio = true;
         chartOptions.scales = buildScales(options);
         chartOptions.layout = {
             padding: defaultValue(options?.padding, 12),
@@ -246,7 +245,10 @@
                 {/if}
             </div>
         {/if}
-        <figure class="chart legend--{legendPosition}">
+        <figure
+            class="chart legend--{legendPosition}"
+            style="--aspect-ratio: {defaultValue(options.aspectRatio, 4 / 3)}"
+        >
             <!-- svelte-ignore a11y-no-interactive-element-to-noninteractive-role -->
             <canvas
                 role="img"
@@ -289,6 +291,7 @@
         flex-grow: 1;
         margin: 0;
         display: flex;
+        aspect-ratio: var(--aspect-ratio);
     }
     .legend--bottom {
         flex-direction: column;
