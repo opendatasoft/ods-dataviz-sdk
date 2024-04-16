@@ -7,8 +7,6 @@
     import Header from './Header.svelte';
     import Body from './Body.svelte';
     import { updateLocale } from './store';
-    import { MAX_ROW_HEIGHT } from './constants';
-
     // ensure exported type matches declared props
     type $$Props = TableProps;
 
@@ -24,10 +22,9 @@
     /* Preserves paginations controls positioning
     min heigh of table + controls = max-height of row * (number of rows + 1 for headers)
     */
-    $: minHeight = pagination ? `${MAX_ROW_HEIGHT * (pagination.recordsPerPage + 1)}px` : 'none';
 </script>
 
-<div class="ods-dataviz-sdk-table" class:ods-dataviz-sdk-table--default={defaultStyle}></div>
+<div class="ods-dataviz-sdk-table" class:ods-dataviz-sdk-table--default={defaultStyle}>
     {#if title || subtitle}
         <div class="header">
             {#if title}
