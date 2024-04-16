@@ -24,8 +24,10 @@
         <span>...</span>
     {/if}
     {#each pages as page}
-        <li on:click={() => setPage(page)} class:current={page === current}>
-            {page}
+        <li>
+            <button on:click={() => setPage(page)} class:current={page === current}>
+                {page}
+            </button>
         </li>
     {/each}
     {#if current + 1 < totalPages && totalPages > 3}
@@ -68,7 +70,14 @@
         width: 28px;
         text-align: center;
         vertical-align: middle;
+    }
+
+    li button {
+        border: none;
+        background: none;
         cursor: pointer;
+        height: 100%;
+        width: 100%;
     }
 
     :global(.ods-dataviz-sdk-table--default) {
