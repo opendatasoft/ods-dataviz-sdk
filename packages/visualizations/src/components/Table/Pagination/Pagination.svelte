@@ -38,13 +38,13 @@
 
 <!-- markup (zero or more items) goes here -->
 <style lang="scss">
-    div {
+    .pagination {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
 
-    :global(.ods-dataviz-sdk-table--default) {
+    :global(.ods-dataviz--default) {
         .pages {
             flex-grow: 1;
         }
