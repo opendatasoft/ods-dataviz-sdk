@@ -1,3 +1,3 @@
-import Table from './Table.svelte';
+import TableCard from './TableCard.svelte';
 
-export default Table;
+export default TableCard;

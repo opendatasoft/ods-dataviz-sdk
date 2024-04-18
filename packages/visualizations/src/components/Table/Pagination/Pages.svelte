@@ -49,7 +49,7 @@
     </li>
 </ul>
 
-<style lang="scss">
+<style>
     ul {
         margin: 0;
         padding: 0;
@@ -80,12 +80,10 @@
         width: 100%;
     }
 
-    :global(.ods-dataviz-sdk-table--default) {
-        .current {
-            border-radius: 3px;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.39);
-            background-color: #fff;
-            color: #142e7b;
-        }
+    :global(.ods-dataviz--default) .current {
+        border-radius: 3px;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.39);
+        background-color: #fff;
+        color: #142e7b;
     }
 </style>
