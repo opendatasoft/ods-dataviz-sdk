@@ -23,7 +23,11 @@
     {/each}
 </select>
 
-
 <style>
-    /* your styles go here */
+    :global(.ods-dataviz--default) select {
+        background-color: white;
+        padding: var(--spacing-50);
+        border: solid 1px var(--border-color);
+        border-radius: var(--border-radius-2);
+    }
 </style>

@@ -22,7 +22,7 @@ const data: TableProps['data'] = {
 const PaginatedTemplate: ComponentStory<typeof Table> = args => {
     const { data: rawData, options: paginatedOptions } = args;
     const { pagination } = paginatedOptions;
-    const { current = 1, recordsPerPage } = pagination || {};
+    const { current = 1, recordsPerPage = 5 } = pagination!;
     const [records, setRecords] = useState<DataFrame>([]);
     const [page, setPage] = useState(current);
     if (paginatedOptions.pagination && rawData.value) {
