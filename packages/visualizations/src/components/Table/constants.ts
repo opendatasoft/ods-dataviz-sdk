@@ -7,5 +7,3 @@ export const DATA_FORMAT = {
     boolean: 'boolean',
     url: 'url',
 } as const;
-
-export const MAX_ROW_HEIGHT = 78;
