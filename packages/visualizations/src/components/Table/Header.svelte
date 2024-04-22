@@ -7,8 +7,11 @@
 <thead>
     <tr>
         {#each columns as column}
-            <th class={`table-header--${column.dataFormat}`}>
+            <th class={`table-header--${column.dataFormat}`} on:click={column?.onClick}>
                 {column.title}
+                {#if column?.sorted}
+                    {column.sorted}
+                {/if}
             </th>
         {/each}
     </tr>

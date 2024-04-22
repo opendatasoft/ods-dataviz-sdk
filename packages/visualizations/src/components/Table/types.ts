@@ -8,9 +8,17 @@ export type DataFormat = typeof DATA_FORMAT[DataFormatKey];
 
 export type TableData = DataFrame;
 
+export const ColumnSort = {
+    asc: 'ASC',
+    desc: 'DESC',
+} as const;
+export type ColumnSortValues = typeof ColumnSort[keyof typeof ColumnSort];
+
 type BaseColumn = {
     key: string;
     title: string;
+    sorted?: ColumnSortValues;
+    onClick?: () => void;
 };
 
 export type ShortTextColumn = BaseColumn & {
