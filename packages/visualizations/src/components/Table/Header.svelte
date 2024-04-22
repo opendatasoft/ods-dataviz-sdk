@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { Column } from './types';
+    import { ColumnSort, type Column } from './types';
 
     export let columns: Column[];
 </script>
@@ -9,8 +9,11 @@
         {#each columns as column}
             <th class={`table-header--${column.dataFormat}`} on:click={column?.onClick}>
                 {column.title}
-                {#if column?.sorted}
-                    {column.sorted}
+                {#if column.sorted === ColumnSort.asc}
+                    ↓
+                {/if}
+                {#if column.sorted === ColumnSort.desc}
+                    ↑
                 {/if}
             </th>
         {/each}

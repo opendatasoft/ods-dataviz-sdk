@@ -21,7 +21,7 @@ const data: Async<TableData> = {
 const sortColumn = (sort: [string, ColumnSortValues], key: string) =>
     sort[0] === key && sort[1] === 'ASC' ? 'DESC' : 'ASC';
 
-const Template: ComponentStory<typeof Table> = (args) => {
+const Template: ComponentStory<typeof Table> = args => {
     const { options: unsortedOptions } = args;
     const [sort, setSort] = useState<[string, ColumnSortValues]>(['title', ColumnSort.asc]);
     const [records, setRecords] = useState<DataFrame>();
@@ -40,7 +40,7 @@ const Template: ComponentStory<typeof Table> = (args) => {
 
     const sortedData = { value: records, isLoading: false };
 
-    const sortableColumns = unsortedOptions.columns.map((col) => ({
+    const sortableColumns = unsortedOptions.columns.map(col => ({
         ...col,
         sorted: sort[0] === col.key ? sort[1] : undefined,
         onClick: () => setSort([col.key, sortColumn(sort, col.key)]),
