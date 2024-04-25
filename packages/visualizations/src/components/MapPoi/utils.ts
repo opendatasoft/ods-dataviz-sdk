@@ -172,7 +172,7 @@ export const getMapOptions = (options: PoiMapOptions) => {
         sourceLink,
         transformRequest,
         cooperativeGestures,
-        preserveDrawingBuffer = false,
+        preserveDrawingBuffer = true,
         images,
     } = options;
     return {

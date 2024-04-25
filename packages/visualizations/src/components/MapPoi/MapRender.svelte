@@ -39,7 +39,7 @@
     export let legend: CategoryLegendType | undefined;
     export let description: string | undefined;
     export let cooperativeGestures: boolean | GestureOptions | undefined;
-    export let preserveDrawingBuffer: boolean;
+    export let preserveDrawingBuffer: boolean = true;
     // Data source link
     export let sourceLink: Source | undefined;
 
@@ -81,7 +81,7 @@
     onDestroy(() => map.destroy());
 </script>
 
-<figure class="map-card maps-container" style={cssVarStyles}>
+<figure id="map-container" class="map-card maps-container" style={cssVarStyles}>
     {#if title || subtitle}
         <figcaption>
             {#if title}
@@ -107,6 +107,9 @@
     {/if}
     {#if sourceLink}
         <SourceLink source={sourceLink} />
+    {/if}
+    {#if true}
+        <button on:click={() => map.onMapScreenshot()} class="stylish-button">Take Screenshot</button>
     {/if}
 </figure>
 
@@ -315,5 +318,31 @@
     /* Suitable for elements that are used via aria-describedby or aria-labelledby */
     .a11y-invisible-description {
         display: none;
+    }
+    .stylish-button {
+        background: linear-gradient(145deg, #f9f9f9, #e6e6e6);
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #333;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+        cursor: pointer;
+        transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+        outline: none;  /* Removes the outline on focus for a cleaner look */
+    }
+
+    .stylish-button:hover, .stylish-button:focus {
+        background: linear-gradient(145deg, #e6e6e6, #cccccc);
+        transform: translateY(-2px);
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .stylish-button:active {
+        background: linear-gradient(145deg, #cccccc, #e6e6e6);
+        transform: translateY(1px);
+        box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
     }
 </style>

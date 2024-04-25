@@ -40,7 +40,7 @@
         images,
         transformRequest,
         cooperativeGestures,
-        preserveDrawingBuffer,
+        preserveDrawingBuffer = true,
     } = getMapOptions(options));
 
     const bbox = createDeepEqual(_bbox);

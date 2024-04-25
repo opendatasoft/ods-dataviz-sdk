@@ -1,6 +1,7 @@
 import type { BBox } from 'geojson';
 import { debounce, difference } from 'lodash';
 import MaplibreGl from 'maplibre-gl';
+import { toPng } from 'html-to-image';
 import type {
     Map,
     LngLatBoundsLike,
@@ -297,7 +298,7 @@ export default class MapPOI {
         }
 
         popupNavigationDiv.innerHTML = `
-                ${arrows} 
+                ${arrows}
                 <button class="${POPUP_NAVIGATION_CLOSE_BUTTON_CLASSNAME}"><span class="${POPUP_NAVIGATION_CLOSE_BUTTON_ICON_CLASSNAME}"></span></button>
         `;
 
@@ -570,6 +571,62 @@ export default class MapPOI {
                 animate: false,
                 padding: 40,
             });
+        });
+    }
+
+
+    onMapScreenshot() {
+        function downloadImage(dataUrl: any, filename: string) {
+            const link = document.createElement('a');
+            link.href = dataUrl;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        const filter = (node: HTMLElement) => {
+            const exclusionClasses = ['maplibregl-control-container'];
+            return !exclusionClasses.some(classname => node.classList?.contains(classname));
+        };
+        const html2imageConfiguration = {
+            cacheBust: true,
+            pixelRatio: 5,
+            quality: 5,
+            skipFonts: true,
+            filter,
+        };
+        this.queue(async (map) => {
+             // First, capture the map canvas directly
+            const mapCanvas = map.getCanvas();
+            const mapImage = mapCanvas.toDataURL();
+
+            // Create an <img> element and insert it temporarily into the DOM
+            const mapImgElement = document.createElement('img');
+            mapImgElement.src = mapImage;
+            mapImgElement.style.width = '100%';  // Ensure it matches the size of the map container
+            mapImgElement.id = 'map-image';
+            const mapContainer = document.getElementById('map');
+            mapContainer?.appendChild(mapImgElement);  // Temporarily add to DOM
+
+            // Hide the original map canvas while capturing the screenshot
+            mapCanvas.style.display = 'none';
+
+            // Use html2canvas to capture the entire 'capture-area'
+            try {
+                const captureArea = document.getElementById('map-container');
+                if (captureArea) {
+                    const finalImage = await toPng(captureArea, html2imageConfiguration);
+                    // Download or handle the final image as needed
+                    downloadImage(finalImage, 'complete-screenshot.png');
+                }
+
+            } catch (error) {
+                console.error('Failed to capture screenshot:', error);
+            } finally {
+                // Cleanup: remove the temporary img, show the canvas again
+                mapContainer?.removeChild(mapImgElement);
+                mapCanvas.style.display = '';
+            }
         });
     }
 
