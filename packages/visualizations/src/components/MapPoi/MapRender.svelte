@@ -39,6 +39,7 @@
     export let legend: CategoryLegendType | undefined;
     export let description: string | undefined;
     export let cooperativeGestures: boolean | GestureOptions | undefined;
+    export let preserveDrawingBuffer: boolean;
     // Data source link
     export let sourceLink: Source | undefined;
 
@@ -73,6 +74,7 @@
             minZoom,
             maxZoom,
             cooperativeGestures,
+            preserveDrawingBuffer,
         };
         map.initialize(style, container, options);
     });

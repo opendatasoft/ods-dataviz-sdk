@@ -58,6 +58,8 @@ export interface PoiMapOptions {
     /** Link button to source */
     sourceLink?: Source;
     cooperativeGestures?: boolean | GestureOptions;
+    /** If true, the map's canvas can be exported to a PNG using toDataURL. This is false by default as a performance optimization. */
+    preserveDrawingBuffer?: boolean;
     /** Images to load by the Map. keys are image ids  */
     images?: Images;
 }
