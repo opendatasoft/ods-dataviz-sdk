@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.23.0-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.22.0...@opendatasoft/visualizations@0.23.0-beta.0) (2024-04-29)
+
+
+### Features
+
+* add preserveDrawingBuffer option to POI maps ([51ec7bc](https://github.com/opendatasoft/ods-dataviz-sdk/commit/51ec7bc3dcd270bfb534545219144cef31e78268))
+
+
+
+
+
 # [0.22.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.21.1...@opendatasoft/visualizations@0.22.0) (2024-04-12)
 
 
