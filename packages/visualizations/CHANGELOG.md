@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.23.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.22.0...@opendatasoft/visualizations@0.23.0) (2024-04-30)
+
+
+### Bug Fixes
+
+* change page computation and fix styling ([58194c6](https://github.com/opendatasoft/ods-dataviz-sdk/commit/58194c6b6722e1b6970f9ec57788907890a468ca))
+* fix context typing ([8cb73cb](https://github.com/opendatasoft/ods-dataviz-sdk/commit/8cb73cbd1d2984ce58661d4fb90982575086f3dc))
+* fix dataformatting ([14a3278](https://github.com/opendatasoft/ods-dataviz-sdk/commit/14a32782bd9e81b49829a84b5ef2f401e9ca4d26))
+* fix typing with new props ([d6a1212](https://github.com/opendatasoft/ods-dataviz-sdk/commit/d6a12125039870c1df3c45eeadf0e3e0f39fae4b))
+* make totalpage reactive and fix padding ([871ba0a](https://github.com/opendatasoft/ods-dataviz-sdk/commit/871ba0a0c7d6203c4e0bf15b7a2256d6a15ad10e))
+* put back svelte into devDependencies ([b7abb5d](https://github.com/opendatasoft/ods-dataviz-sdk/commit/b7abb5d859190f6440d44f62f2e14752d9ec33a0))
+* remove curly new line ([a3808f1](https://github.com/opendatasoft/ods-dataviz-sdk/commit/a3808f11fd80dd219808e44b8ab3e75efe26d568))
+* simplify pages computation ([2d399a4](https://github.com/opendatasoft/ods-dataviz-sdk/commit/2d399a403e608a30c8151e1dfd2a6c1965e06d0e))
+
+
+### Features
+
+* make controls stable in height and stylables ([dd3729b](https://github.com/opendatasoft/ods-dataviz-sdk/commit/dd3729bb6967dc1e999b3ba458f99a1962a5a51c))
+
+
+
+
+
 # [0.22.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.21.1...@opendatasoft/visualizations@0.22.0) (2024-04-12)
 
 

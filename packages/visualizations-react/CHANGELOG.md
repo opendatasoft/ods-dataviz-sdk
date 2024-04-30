@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.23.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.22.0...@opendatasoft/visualizations-react@0.23.0) (2024-04-30)
+
+
+### Bug Fixes
+
+* change page computation and fix styling ([58194c6](https://github.com/opendatasoft/ods-dataviz-sdk/commit/58194c6b6722e1b6970f9ec57788907890a468ca))
+* put back svelte into devDependencies ([b7abb5d](https://github.com/opendatasoft/ods-dataviz-sdk/commit/b7abb5d859190f6440d44f62f2e14752d9ec33a0))
+
+
+### Features
+
+* make controls stable in height and stylables ([dd3729b](https://github.com/opendatasoft/ods-dataviz-sdk/commit/dd3729bb6967dc1e999b3ba458f99a1962a5a51c))
+
+
+
+
+
 # [0.22.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.21.3...@opendatasoft/visualizations-react@0.22.0) (2024-04-12)
 
 
