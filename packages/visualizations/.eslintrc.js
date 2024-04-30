@@ -9,6 +9,7 @@ module.exports = {
         'airbnb-base',
         'airbnb-typescript/base',
         'prettier',
+        'plugin:svelte/prettier',
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
@@ -16,25 +17,30 @@ module.exports = {
         extraFileExtensions: ['.svelte'],
         tsconfigRootDir: __dirname,
     },
-    plugins: ['svelte3', '@typescript-eslint', 'prettier'],
+    plugins: ['@typescript-eslint', 'prettier'],
     overrides: [
         {
             files: ['*.svelte'],
-            processor: 'svelte3/svelte3',
-            settings: {
-                'import/core-modules': ['svelte'],
+            parser: 'svelte-eslint-parser',
+            // Parse the `<script>` in `.svelte` as TypeScript by adding the following configuration.
+            parserOptions: {
+                parser: '@typescript-eslint/parser',
             },
             rules: {
                 // Allowed in svelte
                 'import/first': 'off',
                 'import/no-mutable-exports': 'off',
                 'import/prefer-default-export': 'off',
+                'import/no-extraneous-dependencies': [
+                    'error',
+                    {
+                        devDependencies: true, // allows importintg from 'svelte'
+                    },
+                ],
+                '@typescript-eslint/no-unused-vars': 'off', // is reinjected inside <script>, but off in template
             },
         },
     ],
-    settings: {
-        'svelte3/typescript': true,
-    },
     rules: {
         semi: ['error', 'always'],
         '@typescript-eslint/semi': ['error', 'always'],
@@ -60,21 +66,6 @@ module.exports = {
                     'acc', // for reduce accumulators
                     'e', // for e.returnvalue
                 ],
-            },
-        ],
-        'object-curly-newline': [
-            'error',
-            {
-                ObjectExpression: {
-                    minProperties: 6,
-                    multiline: true,
-                    consistent: true,
-                },
-                ObjectPattern: {
-                    minProperties: 6,
-                    multiline: true,
-                    consistent: true,
-                },
             },
         ],
         'import/no-named-as-default': 'off',

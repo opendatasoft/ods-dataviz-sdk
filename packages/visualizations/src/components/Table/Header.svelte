@@ -13,3 +13,18 @@
         {/each}
     </tr>
 </thead>
+
+<style>
+    :global(.ods-dataviz--default thead) {
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    :global(.ods-dataviz--default th) {
+        text-align: left;
+        padding: var(--spacing-75);
+    }
+
+    :global(.ods-dataviz--default th.table-header--number) {
+        text-align: right;
+    }
+</style>
