@@ -16,7 +16,7 @@
         current = page;
     };
 
-    const totalPages = Math.ceil(totalRecords / recordsPerPage);
+    $: totalPages = Math.ceil(totalRecords / Math.min(recordsPerPage, totalRecords));
 </script>
 
 <div class="pagination">
@@ -42,6 +42,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: var(--spacing-100) 0;
     }
 
     :global(.ods-dataviz--default) {
