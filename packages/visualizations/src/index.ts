@@ -15,6 +15,7 @@ export * from './components/MarkdownText/types';
 export * from './components/MapPoi/types';
 export * from './components/Legend/types';
 export * from './components/Table/types';
+export * from './components/Pagination/types';
 
 /* We export Svelte types from the main package to avoid conflicting versions
 It still is purely a dev thing and we'll bundle they types directly */

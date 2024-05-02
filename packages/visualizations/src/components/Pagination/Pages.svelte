@@ -5,13 +5,11 @@
     import SingleLeft from './SingleLeft.svelte';
     import SingleRight from './SingleRight.svelte';
     import { getPages } from './utils';
-    import { getPages } from './utils';
 
     export let totalPages: number;
     export let current: number;
     export let onPageChange: (page: number) => void;
 
-    $: pages = getPages({ current, totalPages });
     $: pages = getPages({ current, totalPages });
 </script>
 
@@ -27,7 +25,6 @@
         />
     </li>
     {#if current - 1 > 1 && totalPages < 3}
-    {#if current - 1 > 1 && totalPages < 3}
         <span>...</span>
     {/if}
     {#each pages as page}
@@ -37,7 +34,6 @@
             </button>
         </li>
     {/each}
-    {#if current + 1 < totalPages && totalPages > 3}
     {#if current + 1 < totalPages && totalPages > 3}
         <span>...</span>
     {/if}
@@ -95,12 +91,7 @@
         width: 100%;
     }
 
-    :global(.ods-dataviz--default) .current {
-        border-radius: 3px;
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.39);
-        background-color: #fff;
-        color: #142e7b;
-    :global(.ods-dataviz--default) .current {
+    .current {
         border-radius: 3px;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.39);
         background-color: #fff;
