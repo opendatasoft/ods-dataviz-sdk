@@ -3,9 +3,10 @@
     import type { Column } from '../types';
 
     export let columns: Column[];
+    export let verticalScroll: boolean | undefined;
 </script>
 
-<thead>
+<thead class:sticky-top={verticalScroll}>
     <tr>
         {#each columns as column}
             <th class={`table-header--${column.dataFormat}`}>
@@ -36,5 +37,12 @@
 
     :global(.ods-dataviz--default th.table-header--number) {
         text-align: right;
+    }
+    
+    thead.sticky-top {
+        background-color: var(--header-background-color);
+        box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.26);
+        position: sticky;
+        top: 0;
     }
 </style>

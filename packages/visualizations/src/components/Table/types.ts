@@ -107,6 +107,7 @@ export type TableOptions = {
      */
     unstyled?: boolean;
     pagination?: Pagination;
+    verticalScroll?: boolean;
 };
 
 export type TableProps = {

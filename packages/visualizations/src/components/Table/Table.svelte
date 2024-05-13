@@ -8,13 +8,14 @@
     export let columns: Column[];
     export let records: DataFrame | undefined;
     export let description: string | undefined;
+    export let verticalScroll: boolean | undefined;
 
     const tableId = `table-${generateId()}`;
 </script>
 
-<div>
+<div class:vscroll-wrapper={verticalScroll}>
     <table aria-describedby={description ? tableId : undefined}>
-        <Headers {columns} />
+        <Headers {columns} {verticalScroll}/>
         {#if records}
             <Body {records} {columns} />
         {/if}
@@ -43,5 +44,11 @@
         border-collapse: collapse;
         white-space: nowrap;
         width: inherit;
+    }
+
+    .vscroll-wrapper {
+        display: inline-block;
+        height: var(--vertical-scroll-height);
+        overflow-y: scroll;
     }
 </style>

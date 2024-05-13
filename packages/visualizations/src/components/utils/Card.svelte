@@ -45,6 +45,8 @@
         --spacing-75: 9px;
         --spacing-100: 13px;
         --border-color: #cbd2db;
+        --header-background-color: #ffffff;
+        --vertical-scroll-height: 20em;
         /* FIXME: Only using flex style to center source link */
         display: flex;
         flex-wrap: wrap;
