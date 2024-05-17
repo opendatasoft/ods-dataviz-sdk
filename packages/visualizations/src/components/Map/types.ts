@@ -47,6 +47,8 @@ export interface ChoroplethOptions {
     /** Link button to source */
     sourceLink?: Source;
     cooperativeGestures?: boolean | GestureOptions;
+    /** If true, the map's canvas can be exported to an image using toDataURL. This is false by default as a performance optimization. */
+    preserveDrawingBuffer?: boolean;
 }
 
 export interface MapFilter {

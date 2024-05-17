@@ -172,6 +172,7 @@ export const getMapOptions = (options: PoiMapOptions) => {
         sourceLink,
         transformRequest,
         cooperativeGestures,
+        preserveDrawingBuffer = false,
         images,
     } = options;
     return {
@@ -189,6 +190,7 @@ export const getMapOptions = (options: PoiMapOptions) => {
         sourceLink,
         transformRequest,
         cooperativeGestures,
+        preserveDrawingBuffer,
         images,
     };
 };

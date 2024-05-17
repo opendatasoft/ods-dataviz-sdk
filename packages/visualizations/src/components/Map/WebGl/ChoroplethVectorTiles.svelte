@@ -56,6 +56,7 @@
     // Data source link
     let sourceLink: Source | undefined;
     let cooperativeGestures: boolean | GestureOptions | undefined;
+    let preserveDrawingBuffer: boolean;
     let fixedMaxBounds: LngLatBoundsLike | undefined;
 
     // Used to apply a chosen color for shapes without values (default: #cccccc)
@@ -84,6 +85,7 @@
         navigationMaps,
         sourceLink,
         cooperativeGestures,
+        preserveDrawingBuffer = false,
         fixedMaxBounds,
     } = options);
 
@@ -163,6 +165,7 @@
     {data}
     {sourceLink}
     {cooperativeGestures}
+    {preserveDrawingBuffer}
     {fixedMaxBounds}
 />
 

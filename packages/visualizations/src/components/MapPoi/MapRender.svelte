@@ -39,6 +39,7 @@
     export let legend: CategoryLegendType | undefined;
     export let description: string | undefined;
     export let cooperativeGestures: boolean | GestureOptions | undefined;
+    export let preserveDrawingBuffer: boolean;
     // Data source link
     export let sourceLink: Source | undefined;
 
@@ -73,6 +74,7 @@
             minZoom,
             maxZoom,
             cooperativeGestures,
+            preserveDrawingBuffer,
         };
         map.initialize(style, container, options);
     });
@@ -135,7 +137,7 @@
         margin: 0;
     }
 
-    /* To add classes programmatically in svelte we will use a global selector. 
+    /* To add classes programmatically in svelte we will use a global selector.
     We place it inside a local selector to obtain some encapsulation and avoid side effects */
 
     /* --- POPUP ---  */
