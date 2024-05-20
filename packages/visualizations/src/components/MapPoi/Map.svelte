@@ -40,6 +40,7 @@
         images,
         transformRequest,
         cooperativeGestures,
+        preserveDrawingBuffer,
     } = getMapOptions(options));
 
     const bbox = createDeepEqual(_bbox);
@@ -70,6 +71,7 @@
             {images}
             {transformRequest}
             {cooperativeGestures}
+            {preserveDrawingBuffer}
         />
     {/key}
 </div>

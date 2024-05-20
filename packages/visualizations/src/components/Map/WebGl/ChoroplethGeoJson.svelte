@@ -47,6 +47,7 @@
     // Data source link
     let sourceLink: Source | undefined;
     let cooperativeGestures: boolean | GestureOptions | undefined;
+    let preserveDrawingBuffer: boolean;
 
     // Used to apply a chosen color for shapes without values (default: #cccccc)
     let emptyValueColor: Color;
@@ -71,6 +72,7 @@
         navigationMaps,
         sourceLink,
         cooperativeGestures,
+        preserveDrawingBuffer = false,
     } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
@@ -137,6 +139,7 @@
         {data}
         {sourceLink}
         {cooperativeGestures}
+        {preserveDrawingBuffer}
     />
 </div>
 

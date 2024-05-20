@@ -69,6 +69,7 @@
     // Data source link
     export let sourceLink: Source | undefined;
     export let cooperativeGestures: boolean | GestureOptions | undefined;
+    export let preserveDrawingBuffer: boolean;
     // Fixed max bounds that will overide the automatic map.getBounds when setting the bbox
     export let fixedMaxBounds: LngLatBoundsLike | undefined | null = null;
 
@@ -133,6 +134,7 @@
             customAttribution: attribution,
             renderWorldCopies: false,
             cooperativeGestures,
+            preserveDrawingBuffer,
         };
 
         map = new maplibregl.Map({
@@ -435,7 +437,7 @@
     figcaption h3 {
         margin: 0;
     }
-    /* To add classes programmatically in svelte we will use a global selector. 
+    /* To add classes programmatically in svelte we will use a global selector.
     We place it inside a local selector to obtain some encapsulation and avoid side effects */
     .map-card :global(.tooltip-on-hover > .maplibregl-popup-content) {
         border-radius: 6px;
