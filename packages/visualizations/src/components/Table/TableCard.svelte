@@ -1,6 +1,5 @@
 <script lang="ts">
     import type { TableProps } from './types';
-    import { MAX_ROW_HEIGHT } from './constants';
     import Table from './Table.svelte';
     import Pagination from './Pagination/Pagination.svelte';
     import Card from '../utils/Card.svelte';
@@ -14,7 +13,8 @@
     export let options: $$Props['options'];
 
     $: ({ value: records } = data);
-    $: ({ columns, title, subtitle, description, source, unstyled, locale, pagination, labels } = options);
+    $: ({ columns, title, subtitle, description, source, unstyled, locale, pagination, labels } =
+        options);
     $: updateLocale(locale);
     /* Preserves paginations controls positioning
     min heigh of table + controls = max-height of row * (number of rows) + headers + pagination

@@ -10,17 +10,27 @@
     export let totalPages: number;
     export let current: number;
     export let setPage: (page: number) => void;
-    export let labels: Labels = {}
+    export let labels: Labels = {};
 
     $: pages = getPages({ current, totalPages });
 </script>
 
 <ul>
     <li>
-        <Button on:click={() => setPage(1)} icon={DoubleLeft} label={labels.firstPage} disabled={current === 1} />
+        <Button
+            on:click={() => setPage(1)}
+            icon={DoubleLeft}
+            label={labels.firstPage}
+            disabled={current === 1}
+        />
     </li>
     <li>
-        <Button on:click={() => setPage(current - 1)} icon={SingleLeft} label={labels.previousPage} disabled={current === 1} />
+        <Button
+            on:click={() => setPage(current - 1)}
+            icon={SingleLeft}
+            label={labels.previousPage}
+            disabled={current === 1}
+        />
     </li>
     {#if current - 1 > 1 && totalPages > 3}
         <span>...</span>

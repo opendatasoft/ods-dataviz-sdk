@@ -21,7 +21,6 @@
 </script>
 
 <div class="pagination">
-    
     <Numbering
         current={[
             recordsPerPage * (current - 1) + 1,

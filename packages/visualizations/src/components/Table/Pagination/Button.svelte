@@ -13,7 +13,7 @@
         | typeof DoubleRight
         | typeof SingleRight;
     export let disabled = false;
-    export let label : string | undefined = undefined;
+    export let label: string | undefined;
 </script>
 
 <button on:click {disabled} aria-label={label}>
