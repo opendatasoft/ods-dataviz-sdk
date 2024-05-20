@@ -99,34 +99,3 @@ export const PageSizeTemplate = (pagination: Pagination) => {
 
     return <Table data={paginatedData} options={stateFulOptions} />;
 };
-
-/* This template will fail to catch a new page and returns previous  data: {
-      value,
-      loading: false,
-  }, page and pageSize
-simulating e.g. an API call fail.
-The select should stay on it's previous value, not the clicked one.
-*/
-export const PageSizeFailTemplate = (pagination: Pagination) => {
-    const { current = 2, recordsPerPage = 5 } = pagination;
-    const { paginatedData, setPage, setPageSize } = usePaginatedData({ current, recordsPerPage });
-
-    const stateFulOptions = {
-        ...options,
-        pagination: {
-            current,
-            recordsPerPage,
-            totalRecords: data.length,
-            onPageChange: () => setPage(2), //
-            pageSizeSelect: {
-                options: [
-                    { label: '2 / pages', value: 2 },
-                    { label: '5 / pages', value: 5 },
-                    { label: '10 / pages', value: 10 },
-                ],
-                onChange: () => setPageSize(5), // stateful, defined in template
-            },
-        },
-    };
-    return <Table data={paginatedData} options={stateFulOptions} />;
-};

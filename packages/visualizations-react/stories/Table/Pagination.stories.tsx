@@ -2,7 +2,7 @@ import React from 'react';
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Table } from '../../src';
 import './pagination.css';
-import { PaginatedTemplate, PageSizeTemplate, PageSizeFailTemplate } from './PaginatedTemplates';
+import { PaginatedTemplate, PageSizeTemplate } from './PaginatedTemplates';
 
 const meta: ComponentMeta<typeof Table> = {
     title: 'Table/Pagination',
@@ -46,15 +46,6 @@ const PageSizeTable: ComponentStory<typeof PageSizeTemplate> = args => (
     <PageSizeTemplate {...args} />
 );
 export const PageSize = PageSizeTable.bind({});
-PageSize.args = {
-    current: 2,
-    recordsPerPage: 5,
-};
-
-const PageSizeFailTable: ComponentStory<typeof PageSizeFailTemplate> = args => (
-    <PageSizeFailTemplate {...args} />
-);
-export const PageSizeFaile = PageSizeFailTable.bind({});
 PageSize.args = {
     current: 2,
     recordsPerPage: 5,
