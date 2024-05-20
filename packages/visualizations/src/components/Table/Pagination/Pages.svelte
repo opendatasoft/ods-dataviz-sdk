@@ -20,7 +20,7 @@
     <li>
         <Button on:click={() => setPage(current - 1)} icon={SingleLeft} disabled={current === 1} />
     </li>
-    {#if current - 1 > 1 && totalPages < 3}
+    {#if current - 1 > 1 && totalPages > 3}
         <span>...</span>
     {/if}
     {#each pages as page}
