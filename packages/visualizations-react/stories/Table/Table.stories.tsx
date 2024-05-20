@@ -51,6 +51,12 @@ Scroll.args = {
     options,
 };
 
+export const TwoColumns = Template.bind({});
+TwoColumns.args = {
+    data,
+    options: { ...options, columns: options.columns.slice(0, 2) },
+};
+
 export const Unstyled = Template.bind({});
 Unstyled.args = {
     data,
