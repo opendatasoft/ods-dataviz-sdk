@@ -91,7 +91,6 @@ ShortPages.args = {
     options: shortPagesOptions,
 };
 
-
 const StyledPaginated: ComponentStory<typeof Table> = args => (
     <div className="custom-pagination">
         <PaginatedTemplate {...args} />
@@ -104,5 +103,6 @@ CustomStyle.args = {
     options: {
         ...paginatedOptions,
         unstyled: true,
+        labels: undefined,
     },
 };

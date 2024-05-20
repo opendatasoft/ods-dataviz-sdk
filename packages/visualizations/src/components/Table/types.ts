@@ -75,6 +75,14 @@ export type Pagination = {
     onChangePage: (next: number) => void;
 };
 
+export type Labels = Partial<{
+    records: string;
+    previousPage: string;
+    nextPage: string;
+    firstPage: string;
+    lastPage: string;
+}>;
+
 export type TableOptions = {
     columns: Column[];
     title?: string;
@@ -89,6 +97,7 @@ export type TableOptions = {
      */
     unstyled?: boolean;
     pagination?: Pagination;
+    labels?: Labels;
 };
 
 export type TableProps = {

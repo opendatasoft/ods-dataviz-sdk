@@ -13,9 +13,10 @@
         | typeof DoubleRight
         | typeof SingleRight;
     export let disabled = false;
+    export let label : string | undefined = undefined;
 </script>
 
-<button on:click {disabled}>
+<button on:click {disabled} aria-label={label}>
     <svelte:component this={icon} />
 </button>
 

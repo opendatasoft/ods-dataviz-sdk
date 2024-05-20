@@ -2,12 +2,13 @@
     import Pages from './Pages.svelte';
     import Numbering from './Numbering.svelte';
     // import PerPage from "./PerPage.svelte";
-    import type { Pagination } from '../types';
+    import type { Labels, Pagination } from '../types';
 
     export let onChangePage: Pagination['onChangePage'];
     export let totalRecords: number;
     export let recordsPerPage: number;
     export let initial: number;
+    export let labels: Labels = {};
 
     $: current = initial;
 
@@ -27,10 +28,11 @@
                 Math.min(recordsPerPage * current, totalRecords),
             ]}
             total={totalRecords}
+            recordsLabel={labels.records}
         />
     </div>
     <div class="pages">
-        <Pages {current} {totalPages} {setPage} />
+        <Pages {current} {totalPages} {setPage} {labels} />
     </div>
     <!-- FIXME Place holder for number per page -->
     <div class="spacer" />
@@ -40,7 +42,9 @@
 <style lang="scss">
     .pagination {
         display: flex;
-        justify-content: space-between;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        gap: var(--spacing-100);
         align-items: center;
         padding: var(--spacing-100) 0;
     }

@@ -14,7 +14,7 @@
     export let options: $$Props['options'];
 
     $: ({ value: records } = data);
-    $: ({ columns, title, subtitle, description, source, unstyled, locale, pagination } = options);
+    $: ({ columns, title, subtitle, description, source, unstyled, locale, pagination, labels } = options);
     $: updateLocale(locale);
     /* Preserves paginations controls positioning
     min heigh of table + controls = max-height of row * (number of rows) + headers + pagination
@@ -25,7 +25,7 @@
     <div>
         <Table {records} {columns} {description} />
         {#if pagination}
-            <Pagination {...pagination} />
+            <Pagination {...pagination} {labels} />
         {/if}
     </div>
 </Card>

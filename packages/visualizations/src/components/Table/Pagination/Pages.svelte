@@ -5,20 +5,22 @@
     import SingleLeft from './SingleLeft.svelte';
     import SingleRight from './SingleRight.svelte';
     import { getPages } from './utils';
+    import type { Labels } from '../types';
 
     export let totalPages: number;
     export let current: number;
     export let setPage: (page: number) => void;
+    export let labels: Labels = {}
 
     $: pages = getPages({ current, totalPages });
 </script>
 
 <ul>
     <li>
-        <Button on:click={() => setPage(1)} icon={DoubleLeft} disabled={current === 1} />
+        <Button on:click={() => setPage(1)} icon={DoubleLeft} label={labels.firstPage} disabled={current === 1} />
     </li>
     <li>
-        <Button on:click={() => setPage(current - 1)} icon={SingleLeft} disabled={current === 1} />
+        <Button on:click={() => setPage(current - 1)} icon={SingleLeft} label={labels.previousPage} disabled={current === 1} />
     </li>
     {#if current - 1 > 1 && totalPages > 3}
         <span>...</span>
@@ -37,6 +39,7 @@
         <Button
             on:click={() => setPage(current + 1)}
             icon={SingleRight}
+            label={labels.nextPage}
             disabled={current === totalPages}
         />
     </li>
@@ -44,6 +47,7 @@
         <Button
             on:click={() => setPage(totalPages)}
             icon={DoubleRight}
+            label={labels.lastPage}
             disabled={current === totalPages}
         />
     </li>
