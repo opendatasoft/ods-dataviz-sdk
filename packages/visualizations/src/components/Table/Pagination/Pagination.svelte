@@ -21,16 +21,15 @@
 </script>
 
 <div class="pagination">
-    <div class="numbering">
-        <Numbering
-            current={[
-                recordsPerPage * (current - 1) + 1,
-                Math.min(recordsPerPage * current, totalRecords),
-            ]}
-            total={totalRecords}
-            recordsLabel={labels.records}
-        />
-    </div>
+    
+    <Numbering
+        current={[
+            recordsPerPage * (current - 1) + 1,
+            Math.min(recordsPerPage * current, totalRecords),
+        ]}
+        total={totalRecords}
+        recordsLabel={labels.records}
+    />
     <div class="pages">
         <Pages {current} {totalPages} {setPage} {labels} />
     </div>
@@ -54,7 +53,6 @@
             flex-grow: 1;
         }
 
-        .numbering,
         .spacer {
             flex: 0 1 120px;
         }
