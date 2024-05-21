@@ -1,12 +1,12 @@
 <script lang="ts">
     export let current: [number, number];
     export let total: number;
-    export let recordsLabel = '';
+    export let recordsLabel: string | undefined;
 </script>
 
 <span>
     <b>{current[0]}-{current[1]}/{total}</b>
-    {recordsLabel}
+    {recordsLabel || ''}
 </span>
 
 <!-- markup (zero or more items) goes here -->

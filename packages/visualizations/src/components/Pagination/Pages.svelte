@@ -5,12 +5,12 @@
     import SingleLeft from './SingleLeft.svelte';
     import SingleRight from './SingleRight.svelte';
     import { getPages } from './utils';
-    import type { Labels } from '../types';
+    import type { Pagination } from './types';
 
     export let totalPages: number;
     export let current: number;
-    export let setPage: (page: number) => void;
-    export let labels: Labels = {};
+    export let labels: Pagination['labels'];
+    export let onPageChange: (page: number) => void;
 
     $: pages = getPages({ current, totalPages });
 </script>
@@ -18,17 +18,17 @@
 <ul>
     <li>
         <Button
-            on:click={() => setPage(1)}
+            on:click={() => onPageChange(1)}
             icon={DoubleLeft}
-            label={labels.firstPage}
+            label={labels?.firstPage}
             disabled={current === 1}
         />
     </li>
     <li>
         <Button
-            on:click={() => setPage(current - 1)}
+            on:click={() => onPageChange(current - 1)}
             icon={SingleLeft}
-            label={labels.previousPage}
+            label={labels?.previousPage}
             disabled={current === 1}
         />
     </li>
@@ -37,7 +37,7 @@
     {/if}
     {#each pages as page}
         <li>
-            <button on:click={() => setPage(page)} class:current={page === current}>
+            <button on:click={() => onPageChange(page)} class:current={page === current}>
                 {page}
             </button>
         </li>
@@ -47,17 +47,17 @@
     {/if}
     <li>
         <Button
-            on:click={() => setPage(current + 1)}
+            on:click={() => onPageChange(current + 1)}
             icon={SingleRight}
-            label={labels.nextPage}
+            label={labels?.nextPage}
             disabled={current === totalPages}
         />
     </li>
     <li>
         <Button
-            on:click={() => setPage(totalPages)}
+            on:click={() => onPageChange(totalPages)}
             icon={DoubleRight}
-            label={labels.lastPage}
+            label={labels?.lastPage}
             disabled={current === totalPages}
         />
     </li>
@@ -89,12 +89,19 @@
     li button {
         border: none;
         background: none;
+    }
+
+    li button {
+        border: none;
+        background: none;
         cursor: pointer;
+        height: 100%;
+        width: 100%;
         height: 100%;
         width: 100%;
     }
 
-    :global(.ods-dataviz--default) .current {
+    .current {
         border-radius: 3px;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.39);
         background-color: #fff;

@@ -57,9 +57,6 @@ const options: TableOptions = {
         href: '',
     },
     locale: 'fr',
-    labels: {
-        records: 'items',
-    }
 };
 
 export default options;

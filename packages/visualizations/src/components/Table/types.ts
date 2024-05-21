@@ -1,5 +1,6 @@
 import type { DataFrame, Source } from '../types';
 import type { DATA_FORMAT } from './constants';
+import type { Pagination } from '../Pagination/types';
 import type { Async } from '../../types';
 
 type DataFormatKey = keyof typeof DATA_FORMAT;
@@ -66,23 +67,6 @@ export type Column =
     | BooleanColumn
     | URLColumn;
 
-export type Pagination = {
-    // position: 'top' | 'bottom' | 'both';
-    // style: 'select' | 'buttons';
-    initial: number;
-    totalRecords: number;
-    recordsPerPage: number;
-    onChangePage: (next: number) => void;
-};
-
-export type Labels = Partial<{
-    records: string;
-    previousPage: string;
-    nextPage: string;
-    firstPage: string;
-    lastPage: string;
-}>;
-
 export type TableOptions = {
     columns: Column[];
     title?: string;
@@ -97,7 +81,6 @@ export type TableOptions = {
      */
     unstyled?: boolean;
     pagination?: Pagination;
-    labels?: Labels;
 };
 
 export type TableProps = {
