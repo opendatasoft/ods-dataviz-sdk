@@ -1,6 +1,8 @@
 .custom-pagination .ods-visualizations-table .pagination {
-flex-direction: row-reverse;
-justify-content: flex-start;
+        grid-template-areas: 'size pages numbering';
+}
+.custom-pagination .ods-visualizations-table .numbering {
+        margin-left: auto;
 }
 
 .custom-pagination .ods-visualizations-table .current {
