@@ -8,24 +8,28 @@
 
     export let totalPages: number;
     export let current: number;
-    export let setPage: (page: number) => void;
+    export let onPageChange: (page: number) => void;
 
     $: pages = getPages({ current, totalPages });
 </script>
 
 <ul>
     <li>
-        <Button on:click={() => setPage(1)} icon={DoubleLeft} disabled={current === 1} />
+        <Button on:click={() => onPageChange(1)} icon={DoubleLeft} disabled={current === 1} />
     </li>
     <li>
-        <Button on:click={() => setPage(current - 1)} icon={SingleLeft} disabled={current === 1} />
+        <Button
+            on:click={() => onPageChange(current - 1)}
+            icon={SingleLeft}
+            disabled={current === 1}
+        />
     </li>
     {#if current - 1 > 1 && totalPages < 3}
         <span>...</span>
     {/if}
     {#each pages as page}
         <li>
-            <button on:click={() => setPage(page)} class:current={page === current}>
+            <button on:click={() => onPageChange(page)} class:current={page === current}>
                 {page}
             </button>
         </li>
@@ -35,14 +39,14 @@
     {/if}
     <li>
         <Button
-            on:click={() => setPage(current + 1)}
+            on:click={() => onPageChange(current + 1)}
             icon={SingleRight}
             disabled={current === totalPages}
         />
     </li>
     <li>
         <Button
-            on:click={() => setPage(totalPages)}
+            on:click={() => onPageChange(totalPages)}
             icon={DoubleRight}
             disabled={current === totalPages}
         />
@@ -75,12 +79,19 @@
     li button {
         border: none;
         background: none;
+    }
+
+    li button {
+        border: none;
+        background: none;
         cursor: pointer;
+        height: 100%;
+        width: 100%;
         height: 100%;
         width: 100%;
     }
 
-    :global(.ods-dataviz--default) .current {
+    .current {
         border-radius: 3px;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.39);
         background-color: #fff;

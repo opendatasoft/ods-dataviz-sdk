@@ -1,8 +1,7 @@
 <script lang="ts">
     import type { TableProps } from './types';
-    import { MAX_ROW_HEIGHT } from './constants';
     import Table from './Table.svelte';
-    import Pagination from './Pagination/Pagination.svelte';
+    import Pagination from '../Pagination/Pagination.svelte';
     import Card from '../utils/Card.svelte';
 
     import { updateLocale } from './store';
