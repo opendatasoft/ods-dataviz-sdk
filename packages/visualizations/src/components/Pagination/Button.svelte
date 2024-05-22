@@ -16,7 +16,7 @@
     export let label: string | undefined;
 </script>
 
-<button on:click {disabled} aria-label={label}>
+<button on:click {disabled} aria-label={label} class={$$props.class}>
     <svelte:component this={icon} />
 </button>
 
@@ -36,11 +36,11 @@
 
     :global(.ods-dataviz--default) {
         button {
-            color: '#142E7B';
+            color: '#000';
         }
 
         button:disabled {
-            color: '#C6CBDE';
+            color: '#DEE5EF';
         }
     }
 </style>
