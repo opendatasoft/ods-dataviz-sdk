@@ -15,12 +15,16 @@ type BaseColumn = {
 
 export type ShortTextColumn = BaseColumn & {
     dataFormat: typeof DATA_FORMAT.shortText;
-    options?: never;
+    options?: {
+        display?: (v: string) => string;
+    };
 };
 
 export type LongTextColumn = BaseColumn & {
     dataFormat: typeof DATA_FORMAT.longText;
-    options?: never;
+    options?: {
+        display?: (v: string) => string;
+    };
 };
 
 export type NumberColumn = BaseColumn & {
@@ -30,7 +34,10 @@ export type NumberColumn = BaseColumn & {
      *
      * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#options
      */
-    options?: Intl.NumberFormatOptions;
+    options?: {
+        display?: (v: string) => string;
+        intl?: Intl.NumberFormatOptions;
+    };
 };
 
 export type DateColumn = BaseColumn & {
@@ -40,12 +47,17 @@ export type DateColumn = BaseColumn & {
      *
      * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#using_options
      */
-    options?: Intl.DateTimeFormatOptions;
+    options?: {
+        display?: (v: string) => string;
+        intl?: Intl.DateTimeFormatOptions;
+    };
 };
 
 export type BooleanColumn = BaseColumn & {
     dataFormat: typeof DATA_FORMAT.boolean;
-    options?: never;
+    options?: {
+        display?: (v: boolean) => string;
+    };
 };
 
 /**
@@ -54,6 +66,7 @@ export type BooleanColumn = BaseColumn & {
 export type URLColumn = BaseColumn & {
     dataFormat: typeof DATA_FORMAT.url;
     options?: {
+        display?: (v: string) => string;
         /** Default is `_blank` */
         target?: string;
     };

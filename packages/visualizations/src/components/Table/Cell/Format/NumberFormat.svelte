@@ -1,21 +1,21 @@
 <script lang="ts">
-    import store from '../../store';
-    import type { NumberColumn } from '../../types';
-
+    import { locale } from '../../store';
     import { warn } from './utils';
 
     export let rawValue: unknown;
-    export let options: NumberColumn['options'];
+    export let display = (v: string) => v;
+    export let intl: Intl.NumberFormatOptions;
 
-    function getDisplayValue(v: unknown, locale: string) {
+    function format(v: unknown, loc: string) {
         if (!Number.isFinite(v)) {
             warn(v, 'number');
             return v;
         }
-        return new Intl.NumberFormat(locale, options).format(v as number);
+        const intlValue = new Intl.NumberFormat(loc, intl).format(v as number);
+        return display(intlValue);
     }
 
-    $: value = getDisplayValue(rawValue, $store.locale);
+    $: value = format(rawValue, $locale);
 </script>
 
 {value}

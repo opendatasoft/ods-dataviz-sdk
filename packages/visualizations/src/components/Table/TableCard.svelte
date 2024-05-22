@@ -3,8 +3,7 @@
     import Table from './Table.svelte';
     import Pagination from '../Pagination/Pagination.svelte';
     import Card from '../utils/Card.svelte';
-
-    import { updateLocale } from './store';
+    import { locale } from './store';
 
     // ensure exported type matches declared props
     type $$Props = TableProps;
@@ -13,8 +12,17 @@
     export let options: $$Props['options'];
 
     $: ({ value: records } = data);
-    $: ({ columns, title, subtitle, description, source, unstyled, locale, pagination } = options);
-    $: updateLocale(locale);
+    $: ({
+        columns,
+        title,
+        subtitle,
+        description,
+        source,
+        unstyled,
+        locale: localeOption,
+        pagination,
+    } = options);
+    $: $locale = localeOption || navigator.language;
     /* Preserves paginations controls positioning
     min heigh of table + controls = max-height of row * (number of rows) + headers + pagination
     */

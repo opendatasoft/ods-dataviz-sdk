@@ -1,11 +1,11 @@
 <script lang="ts">
-    import type { URLColumn } from '../../types';
     import { warn } from './utils';
 
     export let rawValue: unknown;
-    export let options: URLColumn['options'] = {};
+    export let display = (v: string) => v;
+    export let target: HTMLAnchorElement['target'] = '_blank';
 
-    function displayValue(v: unknown) {
+    function format(v: unknown) {
         try {
             // eslint-disable-next-line no-new
             new URL(v as string);
@@ -16,11 +16,11 @@
         }
     }
 
-    $: value = displayValue(rawValue);
+    $: value = format(rawValue);
 </script>
 
 {#if value}
-    <a href={value} target={options?.target || '_blank'}>{value}</a>
+    <a href={value} {target}>{display(value)}</a>
 {:else}
     {rawValue}
 {/if}

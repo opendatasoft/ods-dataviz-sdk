@@ -2,18 +2,17 @@
     import { warn } from './utils';
 
     export let rawValue: unknown;
-    // svelte-ignore unused-export-let
-    export let options = {};
+    export let display = (v: boolean) => v.toString();
 
-    function getDisplayValue(v: unknown) {
+    function format(v: unknown) {
         if (typeof v !== 'boolean') {
             warn(v, 'boolean');
         }
         // Currently we return the raw value until we have alternative renders
-        return v;
+        return display(v as boolean);
     }
 
-    $: value = getDisplayValue(rawValue);
+    $: value = format(rawValue);
 </script>
 
 {value}

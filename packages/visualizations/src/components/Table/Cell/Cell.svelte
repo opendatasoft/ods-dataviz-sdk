@@ -11,7 +11,7 @@
 <!-- To display a format value, rawValue must be different from undefined or null -->
 <td class={`table-data--${dataFormat}`}>
     {#if isValidRawValue(rawValue)}
-        <svelte:component this={Format[dataFormat]} {rawValue} {options} />
+        <svelte:component this={Format[dataFormat]} {rawValue} {...options} />
     {/if}
 </td>
 

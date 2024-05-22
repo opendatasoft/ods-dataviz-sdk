@@ -1,24 +1,24 @@
 <script lang="ts">
-    import store from '../../store';
-    import type { DateColumn } from '../../types';
-
+    import { locale } from '../../store';
     import { warn } from './utils';
 
     export let rawValue: unknown;
-    export let options: DateColumn['options'];
+    export let display = (v: string) => v;
+    export let intl: Intl.DateTimeFormatOptions;
 
-    function getDisplayValue(v: unknown, locale: string) {
+    function format(v: unknown, loc: string) {
         if (
             (typeof v === 'string' || typeof v === 'number') &&
             !Number.isNaN(new Date(v).getTime())
         ) {
-            return new Intl.DateTimeFormat(locale, options).format(new Date(v));
+            const intlValue = Intl.DateTimeFormat(loc, intl).format(new Date(v));
+            return display(intlValue);
         }
         warn(v, 'date');
         return v;
     }
 
-    $: value = getDisplayValue(rawValue, $store.locale);
+    $: value = format(rawValue, $locale);
 </script>
 
 {value}
