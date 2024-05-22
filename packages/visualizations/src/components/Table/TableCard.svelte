@@ -44,5 +44,6 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        height: inherit;
     }
 </style>

@@ -28,11 +28,17 @@ Playground.args = {
     options,
 };
 
-export const VerticalScroll = Template.bind({});
+const BoxSizingTemplate: ComponentStory<typeof Table> = args => (
+    <div className='table-story--box-sizing'>
+        <Table {...args} />
+    </div>
+);
+
+export const VerticalScroll = BoxSizingTemplate.bind({});
 VerticalScroll.args = {
     data,
     options: { ...options, verticalScroll: true },
-}
+};
 
 const CustomStyleTemplate: ComponentStory<typeof Table> = args => (
     <div className="table-story--custom-style">

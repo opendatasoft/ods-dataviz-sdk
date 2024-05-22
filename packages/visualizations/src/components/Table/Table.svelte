@@ -48,7 +48,6 @@
 
     .vscroll-wrapper {
         display: inline-block;
-        height: var(--vertical-scroll-height);
         overflow-y: scroll;
     }
 </style>

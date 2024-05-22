@@ -1,6 +1,7 @@
 .table-story--custom-style .table-wrapper {
     border-color: #fcd4cf;
 }
+
 .table-story--custom-style thead {
     border-bottom-color: #f94346;
     border-bottom-width: 2px;
@@ -11,6 +12,7 @@
 .table-story--custom-style tbody tr {
     border-bottom-color: #fcd4cf;
 }
+
 .table-story--custom-style tbody tr:hover {
     background-color: #f9aea4;
 }
@@ -35,4 +37,8 @@
 .design-system svg {
     --selected: #142e7b;
     --neutral: #cbd2db;
+}
+
+.table-story--box-sizing {
+    height: 20em;
 }

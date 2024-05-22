@@ -49,8 +49,9 @@
         --vertical-scroll-height: 20em;
         /* FIXME: Only using flex style to center source link */
         display: flex;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         flex-direction: column;
         width: 100%;
+        height: 100%;
     }
 </style>
