@@ -15,7 +15,7 @@
 
 <div class:vscroll-wrapper={verticalScroll}>
     <table aria-describedby={description ? tableId : undefined}>
-        <Headers {columns} {verticalScroll}/>
+        <Headers {columns} {verticalScroll} />
         {#if records}
             <Body {records} {columns} />
         {/if}

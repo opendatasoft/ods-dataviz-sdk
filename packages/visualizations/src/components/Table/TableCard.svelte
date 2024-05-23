@@ -31,7 +31,7 @@
 
 <Card {title} {subtitle} {source} defaultStyle={!unstyled}>
     <div>
-        <Table {records} {columns} {description} {verticalScroll}/>
+        <Table {records} {columns} {description} {verticalScroll} />
         {#if pagination}
             <Pagination {...pagination} />
         {/if}
