@@ -5,9 +5,11 @@
     import SingleLeft from './SingleLeft.svelte';
     import SingleRight from './SingleRight.svelte';
     import { getPages } from './utils';
+    import type { Pagination } from './types';
 
     export let totalPages: number;
     export let current: number;
+    export let labels: Pagination['labels'];
     export let onPageChange: (page: number) => void;
 
     $: pages = getPages({ current, totalPages });
@@ -15,21 +17,33 @@
 
 <ul>
     <li>
-        <Button on:click={() => onPageChange(1)} icon={DoubleLeft} disabled={current === 1} />
+        <Button
+            on:click={() => onPageChange(1)}
+            icon={DoubleLeft}
+            label={labels?.firstPage}
+            disabled={current === 1}
+            class="arrow-button"
+        />
     </li>
     <li>
         <Button
             on:click={() => onPageChange(current - 1)}
             icon={SingleLeft}
+            label={labels?.previousPage}
             disabled={current === 1}
+            class="arrow-button"
         />
     </li>
-    {#if current - 1 > 1 && totalPages < 3}
+    {#if current - 1 > 1 && totalPages > 3}
         <span>...</span>
     {/if}
     {#each pages as page}
         <li>
-            <button on:click={() => onPageChange(page)} class:current={page === current}>
+            <button
+                on:click={() => onPageChange(page)}
+                class="page-button"
+                class:page-button--active={page === current}
+            >
                 {page}
             </button>
         </li>
@@ -41,14 +55,18 @@
         <Button
             on:click={() => onPageChange(current + 1)}
             icon={SingleRight}
+            label={labels?.nextPage}
             disabled={current === totalPages}
+            class="arrow-button"
         />
     </li>
     <li>
         <Button
             on:click={() => onPageChange(totalPages)}
             icon={DoubleRight}
+            label={labels?.lastPage}
             disabled={current === totalPages}
+            class="arrow-button"
         />
     </li>
 </ul>
@@ -91,10 +109,10 @@
         width: 100%;
     }
 
-    .current {
+    :global(.page-button--active) {
         border-radius: 3px;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.39);
         background-color: #fff;
-        color: #142e7b;
+        color: #000;
     }
 </style>

@@ -13,4 +13,11 @@ export type Pagination = {
     recordsPerPage: number;
     onPageChange: (next: number) => void;
     pageSizeSelect?: PageSizeSelect;
+    labels?: Partial<{
+        previousPage: string;
+        nextPage: string;
+        firstPage: string;
+        lastPage: string;
+        records: string;
+    }>;
 };

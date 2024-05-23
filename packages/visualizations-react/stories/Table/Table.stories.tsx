@@ -36,7 +36,22 @@ const CustomStyleTemplate: ComponentStory<typeof Table> = args => (
 export const CustomStyle = CustomStyleTemplate.bind({});
 CustomStyle.args = {
     data,
-    options,
+    options: {
+        ...options,
+        pagination: {
+            current: 1,
+            totalRecords: value.length,
+            recordsPerPage: 5,
+            onPageChange: () => {},
+            pageSizeSelect: {
+                options: [
+                    { label: '5 per page', value: 5 },
+                    { label: '10 per page', value: 10 },
+                ],
+                onChange: () => {},
+            },
+        },
+    },
 };
 
 const ScrollTemplate: ComponentStory<typeof Table> = args => (
@@ -49,6 +64,12 @@ export const Scroll = ScrollTemplate.bind({});
 Scroll.args = {
     data,
     options,
+};
+
+export const TwoColumns = Template.bind({});
+TwoColumns.args = {
+    data,
+    options: { ...options, columns: options.columns.slice(0, 2) },
 };
 
 export const Unstyled = Template.bind({});

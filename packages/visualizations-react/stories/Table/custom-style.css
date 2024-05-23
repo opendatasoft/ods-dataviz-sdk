@@ -14,3 +14,20 @@
 .table-story--custom-style tbody tr:hover {
     background-color: #f9aea4;
 }
+
+.table-story--custom-style .pagination .arrow-button,
+.table-story--custom-style .pagination .page-button {
+    color:  #f94346;
+}
+
+.table-story--custom-style .pagination .arrow-button:disabled {
+    color:  #fcd4cf;
+}
+
+.table-story--custom-style .pagination .page-size select {
+    border-color: #f94346;
+}
+
+.table-story--custom-style .numbering  {
+    color: #808080;
+}

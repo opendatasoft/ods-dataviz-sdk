@@ -50,7 +50,7 @@ export const usePaginatedData = ({
 };
 
 export const PaginatedTemplate = (pagination: Pagination) => {
-    const { current = 1, recordsPerPage = 5 } = pagination;
+    const { current = 1, recordsPerPage = 5, labels } = pagination;
     const { paginatedData, page, pageSize, setPage } = usePaginatedData({
         current,
         recordsPerPage,
@@ -63,6 +63,7 @@ export const PaginatedTemplate = (pagination: Pagination) => {
             recordsPerPage: pageSize,
             totalRecords: data.length,
             onPageChange: setPage,
+            labels,
         },
     };
 

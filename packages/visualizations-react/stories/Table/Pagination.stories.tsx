@@ -40,6 +40,9 @@ export const CustomStyle = StyledPaginated.bind({});
 CustomStyle.args = {
     current: 2,
     recordsPerPage: 3,
+    labels: {
+        records: 'items',
+    },
 };
 
 const PageSizeTable: ComponentStory<typeof PageSizeTemplate> = args => (

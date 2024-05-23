@@ -29,5 +29,6 @@
         padding: var(--spacing-50);
         border: solid 1px var(--border-color);
         border-radius: var(--border-radius-2);
+        width: fit-content;
     }
 </style>
