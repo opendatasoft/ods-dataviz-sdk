@@ -2,7 +2,7 @@
     import type { DataFrame } from '../types';
     import type { Column } from './types';
     import { generateId } from '../utils';
-    import Header from './Header.svelte';
+    import Headers from './Headers';
     import Body from './Body.svelte';
 
     export let columns: Column[];
@@ -14,7 +14,7 @@
 
 <div>
     <table aria-describedby={description ? tableId : undefined}>
-        <Header {columns} />
+        <Headers {columns} />
         {#if records}
             <Body {records} {columns} />
         {/if}

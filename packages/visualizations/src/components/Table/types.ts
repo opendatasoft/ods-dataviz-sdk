@@ -17,6 +17,7 @@ export type ColumnSortValues = typeof ColumnSort[keyof typeof ColumnSort];
 type BaseColumn = {
     key: string;
     title: string;
+    /** Wtether the column is sorted ascendimg, descending or not */
     sorted?: ColumnSortValues;
     onClick?: () => void;
 };

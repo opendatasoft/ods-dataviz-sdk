@@ -7,6 +7,8 @@ import value from './data';
 import options from './options';
 import { fetchData } from './utils';
 
+import './custom-style.css';
+
 const meta: ComponentMeta<typeof Table> = {
     title: 'Table/Sort',
     component: Table,
@@ -40,10 +42,11 @@ const Template: ComponentStory<typeof Table> = args => {
 
     const sortedData = { value: records, isLoading: false };
 
-    const sortableColumns = unsortedOptions.columns.map(col => ({
+    const sortableColumns = unsortedOptions.columns.map((col, i) => ({
         ...col,
         sorted: sort[0] === col.key ? sort[1] : undefined,
-        onClick: () => setSort([col.key, sortColumn(sort, col.key)]),
+        // cheap way to have some not sortable
+        onClick: i < 2 ? () => setSort([col.key, sortColumn(sort, col.key)]) : undefined,
     }));
 
     const sortedOptions = {
@@ -55,6 +58,20 @@ const Template: ComponentStory<typeof Table> = args => {
 
 export const Sort = Template.bind({});
 Sort.args = {
+    data,
+    options: {
+        ...options,
+    },
+};
+
+const ColoredTemplate: ComponentStory<typeof Table> = args => (
+    <div className="design-system">
+        <Template {...args} />
+    </div>
+);
+
+export const ColorSort = ColoredTemplate.bind({});
+ColorSort.args = {
     data,
     options: {
         ...options,
