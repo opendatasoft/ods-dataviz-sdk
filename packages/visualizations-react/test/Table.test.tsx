@@ -48,3 +48,28 @@ test('Page size select stays on the correct component if page change fails', asy
     await user.selectOptions(screen.getByRole('combobox'), '10');
     expect(screen.getByRole('combobox')).toHaveValue('5');
 });
+
+/** This crashes storybook for some reason and only in some cases.
+ * This test is mainly to provide an environment that is not storybook and
+ * test locale reactivity;
+ */
+const LocaleSwitch = ({ locale }: { locale: string}) => {
+    const { paginatedData } = usePaginatedData({
+        current: 2,
+        recordsPerPage: 5,
+    });
+
+    const stateFulOptions = {
+        ...options,
+        locale
+    };
+    return <Table data={paginatedData} options={stateFulOptions} />;
+};
+
+test('Can update local reactively', async () => {
+    const { rerender } = render(<LocaleSwitch locale="en" />);
+    expect(await screen.findByText(/sunday/i)).toBeInTheDocument();
+
+    rerender(<LocaleSwitch locale="de" />);
+    expect(await screen.findByText(/sonntag/i)).toBeInTheDocument();
+});
