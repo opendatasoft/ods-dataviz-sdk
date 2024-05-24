@@ -26,10 +26,8 @@
     }
 
     :global(.ods-dataviz--default th) {
-        padding: var(--spacing-75);
-    }
-    :global(.ods-dataviz--default th) {
         text-align: left;
+        padding: var(--spacing-75);
     }
 
     :global(.ods-dataviz--default th.table-header--number) {

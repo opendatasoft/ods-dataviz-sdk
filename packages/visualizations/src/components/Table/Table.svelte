@@ -36,6 +36,7 @@
         overflow-x: auto;
         overscroll-behavior-x: none;
         margin-bottom: var(--spacing-100);
+        width: 100%;
     }
 
     :global(.ods-dataviz--default) table {
