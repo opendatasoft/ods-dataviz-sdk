@@ -53,7 +53,7 @@ test('Page size select stays on the correct component if page change fails', asy
  * This test is mainly to provide an environment that is not storybook and
  * test locale reactivity;
  */
-const LocaleSwitch = ({ locale }: { locale: string}) => {
+const LocaleSwitch = ({ locale }: { locale: string }) => {
     const { paginatedData } = usePaginatedData({
         current: 2,
         recordsPerPage: 5,
@@ -61,7 +61,7 @@ const LocaleSwitch = ({ locale }: { locale: string}) => {
 
     const stateFulOptions = {
         ...options,
-        locale
+        locale,
     };
     return <Table data={paginatedData} options={stateFulOptions} />;
 };
