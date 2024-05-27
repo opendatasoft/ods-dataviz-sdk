@@ -31,3 +31,8 @@
 .table-story--custom-style .numbering  {
     color: #808080;
 }
+
+.design-system svg {
+    --selected: #142e7b;
+    --neutral: #cbd2db;
+}

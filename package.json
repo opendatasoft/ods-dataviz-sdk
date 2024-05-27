@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "lerna": "^8.1.2",
-    "nx": "^18.0.8"
+    "nx": "^19.0.7"
   },
   "dependencies": {
     "-": "^0.0.1"

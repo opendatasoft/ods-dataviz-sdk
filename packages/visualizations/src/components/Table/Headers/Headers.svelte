@@ -1,5 +1,6 @@
 <script lang="ts">
-    import type { Column } from './types';
+    import SortButton from './SortButton.svelte';
+    import type { Column } from '../types';
 
     export let columns: Column[];
 </script>
@@ -8,9 +9,18 @@
     <tr>
         {#each columns as column}
             <th class={`table-header--${column.dataFormat}`}>
-                {column.title}
-            </th>
-        {/each}
+                {#if column.onClick}
+                    <SortButton
+                        sorted={column?.sorted}
+                        on:click={column.onClick}
+                        labels={column.sortLabels}
+                    >
+                        {column.title}
+                    </SortButton>
+                {:else}
+                    {column.title}
+                {/if}
+            </th>{/each}
     </tr>
 </thead>
 
