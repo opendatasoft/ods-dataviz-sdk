@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.24.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.23.0...@opendatasoft/visualizations@0.24.0) (2024-05-27)
+
+
+### Bug Fixes
+
+* **Table:** UI and styles updates ([#238](https://github.com/opendatasoft/ods-dataviz-sdk/issues/238)) ([53d2faf](https://github.com/opendatasoft/ods-dataviz-sdk/commit/53d2faf7990e581352ef67f39225c09dd89b18f2))
+
+
+### Features
+
+* **Table:** add page size select ([#232](https://github.com/opendatasoft/ods-dataviz-sdk/issues/232)) ([4ea6838](https://github.com/opendatasoft/ods-dataviz-sdk/commit/4ea683887c9ca09bbb81460e6f4359265cafa5db))
+* **Table:** sortable columns ([#233](https://github.com/opendatasoft/ods-dataviz-sdk/issues/233)) ([8addb80](https://github.com/opendatasoft/ods-dataviz-sdk/commit/8addb80ed5f94c422d10775571b51990f3eb3bed))
+
+
+
+
+
 ## [0.22.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.22.0...@opendatasoft/visualizations@0.22.1) (2024-04-30)
 
 **Note:** Version bump only for package @opendatasoft/visualizations
