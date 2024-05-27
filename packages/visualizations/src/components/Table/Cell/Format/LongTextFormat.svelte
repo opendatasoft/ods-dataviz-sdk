@@ -4,12 +4,12 @@
     export let rawValue: unknown;
     export let display = (v: string) => v;
 
-    function format(v: unknown) {
+    $: format = (v: unknown) => {
         if (typeof v !== 'string') {
             warn(v, 'text');
         }
         return display(v as string);
-    }
+    };
 
     $: value = format(rawValue);
 </script>

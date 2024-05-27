@@ -6,16 +6,16 @@
     export let display = (v: string) => v;
     export let intl: Intl.NumberFormatOptions;
 
-    function format(v: unknown, loc: string) {
+    $: format = (v: unknown) => {
         if (!Number.isFinite(v)) {
             warn(v, 'number');
             return v;
         }
-        const intlValue = new Intl.NumberFormat(loc, intl).format(v as number);
+        const intlValue = new Intl.NumberFormat($locale, intl).format(v as number);
         return display(intlValue);
-    }
+    };
 
-    $: value = format(rawValue, $locale);
+    $: value = format(rawValue);
 </script>
 
 {value}

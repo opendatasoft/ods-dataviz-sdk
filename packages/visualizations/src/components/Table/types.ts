@@ -29,26 +29,18 @@ export type LongTextColumn = BaseColumn & {
 
 export type NumberColumn = BaseColumn & {
     dataFormat: typeof DATA_FORMAT.number;
-    /**
-     * Number formatting options
-     *
-     * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#options
-     */
     options?: {
         display?: (v: string) => string;
+        /** https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#options */
         intl?: Intl.NumberFormatOptions;
     };
 };
 
 export type DateColumn = BaseColumn & {
     dataFormat: typeof DATA_FORMAT.date;
-    /**
-     * Date and time formatting options
-     *
-     * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#using_options
-     */
     options?: {
         display?: (v: string) => string;
+        /** https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#using_options */
         intl?: Intl.DateTimeFormatOptions;
     };
 };

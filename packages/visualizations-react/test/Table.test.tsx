@@ -6,6 +6,7 @@ import data from 'stories/Table/data';
 import options from 'stories/Table/options';
 import { usePaginatedData } from 'stories/Table/PaginatedTemplates';
 
+import type { Column } from '@opendatasoft/visualizations';
 /* This template will fail to catch a new page and returns previous  data: {
       value,
       loading: false,
@@ -72,4 +73,35 @@ test('Can update local reactively', async () => {
 
     rerender(<LocaleSwitch locale="de" />);
     expect(await screen.findByText(/sonntag/i)).toBeInTheDocument();
+
+    rerender(<LocaleSwitch locale="it" />);
+    expect(await screen.findByText(/sonntag/i)).toBeInTheDocument();
+});
+
+/** This crashes storybook for some reason and only in some cases.
+ * This test is mainly to provide an environment that is not storybook and
+ * test locale reactivity;
+ */
+const DisplaySwitch = ({ display = v => v }: { display: (v: string) => string }) => {
+    const stateFulOptions = {
+        ...options,
+        columns: options.columns.map((column: Column) => {
+            if (column.dataFormat === 'short-text') {
+                return { ...column, options: { ...column.options, display } };
+            }
+            return column;
+        }),
+    };
+    return <Table data={{ value: data }} options={stateFulOptions} />;
+};
+
+test('Can update column display reactively', async () => {
+    const { rerender } = render(<DisplaySwitch display={v => v} />);
+    expect(await screen.findByText(/^LOREM IPSUM BLOG POST$/i)).toBeInTheDocument();
+
+    rerender(<DisplaySwitch display={v => `${v} update`} />);
+    expect(await screen.findByText(/^LOREM IPSUM BLOG POST update$/i)).toBeInTheDocument();
+
+    rerender(<DisplaySwitch display={v => `${v} 📅`} />);
+    expect(await screen.findByText(/^LOREM IPSUM BLOG POST 📅$/i)).toBeInTheDocument();
 });
