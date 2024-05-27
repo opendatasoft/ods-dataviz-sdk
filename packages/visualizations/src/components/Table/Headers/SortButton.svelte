@@ -1,11 +1,15 @@
 <script lang="ts">
-    import type { ColumnSortValues } from '../types';
+    import { ColumnSort, type ColumnSortValues } from '../types';
     import SortIcon from './SortIcon.svelte';
 
     export let sorted: ColumnSortValues | undefined;
+    export let labels = {
+        asc: 'Sort ascending',
+        desc: 'Sort descending',
+    };
 </script>
 
-<button type="button" on:click>
+<button on:click type="button" aria-label={sorted === ColumnSort.asc ? labels.asc : labels.desc}>
     <slot />
     <SortIcon {sorted} />
 </button>

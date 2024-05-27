@@ -19,6 +19,10 @@ type BaseColumn = {
     title: string;
     /** Wtether the column is sorted ascendimg, descending or not */
     sorted?: ColumnSortValues;
+    sortLabels?: {
+        asc: string;
+        desc: string;
+    };
     onClick?: () => void;
 };
 

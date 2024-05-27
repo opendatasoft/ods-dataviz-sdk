@@ -10,7 +10,11 @@
         {#each columns as column}
             <th class={`table-header--${column.dataFormat}`}>
                 {#if column.onClick}
-                    <SortButton sorted={column?.sorted} on:click={column.onClick}>
+                    <SortButton
+                        sorted={column?.sorted}
+                        on:click={column.onClick}
+                        labels={column.sortLabels}
+                    >
                         {column.title}
                     </SortButton>
                 {:else}
