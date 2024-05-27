@@ -2,17 +2,16 @@
     import { warn } from './utils';
 
     export let rawValue: unknown;
-    // svelte-ignore unused-export-let
-    export let options = {};
+    export let display = (v: string) => v;
 
-    function getDisplayValue(v: unknown) {
+    $: format = (v: unknown) => {
         if (typeof v !== 'string') {
             warn(v, 'text');
         }
-        return v;
-    }
+        return display(v as string);
+    };
 
-    $: value = getDisplayValue(rawValue);
+    $: value = format(rawValue);
 </script>
 
 <!-- Wrap value to style properly line clamp -->

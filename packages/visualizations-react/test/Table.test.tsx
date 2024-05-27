@@ -6,6 +6,7 @@ import data from 'stories/Table/data';
 import options from 'stories/Table/options';
 import { usePaginatedData } from 'stories/Table/PaginatedTemplates';
 
+import type { Column } from '@opendatasoft/visualizations';
 /* This template will fail to catch a new page and returns previous  data: {
       value,
       loading: false,
@@ -47,4 +48,60 @@ test('Page size select stays on the correct component if page change fails', asy
 
     await user.selectOptions(screen.getByRole('combobox'), '10');
     expect(screen.getByRole('combobox')).toHaveValue('5');
+});
+
+/** This crashes storybook for some reason and only in some cases.
+ * This test is mainly to provide an environment that is not storybook and
+ * test locale reactivity;
+ */
+const LocaleSwitch = ({ locale }: { locale: string }) => {
+    const { paginatedData } = usePaginatedData({
+        current: 2,
+        recordsPerPage: 5,
+    });
+
+    const stateFulOptions = {
+        ...options,
+        locale,
+    };
+    return <Table data={paginatedData} options={stateFulOptions} />;
+};
+
+test('Can update local reactively', async () => {
+    const { rerender } = render(<LocaleSwitch locale="en" />);
+    expect(await screen.findByText(/sunday/i)).toBeInTheDocument();
+
+    rerender(<LocaleSwitch locale="de" />);
+    expect(await screen.findByText(/sonntag/i)).toBeInTheDocument();
+
+    rerender(<LocaleSwitch locale="it" />);
+    expect(await screen.findByText(/sonntag/i)).toBeInTheDocument();
+});
+
+/** This crashes storybook for some reason and only in some cases.
+ * This test is mainly to provide an environment that is not storybook and
+ * test locale reactivity;
+ */
+const DisplaySwitch = ({ display = v => v }: { display: (v: string) => string }) => {
+    const stateFulOptions = {
+        ...options,
+        columns: options.columns.map((column: Column) => {
+            if (column.dataFormat === 'short-text') {
+                return { ...column, options: { ...column.options, display } };
+            }
+            return column;
+        }),
+    };
+    return <Table data={{ value: data }} options={stateFulOptions} />;
+};
+
+test('Can update column display reactively', async () => {
+    const { rerender } = render(<DisplaySwitch display={v => v} />);
+    expect(await screen.findByText(/^LOREM IPSUM BLOG POST$/i)).toBeInTheDocument();
+
+    rerender(<DisplaySwitch display={v => `${v} update`} />);
+    expect(await screen.findByText(/^LOREM IPSUM BLOG POST update$/i)).toBeInTheDocument();
+
+    rerender(<DisplaySwitch display={v => `${v} 📅`} />);
+    expect(await screen.findByText(/^LOREM IPSUM BLOG POST 📅$/i)).toBeInTheDocument();
 });
