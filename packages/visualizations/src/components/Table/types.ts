@@ -32,9 +32,9 @@ export type NumberColumn = BaseColumn & {
     options?: {
         /** Function to update the data value. Takes an argument which is the result of Intl.NumberFormat. */
         display?: (v: string) => string;
-        /** 
+        /**
          * Configuration options for formatting numbers using Intl.NumberFormat. See:
-         * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#options 
+         * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#options
          */
         intl?: Intl.NumberFormatOptions;
     };
@@ -45,9 +45,9 @@ export type DateColumn = BaseColumn & {
     options?: {
         /** Function to update the data value. Takes an argument which is the result of Intl.DateTimeFormat. */
         display?: (v: string) => string;
-        /** 
+        /**
          * Configuration options for formatting dates using Intl.DateTimeFormat. See:
-         * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#using_options 
+         * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#using_options
          */
         intl?: Intl.DateTimeFormatOptions;
     };
