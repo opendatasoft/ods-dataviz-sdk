@@ -19,6 +19,7 @@
         font-size: inherit;
         font-weight: inherit;
         text-align: inherit;
+        color: inherit;
         border: none;
         background: transparent;
         box-shadow: none;
@@ -28,5 +29,9 @@
         padding: 0;
         display: flex;
         justify-content: space-between;
+    }
+
+    :global(.ods-dataviz--default th.table-header--number button) {
+        justify-content: flex-end;
     }
 </style>
