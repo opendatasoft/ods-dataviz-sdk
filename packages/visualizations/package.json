@@ -21,6 +21,7 @@
     "module": "dist/index.es.js",
     "types": "dist/index.d.ts",
     "styles": "dist/index.css",
+    "svelte": "src/index.ts",
     "scripts": {
         "prepare": "rimraf dist && rollup --config",
         "build": "rollup --config",
