@@ -17,7 +17,7 @@
     }
 </script>
 
-<select bind:value on:change={(e) => onChange(toNumber(e.currentTarget.value))}>
+<select bind:value on:input={(e) => onChange(toNumber(e.currentTarget.value))}>
     {#each options as option}
         <option label={option.label} value={option.value} />
     {/each}
