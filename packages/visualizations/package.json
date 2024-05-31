@@ -106,5 +106,6 @@
         "markdown-it-link-attributes": "^3.0.0",
         "markdown-it-mark": "^3.0.1",
         "tippy.js": "^6.3.7"
-    }
+    },
+    "gitHead": "5b28cc594764f53129f0de5847152dd55e27ab24"
 }
