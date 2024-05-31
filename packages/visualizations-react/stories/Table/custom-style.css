@@ -32,6 +32,10 @@
     color: #808080;
 }
 
+.design-system {
+    color: blue;
+}
+
 .design-system svg {
     --selected: #142e7b;
     --neutral: #cbd2db;
