@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.24.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.24.0...@opendatasoft/visualizations@0.24.1) (2024-06-03)
+
+
+### Bug Fixes
+
+* align sort number right and color sort field ([#241](https://github.com/opendatasoft/ods-dataviz-sdk/issues/241)) ([6df61d7](https://github.com/opendatasoft/ods-dataviz-sdk/commit/6df61d7599d9bc802635e66870875ac4ac7f5e6f))
+* **Table:** change value for the page size select ([#243](https://github.com/opendatasoft/ods-dataviz-sdk/issues/243)) ([ab5e9d2](https://github.com/opendatasoft/ods-dataviz-sdk/commit/ab5e9d2a3a65cfa7f345c32a42f21a74471020cf))
+
+
+
+
+
 # [0.24.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.23.0...@opendatasoft/visualizations@0.24.0) (2024-05-27)
 
 

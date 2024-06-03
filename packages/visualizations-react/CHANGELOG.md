@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.24.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.24.0...@opendatasoft/visualizations-react@0.24.1) (2024-06-03)
+
+
+### Bug Fixes
+
+* align sort number right and color sort field ([#241](https://github.com/opendatasoft/ods-dataviz-sdk/issues/241)) ([6df61d7](https://github.com/opendatasoft/ods-dataviz-sdk/commit/6df61d7599d9bc802635e66870875ac4ac7f5e6f))
+
+
+
+
+
 # [0.24.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.23.0...@opendatasoft/visualizations-react@0.24.0) (2024-05-27)
 
 
