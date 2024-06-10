@@ -1,11 +1,11 @@
-import type {
+import type { DataDrivenPropertyValueSpecification, StyleSpecification ,
     ControlPosition,
-    DataDrivenPropertyValueSpecification,
     PopupOptions,
-    StyleSpecification,
-} from 'maplibre-gl';
-import type { Color } from '../types';
-import { POPUP_DISPLAY, PopupDisplayTypes } from './types';
+} from "maplibre-gl";
+import type { Color } from "../../types";
+
+import type { PopupDisplayTypes } from "./types";
+
 
 export const DEFAULT_BASEMAP_STYLE: StyleSpecification = {
     version: 8,
@@ -13,9 +13,6 @@ export const DEFAULT_BASEMAP_STYLE: StyleSpecification = {
     sources: {},
     layers: [],
 };
-
-export const DEFAULT_ASPECT_RATIO = 1;
-
 export const DEFAULT_DARK_GREY: Color = '#515457';
 
 export const DEFAULT_SORT_KEY_VALUE: DataDrivenPropertyValueSpecification<number> = [
@@ -24,6 +21,14 @@ export const DEFAULT_SORT_KEY_VALUE: DataDrivenPropertyValueSpecification<number
     0,
     0,
 ];
+
+export const POPUP_DISPLAY = {
+    tooltip: 'tooltip',
+    sidebar: 'sidebar',
+    modal: 'modal',
+} as const;
+
+
 
 export const POPUP_WIDTH = 300;
 
@@ -55,3 +60,4 @@ export const POPUP_OPTIONS: PopupOptions = {
     closeButton: false,
     closeOnClick: false,
 };
+

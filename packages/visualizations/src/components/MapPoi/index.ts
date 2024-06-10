@@ -1,5 +1,3 @@
-import PoiMap from './Map.svelte';
-
-import 'maplibre-gl/dist/maplibre-gl.css';
+import PoiMap from './MapPoi.svelte';
 
 export default PoiMap;
