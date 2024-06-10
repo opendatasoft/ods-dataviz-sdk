@@ -6,4 +6,5 @@ export const DATA_FORMAT = {
     number: 'number',
     boolean: 'boolean',
     url: 'url',
+    geo: 'geo'
 } as const;

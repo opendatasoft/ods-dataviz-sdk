@@ -71,6 +71,42 @@ export const columns: Column[] = [
             display: () => 'link',
         },
     },
+    {
+        title: 'Geo point',
+        key: 'geopoint',
+        dataFormat: 'geo',
+        options: {
+            display: (v: [number, number]) => `longitude: ${v[0]}, latitude: ${v[1]}`,
+            mapOptions: {
+                style: 'https://demotiles.maplibre.org/style.json',
+            },
+            sources: (coordinates: unknown) => ({
+                'table-stories' : {
+                    type: 'geojson', 
+                    data: {
+                        type: 'FeatureCollection',
+                        features: [
+                            {
+                                id: 1,
+                                type: 'Feature',
+                                geometry: {
+                                    type: 'Point',
+                                    coordinates,
+                                },
+                            },
+                        ],
+                    }
+                },
+            }),
+            layers: () => ([{
+                id:'table-stories-layer',
+                source: 'table-stories',
+                type: 'circle',
+                color: 'black',
+                borderColor: 'white',
+            }])
+        },
+    },
 ];
 
 const options: TableOptions = {

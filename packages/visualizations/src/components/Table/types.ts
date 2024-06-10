@@ -1,7 +1,9 @@
+import type {StyleSpecification,} from 'maplibre-gl';
 import type { DataFrame, Source } from '../types';
 import type { DATA_FORMAT } from './constants';
 import type { Pagination } from '../Pagination/types';
 import type { Async } from '../../types';
+
 
 type DataFormatKey = keyof typeof DATA_FORMAT;
 export type DataFormat = typeof DATA_FORMAT[DataFormatKey];
@@ -83,6 +85,14 @@ export type URLColumn = BaseColumn & {
         /** Default is `_blank` */
         target?: string;
     };
+};
+
+export type GeoColumn = BaseColumn & {
+    dataFormat: typeof DATA_FORMAT.geo,
+    options?: {
+        style?: StyleSpecification | string;
+        display?: (v: unknown) => string;
+    }
 };
 
 export type Column =
