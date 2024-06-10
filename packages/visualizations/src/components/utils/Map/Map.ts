@@ -29,7 +29,8 @@ import {
     POPUP_WIDTH,
     POPUP_NAVIGATION_CONTROLS_OFFSET_CLASSNAME,
     DEFAULT_SORT_KEY_VALUE,
- POPUP_DISPLAY } from './constants';
+    POPUP_DISPLAY,
+} from './constants';
 import type {
     PopupConfigurationByLayers,
     CenterZoomOptions,

@@ -1,21 +1,26 @@
 <svelte:options immutable={true} />
 
 <script lang="ts">
-    import type {LngLatBoundsLike} from 'maplibre-gl';
+    import type { LngLatBoundsLike } from 'maplibre-gl';
     import { onDestroy, onMount } from 'svelte';
-    
+
     import createDeepEqual from '../../../stores/createDeepEqual';
 
     import Map from './Map';
-    import { getCenterZoomOptions, getMapLayers, getMapOptions, getMapSources, getMapStyle, getPopupConfigurationByLayers } from './utils';
+    import {
+        getCenterZoomOptions,
+        getMapLayers,
+        getMapOptions,
+        getMapSources,
+        getMapStyle,
+        getPopupConfigurationByLayers,
+    } from './utils';
     import type { MapData, MapOptions } from './types';
 
     export let options: MapOptions;
     export let data: MapData = {};
 
-
     $: ({
-        style: styleOptions,
         bbox: _bbox,
         center: _center,
         zoom,
@@ -28,13 +33,12 @@
         preserveDrawingBuffer,
     } = getMapOptions(options));
 
-
     const bbox = createDeepEqual(_bbox);
     const center = createDeepEqual(_center);
     $: bbox.update(_bbox);
     $: center.update(_center);
 
-    $: style = getMapStyle(styleOptions);
+    $: style = getMapStyle(options.style);
     $: sources = getMapSources(data.sources);
     $: layers = getMapLayers(data.layers);
     $: popupConfigurationByLayers = getPopupConfigurationByLayers(data.layers);
@@ -54,19 +58,18 @@
     $: map.jumpTo(getCenterZoomOptions({ zoom, center: $center }));
     $: map.loadImages(images);
 
-
     // Lifecycle
     onMount(() => {
-        const options = {
+        const mapOptions = {
             bounds: $bbox as LngLatBoundsLike,
-            ...getCenterZoomOptions({ zoom, center: $center}),
+            ...getCenterZoomOptions({ zoom, center: $center }),
             transformRequest,
             minZoom,
             maxZoom,
             cooperativeGestures,
             preserveDrawingBuffer,
         };
-        map.initialize(style, container, options);
+        map.initialize(style, container, mapOptions);
     });
     onDestroy(() => map.destroy());
 </script>
@@ -192,20 +195,19 @@
         border-top: 2px solid;
         border-left: 2px solid;
     }
-    
+
     :global(#prevButton.poi-map__popup-navigation-arrow-button
-        .poi-map__popup-navigation-arrow-button-icon) {
+            .poi-map__popup-navigation-arrow-button-icon) {
         transform: rotate(-45deg);
     }
-    
+
     :global(#nextButton.poi-map__popup-navigation-arrow-button
-        .poi-map__popup-navigation-arrow-button-icon) {
+            .poi-map__popup-navigation-arrow-button-icon) {
         transform: rotate(135deg);
     }
 
-    
     :global(.poi-map__popup-navigation-arrow-button:disabled
-        .poi-map__popup-navigation-arrow-button-icon) {
+            .poi-map__popup-navigation-arrow-button-icon) {
         opacity: 0.5;
     }
 

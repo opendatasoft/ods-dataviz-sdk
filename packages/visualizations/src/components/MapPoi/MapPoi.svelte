@@ -14,17 +14,9 @@
     // Used in front of console and error messages to debug multiple maps on a same page
     const mapId = Math.floor(Math.random() * 1000);
 
-    $: ({
-        title,
-        subtitle,
-        description,
-        legend,
-        sourceLink,
-        aspectRatio,
-    } = options);
+    $: ({ title, subtitle, description, legend, sourceLink, aspectRatio } = options);
 
-
-    $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;  
+    $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
 </script>
 
 <figure class="map-card maps-container" style={cssVarStyles}>
@@ -44,10 +36,7 @@
     {/if}
     <div class="main" aria-describedby={description ? mapId.toString() : undefined}>
         {#key options.style}
-            <Map
-               options={options}
-               data={data.value}
-            />
+            <Map {options} data={data.value} />
         {/key}
     </div>
     {#if description}

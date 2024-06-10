@@ -1,8 +1,17 @@
-import type { CircleLayerSpecification, GeoJSONFeature, GestureOptions, LngLatLike, RequestTransformFunction, StyleImageMetadata, StyleSpecification, SymbolLayerSpecification } from "maplibre-gl";
+import type {
+    CircleLayerSpecification,
+    GeoJSONFeature,
+    GestureOptions,
+    LngLatLike,
+    RequestTransformFunction,
+    StyleImageMetadata,
+    StyleSpecification,
+    SymbolLayerSpecification,
+} from 'maplibre-gl';
 
-import type { BBox, GeoJsonProperties } from "geojson";
-import type { POPUP_DISPLAY } from "./constants";
-import type { Color } from "../../types";
+import type { BBox, GeoJsonProperties } from 'geojson';
+import type { POPUP_DISPLAY } from './constants';
+import type { Color } from '../../types';
 
 export type MapData = Partial<{
     sources: StyleSpecification['sources'];
@@ -96,7 +105,6 @@ export type SymbolLayer = BaseLayer & {
 
 export type Layer = CircleLayer | SymbolLayer;
 
-
 export type GeoPoint = {
     lat: number;
     lon: number;
@@ -115,7 +123,6 @@ export type PopupLayer = {
 };
 
 export type PopupDisplayTypes = keyof typeof POPUP_DISPLAY;
-
 
 /** A configuration map for popups where keys are layer ids and values are PopupLayer object. */
 export type PopupConfigurationByLayers = { [key: string]: PopupLayer };

@@ -17,7 +17,7 @@ export * from './components/Legend/types';
 export * from './components/Table/types';
 export * from './components/Pagination/types';
 export * from './components/utils/Map/types';
-export {POPUP_DISPLAY} from './components/utils/Map/constants';
+export { POPUP_DISPLAY } from './components/utils/Map/constants';
 
 /* We export Svelte types from the main package to avoid conflicting versions
 It still is purely a dev thing and we'll bundle they types directly */

@@ -20,11 +20,7 @@ import type {
     SymbolLayer,
     CenterZoomOptions,
 } from './types';
-import {
-    DEFAULT_DARK_GREY,
-    DEFAULT_BASEMAP_STYLE,
-    DEFAULT_SORT_KEY_VALUE,
-} from "./constants";
+import { DEFAULT_DARK_GREY, DEFAULT_BASEMAP_STYLE, DEFAULT_SORT_KEY_VALUE } from './constants';
 
 export const getMapStyle = (style: MapOptions['style']): MapLibreMapOptions['style'] => {
     if (!style) return DEFAULT_BASEMAP_STYLE;
@@ -157,7 +153,6 @@ export const getPopupConfigurationByLayers = (layers?: Layer[]): PopupConfigurat
 
 export const getMapOptions = (options: MapOptions) => {
     const {
-        style,
         bbox,
         zoom,
         maxZoom,
@@ -170,7 +165,6 @@ export const getMapOptions = (options: MapOptions) => {
         images,
     } = options;
     return {
-        style,
         bbox,
         zoom,
         minZoom,

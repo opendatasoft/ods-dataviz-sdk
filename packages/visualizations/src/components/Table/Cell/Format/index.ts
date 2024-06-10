@@ -14,7 +14,7 @@ const Format = {
     'long-text': LongTextFormat,
     url: URLFormat,
     number: NumberFormat,
-    'geo': GeoFormat,
+    geo: GeoFormat,
 };
 
 export { isValidRawValue };
