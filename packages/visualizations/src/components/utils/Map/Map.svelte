@@ -74,13 +74,14 @@
     onDestroy(() => map.destroy());
 </script>
 
-<div class="map" bind:this={container} />
+<div class="ods-visualization__map-container" bind:this={container} />
 
 <style>
-    div {
-        height: 400px;
+    .ods-visualization__map-container {
+        height: 100%;
+        width: 100%;
     }
-    div :global(canvas) {
+    .ods-visualization__map-container :global(canvas) {
         cursor: default;
     }
 
@@ -88,7 +89,7 @@
     We place it inside a local selector to obtain some encapsulation and avoid side effects */
 
     /* --- POPUP ---  */
-    :global(.poi-map__popup) {
+    :global(.ods-visualization__map-popup) {
         /* To be above map controls (z-index: 2)*/
         z-index: 3;
         height: auto;
@@ -96,34 +97,36 @@
         box-sizing: border-box;
         max-width: none !important;
     }
-    :global(.poi-map__popup.poi-map__popup--as-sidebar),
-    :global(.poi-map__popup.poi-map__popup--as-modal) {
+    :global(.ods-visualization__map-popup.ods-visualization__map-popup--as-sidebar),
+    :global(.ods-visualization__map-popup.ods-visualization__map-popup--as-modal) {
         flex-direction: column;
         transform: translate(0px, 0px) !important;
         padding: 13px 13px 0px 13px;
     }
 
-    :global(.poi-map__popup.poi-map__popup--as-modal) {
+    :global(.ods-visualization__map-popup.ods-visualization__map-popup--as-modal) {
         width: 100% !important;
     }
-    :global(.poi-map__popup.poi-map__popup--as-sidebar) {
+    :global(.ods-visualization__map-popup.ods-visualization__map-popup--as-sidebar) {
         /* 300px for content and 26px for padding */
         width: calc(300px + 26px) !important;
     }
 
-    :global(.poi-map__popup.poi-map__popup--as-tooltip) {
+    :global(.ods-visualization__map-popup.ods-visualization__map-popup--as-tooltip) {
         width: 300px !important;
         max-height: 50%;
     }
 
     /* --- POPUP TIP ---  */
-    :global(.poi-map__popup.poi-map__popup--as-sidebar > .maplibregl-popup-tip),
-    :global(.poi-map__popup.poi-map__popup--as-modal > .maplibregl-popup-tip) {
+    :global(.ods-visualization__map-popup.ods-visualization__map-popup--as-sidebar
+            > .maplibregl-popup-tip),
+    :global(.ods-visualization__map-popup.ods-visualization__map-popup--as-modal
+            > .maplibregl-popup-tip) {
         display: none;
     }
 
     /* --- POPUP CONTENT ---  */
-    :global(.poi-map__popup > .maplibregl-popup-content) {
+    :global(.ods-visualization__map-popup > .maplibregl-popup-content) {
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
@@ -135,8 +138,8 @@
         box-sizing: border-box;
         box-shadow: 0 6px 13px 0 rgba(0, 0, 0, 0.26);
     }
-    :global(.poi-map__popup .poi-map__popup-feature-content),
-    :global(.poi-map__popup .poi-map__popup-feature-content--loading) {
+    :global(.ods-visualization__map-popup .ods-visualization__map-popup-feature-content),
+    :global(.ods-visualization__map-popup .ods-visualization__map-popup-feature-content--loading) {
         margin: 13px;
     }
     /* Add a more opacity and blur effect on map when cooperative gesture is shown */
@@ -149,13 +152,15 @@
     /* Hide close button and offset when its display is as a tooltip
      * Hidden offset allow to center the arrows wrapper
      */
-    :global(.poi-map__popup--as-tooltip .poi-map__popup-navigation-close-button),
-    :global(.poi-map__popup--as-tooltip .poi-map__popup-navigation-controls-offset) {
+    :global(.ods-visualization__map-popup--as-tooltip
+            .ods-visualization__map-popup-navigation-close-button),
+    :global(.ods-visualization__map-popup--as-tooltip
+            .ods-visualization__map-popup-navigation-controls-offset) {
         display: none;
     }
 
     /* --- POPUP NAVIGATION CONTROLS ---  */
-    :global(.poi-map__popup-navigation-controls) {
+    :global(.ods-visualization__map-popup-navigation-controls) {
         --navigation-button-size: 36px;
         position: relative;
         display: flex;
@@ -164,18 +169,18 @@
         margin: 6px;
         max-height: var(--navigation-button-size);
     }
-    :global(.poi-map__popup-arrows-wrapper) {
+    :global(.ods-visualization__map-popup-arrows-wrapper) {
         flex-grow: 1;
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    :global(.poi-map__popup-navigation-controls-offset) {
+    :global(.ods-visualization__map-popup-navigation-controls-offset) {
         width: var(--navigation-button-size);
         flex-shrink: 0;
     }
 
-    :global(.poi-map__popup-navigation-arrow-button) {
+    :global(.ods-visualization__map-popup-navigation-arrow-button) {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -186,32 +191,32 @@
         border: none;
         cursor: pointer;
     }
-    :global(.poi-map__popup-navigation-arrow-button:disabled) {
+    :global(.ods-visualization__map-popup-navigation-arrow-button:disabled) {
         cursor: not-allowed;
     }
-    :global(.poi-map__popup-navigation-arrow-button-icon) {
+    :global(.ods-visualization__map-popup-navigation-arrow-button-icon) {
         width: 6px;
         height: 6px;
         border-top: 2px solid;
         border-left: 2px solid;
     }
 
-    :global(#prevButton.poi-map__popup-navigation-arrow-button
-            .poi-map__popup-navigation-arrow-button-icon) {
+    :global(#prevButton.ods-visualization__map-popup-navigation-arrow-button
+            .ods-visualization__map-popup-navigation-arrow-button-icon) {
         transform: rotate(-45deg);
     }
 
-    :global(#nextButton.poi-map__popup-navigation-arrow-button
-            .poi-map__popup-navigation-arrow-button-icon) {
+    :global(#nextButton.ods-visualization__map-popup-navigation-arrow-button
+            .ods-visualization__map-popup-navigation-arrow-button-icon) {
         transform: rotate(135deg);
     }
 
-    :global(.poi-map__popup-navigation-arrow-button:disabled
-            .poi-map__popup-navigation-arrow-button-icon) {
+    :global(.ods-visualization__map-popup-navigation-arrow-button:disabled
+            .ods-visualization__map-popup-navigation-arrow-button-icon) {
         opacity: 0.5;
     }
 
-    :global(.poi-map__popup-navigation-close-button) {
+    :global(.ods-visualization__map-popup-navigation-close-button) {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -223,15 +228,15 @@
         cursor: pointer;
         flex-shrink: 0;
     }
-    :global(.poi-map__popup-navigation-close-button-icon) {
+    :global(.ods-visualization__map-popup-navigation-close-button-icon) {
         position: relative;
         display: block;
         width: 14px;
         height: 14px;
     }
 
-    :global(.poi-map__popup-navigation-close-button-icon:before),
-    :global(.poi-map__popup-navigation-close-button-icon:after) {
+    :global(.ods-visualization__map-popup-navigation-close-button-icon:before),
+    :global(.ods-visualization__map-popup-navigation-close-button-icon:after) {
         position: absolute;
         left: 6px;
         content: '';
@@ -240,10 +245,10 @@
         border-radius: 2px;
         background-color: #333;
     }
-    :global(.poi-map__popup-navigation-close-button-icon:before) {
+    :global(.ods-visualization__map-popup-navigation-close-button-icon:before) {
         transform: rotate(45deg);
     }
-    :global(.poi-map__popup-navigation-close-button-icon:after) {
+    :global(.ods-visualization__map-popup-navigation-close-button-icon:after) {
         transform: rotate(-45deg);
     }
 

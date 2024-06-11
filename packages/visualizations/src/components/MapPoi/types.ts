@@ -3,6 +3,8 @@ import type { Source } from '../types';
 import type { MapData, MapOptions } from '../utils/Map/types';
 import type { CategoryLegend } from '../Legend/types';
 
+export type PoiMapData = Async<MapData>;
+
 export type PoiMapOptions = MapOptions & {
     title?: string;
     subtitle?: string;
@@ -13,6 +15,6 @@ export type PoiMapOptions = MapOptions & {
 };
 
 export type MapPoiProps = {
-    data: Async<MapData>;
+    data: PoiMapData;
     options: PoiMapOptions;
 };

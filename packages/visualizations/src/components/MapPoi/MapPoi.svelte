@@ -4,6 +4,7 @@
     import Map from '../utils/Map';
 
     import type { MapPoiProps } from './types';
+    import { DEFAULT_ASPECT_RATIO } from './constants';
 
     // ensure exported type matches declared props
     type $$Props = MapPoiProps;
@@ -14,7 +15,14 @@
     // Used in front of console and error messages to debug multiple maps on a same page
     const mapId = Math.floor(Math.random() * 1000);
 
-    $: ({ title, subtitle, description, legend, sourceLink, aspectRatio } = options);
+    $: ({
+        title,
+        subtitle,
+        description,
+        legend,
+        sourceLink,
+        aspectRatio = DEFAULT_ASPECT_RATIO,
+    } = options);
 
     $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
 </script>
