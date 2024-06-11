@@ -1,8 +1,8 @@
-import type { StyleSpecification } from 'maplibre-gl';
 import type { DataFrame, Source } from '../types';
 import type { DATA_FORMAT } from './constants';
 import type { Pagination } from '../Pagination/types';
 import type { Async } from '../../types';
+import type { MapData, MapOptions } from '../utils/Map/types';
 
 type DataFormatKey = keyof typeof DATA_FORMAT;
 export type DataFormat = typeof DATA_FORMAT[DataFormatKey];
@@ -88,10 +88,12 @@ export type URLColumn = BaseColumn & {
 
 export type GeoColumn = BaseColumn & {
     dataFormat: typeof DATA_FORMAT.geo;
-    options?: {
-        style?: StyleSpecification | string;
-        display?: (v: unknown) => string;
-    };
+    options?: Partial<{
+        mapOptions: MapOptions;
+        display: (v: unknown) => string;
+        sources: (v: unknown) => MapData['sources'];
+        layers: (v: unknown) => MapData['layers'];
+    }>;
 };
 
 export type Column =
@@ -100,7 +102,8 @@ export type Column =
     | NumberColumn
     | DateColumn
     | BooleanColumn
-    | URLColumn;
+    | URLColumn
+    | GeoColumn;
 
 export type TableOptions = {
     columns: Column[];

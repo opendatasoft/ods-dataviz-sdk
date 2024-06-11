@@ -24,7 +24,9 @@
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div class="label" on:click={onLabelClick}>{display(rawValue)}</div>
     {#if showMap}
-        <Map options={mapOptions} {data} />
+        <div class="table-cell-map-container">
+            <Map options={mapOptions} {data} />
+        </div>
     {/if}
 </div>
 
@@ -32,5 +34,9 @@
     .label {
         cursor: pointer;
         text-decoration: underline;
+    }
+    .table-cell-map-container {
+        width: 100%;
+        height: 250px;
     }
 </style>

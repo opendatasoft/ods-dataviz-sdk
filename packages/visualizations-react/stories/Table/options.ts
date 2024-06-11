@@ -76,10 +76,11 @@ export const columns: Column[] = [
         key: 'geopoint',
         dataFormat: 'geo',
         options: {
-            display: (v: [number, number]) => `longitude: ${v[0]}, latitude: ${v[1]}`,
             mapOptions: {
                 style: 'https://demotiles.maplibre.org/style.json',
+                interactive: false,
             },
+            display: (v: unknown) => `longitude: ${(v as number[])[0]}, latitude: ${(v as number[])[1]}`,
             sources: (coordinates: unknown) => ({
                 'table-stories' : {
                     type: 'geojson', 
