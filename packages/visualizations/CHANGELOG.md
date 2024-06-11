@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.24.1-beta.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.24.1-beta.1...@opendatasoft/visualizations@0.24.1-beta.2) (2024-06-11)
+
+
+### Bug Fixes
+
+* add sass as dep and fix type import ([dfd8d12](https://github.com/opendatasoft/ods-dataviz-sdk/commit/dfd8d127e2dbe405fa97f1c5881bfefac37a6748))
+
+
+
+
+
 ## [0.24.1-beta.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.24.1-beta.0...@opendatasoft/visualizations@0.24.1-beta.1) (2024-05-31)
 
 **Note:** Version bump only for package @opendatasoft/visualizations
