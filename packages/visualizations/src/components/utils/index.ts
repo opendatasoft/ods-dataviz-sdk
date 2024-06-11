@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-
+export { POPUP_DISPLAY } from './Map/constants';
 /**
  * Check (in the compiler) that a switch block is exhaustive.
  * Documentation: https://www.typescriptlang.org/docs/handbook/2/narrowing.html#exhaustiveness-checking
