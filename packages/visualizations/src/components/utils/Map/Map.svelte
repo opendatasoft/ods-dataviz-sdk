@@ -253,7 +253,7 @@
     }
 
     /* --- CONTROLS --- */
-    :global(.maplibregl-ctrl.maplibregl-ctrl-group) {
+    .ods-visualization__map-container :global(.maplibregl-ctrl.maplibregl-ctrl-group) {
         margin-top: 13px;
         margin-right: 13px;
         box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.26);
