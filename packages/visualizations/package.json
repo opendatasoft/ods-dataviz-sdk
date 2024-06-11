@@ -1,6 +1,6 @@
 {
     "name": "@opendatasoft/visualizations",
-    "version": "0.24.1-beta.1",
+    "version": "0.24.1-beta.2",
     "license": "MIT",
     "author": "opendatasoft",
     "homepage": "https://github.com/opendatasoft/ods-dataviz-sdk",
@@ -104,8 +104,8 @@
         "markdown-it": "^12.0.4",
         "markdown-it-link-attributes": "^3.0.0",
         "markdown-it-mark": "^3.0.1",
-        "tippy.js": "^6.3.7",
-        "sass": "^1.70.0"
+        "sass": "^1.70.0",
+        "tippy.js": "^6.3.7"
     },
     "gitHead": "5b28cc594764f53129f0de5847152dd55e27ab24"
 }
