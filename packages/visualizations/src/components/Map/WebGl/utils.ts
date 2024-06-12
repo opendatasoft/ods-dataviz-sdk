@@ -5,7 +5,7 @@ import type {
     StyleSpecification,
     ExpressionInputType,
     SymbolLayerSpecification,
-    FilterSpecification,
+    FillLayerSpecification,
 } from 'maplibre-gl';
 
 import { isGroupByForMatchExpression, Color } from '../../types';
@@ -19,6 +19,7 @@ import type {
     PopupConfigurationByLayers,
     SymbolLayer,
     CenterZoomOptions,
+    FillLayer,
 } from './types';
 import { DEFAULT_DARK_GREY, DEFAULT_BASEMAP_STYLE, DEFAULT_SORT_KEY_VALUE } from './constants';
 
@@ -34,12 +35,10 @@ export const getMapSources = (sources: WebGlMapData['sources']): StyleSpecificat
 
 const getBaseMapLayerConfiguration = (layer: Layer) => {
     const { id, source, sourceLayer } = layer;
-    const filter: FilterSpecification = ['==', ['geometry-type'], 'Point'];
     return {
         id,
         source,
         ...(sourceLayer ? { 'source-layer': sourceLayer } : null),
-        filter,
     };
 };
 
@@ -87,6 +86,7 @@ const getMapCircleLayer = (layer: CircleLayer): CircleLayerSpecification => {
     }
     return {
         ...getBaseMapLayerConfiguration(layer),
+        filter: ['==', ['geometry-type'], 'Point'],
         type,
         paint: {
             'circle-radius': circleRadius,
@@ -117,6 +117,7 @@ const getMapSymbolLayer = (layer: SymbolLayer): SymbolLayerSpecification => {
 
     return {
         ...getBaseMapLayerConfiguration(layer),
+        filter: ['==', ['geometry-type'], 'Point'],
         type,
         layout: {
             'icon-size': 1,
@@ -126,7 +127,22 @@ const getMapSymbolLayer = (layer: SymbolLayer): SymbolLayerSpecification => {
         },
     };
 };
-// Only circle and symbol layers are supported
+
+const getMapFillLayer = (layer: FillLayer): FillLayerSpecification => {
+    const { type, color, borderColor, opacity } = layer;
+
+    return {
+        ...getBaseMapLayerConfiguration(layer),
+        filter: ['==', ['geometry-type'], 'Polygon'],
+        type,
+        paint: {
+            'fill-color': color,
+            ...(borderColor && { 'fill-outline-color': borderColor }),
+            ...(opacity && { 'fill-opacity': opacity }),
+        },
+    };
+};
+// Circle, symbol and fill layers are supported
 export const getMapLayers = (layers?: Layer[]): LayerSpecification[] => {
     if (!layers) return [];
     return layers.map((layer) => {
@@ -135,6 +151,8 @@ export const getMapLayers = (layers?: Layer[]): LayerSpecification[] => {
                 return getMapCircleLayer(layer);
             case 'symbol':
                 return getMapSymbolLayer(layer);
+            case 'fill':
+                return getMapFillLayer(layer);
             default:
                 throw new Error(`Unexepected layer type for layer: ${layer}`);
         }
