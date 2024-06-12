@@ -104,6 +104,10 @@ const sources : Required<PoiMapData>["value"]["sources"] = {
             ]
           }
           
+    },
+    moselle: {
+        type: 'geojson',
+        data: 'https://france-geojson.gregoiredavid.fr/repo/departements/57-moselle/departement-57-moselle.geojson'
     }
 };
 

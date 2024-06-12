@@ -108,6 +108,33 @@ export const columns: Column[] = [
             }])
         },
     },
+    {
+        title: 'Geo shapes',
+        key: 'geoshape',
+        dataFormat: 'geo',
+        options: {
+            mapOptions: {
+                style: 'https://demotiles.maplibre.org/style.json',
+                interactive: false,
+                bbox: [-6.855469, 41.343825, 11.645508, 51.37178],
+                zoom: 3,
+            },
+            display: () => 'Click to open map',
+            sources: (v: unknown) => ({
+                'table-stories' : {
+                    type: 'geojson', 
+                    data: `https://france-geojson.gregoiredavid.fr/repo/regions/${v}/region-${v}.geojson`
+                },
+            }),
+            layers: () => ([{
+                id:'table-stories-layer',
+                source: 'table-stories',
+                type: "fill",
+                color: 'black',
+                borderColor: 'white',
+            }])
+        },
+    },
 ];
 
 const options: TableOptions = {
