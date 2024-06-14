@@ -77,3 +77,9 @@ Unstyled.args = {
     data,
     options: { ...options, unstyled: true },
 };
+
+export const emptyState = Template.bind({});
+emptyState.args = {
+    data: { value: [], loading: false },
+    options: { ...options, emptyStateLabel: 'Neniuj registroj trovitaj...' },
+};
