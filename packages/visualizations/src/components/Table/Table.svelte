@@ -5,6 +5,7 @@
     import Headers from './Headers';
     import Body from './Body.svelte';
 
+    export let loadingRowsNumber: number | null;
     export let columns: Column[];
     export let records: DataFrame | undefined;
     export let description: string | undefined;
@@ -16,7 +17,7 @@
     <table aria-describedby={description ? tableId : undefined}>
         <Headers {columns} />
         {#if records}
-            <Body {records} {columns} />
+            <Body {loadingRowsNumber} {records} {columns} />
         {/if}
     </table>
 </div>

@@ -11,7 +11,7 @@
     export let data: $$Props['data'];
     export let options: $$Props['options'];
 
-    $: ({ value: records } = data);
+    $: ({ value: records, loading: isLoading } = data);
     $: ({
         columns,
         title,
@@ -23,6 +23,8 @@
         pagination,
     } = options);
     $: $locale = localeOption || navigator.language;
+    $: defaultLoadingRowsNumber = pagination ? pagination.recordsPerPage : 5;
+    $: loadingRowsNumber = isLoading ? defaultLoadingRowsNumber : null;
     /* Preserves paginations controls positioning
     min heigh of table + controls = max-height of row * (number of rows) + headers + pagination
     */
@@ -30,7 +32,7 @@
 
 <Card {title} {subtitle} {source} defaultStyle={!unstyled}>
     <div>
-        <Table {records} {columns} {description} />
+        <Table {loadingRowsNumber} {records} {columns} {description} />
         {#if pagination}
             <Pagination {...pagination} />
         {/if}
