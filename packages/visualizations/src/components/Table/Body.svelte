@@ -1,19 +1,18 @@
 <script lang="ts">
     import type { Column, TableData } from './types';
-    import Cell from './Cell';
+    import Cell, { LoadingCell } from './Cell';
 
-    export let isLoading: boolean | undefined;
-    export let loadingRowsNumber: number | undefined;
+    export let loadingRowsNumber: number | null;
     export let columns: Column[];
     export let records: TableData;
 </script>
 
 <tbody>
-    {#if isLoading}
-        {#each Array(loadingRowsNumber) as _, index (index)}
+    {#if loadingRowsNumber}
+        {#each Array(loadingRowsNumber) as _}
             <tr>
-                {#each columns as column}
-                    <Cell {isLoading} {column} />
+                {#each columns as __}
+                    <LoadingCell />
                 {/each}
             </tr>
         {/each}

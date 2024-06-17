@@ -86,7 +86,5 @@ Unstyled.args = {
 export const Loading = Template.bind({});
 Loading.args = {
     data: fetchingData,
-    options: {
-        ...options,
-    },
+    options,
 };

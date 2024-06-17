@@ -23,7 +23,8 @@
         pagination,
     } = options);
     $: $locale = localeOption || navigator.language;
-    $: loadingRowsNumber = pagination ? pagination.recordsPerPage : 5;
+    $: defaultLoadingRowsNumber = pagination ? pagination.recordsPerPage : 5;
+    $: loadingRowsNumber = isLoading ? defaultLoadingRowsNumber : null;
     /* Preserves paginations controls positioning
     min heigh of table + controls = max-height of row * (number of rows) + headers + pagination
     */
@@ -31,7 +32,7 @@
 
 <Card {title} {subtitle} {source} defaultStyle={!unstyled}>
     <div>
-        <Table {isLoading} {loadingRowsNumber} {records} {columns} {description} />
+        <Table {loadingRowsNumber} {records} {columns} {description} />
         {#if pagination}
             <Pagination {...pagination} />
         {/if}
