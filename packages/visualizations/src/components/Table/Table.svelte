@@ -8,6 +8,7 @@
     export let columns: Column[];
     export let records: DataFrame | undefined;
     export let description: string | undefined;
+    export let emptyStateLabel: string | undefined;
 
     const tableId = `table-${generateId()}`;
 </script>
@@ -16,7 +17,7 @@
     <table aria-describedby={description ? tableId : undefined}>
         <Headers {columns} />
         {#if records}
-            <Body {records} {columns} />
+            <Body {records} {columns} {emptyStateLabel} />
         {/if}
     </table>
 </div>

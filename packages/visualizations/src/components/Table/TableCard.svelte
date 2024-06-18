@@ -21,6 +21,7 @@
         unstyled,
         locale: localeOption,
         pagination,
+        emptyStateLabel,
     } = options);
     $: $locale = localeOption || navigator.language;
     /* Preserves paginations controls positioning
@@ -30,7 +31,7 @@
 
 <Card {title} {subtitle} {source} defaultStyle={!unstyled}>
     <div>
-        <Table {records} {columns} {description} />
+        <Table {records} {columns} {description} {emptyStateLabel} />
         {#if pagination}
             <Pagination {...pagination} />
         {/if}
