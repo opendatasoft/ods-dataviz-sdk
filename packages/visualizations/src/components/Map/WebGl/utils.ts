@@ -14,20 +14,20 @@ import type {
     CircleLayer,
     LayerSpecification,
     Layer,
-    MapData,
-    MapOptions,
+    WebGlMapData,
+    WebGlMapOptions,
     PopupConfigurationByLayers,
     SymbolLayer,
     CenterZoomOptions,
 } from './types';
 import { DEFAULT_DARK_GREY, DEFAULT_BASEMAP_STYLE, DEFAULT_SORT_KEY_VALUE } from './constants';
 
-export const getMapStyle = (style: MapOptions['style']): MapLibreMapOptions['style'] => {
+export const getMapStyle = (style: WebGlMapOptions['style']): MapLibreMapOptions['style'] => {
     if (!style) return DEFAULT_BASEMAP_STYLE;
     if (typeof style === 'string') return style;
     return { ...DEFAULT_BASEMAP_STYLE, ...style };
 };
-export const getMapSources = (sources: MapData['sources']): StyleSpecification['sources'] => {
+export const getMapSources = (sources: WebGlMapData['sources']): StyleSpecification['sources'] => {
     if (!sources) return DEFAULT_BASEMAP_STYLE.sources;
     return sources;
 };
@@ -151,7 +151,7 @@ export const getPopupConfigurationByLayers = (layers?: Layer[]): PopupConfigurat
     return configurationByLayers;
 };
 
-export const getMapOptions = (options: MapOptions) => {
+export const getMapOptions = (options: WebGlMapOptions) => {
     const {
         bbox,
         zoom,

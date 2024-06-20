@@ -2,7 +2,7 @@ import type { DataFrame, Source } from '../types';
 import type { DATA_FORMAT } from './constants';
 import type { Pagination } from '../Pagination/types';
 import type { Async } from '../../types';
-import type { MapData, MapOptions } from '../utils/Map/types';
+import type { WebGlMapData, WebGlMapOptions } from '../Map';
 
 type DataFormatKey = keyof typeof DATA_FORMAT;
 export type DataFormat = typeof DATA_FORMAT[DataFormatKey];
@@ -89,10 +89,10 @@ export type URLColumn = BaseColumn & {
 export type GeoColumn = BaseColumn & {
     dataFormat: typeof DATA_FORMAT.geo;
     options?: Partial<{
-        mapOptions: MapOptions;
+        mapOptions: WebGlMapOptions;
         display: (v: unknown) => string;
-        sources: (v: unknown) => MapData['sources'];
-        layers: (v: unknown) => MapData['layers'];
+        sources: (v: unknown) => WebGlMapData['sources'];
+        layers: (v: unknown) => WebGlMapData['layers'];
     }>;
 };
 

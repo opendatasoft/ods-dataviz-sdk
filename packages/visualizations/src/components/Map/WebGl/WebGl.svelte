@@ -6,7 +6,7 @@
 
     import createDeepEqual from '../../../stores/createDeepEqual';
 
-    import Map from './Map';
+    import Map from './WebGl';
     import {
         getCenterZoomOptions,
         getMapLayers,
@@ -15,10 +15,10 @@
         getMapStyle,
         getPopupConfigurationByLayers,
     } from './utils';
-    import type { MapData, MapOptions } from './types';
+    import type { WebGlMapData, WebGlMapOptions } from './types';
 
-    export let options: MapOptions;
-    export let data: MapData = {};
+    export let options: WebGlMapOptions;
+    export let data: WebGlMapData = {};
 
     $: ({
         bbox: _bbox,

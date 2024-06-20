@@ -13,18 +13,18 @@ import type { BBox, GeoJsonProperties } from 'geojson';
 import type { POPUP_DISPLAY } from './constants';
 import type { Color } from '../../types';
 
-export type MapData = Partial<{
+export type WebGlMapData = Partial<{
     sources: StyleSpecification['sources'];
     layers: Layer[];
 }>;
 
-export interface MapOptions {
+export interface WebGlMapOptions {
     /*
      * To render a basemap. Could be:
      * - A MapLibre style URL; See https://maplibre.org/maplibre-gl-js/docs/API/types/maplibregl.MapOptions.
      * - Or an object with a 'sources' and a 'layers' keys. Useful when using a Raster or WMS basemap.
      */
-    style?: string | MapStyleOption;
+    style?: string | WebGlMapStyleOption;
     /**
      * A callback run before the Map makes a request for an external URL.
      * The callback can be used to modify the url, set headers, or set the credentials property for cross-origin requests.
@@ -53,7 +53,7 @@ export interface MapOptions {
     images?: Images;
 }
 
-export type MapStyleOption = Partial<Pick<StyleSpecification, 'sources' | 'layers'>>;
+export type WebGlMapStyleOption = Partial<Pick<StyleSpecification, 'sources' | 'layers'>>;
 
 // Supported layers
 export type LayerSpecification = CircleLayerSpecification | SymbolLayerSpecification;

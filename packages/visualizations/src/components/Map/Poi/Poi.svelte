@@ -1,13 +1,13 @@
 <script lang="ts">
-    import CategoryLegend from '../Legend/CategoryLegend.svelte';
-    import SourceLink from '../utils/SourceLink.svelte';
-    import Map from '../utils/Map';
+    import CategoryLegend from '../../Legend/CategoryLegend.svelte';
+    import SourceLink from '../../utils/SourceLink.svelte';
+    import WelGlMap from '../WebGl';
 
-    import type { MapPoiProps } from './types';
+    import type { PoiMapProps } from './types';
     import { DEFAULT_ASPECT_RATIO } from './constants';
 
     // ensure exported type matches declared props
-    type $$Props = MapPoiProps;
+    type $$Props = PoiMapProps;
 
     export let data: $$Props['data'];
     export let options: $$Props['options'];
@@ -44,7 +44,7 @@
     {/if}
     <div class="main" aria-describedby={description ? mapId.toString() : undefined}>
         {#key options.style}
-            <Map {options} data={data.value} />
+            <WelGlMap {options} data={data.value} />
         {/key}
     </div>
     {#if description}

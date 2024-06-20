@@ -1,12 +1,12 @@
 <script lang="ts">
-    import Map from '../../../utils/Map';
-    import type { MapOptions, MapData } from '../../../utils/Map/types';
+    import { WebGlMap } from '../../../Map';
+    import type { WebGlMapOptions, WebGlMapData } from '../../../Map';
 
     export let rawValue: unknown;
     export let display = (v: unknown) => v;
-    export let mapOptions: MapOptions;
-    export let sources: (v: unknown) => MapData['sources'] = () => ({});
-    export let layers: (v: unknown) => MapData['layers'] = () => [];
+    export let mapOptions: WebGlMapOptions;
+    export let sources: (v: unknown) => WebGlMapData['sources'] = () => ({});
+    export let layers: (v: unknown) => WebGlMapData['layers'] = () => [];
 
     let showMap = false;
 
@@ -25,7 +25,7 @@
     <div class="label" on:click={onLabelClick}>{display(rawValue)}</div>
     {#if showMap}
         <div class="table-cell-map-container">
-            <Map options={mapOptions} {data} />
+            <WebGlMap options={mapOptions} {data} />
         </div>
     {/if}
 </div>
