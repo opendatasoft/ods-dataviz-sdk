@@ -82,6 +82,7 @@ const options: TableOptions = {
         href: '',
     },
     locale: 'fr',
+    direction: 'ltr',
 };
 
 export default options;

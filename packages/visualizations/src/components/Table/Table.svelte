@@ -4,6 +4,7 @@
     import { generateId } from '../utils';
     import Headers from './Headers';
     import Body from './Body.svelte';
+    import { isRtl } from './store';
 
     export let loadingRowsNumber: number | null;
     export let columns: Column[];
@@ -14,7 +15,10 @@
 </script>
 
 <div>
-    <table aria-describedby={description ? tableId : undefined}>
+    <table
+        aria-describedby={description ? tableId : undefined}
+        class={$isRtl ? 'rtl-direction' : ''}
+    >
         <Headers {columns} />
         {#if records}
             <Body {loadingRowsNumber} {records} {columns} />
@@ -29,6 +33,10 @@
     /* Suitable for elements that are used via aria-describedby or aria-labelledby */
     .a11y-invisible-description {
         display: none;
+    }
+
+    .rtl-direction {
+        direction: rtl;
     }
 
     :global(.ods-dataviz--default) div {

@@ -3,7 +3,8 @@
     import Table from './Table.svelte';
     import Pagination from '../Pagination/Pagination.svelte';
     import Card from '../utils/Card.svelte';
-    import { locale } from './store';
+    import { locale, direction, isRtl } from './store';
+    import { RTL_LANGUAGES_CODE } from './constants';
 
     // ensure exported type matches declared props
     type $$Props = TableProps;
@@ -20,10 +21,13 @@
         source,
         unstyled,
         locale: localeOption,
+        direction: directionOption,
         pagination,
     } = options);
     $: $locale = localeOption || navigator.language;
     $: defaultLoadingRowsNumber = pagination ? pagination.recordsPerPage : 5;
+    $: $direction = directionOption || (RTL_LANGUAGES_CODE.includes($locale) ? 'rtl' : 'ltr');
+    $: $isRtl = $direction === 'rtl';
     $: loadingRowsNumber = isLoading ? defaultLoadingRowsNumber : null;
     /* Preserves paginations controls positioning
     min heigh of table + controls = max-height of row * (number of rows) + headers + pagination

@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { Column } from '../types';
     import Format, { isValidRawValue } from './Format';
+    import { isRtl } from '../store';
 
     export let rawValue: unknown;
     export let column: Column;
@@ -9,7 +10,7 @@
 </script>
 
 <!-- To display a format value, rawValue must be different from undefined or null -->
-<td class={`table-data--${dataFormat}`}>
+<td class="{`table-data--${dataFormat}`} {$isRtl ? 'rtl-direction' : ''}">
     {#if isValidRawValue(rawValue)}
         <svelte:component this={Format[dataFormat]} {rawValue} {...options} />
     {/if}
@@ -19,6 +20,10 @@
     :global(.ods-dataviz--default td) {
         text-align: left;
         padding: var(--spacing-75);
+    }
+
+    :global(.ods-dataviz--default td.rtl-direction) {
+        text-align: right;
     }
 
     :global(.ods-dataviz--default td.table-header--number) {

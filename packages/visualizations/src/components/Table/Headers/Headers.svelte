@@ -1,5 +1,6 @@
 <script lang="ts">
     import SortButton from './SortButton.svelte';
+    import { isRtl } from '../store';
     import type { Column } from '../types';
 
     export let columns: Column[];
@@ -8,7 +9,7 @@
 <thead>
     <tr>
         {#each columns as column}
-            <th class={`table-header--${column.dataFormat}`}>
+            <th class="{`table-header--${column.dataFormat}`} {$isRtl ? 'rtl-direction' : ''}">
                 {#if column.onClick}
                     <SortButton
                         sorted={column?.sorted}
@@ -32,6 +33,10 @@
     :global(.ods-dataviz--default th) {
         text-align: left;
         padding: var(--spacing-75);
+    }
+
+    :global(.ods-dataviz--default th.rtl-direction) {
+        text-align: right;
     }
 
     :global(.ods-dataviz--default th.table-header--number) {

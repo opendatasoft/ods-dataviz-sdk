@@ -101,6 +101,8 @@ export type TableOptions = {
     source?: Source;
     /** To format date and number with the right locale. Default is from browser language */
     locale?: string;
+    /** To set the reading direction of the table (based on locale). Default is 'ltr' */
+    direction?: string;
     /**
      * Removes all the presentational styles.
      * Default is `false`.
