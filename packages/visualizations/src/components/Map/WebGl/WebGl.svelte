@@ -4,7 +4,7 @@
     import type { LngLatBoundsLike } from 'maplibre-gl';
     import { onDestroy, onMount } from 'svelte';
 
-    import createDeepEqual from '../../../stores/createDeepEqual';
+    import createDeepEqual from 'stores/createDeepEqual';
 
     import Map from './WebGl';
     import {

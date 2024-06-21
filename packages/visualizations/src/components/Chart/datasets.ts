@@ -1,13 +1,13 @@
 import type { ChartDataset } from 'chart.js';
 import type { Options as DataLabelsOptions } from 'chartjs-plugin-datalabels/types/options';
+import { defaultCompactNumberFormat, assureMaxLength } from 'components/utils/formatter';
+import type { DataFrame } from 'components/types';
 import type {
     ChartSeries,
     DataLabelsConfiguration,
     FillConfiguration,
     ScriptableTreemapContext,
 } from './types';
-import type { DataFrame } from '../types';
-import { defaultCompactNumberFormat, assureMaxLength } from '../utils/formatter';
 import {
     defaultValue,
     singleChartJsColor,

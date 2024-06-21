@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { WebGlMap } from '../../../Map';
-    import type { WebGlMapOptions, WebGlMapData } from '../../../Map';
+    import { WebGlMap } from 'components/Map';
+    import type { WebGlMapOptions, WebGlMapData } from 'components/Map';
 
     export let rawValue: unknown;
     export let display = (v: unknown) => v;

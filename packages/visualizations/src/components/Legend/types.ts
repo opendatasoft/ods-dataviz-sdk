@@ -1,4 +1,4 @@
-import type { Color } from '../types';
+import type { Color } from 'components/types';
 
 export const LEGEND_POSITIONS = {
     bottom: 'bottom',

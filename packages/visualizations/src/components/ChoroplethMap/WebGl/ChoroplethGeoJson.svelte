@@ -3,7 +3,7 @@
     import type { ExpressionSpecification, SourceSpecification, GestureOptions } from 'maplibre-gl';
     import type { BBox, FeatureCollection } from 'geojson';
     import { debounce } from 'lodash';
-    import type { ColorScale, DataBounds, Color, Source } from '../../types';
+    import type { ColorScale, DataBounds, Color, Source } from 'components/types';
     import MapRender from './MapRender.svelte';
     import { BLANK } from '../mapStyles';
     import {
