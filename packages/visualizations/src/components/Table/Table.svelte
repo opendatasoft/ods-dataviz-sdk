@@ -13,7 +13,7 @@
     const tableId = `table-${generateId()}`;
 </script>
 
-<div>
+<div class="scrollbox">
     <table aria-describedby={description ? tableId : undefined}>
         <Headers {columns} />
         {#if records}
@@ -31,7 +31,7 @@
         display: none;
     }
 
-    :global(.ods-dataviz--default) div {
+    :global(.ods-dataviz--default) .scrollbox {
         border: solid 1px var(--border-color);
         border-radius: var(--border-radius-2);
         overflow-x: auto;
