@@ -6,7 +6,11 @@ function getAbsolutePath(value) {
 
 export default {
     stories: ['../stories/**/*.stories.@(ts|tsx|js|jsx)'],
-    addons: [getAbsolutePath("@storybook/addon-links"), getAbsolutePath("@storybook/addon-essentials")],
+    addons: [
+        getAbsolutePath("@storybook/addon-links"),
+        getAbsolutePath("@storybook/addon-essentials"),
+        "storybook-addon-rtl"
+    ],
     // https://storybook.js.org/docs/react/configure/typescript#mainjs-configuration
     typescript: {
         check: true, // type-check stories during Storybook build
@@ -22,5 +26,3 @@ export default {
         }
     }
 };
-
-
