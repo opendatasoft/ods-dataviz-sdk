@@ -9,7 +9,7 @@
 </script>
 
 <tbody>
-    {#if records.length === 0}
+    {#if records.length === 0 && !loadingRowsNumber}
         <tr>
             <td colspan={columns.length}>
                 <em>{emptyStateLabel}</em>
