@@ -1,6 +1,5 @@
 <script lang="ts">
-    import { geoPath } from 'd3-geo';
-    import type { GeoProjection } from 'd3-geo';
+    import { geoPath, GeoProjection } from 'd3-geo';
     import type { Feature, FeatureCollection } from 'geojson';
     import type { SvgPropertyMapping } from './types';
 
