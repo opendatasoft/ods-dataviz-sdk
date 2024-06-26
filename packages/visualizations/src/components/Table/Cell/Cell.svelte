@@ -17,7 +17,6 @@
 
 <style>
     :global(.ods-dataviz--default td) {
-        text-align: left;
         padding: var(--spacing-75);
     }
 
