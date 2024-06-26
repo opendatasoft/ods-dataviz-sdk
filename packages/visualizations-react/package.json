@@ -52,7 +52,7 @@
         "arrowParens": "avoid"
     },
     "dependencies": {
-        "@opendatasoft/visualizations": "0.24.1-beta.2",
+        "@opendatasoft/visualizations": "^0.25.0",
         "use-callback-ref": "^1.2.4"
     },
     "devDependencies": {
