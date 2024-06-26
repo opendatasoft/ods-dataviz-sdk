@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.25.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.24.1...@opendatasoft/visualizations@0.25.0) (2024-06-26)
+
+
+### Bug Fixes
+
+* **Table:** basic select style ([#244](https://github.com/opendatasoft/ods-dataviz-sdk/issues/244)) ([6095574](https://github.com/opendatasoft/ods-dataviz-sdk/commit/6095574a7a0df037b4710ddcd778bdc72b200498))
+
+
+### Features
+
+* **Table:** loading state ([#240](https://github.com/opendatasoft/ods-dataviz-sdk/issues/240)) ([65bbcea](https://github.com/opendatasoft/ods-dataviz-sdk/commit/65bbcea85313c602bebb0f46c4b6647594c9c623))
+
+
+
+
+
 ## [0.24.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.24.0...@opendatasoft/visualizations@0.24.1) (2024-06-03)
 
 
