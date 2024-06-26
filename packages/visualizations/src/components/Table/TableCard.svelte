@@ -21,6 +21,7 @@
         unstyled,
         locale: localeOption,
         pagination,
+        emptyStateLabel,
     } = options);
     $: $locale = localeOption || navigator.language;
     $: defaultLoadingRowsNumber = pagination ? pagination.recordsPerPage : 5;
@@ -32,7 +33,7 @@
 
 <Card {title} {subtitle} {source} defaultStyle={!unstyled}>
     <div>
-        <Table {loadingRowsNumber} {records} {columns} {description} />
+        <Table {loadingRowsNumber} {records} {columns} {description} {emptyStateLabel} />
         {#if pagination}
             <Pagination {...pagination} />
         {/if}

@@ -88,3 +88,9 @@ Loading.args = {
     data: fetchingData,
     options,
 };
+
+export const emptyState = Template.bind({});
+emptyState.args = {
+    data: { value: [], loading: false },
+    options: { ...options, emptyStateLabel: 'Neniuj registroj trovitaj...' },
+};
