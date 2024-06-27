@@ -110,6 +110,7 @@ export type TableOptions = {
     title?: string;
     subtitle?: string;
     description?: string;
+    emptyStateLabel?: string;
     source?: Source;
     /** To format date and number with the right locale. Default is from browser language */
     locale?: string;

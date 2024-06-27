@@ -20,6 +20,11 @@ const data: Async<TableData> = {
     loading: false,
 };
 
+const fetchingData: Async<TableData> = {
+    value: [],
+    loading: true,
+};
+
 const Template: ComponentStory<typeof Table> = args => <Table {...args} />;
 
 export const Playground = Template.bind({});
@@ -76,4 +81,16 @@ export const Unstyled = Template.bind({});
 Unstyled.args = {
     data,
     options: { ...options, unstyled: true },
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+    data: fetchingData,
+    options,
+};
+
+export const emptyState = Template.bind({});
+emptyState.args = {
+    data: { value: [], loading: false },
+    options: { ...options, emptyStateLabel: 'Neniuj registroj trovitaj...' },
 };
