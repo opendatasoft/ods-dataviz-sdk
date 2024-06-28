@@ -89,7 +89,7 @@
         justify-content: center;
         align-items: center;
         height: 28px;
-        width: 28px;
+        min-width: 28px;
         text-align: center;
         vertical-align: middle;
     }
