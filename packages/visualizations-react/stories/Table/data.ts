@@ -8,6 +8,7 @@ export default [
         wordCount: 1200,
         readingTime: 5.5,
         url: 'https://example.com/lorem-ipsum',
+        media: 'https://gravatar.com/avatar/1?s=400&d=robohash',
     },
     {
         title: 'pellentesque nec blog post',
@@ -19,6 +20,7 @@ export default [
         wordCount: 800,
         readingTime: 3.8,
         url: 'https://example.com/pellentesque-nec',
+        media: 'https://gravatar.com/unkown-url',
     },
     {
         title: 'fusce sit amet blog post',
@@ -30,6 +32,7 @@ export default [
         wordCount: 1500,
         readingTime: 7.2,
         url: 'https://example.com/fusce-sit-amet',
+        media: 'https://loremflickr.com/cache/resized/65535_52821605306_fb553abe7e_k_673_1280_nofilter.jpg',
     },
     {
         title: 'vestibulum nec blog post',
@@ -40,6 +43,7 @@ export default [
         wordCount: 1000,
         readingTime: 4.5,
         url: 'https://example.com/vestibulum-nec',
+        media: 'https://gravatar.com/avatar/4?s=400&d=robohash',
     },
     {
         title: 'Cras At Blog Post',
@@ -51,6 +55,7 @@ export default [
         wordCount: 1300,
         readingTime: 6.0,
         url: 'https://example.com/cras-at',
+        media: 'https://gravatar.com/avatar/5?s=400&d=robohash',
     },
     {
         title: 'Quisque A Blog Post',
@@ -62,6 +67,7 @@ export default [
         wordCount: 900,
         readingTime: 4.0,
         url: 'https://example.com/quisque-a',
+        media: 'https://gravatar.com/avatar/6?s=400&d=robohash',
     },
     {
         title: 'Ut Vitae Blog Post',
@@ -73,6 +79,7 @@ export default [
         wordCount: 1100,
         readingTime: 5.0,
         url: 'https://example.com/ut-vitae',
+        media: 'https://gravatar.com/avatar/7?s=400&d=robohash',
     },
     {
         title: 'Integer Id Blog Post',
@@ -84,6 +91,7 @@ export default [
         wordCount: 950,
         readingTime: 4.2,
         url: 'https://example.com/integer-id',
+        media: 'https://gravatar.com/avatar/8?s=400&d=robohash',
     },
     {
         title: 'Undefined row',
@@ -94,6 +102,7 @@ export default [
         wordCount: undefined,
         readingTime: null,
         url: undefined,
+        media: undefined,
     },
     {
         title: 'Empty row',

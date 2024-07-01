@@ -71,6 +71,11 @@ export const columns: Column[] = [
             display: () => 'link',
         },
     },
+    {
+        title: 'Media',
+        key: 'media',
+        dataFormat: 'media',
+    },
 ];
 
 const options: TableOptions = {
