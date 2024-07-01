@@ -1,5 +1,6 @@
 import tippy, { Props } from 'tippy.js';
 import 'tippy.js/dist/tippy.css';
+import './themes.scss';
 
 export default function tippyAction(node: HTMLElement, initialProps: Partial<Props>) {
     const instance = tippy(node, initialProps);
