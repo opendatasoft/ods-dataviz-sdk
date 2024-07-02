@@ -85,13 +85,27 @@ export type URLColumn = BaseColumn & {
     };
 };
 
+/**
+ * Render an interactive text that displays an image in a tooltip on tab/hover.
+ */
+export type ImageColumn = BaseColumn & {
+    dataFormat: typeof DATA_FORMAT.image;
+    options?: {
+        display?: (v: string) => string;
+        alt?: (v: string) => string;
+        loadingContent?: (v: string) => string;
+        errorContent?: (v: string) => string;
+    };
+};
+
 export type Column =
     | ShortTextColumn
     | LongTextColumn
     | NumberColumn
     | DateColumn
     | BooleanColumn
-    | URLColumn;
+    | URLColumn
+    | ImageColumn;
 
 export type TableOptions = {
     columns: Column[];

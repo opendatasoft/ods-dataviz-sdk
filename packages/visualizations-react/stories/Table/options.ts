@@ -71,6 +71,14 @@ export const columns: Column[] = [
             display: () => 'link',
         },
     },
+    {
+        title: 'Image',
+        key: 'image',
+        dataFormat: 'image',
+        options: {
+            loadingContent: () => '<div class="loader"></div>'
+        }
+    },
 ];
 
 const options: TableOptions = {
