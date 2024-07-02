@@ -1,6 +1,6 @@
-import type { Color, DataFrame, Source } from '../types';
-import type { LegendConfiguration } from '../Legend/types';
-import type { Async } from '../../types';
+import type { Async } from 'types';
+import type { Color, DataFrame, Source } from 'components/types';
+import type { LegendConfiguration } from 'components/Legend/types';
 
 export interface ChartOptions {
     /** Specify label column in DataFrame (mandatory for all charts except Treemap) */

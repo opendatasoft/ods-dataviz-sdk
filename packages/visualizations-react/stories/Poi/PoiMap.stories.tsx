@@ -154,7 +154,7 @@ const meta: ComponentMeta<typeof PoiMap> = {
 
 export default meta;
 
-const Template: ComponentStory<typeof PoiMap> = (args) => (
+const Template: ComponentStory<typeof PoiMap> = args => (
     <div
         style={{
             width: '50%',

@@ -29,6 +29,7 @@ import {
     POPUP_WIDTH,
     POPUP_NAVIGATION_CONTROLS_OFFSET_CLASSNAME,
     DEFAULT_SORT_KEY_VALUE,
+    POPUP_DISPLAY,
 } from './constants';
 import type {
     PopupConfigurationByLayers,
@@ -36,7 +37,6 @@ import type {
     PopupDisplayTypes,
     Images,
 } from './types';
-import { POPUP_DISPLAY } from './types';
 
 const CURSOR = {
     DEFAULT: 'default',

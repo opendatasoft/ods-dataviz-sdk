@@ -9,7 +9,8 @@
     export let onPageChange: (page: number) => void;
     export let totalRecords: number;
     export let recordsPerPage: number;
-    export let pageSizeSelect: PageSizeSelect;
+    // eslint-disable-next-line no-undef-init
+    export let pageSizeSelect: PageSizeSelect | undefined = undefined;
     export let labels: Pagination['labels'] = {};
 
     $: totalPages = Math.ceil(totalRecords / recordsPerPage);
