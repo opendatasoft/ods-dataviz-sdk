@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { tick } from 'svelte';
     import { WebGlMap } from 'components/Map';
     import tippy from 'components/utils/tippy';
+    import type { Content } from 'tippy.js';
 
     import type { WebGlMapOptions, WebGlMapData } from 'components/Map';
 
@@ -11,8 +11,8 @@
     export let sources: (v: unknown) => WebGlMapData['sources'] = () => ({});
     export let layers: (v: unknown) => WebGlMapData['layers'] = () => [];
 
-    let tooltipContent;
-    let showMap;
+    let tooltipContent: Content;
+    let showMap = false;
 
     $: data = {
         sources: sources(rawValue),
@@ -29,10 +29,10 @@
         delay: [500, 0],
         duration: [275, 0],
         maxWidth: 'none',
-        onTrigger: (instance) => {
+        onTrigger: () => {
             showMap = true;
         },
-        onUntrigger: (instance) => {
+        onUntrigger: () => {
             showMap = false;
         },
     }}
