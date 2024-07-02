@@ -87,7 +87,7 @@
     We place it inside a local selector to obtain some encapsulation and avoid side effects */
 
     /* --- POPUP ---  */
-    :global(.ods-visualization__map-popup) {
+    .ods-visualization__map-container :global(.maplibregl-popup) {
         /* To be above map controls (z-index: 2)*/
         z-index: 3;
         height: auto;
@@ -95,36 +95,35 @@
         box-sizing: border-box;
         max-width: none !important;
     }
-    :global(.ods-visualization__map-popup.ods-visualization__map-popup--as-sidebar),
-    :global(.ods-visualization__map-popup.ods-visualization__map-popup--as-modal) {
+    .ods-visualization__map-container :global(.maplibregl-popup--as-sidebar),
+    .ods-visualization__map-container :global(.maplibregl-popup--as-modal) {
         flex-direction: column;
         transform: translate(0px, 0px) !important;
         padding: 13px 13px 0px 13px;
     }
 
-    :global(.ods-visualization__map-popup.ods-visualization__map-popup--as-modal) {
+    .ods-visualization__map-container :global(.maplibregl-popup--as-modal) {
         width: 100% !important;
     }
-    :global(.ods-visualization__map-popup.ods-visualization__map-popup--as-sidebar) {
+    .ods-visualization__map-container :global(.maplibregl-popup--as-sidebar) {
         /* 300px for content and 26px for padding */
         width: calc(300px + 26px) !important;
     }
 
-    :global(.ods-visualization__map-popup.ods-visualization__map-popup--as-tooltip) {
+    .ods-visualization__map-container :global(.maplibregl-popup--as-tooltip) {
         width: 300px !important;
         max-height: 50%;
     }
 
     /* --- POPUP TIP ---  */
-    :global(.ods-visualization__map-popup.ods-visualization__map-popup--as-sidebar
-            > .maplibregl-popup-tip),
-    :global(.ods-visualization__map-popup.ods-visualization__map-popup--as-modal
-            > .maplibregl-popup-tip) {
+    .ods-visualization__map-container
+        :global(.maplibregl-popup--as-sidebar > .maplibregl-popup-tip),
+    .ods-visualization__map-container :global(.maplibregl-popup--as-modal > .maplibregl-popup-tip) {
         display: none;
     }
 
     /* --- POPUP CONTENT ---  */
-    :global(.ods-visualization__map-popup > .maplibregl-popup-content) {
+    .ods-visualization__map-container :global(.maplibregl-popup > .maplibregl-popup-content) {
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
@@ -136,8 +135,8 @@
         box-sizing: border-box;
         box-shadow: 0 6px 13px 0 rgba(0, 0, 0, 0.26);
     }
-    :global(.ods-visualization__map-popup .ods-visualization__map-popup-feature-content),
-    :global(.ods-visualization__map-popup .ods-visualization__map-popup-feature-content--loading) {
+    :global(.ods-visualization__map-popup-feature-content),
+    :global(.ods-visualization__map-popup-feature-content--loading) {
         margin: 13px;
     }
     /* Add a more opacity and blur effect on map when cooperative gesture is shown */
@@ -150,9 +149,8 @@
     /* Hide close button and offset when its display is as a tooltip
      * Hidden offset allow to center the arrows wrapper
      */
-    :global(.ods-visualization__map-popup--as-tooltip
-            .ods-visualization__map-popup-navigation-close-button),
-    :global(.ods-visualization__map-popup--as-tooltip
+    :global(.maplibregl-popup--as-tooltip .ods-visualization__map-popup-navigation-close-button),
+    :global(.maplibregl-popup--as-tooltip
             .ods-visualization__map-popup-navigation-controls-offset) {
         display: none;
     }

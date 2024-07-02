@@ -34,7 +34,7 @@ export const POPUP_WIDTH = 300;
 export const CONTROL_POSITION: ControlPosition = 'top-right';
 
 // Update styles in ./MapRender.svelte if one of these classnames must change.
-const POPUP_CLASSNAME = 'ods-visualization__map-popup';
+const POPUP_CLASSNAME = 'maplibregl-popup';
 export const POPUP_FEATURE_CONTENT = 'ods-visualization__map-popup-feature-content';
 export const POPUP_FEATURE_CONTENT_LOADING =
     'ods-visualization__map-popup-feature-content--loading';
@@ -60,7 +60,6 @@ export const POPUP_DISPLAY_CLASSNAME_MODIFIER: Record<PopupDisplayTypes, string>
 };
 
 export const POPUP_OPTIONS: PopupOptions = {
-    className: POPUP_CLASSNAME,
     closeButton: false,
     closeOnClick: false,
 };
