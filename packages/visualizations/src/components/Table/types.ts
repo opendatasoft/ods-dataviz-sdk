@@ -88,11 +88,13 @@ export type URLColumn = BaseColumn & {
 /**
  * Render an interactive text that displays an image in a tooltip on tab/hover.
  */
-export type MediaColumn = BaseColumn & {
-    dataFormat: typeof DATA_FORMAT.media;
+export type ImageColumn = BaseColumn & {
+    dataFormat: typeof DATA_FORMAT.image;
     options?: {
         display?: (v: string) => string;
         alt?: (v: string) => string;
+        loadingContent?: (v: string) => string;
+        errorContent?: (v: string) => string;
     };
 };
 
@@ -103,7 +105,7 @@ export type Column =
     | DateColumn
     | BooleanColumn
     | URLColumn
-    | MediaColumn;
+    | ImageColumn;
 
 export type TableOptions = {
     columns: Column[];

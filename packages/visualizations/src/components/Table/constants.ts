@@ -6,5 +6,5 @@ export const DATA_FORMAT = {
     number: 'number',
     boolean: 'boolean',
     url: 'url',
-    media: 'media',
+    image: 'image',
 } as const;

@@ -10,6 +10,7 @@ $tippy-box-shadow: 0 6px 13px 0 rgba(0, 0, 0, 0.26);
 .tippy-box[data-theme~='#{$table-theme}'] > .tippy-content {
     padding: 6px;
     border-radius: 6px;
+    color: black;
 }
 
 .tippy-box[data-theme~='#{$table-theme}'][data-placement^='top'] > .tippy-arrow::before {

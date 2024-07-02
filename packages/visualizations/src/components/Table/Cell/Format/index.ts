@@ -4,7 +4,7 @@ import NumberFormat from './NumberFormat.svelte';
 import URLFormat from './URLFormat.svelte';
 import ShortTextFormat from './ShortTextFormat.svelte';
 import LongTextFormat from './LongTextFormat.svelte';
-import MediaFormat from './MediaFormat.svelte';
+import ImageFormat from './ImageFormat.svelte';
 import { isValidRawValue } from './utils';
 
 const Format = {
@@ -14,7 +14,7 @@ const Format = {
     'long-text': LongTextFormat,
     url: URLFormat,
     number: NumberFormat,
-    media: MediaFormat,
+    image: ImageFormat,
 };
 
 export { isValidRawValue };

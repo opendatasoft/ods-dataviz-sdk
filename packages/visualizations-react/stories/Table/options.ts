@@ -72,9 +72,12 @@ export const columns: Column[] = [
         },
     },
     {
-        title: 'Media',
-        key: 'media',
-        dataFormat: 'media',
+        title: 'Image',
+        key: 'image',
+        dataFormat: 'image',
+        options: {
+            loadingContent: () => '<div class="loader"></div>'
+        }
     },
 ];
 
