@@ -49,7 +49,7 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
         align-items: center;
         gap: var(--spacing-100);
-        padding: 13px 0;
+        padding: 13px;
         .numbering {
             grid-area: numbering;
         }
@@ -60,6 +60,10 @@
             grid-area: size;
             margin-left: auto;
         }
+    }
+
+    :global(.table-container .pagination) {
+        border-top: solid 1px var(--border-color);
     }
 
     @container pagination (max-width: 500px) {
