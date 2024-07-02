@@ -1,5 +1,3 @@
-<svelte:options immutable={true} />
-
 <script lang="ts">
     import type { LngLatBoundsLike } from 'maplibre-gl';
     import { onDestroy, onMount } from 'svelte';
