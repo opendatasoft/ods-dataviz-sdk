@@ -43,8 +43,10 @@
 <style>
     :global(.ods-dataviz--default) .table-container {
         border: solid 1px var(--border-color);
-        border-radius: var(--border-radius-2);
+        border-radius: var(--border-radius-6);
         margin-bottom: var(--spacing-100);
+        overflow: hidden;
+        background-color: var(--background-color);
     }
     :global(.ods-dataviz--default) div {
         max-width: 100%;
