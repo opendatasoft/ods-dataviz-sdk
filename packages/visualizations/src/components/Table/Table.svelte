@@ -17,9 +17,7 @@
 <div class="scrollbox">
     <table aria-describedby={description ? tableId : undefined}>
         <Headers {columns} />
-        {#if records}
-            <Body {loadingRowsNumber} {records} {columns} {emptyStateLabel} />
-        {/if}
+        <Body {loadingRowsNumber} {records} {columns} {emptyStateLabel} />
     </table>
 </div>
 {#if description}
