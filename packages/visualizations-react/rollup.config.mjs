@@ -1,28 +1,26 @@
 import postcss from 'rollup-plugin-postcss';
 import autoprefixer from 'autoprefixer';
-import path from 'path';
 // import visualizer from 'rollup-plugin-visualizer';
-import { terser } from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
+import alias from '@rollup/plugin-alias';
 import typescript from '@rollup/plugin-typescript';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import { babel } from '@rollup/plugin-babel';
 import replace from '@rollup/plugin-replace';
-import alias from '@rollup/plugin-alias';
 import { defineConfig } from 'rollup';
-import pkg from './package.json';
+import pkg from './package.json' with { type: 'json' };
 
 const production = !process.env.ROLLUP_WATCH;
-const projectRootDir = path.resolve(__dirname);
 
 function basePlugins() {
     return [
         alias({
             entries: {
-                src: path.resolve(projectRootDir, 'src'),
-                reactify: path.resolve(projectRootDir, 'src/reactify'),
-                stories: path.resolve(projectRootDir, 'stories'),
+                src: 'src',
+                reactify: 'src/reactify',
+                stories: 'stories',
             },
         }),
         typescript({
@@ -52,7 +50,7 @@ function basePlugins() {
 function onwarn(warning, warn) {
     // https://github.com/moment/luxon/issues/193
     if (warning.code === 'CIRCULAR_DEPENDENCY') {
-        if (warning.importer.includes('node_modules/luxon')) {
+        if (warning.ids.includes('node_modules/luxon')) {
             return;
         }
     }
