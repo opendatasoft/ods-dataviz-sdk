@@ -35,7 +35,7 @@ const citiesLayer: Layer = {
 };
 
 const battlesLayer: Layer = {
-    id: 'layer-battle',
+    id: 'layer-battles',
     source: 'battles',
     type: 'symbol',
     iconImageId: 'battle-icon',
