@@ -11,13 +11,18 @@ module.exports = {
         'prettier',
         'plugin:svelte/prettier',
     ],
+    settings: {
+        'import/resolver': {
+            typescript: {},
+        },
+    },
     parser: '@typescript-eslint/parser',
     parserOptions: {
         project: './tsconfig.json',
         extraFileExtensions: ['.svelte'],
         tsconfigRootDir: __dirname,
     },
-    plugins: ['@typescript-eslint', 'prettier'],
+    plugins: ['@typescript-eslint', 'prettier', 'import'],
     overrides: [
         {
             files: ['*.svelte'],

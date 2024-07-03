@@ -9,9 +9,8 @@ import type {
     StyleImageMetadata,
 } from 'maplibre-gl';
 import type { BBox, GeoJsonProperties } from 'geojson';
-import type { Async } from '../../types';
-import type { Color, Source } from '../types';
-import type { CategoryLegend } from '../Legend/types';
+import type { Async, Color, Source } from 'types';
+import type { CategoryLegend } from 'components/Legend/types';
 
 // To render data layers on the map
 export type PoiMapData = Partial<{

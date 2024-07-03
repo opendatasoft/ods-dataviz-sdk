@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { LineCategoryItem } from '../../types';
+    import type { LineCategoryItem } from 'types';
 
     export let item: LineCategoryItem;
 </script>

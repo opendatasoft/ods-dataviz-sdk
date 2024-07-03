@@ -8,7 +8,7 @@ import type {
     FilterSpecification,
 } from 'maplibre-gl';
 
-import { isGroupByForMatchExpression, Color } from '../types';
+import { isGroupByForMatchExpression, Color } from 'types';
 
 import type {
     CenterZoomOptions,

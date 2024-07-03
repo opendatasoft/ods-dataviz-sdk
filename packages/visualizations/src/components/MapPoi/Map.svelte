@@ -1,5 +1,5 @@
 <script lang="ts">
-    import createDeepEqual from '../../stores/createDeepEqual';
+    import createDeepEqual from 'stores/createDeepEqual';
 
     import MapRender from './MapRender.svelte';
 

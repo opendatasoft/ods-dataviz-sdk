@@ -1,3 +1,8 @@
+/* WARNING: do NOT use alisases, in this specific file. 
+Only path working at runtime will work (it's a problem with TS that copy aliases into .d.ts)
+Anywhere else, aliases are fine :)
+*/
+
 export { default as Chart, _ChartDataLabels } from './components/Chart';
 export { default as MarkdownText } from './components/MarkdownText';
 export { default as KpiCard } from './components/KpiCard';
@@ -7,7 +12,6 @@ export { default as PoiMap } from './components/MapPoi';
 export { default as Table } from './components/Table';
 
 export * from './types';
-export * from './components/types';
 export * from './components/Chart/types';
 export * from './components/KpiCard/types';
 export * from './components/Map/types';

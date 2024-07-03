@@ -1,8 +1,8 @@
 <script lang="ts">
+    import Pagination from 'components/Pagination/Pagination.svelte';
+    import Card from 'components/utils/Card.svelte';
     import type { TableProps } from './types';
     import Table from './Table.svelte';
-    import Pagination from '../Pagination/Pagination.svelte';
-    import Card from '../utils/Card.svelte';
     import { locale } from './store';
 
     // ensure exported type matches declared props

@@ -10,10 +10,10 @@
         GestureOptions,
     } from 'maplibre-gl';
     import { onDestroy, onMount } from 'svelte';
-    import CategoryLegend from '../Legend/CategoryLegend.svelte';
-    import type { CategoryLegend as CategoryLegendType } from '../Legend/types';
-    import SourceLink from '../utils/SourceLink.svelte';
-    import type { Source } from '../types';
+    import CategoryLegend from 'components/Legend/CategoryLegend.svelte';
+    import SourceLink from 'components/utils/SourceLink.svelte';
+    import type { CategoryLegend as CategoryLegendType } from 'components/Legend/types';
+    import type { Source } from 'types';
 
     import Map from './Map';
     import { getCenterZoomOptions } from './utils';

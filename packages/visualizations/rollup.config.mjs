@@ -1,3 +1,5 @@
+import path from 'path';
+import { fileURLToPath } from 'url';
 import svelte from 'rollup-plugin-svelte';
 import alias from '@rollup/plugin-alias';
 import autoPreprocess from 'svelte-preprocess';
@@ -15,14 +17,17 @@ import { defineConfig } from 'rollup';
 import pkg from './package.json' with { type: 'json' };
 
 const production = !process.env.ROLLUP_WATCH;
+const __fileName = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__fileName);
+const projectRootDir = path.resolve(__dirname);
 
 function basePlugins() {
     return [
         alias({
             entries: {
-                "components": 'src/components',
-                "stores": 'src/stores',
-                "types": 'src/types',
+                "components": path.resolve(projectRootDir, 'src/components'),
+                "stores": path.resolve(projectRootDir, 'src/stores'),
+                "types": path.resolve(projectRootDir, 'src/types'),
             },
         }),
         svelte({

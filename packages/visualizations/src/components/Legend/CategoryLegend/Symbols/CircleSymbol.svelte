@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { CircleCategoryItem } from '../../types';
+    import type { CircleCategoryItem } from 'types';
 
     export let item: CircleCategoryItem;
 </script>

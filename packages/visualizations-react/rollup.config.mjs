@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'url';
+import path from 'path';
 import postcss from 'rollup-plugin-postcss';
 import autoprefixer from 'autoprefixer';
 // import visualizer from 'rollup-plugin-visualizer';
@@ -13,14 +15,17 @@ import { defineConfig } from 'rollup';
 import pkg from './package.json' with { type: 'json' };
 
 const production = !process.env.ROLLUP_WATCH;
+const __fileName = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__fileName);
+const projectRootDir = path.resolve(__dirname);
 
 function basePlugins() {
     return [
         alias({
             entries: {
-                src: 'src',
-                reactify: 'src/reactify',
-                stories: 'stories',
+                src: path.resolve(projectRootDir, 'src'),
+                reactify: path.resolve(projectRootDir, 'src/reactify'),
+                stories: path.resolve(projectRootDir, 'stories'),
             },
         }),
         typescript({

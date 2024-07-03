@@ -1,7 +1,7 @@
 <script lang="ts">
+    import type { CategoryItem } from 'types';
     import CategoryLegendItemLabel from './CategoryLegendItemLabel.svelte';
     import CategoryLegendItemSymbol from './CategoryLegendItemSymbol.svelte';
-    import type { CategoryItem } from '../../types';
 
     export let item: CategoryItem;
     export let itemIndex: number;

@@ -4,7 +4,7 @@ import type {
     PopupOptions,
     StyleSpecification,
 } from 'maplibre-gl';
-import type { Color } from '../types';
+import type { Color } from 'types';
 import { POPUP_DISPLAY, PopupDisplayTypes } from './types';
 
 export const DEFAULT_BASEMAP_STYLE: StyleSpecification = {

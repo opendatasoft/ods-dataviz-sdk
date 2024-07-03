@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { ImageCategoryItem } from '../../types';
+    import type { ImageCategoryItem } from 'types';
 
     export let item: ImageCategoryItem;
 </script>
