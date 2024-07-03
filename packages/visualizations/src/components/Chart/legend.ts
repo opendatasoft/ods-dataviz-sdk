@@ -1,9 +1,9 @@
 import type { LegendOptions, ChartConfiguration, Chart } from 'chart.js';
 import type { _DeepPartialObject } from 'chart.js/dist/types/utils';
-import { assureMaxLength } from 'components/utils/formatter';
-import { CATEGORY_ITEM_VARIANT } from 'components/Legend/types';
 import type { ChartOptions } from './types';
+import { assureMaxLength } from '../utils/formatter';
 import { defaultValue, DEFAULT_GREY_COLOR } from './utils';
+import { CATEGORY_ITEM_VARIANT } from '../Legend/types';
 
 const LEGEND_MAX_LENGTH = 50;
 

@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { WebGlMap } from 'components/Map';
-    import tippy from 'components/utils/tippy';
     import type { Content } from 'tippy.js';
 
-    import type { WebGlMapOptions, WebGlMapData } from 'components/Map';
+    import { WebGlMap } from '../../../Map';
+    import type { WebGlMapOptions, WebGlMapData } from '../../../Map';
+    import tippy from '../../../utils/tippy';
 
     export let rawValue: unknown;
     export let display = (v: unknown) => v;

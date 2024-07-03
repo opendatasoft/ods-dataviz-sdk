@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { Source } from 'components/types';
+    import type { Source } from '../types';
 
     export let source: Source;
     const { href, label = 'View source', style } = source;

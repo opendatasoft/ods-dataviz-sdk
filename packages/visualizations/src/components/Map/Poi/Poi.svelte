@@ -1,6 +1,6 @@
 <script lang="ts">
-    import CategoryLegend from 'components/Legend/CategoryLegend.svelte';
-    import SourceLink from 'components/utils/SourceLink.svelte';
+    import CategoryLegend from '../../Legend/CategoryLegend.svelte';
+    import SourceLink from '../../utils/SourceLink.svelte';
     import WelGlMap from '../WebGl';
 
     import type { PoiMapProps } from './types';

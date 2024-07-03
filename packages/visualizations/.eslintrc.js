@@ -3,11 +3,6 @@ module.exports = {
         browser: true,
         es2021: true,
     },
-    settings: {
-        "import/resolver": {
-            typescript: {}
-        },
-    },
     extends: [
         'eslint:recommended',
         'plugin:@typescript-eslint/recommended',

@@ -4,8 +4,8 @@ import maplibregl, { ExpressionInputType, ExpressionSpecification } from 'maplib
 import { viewport } from '@placemarkio/geo-viewport';
 import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
 import type { Scale } from 'chroma-js';
-import { assertUnreachable } from 'components/utils';
 import { DEFAULT_COLORS } from './constants';
+import { assertUnreachable } from '../utils';
 import {
     Color,
     ColorScale,

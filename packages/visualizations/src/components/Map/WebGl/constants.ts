@@ -4,7 +4,7 @@ import type {
     ControlPosition,
     PopupOptions,
 } from 'maplibre-gl';
-import type { Color } from 'components/types';
+import type { Color } from '../../types';
 
 import type { PopupDisplayTypes } from './types';
 

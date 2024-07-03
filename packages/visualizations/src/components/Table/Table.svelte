@@ -1,7 +1,7 @@
 <script lang="ts">
-    import type { DataFrame } from 'components/types';
-    import { generateId } from 'components/utils';
+    import type { DataFrame } from '../types';
     import type { Column } from './types';
+    import { generateId } from '../utils';
     import Headers from './Headers';
     import Body from './Body.svelte';
 

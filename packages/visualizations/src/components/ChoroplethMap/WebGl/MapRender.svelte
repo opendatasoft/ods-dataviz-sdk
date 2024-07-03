@@ -14,13 +14,13 @@
     import { onMount } from 'svelte';
     import { debounce } from 'lodash';
     import type { BBox } from 'geojson';
-    import SourceLink from 'components/utils/SourceLink.svelte';
-    import ColorsLegend from 'components/Legend/ColorsLegend.svelte';
-    import BackButton from 'components/utils/BackButton.svelte';
-    import MiniMap from 'components/utils/MiniMap.svelte';
-    import type { ColorScale, DataBounds, Source } from 'components/types';
-    import type { LegendVariant } from 'components/Legend/types';
+    import SourceLink from '../../utils/SourceLink.svelte';
     import { computeMaxZoomFromGeoJsonFeatures, getFixedTooltips } from '../utils';
+    import ColorsLegend from '../../Legend/ColorsLegend.svelte';
+    import BackButton from '../../utils/BackButton.svelte';
+    import MiniMap from '../../utils/MiniMap.svelte';
+    import type { ColorScale, DataBounds, Source } from '../../types';
+    import type { LegendVariant } from '../../Legend/types';
     import type {
         ChoroplethFixedTooltipDescription,
         MapLayer,

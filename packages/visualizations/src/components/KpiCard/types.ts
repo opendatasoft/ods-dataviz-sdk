@@ -1,5 +1,5 @@
-import type { Async } from 'types';
-import type { Color, Source } from 'components/types';
+import type { Color, Source } from '../types';
+import type { Async } from '../../types';
 
 export interface KpiCardOptions {
     title?: string;
