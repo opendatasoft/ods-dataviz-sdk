@@ -1,9 +1,5 @@
 <script lang="ts">
     import Button from './Button.svelte';
-    import DoubleLeft from './DoubleLeft.svelte';
-    import DoubleRight from './DoubleRight.svelte';
-    import SingleLeft from './SingleLeft.svelte';
-    import SingleRight from './SingleRight.svelte';
     import { getPages } from './utils';
     import type { Pagination } from './types';
 
@@ -19,7 +15,7 @@
     <li>
         <Button
             on:click={() => onPageChange(1)}
-            icon={DoubleLeft}
+            pointingAngle="doubleLeft"
             label={labels?.firstPage}
             disabled={current === 1}
             class="arrow-button"
@@ -28,7 +24,7 @@
     <li>
         <Button
             on:click={() => onPageChange(current - 1)}
-            icon={SingleLeft}
+            pointingAngle="singleLeft"
             label={labels?.previousPage}
             disabled={current === 1}
             class="arrow-button"
@@ -54,7 +50,7 @@
     <li>
         <Button
             on:click={() => onPageChange(current + 1)}
-            icon={SingleRight}
+            pointingAngle="singleRight"
             label={labels?.nextPage}
             disabled={current === totalPages}
             class="arrow-button"
@@ -63,7 +59,7 @@
     <li>
         <Button
             on:click={() => onPageChange(totalPages)}
-            icon={DoubleRight}
+            pointingAngle="doubleRight"
             label={labels?.lastPage}
             disabled={current === totalPages}
             class="arrow-button"
@@ -85,13 +81,9 @@
     }
 
     li {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
         height: 28px;
         min-width: 28px;
         text-align: center;
-        vertical-align: middle;
     }
 
     li button {

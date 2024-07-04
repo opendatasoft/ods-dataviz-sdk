@@ -38,6 +38,10 @@
         -moz-appearance: none;
         -webkit-appearance: none;
         appearance: none;
-        padding-right: var(--spacing-100);
+        padding-inline-end: var(--spacing-100);
+    }
+
+    :global(html[dir=rtl] .ods-dataviz--default) select {
+        background-position: 5%;
     }
 </style>

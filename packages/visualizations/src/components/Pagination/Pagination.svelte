@@ -15,7 +15,7 @@
     $: totalPages = Math.ceil(totalRecords / recordsPerPage);
 </script>
 
-<div class="pagination-container" dir="ltr">
+<div class="pagination-container">
     <div class="pagination">
         <div class="numbering">
             <Numbering
@@ -58,7 +58,8 @@
         }
         .page-size {
             grid-area: size;
-            margin-left: auto;
+            display: flex;
+            flex-direction: row-reverse;
         }
     }
 
