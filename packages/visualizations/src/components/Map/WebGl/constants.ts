@@ -62,4 +62,5 @@ export const POPUP_DISPLAY_CLASSNAME_MODIFIER: Record<PopupDisplayTypes, string>
 export const POPUP_OPTIONS: PopupOptions = {
     closeButton: false,
     closeOnClick: false,
+    maxWidth: 'none',
 };

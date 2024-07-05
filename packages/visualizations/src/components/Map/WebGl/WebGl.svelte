@@ -93,7 +93,6 @@
         height: auto;
         max-height: 100%;
         box-sizing: border-box;
-        max-width: none !important;
     }
     .ods-visualization__map-container :global(.maplibregl-popup--as-sidebar),
     .ods-visualization__map-container :global(.maplibregl-popup--as-modal) {
@@ -103,15 +102,15 @@
     }
 
     .ods-visualization__map-container :global(.maplibregl-popup--as-modal) {
-        width: 100% !important;
+        width: 100%;
     }
     .ods-visualization__map-container :global(.maplibregl-popup--as-sidebar) {
         /* 300px for content and 26px for padding */
-        width: calc(300px + 26px) !important;
+        width: calc(300px + 26px);
     }
 
     .ods-visualization__map-container :global(.maplibregl-popup--as-tooltip) {
-        width: 300px !important;
+        width: 300px;
         max-height: 50%;
     }
 
