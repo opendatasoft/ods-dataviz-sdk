@@ -63,10 +63,6 @@
         }
     }
 
-    :global(.table-container .pagination) {
-        border-top: solid 1px var(--border-color);
-    }
-
     @container pagination (max-width: 500px) {
         .pagination {
             grid-template-columns: repeat(2, minmax(0, 1fr));

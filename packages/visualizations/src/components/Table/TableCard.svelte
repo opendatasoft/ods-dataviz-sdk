@@ -54,4 +54,7 @@
         flex-direction: column;
         justify-content: space-between;
     }
+    :global(.table-container .pagination) {
+        border-top: solid 1px var(--border-color);
+    }
 </style>
