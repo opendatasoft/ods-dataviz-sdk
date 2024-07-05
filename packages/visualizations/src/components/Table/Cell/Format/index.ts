@@ -4,6 +4,7 @@ import NumberFormat from './NumberFormat.svelte';
 import URLFormat from './URLFormat.svelte';
 import ShortTextFormat from './ShortTextFormat.svelte';
 import LongTextFormat from './LongTextFormat.svelte';
+import GeoFormat from './GeoFormat.svelte';
 import { isValidRawValue } from './utils';
 
 const Format = {
@@ -13,6 +14,7 @@ const Format = {
     'long-text': LongTextFormat,
     url: URLFormat,
     number: NumberFormat,
+    geo: GeoFormat,
 };
 
 export { isValidRawValue };

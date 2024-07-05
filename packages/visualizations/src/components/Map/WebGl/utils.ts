@@ -1,38 +1,33 @@
 import type {
     CircleLayerSpecification,
     ExpressionSpecification,
-    MapOptions,
+    MapOptions as MapLibreMapOptions,
     StyleSpecification,
     ExpressionInputType,
     SymbolLayerSpecification,
     FilterSpecification,
 } from 'maplibre-gl';
 
-import { isGroupByForMatchExpression, Color } from '../types';
+import { isGroupByForMatchExpression, Color } from '../../types';
 
 import type {
-    CenterZoomOptions,
     CircleLayer,
     LayerSpecification,
     Layer,
-    PoiMapData,
-    PoiMapOptions,
+    WebGlMapData,
+    WebGlMapOptions,
     PopupConfigurationByLayers,
     SymbolLayer,
+    CenterZoomOptions,
 } from './types';
-import {
-    DEFAULT_DARK_GREY,
-    DEFAULT_BASEMAP_STYLE,
-    DEFAULT_ASPECT_RATIO,
-    DEFAULT_SORT_KEY_VALUE,
-} from './constants';
+import { DEFAULT_DARK_GREY, DEFAULT_BASEMAP_STYLE, DEFAULT_SORT_KEY_VALUE } from './constants';
 
-export const getMapStyle = (style: PoiMapOptions['style']): MapOptions['style'] => {
+export const getMapStyle = (style: WebGlMapOptions['style']): MapLibreMapOptions['style'] => {
     if (!style) return DEFAULT_BASEMAP_STYLE;
     if (typeof style === 'string') return style;
     return { ...DEFAULT_BASEMAP_STYLE, ...style };
 };
-export const getMapSources = (sources: PoiMapData['sources']): StyleSpecification['sources'] => {
+export const getMapSources = (sources: WebGlMapData['sources']): StyleSpecification['sources'] => {
     if (!sources) return DEFAULT_BASEMAP_STYLE.sources;
     return sources;
 };
@@ -156,38 +151,26 @@ export const getPopupConfigurationByLayers = (layers?: Layer[]): PopupConfigurat
     return configurationByLayers;
 };
 
-export const getMapOptions = (options: PoiMapOptions) => {
+export const getMapOptions = (options: WebGlMapOptions) => {
     const {
-        aspectRatio = DEFAULT_ASPECT_RATIO,
         bbox,
         zoom,
         maxZoom,
         minZoom,
         center,
         interactive = true,
-        title,
-        subtitle,
-        description,
-        legend,
-        sourceLink,
         transformRequest,
         cooperativeGestures,
         preserveDrawingBuffer = false,
         images,
     } = options;
     return {
-        aspectRatio,
         bbox,
         zoom,
         minZoom,
         maxZoom,
         center,
         interactive,
-        title,
-        subtitle,
-        description,
-        legend,
-        sourceLink,
         transformRequest,
         cooperativeGestures,
         preserveDrawingBuffer,

@@ -1,7 +1,7 @@
 
 import { PoiMapData } from '@opendatasoft/visualizations';
 
-const sources : PoiMapData["sources"] = {
+const sources : Required<PoiMapData>["value"]["sources"] = {
     cities : {
         type: 'geojson', 
         data: {
