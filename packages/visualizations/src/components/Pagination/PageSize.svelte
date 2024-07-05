@@ -41,7 +41,7 @@
         padding-inline-end: var(--spacing-100);
     }
 
-    :global(html[dir=rtl] .ods-dataviz--default) select {
+    :global(html[dir='rtl'] .ods-dataviz--default) select {
         background-position: 5%;
     }
 </style>
