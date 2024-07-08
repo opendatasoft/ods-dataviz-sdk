@@ -119,7 +119,7 @@ export const columns: Column[] = [
                 bbox: [-6.855469, 41.343825, 11.645508, 51.37178],
                 zoom: 3,
             },
-            display: () => 'Click to open map',
+            display: (v : unknown) => v as string,
             sources: (v: unknown) => ({
                 'table-stories' : {
                     type: 'geojson', 
