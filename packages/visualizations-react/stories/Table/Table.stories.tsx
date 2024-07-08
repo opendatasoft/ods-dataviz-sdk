@@ -101,7 +101,7 @@ emptyState.args = {
 export const RtlDirection = Template.bind({});
 RtlDirection.parameters = {
     direction: 'rtl',
-    disableSnapshot: true,
+    chromatic: { disableSnapshot: true },
 };
 RtlDirection.args = {
     data,
