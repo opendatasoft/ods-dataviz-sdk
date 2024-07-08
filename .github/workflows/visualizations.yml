@@ -65,10 +65,6 @@ jobs:
   chromatic-deployment:
     if: github.event.pull_request.draft == false || github.ref_name == 'main'
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ["18.x", "20.x"]
-
     needs: [test, lint]
     
     steps:
@@ -77,10 +73,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Use Node ${{ matrix.node }}
+      - name: Use Node 20
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
+          node-version: '20.x'
 
       - name: Build
         run: npm run build-ci
