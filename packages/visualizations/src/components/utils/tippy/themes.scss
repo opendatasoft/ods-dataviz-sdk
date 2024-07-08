@@ -1,0 +1,26 @@
+$table-theme: 'ods-visualization-table';
+$table-background-color: white;
+$tippy-box-shadow: 0 6px 13px 0 rgba(0, 0, 0, 0.26);
+
+.tippy-box[data-theme~='#{$table-theme}'] {
+    background-color: $table-background-color;
+    box-shadow: $tippy-box-shadow;
+}
+
+.tippy-box[data-theme~='#{$table-theme}'] > .tippy-content {
+    padding: 6px;
+    border-radius: 6px;
+}
+
+.tippy-box[data-theme~='#{$table-theme}'][data-placement^='top'] > .tippy-arrow::before {
+    border-top-color: $table-background-color;
+}
+.tippy-box[data-theme~='#{$table-theme}'][data-placement^='bottom'] > .tippy-arrow::before {
+    border-bottom-color: $table-background-color;
+}
+.tippy-box[data-theme~='#{$table-theme}'][data-placement^='left'] > .tippy-arrow::before {
+    border-left-color: $table-background-color;
+}
+.tippy-box[data-theme~='#{$table-theme}'][data-placement^='right'] > .tippy-arrow::before {
+    border-right-color: $table-background-color;
+}

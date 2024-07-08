@@ -1,5 +1,6 @@
 <script lang="ts">
-    import { ColumnSort, type ColumnSortValues } from "../types";
+    import { ColumnSort } from '../types';
+    import type { ColumnSortValues } from '../types';
 
     export let sorted: ColumnSortValues | undefined;
 </script>
