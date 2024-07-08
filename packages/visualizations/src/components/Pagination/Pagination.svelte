@@ -59,8 +59,7 @@
         }
         .page-size {
             grid-area: size;
-            display: flex;
-            flex-direction: row-reverse;
+            justify-self: end;
         }
     }
 

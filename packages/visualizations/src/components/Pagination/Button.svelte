@@ -5,7 +5,7 @@
         doubleLeft: '&laquo;',
         doubleRight: '&raquo;',
     };
-    export let pointingAngle: 'singleLeft' | 'singleRight' | 'doubleLeft' | 'doubleRight';
+    export let pointingAngle: keyof typeof angleQuotationMark;
     export let disabled = false;
     export let label: string | undefined;
 </script>
