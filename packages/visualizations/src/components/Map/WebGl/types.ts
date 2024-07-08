@@ -1,5 +1,6 @@
 import type {
     CircleLayerSpecification,
+    FillLayerSpecification,
     GeoJSONFeature,
     GestureOptions,
     LngLatLike,
@@ -56,7 +57,10 @@ export interface WebGlMapOptions {
 export type WebGlMapStyleOption = Partial<Pick<StyleSpecification, 'sources' | 'layers'>>;
 
 // Supported layers
-export type LayerSpecification = CircleLayerSpecification | SymbolLayerSpecification;
+export type LayerSpecification =
+    | CircleLayerSpecification
+    | SymbolLayerSpecification
+    | FillLayerSpecification;
 
 type BaseLayer = {
     id: string;
@@ -103,7 +107,14 @@ export type SymbolLayer = BaseLayer & {
     };
 };
 
-export type Layer = CircleLayer | SymbolLayer;
+export type FillLayer = BaseLayer & {
+    type: FillLayerSpecification['type'];
+    color: Color;
+    borderColor?: Color;
+    opacity?: number;
+};
+
+export type Layer = CircleLayer | SymbolLayer | FillLayer;
 
 export type GeoPoint = {
     lat: number;
