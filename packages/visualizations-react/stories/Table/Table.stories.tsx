@@ -27,43 +27,46 @@ const fetchingData: Async<TableData> = {
 
 const Template: ComponentStory<typeof Table> = args => <Table {...args} />;
 
-export const Playground = Template.bind({});
-Playground.args = {
-    data,
-    options,
-};
-
 const CustomStyleTemplate: ComponentStory<typeof Table> = args => (
     <div className="table-story--custom-style">
         <Table {...args} />
     </div>
 );
-export const CustomStyle = CustomStyleTemplate.bind({});
-CustomStyle.args = {
-    data,
-    options: {
-        ...options,
-        pagination: {
-            current: 1,
-            totalRecords: value.length,
-            recordsPerPage: 5,
-            onPageChange: () => {},
-            pageSizeSelect: {
-                options: [
-                    { label: '5 per page', value: 5 },
-                    { label: '10 per page', value: 10 },
-                ],
-                onChange: () => {},
-            },
-        },
-    },
-};
 
 const ScrollTemplate: ComponentStory<typeof Table> = args => (
     <div style={{ maxWidth: '800px' }}>
         <Table {...args} />
     </div>
 );
+
+const optionsWithPagination = {
+    ...options,
+    pagination: {
+        current: 1,
+        totalRecords: value.length,
+        recordsPerPage: 5,
+        onPageChange: () => {},
+        pageSizeSelect: {
+            options: [
+                { label: '5 per page', value: 5 },
+                { label: '10 per page', value: 10 },
+            ],
+            onChange: () => {},
+        },
+    },
+};
+
+export const Playground = Template.bind({});
+Playground.args = {
+    data,
+    options,
+};
+
+export const CustomStyle = CustomStyleTemplate.bind({});
+CustomStyle.args = {
+    data,
+    options: optionsWithPagination,
+};
 
 export const Scroll = ScrollTemplate.bind({});
 Scroll.args = {
@@ -93,4 +96,11 @@ export const emptyState = Template.bind({});
 emptyState.args = {
     data: { value: [], loading: false },
     options: { ...options, emptyStateLabel: 'Neniuj registroj trovitaj...' },
+};
+
+export const RtlDirection = Template.bind({});
+RtlDirection.parameters = { direction: 'rtl' };
+RtlDirection.args = {
+    data,
+    options: optionsWithPagination,
 };

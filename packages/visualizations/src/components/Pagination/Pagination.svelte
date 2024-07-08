@@ -50,7 +50,7 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
         align-items: center;
         gap: var(--spacing-100);
-        padding: 13px 0;
+        padding: 13px;
         .numbering {
             grid-area: numbering;
         }
@@ -59,7 +59,7 @@
         }
         .page-size {
             grid-area: size;
-            margin-left: auto;
+            justify-self: end;
         }
     }
 
