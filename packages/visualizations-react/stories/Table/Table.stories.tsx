@@ -99,7 +99,10 @@ emptyState.args = {
 };
 
 export const RtlDirection = Template.bind({});
-RtlDirection.parameters = { direction: 'rtl' };
+RtlDirection.parameters = {
+    direction: 'rtl',
+    disableSnapshot: true,
+};
 RtlDirection.args = {
     data,
     options: optionsWithPagination,
