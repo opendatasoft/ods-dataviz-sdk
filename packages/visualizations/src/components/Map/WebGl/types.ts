@@ -9,10 +9,10 @@ import type {
     StyleSpecification,
     SymbolLayerSpecification,
 } from 'maplibre-gl';
-
 import type { BBox, GeoJsonProperties } from 'geojson';
+import type { Color } from 'types';
+
 import type { POPUP_DISPLAY } from './constants';
-import type { Color } from '../../types';
 
 export type WebGlMapData = Partial<{
     sources: StyleSpecification['sources'];

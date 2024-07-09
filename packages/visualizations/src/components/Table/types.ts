@@ -1,8 +1,7 @@
-import type { DataFrame, Source } from '../types';
+import type { DataFrame, Source, Async } from 'types';
+import type { WebGlMapData, WebGlMapOptions } from 'components/Map';
 import type { DATA_FORMAT } from './constants';
 import type { Pagination } from '../Pagination/types';
-import type { Async } from '../../types';
-import type { WebGlMapData, WebGlMapOptions } from '../Map';
 
 type DataFormatKey = keyof typeof DATA_FORMAT;
 export type DataFormat = typeof DATA_FORMAT[DataFormatKey];

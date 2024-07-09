@@ -1,8 +1,8 @@
 <script lang="ts">
-    import tippy from '../utils/tippy';
+    import SourceLink from 'components/utils/SourceLink.svelte';
+    import { defaultCompactNumberFormat, defaultNumberFormat } from 'components/utils/formatter';
+    import tippy from 'components/utils/tippy';
     import type { KpiProps } from './types';
-    import SourceLink from '../utils/SourceLink.svelte';
-    import { defaultCompactNumberFormat, defaultNumberFormat } from '../utils/formatter';
 
     type $$Props = KpiProps;
     export let data: $$Props['data'];

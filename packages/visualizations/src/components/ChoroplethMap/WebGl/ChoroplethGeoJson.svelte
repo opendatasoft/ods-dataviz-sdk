@@ -3,9 +3,7 @@
     import type { ExpressionSpecification, SourceSpecification, GestureOptions } from 'maplibre-gl';
     import type { BBox, FeatureCollection } from 'geojson';
     import { debounce } from 'lodash';
-    import type { ColorScale, DataBounds, Color, Source } from '../../types';
-    import MapRender from './MapRender.svelte';
-    import { BLANK } from '../mapStyles';
+    import type { ColorScale, Color, DataBounds, Source } from 'types';
     import {
         getDataBounds,
         mapKeyToColor,
@@ -15,6 +13,8 @@
         computeMatchExpression,
     } from '../utils';
     import { DEFAULT_COLORS, DEFAULT_COLORSCALE } from '../constants';
+    import MapRender from './MapRender.svelte';
+    import { BLANK } from '../mapStyles';
     import type {
         ChoroplethDataValue,
         ChoroplethLayer,

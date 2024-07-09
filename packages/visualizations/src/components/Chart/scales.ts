@@ -8,6 +8,7 @@ import type {
 } from 'chart.js';
 import { DateTime } from 'luxon';
 import type { DeepPartial } from 'chart.js/dist/types/utils';
+import { assureMaxLength, defaultCompactNumberFormat } from 'components/utils/formatter';
 import type {
     CartesianAxisConfiguration,
     ChartOptions,
@@ -16,7 +17,6 @@ import type {
     TimeCartesianAxisConfiguration,
 } from './types';
 import { defaultValue, singleChartJsColor } from './utils';
-import { assureMaxLength, defaultCompactNumberFormat } from '../utils/formatter';
 
 const TICK_MAX_LENGTH = 40;
 
