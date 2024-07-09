@@ -4,12 +4,12 @@
 
     export let loadingRowsNumber: number | null;
     export let columns: Column[];
-    export let records: TableData;
+    export let records: TableData | undefined;
     export let emptyStateLabel = 'No records found...';
 </script>
 
 <tbody>
-    {#if records.length === 0 && !loadingRowsNumber}
+    {#if records?.length === 0 && !loadingRowsNumber}
         <tr>
             <td colspan={columns.length}>
                 <em>{emptyStateLabel}</em>
@@ -24,7 +24,7 @@
                 {/each}
             </tr>
         {/each}
-    {:else}
+    {:else if records}
         {#each records as record}
             <tr>
                 {#each columns as column}

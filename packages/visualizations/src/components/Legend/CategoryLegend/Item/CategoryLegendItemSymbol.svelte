@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { CategoryItem } from 'types';
+    import type { CategoryItem } from 'components/Legend/types';
     import { CATEGORY_ITEM_VARIANT } from '../../types';
     import BoxSymbol from '../Symbols/BoxSymbol.svelte';
     import LineSymbol from '../Symbols/LineSymbol.svelte';

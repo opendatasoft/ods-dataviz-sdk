@@ -1,43 +1,36 @@
 <script lang="ts">
-    import type {
-        SourceSpecification,
-        GestureOptions,
-        ExpressionSpecification,
-        LngLatBoundsLike,
-    } from 'maplibre-gl';
-    import type { BBox } from 'geojson';
+    import turfBbox from '@turf/bbox';
+    import type { ExpressionSpecification, SourceSpecification, GestureOptions } from 'maplibre-gl';
+    import type { BBox, FeatureCollection } from 'geojson';
     import { debounce } from 'lodash';
-    import type { ColorScale, DataBounds, Color, Source } from '../../types';
-    import MapRender from './MapRender.svelte';
-    import { BLANK } from '../mapStyles';
+    import type { ColorScale, Color, DataBounds, Source } from 'types';
     import {
         getDataBounds,
         mapKeyToColor,
         VOID_BOUNDS,
-        computeFilterExpression,
         computeTooltip,
         computeBaseLayer,
         computeMatchExpression,
     } from '../utils';
     import { DEFAULT_COLORS, DEFAULT_COLORSCALE } from '../constants';
+    import MapRender from './MapRender.svelte';
+    import { BLANK } from '../mapStyles';
     import type {
-        ChoroplethVectorTilesProps,
         ChoroplethDataValue,
         ChoroplethLayer,
-        ChoroplethShapeVectorTilesValue,
-        MapLegend,
-        MapFilter,
         MapRenderTooltipFunction,
+        MapLegend,
         NavigationMap,
+        ChoroplethGeoJsonProps,
     } from '../types';
 
     // ensure exported type matches declared props
-    type $$Props = ChoroplethVectorTilesProps;
+    type $$Props = ChoroplethGeoJsonProps;
 
     export let data: $$Props['data']; // values, and the key to match
     export let options: $$Props['options']; // contains the shapes to display & match
 
-    let shapesTiles: ChoroplethShapeVectorTilesValue;
+    let shapes: FeatureCollection;
     let colorScale: ColorScale;
 
     let aspectRatio: number | undefined;
@@ -47,8 +40,6 @@
     let interactive: boolean;
     let legend: MapLegend | undefined;
     let attribution: string | undefined;
-    let filter: MapFilter | undefined;
-    let filterExpression: ExpressionSpecification | undefined;
     let title: string | undefined;
     let subtitle: string | undefined;
     let description: string | undefined;
@@ -57,27 +48,23 @@
     let sourceLink: Source | undefined;
     let cooperativeGestures: boolean | GestureOptions | undefined;
     let preserveDrawingBuffer: boolean;
-    let fixedMaxBounds: LngLatBoundsLike | undefined;
 
     // Used to apply a chosen color for shapes without values (default: #cccccc)
     let emptyValueColor: Color;
 
     // Used to determine the shapes key
-    let matchKey: string;
-
-    $: matchKey = shapesTiles.key;
+    const matchKey = 'key';
 
     const defaultInteractive = true;
     $: ({
-        shapesTiles,
+        shapes,
         colorScale = DEFAULT_COLORSCALE,
         legend,
         aspectRatio,
         activeShapes,
         interactive = defaultInteractive,
         emptyValueColor = DEFAULT_COLORS.Default,
-        bbox = VOID_BOUNDS,
-        filter,
+        bbox,
         attribution,
         title,
         subtitle,
@@ -86,7 +73,6 @@
         sourceLink,
         cooperativeGestures,
         preserveDrawingBuffer = false,
-        fixedMaxBounds,
     } = options);
 
     // Choropleth is always display over a blank map, for readability purposes
@@ -94,13 +80,10 @@
     let layer: ChoroplethLayer;
     let source: SourceSpecification;
     let dataBounds: DataBounds;
-
-    // MapLibre default zoom
-    const MIN_ZOOM = 0;
-    const MAX_ZOOM = 22;
+    let renderedBbox = bbox || VOID_BOUNDS;
 
     function computeSourceLayerAndBboxes(
-        newShapes: ChoroplethShapeVectorTilesValue,
+        newShapes: FeatureCollection,
         newColorScale: ColorScale,
         values: ChoroplethDataValue[] = []
     ) {
@@ -113,23 +96,18 @@
             fillColor = computeMatchExpression(colors, matchKey, emptyValueColor);
         }
 
-        const baseLayer = computeBaseLayer(fillColor, DEFAULT_COLORS.ShapeOutline);
-
         source = {
-            type: 'vector',
-            tiles: [newShapes.url],
-            minzoom: newShapes.minZoom || MIN_ZOOM,
-            maxzoom: newShapes.maxZoom || MAX_ZOOM,
+            type: 'geojson',
+            data: newShapes,
         };
 
-        layer = {
-            ...baseLayer,
-            'source-layer': newShapes.layer,
-        };
+        layer = computeBaseLayer(fillColor, DEFAULT_COLORS.ShapeOutline);
+
+        renderedBbox = bbox || turfBbox(newShapes) || VOID_BOUNDS;
     }
 
-    $: if (shapesTiles.url) {
-        computeSourceLayerAndBboxes(shapesTiles, colorScale, data.value);
+    $: if (shapes) {
+        computeSourceLayerAndBboxes(shapes, colorScale, data.value);
     }
 
     $: renderTooltip = debounce(
@@ -137,37 +115,33 @@
         10,
         { leading: true }
     );
-
-    $: if (filter) {
-        filterExpression = computeFilterExpression(filter);
-    }
 </script>
 
-<MapRender
-    {style}
-    {source}
-    {layer}
-    {aspectRatio}
-    {dataBounds}
-    {colorScale}
-    {legend}
-    {renderTooltip}
-    {bbox}
-    {activeShapes}
-    {interactive}
-    {filterExpression}
-    {matchKey}
-    {attribution}
-    {title}
-    {subtitle}
-    {description}
-    {navigationMaps}
-    {data}
-    {sourceLink}
-    {cooperativeGestures}
-    {preserveDrawingBuffer}
-    {fixedMaxBounds}
-/>
+<div>
+    <MapRender
+        {style}
+        {source}
+        {layer}
+        {aspectRatio}
+        {dataBounds}
+        {colorScale}
+        {legend}
+        {renderTooltip}
+        bbox={renderedBbox}
+        {activeShapes}
+        {interactive}
+        {matchKey}
+        {attribution}
+        {title}
+        {subtitle}
+        {description}
+        {navigationMaps}
+        {data}
+        {sourceLink}
+        {cooperativeGestures}
+        {preserveDrawingBuffer}
+    />
+</div>
 
 <style>
 </style>

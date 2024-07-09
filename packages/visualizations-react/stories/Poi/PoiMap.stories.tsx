@@ -3,6 +3,7 @@ import { BBox } from 'geojson';
 import { CATEGORY_ITEM_VARIANT, POPUP_DISPLAY } from '@opendatasoft/visualizations';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import type {
+    CategoryItem,
     Layer,
     PoiMapOptions,
     PopupDisplayTypes,
@@ -16,8 +17,8 @@ import sources from './sources';
 
 const BASE_STYLE = 'https://demotiles.maplibre.org/style.json';
 
-const layer1: Layer = {
-    id: 'layer-001',
+const citiesLayer: Layer = {
+    id: 'layer-cities',
     source: 'cities',
     type: 'circle',
     color: 'black',
@@ -33,8 +34,8 @@ const layer1: Layer = {
     },
 };
 
-const layer2: Layer = {
-    id: 'layer-002',
+const battlesLayer: Layer = {
+    id: 'layer-battles',
     source: 'battles',
     type: 'symbol',
     iconImageId: 'battle-icon',
@@ -53,7 +54,16 @@ const layer2: Layer = {
     },
 };
 
-const layers = [layer1, layer2];
+const moselleLayer: Layer = {
+    id: 'layer-moselle',
+    source: 'moselle',
+    type: 'fill',
+    color: '#6E0F12',
+    borderColor: 'white',
+    opacity: 0.3,
+};
+
+const layers = [citiesLayer, battlesLayer, moselleLayer];
 
 const citiesColorMatch = {
     key: 'key',
@@ -80,7 +90,7 @@ const battleImageMatch = {
 
 const bbox: BBox = [-6.855469, 41.343825, 11.645508, 51.37178];
 
-const legendCitiesItems = [
+const legendCitiesItems: CategoryItem[] = [
     {
         label: 'Paris',
         color: citiesColorMatch.colors.Paris,
@@ -107,7 +117,7 @@ const legendCitiesItems = [
     },
 ];
 
-const legendbattleItems = [
+const legendbattleItems: CategoryItem[] = [
     {
         variant: CATEGORY_ITEM_VARIANT.Image,
         label: 'Battle of Verdun',
@@ -120,10 +130,19 @@ const legendbattleItems = [
     },
 ];
 
+const legendMoselleItems: CategoryItem[] = [
+    {
+        variant: CATEGORY_ITEM_VARIANT.Box,
+        label: 'Moselle',
+        color: '#6E0F12',
+        borderColor: 'white',
+    },
+];
+
 const legend = {
     type: 'category' as const,
     title: 'French cities and famous battles',
-    items: [...legendCitiesItems, ...legendbattleItems],
+    items: [...legendCitiesItems, ...legendbattleItems, ...legendMoselleItems],
     align: 'start' as const,
 };
 
@@ -154,7 +173,7 @@ const meta: ComponentMeta<typeof PoiMap> = {
 
 export default meta;
 
-const Template: ComponentStory<typeof PoiMap> = (args) => (
+const Template: ComponentStory<typeof PoiMap> = args => (
     <div
         style={{
             width: '50%',
@@ -196,8 +215,8 @@ const PoiMapMatchExpressionArgs = {
     data: {
         value: {
             layers: [
-                { ...layer1, colorMatch: citiesColorMatch },
-                { ...layer2, iconImageMatch: battleImageMatch },
+                { ...citiesLayer, colorMatch: citiesColorMatch },
+                { ...battlesLayer, iconImageMatch: battleImageMatch },
             ],
             sources,
         },
@@ -214,8 +233,9 @@ const PoiMapLegendStartArgs = {
     data: {
         value: {
             layers: [
-                { ...layer1, colorMatch: citiesColorMatch },
-                { ...layer2, iconImageMatch: battleImageMatch },
+                { ...citiesLayer, colorMatch: citiesColorMatch },
+                { ...battlesLayer, iconImageMatch: battleImageMatch },
+                moselleLayer,
             ],
             sources,
         },
@@ -232,8 +252,9 @@ const PoiMapLegendCenterArgs = {
     data: {
         value: {
             layers: [
-                { ...layer1, colorMatch: citiesColorMatch },
-                { ...layer2, iconImageMatch: battleImageMatch },
+                { ...citiesLayer, colorMatch: citiesColorMatch },
+                { ...battlesLayer, iconImageMatch: battleImageMatch },
+                moselleLayer,
             ],
             sources,
         },
@@ -250,8 +271,9 @@ const PoiMapMinMaxZoomsArgs = {
     data: {
         value: {
             layers: [
-                { ...layer1, colorMatch: citiesColorMatch },
-                { ...layer2, iconImageMatch: battleImageMatch },
+                { ...citiesLayer, colorMatch: citiesColorMatch },
+                { ...battlesLayer, iconImageMatch: battleImageMatch },
+                moselleLayer,
             ],
             sources,
         },
@@ -273,8 +295,9 @@ const PoiMapCooperativeGesturesArgs = {
     data: {
         value: {
             layers: [
-                { ...layer1, colorMatch: citiesColorMatch },
-                { ...layer2, iconImageMatch: battleImageMatch },
+                { ...citiesLayer, colorMatch: citiesColorMatch },
+                { ...battlesLayer, iconImageMatch: battleImageMatch },
+                moselleLayer,
             ],
             sources,
         },
@@ -319,12 +342,18 @@ const StudioResponsiveUsageTemplate = () => {
                     value: {
                         layers: [
                             {
-                                ...layer1,
-                                popup: { ...(layer1.popup as PopupLayer), display: popupDisplay },
+                                ...citiesLayer,
+                                popup: {
+                                    ...(citiesLayer.popup as PopupLayer),
+                                    display: popupDisplay,
+                                },
                             },
                             {
-                                ...layer2,
-                                popup: { ...(layer2.popup as PopupLayer), display: popupDisplay },
+                                ...battlesLayer,
+                                popup: {
+                                    ...(battlesLayer.popup as PopupLayer),
+                                    display: popupDisplay,
+                                },
                             },
                         ],
                         sources,

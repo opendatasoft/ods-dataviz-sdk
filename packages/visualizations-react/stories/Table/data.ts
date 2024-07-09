@@ -8,6 +8,8 @@ export default [
         wordCount: 1200,
         readingTime: 5.5,
         url: 'https://example.com/lorem-ipsum',
+        geopoint: [2.357573,48.837904],
+        geoshape: 'centre-val-de-loire',
     },
     {
         title: 'pellentesque nec blog post',
@@ -19,6 +21,8 @@ export default [
         wordCount: 800,
         readingTime: 3.8,
         url: 'https://example.com/pellentesque-nec',
+        geopoint: [2.357573,48.837904],
+        geoshape: 'bretagne',
     },
     {
         title: 'fusce sit amet blog post',
@@ -30,6 +34,8 @@ export default [
         wordCount: 1500,
         readingTime: 7.2,
         url: 'https://example.com/fusce-sit-amet',
+        geopoint: [2.357573,48.837904],
+        geoshape: 'nouvelle-aquitaine',
     },
     {
         title: 'vestibulum nec blog post',
@@ -40,6 +46,8 @@ export default [
         wordCount: 1000,
         readingTime: 4.5,
         url: 'https://example.com/vestibulum-nec',
+        geopoint: [2.357573,48.837904],
+        geoshape: 'occitanie',
     },
     {
         title: 'Cras At Blog Post',
@@ -51,6 +59,8 @@ export default [
         wordCount: 1300,
         readingTime: 6.0,
         url: 'https://example.com/cras-at',
+        geopoint: [2.357573,48.837904],
+        geoshape: 'provence-alpes-cote-d-azur',
     },
     {
         title: 'Quisque A Blog Post',
@@ -62,6 +72,8 @@ export default [
         wordCount: 900,
         readingTime: 4.0,
         url: 'https://example.com/quisque-a',
+        geopoint: [2.357573,48.837904],
+        geoshape: 'auvergne-rhone-alpes',
     },
     {
         title: 'Ut Vitae Blog Post',
@@ -73,6 +85,8 @@ export default [
         wordCount: 1100,
         readingTime: 5.0,
         url: 'https://example.com/ut-vitae',
+        geopoint: [2.357573,48.837904],
+        geoshape: 'bourgogne-franche-comte',
     },
     {
         title: 'Integer Id Blog Post',
@@ -84,6 +98,8 @@ export default [
         wordCount: 950,
         readingTime: 4.2,
         url: 'https://example.com/integer-id',
+        geopoint: [2.357573,48.837904],
+        geoshape: 'grand-est',
     },
     {
         title: 'Undefined row',
@@ -94,6 +110,8 @@ export default [
         wordCount: undefined,
         readingTime: null,
         url: undefined,
+        geopoint: undefined,
+        geoshape: undefined,
     },
     {
         title: 'Empty row',

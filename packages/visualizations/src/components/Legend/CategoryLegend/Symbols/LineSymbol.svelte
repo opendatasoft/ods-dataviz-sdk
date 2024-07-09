@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { LineCategoryItem } from 'types';
+    import type { LineCategoryItem } from 'components/Legend/types';
 
     export let item: LineCategoryItem;
 </script>

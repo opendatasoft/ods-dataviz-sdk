@@ -1,4 +1,5 @@
 import type { DataFrame, Source, Async } from 'types';
+import type { WebGlMapData, WebGlMapOptions } from 'components/Map';
 import type { DATA_FORMAT } from './constants';
 import type { Pagination } from '../Pagination/types';
 
@@ -84,13 +85,24 @@ export type URLColumn = BaseColumn & {
     };
 };
 
+export type GeoColumn = BaseColumn & {
+    dataFormat: typeof DATA_FORMAT.geo;
+    options?: Partial<{
+        mapOptions: WebGlMapOptions;
+        display: (v: unknown) => string;
+        sources: (v: unknown) => WebGlMapData['sources'];
+        layers: (v: unknown) => WebGlMapData['layers'];
+    }>;
+};
+
 export type Column =
     | ShortTextColumn
     | LongTextColumn
     | NumberColumn
     | DateColumn
     | BooleanColumn
-    | URLColumn;
+    | URLColumn
+    | GeoColumn;
 
 export type TableOptions = {
     columns: Column[];

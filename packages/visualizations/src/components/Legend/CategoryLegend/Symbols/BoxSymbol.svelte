@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { BoxCategoryItem } from 'types';
+    import type { BoxCategoryItem } from 'components/Legend/types';
 
     export let item: BoxCategoryItem;
 </script>

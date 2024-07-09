@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { CategoryItem } from 'types';
+    import type { CategoryItem } from 'components/Legend/types';
     import CategoryLegendItemLabel from './CategoryLegendItemLabel.svelte';
     import CategoryLegendItemSymbol from './CategoryLegendItemSymbol.svelte';
 

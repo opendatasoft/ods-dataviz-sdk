@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { ImageCategoryItem } from 'types';
+    import type { ImageCategoryItem } from 'components/Legend/types';
 
     export let item: ImageCategoryItem;
 </script>

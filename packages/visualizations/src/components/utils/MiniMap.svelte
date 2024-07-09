@@ -1,7 +1,7 @@
 <script lang="ts">
-    import type { ChoroplethDataValue, NavigationMap } from 'components/Map/types';
     import type { ColorScale } from 'types';
-    import SvgChoropleth from 'components/Map/Svg/Choropleth.svelte';
+    import type { ChoroplethDataValue, NavigationMap } from 'components/ChoroplethMap/types';
+    import SvgChoropleth from 'components/ChoroplethMap/Svg';
     import tippy from './tippy';
 
     export let active: boolean;

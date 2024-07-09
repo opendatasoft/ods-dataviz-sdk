@@ -17,9 +17,7 @@
 <div class="scrollbox">
     <table aria-describedby={description ? tableId : undefined}>
         <Headers {columns} />
-        {#if records}
-            <Body {loadingRowsNumber} {records} {columns} {emptyStateLabel} />
-        {/if}
+        <Body {loadingRowsNumber} {records} {columns} {emptyStateLabel} />
     </table>
 </div>
 {#if description}
@@ -33,11 +31,8 @@
     }
 
     :global(.ods-dataviz--default) .scrollbox {
-        border: solid 1px var(--border-color);
-        border-radius: var(--border-radius-2);
         overflow-x: auto;
         overscroll-behavior-x: none;
-        margin-bottom: var(--spacing-100);
         width: 100%;
     }
 
