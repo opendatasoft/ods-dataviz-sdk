@@ -3,12 +3,15 @@
     import type { ChartConfiguration } from 'chart.js';
     import { Chart } from 'chart.js';
     import 'chartjs-adapter-luxon';
-    import type { DataFrame } from '../types';
-    import { generateId } from '../utils';
-    import SourceLink from '../utils/SourceLink.svelte';
-    import { defaultNumberFormat } from '../utils/formatter';
-    import CategoryLegend from '../Legend/CategoryLegend.svelte';
-    import type { LegendPositions, CategoryLegend as CategoryLegendType } from '../Legend/types';
+    import CategoryLegend from 'components/Legend/CategoryLegend.svelte';
+    import type { DataFrame } from 'types';
+    import { generateId } from 'components/utils';
+    import SourceLink from 'components/utils/SourceLink.svelte';
+    import { defaultNumberFormat } from 'components/utils/formatter';
+    import type {
+        LegendPositions,
+        CategoryLegend as CategoryLegendType,
+    } from 'components/Legend/types';
     import { ChartSeriesType } from './types';
     import type {
         ChartProps,

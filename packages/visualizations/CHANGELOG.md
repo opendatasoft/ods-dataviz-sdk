@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.26.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.25.0...@opendatasoft/visualizations@0.26.0) (2024-07-08)
+
+
+### Features
+
+* **Map:** support fill layers ([#246](https://github.com/opendatasoft/ods-dataviz-sdk/issues/246)) ([d0fe950](https://github.com/opendatasoft/ods-dataviz-sdk/commit/d0fe95020f60ae2156646231d1570a46c80e6d19))
+* **Table:** add geo column ([#245](https://github.com/opendatasoft/ods-dataviz-sdk/issues/245)) ([614a333](https://github.com/opendatasoft/ods-dataviz-sdk/commit/614a3335057a52de767c66b9610e12f0930d1ab0))
+
+
+
+
+
 # [0.25.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.24.1...@opendatasoft/visualizations@0.25.0) (2024-06-26)
 
 

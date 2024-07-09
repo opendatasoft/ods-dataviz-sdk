@@ -16,7 +16,7 @@ import type {
     MarkdownTextProps,
     ChoroplethGeoJsonProps,
     ChoroplethVectorTilesProps,
-    MapPoiProps,
+    PoiMapProps,
     TableProps,
 } from '@opendatasoft/visualizations';
 import reactifySvelte from 'reactify';
@@ -39,5 +39,5 @@ export const ChoroplethSvg = reactifySvelte<ChoroplethGeoJsonProps>(
     _ChoroplethSvg,
     'ods-visualizations-choropleth-svg'
 );
-export const PoiMap = reactifySvelte<MapPoiProps>(_PoiMap, 'ods-visualizations-poi-map');
+export const PoiMap = reactifySvelte<PoiMapProps>(_PoiMap, 'ods-visualizations-poi-map');
 export const Table = reactifySvelte<TableProps>(_Table, 'ods-visualizations-table');

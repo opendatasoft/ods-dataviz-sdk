@@ -1,11 +1,9 @@
-<svelte:options immutable={true} />
-
 <script lang="ts">
     import { onDestroy } from 'svelte';
     import { debounce } from 'lodash';
-    import type { DataBounds, ColorScale } from '../types';
+    import type { DataBounds, ColorScale } from 'types';
+    import { defaultCompactLegendNumberFormat } from 'components/utils/formatter';
     import type { LegendVariant, LegendPositions } from './types';
-    import { defaultCompactLegendNumberFormat } from '../utils/formatter';
 
     // options to customize the component
     export let dataBounds: DataBounds;

@@ -1,7 +1,7 @@
 <script lang="ts">
-    import type { DataFrame } from '../types';
+    import type { DataFrame } from 'types';
+    import { generateId } from 'components/utils';
     import type { Column } from './types';
-    import { generateId } from '../utils';
     import Headers from './Headers';
     import Body from './Body.svelte';
 
@@ -17,9 +17,7 @@
 <div class="scrollbox">
     <table aria-describedby={description ? tableId : undefined}>
         <Headers {columns} />
-        {#if records}
-            <Body {loadingRowsNumber} {records} {columns} {emptyStateLabel} />
-        {/if}
+        <Body {loadingRowsNumber} {records} {columns} {emptyStateLabel} />
     </table>
 </div>
 {#if description}
@@ -33,11 +31,8 @@
     }
 
     :global(.ods-dataviz--default) .scrollbox {
-        border: solid 1px var(--border-color);
-        border-radius: var(--border-radius-2);
         overflow-x: auto;
         overscroll-behavior-x: none;
-        margin-bottom: var(--spacing-100);
         width: 100%;
     }
 

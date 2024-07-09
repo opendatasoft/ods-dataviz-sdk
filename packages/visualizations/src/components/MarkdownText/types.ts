@@ -1,4 +1,4 @@
-import type { Async } from '../../types';
+import type { Async } from 'types';
 
 export type MarkdownTextOptions = {
     align?: 'left' | 'right' | 'center';

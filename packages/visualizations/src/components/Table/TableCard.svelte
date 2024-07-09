@@ -1,8 +1,8 @@
 <script lang="ts">
+    import Pagination from 'components/Pagination/Pagination.svelte';
+    import Card from 'components/utils/Card.svelte';
     import type { TableProps } from './types';
     import Table from './Table.svelte';
-    import Pagination from '../Pagination/Pagination.svelte';
-    import Card from '../utils/Card.svelte';
     import { locale } from './store';
 
     // ensure exported type matches declared props
@@ -32,7 +32,7 @@
 </script>
 
 <Card {title} {subtitle} {source} defaultStyle={!unstyled}>
-    <div>
+    <div class="table-container">
         <Table {loadingRowsNumber} {records} {columns} {description} {emptyStateLabel} />
         {#if pagination}
             <Pagination {...pagination} />
@@ -41,10 +41,20 @@
 </Card>
 
 <style>
+    :global(.ods-dataviz--default) .table-container {
+        border: solid 1px var(--border-color);
+        border-radius: var(--border-radius-6);
+        margin-bottom: var(--spacing-100);
+        overflow: hidden;
+        background-color: var(--background-color);
+    }
     :global(.ods-dataviz--default) div {
         max-width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+    }
+    :global(.table-container .pagination) {
+        border-top: solid 1px var(--border-color);
     }
 </style>

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { Source } from '../types';
+    import type { Source } from 'types';
     import SourceLink from './SourceLink.svelte';
 
     export let title: string | undefined;
@@ -40,11 +40,12 @@
 
     .card {
         /* Common vars that should be accessible in all components */
-        --border-radius-2: 6px;
+        --border-radius-6: 6px;
         --spacing-50: 6px;
         --spacing-75: 9px;
         --spacing-100: 13px;
         --border-color: #cbd2db;
+        --background-color: #fff;
         /* FIXME: Only using flex style to center source link */
         display: flex;
         flex-wrap: wrap;

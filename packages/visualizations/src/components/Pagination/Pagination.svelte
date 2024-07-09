@@ -9,7 +9,8 @@
     export let onPageChange: (page: number) => void;
     export let totalRecords: number;
     export let recordsPerPage: number;
-    export let pageSizeSelect: PageSizeSelect;
+    // eslint-disable-next-line no-undef-init
+    export let pageSizeSelect: PageSizeSelect | undefined = undefined;
     export let labels: Pagination['labels'] = {};
 
     $: totalPages = Math.ceil(totalRecords / recordsPerPage);
@@ -49,7 +50,7 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
         align-items: center;
         gap: var(--spacing-100);
-        padding: 13px 0;
+        padding: 13px;
         .numbering {
             grid-area: numbering;
         }
@@ -58,7 +59,7 @@
         }
         .page-size {
             grid-area: size;
-            margin-left: auto;
+            justify-self: end;
         }
     }
 

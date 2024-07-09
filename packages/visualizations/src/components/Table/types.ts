@@ -1,7 +1,7 @@
-import type { DataFrame, Source } from '../types';
+import type { DataFrame, Source, Async } from 'types';
+import type { WebGlMapData, WebGlMapOptions } from 'components/Map';
 import type { DATA_FORMAT } from './constants';
 import type { Pagination } from '../Pagination/types';
-import type { Async } from '../../types';
 
 type DataFormatKey = keyof typeof DATA_FORMAT;
 export type DataFormat = typeof DATA_FORMAT[DataFormatKey];
@@ -85,6 +85,16 @@ export type URLColumn = BaseColumn & {
     };
 };
 
+export type GeoColumn = BaseColumn & {
+    dataFormat: typeof DATA_FORMAT.geo;
+    options?: Partial<{
+        mapOptions: WebGlMapOptions;
+        display: (v: unknown) => string;
+        sources: (v: unknown) => WebGlMapData['sources'];
+        layers: (v: unknown) => WebGlMapData['layers'];
+    }>;
+};
+
 /**
  * Render an interactive text that displays an image in a tooltip on tab/hover.
  */
@@ -105,6 +115,7 @@ export type Column =
     | DateColumn
     | BooleanColumn
     | URLColumn
+    | GeoColumn
     | ImageColumn;
 
 export type TableOptions = {

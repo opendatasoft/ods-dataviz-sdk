@@ -1,35 +1,31 @@
 import type {
     CircleLayerSpecification,
-    SymbolLayerSpecification,
-    StyleSpecification,
+    FillLayerSpecification,
     GeoJSONFeature,
+    GestureOptions,
     LngLatLike,
     RequestTransformFunction,
-    GestureOptions,
     StyleImageMetadata,
+    StyleSpecification,
+    SymbolLayerSpecification,
 } from 'maplibre-gl';
 import type { BBox, GeoJsonProperties } from 'geojson';
-import type { Async } from '../../types';
-import type { Color, Source } from '../types';
-import type { CategoryLegend } from '../Legend/types';
+import type { Color } from 'types';
 
-// To render data layers on the map
-export type PoiMapData = Partial<{
+import type { POPUP_DISPLAY } from './constants';
+
+export type WebGlMapData = Partial<{
     sources: StyleSpecification['sources'];
     layers: Layer[];
 }>;
 
-export type Images = Record<
-    string,
-    { id: string; url: string; options?: Partial<StyleImageMetadata> }
->;
-export interface PoiMapOptions {
+export interface WebGlMapOptions {
     /*
      * To render a basemap. Could be:
      * - A MapLibre style URL; See https://maplibre.org/maplibre-gl-js/docs/API/types/maplibregl.MapOptions.
      * - Or an object with a 'sources' and a 'layers' keys. Useful when using a Raster or WMS basemap.
      */
-    style?: string | PoiMapStyleOption;
+    style?: string | WebGlMapStyleOption;
     /**
      * A callback run before the Map makes a request for an external URL.
      * The callback can be used to modify the url, set headers, or set the credentials property for cross-origin requests.
@@ -51,12 +47,6 @@ export interface PoiMapOptions {
     aspectRatio?: number;
     // Is the map interactive for the user (zoom, move, tooltips...)
     interactive?: boolean;
-    title?: string;
-    subtitle?: string;
-    description?: string;
-    legend?: CategoryLegend;
-    /** Link button to source */
-    sourceLink?: Source;
     cooperativeGestures?: boolean | GestureOptions;
     /** If true, the map's canvas can be exported to an image using toDataURL. This is false by default as a performance optimization. */
     preserveDrawingBuffer?: boolean;
@@ -64,10 +54,13 @@ export interface PoiMapOptions {
     images?: Images;
 }
 
-export type PoiMapStyleOption = Partial<Pick<StyleSpecification, 'sources' | 'layers'>>;
+export type WebGlMapStyleOption = Partial<Pick<StyleSpecification, 'sources' | 'layers'>>;
 
 // Supported layers
-export type LayerSpecification = CircleLayerSpecification | SymbolLayerSpecification;
+export type LayerSpecification =
+    | CircleLayerSpecification
+    | SymbolLayerSpecification
+    | FillLayerSpecification;
 
 type BaseLayer = {
     id: string;
@@ -114,15 +107,19 @@ export type SymbolLayer = BaseLayer & {
     };
 };
 
-export type Layer = CircleLayer | SymbolLayer;
+export type FillLayer = BaseLayer & {
+    type: FillLayerSpecification['type'];
+    color: Color;
+    borderColor?: Color;
+    opacity?: number;
+};
 
-export const POPUP_DISPLAY = {
-    tooltip: 'tooltip',
-    sidebar: 'sidebar',
-    modal: 'modal',
-} as const;
+export type Layer = CircleLayer | SymbolLayer | FillLayer;
 
-export type PopupDisplayTypes = keyof typeof POPUP_DISPLAY;
+export type GeoPoint = {
+    lat: number;
+    lon: number;
+};
 
 export type PopupLayer = {
     /**
@@ -136,16 +133,14 @@ export type PopupLayer = {
     getLoadingContent: () => string;
 };
 
-export type GeoPoint = {
-    lat: number;
-    lon: number;
-};
+export type PopupDisplayTypes = keyof typeof POPUP_DISPLAY;
+
 /** A configuration map for popups where keys are layer ids and values are PopupLayer object. */
 export type PopupConfigurationByLayers = { [key: string]: PopupLayer };
 
 export type CenterZoomOptions = { zoom?: number; center?: LngLatLike };
 
-export type MapPoiProps = {
-    data: Async<PoiMapData>;
-    options: PoiMapOptions;
-};
+export type Images = Record<
+    string,
+    { id: string; url: string; options?: Partial<StyleImageMetadata> }
+>;

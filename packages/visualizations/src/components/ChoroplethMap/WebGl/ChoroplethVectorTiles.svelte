@@ -7,7 +7,7 @@
     } from 'maplibre-gl';
     import type { BBox } from 'geojson';
     import { debounce } from 'lodash';
-    import type { ColorScale, DataBounds, Color, Source } from '../../types';
+    import type { ColorScale, Color, DataBounds, Source } from 'types';
     import MapRender from './MapRender.svelte';
     import { BLANK } from '../mapStyles';
     import {
