@@ -1,4 +1,4 @@
-# @opendatasoft/api-client ![CI status](https://github.com/opendatasoft/ods-dataviz-sdk/workflows/CI/badge.svg)
+# @opendatasoft/api-client test ![CI status](https://github.com/opendatasoft/ods-dataviz-sdk/workflows/CI/badge.svg)
 
 This package implements a Typescript/Javascript client library for [Opendatasoft's Explore API v2.1](https://help.opendatasoft.com/apis/ods-explore-v2/explore_v2.1.html).
 
