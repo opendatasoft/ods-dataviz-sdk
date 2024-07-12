@@ -8,6 +8,7 @@ export const columns: Column[] = [
         options: {
             display: (title: string) => `${title.toUpperCase()}`,
         },
+        size: 'medium',
     },
     {
         title: 'Price',
@@ -24,6 +25,7 @@ export const columns: Column[] = [
         title: 'Content',
         key: 'content',
         dataFormat: 'long-text',
+        size: 'large',
     },
     {
         title: 'Published date',
