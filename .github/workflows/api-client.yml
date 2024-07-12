@@ -8,22 +8,17 @@ on:
       - main
 jobs:
   build:
-    name: Get api client test coverage on node ${{ matrix.node }} and ${{ matrix.os }}
-
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        node: ["18.x", "20.x"]
-        os: [ubuntu-latest]
+    name: Get api client test coverage
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Use Node ${{ matrix.node }}
+      - name: Use Node 20
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
+          node-version: '20.x'
 
       - name: Install
         run: npm ci
