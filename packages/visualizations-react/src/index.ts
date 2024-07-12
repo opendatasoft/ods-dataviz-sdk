@@ -21,23 +21,24 @@ import type {
 } from '@opendatasoft/visualizations';
 import reactifySvelte from 'reactify';
 
-export const Chart = reactifySvelte<ChartProps>(_Chart, 'ods-visualizations-chart');
-export const KpiCard = reactifySvelte<KpiProps>(_KpiCard, 'ods-visualizations-kpi');
+
+export const Chart = reactifySvelte<ChartProps>(_Chart, 'chart');
+export const KpiCard = reactifySvelte<KpiProps>(_KpiCard, 'kpi');
 export const MarkdownText = reactifySvelte<MarkdownTextProps>(
     _MarkdownText,
-    'ods-visualizations-md-text'
+    'md-text'
 );
 export const ChoroplethGeoJson = reactifySvelte<ChoroplethGeoJsonProps>(
     _ChoroplethGeoJson,
-    'ods-visualizations-choropleth'
+    'choropleth'
 );
 export const ChoroplethVectorTiles = reactifySvelte<ChoroplethVectorTilesProps>(
     _ChoroplethVectorTiles,
-    'ods-visualizations-choropleth'
+    'choropleth'
 );
 export const ChoroplethSvg = reactifySvelte<ChoroplethGeoJsonProps>(
     _ChoroplethSvg,
-    'ods-visualizations-choropleth-svg'
+    'choropleth-svg'
 );
-export const PoiMap = reactifySvelte<PoiMapProps>(_PoiMap, 'ods-visualizations-poi-map');
-export const Table = reactifySvelte<TableProps>(_Table, 'ods-visualizations-table');
+export const PoiMap = reactifySvelte<PoiMapProps>(_PoiMap, 'poi-map');
+export const Table = reactifySvelte<TableProps>(_Table, 'table');

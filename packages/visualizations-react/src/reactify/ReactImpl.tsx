@@ -3,9 +3,11 @@ import { ComponentConstructorOptions, SvelteComponent } from '@opendatasoft/visu
 
 import './reactify.css';
 
+export const CLASSNAME_PREFIX = 'ods-viz';
+
 function reactifySvelte<P extends Record<string, unknown>>(
     Component: new (options: ComponentConstructorOptions) => SvelteComponent,
-    className: string
+    type: string
 ) {
     return (props: P) => {
         const svelteComponentRef = useRef<SvelteComponent | null>(null);
@@ -31,7 +33,7 @@ function reactifySvelte<P extends Record<string, unknown>>(
             svelteComponentRef.current.$set({ ...props });
         }
 
-        return <div className={`ods-visualization ${className}`} ref={mountRef} />;
+        return <div className={`${CLASSNAME_PREFIX} ${CLASSNAME_PREFIX}-${type}`} ref={mountRef} />;
     };
 }
 
