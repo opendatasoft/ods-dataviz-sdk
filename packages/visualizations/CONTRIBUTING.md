@@ -8,6 +8,7 @@ When contributing to this repository, please first discuss the change you wish t
 
 -   Specific to this package:
     -   [Build](#build)
+    -   [CSS class naming guidelines](#css-class-naming-guidelines)
     -   [Resources](#resources)
 -   General rules of contribution:
     -   [Reporting a bug](../../CONTRIBUTING.md#reporting-a-bug)
@@ -28,6 +29,15 @@ This builds to `/dist` and runs the project in watch mode so any edits you save 
 To do a one-off build, use `npm run build` or `yarn build`.
 
 **⚠️ FIXME:** Finish this section.
+
+## CSS class naming guidelines
+
+To ensure our components are not unintentionally affected by external CSS libraries, the following best practices have been identified:
+
+-  **Minimize the use of classes**: Use CSS selectors targeting HTML tags wherever possible to reduce the dependency on class names.
+- **Class usage for CSS Overrides**: Classes should primarily be used to enable CSS overrides for specific elements.
+- **Prefixed Classes**: Introduce classes with a specific prefix like `ods-viz` (e.g., `ods-viz-table`, `ods-viz-pagination`) to avoid conflicts.
+- **Component Decomposition**: Break down components into smaller parts where feasible to further reduce the use of classes without overcomplicating the structure.
 
 ## Resources
 
