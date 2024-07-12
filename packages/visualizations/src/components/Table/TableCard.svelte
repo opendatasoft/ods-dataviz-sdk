@@ -1,6 +1,6 @@
 <script lang="ts">
     import Pagination from 'components/Pagination/Pagination.svelte';
-    import Card from 'components/utils/Card.svelte';
+    import Card from 'components/utils/Card/Card.svelte';
     import type { TableProps } from './types';
     import Table from './Table.svelte';
     import { locale } from './store';
@@ -40,21 +40,22 @@
     </div>
 </Card>
 
-<style>
-    :global(.ods-dataviz--default) .table-container {
-        border: solid 1px var(--border-color);
-        border-radius: var(--border-radius-6);
-        margin-bottom: var(--spacing-100);
+<style lang="scss">
+    @import 'variables';
+    :global(.ods-viz--default-style) .table-container {
+        border: solid 1px $border-color;
+        border-radius: $border-radius-6;
+        margin-bottom: $spacing-100;
         overflow: hidden;
-        background-color: var(--background-color);
+        background-color: $background-color;
     }
-    :global(.ods-dataviz--default) div {
+    :global(.ods-viz--default-style) div {
         max-width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
     }
     :global(.table-container .pagination) {
-        border-top: solid 1px var(--border-color);
+        border-top: solid 1px $border-color;
     }
 </style>

@@ -24,17 +24,18 @@
     </tr>
 </thead>
 
-<style>
-    :global(.ods-dataviz--default thead) {
-        border-bottom: 1px solid var(--border-color);
+<style lang="scss">
+    @import 'variables';
+    :global(.ods-viz--default-style thead) {
+        border-bottom: 1px solid $border-color;
     }
 
-    :global(.ods-dataviz--default th) {
+    :global(.ods-viz--default-style th) {
         text-align: left;
-        padding: var(--spacing-75);
+        padding: $spacing-75;
     }
 
-    :global(.ods-dataviz--default th.table-header--number) {
+    :global(.ods-viz--default-style th.table-header--number) {
         text-align: right;
     }
 </style>

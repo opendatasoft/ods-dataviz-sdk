@@ -30,13 +30,13 @@
         display: none;
     }
 
-    :global(.ods-dataviz--default) .scrollbox {
+    :global(.ods-viz--default-style) .scrollbox {
         overflow-x: auto;
         overscroll-behavior-x: none;
         width: 100%;
     }
 
-    :global(.ods-dataviz--default) table {
+    :global(.ods-viz--default-style) table {
         border-collapse: collapse;
         white-space: nowrap;
         width: inherit;

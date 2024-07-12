@@ -41,6 +41,7 @@
 
 <!-- markup (zero or more items) goes here -->
 <style lang="scss">
+    @import 'variables';
     .pagination-container {
         container: pagination / inline-size;
     }
@@ -49,8 +50,8 @@
         grid-template-areas: 'numbering pages size';
         grid-template-columns: repeat(3, minmax(0, 1fr));
         align-items: center;
-        gap: var(--spacing-100);
-        padding: 13px;
+        gap: $spacing-100;
+        padding: $spacing-100;
         .numbering {
             grid-area: numbering;
         }

@@ -35,16 +35,17 @@
     {/if}
 </tbody>
 
-<style>
-    :global(.ods-dataviz--default) tr {
-        border-bottom: 1px solid var(--border-color);
+<style lang="scss">
+    @import 'variables';
+    :global(.ods-viz--default-style) tr {
+        border-bottom: 1px solid $border-color;
     }
 
-    :global(.ods-dataviz--default) tr:last-child {
+    :global(.ods-viz--default-style) tr:last-child {
         border-bottom: none;
     }
 
-    :global(.ods-dataviz--default) em {
+    :global(.ods-viz--default-style) em {
         text-align: center;
         width: 100%;
         display: block;

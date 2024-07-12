@@ -40,8 +40,8 @@ function basePlugins() {
             },
             preprocess: autoPreprocess({
                 scss: {
-                    includePaths: ['src'],
-                },
+                    includePaths: ['src/style'],
+                }
             }),
         }),
         typescript({

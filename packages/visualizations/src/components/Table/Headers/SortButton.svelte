@@ -32,7 +32,7 @@
         justify-content: space-between;
     }
 
-    :global(.ods-dataviz--default th.table-header--number button) {
+    :global(.ods-viz--default-style th.table-header--number button) {
         justify-content: flex-end;
     }
 </style>

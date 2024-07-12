@@ -30,7 +30,7 @@
         cursor: not-allowed;
     }
 
-    :global(.ods-dataviz--default) {
+    :global(.ods-viz--default-style) {
         button {
             color: '#000';
         }
