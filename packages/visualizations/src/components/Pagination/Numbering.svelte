@@ -8,4 +8,3 @@
     <b>{current[0]}-{current[1]}/{total}</b>
     {recordsLabel || ''}
 </span>
-

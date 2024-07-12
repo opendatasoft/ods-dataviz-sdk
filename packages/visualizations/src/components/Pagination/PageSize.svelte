@@ -25,7 +25,7 @@
 
 <!-- disabling max-len doesn't work in style block, so we turn it off here -->
 <!-- eslint-disable max-len -->
-<style lang=scss>
+<style lang="scss">
     @import 'variables';
     :global(.ods-viz--default-style .ods-viz-pagination select) {
         padding: $spacing-50;

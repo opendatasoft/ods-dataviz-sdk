@@ -42,7 +42,7 @@
 
 <style lang="scss">
     @import 'variables';
-    :global(.ods-viz--default-style .ods-viz-table)  {
+    :global(.ods-viz--default-style .ods-viz-table) {
         border: solid 1px $border-color;
         border-radius: $border-radius-6;
         margin-bottom: $spacing-100;

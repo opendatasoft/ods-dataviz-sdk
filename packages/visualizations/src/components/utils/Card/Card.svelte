@@ -10,7 +10,7 @@
 </script>
 
 <div class="ods-viz-card" class:ods-viz--default-style={defaultStyle}>
-    <CardHeader title={title} subtitle={subtitle} />
+    <CardHeader {title} {subtitle} />
     <slot />
     {#if source}
         <SourceLink {source} />

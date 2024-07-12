@@ -99,8 +99,7 @@
     :global(.ods-viz-pagination-arrow-button) {
         color: #000;
         &:disabled {
-            color: #DEE5EF;
-            
+            color: #dee5ef;
         }
     }
     :global(.ods-viz-pagination-page-button--active) {

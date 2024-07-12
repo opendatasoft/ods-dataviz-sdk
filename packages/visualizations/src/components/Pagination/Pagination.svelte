@@ -52,7 +52,6 @@
         align-items: center;
         gap: $spacing-100;
         padding: $spacing-100;
-
     }
     .ods-viz-pagination-numbering {
         grid-area: numbering;

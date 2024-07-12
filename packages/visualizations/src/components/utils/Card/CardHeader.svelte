@@ -20,9 +20,8 @@
     p {
         margin: 0;
     }
-    
+
     div {
         margin-bottom: $spacing-100;
     }
 </style>
-
