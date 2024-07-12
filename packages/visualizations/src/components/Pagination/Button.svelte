@@ -29,14 +29,4 @@
     button:disabled {
         cursor: not-allowed;
     }
-
-    :global(.ods-viz--default-style) {
-        button {
-            color: '#000';
-        }
-
-        button:disabled {
-            color: '#DEE5EF';
-        }
-    }
 </style>

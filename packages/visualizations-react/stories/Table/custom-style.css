@@ -1,9 +1,9 @@
-.table-story--custom-style .table-wrapper {
+.table-story--custom-style .ods-viz .ods-viz-table {
     border-color: #fcd4cf;
 }
 
-.table-story--custom-style thead {
-    border-bottom-color: #f94346;
+.table-story--custom-style .ods-viz-table thead {
+    border-bottom-color: black;
     border-bottom-width: 2px;
     background-color: #fd635d;
     color:#ffffff;
@@ -13,31 +13,31 @@
     background-color: whitesmoke;
 }
 
-.table-story--custom-style tbody tr {
+.table-story--custom-style .ods-viz-table tbody tr {
     border-bottom-color: #fcd4cf;
 }
-.table-story--custom-style tbody tr:hover {
+.table-story--custom-style .ods-viz-table tbody tr:hover {
     background-color: #f9aea4;
 }
 
-.table-story--custom-style .pagination {
+.table-story--custom-style .ods-viz-pagination {
     background-color: seashell;
 }
 
-.table-story--custom-style .pagination .arrow-button,
-.table-story--custom-style .pagination .page-button {
+.table-story--custom-style .ods-viz-pagination-page-button,
+.table-story--custom-style .ods-viz-pagination-arrow-button {
     color:  #f94346;
 }
 
-.table-story--custom-style .pagination .arrow-button:disabled {
-    color:  #fcd4cf;
+.table-story--custom-style .ods-viz-pagination-arrow-button:disabled {
+    color: #fcd4cf;
 }
 
-.table-story--custom-style .pagination .page-size select {
+.table-story--custom-style .ods-viz-table .ods-viz-pagination select {
     border-color: #f94346;
 }
 
-.table-story--custom-style .numbering  {
+.table-story--custom-style .ods-viz-pagination-numbering  {
     color: #808080;
 }
 

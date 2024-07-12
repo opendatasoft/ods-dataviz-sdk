@@ -14,7 +14,7 @@
     const tableId = `table-${generateId()}`;
 </script>
 
-<div class="scrollbox">
+<div>
     <table aria-describedby={description ? tableId : undefined}>
         <Headers {columns} />
         <Body {loadingRowsNumber} {records} {columns} {emptyStateLabel} />
@@ -30,7 +30,7 @@
         display: none;
     }
 
-    :global(.ods-viz--default-style) .scrollbox {
+    :global(.ods-viz--default-style) div {
         overflow-x: auto;
         overscroll-behavior-x: none;
         width: 100%;

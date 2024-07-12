@@ -22,23 +22,11 @@ import type {
 import reactifySvelte from 'reactify';
 
 
-export const Chart = reactifySvelte<ChartProps>(_Chart, 'chart');
-export const KpiCard = reactifySvelte<KpiProps>(_KpiCard, 'kpi');
-export const MarkdownText = reactifySvelte<MarkdownTextProps>(
-    _MarkdownText,
-    'md-text'
-);
-export const ChoroplethGeoJson = reactifySvelte<ChoroplethGeoJsonProps>(
-    _ChoroplethGeoJson,
-    'choropleth'
-);
-export const ChoroplethVectorTiles = reactifySvelte<ChoroplethVectorTilesProps>(
-    _ChoroplethVectorTiles,
-    'choropleth'
-);
-export const ChoroplethSvg = reactifySvelte<ChoroplethGeoJsonProps>(
-    _ChoroplethSvg,
-    'choropleth-svg'
-);
-export const PoiMap = reactifySvelte<PoiMapProps>(_PoiMap, 'poi-map');
-export const Table = reactifySvelte<TableProps>(_Table, 'table');
+export const Chart = reactifySvelte<ChartProps>(_Chart);
+export const KpiCard = reactifySvelte<KpiProps>(_KpiCard);
+export const MarkdownText = reactifySvelte<MarkdownTextProps>(_MarkdownText);
+export const ChoroplethGeoJson = reactifySvelte<ChoroplethGeoJsonProps>(_ChoroplethGeoJson);
+export const ChoroplethVectorTiles = reactifySvelte<ChoroplethVectorTilesProps>(_ChoroplethVectorTiles,);
+export const ChoroplethSvg = reactifySvelte<ChoroplethGeoJsonProps>(_ChoroplethSvg,);
+export const PoiMap = reactifySvelte<PoiMapProps>(_PoiMap);
+export const Table = reactifySvelte<TableProps>(_Table);

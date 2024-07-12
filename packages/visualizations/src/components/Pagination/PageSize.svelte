@@ -27,7 +27,7 @@
 <!-- eslint-disable max-len -->
 <style lang=scss>
     @import 'variables';
-    :global(.ods-viz--default-style) select {
+    :global(.ods-viz--default-style .ods-viz-pagination select) {
         padding: $spacing-50;
         border: solid 1px $border-color;
         border-radius: $border-radius-6;
@@ -41,7 +41,7 @@
         padding-inline-end: $spacing-75;
     }
 
-    :global(html[dir='rtl'] .ods-viz--default-style) select {
+    :global(html[dir='rtl'] .ods-viz--default-style .ods-viz-pagination select) {
         background-position: 5%;
     }
 </style>

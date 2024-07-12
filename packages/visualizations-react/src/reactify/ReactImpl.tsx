@@ -6,8 +6,7 @@ import './reactify.css';
 export const CLASSNAME_PREFIX = 'ods-viz';
 
 function reactifySvelte<P extends Record<string, unknown>>(
-    Component: new (options: ComponentConstructorOptions) => SvelteComponent,
-    type: string
+    Component: new (options: ComponentConstructorOptions) => SvelteComponent
 ) {
     return (props: P) => {
         const svelteComponentRef = useRef<SvelteComponent | null>(null);
@@ -33,7 +32,7 @@ function reactifySvelte<P extends Record<string, unknown>>(
             svelteComponentRef.current.$set({ ...props });
         }
 
-        return <div className={`${CLASSNAME_PREFIX} ${CLASSNAME_PREFIX}-${type}`} ref={mountRef} />;
+        return <div className="ods-viz" ref={mountRef} />;
     };
 }
 

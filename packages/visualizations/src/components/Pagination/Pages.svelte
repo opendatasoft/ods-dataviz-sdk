@@ -18,7 +18,7 @@
             pointingAngle="doubleLeft"
             label={labels?.firstPage}
             disabled={current === 1}
-            class="arrow-button"
+            class="ods-viz-pagination-arrow-button"
         />
     </li>
     <li>
@@ -27,7 +27,7 @@
             pointingAngle="singleLeft"
             label={labels?.previousPage}
             disabled={current === 1}
-            class="arrow-button"
+            class="ods-viz-pagination-arrow-button"
         />
     </li>
     {#if current - 1 > 1 && totalPages > 3}
@@ -37,8 +37,8 @@
         <li>
             <button
                 on:click={() => onPageChange(page)}
-                class="page-button"
-                class:page-button--active={page === current}
+                class="ods-viz-pagination-page-button"
+                class:ods-viz-pagination-page-button--active={page === current}
             >
                 {page}
             </button>
@@ -53,7 +53,7 @@
             pointingAngle="singleRight"
             label={labels?.nextPage}
             disabled={current === totalPages}
-            class="arrow-button"
+            class="ods-viz-pagination-arrow-button"
         />
     </li>
     <li>
@@ -62,12 +62,12 @@
             pointingAngle="doubleRight"
             label={labels?.lastPage}
             disabled={current === totalPages}
-            class="arrow-button"
+            class="ods-viz-pagination-arrow-button"
         />
     </li>
 </ul>
 
-<style>
+<style lang="scss">
     ul {
         margin: 0;
         padding: 0;
@@ -89,11 +89,6 @@
     li button {
         border: none;
         background: none;
-    }
-
-    li button {
-        border: none;
-        background: none;
         cursor: pointer;
         height: 100%;
         width: 100%;
@@ -101,10 +96,16 @@
         width: 100%;
     }
 
-    :global(.page-button--active) {
+    :global(.ods-viz-pagination-arrow-button) {
+        color: #000;
+        &:disabled {
+            color: #DEE5EF;
+            
+        }
+    }
+    :global(.ods-viz-pagination-page-button--active) {
         border-radius: 3px;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.39);
         background-color: #fff;
-        color: #000;
     }
 </style>

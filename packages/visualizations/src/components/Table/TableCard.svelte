@@ -32,7 +32,7 @@
 </script>
 
 <Card {title} {subtitle} {source} defaultStyle={!unstyled}>
-    <div class="table-container">
+    <div class="ods-viz-table">
         <Table {loadingRowsNumber} {records} {columns} {description} {emptyStateLabel} />
         {#if pagination}
             <Pagination {...pagination} />
@@ -42,20 +42,16 @@
 
 <style lang="scss">
     @import 'variables';
-    :global(.ods-viz--default-style) .table-container {
+    :global(.ods-viz--default-style .ods-viz-table)  {
         border: solid 1px $border-color;
         border-radius: $border-radius-6;
         margin-bottom: $spacing-100;
         overflow: hidden;
         background-color: $background-color;
-    }
-    :global(.ods-viz--default-style) div {
         max-width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
     }
-    :global(.table-container .pagination) {
+
+    :global(.ods-viz-table .ods-viz-pagination) {
         border-top: solid 1px $border-color;
     }
 </style>
