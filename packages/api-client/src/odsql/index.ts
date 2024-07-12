@@ -17,6 +17,10 @@ export class Query {
         this.path = path;
     }
 
+    getParams(): Record<string, string | string[]> {
+        return this.params;
+    }
+
     getPath(): string {
         return this.path;
     }
