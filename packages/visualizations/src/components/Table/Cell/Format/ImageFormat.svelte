@@ -1,14 +1,14 @@
 <script lang="ts">
     import type { Instance } from 'tippy.js';
 
-    import tippy from '../../../utils/tippy';
+    import tippy from 'components/utils/tippy';
     import { warn } from './utils';
 
     export let rawValue: string;
     export let display = (v: string) => v;
-    export let alt: (v: string) => string = () => '';
-    export let loadingContent: (v: string) => string = () => 'Loading...';
-    export let errorContent: (v: string) => string = () => 'Error while fetching image';
+    export let alt = '';
+    export let loadingMessage = 'Loading...';
+    export let errorMessage = 'Error while fetching image';
 
     let tooltipContent: Element;
     let image: HTMLImageElement | null = null;
@@ -21,8 +21,8 @@
         image.src = rawValue;
         try {
             await image.decode();
-            image.alt = alt(rawValue);
-            image.classList.add('ods-visualization-table__image');
+            image.alt = alt;
+            image.classList.add('ods-viz-table-image');
             imageLoaded = true;
         } catch (error) {
             warn(rawValue, 'Image');
@@ -37,7 +37,7 @@
     tabindex="0"
     use:tippy={{
         content: tooltipContent,
-        theme: 'ods-visualization-table',
+        theme: 'ods-viz-table',
         delay: [500, 0],
         duration: [275, 0],
         maxWidth: 'none',
@@ -46,17 +46,17 @@
         },
     }}
 >
-    <div class="ods-visualization-table__image-label">{display(rawValue)}</div>
+    <div class="ods-viz-image-label">{display(rawValue)}</div>
     <div bind:this={tooltipContent}>
         {#if imageLoaded}
             {@html image?.outerHTML}
         {:else if hasError}
-            <div class="ods-visualization-table__image-error-container">
-                {@html errorContent(rawValue)}
+            <div class="ods-viz-image-error-container">
+                {errorMessage}
             </div>
         {:else}
-            <div class="ods-visualization-table__image-loading-container">
-                {@html loadingContent(rawValue)}
+            <div class="ods-viz-image-loading-container">
+                {loadingMessage}
             </div>
         {/if}
     </div>
@@ -66,11 +66,11 @@
     div[role='button'] {
         display: inline-block;
     }
-    .ods-visualization-table__image-label {
+    :global(.ods-viz-image-label) {
         cursor: pointer;
         text-decoration: underline;
     }
-    :global(.ods-visualization-table__image) {
+    :global(.ods-viz-table-image) {
         object-fit: contain;
         border-radius: 3px;
         width: 360px;

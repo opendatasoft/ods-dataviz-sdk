@@ -102,9 +102,9 @@ export type ImageColumn = BaseColumn & {
     dataFormat: typeof DATA_FORMAT.image;
     options?: {
         display?: (v: string) => string;
-        alt?: (v: string) => string;
-        loadingContent?: (v: string) => string;
-        errorContent?: (v: string) => string;
+        alt?: string;
+        loadingMessage?: string;
+        errorMessage?: string;
     };
 };
 

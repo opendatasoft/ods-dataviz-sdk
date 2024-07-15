@@ -76,7 +76,7 @@ export const columns: Column[] = [
         key: 'image',
         dataFormat: 'image',
         options: {
-            loadingContent: () => '<div class="loader"></div>'
+            loadingMessage: '',
         }
     }, 
     {
