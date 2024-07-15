@@ -10,6 +10,7 @@ export default [
         url: 'https://example.com/lorem-ipsum',
         geopoint: [2.357573,48.837904],
         geoshape: 'centre-val-de-loire',
+        image: 'https://gravatar.com/avatar/1?s=400&d=robohash',
     },
     {
         title: 'pellentesque nec blog post',
@@ -23,6 +24,7 @@ export default [
         url: 'https://example.com/pellentesque-nec',
         geopoint: [2.357573,48.837904],
         geoshape: 'bretagne',
+        image: 'https://gravatar.com/unkown-url',
     },
     {
         title: 'fusce sit amet blog post',
@@ -36,6 +38,7 @@ export default [
         url: 'https://example.com/fusce-sit-amet',
         geopoint: [2.357573,48.837904],
         geoshape: 'nouvelle-aquitaine',
+        image: 'https://loremflickr.com/cache/resized/65535_52821605306_fb553abe7e_k_673_1280_nofilter.jpg',
     },
     {
         title: 'vestibulum nec blog post',
@@ -48,6 +51,7 @@ export default [
         url: 'https://example.com/vestibulum-nec',
         geopoint: [2.357573,48.837904],
         geoshape: 'occitanie',
+        image: 'https://gravatar.com/avatar/4?s=400&d=robohash',
     },
     {
         title: 'Cras At Blog Post',
@@ -61,6 +65,7 @@ export default [
         url: 'https://example.com/cras-at',
         geopoint: [2.357573,48.837904],
         geoshape: 'provence-alpes-cote-d-azur',
+        image: 'https://gravatar.com/avatar/5?s=400&d=robohash',
     },
     {
         title: 'Quisque A Blog Post',
@@ -74,6 +79,7 @@ export default [
         url: 'https://example.com/quisque-a',
         geopoint: [2.357573,48.837904],
         geoshape: 'auvergne-rhone-alpes',
+        image: 'https://gravatar.com/avatar/6?s=400&d=robohash',
     },
     {
         title: 'Ut Vitae Blog Post',
@@ -87,6 +93,7 @@ export default [
         url: 'https://example.com/ut-vitae',
         geopoint: [2.357573,48.837904],
         geoshape: 'bourgogne-franche-comte',
+        image: 'https://gravatar.com/avatar/7?s=400&d=robohash',
     },
     {
         title: 'Integer Id Blog Post',
@@ -100,6 +107,7 @@ export default [
         url: 'https://example.com/integer-id',
         geopoint: [2.357573,48.837904],
         geoshape: 'grand-est',
+        image: 'https://gravatar.com/avatar/8?s=400&d=robohash',
     },
     {
         title: 'Undefined row',
@@ -112,6 +120,7 @@ export default [
         url: undefined,
         geopoint: undefined,
         geoshape: undefined,
+        image: undefined,
     },
     {
         title: 'Empty row',

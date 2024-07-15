@@ -72,6 +72,14 @@ export const columns: Column[] = [
         },
     },
     {
+        title: 'Image',
+        key: 'image',
+        dataFormat: 'image',
+        options: {
+            loadingMessage: '',
+        }
+    }, 
+    {
         title: 'Geo point',
         key: 'geopoint',
         dataFormat: 'geo',

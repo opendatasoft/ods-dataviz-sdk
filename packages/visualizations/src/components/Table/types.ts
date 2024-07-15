@@ -95,6 +95,19 @@ export type GeoColumn = BaseColumn & {
     }>;
 };
 
+/**
+ * Render an interactive text that displays an image in a tooltip on tab/hover.
+ */
+export type ImageColumn = BaseColumn & {
+    dataFormat: typeof DATA_FORMAT.image;
+    options?: {
+        display?: (v: string) => string;
+        alt?: string;
+        loadingMessage?: string;
+        errorMessage?: string;
+    };
+};
+
 export type Column =
     | ShortTextColumn
     | LongTextColumn
@@ -102,7 +115,8 @@ export type Column =
     | DateColumn
     | BooleanColumn
     | URLColumn
-    | GeoColumn;
+    | GeoColumn
+    | ImageColumn;
 
 export type TableOptions = {
     columns: Column[];

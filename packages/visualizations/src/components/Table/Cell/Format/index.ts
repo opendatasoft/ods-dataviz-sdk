@@ -5,6 +5,7 @@ import URLFormat from './URLFormat.svelte';
 import ShortTextFormat from './ShortTextFormat.svelte';
 import LongTextFormat from './LongTextFormat.svelte';
 import GeoFormat from './GeoFormat.svelte';
+import ImageFormat from './ImageFormat.svelte';
 import { isValidRawValue } from './utils';
 
 const Format = {
@@ -15,6 +16,7 @@ const Format = {
     url: URLFormat,
     number: NumberFormat,
     geo: GeoFormat,
+    image: ImageFormat,
 };
 
 export { isValidRawValue };
