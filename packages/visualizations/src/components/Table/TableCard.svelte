@@ -47,6 +47,7 @@
         margin-bottom: var(--spacing-100);
         overflow: hidden;
         background-color: var(--background-color);
+        position: relative;
     }
     :global(.ods-dataviz--default) div {
         max-width: 100%;
