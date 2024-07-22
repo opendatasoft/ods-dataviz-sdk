@@ -3,9 +3,9 @@
 </script>
 
 <tr>
-    <div>
+    <td>
         <em>{label}</em>
-    </div>
+    </td>
 </tr>
 
 <style lang="scss">
@@ -13,7 +13,8 @@
     tr {
         height: $row-height;
     }
-    div {
+    td {
+        box-sizing: border-box;
         position: absolute;
         left: 0;
         right: 0;
