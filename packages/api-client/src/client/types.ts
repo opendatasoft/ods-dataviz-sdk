@@ -1,5 +1,7 @@
 // Type hints for Api response
 
+import { EXPORT_CATALOG_FORMAT, EXPORT_DATASET_FORMAT, ODS_DATASET_FIELD_TYPE } from "./constants";
+
 export interface Facet {
     name: string;
     count: number;
@@ -18,22 +20,40 @@ export interface Link {
     rel: string;
 }
 
-export interface OdsDataset {
-    dataset_id?: string;
-    dataset_uid?: string;
-    has_records?: boolean;
-    data_visible?: boolean;
-    features?: string[];
+export type OdsDatasetFieldType =  typeof ODS_DATASET_FIELD_TYPE[keyof typeof ODS_DATASET_FIELD_TYPE];
+
+export interface OdsDatasetAttachement {
+    id: string;
+    mimetype: string;
+    title: string;
+    url: string;
+}
+
+export interface OdsDatasetAlternativeExport extends OdsDatasetAttachement {
+    description: string;
+}
+
+export interface OdsDatasetField {
+    description: string | null;
+    name: string;
+    label: string;
+    type: OdsDatasetFieldType;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    metas?: Record<string, any>;
-    fields?: {
-        name?: string;
-        label?: string;
-        type?: string;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        annotations?: any;
-        description?: string;
-    }[];
+    annotations: any;
+}
+
+export interface OdsDataset { 
+    dataset_id: string;
+    dataset_uid: string;
+    has_records: boolean;
+    data_visible: boolean;
+    features: string[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    metas: Record<string, any>;
+    fields: OdsDatasetField[];
+    visibility: 'restricted' | 'domain';
+    attachements: OdsDatasetAttachement[]
+    alternative_exports: OdsDatasetAlternativeExport[]
 }
 
 export interface OdsRecord<T> {
@@ -68,41 +88,12 @@ export interface ApiQuery<T> {
 export interface ApiExport<T> {
     [key: string]: T;
 }
-export const EnumExportCatalogFormat = {
-    CSV: 'csv',
-    JSON: 'json',
-    XLSX: 'xlsx',
-    RDF: 'rdf',
-    TTL: 'ttl',
-    DATA_JSON: 'data.json',
-    RSS: 'rss',
-    DCAT: 'dcat',
-    DCAT_AP_CH: 'dcat-ap-ch',
-    DCAT_AP_IT: 'dcat-ap-it',
-    DCAT_AP_DE: 'dcat-ap-de',
-    DCAT_AP_SE: 'dcat-ap-se',
-    DCAT_AP_SP: 'dcat-ap-sp',
-    DCAT_AP_V1: 'dcat-ap-v1',
-    DCAT_AP_BENAP: 'dcat_ap_benap',
-} as const;
+
 
 export type ExportCatalogFormat =
-    typeof EnumExportCatalogFormat[keyof typeof EnumExportCatalogFormat];
+    typeof EXPORT_CATALOG_FORMAT[keyof typeof EXPORT_CATALOG_FORMAT];
 
-export const EnumExportDatasetFormat = {
-    JSON: 'json',
-    GEOJSON: 'geojson',
-    SHP: 'shp',
-    CSV: 'csv',
-    XLSX: 'xlsx',
-    KML: 'kml',
-    JSONLD: 'jsonld',
-    JSONL: 'jsonl',
-    RDFXML: 'rdfxml',
-    TURTLE: 'turtle',
-    N3: 'n3',
-    MVT: 'mvt',
-} as const;
+
 
 export type ExportDatasetFormat =
-    typeof EnumExportDatasetFormat[keyof typeof EnumExportDatasetFormat];
+    typeof EXPORT_DATASET_FORMAT[keyof typeof EXPORT_DATASET_FORMAT];
