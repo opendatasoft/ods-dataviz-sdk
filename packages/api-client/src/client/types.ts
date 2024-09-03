@@ -16,9 +16,13 @@ export interface FacetRoot {
     facets: Facet[];
 }
 
-export interface Link {
+export interface OdsLink {
     href: string;
     rel: string;
+}
+
+interface OdsDataWithLinks {
+    _links?: OdsLink[]
 }
 
 export type OdsDatasetFieldType =  ValueOf<typeof ODS_DATASET_FIELD_TYPE>;
@@ -43,56 +47,41 @@ export interface OdsDatasetField {
     annotations: any;
 }
 
-export interface OdsDataset { 
+export type OdsDataset = OdsDataWithLinks & {
+    [key: string]: unknown;
     dataset_id: string;
     dataset_uid: string;
     has_records: boolean;
     data_visible: boolean;
     features: string[];
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    metas: Record<string, any>;
+    metas: Record<string, unknown>;
     fields: OdsDatasetField[];
     visibility: 'restricted' | 'domain';
     attachements: OdsDatasetAttachement[]
     alternative_exports: OdsDatasetAlternativeExport[]
-}
+};
 
-export interface OdsRecord<T> {
-    id?: string;
-    timestamp?: string;
-    size?: number;
-    fields: T;
-}
-
-export interface ApiRecords<T> {
-    total_count?: number;
-    links: Link[];
-    results: OdsRecord<T>[];
-}
-
-export interface ApiDatasets {
-    total_count: number;
-    links: Link[];
-    results: OdsDataset[];
-}
+export type OdsDatasetRecord<T extends Record<string, unknown>> = T & OdsDataWithLinks & {
+    [key: string] : unknown
+};
 
 export interface ApiFacets {
-    links: Link[];
+    links: OdsLink[];
     facets: FacetRoot[];
 }
 
-export interface ApiQuery<T> {
-    total_count?: number;
+export interface ApiQuery<T extends Record<string, unknown>> extends OdsDataWithLinks {
+    total_count: number;
     results: T[];
 }
+
+export type ApiCatalog = ApiQuery<OdsDataset>;
+export type ApiDatasetRecords<T extends Record<string, unknown>> = ApiQuery<OdsDatasetRecord<T>>;
 
 export interface ApiExport<T> {
     [key: string]: T;
 }
 
-
 export type ExportCatalogFormat = ValueOf<typeof EXPORT_CATALOG_FORMAT>;
-
-
 
 export type ExportDatasetFormat = ValueOf<typeof EXPORT_DATASET_FORMAT>;
