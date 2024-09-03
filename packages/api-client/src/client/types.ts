@@ -1,5 +1,6 @@
 // Type hints for Api response
 
+import { ValueOf } from "../utils";
 import { EXPORT_CATALOG_FORMAT, EXPORT_DATASET_FORMAT, ODS_DATASET_FIELD_TYPE } from "./constants";
 
 export interface Facet {
@@ -20,7 +21,7 @@ export interface Link {
     rel: string;
 }
 
-export type OdsDatasetFieldType =  typeof ODS_DATASET_FIELD_TYPE[keyof typeof ODS_DATASET_FIELD_TYPE];
+export type OdsDatasetFieldType =  ValueOf<typeof ODS_DATASET_FIELD_TYPE>;
 
 export interface OdsDatasetAttachement {
     id: string;
@@ -90,10 +91,8 @@ export interface ApiExport<T> {
 }
 
 
-export type ExportCatalogFormat =
-    typeof EXPORT_CATALOG_FORMAT[keyof typeof EXPORT_CATALOG_FORMAT];
+export type ExportCatalogFormat = ValueOf<typeof EXPORT_CATALOG_FORMAT>;
 
 
 
-export type ExportDatasetFormat =
-    typeof EXPORT_DATASET_FORMAT[keyof typeof EXPORT_DATASET_FORMAT];
+export type ExportDatasetFormat = ValueOf<typeof EXPORT_DATASET_FORMAT>;
