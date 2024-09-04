@@ -1,7 +1,7 @@
 // Type hints for Api response
 
-import { ValueOf } from "../utils";
-import { EXPORT_CATALOG_FORMAT, EXPORT_DATASET_FORMAT, ODS_DATASET_FIELD_TYPE } from "./constants";
+import { ValueOf } from '../utils';
+import { EXPORT_CATALOG_FORMAT, EXPORT_DATASET_FORMAT, ODS_DATASET_FIELD_TYPE } from './constants';
 
 export interface Facet {
     name: string;
@@ -22,10 +22,10 @@ export interface OdsLink {
 }
 
 interface OdsDataWithLinks {
-    _links?: OdsLink[]
+    _links?: OdsLink[];
 }
 
-export type OdsDatasetFieldType =  ValueOf<typeof ODS_DATASET_FIELD_TYPE>;
+export type OdsDatasetFieldType = ValueOf<typeof ODS_DATASET_FIELD_TYPE>;
 
 export interface OdsDatasetAttachement {
     id: string;
@@ -48,7 +48,6 @@ export interface OdsDatasetField {
 }
 
 export type OdsDataset = OdsDataWithLinks & {
-    [key: string]: unknown;
     dataset_id: string;
     dataset_uid: string;
     has_records: boolean;
@@ -57,8 +56,8 @@ export type OdsDataset = OdsDataWithLinks & {
     metas: object;
     fields: OdsDatasetField[];
     visibility: 'restricted' | 'domain';
-    attachements: OdsDatasetAttachement[]
-    alternative_exports: OdsDatasetAlternativeExport[]
+    attachements: OdsDatasetAttachement[];
+    alternative_exports: OdsDatasetAlternativeExport[];
 };
 
 export type OdsDatasetRecord<T extends object> = T & OdsDataWithLinks;
@@ -68,14 +67,15 @@ export interface ApiFacets {
     facets: FacetRoot[];
 }
 
-export type ApiQuery<T extends object> =  OdsDataWithLinks & {
-    total_count: number;
+export type ApiQuery<T extends object> = OdsDataWithLinks & {
+    total_count?: number;
     results: T[];
 };
 
-export type ApiCatalog = ApiQuery<OdsDataset>;
-export type ApiDatasetRecords<T extends object> = ApiQuery<OdsDatasetRecord<T>>;
-
+export type ApiCatalog = ApiQuery<OdsDataset> & { total_count: number };
+export type ApiDatasetRecords<R extends object> = ApiQuery<OdsDatasetRecord<R>> & {
+    total_count: number;
+};
 
 export interface ApiExport<T> {
     [key: string]: T;

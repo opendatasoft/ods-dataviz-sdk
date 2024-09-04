@@ -1,15 +1,15 @@
 export const ODS_DATASET_FIELD_TYPE = {
-    TEXT: "text",
-    INT : "int",
-    DOUBLE : "double",
-    BOOLEAN : "boolean",
-    GEO_SHAPE : "geo_shape",
-    GEO_POINT_2D: "geo_point_2d",
-    DATETIME : "datetime",
-    DATE : "date",
-    IMAGE : "image",
-    FILE : "file",
-    JSON : "json",
+    TEXT: 'text',
+    INT: 'int',
+    DOUBLE: 'double',
+    BOOLEAN: 'boolean',
+    GEO_SHAPE: 'geo_shape',
+    GEO_POINT_2D: 'geo_point_2d',
+    DATETIME: 'datetime',
+    DATE: 'date',
+    IMAGE: 'image',
+    FILE: 'file',
+    JSON: 'json',
 } as const;
 
 export const EXPORT_DATASET_FORMAT = {
