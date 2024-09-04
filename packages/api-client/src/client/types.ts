@@ -16,64 +16,63 @@ export interface FacetRoot {
     facets: Facet[];
 }
 
-export interface OdsLink {
+export interface Link {
     href: string;
     rel: string;
 }
 
-interface OdsDataWithLinks {
-    _links?: OdsLink[];
+interface DataWithLinks {
+    _links?: Link[];
 }
 
-export type OdsDatasetFieldType = ValueOf<typeof ODS_DATASET_FIELD_TYPE>;
+export type DatasetFieldType = ValueOf<typeof ODS_DATASET_FIELD_TYPE>;
 
-export interface OdsDatasetAttachement {
+export interface DatasetAttachement {
     id: string;
     mimetype: string;
     title: string;
     url: string;
 }
 
-export interface OdsDatasetAlternativeExport extends OdsDatasetAttachement {
+export interface DatasetAlternativeExport extends DatasetAttachement {
     description: string;
 }
 
-export interface OdsDatasetField {
+export interface DatasetField {
     description: string | null;
     name: string;
     label: string;
-    type: OdsDatasetFieldType;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    annotations: any;
+    type: DatasetFieldType;
+    annotations: unknown;
 }
 
-export type OdsDataset = OdsDataWithLinks & {
+export type Dataset = DataWithLinks & {
     dataset_id: string;
     dataset_uid: string;
     has_records: boolean;
     data_visible: boolean;
     features: string[];
     metas: object;
-    fields: OdsDatasetField[];
+    fields: DatasetField[];
     visibility: 'restricted' | 'domain';
-    attachements: OdsDatasetAttachement[];
-    alternative_exports: OdsDatasetAlternativeExport[];
+    attachements: DatasetAttachement[];
+    alternative_exports: DatasetAlternativeExport[];
 };
 
-export type OdsDatasetRecord<T extends object> = T & OdsDataWithLinks;
+export type DatasetRecord<T extends object> = T & DataWithLinks;
 
 export interface ApiFacets {
-    links: OdsLink[];
+    links: Link[];
     facets: FacetRoot[];
 }
 
-export type ApiQuery<T extends object> = OdsDataWithLinks & {
+export type ApiQuery<T extends object> = DataWithLinks & {
     total_count?: number;
     results: T[];
 };
 
-export type ApiCatalog = ApiQuery<OdsDataset> & { total_count: number };
-export type ApiDatasetRecords<R extends object> = ApiQuery<OdsDatasetRecord<R>> & {
+export type ApiCatalog<Shape extends object = Dataset> = ApiQuery<Shape> & { total_count: number };
+export type ApiDatasetRecords<R extends object> = ApiQuery<DatasetRecord<R>> & {
     total_count: number;
 };
 
