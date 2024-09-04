@@ -4,6 +4,7 @@ export const ODS_DATASET_FIELD_TYPE = {
     DOUBLE : "double",
     BOOLEAN : "boolean",
     GEO_SHAPE : "geo_shape",
+    GEO_POINT_2D: "geo_point_2d",
     DATETIME : "datetime",
     DATE : "date",
     IMAGE : "image",
