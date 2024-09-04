@@ -54,29 +54,28 @@ export type OdsDataset = OdsDataWithLinks & {
     has_records: boolean;
     data_visible: boolean;
     features: string[];
-    metas: Record<string, unknown>;
+    metas: object;
     fields: OdsDatasetField[];
     visibility: 'restricted' | 'domain';
     attachements: OdsDatasetAttachement[]
     alternative_exports: OdsDatasetAlternativeExport[]
 };
 
-export type OdsDatasetRecord<T extends Record<string, unknown>> = T & OdsDataWithLinks & {
-    [key: string] : unknown
-};
+export type OdsDatasetRecord<T extends object> = T & OdsDataWithLinks;
 
 export interface ApiFacets {
     links: OdsLink[];
     facets: FacetRoot[];
 }
 
-export interface ApiQuery<T extends Record<string, unknown>> extends OdsDataWithLinks {
+export type ApiQuery<T extends object> =  OdsDataWithLinks & {
     total_count: number;
     results: T[];
-}
+};
 
 export type ApiCatalog = ApiQuery<OdsDataset>;
-export type ApiDatasetRecords<T extends Record<string, unknown>> = ApiQuery<OdsDatasetRecord<T>>;
+export type ApiDatasetRecords<T extends object> = ApiQuery<OdsDatasetRecord<T>>;
+
 
 export interface ApiExport<T> {
     [key: string]: T;
