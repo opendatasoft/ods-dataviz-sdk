@@ -25,6 +25,10 @@ export const EXPORT_DATASET_FORMAT = {
     TURTLE: 'turtle',
     N3: 'n3',
     MVT: 'mvt',
+    PARQUET: 'parquet',
+    FGB: 'fgb',
+    GPX: 'gpx',
+    ICAL: 'ical',
 } as const;
 
 export const EXPORT_CATALOG_FORMAT = {
