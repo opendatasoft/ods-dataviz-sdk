@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [21.5.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.5.0...@opendatasoft/api-client@21.5.1) (2024-09-20)
+
+
+### Bug Fixes
+
+* **api-client:** update dataset exports formats ([#260](https://github.com/opendatasoft/ods-dataviz-sdk/issues/260)) ([91704ce](https://github.com/opendatasoft/ods-dataviz-sdk/commit/91704ce240a2b680a2f6186b04c8a79005becf42))
+
+
+
+
+
 # [21.4.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.3.0...@opendatasoft/api-client@21.4.0) (2024-04-12)
 
 
