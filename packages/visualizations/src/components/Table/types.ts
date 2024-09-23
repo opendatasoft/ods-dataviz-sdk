@@ -24,6 +24,7 @@ type BaseColumn = {
         desc: string;
     };
     onClick?: () => void;
+    size?: 'large' | 'medium' | 'small' | 'fit-content';
 };
 
 export type ShortTextColumn = BaseColumn & {
