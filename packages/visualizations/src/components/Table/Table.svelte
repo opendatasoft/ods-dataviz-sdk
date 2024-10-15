@@ -10,6 +10,7 @@
     export let records: DataFrame | undefined;
     export let description: string | undefined;
     export let emptyStateLabel: string | undefined;
+    export let rowClickCallback: ((record: Record<string, any>) => void) | undefined;
 
     const tableId = `table-${generateId()}`;
 </script>
@@ -17,7 +18,7 @@
 <div class="scrollbox">
     <table aria-describedby={description ? tableId : undefined}>
         <Headers {columns} />
-        <Body {loadingRowsNumber} {records} {columns} {emptyStateLabel} />
+        <Body {loadingRowsNumber} {records} {columns} {emptyStateLabel} {rowClickCallback} />
     </table>
 </div>
 {#if description}

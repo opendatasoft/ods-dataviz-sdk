@@ -119,6 +119,7 @@ export type TableOptions = {
      */
     unstyled?: boolean;
     pagination?: Pagination;
+    rowClickCallback?: (record: Record<string, any>) => void;
 };
 
 export type TableProps = {

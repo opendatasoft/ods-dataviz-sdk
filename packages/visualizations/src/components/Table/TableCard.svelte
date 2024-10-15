@@ -22,6 +22,7 @@
         locale: localeOption,
         pagination,
         emptyStateLabel,
+        rowClickCallback,
     } = options);
     $: $locale = localeOption || navigator.language;
     $: defaultLoadingRowsNumber = pagination ? pagination.recordsPerPage : 5;
@@ -33,7 +34,7 @@
 
 <Card {title} {subtitle} {source} defaultStyle={!unstyled}>
     <div class="table-container">
-        <Table {loadingRowsNumber} {records} {columns} {description} {emptyStateLabel} />
+        <Table {loadingRowsNumber} {records} {columns} {description} {emptyStateLabel} {rowClickCallback} />
         {#if pagination}
             <Pagination {...pagination} />
         {/if}
