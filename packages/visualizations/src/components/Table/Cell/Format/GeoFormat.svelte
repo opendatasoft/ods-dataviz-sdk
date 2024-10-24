@@ -29,10 +29,10 @@
         delay: [500, 0],
         duration: [275, 0],
         maxWidth: 'none',
-        onTrigger: () => {
+        onShow: () => {
             showMap = true;
         },
-        onUntrigger: () => {
+        onHide: () => {
             showMap = false;
         },
     }}
