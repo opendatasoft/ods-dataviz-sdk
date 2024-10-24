@@ -144,3 +144,8 @@ export type Images = Record<
     string,
     { id: string; url: string; options?: Partial<StyleImageMetadata> }
 >;
+
+export type WebGlMapProps = {
+    data: WebGlMapData;
+    options: WebGlMapOptions;
+};
