@@ -9,6 +9,7 @@ import {
     ChoroplethSvg as _ChoroplethSvg,
     PoiMap as _PoiMap,
     Table as _Table,
+    WebGlMap as _WebGlMap,
 } from '@opendatasoft/visualizations';
 import type {
     ChartProps,
@@ -17,6 +18,7 @@ import type {
     ChoroplethGeoJsonProps,
     ChoroplethVectorTilesProps,
     PoiMapProps,
+    WebGlMapProps,
     TableProps,
 } from '@opendatasoft/visualizations';
 import reactifySvelte from 'reactify';
@@ -40,4 +42,5 @@ export const ChoroplethSvg = reactifySvelte<ChoroplethGeoJsonProps>(
     'ods-visualizations-choropleth-svg'
 );
 export const PoiMap = reactifySvelte<PoiMapProps>(_PoiMap, 'ods-visualizations-poi-map');
+export const WebGlMap = reactifySvelte<WebGlMapProps>(_WebGlMap, 'ods-visualizations-webgl-map');
 export const Table = reactifySvelte<TableProps>(_Table, 'ods-visualizations-table');
