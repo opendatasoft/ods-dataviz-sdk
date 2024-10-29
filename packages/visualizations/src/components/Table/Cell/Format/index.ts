@@ -1,10 +1,10 @@
 import BooleanFormat from './BooleanFormat.svelte';
 import DateFormat from './DateFormat.svelte';
-import NumberFormat from './NumberFormat.svelte';
-import URLFormat from './URLFormat.svelte';
-import ShortTextFormat from './ShortTextFormat.svelte';
-import LongTextFormat from './LongTextFormat.svelte';
 import GeoFormat from './GeoFormat.svelte';
+import LongTextFormat from './LongTextFormat.svelte';
+import NumberFormat from './NumberFormat.svelte';
+import ShortTextFormat from './ShortTextFormat.svelte';
+import URLFormat from './URLFormat.svelte';
 import { isValidRawValue } from './utils';
 
 const Format = {

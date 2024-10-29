@@ -1,17 +1,19 @@
 <script lang="ts">
-    import { warn } from './utils';
+    import ShortTextFormat from './ShortTextFormat.svelte';
 
     export let rawValue: unknown;
     export let display = (v: string) => v;
     export let target: HTMLAnchorElement['target'] = '_blank';
+    export let rel = 'nofollow noreferrer noopener';
 
     function format(v: unknown) {
         try {
             // eslint-disable-next-line no-new
             new URL(v as string);
-            return v as string;
-        } catch (error) {
-            warn(v, 'URL');
+            return display(v as string);
+        } catch (_) {
+            // eslint-disable-next-line no-console
+            console.warn(`ODS Dataviz SDK - Table: no url detected, formatting as string`);
             return null;
         }
     }
@@ -20,7 +22,7 @@
 </script>
 
 {#if value}
-    <a href={value} {target}>{display(value)}</a>
+    <a href={value} {rel} {target}>{display(value)}</a>
 {:else}
-    {rawValue}
+    <ShortTextFormat {rawValue} />
 {/if}

@@ -1,21 +1,21 @@
-import chroma from 'chroma-js';
-import turfBbox from '@turf/bbox';
-import maplibregl, { ExpressionInputType, ExpressionSpecification } from 'maplibre-gl';
 import { viewport } from '@placemarkio/geo-viewport';
-import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
+import turfBbox from '@turf/bbox';
 import type { Scale } from 'chroma-js';
+import chroma from 'chroma-js';
 import { assertUnreachable } from 'components/utils';
-import { Color, ColorScale, DataBounds, isGroupByForMatchExpression, ColorScaleTypes } from 'types';
+import type { BBox, Feature, FeatureCollection, Position } from 'geojson';
+import maplibregl, { ExpressionInputType, ExpressionSpecification } from 'maplibre-gl';
+import { Color, ColorScale, ColorScaleTypes, DataBounds, isGroupByForMatchExpression } from 'types';
 import { DEFAULT_COLORS } from './constants';
 
 import type {
     ChoroplethDataValue,
     ChoroplethFixedTooltipDescription,
-    MapFilter,
-    ChoroplethTooltipFormatter,
-    MapRenderTooltipFunction,
-    ComputeTooltipFunction,
     ChoroplethLayer,
+    ChoroplethTooltipFormatter,
+    ComputeTooltipFunction,
+    MapFilter,
+    MapRenderTooltipFunction,
 } from './types';
 import { ChoroplethTooltipMatcherTypes, TooltipParams } from './types';
 

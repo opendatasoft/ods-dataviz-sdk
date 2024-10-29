@@ -1,6 +1,6 @@
-import type { Async, Source } from 'types';
 import type { CategoryLegend } from 'components/Legend/types';
 import type { WebGlMapData, WebGlMapOptions } from 'components/Map/WebGl/types';
+import type { Async, Source } from 'types';
 
 export type PoiMapData = Async<WebGlMapData>;
 

@@ -2,8 +2,8 @@
  * @jest-environment jsdom
  */
 
+import { beforeEach, describe, expect, it } from '@jest/globals';
 import { enableFetchMocks } from 'jest-fetch-mock';
-import { expect, it, beforeEach, describe } from '@jest/globals';
 import { ApiClient, field, fromCatalog } from '../src';
 import { AuthenticationError, NotFoundError, ServerError, UserError } from '../src/client/error';
 

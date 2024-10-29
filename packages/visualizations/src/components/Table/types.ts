@@ -1,7 +1,7 @@
-import type { DataFrame, Source, Async } from 'types';
 import type { WebGlMapData, WebGlMapOptions } from 'components/Map';
-import type { DATA_FORMAT } from './constants';
+import type { Async, DataFrame, Source } from 'types';
 import type { Pagination } from '../Pagination/types';
+import type { DATA_FORMAT } from './constants';
 
 type DataFormatKey = keyof typeof DATA_FORMAT;
 export type DataFormat = typeof DATA_FORMAT[DataFormatKey];
@@ -82,6 +82,8 @@ export type URLColumn = BaseColumn & {
         display?: (v: string) => string;
         /** Default is `_blank` */
         target?: string;
+        /** Default is `nofollow noopener noreferrer` */
+        rel?: string;
     };
 };
 

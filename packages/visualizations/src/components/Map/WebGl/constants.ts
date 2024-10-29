@@ -1,8 +1,8 @@
 import type {
-    DataDrivenPropertyValueSpecification,
-    StyleSpecification,
     ControlPosition,
+    DataDrivenPropertyValueSpecification,
     PopupOptions,
+    StyleSpecification,
 } from 'maplibre-gl';
 import type { Color } from 'types';
 

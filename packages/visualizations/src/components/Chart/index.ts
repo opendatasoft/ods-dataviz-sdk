@@ -1,4 +1,4 @@
-import { Chart as ChartModule, registerables, defaults } from 'chart.js';
+import { Chart as ChartModule, defaults, registerables } from 'chart.js';
 import { TreemapController, TreemapElement } from 'chartjs-chart-treemap';
 import DataLabels from 'chartjs-plugin-datalabels';
 import Stacked100Plugin from 'chartjs-plugin-stacked100';

@@ -1,41 +1,41 @@
 import type { BBox } from 'geojson';
 import { debounce, difference } from 'lodash';
-import MaplibreGl from 'maplibre-gl';
 import type {
-    Map,
+    CircleLayerSpecification,
     LngLatBoundsLike,
     LngLatLike,
+    Map,
     MapGeoJSONFeature,
     MapLayerMouseEvent,
     MapMouseEvent,
     MapOptions,
     StyleSpecification,
-    CircleLayerSpecification,
     SymbolLayerSpecification,
 } from 'maplibre-gl';
+import MaplibreGl from 'maplibre-gl';
 
 import {
     CONTROL_POSITION,
+    DEFAULT_SORT_KEY_VALUE,
+    POPUP_DISPLAY,
+    POPUP_DISPLAY_CLASSNAME_MODIFIER,
     POPUP_FEATURE_CONTENT,
     POPUP_FEATURE_CONTENT_LOADING,
-    POPUP_DISPLAY_CLASSNAME_MODIFIER,
-    POPUP_NAVIGATION_CONTROLS_CLASSNAME,
     POPUP_NAVIGATION_ARROWS_WRAPPER_CLASSNAME,
     POPUP_NAVIGATION_ARROW_BUTTON_CLASSNAME,
     POPUP_NAVIGATION_ARROW_BUTTON_ICON_CLASSNAME,
     POPUP_NAVIGATION_CLOSE_BUTTON_CLASSNAME,
     POPUP_NAVIGATION_CLOSE_BUTTON_ICON_CLASSNAME,
+    POPUP_NAVIGATION_CONTROLS_CLASSNAME,
+    POPUP_NAVIGATION_CONTROLS_OFFSET_CLASSNAME,
     POPUP_OPTIONS,
     POPUP_WIDTH,
-    POPUP_NAVIGATION_CONTROLS_OFFSET_CLASSNAME,
-    DEFAULT_SORT_KEY_VALUE,
-    POPUP_DISPLAY,
 } from './constants';
 import type {
-    PopupConfigurationByLayers,
     CenterZoomOptions,
-    PopupDisplayTypes,
     Images,
+    PopupConfigurationByLayers,
+    PopupDisplayTypes,
 } from './types';
 
 const CURSOR = {

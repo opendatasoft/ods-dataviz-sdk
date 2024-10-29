@@ -1,8 +1,8 @@
-import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
-import type { FillLayerSpecification, Popup, GestureOptions, LngLatBoundsLike } from 'maplibre-gl';
-import type { DebouncedFunc } from 'lodash';
-import type { ColorScale, Color, Source } from 'types';
 import type { LegendPositions } from 'components/Legend/types';
+import type { BBox, Feature, FeatureCollection, Position } from 'geojson';
+import type { DebouncedFunc } from 'lodash';
+import type { FillLayerSpecification, GestureOptions, LngLatBoundsLike, Popup } from 'maplibre-gl';
+import type { Color, ColorScale, Source } from 'types';
 
 export interface ChoroplethOptions {
     /** Configuration for the color scale used to color the choropleth shapes. */

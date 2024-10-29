@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import type { Plugin, ChartConfiguration, ChartDataset } from 'chart.js';
+import type { ChartConfiguration, ChartDataset, Plugin } from 'chart.js';
 
 const pieDataLabelsPlugin: Plugin<'pie'> = {
     id: 'ods-chartjs-plugin-datalabels',

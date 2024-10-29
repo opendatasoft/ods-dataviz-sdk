@@ -2,24 +2,24 @@
  * @jest-environment jsdom
  */
 
-import { expect, it, describe, test } from '@jest/globals';
+import { describe, expect, it, test } from '@jest/globals';
 import {
+    all,
+    date,
+    dateFromIsoString,
+    dateTime,
+    field,
     fromCatalog,
     fromDataNetwork,
     fromMonitoring,
-    Query,
-    field,
-    string,
-    dateTime,
-    date,
-    all,
-    one,
     list,
     not,
-    dateFromIsoString,
+    one,
+    Query,
+    string,
     textSearch,
-    textSuggest,
     textStartWith,
+    textSuggest,
 } from '../src';
 
 describe('ODSQL query builder', () => {
