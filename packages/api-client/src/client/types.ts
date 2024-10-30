@@ -1,7 +1,7 @@
 // Type hints for Api response
 
 import { ValueOf } from '../utils';
-import { EXPORT_CATALOG_FORMAT, EXPORT_DATASET_FORMAT, ODS_DATASET_FIELD_TYPE } from './constants';
+import { EXPORT_CATALOG_FORMAT, EXPORT_DATASET_FORMAT, ODS_DATASET_FIELD_TYPE, ODS_DATASET_FIELD_SEMANTIC_TYPE } from './constants';
 
 export interface Facet {
     name: string;
@@ -27,6 +27,8 @@ interface DataWithLinks {
 
 export type DatasetFieldType = ValueOf<typeof ODS_DATASET_FIELD_TYPE>;
 
+export type DatasetFieldSemanticType = ValueOf<typeof ODS_DATASET_FIELD_SEMANTIC_TYPE>;
+
 export interface DatasetAttachement {
     id: string;
     mimetype: string;
@@ -43,6 +45,7 @@ export interface DatasetField {
     name: string;
     label: string;
     type: DatasetFieldType;
+    semantic_type?: DatasetFieldSemanticType;
     annotations: unknown;
 }
 

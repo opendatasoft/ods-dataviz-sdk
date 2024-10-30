@@ -12,6 +12,11 @@ export const ODS_DATASET_FIELD_TYPE = {
     JSON: 'json',
 } as const;
 
+export const ODS_DATASET_FIELD_SEMANTIC_TYPE = {
+    IP_ADDRESS: 'ip_address',
+    MONITORING_IP_ADDRESS: 'monitoring_ip_address',
+} as const;
+
 export const EXPORT_DATASET_FORMAT = {
     JSON: 'json',
     GEOJSON: 'geojson',
