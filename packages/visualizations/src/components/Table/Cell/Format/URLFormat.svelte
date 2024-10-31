@@ -11,11 +11,11 @@
         if (isValidUrl(v)) {
             return {
                 text: display(v),
-                href: v as string,
+                href: v,
             };
         }
         // eslint-disable-next-line no-console
-        console.warn(`ODS Dataviz SDK - Table: no url detected, formatting as string`);
+        console.warn(`ODS Dataviz SDK - Table: no url detected in ${v}. Formatting as string.`);
         return { text: null, href: null };
     };
 
