@@ -1,7 +1,7 @@
 import type { ChartDataset } from 'chart.js';
 import type { Options as DataLabelsOptions } from 'chartjs-plugin-datalabels/types/options';
-import { assureMaxLength, defaultCompactNumberFormat } from 'components/utils/formatter';
 import type { DataFrame } from 'types';
+import { defaultCompactNumberFormat, assureMaxLength } from 'components/utils/formatter';
 import type {
     ChartSeries,
     DataLabelsConfiguration,
@@ -10,9 +10,9 @@ import type {
 } from './types';
 import {
     defaultValue,
-    DEFAULT_GREY_COLOR,
-    multipleChartJsColors,
     singleChartJsColor,
+    multipleChartJsColors,
+    DEFAULT_GREY_COLOR,
 } from './utils';
 
 function chartJsFill(fill: FillConfiguration | undefined) {

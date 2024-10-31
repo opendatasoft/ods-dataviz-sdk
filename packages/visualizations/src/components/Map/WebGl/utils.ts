@@ -1,27 +1,27 @@
 import type {
     CircleLayerSpecification,
-    ExpressionInputType,
     ExpressionSpecification,
-    FillLayerSpecification,
     MapOptions as MapLibreMapOptions,
     StyleSpecification,
+    ExpressionInputType,
     SymbolLayerSpecification,
+    FillLayerSpecification,
 } from 'maplibre-gl';
 
-import { Color, isGroupByForMatchExpression } from 'types';
+import { isGroupByForMatchExpression, Color } from 'types';
 
-import { DEFAULT_BASEMAP_STYLE, DEFAULT_DARK_GREY, DEFAULT_SORT_KEY_VALUE } from './constants';
 import type {
-    CenterZoomOptions,
     CircleLayer,
-    FillLayer,
-    Layer,
     LayerSpecification,
-    PopupConfigurationByLayers,
-    SymbolLayer,
+    Layer,
     WebGlMapData,
     WebGlMapOptions,
+    PopupConfigurationByLayers,
+    SymbolLayer,
+    CenterZoomOptions,
+    FillLayer,
 } from './types';
+import { DEFAULT_DARK_GREY, DEFAULT_BASEMAP_STYLE, DEFAULT_SORT_KEY_VALUE } from './constants';
 
 export const getMapStyle = (style: WebGlMapOptions['style']): MapLibreMapOptions['style'] => {
     if (!style) return DEFAULT_BASEMAP_STYLE;

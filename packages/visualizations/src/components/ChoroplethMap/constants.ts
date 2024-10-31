@@ -1,6 +1,6 @@
 import type { FeatureCollection } from 'geojson';
-import type { Color, ColorScale } from 'types';
 import { ColorScaleTypes } from 'types';
+import type { ColorScale, Color } from 'types';
 
 export const DEFAULT_COLORS: Record<string, Color> = {
     Default: '#CCCCCC',

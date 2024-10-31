@@ -1,14 +1,14 @@
 import type {
-    CartesianScaleOptions,
     ChartOptions as ChartJsChartOptions,
-    GridLineOptions,
+    CartesianScaleOptions,
     RadialLinearScaleOptions,
     Scale,
     Tick,
+    GridLineOptions,
 } from 'chart.js';
+import { DateTime } from 'luxon';
 import type { DeepPartial } from 'chart.js/dist/types/utils';
 import { assureMaxLength, defaultCompactNumberFormat } from 'components/utils/formatter';
-import { DateTime } from 'luxon';
 import type {
     CartesianAxisConfiguration,
     ChartOptions,
