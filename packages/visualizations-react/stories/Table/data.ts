@@ -7,7 +7,7 @@ export default [
         isFeatured: true,
         wordCount: 1200,
         readingTime: 5.5,
-        url: 'https://example.com/lorem-ipsum',
+        url: 'htt:broken-url',
         geopoint: [2.357573,48.837904],
         geoshape: 'centre-val-de-loire',
     },
