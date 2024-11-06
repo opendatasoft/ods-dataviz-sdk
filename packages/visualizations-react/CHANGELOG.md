@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.27.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.26.1...@opendatasoft/visualizations-react@0.27.0) (2024-11-06)
+
+
+### Features
+
+* **Table:** URL cell can fallback to short-text cell ([#263](https://github.com/opendatasoft/ods-dataviz-sdk/issues/263)) ([89ca583](https://github.com/opendatasoft/ods-dataviz-sdk/commit/89ca58360971223c18ecc448c233f3ad124c93da))
+* **WebGlMap:** Export the component from the packages ([3ee8452](https://github.com/opendatasoft/ods-dataviz-sdk/commit/3ee84529ec397f982059df0ea4919d7183892aa7))
+
+
+
+
+
 # [0.26.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.25.0...@opendatasoft/visualizations-react@0.26.0) (2024-07-08)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [21.6.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.5.1...@opendatasoft/api-client@21.6.0) (2024-11-06)
+
+
+### Features
+
+* **api-client:** add semantic_type to DatasetField ([6d58834](https://github.com/opendatasoft/ods-dataviz-sdk/commit/6d58834c0394d4d6f379826bfeef23c07202f8cd))
+
+
+
+
+
 ## [21.5.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.5.0...@opendatasoft/api-client@21.5.1) (2024-09-20)
 
 
