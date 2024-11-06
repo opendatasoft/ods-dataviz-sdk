@@ -23,6 +23,10 @@ jobs:
       - name: Install
         run: npm ci
         working-directory: ./packages/api-client
+
+      - name: lint
+        run: npm run lint:eslint:check && npm run lint:prettier:check
+        working-directory: ./packages/api-client
       
       - name: test
         run: npm run test

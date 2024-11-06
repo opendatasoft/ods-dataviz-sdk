@@ -1,7 +1,12 @@
 // Type hints for Api response
 
 import { ValueOf } from '../utils';
-import { EXPORT_CATALOG_FORMAT, EXPORT_DATASET_FORMAT, ODS_DATASET_FIELD_TYPE, ODS_DATASET_FIELD_SEMANTIC_TYPE } from './constants';
+import {
+    EXPORT_CATALOG_FORMAT,
+    EXPORT_DATASET_FORMAT,
+    ODS_DATASET_FIELD_TYPE,
+    ODS_DATASET_FIELD_SEMANTIC_TYPE,
+} from './constants';
 
 export interface Facet {
     name: string;
