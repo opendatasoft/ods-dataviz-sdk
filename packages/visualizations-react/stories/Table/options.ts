@@ -68,7 +68,7 @@ export const columns: Column[] = [
         key: 'url',
         dataFormat: 'url',
         options: {
-            display: () => 'link',
+            display: value => value.startsWith('https://')  ? 'link' : 'broken link',
         },
     },
     {
