@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import type { TableData, Async } from '@opendatasoft/visualizations';
 
@@ -38,6 +38,28 @@ const ScrollTemplate: ComponentStory<typeof Table> = args => (
         <Table {...args} />
     </div>
 );
+
+const RowHoverTemplate: ComponentStory<typeof Table> = args => {
+    const { options: argOptions, data: argData } = args;
+    const [hoveredRecord, setHovered] = useState<Record<string, unknown> | undefined | null>(null);
+    const [lastClicked, setLastClicked] = useState<Record<string, unknown> | undefined | null>(null);
+
+    const onMouseEnter = (record?: Record<string, unknown>) => {setHovered(record);};
+    const onMouseLeave = () => {setHovered(null);};
+    const onClick = (record?: Record<string, unknown>) => {setLastClicked(record);};
+
+    return (
+        <>
+        <h3>Hovered</h3>
+        <pre>{JSON.stringify(hoveredRecord)}</pre>
+        <h3>Clicked</h3>
+        <pre>{JSON.stringify(lastClicked)}</pre>
+            <div style={{ maxWidth: '800px' }}>
+                <Table data={argData} options={{...argOptions, rows: { onClick, onMouseEnter, onMouseLeave}}}/>
+            </div>;
+        </>
+    );
+};
 
 const optionsWithPagination = {
     ...options,
@@ -106,4 +128,10 @@ RtlDirection.parameters = {
 RtlDirection.args = {
     data,
     options: optionsWithPagination,
+};
+
+export const Rows = RowHoverTemplate.bind({});
+Rows.args = {
+    data,
+    options,
 };

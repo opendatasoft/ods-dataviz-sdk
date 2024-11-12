@@ -97,6 +97,12 @@ export type GeoColumn = BaseColumn & {
     }>;
 };
 
+export type Rows = {
+    onClick?: (record?: Record<string, unknown>, index?: number) => void;
+    onMouseEnter?: (record?: Record<string, unknown>, index?: number) => void;
+    onMouseLeave?: (record?: Record<string, unknown>, index?: number) => void;
+};
+
 export type Column =
     | ShortTextColumn
     | LongTextColumn
@@ -108,6 +114,7 @@ export type Column =
 
 export type TableOptions = {
     columns: Column[];
+    rows?: Rows;
     title?: string;
     subtitle?: string;
     description?: string;

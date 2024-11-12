@@ -1,10 +1,12 @@
 <script lang="ts">
-    import type { Column, TableData } from './types';
-    import Cell, { LoadingCell } from './Cell';
+    import type { Column, Rows, TableData } from './types';
+    import { LoadingCell } from './Cell';
     import EmptyRow from './EmptyRow.svelte';
+    import Row from './Row.svelte';
 
     export let loadingRowsNumber: number | null;
     export let columns: Column[];
+    export let rows: Rows | undefined;
     export let records: TableData | undefined;
     export let emptyStateLabel: string | undefined;
 </script>
@@ -23,21 +25,10 @@
         {/each}
     {:else if records}
         {#each records as record}
-            <tr>
-                {#each columns as column}
-                    <Cell rawValue={record[column.key]} {column} />
-                {/each}
-            </tr>
+            <Row {columns} {rows} {record} />
         {/each}
     {/if}
 </tbody>
 
 <style>
-    :global(.ods-dataviz--default) tr {
-        border-bottom: 1px solid var(--border-color);
-    }
-
-    :global(.ods-dataviz--default) tr:last-child {
-        border-bottom: none;
-    }
 </style>
