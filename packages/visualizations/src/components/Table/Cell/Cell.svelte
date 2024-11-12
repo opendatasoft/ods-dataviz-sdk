@@ -38,6 +38,17 @@
 </td>
 
 <style>
+    .cell-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: 6px;
+    }
+    .value-container {
+        flex-shrink: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
     :global(.ods-dataviz--default td) {
         padding: var(--spacing-75);
     }
@@ -64,5 +75,30 @@
     }
     :global(.ods-dataviz--default td.table-data--number) {
         text-align: right;
+    }
+
+    :global(.ods-dataviz--default) button {
+        background-color: transparent;
+        color: #142e7b;
+        border-radius: 50%;
+        height: 28px;
+        width: 28px;
+        margin-right: 3px;
+        padding: 6px;
+        border: none;
+        box-shadow: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        visibility: hidden;
+    }
+
+    :global(.ods-dataviz--default) button:hover {
+        background-color: #e2e6ee;
+        cursor: pointer;
+    }
+
+    :global(.ods-dataviz--default) button.visible {
+        visibility: visible;
     }
 </style>
