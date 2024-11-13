@@ -16,7 +16,7 @@
 
 <div class="scrollbox">
     <table aria-describedby={description ? tableId : undefined}>
-        <Headers {columns} />
+        <Headers {columns} extraButtonColumn={Boolean(rows?.onClick)} />
         <Body {loadingRowsNumber} {records} {columns} {rows} {emptyStateLabel} />
     </table>
 </div>

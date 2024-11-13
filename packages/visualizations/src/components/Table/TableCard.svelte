@@ -12,6 +12,7 @@
     export let options: $$Props['options'];
 
     $: ({ value: records, loading: isLoading } = data);
+
     $: ({
         columns,
         rows,
