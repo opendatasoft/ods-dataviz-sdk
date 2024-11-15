@@ -29,11 +29,18 @@
     };
 </script>
 
-<tr on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
+<tr
+    on:mouseenter={onMouseEnter}
+    on:mouseleave={onMouseLeave}
+    on:focusin={onMouseEnter}
+    on:focusout={onMouseLeave}
+>
     {#if rows?.onClick}
         <td class="button-cell">
-            <button on:click={onClick} class:visible={isRowHovered}>
-                <ZoomIcon />
+            <button on:click={onClick}>
+                <span class:visually-hidden={!isRowHovered}>
+                    <ZoomIcon />
+                </span>
             </button>
         </td>
     {/if}
@@ -64,20 +71,33 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        visibility: hidden;
     }
 
-    :global(.ods-dataviz--default) button:hover {
+    span {
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Hides visually but leaves it accessible by kb/sr */
+    .visually-hidden:not(:focus):not(:active) {
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+    }
+
+    :global(.ods-dataviz--default) button:hover,
+    :global(.ods-dataviz--default) button:focus {
         background-color: #e2e6ee;
         cursor: pointer;
-    }
-
-    :global(.ods-dataviz--default) button.visible {
-        visibility: visible;
     }
 
     :global(.ods-dataviz--default) .button-cell {
         padding: 0;
         padding-left: 6px;
+        width: 34px;
     }
 </style>
