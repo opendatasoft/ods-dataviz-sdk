@@ -6,21 +6,45 @@
     export let columns: Column[];
     export let rows: Rows | undefined;
     export let record: Record<string, unknown>;
-    let isRowHovered = false;
 
-    $: onMouseEnter = () => {
+    let isRowHovered = false;
+    let rowElement: HTMLTableRowElement;
+    $: onMousenter = () => {
         if (rows?.onMouseEnter) {
             rows.onMouseEnter(record);
         }
         isRowHovered = true;
     };
-
-    $: onMouseLeave = () => {
+    $: onMouseleave = () => {
         if (rows?.onMouseLeave) {
             rows.onMouseLeave(record);
         }
         isRowHovered = false;
     };
+
+    $: if (rowElement) {
+        if (rows) {
+            ['mouseenter', 'focusin'].forEach((evt) =>
+                rowElement.addEventListener(evt, onMousenter)
+            );
+        } else {
+            ['mouseenter', 'focusin'].forEach((evt) =>
+                rowElement.removeEventListener(evt, onMousenter)
+            );
+        }
+    }
+
+    $: if (rowElement) {
+        if (rows) {
+            ['mouseleave', 'focusout'].forEach((evt) =>
+                rowElement.addEventListener(evt, onMouseleave)
+            );
+        } else {
+            ['mouseleave', 'focusout'].forEach((evt) =>
+                rowElement.removeEventListener(evt, onMouseleave)
+            );
+        }
+    }
 
     $: onClick = () => {
         if (rows?.onClick) {
@@ -29,15 +53,10 @@
     };
 </script>
 
-<tr
-    on:mouseenter={onMouseEnter}
-    on:mouseleave={onMouseLeave}
-    on:focusin={onMouseEnter}
-    on:focusout={onMouseLeave}
->
+<tr bind:this={rowElement}>
     {#if rows?.onClick}
         <td class="button-cell">
-            <button on:click={onClick}>
+            <button on:click={onClick} aria-label={rows?.actionAriaLabel || 'Expand Record'}>
                 <span class:visually-hidden={!isRowHovered}>
                     <ZoomIcon />
                 </span>
@@ -90,7 +109,7 @@
     }
 
     :global(.ods-dataviz--default) button:hover,
-    :global(.ods-dataviz--default) button:focus {
+    :global(.ods-dataviz--default) button:focus-visible {
         background-color: #e2e6ee;
         cursor: pointer;
     }

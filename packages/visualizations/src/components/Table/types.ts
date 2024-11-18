@@ -101,6 +101,7 @@ export type Rows = {
     onClick?: (record?: Record<string, unknown>, index?: number) => void;
     onMouseEnter?: (record?: Record<string, unknown>, index?: number) => void;
     onMouseLeave?: (record?: Record<string, unknown>, index?: number) => void;
+    actionAriaLabel?: string;
 };
 
 export type Column =
