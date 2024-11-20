@@ -1,16 +1,19 @@
 <script lang="ts">
     import ShortTextFormat from './ShortTextFormat.svelte';
     import { isValidUrl } from './utils';
+    import type { URLFormatProps } from './types';
 
-    export let rawValue: unknown;
-    export let display = (v: string) => v;
-    export let target: HTMLAnchorElement['target'] = '_blank';
-    export let rel = 'nofollow noreferrer noopener';
+    type $$Props = URLFormatProps;
+
+    export let rawValue: $$Props['rawValue'];
+    export let display: $$Props['display'] = (v: string) => v;
+    export let target: $$Props['target'] = '_blank';
+    export let rel: $$Props['rel'] = 'nofollow noreferrer noopener';
 
     $: format = (v: unknown) => {
         if (isValidUrl(v)) {
             return {
-                text: display(v),
+                text: display && display(v),
                 href: v,
             };
         }
@@ -23,7 +26,7 @@
 </script>
 
 {#if text}
-    <a {href} {rel} {target}>{text}</a>
+    <a {href} {rel} {target}>{display && text}</a>
 {:else}
     <ShortTextFormat {rawValue} {display} />
 {/if}

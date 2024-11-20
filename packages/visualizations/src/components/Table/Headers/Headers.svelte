@@ -8,10 +8,10 @@
 
 <thead>
     <tr>
+        {#if extraButtonColumn}
+            <th />
+        {/if}
         {#each columns as column}
-            {#if extraButtonColumn}
-                <th />
-            {/if}
             <th class={`table-header--${column.dataFormat}`}>
                 {#if column.onClick}
                     <SortButton

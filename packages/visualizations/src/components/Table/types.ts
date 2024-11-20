@@ -1,4 +1,12 @@
-import type { WebGlMapData, WebGlMapOptions } from 'components/Map';
+import type {
+    BooleanFormatProps,
+    DateFormatProps,
+    GeoFormatProps,
+    ShortTextFormatProps,
+    LongTextFormatProps,
+    NumberFormatProps,
+    URLFormatProps,
+} from 'components/Format/types';
 import type { Async, DataFrame, Source } from 'types';
 import type { Pagination } from '../Pagination/types';
 import type { DATA_FORMAT } from './constants';
@@ -26,76 +34,25 @@ type BaseColumn = {
     onClick?: () => void;
 };
 
-export type ShortTextColumn = BaseColumn & {
-    dataFormat: typeof DATA_FORMAT.shortText;
-    options?: {
-        display?: (v: string) => string;
-    };
+// Eliminate rawValue from props to match column options
+type ColumnOptions<T> = Omit<T, 'rawValue'>;
+
+type FormatPropsTypeMap = {
+    [DATA_FORMAT.boolean]: ColumnOptions<BooleanFormatProps>;
+    [DATA_FORMAT.date]: ColumnOptions<DateFormatProps>;
+    [DATA_FORMAT.geo]: ColumnOptions<GeoFormatProps>;
+    [DATA_FORMAT.shortText]: ColumnOptions<ShortTextFormatProps>;
+    [DATA_FORMAT.longText]: ColumnOptions<LongTextFormatProps>;
+    [DATA_FORMAT.number]: ColumnOptions<NumberFormatProps>;
+    [DATA_FORMAT.url]: ColumnOptions<URLFormatProps>;
 };
 
-export type LongTextColumn = BaseColumn & {
-    dataFormat: typeof DATA_FORMAT.longText;
-    options?: {
-        display?: (v: string) => string;
-    };
+export type ColumnOfType<F extends DataFormat> = BaseColumn & {
+    dataFormat: F;
+    options?: FormatPropsTypeMap[F];
 };
 
-export type NumberColumn = BaseColumn & {
-    dataFormat: typeof DATA_FORMAT.number;
-    options?: {
-        /** Function to update the data value. Takes an argument which is the result of Intl.NumberFormat. */
-        display?: (v: string) => string;
-        /**
-         * Configuration options for formatting numbers using Intl.NumberFormat. See:
-         * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat#options
-         */
-        intl?: Intl.NumberFormatOptions;
-    };
-};
-
-export type DateColumn = BaseColumn & {
-    dataFormat: typeof DATA_FORMAT.date;
-    options?: {
-        /** Function to update the data value. Takes an argument which is the result of Intl.DateTimeFormat. */
-        display?: (v: string) => string;
-        /**
-         * Configuration options for formatting dates using Intl.DateTimeFormat. See:
-         * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat#using_options
-         */
-        intl?: Intl.DateTimeFormatOptions;
-    };
-};
-
-export type BooleanColumn = BaseColumn & {
-    dataFormat: typeof DATA_FORMAT.boolean;
-    options?: {
-        display?: (v: boolean) => string;
-    };
-};
-
-/**
- * Render HTML \<a> tag if the record value is a valid URL.
- */
-export type URLColumn = BaseColumn & {
-    dataFormat: typeof DATA_FORMAT.url;
-    options?: {
-        display?: (v: string) => string;
-        /** Default is `_blank` */
-        target?: string;
-        /** Default is `nofollow noopener noreferrer` */
-        rel?: string;
-    };
-};
-
-export type GeoColumn = BaseColumn & {
-    dataFormat: typeof DATA_FORMAT.geo;
-    options?: Partial<{
-        mapOptions: WebGlMapOptions;
-        display: (v: unknown) => string;
-        sources: (v: unknown) => WebGlMapData['sources'];
-        layers: (v: unknown) => WebGlMapData['layers'];
-    }>;
-};
+export type Column = ColumnOfType<DataFormat>;
 
 export type Rows = {
     onClick?: (record?: Record<string, unknown>, index?: number) => void;
@@ -103,15 +60,6 @@ export type Rows = {
     onMouseLeave?: (record?: Record<string, unknown>, index?: number) => void;
     actionAriaLabel?: string;
 };
-
-export type Column =
-    | ShortTextColumn
-    | LongTextColumn
-    | NumberColumn
-    | DateColumn
-    | BooleanColumn
-    | URLColumn
-    | GeoColumn;
 
 export type TableOptions = {
     columns: Column[];
