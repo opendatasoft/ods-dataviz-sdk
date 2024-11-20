@@ -26,7 +26,7 @@
 </script>
 
 {#if text}
-    <a {href} {rel} {target}>{text}</a>
+    <a {href} {rel} {target}>{display && text}</a>
 {:else}
     <ShortTextFormat {rawValue} {display} />
 {/if}
