@@ -11,13 +11,34 @@
     export let description: string | undefined;
     export let emptyStateLabel: string | undefined;
     export let rowProps: RowProps | undefined;
+    $: sortedStickyColumns = [...columns].sort((colA, colB) => {
+        if (Boolean(colA?.sticky) === Boolean(colB?.sticky)) { return 0;}
+        return colA?.sticky ? -1 : 1;
+    });
+
     const tableId = `table-${generateId()}`;
+
+    let isHorizontallyScrolled = false;
+    let scrollBox: HTMLDivElement;
+    function handleScroll() {
+        if (scrollBox?.scrollLeft > 0) {
+            isHorizontallyScrolled = true;
+        } else {
+            isHorizontallyScrolled = false;
+        }
+    }
+
+    // resets scroll when changing columns parameters
+    $: if (columns && scrollBox) {
+        scrollBox.scrollLeft = 0;
+    }
+
 </script>
 
-<div class="scrollbox">
+<div class="scrollbox" bind:this={scrollBox} on:scroll={handleScroll}>
     <table aria-describedby={description ? tableId : undefined}>
-        <Headers {columns} extraButtonColumn={Boolean(rowProps?.onClick)} />
-        <Body {loadingRowsNumber} {records} {columns} {rowProps} {emptyStateLabel} />
+        <Headers columns={sortedStickyColumns} {isHorizontallyScrolled} extraButtonColumn={Boolean(rowProps?.onClick)} />
+        <Body {records} columns={sortedStickyColumns} {rowProps} {emptyStateLabel} {loadingRowsNumber} {isHorizontallyScrolled} />
     </table>
 </div>
 {#if description}
@@ -37,7 +58,8 @@
     }
 
     :global(.ods-dataviz--default) table {
-        border-collapse: collapse;
+        border-collapse: separate;
+        border-spacing: 0;
         white-space: nowrap;
         width: inherit;
     }

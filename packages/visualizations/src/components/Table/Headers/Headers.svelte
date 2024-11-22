@@ -1,7 +1,9 @@
 <script lang="ts">
     import SortButton from './SortButton.svelte';
     import type { Column } from '../types';
+    import Th from './Th.svelte';
 
+    export let isHorizontallyScrolled: boolean;
     export let columns: Column[];
     export let extraButtonColumn = false;
 </script>
@@ -11,8 +13,13 @@
         {#if extraButtonColumn}
             <th />
         {/if}
-        {#each columns as column}
-            <th class={`table-header--${column.dataFormat}`}>
+        {#each columns as column, index}
+            <Th 
+                sticky={column?.sticky}
+                dataFormat={column.dataFormat}
+                {index}
+                {isHorizontallyScrolled}
+            >
                 {#if column.onClick}
                     <SortButton
                         sorted={column?.sorted}
@@ -24,21 +31,11 @@
                 {:else}
                     {column.title}
                 {/if}
-            </th>{/each}
+            </Th>
+        {/each}
     </tr>
 </thead>
 
 <style>
-    :global(.ods-dataviz--default thead) {
-        border-bottom: 1px solid var(--border-color);
-    }
 
-    :global(.ods-dataviz--default th) {
-        text-align: left;
-        padding: var(--spacing-75);
-    }
-
-    :global(.ods-dataviz--default th.table-header--number) {
-        text-align: right;
-    }
 </style>
