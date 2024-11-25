@@ -31,3 +31,5 @@
 {:else}
     <TextFormat {value} {valueToLabel} />
 {/if}
+
+<style></style>
