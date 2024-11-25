@@ -29,7 +29,7 @@ export {
     LongTextFormat,
     NumberFormat,
     URLFormat,
-} from 'components/Format';
-export * from 'components/Format/types';
+} from './components/Format';
+export * from './components/Format/types';
 export * from './components/utils';
 export * from './types';

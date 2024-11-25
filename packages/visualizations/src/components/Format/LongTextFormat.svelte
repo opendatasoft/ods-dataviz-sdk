@@ -22,3 +22,5 @@
 
 <!-- Wrap value to style properly line clamp -->
 <span>{value}</span>
+
+<style></style>

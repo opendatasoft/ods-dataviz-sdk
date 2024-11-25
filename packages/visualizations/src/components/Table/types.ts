@@ -54,6 +54,14 @@ export type ColumnOfType<F extends DataFormat> = BaseColumn & {
 
 export type Column = ColumnOfType<DataFormat>;
 
+export type BooleanColumn = ColumnOfType<typeof DATA_FORMAT.boolean>;
+export type DateColumn = ColumnOfType<typeof DATA_FORMAT.date>;
+export type GeoColumn = ColumnOfType<typeof DATA_FORMAT.geo>;
+export type ShortTextColumn = ColumnOfType<typeof DATA_FORMAT.shortText>;
+export type LongTextColumn = ColumnOfType<typeof DATA_FORMAT.longText>;
+export type NumberColumn = ColumnOfType<typeof DATA_FORMAT.number>;
+export type URLColumn = ColumnOfType<typeof DATA_FORMAT.url>;
+
 export type Rows = {
     onClick?: (record?: Record<string, unknown>, index?: number) => void;
     onMouseEnter?: (record?: Record<string, unknown>, index?: number) => void;
