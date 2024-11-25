@@ -22,3 +22,5 @@
 </script>
 
 {value}
+
+<style></style>

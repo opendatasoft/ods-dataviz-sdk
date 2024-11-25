@@ -25,3 +25,5 @@
 </script>
 
 {value}
+
+<style></style>
