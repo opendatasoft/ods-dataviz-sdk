@@ -25,12 +25,8 @@
     {:else if records}
         {#each records as record}
             <tr>
-                {#each columns as column, columnIndex}
-                    <Cell rawValue={record[column.key]}
-                        {column}
-                        {isHorizontallyScrolled}
-                        {columnIndex}
-                    />
+                {#each columns as column (column.key)}
+                    <Cell rawValue={record[column.key]} {column} {isHorizontallyScrolled} />
                 {/each}
             </tr>
         {/each}

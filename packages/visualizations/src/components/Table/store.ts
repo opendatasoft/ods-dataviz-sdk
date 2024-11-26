@@ -5,13 +5,33 @@ const defaultLocale = navigator.language;
 
 export const locale = writable<string>(defaultLocale);
 
-export const stickyColumnsWidth = writable<number[]>([]);
-export const stickyCloumnsOffset = derived(
-    stickyColumnsWidth,
-    $widths => ($widths
-        .reduce<number[]>((acc, _, index) => {
-            acc.push(index === 0 ? 0 : acc[index - 1] + $widths[index - 1] + 1);
-            return acc;
-        }, [])
-    )
+const createWidths = () => {
+    const { update, set, subscribe } = writable(new Map());
+    return {
+        updateColumn: (key: string, width: number) =>
+            update(($widths) => {
+                $widths.set(key, width);
+                return $widths;
+            }),
+        reset: () => set(new Map()),
+        subscribe,
+    };
+};
+export const stickyColumnsWidth = createWidths();
+
+export const stickyColumnsOffset = derived(stickyColumnsWidth, ($widths) => {
+    const cumulativeWidths = new Map();
+    let cumulativeOffset = 0;
+
+    Array.from($widths).forEach(([key, clientWidth], index) => {
+        cumulativeWidths.set(key, cumulativeOffset);
+        const borderCompensation = index === 0 ? 1.5 : 1;
+        cumulativeOffset += clientWidth + borderCompensation;
+    });
+
+    return cumulativeWidths;
+});
+
+export const lastStickyColumn = derived(stickyColumnsWidth, ($widths) =>
+    [...$widths.keys()].at(-1)
 );

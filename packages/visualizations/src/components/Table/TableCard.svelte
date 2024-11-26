@@ -33,13 +33,7 @@
 
 <Card {title} {subtitle} {source} defaultStyle={!unstyled}>
     <div class="table-container">
-        <Table 
-            {loadingRowsNumber}
-            {records}
-            {columns}
-            {description}
-            {emptyStateLabel}
-        />
+        <Table {loadingRowsNumber} {records} {columns} {description} {emptyStateLabel} />
         {#if pagination}
             <Pagination {...pagination} />
         {/if}

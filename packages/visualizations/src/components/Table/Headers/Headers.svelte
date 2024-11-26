@@ -9,13 +9,8 @@
 
 <thead>
     <tr>
-        {#each columns as column, index}
-            <Th 
-                sticky={column?.sticky}
-                dataFormat={column.dataFormat}
-                {index}
-                {isHorizontallyScrolled}
-            >
+        {#each columns as column (column.key)}
+            <Th dataFormat={column.dataFormat} key={column.key} {isHorizontallyScrolled}>
                 {#if column.onClick}
                     <SortButton
                         sorted={column?.sorted}
@@ -33,5 +28,4 @@
 </thead>
 
 <style>
-
 </style>
