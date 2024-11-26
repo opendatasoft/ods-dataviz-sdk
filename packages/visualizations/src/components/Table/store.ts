@@ -23,10 +23,9 @@ export const stickyColumnsOffset = derived(stickyColumnsWidth, ($widths) => {
     const cumulativeWidths = new Map();
     let cumulativeOffset = 0;
 
-    Array.from($widths).forEach(([key, clientWidth], index) => {
+    Array.from($widths).forEach(([key, clientWidth]) => {
         cumulativeWidths.set(key, cumulativeOffset);
-        const borderCompensation = index === 0 ? 1.5 : 1;
-        cumulativeOffset += clientWidth + borderCompensation;
+        cumulativeOffset += clientWidth + 1;
     });
 
     return cumulativeWidths;

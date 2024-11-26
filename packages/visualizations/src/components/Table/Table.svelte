@@ -24,11 +24,8 @@
     let sortedStickyColumns: Column[] = [];
 
     function handleScroll() {
-        if (scrollBox?.scrollLeft > 0) {
-            isHorizontallyScrolled = true;
-        } else {
-            isHorizontallyScrolled = false;
-        }
+        isHorizontallyScrolled =
+            document.dir === 'rtl' ? scrollBox?.scrollLeft < 0 : scrollBox?.scrollLeft > 0;
     }
 
     // resets scroll when changing columns parameters

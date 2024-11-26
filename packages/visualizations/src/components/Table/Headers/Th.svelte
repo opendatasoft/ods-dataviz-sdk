@@ -24,7 +24,8 @@
     <slot />
 </th>
 
-<style>
+<style lang="scss">
+    @import '../sticky';
     :global(.ods-dataviz--default th) {
         text-align: left;
         padding: var(--spacing-75);
@@ -34,24 +35,5 @@
 
     :global(.ods-dataviz--default th.table-header--number) {
         text-align: right;
-    }
-
-    .sticky {
-        position: sticky;
-        left: var(--sticky-offset);
-        top: 0;
-        border-right: 1px solid var(--border-color);
-        z-index: 10;
-    }
-
-    /* applies shadow only on the left to avoid eating borders */
-    .isHorizontallyScrolled.isLastSticky::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: -6px;
-        height: 100%;
-        width: 6px;
-        background: linear-gradient(90deg, rgba(0, 0, 0, 0.13), transparent);
     }
 </style>

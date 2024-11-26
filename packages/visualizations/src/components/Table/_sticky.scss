@@ -1,0 +1,31 @@
+.sticky {
+    position: sticky;
+    z-index: 10;
+}
+
+.sticky:dir(ltr) {
+    left: var(--sticky-offset);
+    border-right: 1px solid var(--border-color);
+}
+
+.sticky:dir(rtl) {
+    right: var(--sticky-offset);
+    border-left: 1px solid var(--border-color);
+}
+
+/* applies shadow only on the left to avoid eating borders */
+.isHorizontallyScrolled.isLastSticky::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 6px;
+}
+.isHorizontallyScrolled.isLastSticky:dir(ltr)::after {
+    right: -6px;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.13), transparent);
+}
+.isHorizontallyScrolled.isLastSticky:dir(rtl)::after {
+    left: -6px;
+    background: linear-gradient(-90deg, rgba(0, 0, 0, 0.13), transparent);
+}

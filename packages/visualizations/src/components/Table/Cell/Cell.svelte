@@ -45,57 +45,43 @@
     {/if}
 </td>
 
-<style>
+<style lang="scss">
+    @import '../sticky';
     :global(.ods-dataviz--default td) {
         background-color: white;
         overflow: visible;
+        padding: 0;
     }
 
-    :global(.ods-dataviz--default td.table-header--number) {
+    :global(.ods-dataviz--default div.table-header--number) {
         text-align: right;
     }
     /* to be improved in the formatting story */
-    :global(.ods-dataviz--default td.table-data--long-text > span),
-    :global(.ods-dataviz--default td.table-data--short-text),
-    :global(.ods-dataviz--default td.table-data--url) {
+    :global(.ods-dataviz--default div.table-data--long-text > span),
+    :global(.ods-dataviz--default div.table-data--short-text),
+    :global(.ods-dataviz--default div.table-data--url) {
         text-overflow: ellipsis;
         overflow: hidden;
         width: max-content;
         min-width: 40px;
         max-width: 240px;
     }
-    :global(.ods-dataviz--default td.table-data--long-text > span) {
+    :global(.ods-dataviz--default div.table-data--long-text > span) {
         display: -webkit-box;
         -webkit-line-clamp: 3;
         line-clamp: 3;
         -webkit-box-orient: vertical;
         white-space: pre-wrap;
     }
-    :global(.ods-dataviz--default td.table-data--number) {
+    :global(.ods-dataviz--default div.table-data--number) {
         text-align: right;
     }
 
+    /* Wrapper div to allow position: relative while the <td> has sticky,
+        so that the ::after can have position: absolute */
     div {
-        padding: var(--spacing-75);
         position: relative;
+        padding: var(--spacing-75);
         overflow: visible;
-    }
-
-    .sticky {
-        position: sticky;
-        left: var(--sticky-offset);
-        border-right: 1px solid var(--border-color);
-        z-index: 10;
-    }
-
-    /* applies shadow only on the left to avoid eating borders */
-    .isHorizontallyScrolled.isLastSticky::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: -6px;
-        height: 100%;
-        width: 6px;
-        background: linear-gradient(90deg, rgba(0, 0, 0, 0.13), transparent);
     }
 </style>
