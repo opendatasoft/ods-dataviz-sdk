@@ -1,29 +1,27 @@
 <script lang="ts">
-    import { DataFormat } from "../types";
-    import { stickyColumnsWidth, stickyCloumnsOffset } from "../store";
+    import type { DataFormat } from '../types';
+    import { stickyColumnsWidth, stickyColumnsOffset, lastStickyColumn } from '../store';
 
-    export let index: number;
-    export let sticky = false;
+    export let key: string;
     export let dataFormat: DataFormat;
-    export let isHorizontallyScrolled;
+    export let isHorizontallyScrolled: boolean;
     let clientWidth: number;
 
-    $: if (sticky && clientWidth) {
-        $stickyColumnsWidth[index] = clientWidth;
-    };
-
-    $: console.log(index === $stickyCloumnsOffset.length -1);
+    // Only updates columns that have been initialized after a reset in Table.svelte
+    $: if ($stickyColumnsWidth.has(key)) {
+        stickyColumnsWidth.updateColumn(key, clientWidth);
+    }
 </script>
 
-<th 
-    style={`--sticky-offset: ${$stickyCloumnsOffset[index]}px`}
+<th
+    style={`--sticky-offset: ${$stickyColumnsOffset.get(key)}px`}
     class={`table-header--${dataFormat}`}
-    class:sticky
-    class:isLastSticky={index === $stickyCloumnsOffset.length -1}
+    class:sticky={$stickyColumnsWidth.has(key)}
+    class:isLastSticky={key === $lastStickyColumn}
     class:isHorizontallyScrolled
     bind:clientWidth
 >
-    <slot/>
+    <slot />
 </th>
 
 <style>
@@ -41,18 +39,19 @@
     .sticky {
         position: sticky;
         left: var(--sticky-offset);
+        top: 0;
         border-right: 1px solid var(--border-color);
         z-index: 10;
     }
 
     /* applies shadow only on the left to avoid eating borders */
     .isHorizontallyScrolled.isLastSticky::after {
-        content: "";
+        content: '';
         position: absolute;
         top: 0;
         right: -6px;
         height: 100%;
         width: 6px;
-        background: linear-gradient(90deg, rgba(0,0,0,0.13), transparent);
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0.13), transparent);
     }
 </style>

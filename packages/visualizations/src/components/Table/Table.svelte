@@ -4,6 +4,7 @@
     import type { Column, RowProps } from './types';
     import Headers from './Headers';
     import Body from './Body.svelte';
+    import { stickyColumnsWidth } from './store';
 
     export let loadingRowsNumber: number | null;
     export let columns: Column[];
@@ -20,6 +21,8 @@
 
     let isHorizontallyScrolled = false;
     let scrollBox: HTMLDivElement;
+    let sortedStickyColumns: Column[] = [];
+
     function handleScroll() {
         if (scrollBox?.scrollLeft > 0) {
             isHorizontallyScrolled = true;
@@ -31,8 +34,19 @@
     // resets scroll when changing columns parameters
     $: if (columns && scrollBox) {
         scrollBox.scrollLeft = 0;
+        sortedStickyColumns = [...columns].sort((colA, colB) => {
+            if (Boolean(colA?.sticky) === Boolean(colB?.sticky)) {
+                return 0;
+            }
+            return colA?.sticky ? -1 : 1;
+        });
+        stickyColumnsWidth.reset();
+        sortedStickyColumns
+            .filter((col) => col?.sticky)
+            .forEach((col) => {
+                stickyColumnsWidth.updateColumn(col.key, 0);
+            });
     }
-
 </script>
 
 <div class="scrollbox" bind:this={scrollBox} on:scroll={handleScroll}>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import type { TableData, Async, Column } from '@opendatasoft/visualizations';
+import type { TableData, Async } from '@opendatasoft/visualizations';
 import { Table } from '../../src';
 import value from './data';
 import options from './options';
@@ -25,7 +25,7 @@ const Template: ComponentStory<typeof Table> = args => {
         setColumns(prev => prev.map(col => col.key === columnKey 
               ? { ...col, sticky: !col.sticky }
               : col)
-    );
+        );
     };
 
     return (
@@ -36,7 +36,8 @@ const Template: ComponentStory<typeof Table> = args => {
             <>
                 <input 
                     type="checkbox"
-                    id={`${col.key}`} 
+                    id={`${col.key}`}
+                    key={col.key}
                     checked={Boolean(col?.sticky)}
                     onChange={() => handleStickyToggle(col.key)}
                 />
