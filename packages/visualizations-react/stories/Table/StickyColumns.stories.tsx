@@ -55,3 +55,12 @@ StickyColumns.args = {
     data,
     options,
 };
+
+export const RtlStickyColumns = Template.bind({});
+RtlStickyColumns.parameters = {
+    direction: 'rtl',
+};
+RtlStickyColumns.args = {
+    data,
+    options,
+};
