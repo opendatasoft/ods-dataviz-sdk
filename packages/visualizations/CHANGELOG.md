@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.27.1-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.27.0...@opendatasoft/visualizations@0.27.1-beta.0) (2024-11-27)
+
+
+### Bug Fixes
+
+* add keyboard a11y ([e2ed58d](https://github.com/opendatasoft/ods-dataviz-sdk/commit/e2ed58d8c9a8acc5379cb3df7a8e281c96f1a2de))
+* change implem to extra column to avoid formatting issues ([f2108e7](https://github.com/opendatasoft/ods-dataviz-sdk/commit/f2108e7801b34dc658ea975dcf177a35191386ac))
+* import alias and export old types ([f7080ac](https://github.com/opendatasoft/ods-dataviz-sdk/commit/f7080acab8e15329cbda1899a4c88bedb46d0fac))
+
+
+
+
+
 # [0.27.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.26.1...@opendatasoft/visualizations@0.27.0) (2024-11-06)
 
 
