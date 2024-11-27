@@ -7,6 +7,7 @@
     export let columns: Column[];
     export let records: TableData | undefined;
     export let emptyStateLabel: string | undefined;
+    export let isHorizontallyScrolled: boolean;
 </script>
 
 <tbody>
@@ -24,8 +25,8 @@
     {:else if records}
         {#each records as record}
             <tr>
-                {#each columns as column}
-                    <Cell rawValue={record[column.key]} {column} />
+                {#each columns as column (column.key)}
+                    <Cell rawValue={record[column.key]} {column} {isHorizontallyScrolled} />
                 {/each}
             </tr>
         {/each}
