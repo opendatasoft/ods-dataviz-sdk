@@ -9,7 +9,8 @@
     type $$Props = GeoFormatProps;
 
     export let rawValue: $$Props['rawValue'];
-    export let display: $$Props['display'] = (v: unknown) => v;
+    export let display: $$Props['display'] = (v: unknown) => v as string;
+    export let accessor: $$Props['accessor'] = (v: unknown) => v as WebGlMapData;
     export let mapOptions: $$Props['mapOptions'] = {};
     export let sources: $$Props['sources'] = () => ({});
     export let layers: $$Props['layers'] = () => [];
@@ -19,9 +20,10 @@
     let data: WebGlMapData;
 
     $: if (sources && layers) {
+        const value = accessor ? accessor(rawValue) : rawValue;
         data = {
-            sources: sources(rawValue),
-            layers: layers(rawValue),
+            sources: sources(value),
+            layers: layers(value),
         };
     }
 </script>

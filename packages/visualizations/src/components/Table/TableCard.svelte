@@ -1,7 +1,7 @@
 <script lang="ts">
     import Pagination from 'components/Pagination/Pagination.svelte';
     import Card from 'components/utils/Card.svelte';
-    import type { TableProps } from './types';
+    import type { TableProps, Column } from './types';
     import Table from './Table.svelte';
     import { locale } from './store';
 
@@ -10,6 +10,9 @@
 
     export let data: $$Props['data'];
     export let options: $$Props['options'];
+
+    const addWarnings = (columns: Column[], debugWarnings = false): Column[] =>
+        debugWarnings ? columns.map((col) => ({ ...col, debugWarnings: true })) : columns;
 
     $: ({ value: records, loading: isLoading } = data);
 
@@ -24,6 +27,7 @@
         locale: localeOption,
         pagination,
         emptyStateLabel,
+        debugWarnings,
     } = options);
     $: $locale = localeOption || navigator.language;
     $: defaultLoadingRowsNumber = pagination ? pagination.recordsPerPage : 5;
@@ -35,7 +39,14 @@
 
 <Card {title} {subtitle} {source} defaultStyle={!unstyled}>
     <div class="table-container">
-        <Table {loadingRowsNumber} {records} {columns} {description} {emptyStateLabel} {rowProps} />
+        <Table
+            columns={addWarnings(columns, debugWarnings)}
+            {records}
+            {loadingRowsNumber}
+            {description}
+            {emptyStateLabel}
+            {rowProps}
+        />
         {#if pagination}
             <Pagination {...pagination} />
         {/if}
