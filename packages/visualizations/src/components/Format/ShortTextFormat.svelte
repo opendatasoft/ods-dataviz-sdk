@@ -5,15 +5,11 @@
     type $$Props = ShortTextFormatProps;
 
     export let rawValue: $$Props['rawValue'];
-    export let display: $$Props['display'] = (v: unknown) => v as string;
-    export let accessor: $$Props['accessor'] = (v: unknown) => v as string;
-    export let debugWarnings = false;
+    export let display: $$Props['display'] = (v: string) => v;
 
     $: format = (v: unknown) => {
         if (typeof v !== 'string') {
-            if (debugWarnings) {
-                warn(v, 'text');
-            }
+            warn(v, 'text');
         }
         if (display) {
             return display(v as string);
@@ -21,7 +17,7 @@
         return v;
     };
 
-    $: value = format(accessor ? accessor(rawValue) : rawValue);
+    $: value = format(rawValue);
 </script>
 
 {value}
