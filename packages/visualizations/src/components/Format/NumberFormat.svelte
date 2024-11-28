@@ -25,5 +25,3 @@
 </script>
 
 {value}
-
-<style></style>
