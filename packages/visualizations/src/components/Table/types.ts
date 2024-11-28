@@ -62,7 +62,7 @@ export type LongTextColumn = ColumnOfType<typeof DATA_FORMAT.longText>;
 export type NumberColumn = ColumnOfType<typeof DATA_FORMAT.number>;
 export type URLColumn = ColumnOfType<typeof DATA_FORMAT.url>;
 
-export type Rows = {
+export type RowProps = {
     onClick?: (record?: Record<string, unknown>, index?: number) => void;
     onMouseEnter?: (record?: Record<string, unknown>, index?: number) => void;
     onMouseLeave?: (record?: Record<string, unknown>, index?: number) => void;
@@ -71,7 +71,7 @@ export type Rows = {
 
 export type TableOptions = {
     columns: Column[];
-    rows?: Rows;
+    rowProps?: RowProps;
     title?: string;
     subtitle?: string;
     description?: string;

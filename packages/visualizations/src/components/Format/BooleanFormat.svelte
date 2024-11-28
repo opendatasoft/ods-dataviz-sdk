@@ -22,5 +22,3 @@
 </script>
 
 {value}
-
-<style></style>

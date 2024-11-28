@@ -15,7 +15,7 @@
 
     $: ({
         columns,
-        rows,
+        rowProps,
         title,
         subtitle,
         description,
@@ -35,7 +35,7 @@
 
 <Card {title} {subtitle} {source} defaultStyle={!unstyled}>
     <div class="table-container">
-        <Table {loadingRowsNumber} {records} {columns} {description} {emptyStateLabel} {rows} />
+        <Table {loadingRowsNumber} {records} {columns} {description} {emptyStateLabel} {rowProps} />
         {#if pagination}
             <Pagination {...pagination} />
         {/if}

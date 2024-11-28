@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { DataFrame } from 'types';
     import { generateId } from 'components/utils';
-    import type { Column, Rows } from './types';
+    import type { Column, RowProps } from './types';
     import Headers from './Headers';
     import Body from './Body.svelte';
 
@@ -10,14 +10,14 @@
     export let records: DataFrame | undefined;
     export let description: string | undefined;
     export let emptyStateLabel: string | undefined;
-    export let rows: Rows | undefined;
+    export let rowProps: RowProps | undefined;
     const tableId = `table-${generateId()}`;
 </script>
 
 <div class="scrollbox">
     <table aria-describedby={description ? tableId : undefined}>
-        <Headers {columns} extraButtonColumn={Boolean(rows?.onClick)} />
-        <Body {loadingRowsNumber} {records} {columns} {rows} {emptyStateLabel} />
+        <Headers {columns} extraButtonColumn={Boolean(rowProps?.onClick)} />
+        <Body {loadingRowsNumber} {records} {columns} {rowProps} {emptyStateLabel} />
     </table>
 </div>
 {#if description}

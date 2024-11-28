@@ -1,12 +1,12 @@
 <script lang="ts">
-    import type { Column, Rows, TableData } from './types';
+    import type { Column, RowProps, TableData } from './types';
     import { LoadingCell } from './Cell';
     import EmptyRow from './EmptyRow.svelte';
     import Row from './Row.svelte';
 
     export let loadingRowsNumber: number | null;
     export let columns: Column[];
-    export let rows: Rows | undefined;
+    export let rowProps: RowProps | undefined;
     export let records: TableData | undefined;
     export let emptyStateLabel: string | undefined;
 </script>
@@ -25,7 +25,7 @@
         {/each}
     {:else if records}
         {#each records as record}
-            <Row {columns} {rows} {record} />
+            <Row {columns} {rowProps} {record} />
         {/each}
     {/if}
 </tbody>

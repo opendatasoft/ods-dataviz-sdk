@@ -55,7 +55,7 @@ const RowHoverTemplate: ComponentStory<typeof Table> = args => {
         <h3>Clicked</h3>
         <pre>{JSON.stringify(lastClicked)}</pre>
             <div style={{ maxWidth: '800px' }}>
-                <Table data={argData} options={{...argOptions, rows: { onClick, onMouseEnter, onMouseLeave}}}/>
+                <Table data={argData} options={{...argOptions, rowProps: { onClick, onMouseEnter, onMouseLeave}}}/>
             </div>;
         </>
     );
@@ -130,8 +130,8 @@ RtlDirection.args = {
     options: optionsWithPagination,
 };
 
-export const Rows = RowHoverTemplate.bind({});
-Rows.args = {
+export const RowHoverAndClick = RowHoverTemplate.bind({});
+RowHoverAndClick.args = {
     data,
     options,
 };

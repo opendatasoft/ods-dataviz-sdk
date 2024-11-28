@@ -30,5 +30,3 @@
 {:else}
     <ShortTextFormat {rawValue} {display} />
 {/if}
-
-<style></style>

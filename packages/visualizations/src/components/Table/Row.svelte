@@ -1,62 +1,43 @@
 <script lang="ts">
     import Cell from './Cell';
     import ZoomIcon from './ZoomIcon.svelte';
-    import type { Column, Rows } from './types';
+    import type { Column, RowProps } from './types';
 
     export let columns: Column[];
-    export let rows: Rows | undefined;
+    export let rowProps: RowProps | undefined;
     export let record: Record<string, unknown>;
 
     let isRowHovered = false;
-    let rowElement: HTMLTableRowElement;
-    $: onMousenter = () => {
-        if (rows?.onMouseEnter) {
-            rows.onMouseEnter(record);
+    $: ({ onClick, onMouseEnter, onMouseLeave, actionAriaLabel } = rowProps || {});
+    $: handleMouseEnter = () => {
+        if (onMouseEnter) {
+            onMouseEnter(record);
         }
         isRowHovered = true;
     };
-    $: onMouseleave = () => {
-        if (rows?.onMouseLeave) {
-            rows.onMouseLeave(record);
+    $: handleMouseLeave = () => {
+        if (onMouseLeave) {
+            onMouseLeave(record);
         }
         isRowHovered = false;
     };
-
-    $: if (rowElement) {
-        if (rows) {
-            ['mouseenter', 'focusin'].forEach((evt) =>
-                rowElement.addEventListener(evt, onMousenter)
-            );
-        } else {
-            ['mouseenter', 'focusin'].forEach((evt) =>
-                rowElement.removeEventListener(evt, onMousenter)
-            );
-        }
-    }
-
-    $: if (rowElement) {
-        if (rows) {
-            ['mouseleave', 'focusout'].forEach((evt) =>
-                rowElement.addEventListener(evt, onMouseleave)
-            );
-        } else {
-            ['mouseleave', 'focusout'].forEach((evt) =>
-                rowElement.removeEventListener(evt, onMouseleave)
-            );
-        }
-    }
-
-    $: onClick = () => {
-        if (rows?.onClick) {
-            rows.onClick(record);
+    $: handleClick = () => {
+        if (onClick) {
+            onClick(record);
         }
     };
 </script>
 
-<tr bind:this={rowElement}>
-    {#if rows?.onClick}
+<tr
+    on:mouseenter={onMouseEnter && handleMouseEnter}
+    on:mouseleave={onMouseLeave && handleMouseLeave}
+>
+    {#if rowProps?.onClick}
         <td class="button-cell">
-            <button on:click={onClick} aria-label={rows?.actionAriaLabel || 'Expand Record'}>
+            <button
+                on:click={onClick && handleClick}
+                aria-label={actionAriaLabel || 'Expand Record'}
+            >
                 <span class:visually-hidden={!isRowHovered}>
                     <ZoomIcon />
                 </span>
