@@ -89,7 +89,6 @@ export type TableOptions = {
      */
     unstyled?: boolean;
     pagination?: Pagination;
-    debugWarnings?: boolean;
 };
 
 export type TableProps = {

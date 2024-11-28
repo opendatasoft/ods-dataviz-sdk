@@ -5,15 +5,11 @@
     type $$Props = BooleanFormatProps;
 
     export let rawValue: $$Props['rawValue'];
-    export let display: $$Props['display'] = (v: unknown) => v as string;
-    export let accessor: $$Props['accessor'] = (v: unknown) => v as boolean;
-    export let debugWarnings = false;
+    export let display: $$Props['display'] = (v: boolean) => v.toString();
 
     $: format = (v: unknown) => {
         if (typeof v !== 'boolean') {
-            if (debugWarnings) {
-                warn(v, 'boolean');
-            }
+            warn(v, 'boolean');
         }
         // Currently we return the raw value until we have alternative renders
         if (display) {
@@ -22,7 +18,7 @@
         return v;
     };
 
-    $: value = format(accessor ? accessor(rawValue) : rawValue);
+    $: value = format(rawValue);
 </script>
 
 {value}

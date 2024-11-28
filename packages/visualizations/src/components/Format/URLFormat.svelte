@@ -1,36 +1,32 @@
 <script lang="ts">
     import ShortTextFormat from './ShortTextFormat.svelte';
-    import { isValidUrl, warn } from './utils';
+    import { isValidUrl } from './utils';
     import type { URLFormatProps } from './types';
 
     type $$Props = URLFormatProps;
 
     export let rawValue: $$Props['rawValue'];
-    export let display: $$Props['display'] = (v: unknown) => v as string;
-    export let accessor: $$Props['accessor'] = (v: unknown) => v as string;
+    export let display: $$Props['display'] = (v: string) => v;
     export let target: $$Props['target'] = '_blank';
     export let rel: $$Props['rel'] = 'nofollow noreferrer noopener';
-    export let debugWarnings = false;
 
     $: format = (v: unknown) => {
         if (isValidUrl(v)) {
             return {
-                text: display ? display(rawValue) : v,
+                text: display && display(v),
                 href: v,
             };
         }
-
-        if (debugWarnings) {
-            warn(v, 'url');
-        }
+        // eslint-disable-next-line no-console
+        console.warn(`ODS Dataviz SDK - Table: no url detected in ${v}. Formatting as string.`);
         return { text: null, href: null };
     };
 
-    $: ({ text, href } = format(accessor ? accessor(rawValue) : rawValue));
+    $: ({ text, href } = format(rawValue));
 </script>
 
 {#if text}
-    <a {href} {rel} {target}>{text}</a>
+    <a {href} {rel} {target}>{display && text}</a>
 {:else}
     <ShortTextFormat {rawValue} {display} />
 {/if}

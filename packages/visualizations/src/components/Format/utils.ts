@@ -3,17 +3,8 @@ export function isValidRawValue(rawValue: unknown): boolean {
 }
 
 export function warn(value: unknown, format: string) {
-    switch (format) {
-        case 'url':
-            // eslint-disable-next-line no-console
-            console.warn(
-                `ODS Dataviz SDK - Table: no url detected in ${value}. Formatting as string.`
-            );
-            break;
-        default:
-            // eslint-disable-next-line no-console
-            console.warn(`ODS Dataviz SDK - Table: ${value} is not a valid ${format}`);
-    }
+    // eslint-disable-next-line no-console
+    console.warn(`ODS Dataviz SDK - Table: ${value} is not a valid ${format}`);
 }
 
 export function isValidUrl(text: unknown): text is string {

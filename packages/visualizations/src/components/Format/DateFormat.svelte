@@ -5,11 +5,9 @@
     type $$Props = DateFormatProps;
 
     export let rawValue: $$Props['rawValue'];
-    export let display: $$Props['display'] = (v: unknown) => v as string;
-    export let accessor: $$Props['accessor'] = (v: unknown) => v as string;
+    export let display: $$Props['display'] = (v: string) => v;
     export let intl: $$Props['intl'] = {};
     export let locale = 'en-En';
-    export let debugWarnings = false;
 
     $: format = (v: unknown) => {
         if (
@@ -22,13 +20,11 @@
             }
             return v;
         }
-        if (debugWarnings) {
-            warn(v, 'date');
-        }
+        warn(v, 'date');
         return v;
     };
 
-    $: value = format(accessor ? accessor(rawValue) : rawValue);
+    $: value = format(rawValue);
 </script>
 
 {value}
