@@ -28,14 +28,11 @@
     };
 </script>
 
-<tr
-    on:mouseenter={onMouseEnter && handleMouseEnter}
-    on:mouseleave={onMouseLeave && handleMouseLeave}
->
+<tr on:mouseenter={rowProps && handleMouseEnter} on:mouseleave={rowProps && handleMouseLeave}>
     {#if rowProps?.onClick}
         <td class="button-cell">
             <button
-                on:click={onClick && handleClick}
+                on:click={rowProps && handleClick}
                 aria-label={actionAriaLabel || 'Expand Record'}
             >
                 <span class:visually-hidden={!isRowHovered}>
@@ -50,17 +47,17 @@
 </tr>
 
 <style>
-    :global(.ods-dataviz--default) tr {
+    :global(.ods-dataviz--default tr) {
         border-bottom: 1px solid var(--border-color);
     }
 
-    :global(.ods-dataviz--default) tr:last-child {
+    :global(.ods-dataviz--default tr:last-child) {
         border-bottom: none;
     }
 
-    :global(.ods-dataviz--default) button {
+    :global(.ods-dataviz--default .button-cell button) {
         background-color: transparent;
-        color: #142e7b;
+        color: inherit;
         border-radius: 50%;
         height: 28px;
         width: 28px;
@@ -89,13 +86,13 @@
         width: 1px;
     }
 
-    :global(.ods-dataviz--default) button:hover,
-    :global(.ods-dataviz--default) button:focus-visible {
-        background-color: #e2e6ee;
+    :global(.ods-dataviz--default .button-cell button:hover),
+    :global(.ods-dataviz--default .button-cell button:focus-visible) {
+        background-color: lightgray;
         cursor: pointer;
     }
 
-    :global(.ods-dataviz--default) .button-cell {
+    :global(.ods-dataviz--default .button-cell) {
         padding: 0;
         padding-left: 6px;
         width: 34px;
