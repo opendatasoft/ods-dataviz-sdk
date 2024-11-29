@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.27.1-beta.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.27.1-beta.0...@opendatasoft/visualizations-react@0.27.1-beta.1) (2024-11-29)
+
+
+### Bug Fixes
+
+* make colors more easily customizable ([7f1591b](https://github.com/opendatasoft/ods-dataviz-sdk/commit/7f1591bb2770751e813dea4c82ac9c43be4306ee))
+* rename rows, lint, simplify callbacks ([1a10a98](https://github.com/opendatasoft/ods-dataviz-sdk/commit/1a10a98297e93e44415ffb49d917d6ef92d3d7c1))
+
+
+
+
+
 ## [0.27.1-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.27.0...@opendatasoft/visualizations-react@0.27.1-beta.0) (2024-11-27)
 
 **Note:** Version bump only for package @opendatasoft/visualizations-react
