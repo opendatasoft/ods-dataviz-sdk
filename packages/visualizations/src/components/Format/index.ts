@@ -17,5 +17,14 @@ const Format = {
     geo: GeoFormat,
 };
 
-export { isValidRawValue };
+export {
+    isValidRawValue,
+    BooleanFormat,
+    DateFormat,
+    GeoFormat,
+    LongTextFormat,
+    ShortTextFormat,
+    NumberFormat,
+    URLFormat,
+};
 export default Format;

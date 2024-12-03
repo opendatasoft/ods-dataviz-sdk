@@ -1,15 +1,21 @@
 <script lang="ts">
     import { warn } from './utils';
+    import type { BooleanFormatProps } from './types';
 
-    export let rawValue: unknown;
-    export let display = (v: boolean) => v.toString();
+    type $$Props = BooleanFormatProps;
+
+    export let rawValue: $$Props['rawValue'];
+    export let display: $$Props['display'] = (v: boolean) => v.toString();
 
     $: format = (v: unknown) => {
         if (typeof v !== 'boolean') {
             warn(v, 'boolean');
         }
         // Currently we return the raw value until we have alternative renders
-        return display(v as boolean);
+        if (display) {
+            return display(v as boolean);
+        }
+        return v;
     };
 
     $: value = format(rawValue);

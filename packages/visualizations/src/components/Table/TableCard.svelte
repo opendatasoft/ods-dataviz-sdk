@@ -12,8 +12,10 @@
     export let options: $$Props['options'];
 
     $: ({ value: records, loading: isLoading } = data);
+
     $: ({
         columns,
+        rowProps,
         title,
         subtitle,
         description,
@@ -33,7 +35,7 @@
 
 <Card {title} {subtitle} {source} defaultStyle={!unstyled}>
     <div class="table-container">
-        <Table {loadingRowsNumber} {records} {columns} {description} {emptyStateLabel} />
+        <Table {loadingRowsNumber} {records} {columns} {description} {emptyStateLabel} {rowProps} />
         {#if pagination}
             <Pagination {...pagination} />
         {/if}

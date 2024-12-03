@@ -45,6 +45,10 @@
     color: blue;
 }
 
+.design-system .ods-dataviz--default td  button:hover {
+    background-color: #cbd2db;
+}
+
 .design-system svg {
     --selected: #142e7b;
     --neutral: #cbd2db;

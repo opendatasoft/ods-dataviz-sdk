@@ -1,17 +1,39 @@
 <script lang="ts">
+    import { isValidRawValue } from 'components/Format';
+    import BooleanFormat from 'components/Format/BooleanFormat.svelte';
+    import DateFormat from 'components/Format/DateFormat.svelte';
+    import GeoFormat from 'components/Format/GeoFormat.svelte';
+    import ShortTextFormat from 'components/Format/ShortTextFormat.svelte';
+    import LongTextFormat from 'components/Format/LongTextFormat.svelte';
+    import NumberFormat from 'components/Format/NumberFormat.svelte';
+    import URLFormat from 'components/Format/URLFormat.svelte';
+    import { DATA_FORMAT } from '../constants';
+    import { locale } from '../store';
     import type { Column } from '../types';
-    import Format, { isValidRawValue } from './Format';
+    import isColumnOfType from './utils';
 
     export let rawValue: unknown;
     export let column: Column;
-
-    $: ({ dataFormat, options = {} } = column);
 </script>
 
 <!-- To display a format value, rawValue must be different from undefined or null -->
-<td class={`table-data--${dataFormat}`}>
+<td class={`table-data--${column.dataFormat}`}>
     {#if isValidRawValue(rawValue)}
-        <svelte:component this={Format[dataFormat]} {rawValue} {...options} />
+        {#if isColumnOfType(column, DATA_FORMAT.boolean)}
+            <BooleanFormat {rawValue} {...column.options} />
+        {:else if isColumnOfType(column, DATA_FORMAT.date)}
+            <DateFormat {rawValue} {...column?.options} locale={$locale} />
+        {:else if isColumnOfType(column, DATA_FORMAT.geo)}
+            <GeoFormat {rawValue} {...column.options} />
+        {:else if isColumnOfType(column, DATA_FORMAT.shortText)}
+            <ShortTextFormat {rawValue} {...column.options} />
+        {:else if isColumnOfType(column, DATA_FORMAT.longText)}
+            <LongTextFormat {rawValue} {...column.options} />
+        {:else if isColumnOfType(column, DATA_FORMAT.number)}
+            <NumberFormat {rawValue} {...column.options} locale={$locale} />
+        {:else if isColumnOfType(column, DATA_FORMAT.url)}
+            <URLFormat {rawValue} {...column.options} />
+        {/if}
     {/if}
 </td>
 
