@@ -50,3 +50,10 @@ export type URLFormatProps = {
     target?: HTMLAnchorElement['target'];
     rel?: HTMLAnchorElement['rel'];
 };
+
+export type ImageFormatProps = {
+    rawValue: unknown;
+    display?: (v: unknown) => string;
+    accessor?: (v: unknown) => string;
+    alt?: (v: unknown) => string;
+};

@@ -1,3 +1,19 @@
+const image = {
+    exif_orientation: 1,
+    thumbnail: true,
+    filename: 'ods.svg',
+    format: 'PNG',
+    width: 922,
+    id: 'fe46e6580de0aac98eca3d5c928f11cb',
+    height: 918,
+    color_summary: [
+        'rgba(185, 149, 111, 1.00)',
+        'rgba(206, 163, 117, 1.00)',
+        'rgba(194, 157, 119, 1.00)',
+    ],
+    url: 'https://www.opendatasoft.com/wp-content/uploads/2022/12/logo-opendatasoft.svg',
+};
+
 export default [
     {
         title: 'lorem ipsum blog post',
@@ -8,8 +24,9 @@ export default [
         wordCount: 1200,
         readingTime: 5.5,
         url: 'htt:broken-url',
-        geopoint: [2.357573,48.837904],
+        geopoint: [2.357573, 48.837904],
         geoshape: 'centre-val-de-loire',
+        image,
     },
     {
         title: 'pellentesque nec blog post',
@@ -21,8 +38,9 @@ export default [
         wordCount: 800,
         readingTime: 3.8,
         url: 'https://example.com/pellentesque-nec',
-        geopoint: [2.357573,48.837904],
+        geopoint: [2.357573, 48.837904],
         geoshape: 'bretagne',
+        image,
     },
     {
         title: 'fusce sit amet blog post',
@@ -34,8 +52,9 @@ export default [
         wordCount: 1500,
         readingTime: 7.2,
         url: 'https://example.com/fusce-sit-amet',
-        geopoint: [2.357573,48.837904],
+        geopoint: [2.357573, 48.837904],
         geoshape: 'nouvelle-aquitaine',
+        image,
     },
     {
         title: 'vestibulum nec blog post',
@@ -46,8 +65,9 @@ export default [
         wordCount: 1000,
         readingTime: 4.5,
         url: 'https://example.com/vestibulum-nec',
-        geopoint: [2.357573,48.837904],
+        geopoint: [2.357573, 48.837904],
         geoshape: 'occitanie',
+        image,
     },
     {
         title: 'Cras At Blog Post',
@@ -59,8 +79,9 @@ export default [
         wordCount: 1300,
         readingTime: 6.0,
         url: 'https://example.com/cras-at',
-        geopoint: [2.357573,48.837904],
+        geopoint: [2.357573, 48.837904],
         geoshape: 'provence-alpes-cote-d-azur',
+        image,
     },
     {
         title: 'Quisque A Blog Post',
@@ -72,8 +93,9 @@ export default [
         wordCount: 900,
         readingTime: 4.0,
         url: 'https://example.com/quisque-a',
-        geopoint: [2.357573,48.837904],
+        geopoint: [2.357573, 48.837904],
         geoshape: 'auvergne-rhone-alpes',
+        image,
     },
     {
         title: 'Ut Vitae Blog Post',
@@ -85,8 +107,9 @@ export default [
         wordCount: 1100,
         readingTime: 5.0,
         url: 'https://example.com/ut-vitae',
-        geopoint: [2.357573,48.837904],
+        geopoint: [2.357573, 48.837904],
         geoshape: 'bourgogne-franche-comte',
+        image,
     },
     {
         title: 'Integer Id Blog Post',
@@ -98,8 +121,9 @@ export default [
         wordCount: 950,
         readingTime: 4.2,
         url: 'https://example.com/integer-id',
-        geopoint: [2.357573,48.837904],
+        geopoint: [2.357573, 48.837904],
         geoshape: 'grand-est',
+        image,
     },
     {
         title: 'Undefined row',
@@ -112,6 +136,7 @@ export default [
         url: undefined,
         geopoint: undefined,
         geoshape: undefined,
+        image: undefined,
     },
     {
         title: 'Empty row',
