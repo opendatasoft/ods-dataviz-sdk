@@ -7,6 +7,7 @@ export const DATA_FORMAT = {
     boolean: 'boolean',
     url: 'url',
     geo: 'geo',
+    image: 'image',
 } as const;
 
 export const HOVER_COLUMN_KEY = Symbol('hover column');

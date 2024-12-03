@@ -1,3 +1,19 @@
+const image = {
+    exif_orientation: 1,
+    thumbnail: true,
+    filename: 'ods.svg',
+    format: 'PNG',
+    width: 922,
+    id: 'fe46e6580de0aac98eca3d5c928f11cb',
+    height: 918,
+    color_summary: [
+        'rgba(185, 149, 111, 1.00)',
+        'rgba(206, 163, 117, 1.00)',
+        'rgba(194, 157, 119, 1.00)',
+    ],
+    url: 'https://www.opendatasoft.com/wp-content/uploads/2022/12/logo-opendatasoft.svg',
+};
+
 export default [
     {
         title: 'lorem ipsum blog post',
@@ -128,6 +144,7 @@ export default [
         url: undefined,
         geopoint: undefined,
         geoshape: undefined,
+        image: undefined,
     },
     {
         title: 'Empty row',
