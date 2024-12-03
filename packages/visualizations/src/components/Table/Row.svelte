@@ -28,7 +28,12 @@
     };
 </script>
 
-<tr on:mouseenter={rowProps && handleMouseEnter} on:mouseleave={rowProps && handleMouseLeave}>
+<tr
+    on:mouseenter={rowProps && handleMouseEnter}
+    on:mouseleave={rowProps && handleMouseLeave}
+    on:focusin={rowProps && handleMouseEnter}
+    on:focusout={rowProps && handleMouseLeave}
+>
     {#if rowProps?.onClick}
         <td class="button-cell">
             <button
