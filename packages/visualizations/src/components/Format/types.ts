@@ -44,8 +44,7 @@ export type URLFormatProps = {
 };
 
 export type ImageFormatProps = {
-    rawValue: unknown;
-    display?: (v: unknown) => string;
-    accessor?: (v: unknown) => string;
+    value: unknown;
+    valueToLabel?: (v: unknown) => string;
     alt?: (v: unknown) => string;
 };

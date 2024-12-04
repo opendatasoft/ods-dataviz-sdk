@@ -86,6 +86,18 @@ export const columns: Column<DatasetRecord>[] = [
         },
     },
     {
+        title: 'Image',
+        key: 'image',
+        dataFormat: 'url',
+        options: r => ({
+            value: r.url,
+            valueToLabel: v.filename,
+            alt: v.filename,
+            tooltip: v.thumbnail && v.url,
+        })
+        },
+    },
+    {
         title: 'Geo point',
         key: 'geopoint',
         dataFormat: 'geo',
