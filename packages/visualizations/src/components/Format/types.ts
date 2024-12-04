@@ -47,6 +47,7 @@ export type URLFormatProps = {
     rawValue: unknown;
     display?: (v: unknown) => string;
     accessor?: (v: unknown) => string;
+    tooltip?: (v: unknown) => string | null;
     target?: HTMLAnchorElement['target'];
     rel?: HTMLAnchorElement['rel'];
 };

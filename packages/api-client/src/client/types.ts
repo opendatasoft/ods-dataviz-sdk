@@ -91,3 +91,15 @@ export interface ApiExport<T> {
 export type ExportCatalogFormat = ValueOf<typeof EXPORT_CATALOG_FORMAT>;
 
 export type ExportDatasetFormat = ValueOf<typeof EXPORT_DATASET_FORMAT>;
+
+export type FileRecord = {
+    thumbnail: boolean;
+    filename: string;
+    format: string;
+    id: string;
+    url: string;
+    height: number;
+    width: number;
+    exif_orientation: 1 | 8 | 6 | 3;
+    color_summary: string[];
+};

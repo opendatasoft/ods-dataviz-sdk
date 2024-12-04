@@ -1,10 +1,8 @@
 <script lang="ts">
-    import type { Content } from 'tippy.js';
-
     import { WebGlMap } from 'components/Map';
     import type { WebGlMapData } from 'components/Map';
-    import tippy from 'components/utils/tippy';
     import type { GeoFormatProps } from './types';
+    import Tooltip from './Tooltip.svelte';
 
     type $$Props = GeoFormatProps;
 
@@ -15,9 +13,8 @@
     export let sources: $$Props['sources'] = () => ({});
     export let layers: $$Props['layers'] = () => [];
 
-    let tooltipContent: Content;
-    let showMap = false;
     let data: WebGlMapData;
+    let showTooltip = false;
 
     $: if (sources && layers) {
         const value = accessor ? accessor(rawValue) : rawValue;
@@ -28,39 +25,31 @@
     }
 </script>
 
-<div
-    role="button"
-    tabindex="0"
-    use:tippy={{
-        content: tooltipContent,
-        theme: 'ods-visualization-table',
-        delay: [500, 0],
-        duration: [275, 0],
-        maxWidth: 'none',
-        onShow: () => {
-            showMap = true;
-        },
-        onHide: () => {
-            showMap = false;
-        },
+<Tooltip
+    enabled
+    onShow={() => {
+        showTooltip = true;
+    }}
+    onHide={() => {
+        showTooltip = false;
     }}
 >
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div class="label">{display && display(rawValue)}</div>
     <!-- To run a WebGl instance only when tooltip is visible -->
-    {#if showMap && data && mapOptions}
-        <div bind:this={tooltipContent} class="table-cell-map-container">
+    <div slot="tooltipContent" class="map-tooltip-container">
+        {#if showTooltip && data && mapOptions}
             <WebGlMap options={mapOptions} {data} />
-        </div>
-    {/if}
-</div>
+        {/if}
+    </div>
+</Tooltip>
 
 <style lang="scss">
     .label {
         cursor: pointer;
         text-decoration: underline;
     }
-    :global(.table-cell-map-container) {
+    :global(.map-tooltip-container) {
         width: 360px;
         height: 240px;
         :global(.ods-visualization__map-container) {
