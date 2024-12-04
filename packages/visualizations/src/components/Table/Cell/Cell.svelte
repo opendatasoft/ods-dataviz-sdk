@@ -7,7 +7,6 @@
     import LongTextFormat from 'components/Format/LongTextFormat.svelte';
     import NumberFormat from 'components/Format/NumberFormat.svelte';
     import URLFormat from 'components/Format/URLFormat.svelte';
-    import ImageFormat from 'components/Format/ImageFormat.svelte';
     import { DATA_FORMAT } from '../constants';
     import { locale } from '../store';
     import type { Column } from '../types';
@@ -34,8 +33,6 @@
             <NumberFormat {rawValue} {...column.options} locale={$locale} />
         {:else if isColumnOfType(column, DATA_FORMAT.url)}
             <URLFormat {rawValue} {...column.options} />
-        {:else if isColumnOfType(column, DATA_FORMAT.image)}
-            <ImageFormat {rawValue} {...column.options} />
         {/if}
     {/if}
 </td>

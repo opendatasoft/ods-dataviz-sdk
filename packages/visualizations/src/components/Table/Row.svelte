@@ -7,7 +7,6 @@
     export let rowProps: RowProps | undefined;
     export let record: Record<string, unknown>;
 
-    $: console.log(record);
     let isRowHovered = false;
     $: ({ onClick, onMouseEnter, onMouseLeave, actionAriaLabel } = rowProps || {});
     $: handleMouseEnter = () => {

@@ -75,11 +75,12 @@ export const columns: Column[] = [
     {
         title: 'Image',
         key: 'image',
-        dataFormat: 'image',
+        dataFormat: 'url',
         options: {
             accessor: (v: unknown) => (v as FileRecord).url,
             display: (v: unknown) => (v as FileRecord).filename,
             alt: (v: unknown) => (v as FileRecord).filename,
+            tooltip: (v: unknown) => (v as FileRecord).thumbnail && (v as FileRecord).url,
         },
     },
     {

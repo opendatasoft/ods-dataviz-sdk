@@ -6,7 +6,6 @@ import type {
     LongTextFormatProps,
     NumberFormatProps,
     URLFormatProps,
-    ImageFormatProps,
 } from 'components/Format/types';
 import type { Async, DataFrame, Source } from 'types';
 import type { Pagination } from '../Pagination/types';
@@ -46,7 +45,6 @@ type FormatPropsTypeMap = {
     [DATA_FORMAT.longText]: ColumnOptions<LongTextFormatProps>;
     [DATA_FORMAT.number]: ColumnOptions<NumberFormatProps>;
     [DATA_FORMAT.url]: ColumnOptions<URLFormatProps>;
-    [DATA_FORMAT.image]: ColumnOptions<ImageFormatProps>;
 };
 
 export type ColumnOfType<F extends DataFormat> = BaseColumn & {
@@ -63,7 +61,6 @@ export type ShortTextColumn = ColumnOfType<typeof DATA_FORMAT.shortText>;
 export type LongTextColumn = ColumnOfType<typeof DATA_FORMAT.longText>;
 export type NumberColumn = ColumnOfType<typeof DATA_FORMAT.number>;
 export type URLColumn = ColumnOfType<typeof DATA_FORMAT.url>;
-export type ImageColumn = ColumnOfType<typeof DATA_FORMAT.image>;
 
 export type RowProps = {
     onClick?: (record?: Record<string, unknown>, index?: number) => void;
