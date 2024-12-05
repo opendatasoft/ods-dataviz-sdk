@@ -5,8 +5,7 @@
     type $$Props = ShortTextFormatProps;
 
     export let rawValue: $$Props['rawValue'];
-    export let display: $$Props['display'] = (v: unknown) => v as string;
-    export let accessor: $$Props['accessor'] = (v: unknown) => v as string;
+    export let display: $$Props['display'] | null = null;
     export let debugWarnings = false;
 
     $: format = (v: unknown) => {
@@ -20,8 +19,6 @@
         }
         return v;
     };
-
-    $: value = format(accessor ? accessor(rawValue) : rawValue);
 </script>
 
-{value}
+{format(rawValue)}
