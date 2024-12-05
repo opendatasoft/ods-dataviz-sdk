@@ -1,5 +1,5 @@
-export function isValidRawValue(rawValue: unknown): boolean {
-    return rawValue !== undefined && rawValue !== null;
+export function isValidRawValue(value: unknown): boolean {
+    return value !== undefined && value !== null;
 }
 
 export function warn(value: unknown, format: string) {

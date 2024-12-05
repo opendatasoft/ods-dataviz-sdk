@@ -5,8 +5,7 @@
     type $$Props = DateFormatProps;
 
     export let rawValue: $$Props['rawValue'];
-    export let display: $$Props['display'] = (v: unknown) => v as string;
-    export let accessor: $$Props['accessor'] = (v: unknown) => v as string;
+    export let display: $$Props['display'] | null = null;
     export let intl: $$Props['intl'] = {};
     export let locale = 'en-En';
     export let debugWarnings = false;
@@ -27,8 +26,6 @@
         }
         return v;
     };
-
-    $: value = format(accessor ? accessor(rawValue) : rawValue);
 </script>
 
-{value}
+{format(rawValue)}

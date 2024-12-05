@@ -42,7 +42,7 @@
         </td>
     {/if}
     {#each columns as column}
-        <Cell rawValue={record[column.key]} {column} />
+        <Cell {record} {column} />
     {/each}
 </tr>
 

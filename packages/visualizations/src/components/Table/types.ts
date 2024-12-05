@@ -8,6 +8,7 @@ import type {
     URLFormatProps,
 } from 'components/Format/types';
 import type { Async, DataFrame, Source } from 'types';
+import type { GeoJsonObject } from 'geojson';
 import type { Pagination } from '../Pagination/types';
 import type { DATA_FORMAT } from './constants';
 
@@ -34,22 +35,32 @@ type BaseColumn = {
     onClick?: () => void;
 };
 
-// Eliminate rawValue from props to match column options
-type ColumnOptions<T> = Omit<T, 'rawValue'>;
+export type ValueOrAccessor<T> = T | ((r: Record<string, unknown>) => T);
 
-type FormatPropsTypeMap = {
-    [DATA_FORMAT.boolean]: ColumnOptions<BooleanFormatProps>;
-    [DATA_FORMAT.date]: ColumnOptions<DateFormatProps>;
-    [DATA_FORMAT.geo]: ColumnOptions<GeoFormatProps>;
-    [DATA_FORMAT.shortText]: ColumnOptions<ShortTextFormatProps>;
-    [DATA_FORMAT.longText]: ColumnOptions<LongTextFormatProps>;
-    [DATA_FORMAT.number]: ColumnOptions<NumberFormatProps>;
-    [DATA_FORMAT.url]: ColumnOptions<URLFormatProps>;
+export type FormatPropsTypeMap = {
+    [DATA_FORMAT.boolean]: BooleanFormatProps;
+    [DATA_FORMAT.date]: DateFormatProps;
+    [DATA_FORMAT.geo]: GeoFormatProps;
+    [DATA_FORMAT.shortText]: ShortTextFormatProps;
+    [DATA_FORMAT.longText]: LongTextFormatProps;
+    [DATA_FORMAT.number]: NumberFormatProps;
+    [DATA_FORMAT.url]: URLFormatProps;
+};
+
+export type ReturnTypeMap = {
+    [DATA_FORMAT.boolean]: boolean;
+    [DATA_FORMAT.date]: string;
+    [DATA_FORMAT.geo]: GeoJsonObject;
+    [DATA_FORMAT.shortText]: string;
+    [DATA_FORMAT.longText]: string;
+    [DATA_FORMAT.number]: number;
+    [DATA_FORMAT.url]: string;
 };
 
 export type ColumnOfType<F extends DataFormat> = BaseColumn & {
     dataFormat: F;
-    options?: FormatPropsTypeMap[F];
+    accessor?: (r: Record<string, unknown>) => ReturnTypeMap[F];
+    options?: ValueOrAccessor<FormatPropsTypeMap[F]>;
 };
 
 export type Column = ColumnOfType<DataFormat>;
