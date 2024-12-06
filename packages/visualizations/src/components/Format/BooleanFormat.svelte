@@ -9,16 +9,14 @@
     export let debugWarnings = false;
 
     $: format = (v: unknown) => {
-        if (typeof v !== 'boolean') {
-            if (debugWarnings) {
-                warn(v, 'boolean');
-            }
-        }
-        // Currently we return the raw value until we have alternative renders
-        if (display) {
+        if (typeof v === 'boolean' && display) {
             return display(v as boolean);
         }
+        if (debugWarnings) {
+            warn(v, 'boolean');
+        }
         return v;
+        // Currently we return the raw value until we have alternative renders
     };
 </script>
 
