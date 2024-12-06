@@ -11,17 +11,17 @@
     export let debugWarnings = false;
 
     $: format = (v: number) => {
-        if (!Number.isFinite(v)) {
+        if (Number.isFinite(v)) {
             if (debugWarnings) {
                 warn(v, 'number');
             }
-            return v;
+            const intlValue = new Intl.NumberFormat(locale, intl).format(v);
+            if (display) {
+                return display(intlValue);
+            }
+            return intlValue;
         }
-        const intlValue = new Intl.NumberFormat(locale, intl).format(v);
-        if (display) {
-            return display(intlValue);
-        }
-        return intlValue;
+        return v;
     };
 </script>
 
