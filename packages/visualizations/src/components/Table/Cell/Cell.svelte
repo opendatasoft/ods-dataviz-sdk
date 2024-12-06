@@ -10,29 +10,37 @@
     import { DATA_FORMAT } from '../constants';
     import { locale } from '../store';
     import type { Column } from '../types';
-    import isColumnOfType from './utils';
+    import { isColumnOfType, getOptions, getValue } from './utils';
 
-    export let rawValue: unknown;
+    export let record: Record<string, unknown>;
     export let column: Column;
 </script>
 
-<!-- To display a format value, rawValue must be different from undefined or null -->
+<!-- To display a format value, value must be different from undefined or null -->
 <td class={`table-data--${column.dataFormat}`}>
-    {#if isValidRawValue(rawValue)}
+    {#if isValidRawValue(getValue(column, record))}
         {#if isColumnOfType(column, DATA_FORMAT.boolean)}
-            <BooleanFormat {rawValue} {...column.options} />
+            <BooleanFormat rawValue={getValue(column, record)} {...getOptions(column, record)} />
         {:else if isColumnOfType(column, DATA_FORMAT.date)}
-            <DateFormat {rawValue} {...column?.options} locale={$locale} />
+            <DateFormat
+                rawValue={getValue(column, record)}
+                {...getOptions(column, record)}
+                locale={$locale}
+            />
         {:else if isColumnOfType(column, DATA_FORMAT.geo)}
-            <GeoFormat {rawValue} {...column.options} />
+            <GeoFormat rawValue={getValue(column, record)} {...getOptions(column, record)} />
         {:else if isColumnOfType(column, DATA_FORMAT.shortText)}
-            <ShortTextFormat {rawValue} {...column.options} />
+            <ShortTextFormat rawValue={getValue(column, record)} {...getOptions(column, record)} />
         {:else if isColumnOfType(column, DATA_FORMAT.longText)}
-            <LongTextFormat {rawValue} {...column.options} />
+            <LongTextFormat rawValue={getValue(column, record)} {...getOptions(column, record)} />
         {:else if isColumnOfType(column, DATA_FORMAT.number)}
-            <NumberFormat {rawValue} {...column.options} locale={$locale} />
+            <NumberFormat
+                rawValue={getValue(column, record)}
+                {...getOptions(column, record)}
+                locale={$locale}
+            />
         {:else if isColumnOfType(column, DATA_FORMAT.url)}
-            <URLFormat {rawValue} {...column.options} />
+            <URLFormat rawValue={getValue(column, record)} {...getOptions(column, record)} />
         {/if}
     {/if}
 </td>

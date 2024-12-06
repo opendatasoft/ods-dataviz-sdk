@@ -5,20 +5,19 @@
     type $$Props = LongTextFormatProps;
 
     export let rawValue: $$Props['rawValue'];
-    export let display: $$Props['display'] = (v: string) => v;
+    export let display: $$Props['display'] | null = null;
+    export let debugWarnings = false;
 
     $: format = (v: unknown) => {
-        if (typeof v !== 'string') {
-            warn(v, 'text');
-        }
-        if (display) {
+        if (typeof v === 'string' && display) {
             return display(v as string);
+        }
+        if (debugWarnings) {
+            warn(v, 'text');
         }
         return v;
     };
-
-    $: value = format(rawValue);
 </script>
 
 <!-- Wrap value to style properly line clamp -->
-<span>{value}</span>
+<span>{format(rawValue)}</span>

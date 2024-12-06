@@ -9,10 +9,10 @@
     type $$Props = GeoFormatProps;
 
     export let rawValue: $$Props['rawValue'];
-    export let display: $$Props['display'] = (v: unknown) => v;
+    export let display: $$Props['display'] | null = null;
     export let mapOptions: $$Props['mapOptions'] = {};
-    export let sources: $$Props['sources'] = () => ({});
-    export let layers: $$Props['layers'] = () => [];
+    export let sources: $$Props['sources'] | null = null;
+    export let layers: $$Props['layers'] | null = null;
 
     let tooltipContent: Content;
     let showMap = false;

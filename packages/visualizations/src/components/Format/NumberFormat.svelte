@@ -5,23 +5,24 @@
     type $$Props = NumberFormatProps;
 
     export let rawValue: $$Props['rawValue'];
-    export let display: $$Props['display'] = (v: string) => v;
+    export let display: $$Props['display'] | null = null;
     export let intl: $$Props['intl'] = {};
     export let locale = 'en-EN';
+    export let debugWarnings = false;
 
-    $: format = (v: unknown) => {
-        if (!Number.isFinite(v)) {
-            warn(v, 'number');
-            return v;
+    $: format = (v: number) => {
+        if (Number.isFinite(v)) {
+            if (debugWarnings) {
+                warn(v, 'number');
+            }
+            const intlValue = new Intl.NumberFormat(locale, intl).format(v);
+            if (display) {
+                return display(intlValue);
+            }
+            return intlValue;
         }
-        const intlValue = new Intl.NumberFormat(locale, intl).format(v as number);
-        if (display) {
-            return display(intlValue);
-        }
-        return intlValue;
+        return v;
     };
-
-    $: value = format(rawValue);
 </script>
 
-{value}
+{format(rawValue)}
