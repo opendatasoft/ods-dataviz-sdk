@@ -10,7 +10,7 @@ export function isColumnOfType<K extends DataFormat>(
 export const getOptions = <K extends DataFormat>(
     column: ColumnOfType<K>,
     record: Record<string, unknown>
-): FormatPropsTypeMap[K] | null => {
+): Omit<FormatPropsTypeMap[K], 'value'> | null => {
     const { options } = column;
     if (options) {
         return typeof options === 'function' ? options(record) : options;

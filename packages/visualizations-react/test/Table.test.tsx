@@ -82,12 +82,12 @@ test('Can update local reactively', async () => {
  * This test is mainly to provide an environment that is not storybook and
  * test locale reactivity;
  */
-const DisplaySwitch = ({ display = v => v }: { display: (v: string) => string }) => {
+const ValueToLabelSwitch = ({ valueToLabel = v => v }: { valueToLabel: (v: string) => string }) => {
     const stateFulOptions = {
         ...options,
         columns: options.columns.map((column: Column) => {
             if (column.dataFormat === 'short-text') {
-                return { ...column, options: { ...column.options, display } };
+                return { ...column, options: { ...column.options, valueToLabel } };
             }
             return column;
         }),
@@ -95,13 +95,13 @@ const DisplaySwitch = ({ display = v => v }: { display: (v: string) => string })
     return <Table data={{ value: data }} options={stateFulOptions} />;
 };
 
-test('Can update column display reactively', async () => {
-    const { rerender } = render(<DisplaySwitch display={v => v} />);
+test('Can update column valueToLabel reactively', async () => {
+    const { rerender } = render(<ValueToLabelSwitch valueToLabel={v => v} />);
     expect(await screen.findByText(/^LOREM IPSUM BLOG POST$/i)).toBeInTheDocument();
 
-    rerender(<DisplaySwitch display={v => `${v} update`} />);
+    rerender(<ValueToLabelSwitch valueToLabel={v => `${v} update`} />);
     expect(await screen.findByText(/^LOREM IPSUM BLOG POST update$/i)).toBeInTheDocument();
 
-    rerender(<DisplaySwitch display={v => `${v} 📅`} />);
+    rerender(<ValueToLabelSwitch valueToLabel={v => `${v} 📅`} />);
     expect(await screen.findByText(/^LOREM IPSUM BLOG POST 📅$/i)).toBeInTheDocument();
 });

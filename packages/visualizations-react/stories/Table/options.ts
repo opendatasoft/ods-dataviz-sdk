@@ -122,13 +122,14 @@ export const columns: Column[] = [
                 ],
             };
         },
-        options: {
+        options: (r: Record) => ({
             mapOptions: {
                 style: 'https://demotiles.maplibre.org/style.json',
                 interactive: false,
             },
-            valueToLabel: (v: [number, number]) => `longitude: ${v[0]}, latitude: ${v[1]}`,
-        },
+            valueToLabel: () =>
+                r?.geopoint && `longitude: ${r.geopoint[0]}, latitude: ${r.geopoint[1]}`,
+        }),
     },
     {
         title: 'Région',

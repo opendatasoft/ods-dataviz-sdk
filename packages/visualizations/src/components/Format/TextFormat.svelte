@@ -1,8 +1,8 @@
 <script lang="ts">
     import { warn } from './utils';
-    import type { LongTextFormatProps } from './types';
+    import type { TextFormatProps } from './types';
 
-    type $$Props = LongTextFormatProps;
+    type $$Props = TextFormatProps;
 
     export let value: $$Props['value'];
     export let valueToLabel: $$Props['valueToLabel'] | null = null;
