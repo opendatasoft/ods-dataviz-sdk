@@ -1,29 +1,29 @@
 <script lang="ts">
     import Cell from './Cell';
     import ZoomIcon from './ZoomIcon.svelte';
-    import type { Column, RowProps } from './types';
+    import type { Column, RowProps, HoverEvent } from './types';
 
     export let columns: Column[];
     export let rowProps: RowProps | undefined;
     export let record: Record<string, unknown>;
+    export let isHovered = false;
+    export let setHovered: () => void;
 
-    let isRowHovered = false;
     $: ({ onClick, onMouseEnter, onMouseLeave, actionAriaLabel } = rowProps || {});
-    $: handleMouseEnter = () => {
+    $: handleMouseEnter = (e: HoverEvent<HTMLTableRowElement>) => {
         if (onMouseEnter) {
-            onMouseEnter(record);
+            onMouseEnter(record, e);
         }
-        isRowHovered = true;
+        setHovered();
     };
-    $: handleMouseLeave = () => {
+    $: handleMouseLeave = (e: HoverEvent<HTMLTableRowElement>) => {
         if (onMouseLeave) {
-            onMouseLeave(record);
+            onMouseLeave(record, e);
         }
-        isRowHovered = false;
     };
-    $: handleClick = () => {
+    $: handleClick = (e: HoverEvent<HTMLButtonElement>) => {
         if (onClick) {
-            onClick(record);
+            onClick(record, e);
         }
     };
 </script>
@@ -40,7 +40,7 @@
                 on:click={rowProps && handleClick}
                 aria-label={actionAriaLabel || 'Expand Record'}
             >
-                <span class:visually-hidden={!isRowHovered}>
+                <span class:visually-hidden={!isHovered}>
                     <ZoomIcon />
                 </span>
             </button>

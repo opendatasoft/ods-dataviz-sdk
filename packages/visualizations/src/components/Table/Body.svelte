@@ -9,9 +9,15 @@
     export let rowProps: RowProps | undefined;
     export let records: TableData | undefined;
     export let emptyStateLabel: string | undefined;
+
+    let hoveredRow: number | null;
 </script>
 
-<tbody>
+<tbody
+    on:mouseleave={() => {
+        hoveredRow = null;
+    }}
+>
     {#if records?.length === 0 && !loadingRowsNumber}
         <EmptyRow label={emptyStateLabel} />
     {/if}
@@ -24,8 +30,16 @@
             </tr>
         {/each}
     {:else if records}
-        {#each records as record}
-            <Row {columns} {rowProps} {record} />
+        {#each records as record, rowIndex}
+            <Row
+                {columns}
+                {rowProps}
+                {record}
+                setHovered={() => {
+                    hoveredRow = rowIndex;
+                }}
+                isHovered={hoveredRow === rowIndex}
+            />
         {/each}
     {/if}
 </tbody>

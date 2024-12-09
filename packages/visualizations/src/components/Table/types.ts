@@ -62,10 +62,14 @@ export type LongTextColumn = ColumnOfType<typeof DATA_FORMAT.longText>;
 export type NumberColumn = ColumnOfType<typeof DATA_FORMAT.number>;
 export type URLColumn = ColumnOfType<typeof DATA_FORMAT.url>;
 
+export type HoverEvent<T extends HTMLElement> = (MouseEvent | FocusEvent) & {
+    currentTarget: EventTarget & T;
+};
+
 export type RowProps = {
-    onClick?: (record?: Record<string, unknown>, index?: number) => void;
-    onMouseEnter?: (record?: Record<string, unknown>, index?: number) => void;
-    onMouseLeave?: (record?: Record<string, unknown>, index?: number) => void;
+    onClick?: (record?: Record<string, unknown>, e?: HoverEvent<HTMLButtonElement>) => void;
+    onMouseEnter?: (record?: Record<string, unknown>, e?: HoverEvent<HTMLTableRowElement>) => void;
+    onMouseLeave?: (record?: Record<string, unknown>, e?: HoverEvent<HTMLTableRowElement>) => void;
     actionAriaLabel?: string;
 };
 
