@@ -4,13 +4,13 @@
 
     type $$Props = BooleanFormatProps;
 
-    export let rawValue: $$Props['rawValue'];
-    export let display: $$Props['display'] | null = null;
+    export let value: $$Props['value'];
+    export let valueToLabel: $$Props['valueToLabel'] | null = null;
     export let debugWarnings = false;
 
     $: format = (v: unknown) => {
-        if (typeof v === 'boolean' && display) {
-            return display(v as boolean);
+        if (typeof v === 'boolean' && valueToLabel) {
+            return valueToLabel(v as boolean);
         }
         if (debugWarnings) {
             warn(v, 'boolean');
@@ -20,4 +20,4 @@
     };
 </script>
 
-{format(rawValue)}
+{format(value)}

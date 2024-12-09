@@ -2,13 +2,12 @@ import type {
     BooleanFormatProps,
     DateFormatProps,
     GeoFormatProps,
-    ShortTextFormatProps,
-    LongTextFormatProps,
+    TextFormatProps,
     NumberFormatProps,
     URLFormatProps,
 } from 'components/Format/types';
 import type { Async, DataFrame, Source } from 'types';
-import type { GeoJsonObject } from 'geojson';
+import type { WebGlMapData } from 'components/Map';
 import type { Pagination } from '../Pagination/types';
 import type { DATA_FORMAT } from './constants';
 
@@ -41,8 +40,8 @@ export type FormatPropsTypeMap = {
     [DATA_FORMAT.boolean]: BooleanFormatProps;
     [DATA_FORMAT.date]: DateFormatProps;
     [DATA_FORMAT.geo]: GeoFormatProps;
-    [DATA_FORMAT.shortText]: ShortTextFormatProps;
-    [DATA_FORMAT.longText]: LongTextFormatProps;
+    [DATA_FORMAT.shortText]: TextFormatProps;
+    [DATA_FORMAT.longText]: TextFormatProps;
     [DATA_FORMAT.number]: NumberFormatProps;
     [DATA_FORMAT.url]: URLFormatProps;
 };
@@ -50,7 +49,7 @@ export type FormatPropsTypeMap = {
 export type ReturnTypeMap = {
     [DATA_FORMAT.boolean]: boolean;
     [DATA_FORMAT.date]: string;
-    [DATA_FORMAT.geo]: GeoJsonObject;
+    [DATA_FORMAT.geo]: WebGlMapData;
     [DATA_FORMAT.shortText]: string;
     [DATA_FORMAT.longText]: string;
     [DATA_FORMAT.number]: number;
@@ -60,7 +59,7 @@ export type ReturnTypeMap = {
 export type ColumnOfType<F extends DataFormat> = BaseColumn & {
     dataFormat: F;
     accessor?: (r: Record<string, unknown>) => ReturnTypeMap[F];
-    options?: ValueOrAccessor<FormatPropsTypeMap[F]>;
+    options?: ValueOrAccessor<Omit<FormatPropsTypeMap[F], 'value'>>;
 };
 
 export type Column = ColumnOfType<DataFormat>;

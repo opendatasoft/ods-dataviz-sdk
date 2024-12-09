@@ -20,7 +20,7 @@ export const columns: Column[] = [
         key: 'title',
         dataFormat: 'short-text',
         options: {
-            display: (v: string) => v.toUpperCase(),
+            valueToLabel: (v: string) => v.toUpperCase(),
         },
     },
     {
@@ -44,7 +44,7 @@ export const columns: Column[] = [
         key: 'datePublished',
         dataFormat: 'date',
         options: {
-            display: (v: string) => `${v} 🗓️`,
+            valueToLabel: (v: string) => `${v} 🗓️`,
             intl: {
                 dateStyle: 'full',
             },
@@ -55,7 +55,7 @@ export const columns: Column[] = [
         key: 'isFeatured',
         dataFormat: 'boolean',
         options: {
-            display: (v: boolean) => (v ? 'αληθές' : 'ψευδές'),
+            valueToLabel: (v: boolean) => (v ? 'αληθές' : 'ψευδές'),
         },
     },
     {
@@ -63,7 +63,7 @@ export const columns: Column[] = [
         key: 'wordCount',
         dataFormat: 'number',
         options: {
-            display: (v: number) => `${v} words`,
+            valueToLabel: (v: number) => `${v} words`,
         },
     },
     {
@@ -82,46 +82,52 @@ export const columns: Column[] = [
         key: 'url',
         dataFormat: 'url',
         options: {
-            display: (v: string) => (v.startsWith('https://') ? 'link' : 'broken link'),
+            valueToLabel: (v: string) => (v.startsWith('https://') ? 'link' : 'broken link'),
         },
     },
     {
         title: 'Geo point',
         key: 'geopoint',
         dataFormat: 'geo',
+        accessor: (r: Record) => {
+            const coordinates = r.geopoint;
+
+            return {
+                sources: {
+                    'table-stories': {
+                        type: 'geojson',
+                        data: {
+                            type: 'FeatureCollection',
+                            features: [
+                                {
+                                    id: 1,
+                                    type: 'Feature',
+                                    geometry: {
+                                        type: 'Point',
+                                        coordinates,
+                                    },
+                                },
+                            ],
+                        },
+                    },
+                },
+                layers: [
+                    {
+                        id: 'table-stories-layer',
+                        source: 'table-stories',
+                        type: 'circle',
+                        color: 'black',
+                        borderColor: 'white',
+                    },
+                ],
+            };
+        },
         options: {
             mapOptions: {
                 style: 'https://demotiles.maplibre.org/style.json',
                 interactive: false,
             },
-            display: (v: [number, number]) => `longitude: ${v[0]}, latitude: ${v[1]}`,
-            sources: (coordinates: unknown) => ({
-                'table-stories': {
-                    type: 'geojson',
-                    data: {
-                        type: 'FeatureCollection',
-                        features: [
-                            {
-                                id: 1,
-                                type: 'Feature',
-                                geometry: {
-                                    type: 'Point',
-                                    coordinates,
-                                },
-                            },
-                        ],
-                    },
-                },
-            }),
-            layers: () => [
-                {
-                    id: 'table-stories-layer',
-                    source: 'table-stories',
-                    type: 'circle',
-                    color: 'black',
-                    borderColor: 'white',
-                },
-            ],
+            valueToLabel: (v: [number, number]) => `longitude: ${v[0]}, latitude: ${v[1]}`,
         },
     },
     {
@@ -133,21 +139,14 @@ export const columns: Column[] = [
         title: 'Geo shapes',
         key: 'geoshape',
         dataFormat: 'geo',
-        options: (r: Record) => ({
-            mapOptions: {
-                style: 'https://demotiles.maplibre.org/style.json',
-                interactive: false,
-                bbox: [-6.855469, 41.343825, 11.645508, 51.37178],
-                zoom: 3,
-            },
-            display: () => r.region,
-            sources: (v: unknown) => ({
+        accessor: (r: Record) => ({
+            sources: {
                 'table-stories': {
                     type: 'geojson',
-                    data: v as string,
+                    data: r.geoshape,
                 },
-            }),
-            layers: () => [
+            },
+            layers: [
                 {
                     id: 'table-stories-layer',
                     source: 'table-stories',
@@ -156,6 +155,15 @@ export const columns: Column[] = [
                     borderColor: 'white',
                 },
             ],
+        }),
+        options: (r: Record) => ({
+            mapOptions: {
+                style: 'https://demotiles.maplibre.org/style.json',
+                interactive: false,
+                bbox: [-6.855469, 41.343825, 11.645508, 51.37178],
+                zoom: 3,
+            },
+            valueToLabel: () => r.region,
         }),
     },
 ];

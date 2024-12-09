@@ -1,30 +1,20 @@
 import BooleanFormat from './BooleanFormat.svelte';
 import DateFormat from './DateFormat.svelte';
 import GeoFormat from './GeoFormat.svelte';
-import LongTextFormat from './LongTextFormat.svelte';
 import NumberFormat from './NumberFormat.svelte';
-import ShortTextFormat from './ShortTextFormat.svelte';
+import TextFormat from './TextFormat.svelte';
 import URLFormat from './URLFormat.svelte';
-import { isValidRawValue } from './utils';
+import { isValidValue } from './utils';
 
 const Format = {
     boolean: BooleanFormat,
     date: DateFormat,
-    'short-text': ShortTextFormat,
-    'long-text': LongTextFormat,
+    'short-text': TextFormat,
+    'long-text': TextFormat,
     url: URLFormat,
     number: NumberFormat,
     geo: GeoFormat,
 };
 
-export {
-    isValidRawValue,
-    BooleanFormat,
-    DateFormat,
-    GeoFormat,
-    LongTextFormat,
-    ShortTextFormat,
-    NumberFormat,
-    URLFormat,
-};
+export { isValidValue, BooleanFormat, DateFormat, GeoFormat, TextFormat, NumberFormat, URLFormat };
 export default Format;

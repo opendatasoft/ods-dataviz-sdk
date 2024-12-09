@@ -4,8 +4,8 @@
 
     type $$Props = DateFormatProps;
 
-    export let rawValue: $$Props['rawValue'];
-    export let display: $$Props['display'] | null = null;
+    export let value: $$Props['value'];
+    export let valueToLabel: $$Props['valueToLabel'] | null = null;
     export let intl: $$Props['intl'] = {};
     export let locale = 'en-En';
     export let debugWarnings = false;
@@ -16,10 +16,10 @@
             !Number.isNaN(new Date(v).getTime())
         ) {
             const intlValue = Intl.DateTimeFormat(locale, intl).format(new Date(v));
-            if (display) {
-                return display(intlValue);
+            if (valueToLabel) {
+                return valueToLabel(intlValue);
             }
-            return v;
+            return intlValue;
         }
         if (debugWarnings) {
             warn(v, 'date');
@@ -28,4 +28,4 @@
     };
 </script>
 
-{format(rawValue)}
+{format(value)}

@@ -4,13 +4,13 @@
 
     type $$Props = LongTextFormatProps;
 
-    export let rawValue: $$Props['rawValue'];
-    export let display: $$Props['display'] | null = null;
+    export let value: $$Props['value'];
+    export let valueToLabel: $$Props['valueToLabel'] | null = null;
     export let debugWarnings = false;
 
     $: format = (v: unknown) => {
-        if (typeof v === 'string' && display) {
-            return display(v as string);
+        if (typeof v === 'string' && valueToLabel) {
+            return valueToLabel(v as string);
         }
         if (debugWarnings) {
             warn(v, 'text');
@@ -20,4 +20,4 @@
 </script>
 
 <!-- Wrap value to style properly line clamp -->
-<span>{format(rawValue)}</span>
+<span>{format(value)}</span>

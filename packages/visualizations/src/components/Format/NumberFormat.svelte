@@ -4,8 +4,8 @@
 
     type $$Props = NumberFormatProps;
 
-    export let rawValue: $$Props['rawValue'];
-    export let display: $$Props['display'] | null = null;
+    export let value: $$Props['value'];
+    export let valueToLabel: $$Props['valueToLabel'] | null = null;
     export let intl: $$Props['intl'] = {};
     export let locale = 'en-EN';
     export let debugWarnings = false;
@@ -16,8 +16,8 @@
                 warn(v, 'number');
             }
             const intlValue = new Intl.NumberFormat(locale, intl).format(v);
-            if (display) {
-                return display(intlValue);
+            if (valueToLabel) {
+                return valueToLabel(intlValue);
             }
             return intlValue;
         }
@@ -25,4 +25,4 @@
     };
 </script>
 
-{format(rawValue)}
+{format(value)}

@@ -2,28 +2,17 @@
     import type { Content } from 'tippy.js';
 
     import { WebGlMap } from 'components/Map';
-    import type { WebGlMapData } from 'components/Map';
     import tippy from 'components/utils/tippy';
     import type { GeoFormatProps } from './types';
 
     type $$Props = GeoFormatProps;
 
-    export let rawValue: $$Props['rawValue'];
-    export let display: $$Props['display'] | null = null;
+    export let value: $$Props['value'];
+    export let valueToLabel: $$Props['valueToLabel'] | null = null;
     export let mapOptions: $$Props['mapOptions'] = {};
-    export let sources: $$Props['sources'] | null = null;
-    export let layers: $$Props['layers'] | null = null;
 
     let tooltipContent: Content;
     let showMap = false;
-    let data: WebGlMapData;
-
-    $: if (sources && layers) {
-        data = {
-            sources: sources(rawValue),
-            layers: layers(rawValue),
-        };
-    }
 </script>
 
 <div
@@ -44,11 +33,11 @@
     }}
 >
     <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <div class="label">{display && display(rawValue)}</div>
+    <div class="label">{valueToLabel && valueToLabel(value)}</div>
     <!-- To run a WebGl instance only when tooltip is visible -->
-    {#if showMap && data && mapOptions}
+    {#if showMap && value && mapOptions}
         <div bind:this={tooltipContent} class="table-cell-map-container">
-            <WebGlMap options={mapOptions} {data} />
+            <WebGlMap options={mapOptions} data={value} />
         </div>
     {/if}
 </div>

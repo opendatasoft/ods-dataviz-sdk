@@ -1,4 +1,4 @@
-export function isValidRawValue(value: unknown): boolean {
+export function isValidValue(value: unknown): boolean {
     return value !== undefined && value !== null;
 }
 
