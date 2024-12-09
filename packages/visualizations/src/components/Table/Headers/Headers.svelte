@@ -3,10 +3,14 @@
     import type { Column } from '../types';
 
     export let columns: Column[];
+    export let extraButtonColumn = false;
 </script>
 
 <thead>
     <tr>
+        {#if extraButtonColumn}
+            <th />
+        {/if}
         {#each columns as column}
             <th class={`table-header--${column.dataFormat}`}>
                 {#if column.onClick}

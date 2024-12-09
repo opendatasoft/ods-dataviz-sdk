@@ -10,6 +10,13 @@ import {
     PoiMap as _PoiMap,
     Table as _Table,
     WebGlMap as _WebGlMap,
+    BooleanFormat as _BooleanFormat,
+    DateFormat as _DateFormat,
+    GeoFormat as _GeoFormat,
+    LongTextFormat as _LongTextFormat,
+    ShortTextFormat as _ShortTextFormat,
+    URLFormat as _URLFormat,
+    NumberFormat as _NumberFormat,
 } from '@opendatasoft/visualizations';
 import type {
     ChartProps,
@@ -20,6 +27,13 @@ import type {
     PoiMapProps,
     WebGlMapProps,
     TableProps,
+    BooleanFormatProps,
+    DateFormatProps,
+    GeoFormatProps,
+    LongTextFormatProps,
+    ShortTextFormatProps,
+    URLFormatProps,
+    NumberFormatProps,
 } from '@opendatasoft/visualizations';
 import reactifySvelte from 'reactify';
 
@@ -44,3 +58,31 @@ export const ChoroplethSvg = reactifySvelte<ChoroplethGeoJsonProps>(
 export const PoiMap = reactifySvelte<PoiMapProps>(_PoiMap, 'ods-visualizations-poi-map');
 export const WebGlMap = reactifySvelte<WebGlMapProps>(_WebGlMap, 'ods-visualizations-webgl-map');
 export const Table = reactifySvelte<TableProps>(_Table, 'ods-visualizations-table');
+export const BooleanFormat = reactifySvelte<BooleanFormatProps>(
+    _BooleanFormat,
+    'ods-visualizations-format-boolean'
+);
+export const DateFormat = reactifySvelte<DateFormatProps>(
+    _DateFormat,
+    'ods-visualizations-format-date'
+);
+export const GeoFormat = reactifySvelte<GeoFormatProps>(
+    _GeoFormat,
+    'ods-visualizations-format-geo'
+);
+export const ShortTextFormat = reactifySvelte<ShortTextFormatProps>(
+    _ShortTextFormat,
+    'ods-visualizations-format-shorttext'
+);
+export const LongTextFormat = reactifySvelte<LongTextFormatProps>(
+    _LongTextFormat,
+    'ods-visualizations-format-longtext'
+);
+export const NumberFormat = reactifySvelte<NumberFormatProps>(
+    _NumberFormat,
+    'ods-visualizations-format-number'
+);
+export const URLFormat = reactifySvelte<URLFormatProps>(
+    _URLFormat,
+    'ods-visualizations-format-url'
+);
