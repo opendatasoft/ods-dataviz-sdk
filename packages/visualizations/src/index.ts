@@ -25,8 +25,7 @@ export {
     BooleanFormat,
     DateFormat,
     GeoFormat,
-    ShortTextFormat,
-    LongTextFormat,
+    TextFormat,
     NumberFormat,
     URLFormat,
 } from './components/Format';

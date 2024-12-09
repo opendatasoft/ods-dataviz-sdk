@@ -1,12 +1,26 @@
 import type { Column, TableOptions } from '@opendatasoft/visualizations';
 
+type Record = {
+    title: string;
+    price: number;
+    content: string;
+    datePublished: string;
+    isFeatured: boolean;
+    wordCount: number;
+    readingTime: number;
+    url: string;
+    geopoint: [number, number];
+    region: string;
+    geoshape: string;
+};
+
 export const columns: Column[] = [
     {
         title: 'Title',
         key: 'title',
         dataFormat: 'short-text',
         options: {
-            display: (title: string) => `${title.toUpperCase()}`,
+            valueToLabel: (v: string) => v.toUpperCase(),
         },
     },
     {
@@ -30,7 +44,7 @@ export const columns: Column[] = [
         key: 'datePublished',
         dataFormat: 'date',
         options: {
-            display: (date: string) => `${date} 🗓️`,
+            valueToLabel: (v: string) => `${v} 🗓️`,
             intl: {
                 dateStyle: 'full',
             },
@@ -41,7 +55,7 @@ export const columns: Column[] = [
         key: 'isFeatured',
         dataFormat: 'boolean',
         options: {
-            display: (bool: boolean) => (bool ? 'αληθές' : 'ψευδές'),
+            valueToLabel: (v: boolean) => (v ? 'αληθές' : 'ψευδές'),
         },
     },
     {
@@ -49,7 +63,7 @@ export const columns: Column[] = [
         key: 'wordCount',
         dataFormat: 'number',
         options: {
-            display: (v: string) => `${v} words`,
+            valueToLabel: (v: number) => `${v} words`,
         },
     },
     {
@@ -68,72 +82,89 @@ export const columns: Column[] = [
         key: 'url',
         dataFormat: 'url',
         options: {
-            display: (value: string) => value.startsWith('https://')  ? 'link' : 'broken link',
+            valueToLabel: (v: string) => (v.startsWith('https://') ? 'link' : 'broken link'),
         },
     },
     {
         title: 'Geo point',
         key: 'geopoint',
         dataFormat: 'geo',
+        accessor: (r: Record) => {
+            const coordinates = r.geopoint;
+
+            return {
+                sources: {
+                    'table-stories': {
+                        type: 'geojson',
+                        data: {
+                            type: 'FeatureCollection',
+                            features: [
+                                {
+                                    id: 1,
+                                    type: 'Feature',
+                                    geometry: {
+                                        type: 'Point',
+                                        coordinates,
+                                    },
+                                },
+                            ],
+                        },
+                    },
+                },
+                layers: [
+                    {
+                        id: 'table-stories-layer',
+                        source: 'table-stories',
+                        type: 'circle',
+                        color: 'black',
+                        borderColor: 'white',
+                    },
+                ],
+            };
+        },
         options: {
             mapOptions: {
                 style: 'https://demotiles.maplibre.org/style.json',
                 interactive: false,
             },
-            display: (v: unknown) => `longitude: ${(v as number[])[0]}, latitude: ${(v as number[])[1]}`,
-            sources: (coordinates: unknown) => ({
-                'table-stories' : {
-                    type: 'geojson', 
-                    data: {
-                        type: 'FeatureCollection',
-                        features: [
-                            {
-                                id: 1,
-                                type: 'Feature',
-                                geometry: {
-                                    type: 'Point',
-                                    coordinates,
-                                },
-                            },
-                        ],
-                    }
-                },
-            }),
-            layers: () => ([{
-                id:'table-stories-layer',
-                source: 'table-stories',
-                type: 'circle',
-                color: 'black',
-                borderColor: 'white',
-            }])
+            valueToLabel: (v: [number, number]) => `longitude: ${v[0]}, latitude: ${v[1]}`,
         },
+    },
+    {
+        title: 'Région',
+        key: 'region',
+        dataFormat: 'short-text',
     },
     {
         title: 'Geo shapes',
         key: 'geoshape',
         dataFormat: 'geo',
-        options: {
+        accessor: (r: Record) => ({
+            sources: {
+                'table-stories': {
+                    type: 'geojson',
+                    data: r.geoshape,
+                },
+            },
+            layers: [
+                {
+                    id: 'table-stories-layer',
+                    source: 'table-stories',
+                    type: 'fill',
+                    color: 'black',
+                    borderColor: 'white',
+                },
+            ],
+        }),
+        options: (r: Record) => ({
             mapOptions: {
                 style: 'https://demotiles.maplibre.org/style.json',
                 interactive: false,
                 bbox: [-6.855469, 41.343825, 11.645508, 51.37178],
                 zoom: 3,
             },
-            display: (v : unknown) => v as string,
-            sources: (v: unknown) => ({
-                'table-stories' : {
-                    type: 'geojson', 
-                    data: `https://france-geojson.gregoiredavid.fr/repo/regions/${v}/region-${v}.geojson`
-                },
-            }),
-            layers: () => ([{
-                id:'table-stories-layer',
-                source: 'table-stories',
-                type: "fill",
-                color: 'black',
-                borderColor: 'white',
-            }])
-        },
+            valueToLabel: () => r.region,
+        }),
     },
 ];
 

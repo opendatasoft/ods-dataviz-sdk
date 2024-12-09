@@ -13,8 +13,7 @@ import {
     BooleanFormat as _BooleanFormat,
     DateFormat as _DateFormat,
     GeoFormat as _GeoFormat,
-    LongTextFormat as _LongTextFormat,
-    ShortTextFormat as _ShortTextFormat,
+    TextFormat as _TextFormat,
     URLFormat as _URLFormat,
     NumberFormat as _NumberFormat,
 } from '@opendatasoft/visualizations';
@@ -30,8 +29,7 @@ import type {
     BooleanFormatProps,
     DateFormatProps,
     GeoFormatProps,
-    LongTextFormatProps,
-    ShortTextFormatProps,
+    TextFormatProps,
     URLFormatProps,
     NumberFormatProps,
 } from '@opendatasoft/visualizations';
@@ -70,13 +68,9 @@ export const GeoFormat = reactifySvelte<GeoFormatProps>(
     _GeoFormat,
     'ods-visualizations-format-geo'
 );
-export const ShortTextFormat = reactifySvelte<ShortTextFormatProps>(
-    _ShortTextFormat,
-    'ods-visualizations-format-shorttext'
-);
-export const LongTextFormat = reactifySvelte<LongTextFormatProps>(
-    _LongTextFormat,
-    'ods-visualizations-format-longtext'
+export const TextFormat = reactifySvelte<TextFormatProps>(
+    _TextFormat,
+    'ods-visualizations-format-text'
 );
 export const NumberFormat = reactifySvelte<NumberFormatProps>(
     _NumberFormat,
