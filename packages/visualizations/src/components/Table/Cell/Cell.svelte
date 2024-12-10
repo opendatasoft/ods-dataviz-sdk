@@ -1,38 +1,45 @@
 <script lang="ts">
-    import { isValidRawValue } from 'components/Format';
+    import { isValidValue } from 'components/Format';
     import BooleanFormat from 'components/Format/BooleanFormat.svelte';
     import DateFormat from 'components/Format/DateFormat.svelte';
     import GeoFormat from 'components/Format/GeoFormat.svelte';
-    import ShortTextFormat from 'components/Format/ShortTextFormat.svelte';
-    import LongTextFormat from 'components/Format/LongTextFormat.svelte';
+    import TextFormat from 'components/Format/TextFormat.svelte';
     import NumberFormat from 'components/Format/NumberFormat.svelte';
     import URLFormat from 'components/Format/URLFormat.svelte';
     import { DATA_FORMAT } from '../constants';
     import { locale } from '../store';
     import type { Column } from '../types';
-    import isColumnOfType from './utils';
+    import { isColumnOfType, getOptions, getValue } from './utils';
 
-    export let rawValue: unknown;
+    export let record: Record<string, unknown>;
     export let column: Column;
 </script>
 
-<!-- To display a format value, rawValue must be different from undefined or null -->
+<!-- To display a format value, value must be different from undefined or null -->
 <td class={`table-data--${column.dataFormat}`}>
-    {#if isValidRawValue(rawValue)}
+    {#if isValidValue(getValue(column, record))}
         {#if isColumnOfType(column, DATA_FORMAT.boolean)}
-            <BooleanFormat {rawValue} {...column.options} />
+            <BooleanFormat value={getValue(column, record)} {...getOptions(column, record)} />
         {:else if isColumnOfType(column, DATA_FORMAT.date)}
-            <DateFormat {rawValue} {...column?.options} locale={$locale} />
+            <DateFormat
+                value={getValue(column, record)}
+                {...getOptions(column, record)}
+                locale={$locale}
+            />
         {:else if isColumnOfType(column, DATA_FORMAT.geo)}
-            <GeoFormat {rawValue} {...column.options} />
+            <GeoFormat value={getValue(column, record)} {...getOptions(column, record)} />
         {:else if isColumnOfType(column, DATA_FORMAT.shortText)}
-            <ShortTextFormat {rawValue} {...column.options} />
+            <TextFormat value={getValue(column, record)} {...getOptions(column, record)} />
         {:else if isColumnOfType(column, DATA_FORMAT.longText)}
-            <LongTextFormat {rawValue} {...column.options} />
+            <TextFormat value={getValue(column, record)} {...getOptions(column, record)} />
         {:else if isColumnOfType(column, DATA_FORMAT.number)}
-            <NumberFormat {rawValue} {...column.options} locale={$locale} />
+            <NumberFormat
+                value={getValue(column, record)}
+                {...getOptions(column, record)}
+                locale={$locale}
+            />
         {:else if isColumnOfType(column, DATA_FORMAT.url)}
-            <URLFormat {rawValue} {...column.options} />
+            <URLFormat value={getValue(column, record)} {...getOptions(column, record)} />
         {/if}
     {/if}
 </td>
