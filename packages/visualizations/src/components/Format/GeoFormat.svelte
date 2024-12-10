@@ -33,7 +33,9 @@
     }}
 >
     <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <div class="label">{valueToLabel && valueToLabel(value)}</div>
+    {#if valueToLabel && valueToLabel(value)}
+        <div class="label">{valueToLabel(value)}</div>
+    {/if}
     <!-- To run a WebGl instance only when tooltip is visible -->
     {#if showMap && value && mapOptions}
         <div bind:this={tooltipContent} class="table-cell-map-container">

@@ -132,11 +132,6 @@ export const columns: Column[] = [
         }),
     },
     {
-        title: 'Région',
-        key: 'region',
-        dataFormat: 'short-text',
-    },
-    {
         title: 'Geo shapes',
         key: 'geoshape',
         dataFormat: 'geo',
