@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { isNil } from 'lodash';
     import { isValidRawValue } from 'components/Format';
     import BooleanFormat from 'components/Format/BooleanFormat.svelte';
     import DateFormat from 'components/Format/DateFormat.svelte';
@@ -8,47 +9,51 @@
     import NumberFormat from 'components/Format/NumberFormat.svelte';
     import URLFormat from 'components/Format/URLFormat.svelte';
     import { DATA_FORMAT } from '../constants';
-    import { locale , stickyColumnsOffset, lastStickyColumn } from '../store';
+    import { locale, stickyColumnsOffset, lastStickyColumn } from '../store';
     import type { Column } from '../types';
-    import Format, { isValidRawValue } from './Format';
-    
+    import { isColumnOfType, getStickyClasses } from '../utils';
+
     export let rawValue: unknown;
     export let column: Column;
     export let isHorizontallyScrolled: boolean;
 
-    $: ({ dataFormat, options = {} } = column);
+    $: ({ dataFormat } = column);
+    $: offset = $stickyColumnsOffset.get(column.key);
+    $: stickyClasses = getStickyClasses(
+        $stickyColumnsOffset.has(column.key),
+        column.key === $lastStickyColumn,
+        isHorizontallyScrolled
+    );
 </script>
 
 <!-- To display a format value, rawValue must be different from undefined or null -->
-<td
-    style={`--sticky-offset: ${$stickyColumnsOffset.get(column.key)}px;`}
-    class:sticky={$stickyColumnsOffset.has(column.key)}
-    class:isLastSticky={column.key === $lastStickyColumn}
-    class:isHorizontallyScrolled
->
-    {#if isValidRawValue(rawValue)}
-        {#if isColumnOfType(column, DATA_FORMAT.boolean)}
-            <BooleanFormat {rawValue} {...column.options} />
-        {:else if isColumnOfType(column, DATA_FORMAT.date)}
-            <DateFormat {rawValue} {...column?.options} locale={$locale} />
-        {:else if isColumnOfType(column, DATA_FORMAT.geo)}
-            <GeoFormat {rawValue} {...column.options} />
-        {:else if isColumnOfType(column, DATA_FORMAT.shortText)}
-            <ShortTextFormat {rawValue} {...column.options} />
-        {:else if isColumnOfType(column, DATA_FORMAT.longText)}
-            <LongTextFormat {rawValue} {...column.options} />
-        {:else if isColumnOfType(column, DATA_FORMAT.number)}
-            <NumberFormat {rawValue} {...column.options} locale={$locale} />
-        {:else if isColumnOfType(column, DATA_FORMAT.url)}
-            <URLFormat {rawValue} {...column.options} />
+<td style={isNil(offset) ? '' : `--sticky-offset: ${offset}px;`} class={stickyClasses}>
+    <div class={`table-data--${dataFormat}`}>
+        {#if isValidRawValue(rawValue)}
+            {#if isColumnOfType(column, DATA_FORMAT.boolean)}
+                <BooleanFormat {rawValue} {...column.options} />
+            {:else if isColumnOfType(column, DATA_FORMAT.date)}
+                <DateFormat {rawValue} {...column?.options} locale={$locale} />
+            {:else if isColumnOfType(column, DATA_FORMAT.geo)}
+                <GeoFormat {rawValue} {...column.options} />
+            {:else if isColumnOfType(column, DATA_FORMAT.shortText)}
+                <ShortTextFormat {rawValue} {...column.options} />
+            {:else if isColumnOfType(column, DATA_FORMAT.longText)}
+                <LongTextFormat {rawValue} {...column.options} />
+            {:else if isColumnOfType(column, DATA_FORMAT.number)}
+                <NumberFormat {rawValue} {...column.options} locale={$locale} />
+            {:else if isColumnOfType(column, DATA_FORMAT.url)}
+                <URLFormat {rawValue} {...column.options} />
+            {/if}
         {/if}
-    {/if}
+    </div>
 </td>
 
 <style lang="scss">
     @import '../sticky';
     :global(.ods-dataviz--default td) {
-        background-color: white;
+        background-color: white; /* avoids overlap with sticky columns */
+        border-bottom: 1px solid var(--border-color);
         overflow: visible;
         padding: 0;
     }

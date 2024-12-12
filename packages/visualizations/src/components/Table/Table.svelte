@@ -12,10 +12,6 @@
     export let description: string | undefined;
     export let emptyStateLabel: string | undefined;
     export let rowProps: RowProps | undefined;
-    $: sortedStickyColumns = [...columns].sort((colA, colB) => {
-        if (Boolean(colA?.sticky) === Boolean(colB?.sticky)) { return 0;}
-        return colA?.sticky ? -1 : 1;
-    });
 
     const tableId = `table-${generateId()}`;
 
@@ -27,6 +23,13 @@
         isHorizontallyScrolled =
             document.dir === 'rtl' ? scrollBox?.scrollLeft < 0 : scrollBox?.scrollLeft > 0;
     }
+
+    $: sortedStickyColumns = [...columns].sort((colA, colB) => {
+        if (Boolean(colA?.sticky) === Boolean(colB?.sticky)) {
+            return 0;
+        }
+        return colA?.sticky ? -1 : 1;
+    });
 
     // resets scroll when changing columns parameters
     $: if (columns && scrollBox) {
@@ -48,8 +51,19 @@
 
 <div class="scrollbox" bind:this={scrollBox} on:scroll={handleScroll}>
     <table aria-describedby={description ? tableId : undefined}>
-        <Headers columns={sortedStickyColumns} {isHorizontallyScrolled} extraButtonColumn={Boolean(rowProps?.onClick)} />
-        <Body {records} columns={sortedStickyColumns} {rowProps} {emptyStateLabel} {loadingRowsNumber} {isHorizontallyScrolled} />
+        <Headers
+            columns={sortedStickyColumns}
+            {isHorizontallyScrolled}
+            extraButtonColumn={Boolean(rowProps?.onClick)}
+        />
+        <Body
+            {records}
+            columns={sortedStickyColumns}
+            {rowProps}
+            {emptyStateLabel}
+            {loadingRowsNumber}
+            {isHorizontallyScrolled}
+        />
     </table>
 </div>
 {#if description}

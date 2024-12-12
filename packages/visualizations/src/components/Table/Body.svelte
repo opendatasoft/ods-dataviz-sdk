@@ -36,6 +36,7 @@
                 {columns}
                 {rowProps}
                 {record}
+                {isHorizontallyScrolled}
                 setHovered={() => {
                     hoveredRow = rowIndex;
                 }}

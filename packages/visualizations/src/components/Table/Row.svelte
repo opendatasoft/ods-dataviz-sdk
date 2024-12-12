@@ -8,6 +8,7 @@
     export let record: Record<string, unknown>;
     export let isHovered = false;
     export let setHovered: () => void;
+    export let isHorizontallyScrolled: boolean;
 
     $: ({ onClick, onMouseEnter, onMouseLeave, actionAriaLabel } = rowProps || {});
     $: handleMouseEnter = (e: HoverEvent<HTMLTableRowElement>) => {
@@ -47,15 +48,11 @@
         </td>
     {/if}
     {#each columns as column}
-        <Cell rawValue={record[column.key]} {column} />
+        <Cell rawValue={record[column.key]} {column} {isHorizontallyScrolled} />
     {/each}
 </tr>
 
 <style>
-    :global(.ods-dataviz--default tr) {
-        border-bottom: 1px solid var(--border-color);
-    }
-
     :global(.ods-dataviz--default tr:last-child) {
         border-bottom: none;
     }

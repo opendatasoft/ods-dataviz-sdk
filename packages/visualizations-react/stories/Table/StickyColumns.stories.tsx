@@ -30,22 +30,22 @@ const Template: ComponentStory<typeof Table> = args => {
 
     return (
         <>
-        <div style={{marginBottom: '20px'}}>
-        <h3>Pinned columns</h3>
-        {stickyColumns.map(col => (
-            <>
-                <input 
-                    type="checkbox"
-                    id={`${col.key}`}
-                    key={col.key}
-                    checked={Boolean(col?.sticky)}
-                    onChange={() => handleStickyToggle(col.key)}
-                />
-                <label htmlFor={col.key}>{col.title}</label>
-            </>
-        ))}
-        </div>
-            <Table data={templateData} options={{ ...templateOptions, columns: stickyColumns}} />
+            <div style={{ marginBottom: '20px' }}>
+                <h3>Pinned columns</h3>
+                {stickyColumns.map(col => (
+                    <React.Fragment key={col.key}>
+                        <input
+                            type="checkbox"
+                            id={`${col.key}`}
+                            key={col.key}
+                            checked={Boolean(col?.sticky)}
+                            onChange={() => handleStickyToggle(col.key)}
+                        />
+                        <label htmlFor={col.key}>{col.title}</label>
+                    </React.Fragment>
+                ))}
+            </div>
+            <Table data={templateData} options={{ ...templateOptions, columns: stickyColumns }} />
         </>
     );
     };

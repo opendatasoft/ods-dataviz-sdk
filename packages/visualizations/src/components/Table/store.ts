@@ -5,22 +5,24 @@ const defaultLocale = navigator.language;
 
 export const locale = writable<string>(defaultLocale);
 
+const newOffsetMap = () => new Map<string, number>();
+
 const createWidths = () => {
-    const { update, set, subscribe } = writable(new Map());
+    const { update, set, subscribe } = writable(newOffsetMap());
     return {
         updateColumn: (key: string, width: number) =>
             update(($widths) => {
                 $widths.set(key, width);
                 return $widths;
             }),
-        reset: () => set(new Map()),
+        reset: () => set(newOffsetMap()),
         subscribe,
     };
 };
 export const stickyColumnsWidth = createWidths();
 
 export const stickyColumnsOffset = derived(stickyColumnsWidth, ($widths) => {
-    const cumulativeWidths = new Map();
+    const cumulativeWidths = newOffsetMap();
     let cumulativeOffset = 0;
 
     Array.from($widths).forEach(([key, clientWidth]) => {
