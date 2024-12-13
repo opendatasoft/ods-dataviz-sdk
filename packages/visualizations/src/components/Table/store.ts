@@ -36,3 +36,5 @@ export const stickyColumnsOffset = derived(stickyColumnsWidth, ($widths) => {
 export const lastStickyColumn = derived(stickyColumnsWidth, ($widths) =>
     [...$widths.keys()].at(-1)
 );
+
+export const isHorizontallyScrolled = writable(false);

@@ -8,7 +8,6 @@
     export let record: Record<string, unknown>;
     export let isHovered = false;
     export let setHovered: () => void;
-    export let isHorizontallyScrolled: boolean;
 
     $: ({ onClick, onMouseEnter, onMouseLeave, actionAriaLabel } = rowProps || {});
     $: handleMouseEnter = (e: HoverEvent<HTMLTableRowElement>) => {
@@ -48,7 +47,7 @@
         </td>
     {/if}
     {#each columns as column}
-        <Cell rawValue={record[column.key]} {column} {isHorizontallyScrolled} />
+        <Cell rawValue={record[column.key]} {column} />
     {/each}
 </tr>
 

@@ -1,9 +1,13 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { get } from 'svelte/store';
 import type { DataFormat, Column, ColumnOfType } from './types';
+import { lastStickyColumn } from './store';
 
-export const getStickyClasses = (sticky: boolean, lastSticky: boolean, scrolled: boolean) =>
-    `${sticky && 'sticky'} 
-    ${lastSticky && 'isLastSticky'} 
-    ${scrolled && 'isHorizontallyScrolled'}`;
+export const getStickyClasses = (column: Column, scrolled: boolean) => `
+    ${column.sticky && 'sticky'} 
+    ${column.key === get(lastStickyColumn) && 'isLastSticky'} 
+    ${scrolled && 'isHorizontallyScrolled'}
+`;
 
 export function isColumnOfType<K extends DataFormat>(
     column: Column,

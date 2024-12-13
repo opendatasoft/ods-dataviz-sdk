@@ -11,7 +11,6 @@
     export let emptyStateLabel: string | undefined;
 
     let hoveredRow: number | null;
-    export let isHorizontallyScrolled: boolean;
 </script>
 
 <tbody
@@ -36,7 +35,6 @@
                 {columns}
                 {rowProps}
                 {record}
-                {isHorizontallyScrolled}
                 setHovered={() => {
                     hoveredRow = rowIndex;
                 }}

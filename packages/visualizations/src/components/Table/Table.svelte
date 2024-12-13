@@ -4,7 +4,7 @@
     import type { Column, RowProps } from './types';
     import Headers from './Headers';
     import Body from './Body.svelte';
-    import { stickyColumnsWidth } from './store';
+    import { stickyColumnsWidth, isHorizontallyScrolled } from './store';
 
     export let loadingRowsNumber: number | null;
     export let columns: Column[];
@@ -15,21 +15,13 @@
 
     const tableId = `table-${generateId()}`;
 
-    let isHorizontallyScrolled = false;
     let scrollBox: HTMLDivElement;
     let sortedStickyColumns: Column[] = [];
 
     function handleScroll() {
-        isHorizontallyScrolled =
+        $isHorizontallyScrolled =
             document.dir === 'rtl' ? scrollBox?.scrollLeft < 0 : scrollBox?.scrollLeft > 0;
     }
-
-    $: sortedStickyColumns = [...columns].sort((colA, colB) => {
-        if (Boolean(colA?.sticky) === Boolean(colB?.sticky)) {
-            return 0;
-        }
-        return colA?.sticky ? -1 : 1;
-    });
 
     // resets scroll when changing columns parameters
     $: if (columns && scrollBox) {
@@ -41,28 +33,23 @@
             return colA?.sticky ? -1 : 1;
         });
         stickyColumnsWidth.reset();
-        sortedStickyColumns
-            .filter((col) => col?.sticky)
-            .forEach((col) => {
+        sortedStickyColumns.forEach((col) => {
+            if (col?.sticky) {
                 stickyColumnsWidth.updateColumn(col.key, 0);
-            });
+            }
+        });
     }
 </script>
 
 <div class="scrollbox" bind:this={scrollBox} on:scroll={handleScroll}>
     <table aria-describedby={description ? tableId : undefined}>
-        <Headers
-            columns={sortedStickyColumns}
-            {isHorizontallyScrolled}
-            extraButtonColumn={Boolean(rowProps?.onClick)}
-        />
+        <Headers columns={sortedStickyColumns} extraButtonColumn={Boolean(rowProps?.onClick)} />
         <Body
             {records}
             columns={sortedStickyColumns}
             {rowProps}
             {emptyStateLabel}
             {loadingRowsNumber}
-            {isHorizontallyScrolled}
         />
     </table>
 </div>

@@ -1,12 +1,11 @@
 <script lang="ts">
     import type { Column, DataFormat } from '../types';
-    import { stickyColumnsWidth, stickyColumnsOffset, lastStickyColumn } from '../store';
+    import { stickyColumnsWidth, stickyColumnsOffset, isHorizontallyScrolled } from '../store';
     import { getStickyClasses } from '../utils';
     import SortButton from './SortButton.svelte';
 
     export let column: Column;
     export let dataFormat: DataFormat;
-    export let isHorizontallyScrolled: boolean;
 
     let clientWidth: number;
 
@@ -14,16 +13,11 @@
     $: if ($stickyColumnsWidth.has(column.key)) {
         stickyColumnsWidth.updateColumn(column.key, clientWidth);
     }
-    $: stickyClasses = getStickyClasses(
-        $stickyColumnsWidth.has(column.key),
-        column.key === $lastStickyColumn,
-        isHorizontallyScrolled
-    );
 </script>
 
 <th
     style={`--sticky-offset: ${$stickyColumnsOffset.get(column.key)}px`}
-    class={`table-header--${dataFormat} ${stickyClasses}`}
+    class={`table-header--${dataFormat} ${getStickyClasses(column, $isHorizontallyScrolled)}`}
     bind:clientWidth
 >
     {#if column.onClick}
