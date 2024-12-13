@@ -52,10 +52,6 @@
 </tr>
 
 <style>
-    :global(.ods-dataviz--default tr) {
-        border-bottom: 1px solid var(--border-color);
-    }
-
     :global(.ods-dataviz--default tr:last-child) {
         border-bottom: none;
     }

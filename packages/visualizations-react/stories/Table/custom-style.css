@@ -2,21 +2,19 @@
     border-color: #fcd4cf;
 }
 
-.table-story--custom-style thead {
+.table-story--custom-style .ods-dataviz--default th {
     border-bottom-color: #f94346;
     border-bottom-width: 2px;
     background-color: #fd635d;
     color:#ffffff;
 }
 
-.table-story--custom-style tbody {
+.table-story--custom-style .ods-dataviz--default td {
     background-color: whitesmoke;
-}
-
-.table-story--custom-style tbody tr {
     border-bottom-color: #fcd4cf;
 }
-.table-story--custom-style tbody tr:hover {
+
+.table-story--custom-style .ods-dataviz--default tr:hover td {
     background-color: #f9aea4;
 }
 
