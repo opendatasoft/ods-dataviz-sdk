@@ -1,23 +1,23 @@
 <script lang="ts">
     import { warn } from './utils';
-    import type { BooleanFormatProps } from './types';
+    import type { TextFormatProps } from './types';
 
-    type $$Props = BooleanFormatProps;
+    type $$Props = TextFormatProps;
 
     export let value: $$Props['value'];
     export let valueToLabel: $$Props['valueToLabel'] | null = null;
     export let debugWarnings = false;
 
     $: format = (v: unknown) => {
-        if (typeof v === 'boolean' && valueToLabel) {
-            return valueToLabel(v as boolean);
+        if (typeof v === 'string' && valueToLabel) {
+            return valueToLabel(v as string);
         }
         if (debugWarnings) {
-            warn(v, 'boolean');
+            warn(v, 'text');
         }
         return v;
-        // Currently we return the raw value until we have alternative renders
     };
 </script>
 
-{format(value)}
+<!-- Wrap value to style properly line clamp -->
+<span>{format(value)}</span>
