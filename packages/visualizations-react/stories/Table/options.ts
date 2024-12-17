@@ -1,6 +1,6 @@
 import type { Column, TableOptions } from '@opendatasoft/visualizations';
 
-type Record = {
+export type DatasetRecord = {
     title: string;
     price: number;
     content: string;
@@ -14,7 +14,7 @@ type Record = {
     geoshape: string;
 };
 
-export const columns: Column[] = [
+export const columns: Column<DatasetRecord>[] = [
     {
         title: 'Title',
         key: 'title',
@@ -89,7 +89,7 @@ export const columns: Column[] = [
         title: 'Geo point',
         key: 'geopoint',
         dataFormat: 'geo',
-        accessor: (r: Record) => {
+        accessor: r => {
             const coordinates = r.geopoint;
 
             return {
@@ -122,7 +122,7 @@ export const columns: Column[] = [
                 ],
             };
         },
-        options: (r: Record) => ({
+        options: r => ({
             mapOptions: {
                 style: 'https://demotiles.maplibre.org/style.json',
                 interactive: false,
@@ -135,7 +135,7 @@ export const columns: Column[] = [
         title: 'Geo shapes',
         key: 'geoshape',
         dataFormat: 'geo',
-        accessor: (r: Record) => ({
+        accessor: r => ({
             sources: {
                 'table-stories': {
                     type: 'geojson',
@@ -152,7 +152,7 @@ export const columns: Column[] = [
                 },
             ],
         }),
-        options: (r: Record) => ({
+        options: r => ({
             mapOptions: {
                 style: 'https://demotiles.maplibre.org/style.json',
                 interactive: false,

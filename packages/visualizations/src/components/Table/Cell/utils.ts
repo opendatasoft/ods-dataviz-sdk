@@ -1,7 +1,7 @@
-import type { DataFormat, Column, ColumnOfType, ReturnTypeMap, FormatPropsTypeMap } from '../types';
+import type { DataFormat, ColumnOfType, ReturnTypeMap, FormatPropsTypeMap } from '../types';
 
 export function isColumnOfType<K extends DataFormat>(
-    column: Column,
+    column: ColumnOfType<DataFormat>,
     format: K
 ): column is ColumnOfType<K> {
     return column.dataFormat === format;
