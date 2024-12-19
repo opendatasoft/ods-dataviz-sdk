@@ -1,9 +1,5 @@
 <script lang="ts">
-    interface Props {
-        label?: string;
-    }
-
-    let { label = 'No records found...' }: Props = $props();
+    export let label = 'No records found...';
 </script>
 
 <tr>

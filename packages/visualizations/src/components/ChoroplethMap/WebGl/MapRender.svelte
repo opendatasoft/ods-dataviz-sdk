@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { run } from 'svelte/legacy';
-
     import maplibregl, {
         Map as MapType,
         SourceSpecification,
@@ -32,112 +30,64 @@
         ChoroplethDataValue,
     } from '../types';
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    interface Props {
-        // maplibre style (basemap)
-        style: StyleSpecification;
-        // maplibre source config
-        source: SourceSpecification;
-        // maplibre layer config
-        layer: MapLayer;
-        // bounding box to start from, and restrict to it
-        bbox: BBox | undefined;
-        // option to disable map interactions
-        interactive: boolean;
-        // options to display legend
-        legend: MapLegend | undefined;
-        colorScale: ColorScale;
-        dataBounds: DataBounds;
-        attribution: string | undefined;
-        // Used to render tooltips on hover
-        renderTooltip: MapRenderTooltipFunction;
-        // Used to select shapes to activate a tooltip on render
-        activeShapes: string[] | undefined;
-        // aspect ratio based on width, by default equal to 1
-        aspectRatio?: number;
-        // Used to filter the rendered features
-        filterExpression?: FilterSpecification | undefined | null;
-        // Used to determine on which key match data and shapes
-        matchKey: string;
-        // Title of the map
-        title: string | undefined;
-        // Subtitle of the map
-        subtitle: string | undefined;
-        // Accessibility description
-        description: string | undefined;
-        // Navigation maps
-        navigationMaps: NavigationMap[] | undefined;
-        data: { value: ChoroplethDataValue[] };
-        // Data source link
-        sourceLink: Source | undefined;
-        cooperativeGestures: boolean | GestureOptions | undefined;
-        preserveDrawingBuffer: boolean;
-        // Fixed max bounds that will overide the automatic map.getBounds when setting the bbox
-        fixedMaxBounds?: LngLatBoundsLike | undefined | null;
-    }
+    // maplibre style (basemap)
+    export let style: StyleSpecification;
+    // maplibre source config
+    export let source: SourceSpecification;
+    // maplibre layer config
+    export let layer: MapLayer;
+    // bounding box to start from, and restrict to it
+    export let bbox: BBox | undefined;
+    // option to disable map interactions
+    export let interactive: boolean;
+    // options to display legend
+    export let legend: MapLegend | undefined;
+    export let colorScale: ColorScale;
+    export let dataBounds: DataBounds;
+    export let attribution: string | undefined;
+    // Used to render tooltips on hover
+    export let renderTooltip: MapRenderTooltipFunction;
+    // Used to select shapes to activate a tooltip on render
+    export let activeShapes: string[] | undefined;
+    // aspect ratio based on width, by default equal to 1
+    export let aspectRatio = 1;
+    // Used to filter the rendered features
+    export let filterExpression: FilterSpecification | undefined | null = null;
+    // Used to determine on which key match data and shapes
+    export let matchKey: string;
+    // Title of the map
+    export let title: string | undefined;
+    // Subtitle of the map
+    export let subtitle: string | undefined;
+    // Accessibility description
+    export let description: string | undefined;
+    // Navigation maps
+    export let navigationMaps: NavigationMap[] | undefined;
+    export let data: { value: ChoroplethDataValue[] };
+    // Data source link
+    export let sourceLink: Source | undefined;
+    export let cooperativeGestures: boolean | GestureOptions | undefined;
+    export let preserveDrawingBuffer: boolean;
+    // Fixed max bounds that will overide the automatic map.getBounds when setting the bbox
+    export let fixedMaxBounds: LngLatBoundsLike | undefined | null = null;
 
-    let {
-        style,
-        source,
-        layer,
-        bbox,
-        interactive,
-        legend,
-        colorScale,
-        dataBounds,
-        attribution,
-        renderTooltip,
-        activeShapes,
-        aspectRatio = 1,
-        filterExpression = null,
-        matchKey,
-        title,
-        subtitle,
-        description,
-        navigationMaps,
-        data,
-        sourceLink,
-        cooperativeGestures,
-        preserveDrawingBuffer,
-        fixedMaxBounds = null
-    }: Props = $props();
-
-    let clientWidth: number = $state();
-    let legendVariant: LegendVariant = $derived(clientWidth <= 375 ? 'fluid' : 'fixed');
-    
+    let clientWidth: number;
+    let legendVariant: LegendVariant;
+    $: legendVariant = clientWidth <= 375 ? 'fluid' : 'fixed';
 
     // Used to store fixed tooltips displayed on render
     // FIXME: This may not be useful anymore, and is very tied to Choropleth right now
-    let fixedPopupsList: ChoroplethFixedTooltipDescription[] = $state([]);
+    let fixedPopupsList: ChoroplethFixedTooltipDescription[] = [];
 
-    let cssVarStyles = $derived(`--aspect-ratio:${aspectRatio};`);
+    $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
 
-    let container: HTMLElement = $state();
-    let map: MapType = $state();
+    let container: HTMLElement;
+    let map: MapType;
     // Used to add navigation control to map
     let nav: NavigationControl;
 
-    let mapReady = $state(false);
-    let currentBbox;
-    run(() => {
-        currentBbox = bbox;
-    });
+    let mapReady = false;
+    $: currentBbox = bbox;
     // Used to add a listener to resize map on container changes, canceled on destroy
     let resizer: ResizeObserver;
 
@@ -271,7 +221,7 @@
         hoverPopup.remove();
     }
 
-    let active: number | undefined = $state();
+    let active: number | undefined;
 
     const setBboxFromButton = (mapSVG: NavigationMap, i: number) => () => {
         currentBbox = mapSVG.bbox;
@@ -384,37 +334,25 @@
     onMount(initializeMap);
     onMount(initializeResizer);
 
-    run(() => {
-        if (mapReady) {
-            updateSourceAndLayer(source, layer);
-        }
-    });
-    run(() => {
-        if (mapReady) {
-            handleInteractivity(interactive, renderTooltip);
-        }
-    });
-    run(() => {
-        updateStyle(style);
-    });
-    run(() => {
-        if (mapReady && currentBbox) {
-            setBbox(currentBbox);
-        }
-    });
-    run(() => {
-        if (fixedPopupsList?.length > 0 && (activeShapes?.length === 0 || !activeShapes)) {
-            fixedPopupsList.forEach((fixedPopup) => fixedPopup.popup.remove());
-        }
-    });
-    run(() => {
-        fixedPopupsList.forEach((fixedPopup) => {
-            const { center, description: tooltipDescription, popup } = fixedPopup;
-            popup
-                .setLngLat(center as LngLatLike)
-                .setHTML(tooltipDescription)
-                .addTo(map);
-        });
+    $: if (mapReady) {
+        updateSourceAndLayer(source, layer);
+    }
+    $: if (mapReady) {
+        handleInteractivity(interactive, renderTooltip);
+    }
+    $: updateStyle(style);
+    $: if (mapReady && currentBbox) {
+        setBbox(currentBbox);
+    }
+    $: if (fixedPopupsList?.length > 0 && (activeShapes?.length === 0 || !activeShapes)) {
+        fixedPopupsList.forEach((fixedPopup) => fixedPopup.popup.remove());
+    }
+    $: fixedPopupsList.forEach((fixedPopup) => {
+        const { center, description: tooltipDescription, popup } = fixedPopup;
+        popup
+            .setLngLat(center as LngLatLike)
+            .setHTML(tooltipDescription)
+            .addTo(map);
     });
 </script>
 
@@ -437,7 +375,7 @@
         {#if navigationMaps && active !== undefined}
             <BackButton on:click={resetBboxFromButton} />
         {/if}
-        <div id="map" bind:this={container}></div>
+        <div id="map" bind:this={container} />
     </div>
     {#if description}
         <p id={mapId.toString()} class="a11y-invisible-description">{description}</p>

@@ -1,5 +1,5 @@
 <td>
-    <div></div>
+    <div />
 </td>
 
 <style>

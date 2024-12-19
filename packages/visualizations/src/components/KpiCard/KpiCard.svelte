@@ -1,41 +1,29 @@
 <script lang="ts">
-    import { run } from 'svelte/legacy';
-
     import SourceLink from 'components/utils/SourceLink.svelte';
     import { defaultCompactNumberFormat, defaultNumberFormat } from 'components/utils/formatter';
     import tippy from 'components/utils/tippy';
     import type { KpiProps } from './types';
 
     type $$Props = KpiProps;
-    interface Props {
-        data: $$Props['data'];
-        options: $$Props['options'];
+    export let data: $$Props['data'];
+    export let options: $$Props['options'];
+
+    let displayValue: string;
+    let tooltipValue: string;
+    let format: (value: number) => string;
+    let formatCompact: (value: number) => string;
+
+    $: format = options.format || defaultNumberFormat;
+
+    $: formatCompact = options.formatCompact || defaultCompactNumberFormat;
+
+    $: if (data.value !== undefined) {
+        displayValue = formatCompact(data.value);
+        tooltipValue = format(data.value);
+    } else {
+        displayValue = '';
+        tooltipValue = '';
     }
-
-    let { data, options }: Props = $props();
-
-    let displayValue: string = $state();
-    let tooltipValue: string = $state();
-    let format: (value: number) => string = $state();
-    let formatCompact: (value: number) => string = $state();
-
-    run(() => {
-        format = options.format || defaultNumberFormat;
-    });
-
-    run(() => {
-        formatCompact = options.formatCompact || defaultCompactNumberFormat;
-    });
-
-    run(() => {
-        if (data.value !== undefined) {
-            displayValue = formatCompact(data.value);
-            tooltipValue = format(data.value);
-        } else {
-            displayValue = '';
-            tooltipValue = '';
-        }
-    });
 </script>
 
 <div class="kpi-card">
@@ -61,7 +49,7 @@
                     {#if options.prefix}<span class="kpi-card__prefix">{options.prefix}</span
                         >{/if}{#if data.loading}<span
                             class="kpi-card__value-loading"
-></span>{:else if tooltipValue !== displayValue}<span
+                        />{:else if tooltipValue !== displayValue}<span
                             use:tippy={{
                                 content: tooltipValue,
                             }}

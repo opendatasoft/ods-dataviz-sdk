@@ -4,14 +4,10 @@
 
     type $$Props = LongTextFormatProps;
 
-    interface Props {
-        rawValue: $$Props['rawValue'];
-        display?: $$Props['display'];
-    }
+    export let rawValue: $$Props['rawValue'];
+    export let display: $$Props['display'] = (v: string) => v;
 
-    let { rawValue, display = (v: string) => v }: Props = $props();
-
-    let format = $derived((v: unknown) => {
+    $: format = (v: unknown) => {
         if (typeof v !== 'string') {
             warn(v, 'text');
         }
@@ -19,9 +15,9 @@
             return display(v as string);
         }
         return v;
-    });
+    };
 
-    let value = $derived(format(rawValue));
+    $: value = format(rawValue);
 </script>
 
 <!-- Wrap value to style properly line clamp -->

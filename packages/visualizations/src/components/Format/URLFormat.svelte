@@ -5,21 +5,12 @@
 
     type $$Props = URLFormatProps;
 
-    interface Props {
-        rawValue: $$Props['rawValue'];
-        display?: $$Props['display'];
-        target?: $$Props['target'];
-        rel?: $$Props['rel'];
-    }
+    export let rawValue: $$Props['rawValue'];
+    export let display: $$Props['display'] = (v: string) => v;
+    export let target: $$Props['target'] = '_blank';
+    export let rel: $$Props['rel'] = 'nofollow noreferrer noopener';
 
-    let {
-        rawValue,
-        display = (v: string) => v,
-        target = '_blank',
-        rel = 'nofollow noreferrer noopener'
-    }: Props = $props();
-
-    let format = $derived((v: unknown) => {
+    $: format = (v: unknown) => {
         if (isValidUrl(v)) {
             return {
                 text: display && display(v),
@@ -29,9 +20,9 @@
         // eslint-disable-next-line no-console
         console.warn(`ODS Dataviz SDK - Table: no url detected in ${v}. Formatting as string.`);
         return { text: null, href: null };
-    });
+    };
 
-    let { text, href } = $derived(format(rawValue));
+    $: ({ text, href } = format(rawValue));
 </script>
 
 {#if text}

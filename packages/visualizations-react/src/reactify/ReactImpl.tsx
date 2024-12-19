@@ -1,4 +1,5 @@
 import React, { useRef, useLayoutEffect } from 'react';
+import { mount } from 'svelte';
 import { ComponentConstructorOptions, SvelteComponent } from '@opendatasoft/visualizations'; // we export from the main package to avoid having different versions of svelte
 
 import './reactify.css';

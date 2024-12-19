@@ -3,21 +3,12 @@
     import { getPages } from './utils';
     import type { Pagination } from './types';
 
-    interface Props {
-        totalPages: number;
-        current: number;
-        labels: Pagination['labels'];
-        onPageChange: (page: number) => void;
-    }
+    export let totalPages: number;
+    export let current: number;
+    export let labels: Pagination['labels'];
+    export let onPageChange: (page: number) => void;
 
-    let {
-        totalPages,
-        current,
-        labels,
-        onPageChange
-    }: Props = $props();
-
-    let pages = $derived(getPages({ current, totalPages }));
+    $: pages = getPages({ current, totalPages });
 </script>
 
 <ul>
@@ -45,7 +36,7 @@
     {#each pages as page}
         <li>
             <button
-                onclick={() => onPageChange(page)}
+                on:click={() => onPageChange(page)}
                 class="page-button"
                 class:page-button--active={page === current}
             >

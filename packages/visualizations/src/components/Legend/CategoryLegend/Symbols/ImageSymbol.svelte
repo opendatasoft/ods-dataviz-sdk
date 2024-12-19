@@ -1,14 +1,10 @@
 <script lang="ts">
     import type { ImageCategoryItem } from 'components/Legend/types';
 
-    interface Props {
-        item: ImageCategoryItem;
-    }
-
-    let { item }: Props = $props();
+    export let item: ImageCategoryItem;
 </script>
 
-<!-- svelte-ignore a11y_missing_attribute -->
+<!-- svelte-ignore a11y-missing-attribute -->
 <img src={item.src} />
 
 <style>

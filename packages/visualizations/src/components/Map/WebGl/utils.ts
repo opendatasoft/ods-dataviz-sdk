@@ -8,7 +8,7 @@ import type {
     FillLayerSpecification,
 } from 'maplibre-gl';
 
-import { isGroupByForMatchExpression, type Color } from 'types';
+import { isGroupByForMatchExpression, Color } from 'types';
 
 import type {
     CircleLayer,

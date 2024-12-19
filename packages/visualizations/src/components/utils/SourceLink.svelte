@@ -1,11 +1,7 @@
 <script lang="ts">
     import type { Source } from 'types';
 
-    interface Props {
-        source: Source;
-    }
-
-    let { source }: Props = $props();
+    export let source: Source;
     const { href, label = 'View source', style } = source;
 </script>
 

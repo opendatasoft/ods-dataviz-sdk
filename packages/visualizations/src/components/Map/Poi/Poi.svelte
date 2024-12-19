@@ -9,26 +9,22 @@
     // ensure exported type matches declared props
     type $$Props = PoiMapProps;
 
-    interface Props {
-        data: $$Props['data'];
-        options: $$Props['options'];
-    }
-
-    let { data, options }: Props = $props();
+    export let data: $$Props['data'];
+    export let options: $$Props['options'];
 
     // Used in front of console and error messages to debug multiple maps on a same page
     const mapId = Math.floor(Math.random() * 1000);
 
-    let {
+    $: ({
         title,
         subtitle,
         description,
         legend,
         sourceLink,
         aspectRatio = DEFAULT_ASPECT_RATIO,
-    } = $derived(options);
+    } = options);
 
-    let cssVarStyles = $derived(`--aspect-ratio:${aspectRatio};`);
+    $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
 </script>
 
 <figure class="map-card maps-container" style={cssVarStyles}>

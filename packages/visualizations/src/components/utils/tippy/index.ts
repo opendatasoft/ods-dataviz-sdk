@@ -1,4 +1,4 @@
-import tippy, { type Props } from 'tippy.js';
+import tippy, { Props } from 'tippy.js';
 import 'tippy.js/dist/tippy.css';
 import './themes.scss';
 

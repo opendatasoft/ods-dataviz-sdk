@@ -4,21 +4,12 @@
 
     type $$Props = DateFormatProps;
 
-    interface Props {
-        rawValue: $$Props['rawValue'];
-        display?: $$Props['display'];
-        intl?: $$Props['intl'];
-        locale?: string;
-    }
+    export let rawValue: $$Props['rawValue'];
+    export let display: $$Props['display'] = (v: string) => v;
+    export let intl: $$Props['intl'] = {};
+    export let locale = 'en-En';
 
-    let {
-        rawValue,
-        display = (v: string) => v,
-        intl = {},
-        locale = 'en-En'
-    }: Props = $props();
-
-    let format = $derived((v: unknown) => {
+    $: format = (v: unknown) => {
         if (
             (typeof v === 'string' || typeof v === 'number') &&
             !Number.isNaN(new Date(v).getTime())
@@ -31,9 +22,9 @@
         }
         warn(v, 'date');
         return v;
-    });
+    };
 
-    let value = $derived(format(rawValue));
+    $: value = format(rawValue);
 </script>
 
 {value}

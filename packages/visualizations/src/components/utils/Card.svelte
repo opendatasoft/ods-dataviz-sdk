@@ -2,21 +2,10 @@
     import type { Source } from 'types';
     import SourceLink from './SourceLink.svelte';
 
-    interface Props {
-        title: string | undefined;
-        subtitle: string | undefined;
-        source: Source | undefined;
-        defaultStyle?: boolean;
-        children?: import('svelte').Snippet;
-    }
-
-    constst {
-        title,
-        subtitle,
-        source,
-        defaultStyle = true,
-        children
-    }: Props = $props();
+    export let title: string | undefined;
+    export let subtitle: string | undefined;
+    export let source: Source | undefined;
+    export let defaultStyle = true;
 </script>
 
 <div class="card" class:ods-dataviz--default={defaultStyle}>
@@ -31,7 +20,7 @@
         </div>
     {/if}
 
-    <!-- {@render children?.()} -->
+    <slot />
 
     {#if source}
         <SourceLink {source} />

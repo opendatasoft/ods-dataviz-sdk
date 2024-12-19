@@ -4,22 +4,13 @@
     import type { Feature, FeatureCollection } from 'geojson';
     import type { SvgPropertyMapping } from './types';
 
-    interface Props {
-        projection: GeoProjection;
-        featureCollection: FeatureCollection;
-        style: string;
-        svgProps?: SvgPropertyMapping;
-    }
+    export let projection: GeoProjection;
+    export let featureCollection: FeatureCollection;
+    export let style: string;
+    export let svgProps: SvgPropertyMapping = {};
 
-    let {
-        projection,
-        featureCollection,
-        style,
-        svgProps = {}
-    }: Props = $props();
-
-    let width = $state(0);
-    let height = $state(0);
+    let width = 0;
+    let height = 0;
 
     const extractProps = (f: Feature) => {
         const svgAttributes = Object.keys(svgProps);
@@ -31,13 +22,13 @@
         return {};
     };
 
-    let fittedProjection = $derived({ ...projection.fitSize([height, width], featureCollection) });
-    let makePath = $derived(geoPath(fittedProjection));
-    let paths =
-        $derived(featureCollection.features.map((f: Feature) => ({
+    $: fittedProjection = { ...projection.fitSize([height, width], featureCollection) };
+    $: makePath = geoPath(fittedProjection);
+    $: paths =
+        featureCollection.features.map((f: Feature) => ({
             d: makePath(f),
             ...extractProps(f),
-        })) || []);
+        })) || [];
 </script>
 
 <div bind:clientWidth={width} bind:clientHeight={height}>

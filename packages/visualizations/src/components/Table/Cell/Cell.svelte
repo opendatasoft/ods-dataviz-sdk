@@ -12,12 +12,8 @@
     import type { Column } from '../types';
     import isColumnOfType from './utils';
 
-    interface Props {
-        rawValue: unknown;
-        column: Column;
-    }
-
-    let { rawValue, column }: Props = $props();
+    export let rawValue: unknown;
+    export let column: Column;
 </script>
 
 <!-- To display a format value, rawValue must be different from undefined or null -->

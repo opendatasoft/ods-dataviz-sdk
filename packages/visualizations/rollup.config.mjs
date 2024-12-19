@@ -14,7 +14,7 @@ import json from '@rollup/plugin-json';
 import { babel } from '@rollup/plugin-babel';
 import replace from '@rollup/plugin-replace';
 import { defineConfig } from 'rollup';
-import pkg from './package.json' with { type: 'json' };
+import pkg from './package.json' with { type: 'json' };
 
 const production = !process.env.ROLLUP_WATCH;
 const __fileName = fileURLToPath(import.meta.url);
@@ -25,9 +25,9 @@ function basePlugins() {
     return [
         alias({
             entries: {
-                components: path.resolve(projectRootDir, 'src/components'),
-                stores: path.resolve(projectRootDir, 'src/stores'),
-                types: path.resolve(projectRootDir, 'src/types'),
+                "components": path.resolve(projectRootDir, 'src/components'),
+                "stores": path.resolve(projectRootDir, 'src/stores'),
+                "types": path.resolve(projectRootDir, 'src/types'),
             },
         }),
         svelte({
@@ -43,7 +43,6 @@ function basePlugins() {
                     includePaths: ['src'],
                 },
             }),
-            runes: true,
         }),
         typescript({
             sourceMap: true,
@@ -82,7 +81,7 @@ function onwarn(warning, warn) {
 const esm = defineConfig({
     input: 'src/index.ts',
     // Externalize all dependencies
-    // external: (id) => Object.keys(pkg.dependencies).includes(id),
+    external: (id) => Object.keys(pkg.dependencies).includes(id),
     output: {
         dir: 'dist',
         entryFileNames: '[name].es.js',

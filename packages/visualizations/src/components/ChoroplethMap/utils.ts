@@ -1,24 +1,23 @@
 import chroma from 'chroma-js';
 import turfBbox from '@turf/bbox';
-import maplibregl, { type ExpressionInputType, type ExpressionSpecification } from 'maplibre-gl';
+import maplibregl, { ExpressionInputType, ExpressionSpecification } from 'maplibre-gl';
 import { viewport } from '@placemarkio/geo-viewport';
 import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
 import type { Scale } from 'chroma-js';
 import { assertUnreachable } from 'components/utils';
-import { type Color, type ColorScale, type DataBounds, isGroupByForMatchExpression, ColorScaleTypes } from 'types';
+import { Color, ColorScale, DataBounds, isGroupByForMatchExpression, ColorScaleTypes } from 'types';
 import { DEFAULT_COLORS } from './constants';
 
-import{
-    type ChoroplethDataValue,
-    type ChoroplethFixedTooltipDescription,
-    type MapFilter,
-    type ChoroplethTooltipFormatter,
-    type MapRenderTooltipFunction,
-    type ComputeTooltipFunction,
-    type ChoroplethLayer,
-    type TooltipParams,
-    ChoroplethTooltipMatcherTypes,
+import type {
+    ChoroplethDataValue,
+    ChoroplethFixedTooltipDescription,
+    MapFilter,
+    ChoroplethTooltipFormatter,
+    MapRenderTooltipFunction,
+    ComputeTooltipFunction,
+    ChoroplethLayer,
 } from './types';
+import { ChoroplethTooltipMatcherTypes, TooltipParams } from './types';
 
 export const LIGHT_GREY: Color = '#CBD2DB';
 export const DARK_GREY: Color = '#515457';

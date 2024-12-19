@@ -4,27 +4,17 @@
     import EmptyRow from './EmptyRow.svelte';
     import Row from './Row.svelte';
 
-    interface Props {
-        loadingRowsNumber: number | null;
-        columns: Column[];
-        rowProps: RowProps | undefined;
-        records: TableData | undefined;
-        emptyStateLabel: string | undefined;
-    }
+    export let loadingRowsNumber: number | null;
+    export let columns: Column[];
+    export let rowProps: RowProps | undefined;
+    export let records: TableData | undefined;
+    export let emptyStateLabel: string | undefined;
 
-    let {
-        loadingRowsNumber,
-        columns,
-        rowProps,
-        records,
-        emptyStateLabel
-    }: Props = $props();
-
-    let hoveredRow: number | null = $state();
+    let hoveredRow: number | null;
 </script>
 
 <tbody
-    onmouseleave={() => {
+    on:mouseleave={() => {
         hoveredRow = null;
     }}
 >

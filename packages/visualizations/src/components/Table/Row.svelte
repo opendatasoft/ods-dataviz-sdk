@@ -3,51 +3,41 @@
     import ZoomIcon from './ZoomIcon.svelte';
     import type { Column, RowProps, HoverEvent } from './types';
 
-    interface Props {
-        columns: Column[];
-        rowProps: RowProps | undefined;
-        record: Record<string, unknown>;
-        isHovered?: boolean;
-        setHovered: () => void;
-    }
+    export let columns: Column[];
+    export let rowProps: RowProps | undefined;
+    export let record: Record<string, unknown>;
+    export let isHovered = false;
+    export let setHovered: () => void;
 
-    let {
-        columns,
-        rowProps,
-        record,
-        isHovered = false,
-        setHovered
-    }: Props = $props();
-
-    let { onClick, onMouseEnter, onMouseLeave, actionAriaLabel } = $derived(rowProps || {});
-    let handleMouseEnter = $derived((e: HoverEvent<HTMLTableRowElement>) => {
+    $: ({ onClick, onMouseEnter, onMouseLeave, actionAriaLabel } = rowProps || {});
+    $: handleMouseEnter = (e: HoverEvent<HTMLTableRowElement>) => {
         if (onMouseEnter) {
             onMouseEnter(record, e);
         }
         setHovered();
-    });
-    let handleMouseLeave = $derived((e: HoverEvent<HTMLTableRowElement>) => {
+    };
+    $: handleMouseLeave = (e: HoverEvent<HTMLTableRowElement>) => {
         if (onMouseLeave) {
             onMouseLeave(record, e);
         }
-    });
-    let handleClick = $derived((e: HoverEvent<HTMLButtonElement>) => {
+    };
+    $: handleClick = (e: HoverEvent<HTMLButtonElement>) => {
         if (onClick) {
             onClick(record, e);
         }
-    });
+    };
 </script>
 
 <tr
-    onmouseenter={rowProps && handleMouseEnter}
-    onmouseleave={rowProps && handleMouseLeave}
-    onfocusin={rowProps && handleMouseEnter}
-    onfocusout={rowProps && handleMouseLeave}
+    on:mouseenter={rowProps && handleMouseEnter}
+    on:mouseleave={rowProps && handleMouseLeave}
+    on:focusin={rowProps && handleMouseEnter}
+    on:focusout={rowProps && handleMouseLeave}
 >
     {#if rowProps?.onClick}
         <td class="button-cell">
             <button
-                onclick={rowProps && handleClick}
+                on:click={rowProps && handleClick}
                 aria-label={actionAriaLabel || 'Expand Record'}
             >
                 <span class:visually-hidden={!isHovered}>

@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { run } from 'svelte/legacy';
-
     import type { Content } from 'tippy.js';
 
     import { WebGlMap } from 'components/Map';
@@ -10,34 +8,22 @@
 
     type $$Props = GeoFormatProps;
 
-    interface Props {
-        rawValue: $$Props['rawValue'];
-        display?: $$Props['display'];
-        mapOptions?: $$Props['mapOptions'];
-        sources?: $$Props['sources'];
-        layers?: $$Props['layers'];
+    export let rawValue: $$Props['rawValue'];
+    export let display: $$Props['display'] = (v: unknown) => v;
+    export let mapOptions: $$Props['mapOptions'] = {};
+    export let sources: $$Props['sources'] = () => ({});
+    export let layers: $$Props['layers'] = () => [];
+
+    let tooltipContent: Content;
+    let showMap = false;
+    let data: WebGlMapData;
+
+    $: if (sources && layers) {
+        data = {
+            sources: sources(rawValue),
+            layers: layers(rawValue),
+        };
     }
-
-    let {
-        rawValue,
-        display = (v: unknown) => v,
-        mapOptions = {},
-        sources = () => ({}),
-        layers = () => []
-    }: Props = $props();
-
-    let tooltipContent: Content = $state();
-    let showMap = $state(false);
-    let data: WebGlMapData = $state();
-
-    run(() => {
-        if (sources && layers) {
-            data = {
-                sources: sources(rawValue),
-                layers: layers(rawValue),
-            };
-        }
-    });
 </script>
 
 <div
@@ -57,7 +43,7 @@
         },
     }}
 >
-    <!-- svelte-ignore a11y_click_events_have_key_events -->
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div class="label">{display && display(rawValue)}</div>
     <!-- To run a WebGl instance only when tooltip is visible -->
     {#if showMap && data && mapOptions}

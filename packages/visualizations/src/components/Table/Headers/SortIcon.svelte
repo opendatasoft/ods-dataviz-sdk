@@ -2,11 +2,7 @@
     import { ColumnSort } from '../types';
     import type { ColumnSortValues } from '../types';
 
-    interface Props {
-        sorted: ColumnSortValues | undefined;
-    }
-
-    let { sorted }: Props = $props();
+    export let sorted: ColumnSortValues | undefined;
 </script>
 
 <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">

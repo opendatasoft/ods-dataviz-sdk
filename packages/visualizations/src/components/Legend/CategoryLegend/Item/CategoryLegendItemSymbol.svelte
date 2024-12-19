@@ -6,11 +6,7 @@
     import CircleSymbol from '../Symbols/CircleSymbol.svelte';
     import ImageSymbol from '../Symbols/ImageSymbol.svelte';
 
-    interface Props {
-        item: CategoryItem;
-    }
-
-    let { item }: Props = $props();
+    export let item: CategoryItem;
 </script>
 
 {#if item.variant === CATEGORY_ITEM_VARIANT.Circle}

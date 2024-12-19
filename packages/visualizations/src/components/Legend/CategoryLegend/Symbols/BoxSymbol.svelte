@@ -1,14 +1,10 @@
 <script lang="ts">
     import type { BoxCategoryItem } from 'components/Legend/types';
 
-    interface Props {
-        item: BoxCategoryItem;
-    }
-
-    let { item }: Props = $props();
+    export let item: BoxCategoryItem;
 </script>
 
-<div style="--box-color: {item.color}; --border-color:{item.borderColor}"></div>
+<div style="--box-color: {item.color}; --border-color:{item.borderColor}" />
 
 <style>
     div {

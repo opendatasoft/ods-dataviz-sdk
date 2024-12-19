@@ -1,33 +1,25 @@
 <script lang="ts">
-    import { run } from 'svelte/legacy';
-
     import { toNumber } from 'lodash';
     import type { PageSizeOption } from './types';
 
-    interface Props {
-        options: PageSizeOption[];
-        onChange: (size: number) => void;
-        selected: number;
-    }
+    export let options: PageSizeOption[];
+    export let onChange: (size: number) => void;
+    export let selected: number;
 
-    let { options, onChange, selected }: Props = $props();
-
-    let value: number = $state();
+    let value: number;
 
     /* This ensure a "controlled" behavior
     e.g. if the onChange fails it will take the value of selected, not the one the user clicked.
     I tried $: value = selected and bind:value={selected}, but they don't override user selection
     */
-    run(() => {
-        if (value !== selected) {
-            value = selected;
-        }
-    });
+    $: if (value !== selected) {
+        value = selected;
+    }
 </script>
 
-<select bind:value oninput={(e) => onChange(toNumber(e.currentTarget.value))}>
+<select bind:value on:input={(e) => onChange(toNumber(e.currentTarget.value))}>
     {#each options as option}
-        <option label={option.label} value={option.value}></option>
+        <option label={option.label} value={option.value} />
     {/each}
 </select>
 

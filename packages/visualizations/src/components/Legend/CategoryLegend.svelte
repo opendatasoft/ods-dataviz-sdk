@@ -1,19 +1,13 @@
 <script lang="ts">
-    import { run } from 'svelte/legacy';
-
     import CategoryLegendItem from './CategoryLegend/Item/CategoryLegendItem.svelte';
     import type { CategoryLegend, CategoryItem } from './types';
 
-    interface Props {
-        legendOptions: CategoryLegend;
-    }
+    export let legendOptions: CategoryLegend;
 
-    let { legendOptions }: Props = $props();
-
-    let items: CategoryItem[] = $state([]);
-    let title: string | undefined = $state();
-    let align: string | undefined = $state();
-    let refinedSeries: number[] = $state([]);
+    let items: CategoryItem[] = [];
+    let title: string | undefined;
+    let align: string | undefined;
+    let refinedSeries: number[] = [];
 
     const isRefined = (i: number, series: number[]) => series.some((id) => id === i);
     const toggleSerie = (index: number) => {
@@ -22,9 +16,7 @@
             : [...refinedSeries, index];
     };
 
-    run(() => {
-        ({ items, title, align = 'center' } = legendOptions);
-    });
+    $: ({ items, title, align = 'center' } = legendOptions);
 </script>
 
 <div class="legend-container" style="--align: {align}">
