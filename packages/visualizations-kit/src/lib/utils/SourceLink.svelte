@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { Source } from 'types';
+    import type { Source } from '$lib/types';
 
     interface Props {
         source: Source;

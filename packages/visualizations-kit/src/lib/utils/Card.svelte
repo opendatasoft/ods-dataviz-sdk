@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { Source } from 'types';
+    import type { Source } from '$lib/types';
     import SourceLink from './SourceLink.svelte';
 
     interface Props {
@@ -10,7 +10,7 @@
         children?: import('svelte').Snippet;
     }
 
-    constst {
+    let {
         title,
         subtitle,
         source,
@@ -31,7 +31,7 @@
         </div>
     {/if}
 
-    <!-- {@render children?.()} -->
+    {@render children?.()}
 
     {#if source}
         <SourceLink {source} />

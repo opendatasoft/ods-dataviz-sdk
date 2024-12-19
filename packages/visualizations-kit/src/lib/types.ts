@@ -3,8 +3,6 @@ import type { ExpressionInputType } from 'maplibre-gl';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type DataFrame = Record<string, any>[];
 
-export type Color = string;
-
 export interface Source {
     href: string;
     label?: string;
@@ -22,16 +20,16 @@ export enum ColorScaleTypes {
 }
 
 export type GradientScale = {
-    type: ColorScaleTypes.Gradient;
-    colors: {
-        start: Color;
-        end: Color;
-    };
+	type: ColorScaleTypes.Gradient;
+	colors: {
+		start: string;
+		end: string;
+	};
 };
 
 export type PaletteScale = {
-    type: ColorScaleTypes.Palette;
-    colors: Color[];
+	type: ColorScaleTypes.Palette;
+	colors: string[];
 };
 
 export type ColorScale = GradientScale | PaletteScale;

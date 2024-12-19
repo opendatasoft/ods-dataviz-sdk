@@ -1,10 +1,10 @@
-import type { Async, Color, Source } from '$lib/types';
+import type { Async, Source } from '$lib/types';
 
 export interface KpiCardOptions {
 	title?: string;
 	description?: string;
 	imgSrc?: string;
-	color?: Color;
+	color?: string;
 	prefix?: string;
 	suffix?: string;
 	header?: string;

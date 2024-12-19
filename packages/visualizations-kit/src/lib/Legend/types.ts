@@ -1,0 +1,74 @@
+export const LEGEND_POSITIONS = {
+	bottom: 'bottom',
+	left: 'left',
+	right: 'right'
+} as const;
+export type LegendPositions = (typeof LEGEND_POSITIONS)[keyof typeof LEGEND_POSITIONS];
+
+export interface LegendLabelsConfiguration {
+	text?: (legendIndex: number) => string;
+}
+
+export interface LegendConfiguration {
+	display?: boolean;
+	position?: LegendPositions;
+	align?: 'start' | 'center' | 'end';
+	labels?: LegendLabelsConfiguration;
+	boxStyle?: 'rect' | 'line' | 'dash';
+	/** Wether to use ChartJS legend or homemade one
+    NOTE: temporary API for backward compatibility
+     */
+	custom?: boolean;
+}
+
+export type LegendVariant = 'fluid' | 'fixed';
+
+export const CATEGORY_ITEM_VARIANT = {
+	Circle: 'circle',
+	Line: 'line',
+	Box: 'box',
+	Image: 'image'
+} as const;
+
+type BaseCategoryItem = {
+	label: LegendLabelsConfiguration | string | undefined;
+	onClick?: (index: number) => void;
+	onHover?(index: number, isVisible: boolean): void;
+	onLeave?(): void;
+};
+
+export type CircleCategoryItem = BaseCategoryItem & {
+	variant: typeof CATEGORY_ITEM_VARIANT.Circle;
+	color: string;
+	borderColor?: string;
+};
+
+export type BoxCategoryItem = BaseCategoryItem & {
+	variant: typeof CATEGORY_ITEM_VARIANT.Box;
+	color: string;
+	borderColor?: string;
+};
+
+export type LineCategoryItem = BaseCategoryItem & {
+	variant: typeof CATEGORY_ITEM_VARIANT.Line;
+	borderColor: string;
+	dashed?: boolean;
+};
+
+export type ImageCategoryItem = BaseCategoryItem & {
+	variant: typeof CATEGORY_ITEM_VARIANT.Image;
+	src: string;
+};
+
+export type CategoryItem =
+	| CircleCategoryItem
+	| BoxCategoryItem
+	| LineCategoryItem
+	| ImageCategoryItem;
+
+export type CategoryLegend = {
+	type: 'category';
+	items: CategoryItem[];
+	title?: string;
+	align?: 'start' | 'center' | 'end';
+};
