@@ -2,14 +2,18 @@
     import SortButton from './SortButton.svelte';
     import type { Column } from '../types';
 
-    export let columns: Column[];
-    export let extraButtonColumn = false;
+    interface Props {
+        columns: Column[];
+        extraButtonColumn?: boolean;
+    }
+
+    let { columns, extraButtonColumn = false }: Props = $props();
 </script>
 
 <thead>
     <tr>
         {#if extraButtonColumn}
-            <th />
+            <th></th>
         {/if}
         {#each columns as column}
             <th class={`table-header--${column.dataFormat}`}>

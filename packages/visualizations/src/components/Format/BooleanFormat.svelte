@@ -4,10 +4,14 @@
 
     type $$Props = BooleanFormatProps;
 
-    export let rawValue: $$Props['rawValue'];
-    export let display: $$Props['display'] = (v: boolean) => v.toString();
+    interface Props {
+        rawValue: $$Props['rawValue'];
+        display?: $$Props['display'];
+    }
 
-    $: format = (v: unknown) => {
+    let { rawValue, display = (v: boolean) => v.toString() }: Props = $props();
+
+    let format = $derived((v: unknown) => {
         if (typeof v !== 'boolean') {
             warn(v, 'boolean');
         }
@@ -16,9 +20,9 @@
             return display(v as boolean);
         }
         return v;
-    };
+    });
 
-    $: value = format(rawValue);
+    let value = $derived(format(rawValue));
 </script>
 
 {value}

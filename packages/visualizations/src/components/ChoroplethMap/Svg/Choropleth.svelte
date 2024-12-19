@@ -9,27 +9,31 @@
     // ensure exported type matches declared props
     type $$Props = ChoroplethGeoJsonProps;
 
-    export let data: $$Props['data'];
-    export let options: $$Props['options'];
+    interface Props {
+        data: $$Props['data'];
+        options: $$Props['options'];
+    }
 
-    $: ({
+    let { data, options }: Props = $props();
+
+    let {
         shapes,
         colorScale = DEFAULT_COLORSCALE,
         emptyValueColor = DEFAULT_COLORS.Default,
-    } = options);
-    $: colorMapping = mapKeyToColor(
+    } = $derived(options);
+    let colorMapping = $derived(mapKeyToColor(
         data.value,
         getDataBounds(data.value),
         colorScale,
         emptyValueColor
-    );
-    $: coloredShapes = shapes
+    ));
+    let coloredShapes = $derived(shapes
         ? colorShapes({
               featureCollection: shapes,
               colorMapping,
               emptyValueColor,
           })
-        : EMPTY_FC;
+        : EMPTY_FC);
 </script>
 
 <Map

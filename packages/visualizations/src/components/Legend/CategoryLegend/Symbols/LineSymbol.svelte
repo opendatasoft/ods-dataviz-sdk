@@ -1,10 +1,14 @@
 <script lang="ts">
     import type { LineCategoryItem } from 'components/Legend/types';
 
-    export let item: LineCategoryItem;
+    interface Props {
+        item: LineCategoryItem;
+    }
+
+    let { item }: Props = $props();
 </script>
 
-<div class:dashed={item.dashed} style="--border-color:{item.borderColor}" />
+<div class:dashed={item.dashed} style="--border-color:{item.borderColor}"></div>
 
 <style>
     div {

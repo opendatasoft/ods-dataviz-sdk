@@ -5,12 +5,23 @@
     import Headers from './Headers';
     import Body from './Body.svelte';
 
-    export let loadingRowsNumber: number | null;
-    export let columns: Column[];
-    export let records: DataFrame | undefined;
-    export let description: string | undefined;
-    export let emptyStateLabel: string | undefined;
-    export let rowProps: RowProps | undefined;
+    interface Props {
+        loadingRowsNumber: number | null;
+        columns: Column[];
+        records: DataFrame | undefined;
+        description: string | undefined;
+        emptyStateLabel: string | undefined;
+        rowProps: RowProps | undefined;
+    }
+
+    let {
+        loadingRowsNumber,
+        columns,
+        records,
+        description,
+        emptyStateLabel,
+        rowProps
+    }: Props = $props();
     const tableId = `table-${generateId()}`;
 </script>
 

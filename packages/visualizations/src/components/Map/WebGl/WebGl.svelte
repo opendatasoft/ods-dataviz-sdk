@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { run } from 'svelte/legacy';
+
     import type { LngLatBoundsLike } from 'maplibre-gl';
     import { onDestroy, onMount } from 'svelte';
 
@@ -15,10 +17,14 @@
     } from './utils';
     import type { WebGlMapData, WebGlMapOptions } from './types';
 
-    export let options: WebGlMapOptions;
-    export let data: WebGlMapData = {};
+    interface Props {
+        options: WebGlMapOptions;
+        data?: WebGlMapData;
+    }
 
-    $: ({
+    let { options, data = {} }: Props = $props();
+
+    let {
         bbox: _bbox,
         center: _center,
         zoom,
@@ -29,32 +35,52 @@
         transformRequest,
         cooperativeGestures,
         preserveDrawingBuffer,
-    } = getMapOptions(options));
+    } = $derived(getMapOptions(options));
 
     const bbox = createDeepEqual(_bbox);
     const center = createDeepEqual(_center);
-    $: bbox.update(_bbox);
-    $: center.update(_center);
+    run(() => {
+        bbox.update(_bbox);
+    });
+    run(() => {
+        center.update(_center);
+    });
 
-    $: style = getMapStyle(options.style);
-    $: sources = getMapSources(data.sources);
-    $: layers = getMapLayers(data.layers);
-    $: popupConfigurationByLayers = getPopupConfigurationByLayers(data.layers);
+    let style = $derived(getMapStyle(options.style));
+    let sources = $derived(getMapSources(data.sources));
+    let layers = $derived(getMapLayers(data.layers));
+    let popupConfigurationByLayers = $derived(getPopupConfigurationByLayers(data.layers));
 
-    let container: HTMLElement;
+    let container: HTMLElement = $state();
     const map = new Map();
 
     const onDisable = () => {
         map.setBbox($bbox);
     };
-    $: map.toggleInteractivity(interactive ? 'enable' : 'disable', { onDisable });
-    $: map.setBbox($bbox);
-    $: map.setMinZoom(minZoom);
-    $: map.setMaxZoom(maxZoom);
-    $: map.setSourcesAndLayers(sources, layers);
-    $: map.setPopupConfigurationByLayers(popupConfigurationByLayers);
-    $: map.jumpTo(getCenterZoomOptions({ zoom, center: $center }));
-    $: map.loadImages(images);
+    run(() => {
+        map.toggleInteractivity(interactive ? 'enable' : 'disable', { onDisable });
+    });
+    run(() => {
+        map.setBbox($bbox);
+    });
+    run(() => {
+        map.setMinZoom(minZoom);
+    });
+    run(() => {
+        map.setMaxZoom(maxZoom);
+    });
+    run(() => {
+        map.setSourcesAndLayers(sources, layers);
+    });
+    run(() => {
+        map.setPopupConfigurationByLayers(popupConfigurationByLayers);
+    });
+    run(() => {
+        map.jumpTo(getCenterZoomOptions({ zoom, center: $center }));
+    });
+    run(() => {
+        map.loadImages(images);
+    });
 
     // Lifecycle
     onMount(() => {
@@ -72,7 +98,7 @@
     onDestroy(() => map.destroy());
 </script>
 
-<div class="ods-visualization__map-container" bind:this={container} />
+<div class="ods-visualization__map-container" bind:this={container}></div>
 
 <style>
     .ods-visualization__map-container {

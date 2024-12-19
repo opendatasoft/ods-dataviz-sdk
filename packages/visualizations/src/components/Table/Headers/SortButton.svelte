@@ -1,17 +1,25 @@
 <script lang="ts">
+    import { createBubbler } from 'svelte/legacy';
+
+    const bubble = createBubbler();
     import { ColumnSort } from '../types';
     import type { ColumnSortValues } from '../types';
     import SortIcon from './SortIcon.svelte';
 
-    export let sorted: ColumnSortValues | undefined;
-    export let labels = {
+    interface Props {
+        sorted: ColumnSortValues | undefined;
+        labels?: any;
+        children?: import('svelte').Snippet;
+    }
+
+    const { sorted, labels = {
         asc: 'Sort ascending',
         desc: 'Sort descending',
-    };
+    }, children }: Props = $props();
 </script>
 
-<button on:click type="button" aria-label={sorted === ColumnSort.asc ? labels.asc : labels.desc}>
-    <slot />
+<button onclick={bubble('click')} type="button" aria-label={sorted === ColumnSort.asc ? labels.asc : labels.desc}>
+    <!-- {@render children?.()} -->
     <SortIcon {sorted} />
 </button>
 

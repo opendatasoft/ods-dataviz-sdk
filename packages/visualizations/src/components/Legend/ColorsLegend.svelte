@@ -1,24 +1,37 @@
 <script lang="ts">
+    import { run } from 'svelte/legacy';
+
     import { onDestroy } from 'svelte';
     import { debounce } from 'lodash';
     import type { DataBounds, ColorScale } from 'types';
     import { defaultCompactLegendNumberFormat } from 'components/utils/formatter';
     import type { LegendVariant, LegendPositions } from './types';
 
-    // options to customize the component
-    export let dataBounds: DataBounds;
-    export let colorScale: ColorScale;
-    export let variant: LegendVariant;
-    export let position: LegendPositions = 'left';
-    export let title: string | undefined;
+    
+    interface Props {
+        // options to customize the component
+        dataBounds: DataBounds;
+        colorScale: ColorScale;
+        variant: LegendVariant;
+        position?: LegendPositions;
+        title: string | undefined;
+    }
+
+    let {
+        dataBounds,
+        colorScale,
+        variant,
+        position = 'left',
+        title
+    }: Props = $props();
 
     // the part below is related to labels rotation
-    let legendWidth: number;
-    const labelsWidth: number[] = [];
-    const labelsHeight: number[] = [];
+    let legendWidth: number = $state();
+    const labelsWidth: number[] = $state([]);
+    const labelsHeight: number[] = $state([]);
     let maxLabelsSize: number;
     let numberOfLabels: number;
-    let displayVertical: boolean | undefined;
+    let displayVertical: boolean | undefined = $state();
 
     const handleLabelRotation = (
         legendW: number,
@@ -39,9 +52,11 @@
     };
 
     const rotationDebounce = debounce(handleLabelRotation, 200, { leading: true });
-    $: if (labelsWidth.length > 0 && labelsHeight.length > 0 && dataBounds) {
-        rotationDebounce(legendWidth, labelsWidth, labelsHeight, colorScale);
-    }
+    run(() => {
+        if (labelsWidth.length > 0 && labelsHeight.length > 0 && dataBounds) {
+            rotationDebounce(legendWidth, labelsWidth, labelsHeight, colorScale);
+        }
+    });
     onDestroy(rotationDebounce.cancel);
 </script>
 
@@ -56,7 +71,7 @@
                 class="legend-colors-color-box-gradient"
                 style="--legend-color:linear-gradient(to right, {colorScale.colors
                     .start}, {colorScale.colors.end})"
-            />
+></div>
             <div class="legend-colors-values">
                 <div>{defaultCompactLegendNumberFormat(dataBounds.min)}</div>
                 <div>{defaultCompactLegendNumberFormat(dataBounds.max)}</div>
@@ -66,7 +81,7 @@
             <div class="legend-colors-container-palette" bind:clientWidth={legendWidth}>
                 <div class="legend-colors-row-color-box-palette">
                     {#each colorScale.colors as color}
-                        <div class="legend-colors-color-box-palette" style="--box-color: {color}" />
+                        <div class="legend-colors-color-box-palette" style="--box-color: {color}"></div>
                     {/each}
                 </div>
                 <div

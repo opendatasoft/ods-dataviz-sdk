@@ -5,15 +5,27 @@
     import type { PageSizeSelect, Pagination } from './types';
     import PageSize from './PageSize.svelte';
 
-    export let current: number;
-    export let onPageChange: (page: number) => void;
-    export let totalRecords: number;
-    export let recordsPerPage: number;
-    // eslint-disable-next-line no-undef-init
-    export let pageSizeSelect: PageSizeSelect | undefined = undefined;
-    export let labels: Pagination['labels'] = {};
+    
+    interface Props {
+        current: number;
+        onPageChange: (page: number) => void;
+        totalRecords: number;
+        recordsPerPage: number;
+        // eslint-disable-next-line no-undef-init
+        pageSizeSelect?: PageSizeSelect | undefined;
+        labels?: Pagination['labels'];
+    }
 
-    $: totalPages = Math.ceil(totalRecords / recordsPerPage);
+    let {
+        current,
+        onPageChange,
+        totalRecords,
+        recordsPerPage,
+        pageSizeSelect = undefined,
+        labels = {}
+    }: Props = $props();
+
+    let totalPages = $derived(Math.ceil(totalRecords / recordsPerPage));
 </script>
 
 <div class="pagination-container">

@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { run } from 'svelte/legacy';
+
     import type {
         SourceSpecification,
         GestureOptions,
@@ -34,66 +36,78 @@
     // ensure exported type matches declared props
     type $$Props = ChoroplethVectorTilesProps;
 
-    export let data: $$Props['data']; // values, and the key to match
-    export let options: $$Props['options']; // contains the shapes to display & match
+    interface Props {
+        data: $$Props['data']; // values, and the key to match
+        options: $$Props['options']; // contains the shapes to display & match
+    }
 
-    let shapesTiles: ChoroplethShapeVectorTilesValue;
-    let colorScale: ColorScale;
+    let { data, options }: Props = $props();
 
-    let aspectRatio: number | undefined;
-    let renderTooltip: MapRenderTooltipFunction;
-    let bbox: BBox | undefined;
-    let activeShapes: string[] | undefined;
-    let interactive: boolean;
-    let legend: MapLegend | undefined;
-    let attribution: string | undefined;
-    let filter: MapFilter | undefined;
-    let filterExpression: ExpressionSpecification | undefined;
-    let title: string | undefined;
-    let subtitle: string | undefined;
-    let description: string | undefined;
-    let navigationMaps: NavigationMap[] | undefined;
+    let shapesTiles: ChoroplethShapeVectorTilesValue = $state();
+    let colorScale: ColorScale = $state();
+
+    let aspectRatio: number | undefined = $state();
+    let renderTooltip: MapRenderTooltipFunction = $derived(debounce(
+        (hoveredFeature) => computeTooltip(hoveredFeature, data.value, options, matchKey),
+        10,
+        { leading: true }
+    ));
+    let bbox: BBox | undefined = $state();
+    let activeShapes: string[] | undefined = $state();
+    let interactive: boolean = $state();
+    let legend: MapLegend | undefined = $state();
+    let attribution: string | undefined = $state();
+    let filter: MapFilter | undefined = $state();
+    let filterExpression: ExpressionSpecification | undefined = $state();
+    let title: string | undefined = $state();
+    let subtitle: string | undefined = $state();
+    let description: string | undefined = $state();
+    let navigationMaps: NavigationMap[] | undefined = $state();
     // Data source link
-    let sourceLink: Source | undefined;
-    let cooperativeGestures: boolean | GestureOptions | undefined;
-    let preserveDrawingBuffer: boolean;
-    let fixedMaxBounds: LngLatBoundsLike | undefined;
+    let sourceLink: Source | undefined = $state();
+    let cooperativeGestures: boolean | GestureOptions | undefined = $state();
+    let preserveDrawingBuffer: boolean = $state();
+    let fixedMaxBounds: LngLatBoundsLike | undefined = $state();
 
     // Used to apply a chosen color for shapes without values (default: #cccccc)
-    let emptyValueColor: Color;
+    let emptyValueColor: Color = $state();
 
     // Used to determine the shapes key
-    let matchKey: string;
+    let matchKey: string = $state();
 
-    $: matchKey = shapesTiles.key;
+    run(() => {
+        matchKey = shapesTiles.key;
+    });
 
     const defaultInteractive = true;
-    $: ({
-        shapesTiles,
-        colorScale = DEFAULT_COLORSCALE,
-        legend,
-        aspectRatio,
-        activeShapes,
-        interactive = defaultInteractive,
-        emptyValueColor = DEFAULT_COLORS.Default,
-        bbox = VOID_BOUNDS,
-        filter,
-        attribution,
-        title,
-        subtitle,
-        description,
-        navigationMaps,
-        sourceLink,
-        cooperativeGestures,
-        preserveDrawingBuffer = false,
-        fixedMaxBounds,
-    } = options);
+    run(() => {
+        ({
+            shapesTiles,
+            colorScale = DEFAULT_COLORSCALE,
+            legend,
+            aspectRatio,
+            activeShapes,
+            interactive = defaultInteractive,
+            emptyValueColor = DEFAULT_COLORS.Default,
+            bbox = VOID_BOUNDS,
+            filter,
+            attribution,
+            title,
+            subtitle,
+            description,
+            navigationMaps,
+            sourceLink,
+            cooperativeGestures,
+            preserveDrawingBuffer = false,
+            fixedMaxBounds,
+        } = options);
+    });
 
     // Choropleth is always display over a blank map, for readability purposes
     const style = BLANK;
-    let layer: ChoroplethLayer;
-    let source: SourceSpecification;
-    let dataBounds: DataBounds;
+    let layer: ChoroplethLayer = $state();
+    let source: SourceSpecification = $state();
+    let dataBounds: DataBounds = $state();
 
     // MapLibre default zoom
     const MIN_ZOOM = 0;
@@ -128,19 +142,19 @@
         };
     }
 
-    $: if (shapesTiles.url) {
-        computeSourceLayerAndBboxes(shapesTiles, colorScale, data.value);
-    }
+    run(() => {
+        if (shapesTiles.url) {
+            computeSourceLayerAndBboxes(shapesTiles, colorScale, data.value);
+        }
+    });
 
-    $: renderTooltip = debounce(
-        (hoveredFeature) => computeTooltip(hoveredFeature, data.value, options, matchKey),
-        10,
-        { leading: true }
-    );
+    
 
-    $: if (filter) {
-        filterExpression = computeFilterExpression(filter);
-    }
+    run(() => {
+        if (filter) {
+            filterExpression = computeFilterExpression(filter);
+        }
+    });
 </script>
 
 <MapRender

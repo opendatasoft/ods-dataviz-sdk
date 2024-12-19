@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { run } from 'svelte/legacy';
+
     import turfBbox from '@turf/bbox';
     import type { ExpressionSpecification, SourceSpecification, GestureOptions } from 'maplibre-gl';
     import type { BBox, FeatureCollection } from 'geojson';
@@ -27,60 +29,70 @@
     // ensure exported type matches declared props
     type $$Props = ChoroplethGeoJsonProps;
 
-    export let data: $$Props['data']; // values, and the key to match
-    export let options: $$Props['options']; // contains the shapes to display & match
+    interface Props {
+        data: $$Props['data']; // values, and the key to match
+        options: $$Props['options']; // contains the shapes to display & match
+    }
 
-    let shapes: FeatureCollection;
-    let colorScale: ColorScale;
+    let { data, options }: Props = $props();
 
-    let aspectRatio: number | undefined;
-    let renderTooltip: MapRenderTooltipFunction;
-    let bbox: BBox | undefined;
-    let activeShapes: string[] | undefined;
-    let interactive: boolean;
-    let legend: MapLegend | undefined;
-    let attribution: string | undefined;
-    let title: string | undefined;
-    let subtitle: string | undefined;
-    let description: string | undefined;
-    let navigationMaps: NavigationMap[] | undefined;
+    let shapes: FeatureCollection = $state();
+    let colorScale: ColorScale = $state();
+
+    let aspectRatio: number | undefined = $state();
+    let renderTooltip: MapRenderTooltipFunction = $derived(debounce(
+        (hoveredFeature) => computeTooltip(hoveredFeature, data.value, options, matchKey),
+        10,
+        { leading: true }
+    ));
+    let bbox: BBox | undefined = $state();
+    let activeShapes: string[] | undefined = $state();
+    let interactive: boolean = $state();
+    let legend: MapLegend | undefined = $state();
+    let attribution: string | undefined = $state();
+    let title: string | undefined = $state();
+    let subtitle: string | undefined = $state();
+    let description: string | undefined = $state();
+    let navigationMaps: NavigationMap[] | undefined = $state();
     // Data source link
-    let sourceLink: Source | undefined;
-    let cooperativeGestures: boolean | GestureOptions | undefined;
-    let preserveDrawingBuffer: boolean;
+    let sourceLink: Source | undefined = $state();
+    let cooperativeGestures: boolean | GestureOptions | undefined = $state();
+    let preserveDrawingBuffer: boolean = $state();
 
     // Used to apply a chosen color for shapes without values (default: #cccccc)
-    let emptyValueColor: Color;
+    let emptyValueColor: Color = $state();
 
     // Used to determine the shapes key
     const matchKey = 'key';
 
     const defaultInteractive = true;
-    $: ({
-        shapes,
-        colorScale = DEFAULT_COLORSCALE,
-        legend,
-        aspectRatio,
-        activeShapes,
-        interactive = defaultInteractive,
-        emptyValueColor = DEFAULT_COLORS.Default,
-        bbox,
-        attribution,
-        title,
-        subtitle,
-        description,
-        navigationMaps,
-        sourceLink,
-        cooperativeGestures,
-        preserveDrawingBuffer = false,
-    } = options);
+    run(() => {
+        ({
+            shapes,
+            colorScale = DEFAULT_COLORSCALE,
+            legend,
+            aspectRatio,
+            activeShapes,
+            interactive = defaultInteractive,
+            emptyValueColor = DEFAULT_COLORS.Default,
+            bbox,
+            attribution,
+            title,
+            subtitle,
+            description,
+            navigationMaps,
+            sourceLink,
+            cooperativeGestures,
+            preserveDrawingBuffer = false,
+        } = options);
+    });
 
     // Choropleth is always display over a blank map, for readability purposes
     const style = BLANK;
-    let layer: ChoroplethLayer;
-    let source: SourceSpecification;
-    let dataBounds: DataBounds;
-    let renderedBbox = bbox || VOID_BOUNDS;
+    let layer: ChoroplethLayer = $state();
+    let source: SourceSpecification = $state();
+    let dataBounds: DataBounds = $state();
+    let renderedBbox = $state(bbox || VOID_BOUNDS);
 
     function computeSourceLayerAndBboxes(
         newShapes: FeatureCollection,
@@ -106,15 +118,13 @@
         renderedBbox = bbox || turfBbox(newShapes) || VOID_BOUNDS;
     }
 
-    $: if (shapes) {
-        computeSourceLayerAndBboxes(shapes, colorScale, data.value);
-    }
+    run(() => {
+        if (shapes) {
+            computeSourceLayerAndBboxes(shapes, colorScale, data.value);
+        }
+    });
 
-    $: renderTooltip = debounce(
-        (hoveredFeature) => computeTooltip(hoveredFeature, data.value, options, matchKey),
-        10,
-        { leading: true }
-    );
+    
 </script>
 
 <div>

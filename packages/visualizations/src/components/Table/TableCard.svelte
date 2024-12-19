@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { run } from 'svelte/legacy';
+
     import Pagination from 'components/Pagination/Pagination.svelte';
     import Card from 'components/utils/Card.svelte';
     import type { TableProps } from './types';
@@ -8,12 +10,16 @@
     // ensure exported type matches declared props
     type $$Props = TableProps;
 
-    export let data: $$Props['data'];
-    export let options: $$Props['options'];
+    interface Props {
+        data: $$Props['data'];
+        options: $$Props['options'];
+    }
 
-    $: ({ value: records, loading: isLoading } = data);
+    let { data, options }: Props = $props();
 
-    $: ({
+    let { value: records, loading: isLoading } = $derived(data);
+
+    let {
         columns,
         rowProps,
         title,
@@ -24,10 +30,12 @@
         locale: localeOption,
         pagination,
         emptyStateLabel,
-    } = options);
-    $: $locale = localeOption || navigator.language;
-    $: defaultLoadingRowsNumber = pagination ? pagination.recordsPerPage : 5;
-    $: loadingRowsNumber = isLoading ? defaultLoadingRowsNumber : null;
+    } = $derived(options);
+    run(() => {
+        $locale = localeOption || navigator.language;
+    });
+    let defaultLoadingRowsNumber = $derived(pagination ? pagination.recordsPerPage : 5);
+    let loadingRowsNumber = $derived(isLoading ? defaultLoadingRowsNumber : null);
     /* Preserves paginations controls positioning
     min heigh of table + controls = max-height of row * (number of rows) + headers + pagination
     */

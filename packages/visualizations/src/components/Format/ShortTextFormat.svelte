@@ -4,10 +4,14 @@
 
     type $$Props = ShortTextFormatProps;
 
-    export let rawValue: $$Props['rawValue'];
-    export let display: $$Props['display'] = (v: string) => v;
+    interface Props {
+        rawValue: $$Props['rawValue'];
+        display?: $$Props['display'];
+    }
 
-    $: format = (v: unknown) => {
+    let { rawValue, display = (v: string) => v }: Props = $props();
+
+    let format = $derived((v: unknown) => {
         if (typeof v !== 'string') {
             warn(v, 'text');
         }
@@ -15,9 +19,9 @@
             return display(v as string);
         }
         return v;
-    };
+    });
 
-    $: value = format(rawValue);
+    let value = $derived(format(rawValue));
 </script>
 
 {value}

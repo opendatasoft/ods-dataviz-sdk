@@ -1,4 +1,4 @@
-<script lang="ts" context="module">
+<script lang="ts">
     import MarkdownIt from 'markdown-it';
     import MarkdownItMark from 'markdown-it-mark';
     import mila from 'markdown-it-link-attributes';
@@ -49,15 +49,17 @@
             'link',
             'escape',
         ]);
-</script>
 
-<script lang="ts">
     // ensure exported type matches declared props
     type $$Props = MarkdownTextProps;
 
-    export let data: $$Props['data'];
-    export let options: $$Props['options'];
-    $: renderedText = md.render(data.value || '');
+    interface Props {
+        data: $$Props['data'];
+        options: $$Props['options'];
+    }
+
+    let { data, options }: Props = $props();
+    let renderedText = $derived(md.render(data.value || ''));
 </script>
 
 <div class="markdown-text-container markdown-text-container--align-{options.align}">

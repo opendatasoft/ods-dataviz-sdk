@@ -42,5 +42,7 @@
                 "src/types"
             ]
         },
+        "importsNotUsedAsValues": "remove",
+        "verbatimModuleSyntax": true,
     }
 }

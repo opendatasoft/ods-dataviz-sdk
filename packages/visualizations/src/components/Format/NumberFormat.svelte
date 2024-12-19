@@ -4,12 +4,21 @@
 
     type $$Props = NumberFormatProps;
 
-    export let rawValue: $$Props['rawValue'];
-    export let display: $$Props['display'] = (v: string) => v;
-    export let intl: $$Props['intl'] = {};
-    export let locale = 'en-EN';
+    interface Props {
+        rawValue: $$Props['rawValue'];
+        display?: $$Props['display'];
+        intl?: $$Props['intl'];
+        locale?: string;
+    }
 
-    $: format = (v: unknown) => {
+    let {
+        rawValue,
+        display = (v: string) => v,
+        intl = {},
+        locale = 'en-EN'
+    }: Props = $props();
+
+    let format = $derived((v: unknown) => {
         if (!Number.isFinite(v)) {
             warn(v, 'number');
             return v;
@@ -19,9 +28,9 @@
             return display(intlValue);
         }
         return intlValue;
-    };
+    });
 
-    $: value = format(rawValue);
+    let value = $derived(format(rawValue));
 </script>
 
 {value}

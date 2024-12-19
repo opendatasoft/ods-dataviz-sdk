@@ -3,10 +3,19 @@
     import CategoryLegendItemLabel from './CategoryLegendItemLabel.svelte';
     import CategoryLegendItemSymbol from './CategoryLegendItemSymbol.svelte';
 
-    export let item: CategoryItem;
-    export let itemIndex: number;
-    export let toggleSerie: (index: number) => void;
-    export let refined: boolean;
+    interface Props {
+        item: CategoryItem;
+        itemIndex: number;
+        toggleSerie: (index: number) => void;
+        refined: boolean;
+    }
+
+    let {
+        item,
+        itemIndex,
+        toggleSerie,
+        refined
+    }: Props = $props();
 
     const onKeyDown = (event: KeyboardEvent) => {
         if (event.key !== 'Enter' || !item.onClick) return;
@@ -14,9 +23,9 @@
         item.onClick(itemIndex);
     };
 
-    $: stringLabel =
-        item.label &&
-        (typeof item.label === 'string' ? item.label : item?.label?.text?.(itemIndex));
+    let stringLabel =
+        $derived(item.label &&
+        (typeof item.label === 'string' ? item.label : item?.label?.text?.(itemIndex)));
 </script>
 
 <div
@@ -24,19 +33,19 @@
     tabindex={item.onClick ? 0 : -1}
     class:refined
     style="--cursor-style: {item.onClick ? 'pointer' : 'default'};"
-    on:keydown={onKeyDown}
-    on:click={() => {
+    onkeydown={onKeyDown}
+    onclick={() => {
         if (item.onClick) {
             toggleSerie(itemIndex);
             item.onClick?.(itemIndex);
         }
     }}
-    on:mouseenter={() => {
+    onmouseenter={() => {
         if (item.onHover) {
             item.onHover(itemIndex, !refined);
         }
     }}
-    on:mouseleave={() => {
+    onmouseleave={() => {
         if (item.onLeave) {
             item.onLeave();
         }

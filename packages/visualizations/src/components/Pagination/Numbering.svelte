@@ -1,7 +1,11 @@
 <script lang="ts">
-    export let current: [number, number];
-    export let total: number;
-    export let recordsLabel: string | undefined;
+    interface Props {
+        current: [number, number];
+        total: number;
+        recordsLabel: string | undefined;
+    }
+
+    let { current, total, recordsLabel }: Props = $props();
 </script>
 
 <span>
