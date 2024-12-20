@@ -1,19 +1,23 @@
 <script lang="ts">
-    import { isValidRawValue } from 'components/Format';
-    import BooleanFormat from 'components/Format/BooleanFormat.svelte';
-    import DateFormat from 'components/Format/DateFormat.svelte';
-    import GeoFormat from 'components/Format/GeoFormat.svelte';
-    import ShortTextFormat from 'components/Format/ShortTextFormat.svelte';
-    import LongTextFormat from 'components/Format/LongTextFormat.svelte';
-    import NumberFormat from 'components/Format/NumberFormat.svelte';
-    import URLFormat from 'components/Format/URLFormat.svelte';
+    import { isValidRawValue } from '$lib/Format';
+    import BooleanFormat from '$lib/Format/BooleanFormat.svelte';
+    import DateFormat from '$lib/Format/DateFormat.svelte';
+    import GeoFormat from '$lib/Format/GeoFormat.svelte';
+    import ShortTextFormat from '$lib/Format/ShortTextFormat.svelte';
+    import LongTextFormat from '$lib/Format/LongTextFormat.svelte';
+    import NumberFormat from '$lib/Format/NumberFormat.svelte';
+    import URLFormat from '$lib/Format/URLFormat.svelte';
     import { DATA_FORMAT } from '../constants';
-    import { locale } from '../store';
+    import { locale } from '../locale.svelte';
     import type { Column } from '../types';
     import isColumnOfType from './utils';
 
-    export let rawValue: unknown;
-    export let column: Column;
+    interface Props {
+        rawValue: unknown;
+        column: Column;
+    }
+
+    let { rawValue, column }: Props = $props();
 </script>
 
 <!-- To display a format value, rawValue must be different from undefined or null -->
@@ -22,7 +26,7 @@
         {#if isColumnOfType(column, DATA_FORMAT.boolean)}
             <BooleanFormat {rawValue} {...column.options} />
         {:else if isColumnOfType(column, DATA_FORMAT.date)}
-            <DateFormat {rawValue} {...column?.options} locale={$locale} />
+            <DateFormat {rawValue} {...column?.options} locale={locale.locale} />
         {:else if isColumnOfType(column, DATA_FORMAT.geo)}
             <GeoFormat {rawValue} {...column.options} />
         {:else if isColumnOfType(column, DATA_FORMAT.shortText)}
@@ -30,7 +34,7 @@
         {:else if isColumnOfType(column, DATA_FORMAT.longText)}
             <LongTextFormat {rawValue} {...column.options} />
         {:else if isColumnOfType(column, DATA_FORMAT.number)}
-            <NumberFormat {rawValue} {...column.options} locale={$locale} />
+            <NumberFormat {rawValue} {...column.options} locale={locale.locale} />
         {:else if isColumnOfType(column, DATA_FORMAT.url)}
             <URLFormat {rawValue} {...column.options} />
         {/if}

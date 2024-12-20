@@ -2,7 +2,7 @@
     import Pagination from '$lib/Pagination/Pagination.svelte';
     import Card from '$lib/utils/Card.svelte';
     import type { TableProps } from './types';
-    import { locale } from './locale.svelte.ts';
+    import { locale } from './locale.svelte';
     import Table from './Table.svelte';
 
     let { 

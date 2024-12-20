@@ -1,7 +1,4 @@
-*.log
-.DS_Store
-node_modules
-dist
-gen
+# Package Managers
 package-lock.json
-CHANGELOG.md
+pnpm-lock.yaml
+yarn.lock
