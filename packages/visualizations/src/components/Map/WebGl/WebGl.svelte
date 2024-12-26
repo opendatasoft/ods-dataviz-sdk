@@ -40,6 +40,7 @@
     $: sources = getMapSources(data.sources);
     $: layers = getMapLayers(data.layers);
     $: popupConfigurationByLayers = getPopupConfigurationByLayers(data.layers);
+
     let container: HTMLElement;
     const map = new Map();
 
@@ -54,7 +55,6 @@
     $: map.setPopupConfigurationByLayers(popupConfigurationByLayers);
     $: map.jumpTo(getCenterZoomOptions({ zoom, center: $center }));
     $: map.loadImages(images);
-    $: map.updateClickHandler(options?.onFeatureClick);
 
     // Lifecycle
     onMount(() => {
