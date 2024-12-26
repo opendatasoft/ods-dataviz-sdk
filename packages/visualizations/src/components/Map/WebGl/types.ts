@@ -4,7 +4,6 @@ import type {
     GeoJSONFeature,
     GestureOptions,
     LngLatLike,
-    MapGeoJSONFeature,
     RequestTransformFunction,
     StyleImageMetadata,
     StyleSpecification,
@@ -20,11 +19,6 @@ export type WebGlMapData = Partial<{
     layers: Layer[];
 }>;
 
-export type FeatureClickHandler = (f: MapGeoJSONFeature[]) => void;
-export type OnFeatureClick = {
-    callback: FeatureClickHandler;
-    layers: string[];
-};
 export interface WebGlMapOptions {
     /*
      * To render a basemap. Could be:
@@ -58,8 +52,6 @@ export interface WebGlMapOptions {
     preserveDrawingBuffer?: boolean;
     /** Images to load by the Map. keys are image ids  */
     images?: Images;
-    /** An addiational callback to be triggered when clicking a feature */
-    onFeatureClick?: OnFeatureClick;
 }
 
 export type WebGlMapStyleOption = Partial<Pick<StyleSpecification, 'sources' | 'layers'>>;
