@@ -2,11 +2,10 @@ import React from 'react';
 import { Table } from 'src';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import data from 'stories/Table/data';
-import options from 'stories/Table/options';
-import { usePaginatedData } from 'stories/Table/PaginatedTemplates';
-
 import type { Column } from '@opendatasoft/visualizations';
+import data from 'stories/Table/data';
+import options, { DatasetRecord } from 'stories/Table/options';
+import { usePaginatedData } from 'stories/Table/PaginatedTemplates';
 /* This template will fail to catch a new page and returns previous  data: {
       value,
       loading: false,
@@ -82,12 +81,12 @@ test('Can update local reactively', async () => {
  * This test is mainly to provide an environment that is not storybook and
  * test locale reactivity;
  */
-const DisplaySwitch = ({ display = v => v }: { display: (v: string) => string }) => {
+const ValueToLabelSwitch = ({ valueToLabel = v => v }: { valueToLabel: (v: string) => string }) => {
     const stateFulOptions = {
         ...options,
-        columns: options.columns.map((column: Column) => {
+        columns: options.columns.map((column: Column<DatasetRecord>) => {
             if (column.dataFormat === 'short-text') {
-                return { ...column, options: { ...column.options, display } };
+                return { ...column, options: { ...column.options, valueToLabel } };
             }
             return column;
         }),
@@ -95,13 +94,13 @@ const DisplaySwitch = ({ display = v => v }: { display: (v: string) => string })
     return <Table data={{ value: data }} options={stateFulOptions} />;
 };
 
-test('Can update column display reactively', async () => {
-    const { rerender } = render(<DisplaySwitch display={v => v} />);
+test('Can update column valueToLabel reactively', async () => {
+    const { rerender } = render(<ValueToLabelSwitch valueToLabel={v => v} />);
     expect(await screen.findByText(/^LOREM IPSUM BLOG POST$/i)).toBeInTheDocument();
 
-    rerender(<DisplaySwitch display={v => `${v} update`} />);
+    rerender(<ValueToLabelSwitch valueToLabel={v => `${v} update`} />);
     expect(await screen.findByText(/^LOREM IPSUM BLOG POST update$/i)).toBeInTheDocument();
 
-    rerender(<DisplaySwitch display={v => `${v} 📅`} />);
+    rerender(<ValueToLabelSwitch valueToLabel={v => `${v} 📅`} />);
     expect(await screen.findByText(/^LOREM IPSUM BLOG POST 📅$/i)).toBeInTheDocument();
 });
