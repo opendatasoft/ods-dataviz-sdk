@@ -6,30 +6,26 @@
 
     import type { ChoroplethGeoJsonProps } from '../types';
 
-    // ensure exported type matches declared props
-    type $$Props = ChoroplethGeoJsonProps;
+    let { data, options }: ChoroplethGeoJsonProps = $props();
 
-    export let data: $$Props['data'];
-    export let options: $$Props['options'];
-
-    $: ({
+    let {
         shapes,
         colorScale = DEFAULT_COLORSCALE,
         emptyValueColor = DEFAULT_COLORS.Default,
-    } = options);
-    $: colorMapping = mapKeyToColor(
+    } = $derived(options);
+    let colorMapping = $derived(mapKeyToColor(
         data.value,
         getDataBounds(data.value),
         colorScale,
         emptyValueColor
-    );
-    $: coloredShapes = shapes
+    ));
+    let coloredShapes = $derived(shapes
         ? colorShapes({
               featureCollection: shapes,
               colorMapping,
               emptyValueColor,
           })
-        : EMPTY_FC;
+        : EMPTY_FC);
 </script>
 
 <Map
@@ -38,6 +34,3 @@
     svgProps={{ fill: 'color' }}
     style="stroke: black; stroke-width: 0.1px; fill: none;"
 />
-
-<style>
-</style>
