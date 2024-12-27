@@ -1,13 +1,10 @@
 <script lang="ts">
     import type {
         SourceSpecification,
-        GestureOptions,
-        ExpressionSpecification,
-        LngLatBoundsLike,
+        MapGeoJSONFeature,
     } from 'maplibre-gl';
-    import type { BBox } from 'geojson';
-    import { debounce } from 'lodash';
-    import type { ColorScale, Color, DataBounds, Source } from 'types';
+    import { debounce } from 'lodash-es';
+    import type { DataBounds } from 'types';
     import MapRender from './MapRender.svelte';
     import { BLANK } from '../mapStyles';
     import {
@@ -22,125 +19,63 @@
     import { DEFAULT_COLORS, DEFAULT_COLORSCALE } from '../constants';
     import type {
         ChoroplethVectorTilesProps,
-        ChoroplethDataValue,
         ChoroplethLayer,
-        ChoroplethShapeVectorTilesValue,
-        MapLegend,
-        MapFilter,
         MapRenderTooltipFunction,
-        NavigationMap,
     } from '../types';
 
-    // ensure exported type matches declared props
-    type $$Props = ChoroplethVectorTilesProps;
-
-    export let data: $$Props['data']; // values, and the key to match
-    export let options: $$Props['options']; // contains the shapes to display & match
-
-    let shapesTiles: ChoroplethShapeVectorTilesValue;
-    let colorScale: ColorScale;
-
-    let aspectRatio: number | undefined;
-    let renderTooltip: MapRenderTooltipFunction;
-    let bbox: BBox | undefined;
-    let activeShapes: string[] | undefined;
-    let interactive: boolean;
-    let legend: MapLegend | undefined;
-    let attribution: string | undefined;
-    let filter: MapFilter | undefined;
-    let filterExpression: ExpressionSpecification | undefined;
-    let title: string | undefined;
-    let subtitle: string | undefined;
-    let description: string | undefined;
-    let navigationMaps: NavigationMap[] | undefined;
-    // Data source link
-    let sourceLink: Source | undefined;
-    let cooperativeGestures: boolean | GestureOptions | undefined;
-    let preserveDrawingBuffer: boolean;
-    let fixedMaxBounds: LngLatBoundsLike | undefined;
-
-    // Used to apply a chosen color for shapes without values (default: #cccccc)
-    let emptyValueColor: Color;
-
-    // Used to determine the shapes key
-    let matchKey: string;
-
-    $: matchKey = shapesTiles.key;
-
     const defaultInteractive = true;
-    $: ({
-        shapesTiles,
-        colorScale = DEFAULT_COLORSCALE,
-        legend,
-        aspectRatio,
-        activeShapes,
-        interactive = defaultInteractive,
-        emptyValueColor = DEFAULT_COLORS.Default,
-        bbox = VOID_BOUNDS,
-        filter,
-        attribution,
-        title,
-        subtitle,
-        description,
-        navigationMaps,
-        sourceLink,
-        cooperativeGestures,
-        preserveDrawingBuffer = false,
-        fixedMaxBounds,
-    } = options);
-
-    // Choropleth is always display over a blank map, for readability purposes
-    const style = BLANK;
-    let layer: ChoroplethLayer;
-    let source: SourceSpecification;
-    let dataBounds: DataBounds;
-
     // MapLibre default zoom
     const MIN_ZOOM = 0;
     const MAX_ZOOM = 22;
+    // Choropleth is always display over a blank map, for readability purposes
+    const style = BLANK;
 
-    function computeSourceLayerAndBboxes(
-        newShapes: ChoroplethShapeVectorTilesValue,
-        newColorScale: ColorScale,
-        values: ChoroplethDataValue[] = []
-    ) {
-        let colors;
-        let fillColor: string | ExpressionSpecification = emptyValueColor;
-
-        if (values.length > 0) {
-            dataBounds = getDataBounds(values);
-            colors = mapKeyToColor(values, dataBounds, newColorScale, emptyValueColor);
-            fillColor = computeMatchExpression(colors, matchKey, emptyValueColor);
-        }
-
-        const baseLayer = computeBaseLayer(fillColor, DEFAULT_COLORS.ShapeOutline);
-
-        source = {
-            type: 'vector',
-            tiles: [newShapes.url],
-            minzoom: newShapes.minZoom || MIN_ZOOM,
-            maxzoom: newShapes.maxZoom || MAX_ZOOM,
-        };
-
-        layer = {
-            ...baseLayer,
-            'source-layer': newShapes.layer,
-        };
-    }
-
-    $: if (shapesTiles.url) {
-        computeSourceLayerAndBboxes(shapesTiles, colorScale, data.value);
-    }
-
-    $: renderTooltip = debounce(
-        (hoveredFeature) => computeTooltip(hoveredFeature, data.value, options, matchKey),
+    let { data, options }: ChoroplethVectorTilesProps = $props();
+    let {
+            shapesTiles,
+            colorScale = DEFAULT_COLORSCALE,
+            legend,
+            aspectRatio,
+            activeShapes,
+            interactive = defaultInteractive,
+            emptyValueColor = DEFAULT_COLORS.Default,
+            bbox = VOID_BOUNDS,
+            filter,
+            attribution,
+            title,
+            subtitle,
+            description,
+            navigationMaps,
+            sourceLink,
+            cooperativeGestures,
+            preserveDrawingBuffer = false,
+            fixedMaxBounds,
+        } = $derived(options);
+    
+    let renderTooltip: MapRenderTooltipFunction = $derived(debounce(
+        (hoveredFeature: MapGeoJSONFeature) => computeTooltip(hoveredFeature, data.value, options, matchKey),
         10,
         { leading: true }
-    );
+    ));
 
-    $: if (filter) {
-        filterExpression = computeFilterExpression(filter);
-    }
+    let matchKey = $derived(shapesTiles.key);
+    let colors = $derived(mapKeyToColor(data.value, getDataBounds(data.value), colorScale, emptyValueColor));
+    let fillColor = $derived(computeMatchExpression(colors, matchKey, emptyValueColor))
+    let baseLayer = $derived(computeBaseLayer(fillColor, DEFAULT_COLORS.ShapeOutline));
+
+    let layer: ChoroplethLayer = $state({
+        ...baseLayer,
+        'source-layer': shapesTiles.layer,
+    });
+    let source: SourceSpecification = $state({
+        type: 'vector',
+        tiles: [shapesTiles.url],
+        minzoom: shapesTiles.minZoom || MIN_ZOOM,
+        maxzoom: shapesTiles.maxZoom || MAX_ZOOM,
+    });
+    let dataBounds: DataBounds = $state(getDataBounds(data.value));
+
+    let filterExpression = $derived(filter && computeFilterExpression(filter));
 </script>
 
 <MapRender
@@ -168,6 +103,3 @@
     {preserveDrawingBuffer}
     {fixedMaxBounds}
 />
-
-<style>
-</style>

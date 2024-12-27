@@ -1,9 +1,9 @@
 <script lang="ts">
     import turfBbox from '@turf/bbox';
-    import type { ExpressionSpecification, SourceSpecification, GestureOptions } from 'maplibre-gl';
+    import type { ExpressionSpecification, SourceSpecification, GestureOptions, MapGeoJSONFeature } from 'maplibre-gl';
     import type { BBox, FeatureCollection } from 'geojson';
-    import { debounce } from 'lodash';
-    import type { ColorScale, Color, DataBounds, Source } from 'types';
+    import { debounce } from 'lodash-es';
+    import type { ColorScale, DataBounds, Source } from '$lib/types';
     import {
         getDataBounds,
         mapKeyToColor,
@@ -50,7 +50,7 @@
     let preserveDrawingBuffer: boolean;
 
     // Used to apply a chosen color for shapes without values (default: #cccccc)
-    let emptyValueColor: Color;
+    let emptyValueColor: string;
 
     // Used to determine the shapes key
     const matchKey = 'key';
@@ -111,7 +111,7 @@
     }
 
     $: renderTooltip = debounce(
-        (hoveredFeature) => computeTooltip(hoveredFeature, data.value, options, matchKey),
+        (hoveredFeature: MapGeoJSONFeature) => computeTooltip(hoveredFeature, data.value, options, matchKey),
         10,
         { leading: true }
     );

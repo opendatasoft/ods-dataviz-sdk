@@ -1,6 +1,5 @@
 <script lang="ts">
     import type { LngLatBoundsLike } from 'maplibre-gl';
-    import { isEqual } from 'lodash-es';
     import { onDestroy, onMount } from 'svelte';
 
     import Map from './WebGl';
@@ -22,8 +21,8 @@
     let { options, data = {} }: Props = $props();
 
     let {
-        bbox: _bbox,
-        center: _center,
+        bbox,
+        center,
         zoom,
         minZoom,
         maxZoom,
@@ -34,15 +33,12 @@
         preserveDrawingBuffer,
     } = $derived(getMapOptions(options));
 
-    let bbox = $derived.by((newBbox) => isEqual(_bbox, newBbox) ? _bbox : newBbox);
-    let center = $derived.by((newCenter) => isEqual(_center, newCenter) ? _center : newCenter);
-
     let style = $derived(getMapStyle(options.style));
     let sources = $derived(getMapSources(data.sources));
     let layers = $derived(getMapLayers(data.layers));
     let popupConfigurationByLayers = $derived(getPopupConfigurationByLayers(data.layers));
 
-    let container: HTMLElement = $state();
+    let container: HTMLElement | undefined = $state();
     const map = new Map();
 
     const onDisable = () => {
@@ -85,7 +81,9 @@
             cooperativeGestures,
             preserveDrawingBuffer,
         };
-        map.initialize(style, container, mapOptions);
+        if (container) {
+            map.initialize(style, container, mapOptions);
+        }
     });
     onDestroy(() => map.destroy());
 </script>

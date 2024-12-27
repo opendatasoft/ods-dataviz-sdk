@@ -1,12 +1,11 @@
 import type { FeatureCollection } from 'geojson';
-import { ColorScaleTypes } from 'types';
-import type { ColorScale, Color } from 'types';
+import { ColorScaleTypes, type ColorScale } from '$lib/types';
 
-export const DEFAULT_COLORS: Record<string, Color> = {
-    Default: '#CCCCCC',
-    ShapeOutline: '#FFFFFF',
-    LightGrey: '#CBD2DB',
-    DarkGrey: '#515457',
+export const DEFAULT_COLORS: Record<string, string> = {
+	Default: '#CCCCCC',
+	ShapeOutline: '#FFFFFF',
+	LightGrey: '#CBD2DB',
+	DarkGrey: '#515457'
 } as const;
 
 export const DEFAULT_COLORSCALE: ColorScale = {

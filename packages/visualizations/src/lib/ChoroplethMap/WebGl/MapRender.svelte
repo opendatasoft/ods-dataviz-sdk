@@ -1,25 +1,23 @@
 <script lang="ts">
-    import maplibregl, {
-        Map as MapType,
-        SourceSpecification,
-        StyleSpecification,
-        NavigationControl,
-        LngLatBoundsLike,
-        MapSourceDataEvent,
-        MapLayerMouseEvent,
-        LngLatLike,
-        FilterSpecification,
-        GestureOptions,
+    import maplilbre, {
+        type SourceSpecification,
+        type StyleSpecification,
+        type LngLatBoundsLike,
+        type MapSourceDataEvent,
+        type MapLayerMouseEvent,
+        type LngLatLike,
+        type FilterSpecification,
+        type GestureOptions,
     } from 'maplibre-gl';
     import { onMount } from 'svelte';
-    import { debounce } from 'lodash';
+    import { debounce } from 'lodash-es';
     import type { BBox } from 'geojson';
-    import type { ColorScale, DataBounds, Source } from 'types';
-    import type { LegendVariant } from 'components/Legend/types';
-    import SourceLink from 'components/utils/SourceLink.svelte';
-    import ColorsLegend from 'components/Legend/ColorsLegend.svelte';
-    import BackButton from 'components/utils/BackButton.svelte';
-    import MiniMap from 'components/utils/MiniMap.svelte';
+    import type { ColorScale, DataBounds, Source } from '$lib/types';
+    import type { LegendVariant } from '$lib/Legend/types';
+    import SourceLink from '$lib/utils/SourceLink.svelte';
+    import ColorsLegend from '$lib/Legend/ColorsLegend.svelte';
+    import BackButton from '$lib/utils/BackButton.svelte';
+    import MiniMap from '$lib/utils/MiniMap.svelte';
     import { computeMaxZoomFromGeoJsonFeatures, getFixedTooltips } from '../utils';
     import type {
         ChoroplethFixedTooltipDescription,
@@ -30,68 +28,104 @@
         ChoroplethDataValue,
     } from '../types';
 
-    // maplibre style (basemap)
-    export let style: StyleSpecification;
-    // maplibre source config
-    export let source: SourceSpecification;
-    // maplibre layer config
-    export let layer: MapLayer;
-    // bounding box to start from, and restrict to it
-    export let bbox: BBox | undefined;
-    // option to disable map interactions
-    export let interactive: boolean;
-    // options to display legend
-    export let legend: MapLegend | undefined;
-    export let colorScale: ColorScale;
-    export let dataBounds: DataBounds;
-    export let attribution: string | undefined;
-    // Used to render tooltips on hover
-    export let renderTooltip: MapRenderTooltipFunction;
-    // Used to select shapes to activate a tooltip on render
-    export let activeShapes: string[] | undefined;
-    // aspect ratio based on width, by default equal to 1
-    export let aspectRatio = 1;
-    // Used to filter the rendered features
-    export let filterExpression: FilterSpecification | undefined | null = null;
-    // Used to determine on which key match data and shapes
-    export let matchKey: string;
-    // Title of the map
-    export let title: string | undefined;
-    // Subtitle of the map
-    export let subtitle: string | undefined;
-    // Accessibility description
-    export let description: string | undefined;
-    // Navigation maps
-    export let navigationMaps: NavigationMap[] | undefined;
-    export let data: { value: ChoroplethDataValue[] };
-    // Data source link
-    export let sourceLink: Source | undefined;
-    export let cooperativeGestures: boolean | GestureOptions | undefined;
-    export let preserveDrawingBuffer: boolean;
-    // Fixed max bounds that will overide the automatic map.getBounds when setting the bbox
-    export let fixedMaxBounds: LngLatBoundsLike | undefined | null = null;
+    const { Map: MapClass, Popup, NavigationControl } = maplilbre;
+    interface Props {
+        // maplibre style (basemap)
+        style: StyleSpecification;
+        // maplibre source config
+        source: SourceSpecification;
+        // maplibre layer config
+        layer: MapLayer;
+        // bounding box to start from, and restrict to it
+        bbox: BBox | undefined;
+        // option to disable map interactions
+        interactive: boolean;
+        // options to display legend
+        legend: MapLegend | undefined;
+        colorScale: ColorScale;
+        dataBounds: DataBounds;
+        attribution: string | undefined;
+        // Used to render tooltips on hover
+        renderTooltip: MapRenderTooltipFunction;
+        // Used to select shapes to activate a tooltip on render
+        activeShapes: string[] | undefined;
+        // aspect ratio based on width, by default equal to 1
+        aspectRatio?: number;
+        // Used to filter the rendered features
+        filterExpression?: FilterSpecification | undefined | null;
+        // Used to determine on which key match data and shapes
+        matchKey: string;
+        // Title of the map
+        title: string | undefined;
+        // Subtitle of the map
+        subtitle: string | undefined;
+        // Accessibility description
+        description: string | undefined;
+        // Navigation maps
+        navigationMaps: NavigationMap[] | undefined;
+        data: { value: ChoroplethDataValue[] };
+        // Data source link
+        sourceLink: Source | undefined;
+        cooperativeGestures: boolean | GestureOptions | undefined;
+        preserveDrawingBuffer: boolean;
+        // Fixed max bounds that will overide the automatic map?.getBounds when setting the bbox
+        fixedMaxBounds?: LngLatBoundsLike | undefined | null;
+    }
 
-    let clientWidth: number;
-    let legendVariant: LegendVariant;
-    $: legendVariant = clientWidth <= 375 ? 'fluid' : 'fixed';
+    let {
+        style,
+        source,
+        layer,
+        bbox,
+        interactive,
+        legend,
+        colorScale,
+        dataBounds,
+        attribution,
+        renderTooltip,
+        activeShapes,
+        aspectRatio = 1,
+        filterExpression = null,
+        matchKey,
+        title,
+        subtitle,
+        description,
+        navigationMaps,
+        data,
+        sourceLink,
+        cooperativeGestures,
+        preserveDrawingBuffer,
+        fixedMaxBounds = null
+    }: Props = $props();
+
+    let clientWidth: number | undefined = $state();
+    let legendVariant: LegendVariant = $derived(clientWidth <= 375 
+        ? 'fluid' 
+        : 'fixed'
+    );
+    
 
     // Used to store fixed tooltips displayed on render
     // FIXME: This may not be useful anymore, and is very tied to Choropleth right now
-    let fixedPopupsList: ChoroplethFixedTooltipDescription[] = [];
+    let fixedPopupsList: ChoroplethFixedTooltipDescription[] = $state([]);
 
-    $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
+    let cssVarStyles = $derived(`--aspect-ratio:${aspectRatio};`);
 
-    let container: HTMLElement;
-    let map: MapType;
+    let container: HTMLElement | undefined = $state();
+    let map: maplilbre.Map | undefined = $state();
     // Used to add navigation control to map
-    let nav: NavigationControl;
+    let nav: maplilbre.NavigationControl;
 
-    let mapReady = false;
-    $: currentBbox = bbox;
+    let mapReady = $state(false);
+    let currentBbox: BBox | undefined;
+    // $effect(() => {
+    //     currentBbox = bbox;
+    // })
+
     // Used to add a listener to resize map on container changes, canceled on destroy
     let resizer: ResizeObserver;
 
-    const hoverPopup = new maplibregl.Popup({
+    const hoverPopup = new Popup({
         closeOnClick: false,
         closeButton: false,
         className: 'tooltip-on-hover',
@@ -110,18 +144,18 @@
     const setBbox = (box: BBox | undefined) => {
         if (!box) {
             // zoom-out to bounds defined in the initialization
-            map.setZoom(map.getMinZoom());
+            map?.setZoom(map?.getMinZoom());
             return;
         }
         // Cancel any saved max bounds to properly fitBounds
-        map.setMaxBounds(null);
+        map?.setMaxBounds(null);
         // Using padding, keep enough room for controls (zoom) to make sure they don't hide anything
-        map.fitBounds(box as LngLatBoundsLike, {
+        map?.fitBounds(box as LngLatBoundsLike, {
             animate: false,
             padding: 40,
         });
         // Set new map max bounds after bbox changes
-        map.setMaxBounds(fixedMaxBounds || map.getBounds());
+        map?.setMaxBounds(fixedMaxBounds || map?.getBounds());
     };
 
     function initializeMap() {
@@ -135,32 +169,36 @@
             preserveDrawingBuffer,
         };
 
-        map = new maplibregl.Map({
-            container,
-            style,
-            ...start,
-        });
+        if (container) {
+            map = new MapClass({
+                container,
+                style,
+                ...start,
+            });
+        }
 
-        nav = new maplibregl.NavigationControl({ showCompass: false });
+        nav = new NavigationControl({ showCompass: false });
 
-        map.on('load', () => {
+        map?.on('load', () => {
             mapReady = true;
         });
 
-        return () => map.remove();
+        return () => map?.remove();
     }
 
     function initializeResizer() {
         // Set a resizeObserver to resize map on container size changes
         resizer = new ResizeObserver(
             debounce(() => {
-                map.resize();
+                map?.resize();
                 if (mapReady && currentBbox) {
                     setBbox(currentBbox);
                 }
             }, 100)
         );
-        resizer.observe(container);
+        if (container) {
+            resizer.observe(container);
+        }
         // Disconnect the resize onDestroy
         return () => resizer?.disconnect();
     }
@@ -168,7 +206,7 @@
     function sourceLoadingCallback(e: MapSourceDataEvent) {
         // sourceDataType can be "visibility" or "metadata", in which case it's not about the data itself
         if (e.isSourceLoaded && e.sourceId === sourceId && !e.sourceDataType) {
-            const renderedFeatures = map.querySourceFeatures(
+            const renderedFeatures = map?.querySourceFeatures(
                 sourceId,
                 // The type forces you to pass a filter parameter in the option, but it's not required by the real code
                 // https://github.com/maplibre/maplibre-gl-js/issues/1393
@@ -178,17 +216,17 @@
                     sourceLayer: layer['source-layer'] || layerId, // FIXME: This may not the best way to do it
                 }
             );
-            if (renderedFeatures.length) {
+            if (renderedFeatures?.length) {
                 // Restrict zoom max only works for geojson for now
                 // TODO: We may not catch the smaller shapes if Maplibre discarded them for rendering reasons, so it's a bit risky. Is it worth it?
                 // A low-cost approach could be to restrict the zoom scale to an arbitrary value (e.g. only 4 from the max zoom)... or not restrict at all.
-                if (e.source.type === 'geojson') {
+                if (e.source.type === 'geojson' && container) {
                     const maxZoom = computeMaxZoomFromGeoJsonFeatures(
                         container,
                         renderedFeatures,
                         matchKey
                     );
-                    map.setMaxZoom(maxZoom);
+                    map?.setMaxZoom(maxZoom);
                 }
                 if (activeShapes && activeShapes.length > 0 && renderTooltip) {
                     fixedPopupsList = getFixedTooltips(
@@ -200,14 +238,14 @@
                 }
             }
 
-            map.off('sourcedata', sourceLoadingCallback);
+            map?.off('sourcedata', sourceLoadingCallback);
         }
     }
 
     function addTooltip(e: MapLayerMouseEvent) {
         if (e.features) {
             const tooltipDescription = renderTooltip(e.features[0]);
-            if (tooltipDescription) {
+            if (tooltipDescription && map) {
                 if (hoverPopup.isOpen()) {
                     hoverPopup.setLngLat(e.lngLat).setHTML(tooltipDescription);
                 } else {
@@ -221,7 +259,7 @@
         hoverPopup.remove();
     }
 
-    let active: number | undefined;
+    let active: number | null = $state(null);
 
     const setBboxFromButton = (mapSVG: NavigationMap, i: number) => () => {
         currentBbox = mapSVG.bbox;
@@ -229,7 +267,7 @@
     };
 
     const resetBboxFromButton = () => {
-        active = undefined;
+        active = null;
         currentBbox = bbox;
     };
 
@@ -242,91 +280,96 @@
             // Another way to disable all user handlers is to pass the option interactive = false on map creation
             // But it doesn't allow to change it afterwards
             // Id est it forces you to recreate another map if you want to change that option
-            map.boxZoom.enable();
-            map.doubleClickZoom.enable();
-            map.dragPan.enable();
-            map.dragRotate.enable();
-            map.keyboard.enable();
-            map.scrollZoom.enable();
-            map.touchZoomRotate.enable();
+            map?.boxZoom.enable();
+            map?.doubleClickZoom.enable();
+            map?.dragPan.enable();
+            map?.dragRotate.enable();
+            map?.keyboard.enable();
+            map?.scrollZoom.enable();
+            map?.touchZoomRotate.enable();
 
             // Pointer style consistency across SDK maps
-            const canvas = map.getCanvas();
-            map.on('dragstart', () => {
-                canvas.style.cursor = CURSOR.DRAG;
-            });
-            map.on('dragend', () => {
-                canvas.style.cursor = CURSOR.DEFAULT;
-            });
+            const canvas = map?.getCanvas();
+            if (canvas && map) {
+                map.on('dragstart', () => {
+                    canvas.style.cursor = CURSOR.DRAG;
+                });
+                map.on('dragend', () => {
+                    canvas.style.cursor = CURSOR.DEFAULT;
+                });
+            }
 
             // Add navigation control to map
-            if (!map.hasControl(nav)) {
-                map.addControl(nav, 'top-right');
+            if (!map?.hasControl(nav)) {
+                map?.addControl(nav, 'top-right');
             }
 
             // Handle tooltip display
-            map.off('mousemove', layerId, addTooltip);
-            map.off('mouseleave', layerId, removeTooltip);
+            map?.off('mousemove', layerId, addTooltip);
+            map?.off('mouseleave', layerId, removeTooltip);
 
             if (computeTooltip) {
-                map.on('mousemove', layerId, addTooltip);
-                map.on('mouseleave', layerId, removeTooltip);
+                map?.on('mousemove', layerId, addTooltip);
+                map?.on('mouseleave', layerId, removeTooltip);
             }
         } else {
             // Disable all user interaction handlers
-            map.boxZoom.disable();
-            map.doubleClickZoom.disable();
-            map.dragPan.disable();
-            map.dragRotate.disable();
-            map.keyboard.disable();
-            map.scrollZoom.disable();
-            map.touchZoomRotate.disable();
+            map?.boxZoom.disable();
+            map?.doubleClickZoom.disable();
+            map?.dragPan.disable();
+            map?.dragRotate.disable();
+            map?.keyboard.disable();
+            map?.scrollZoom.disable();
+            map?.touchZoomRotate.disable();
 
             // Remove tooltip
-            map.off('mousemove', layerId, addTooltip);
-            map.off('mouseleave', layerId, removeTooltip);
+            map?.off('mousemove', layerId, addTooltip);
+            map?.off('mouseleave', layerId, removeTooltip);
 
             // Remove navigation control from map
-            if (map.hasControl(nav)) {
-                map.removeControl(nav);
+            if (map?.hasControl(nav)) {
+                map?.removeControl(nav);
             }
             // Reset map Bbox to reset zoom
             if (mapReady && bbox) {
-                active = undefined;
+                active = null;
                 currentBbox = bbox;
                 setBbox(currentBbox);
             }
         }
     }
 
-    function updateSourceAndLayer(newSource: SourceSpecification, newLayer: MapLayer) {
+    function updateSourceAndLayer(
+        newSource: SourceSpecification, 
+        newLayer: MapLayer,
+    ) {
         if (newSource && newLayer) {
-            if (map.getLayer(layerId)) {
-                map.removeLayer(layerId);
+            if (map?.getLayer(layerId)) {
+                map?.removeLayer(layerId);
             }
 
-            if (map.getSource(sourceId)) {
-                map.removeSource(sourceId);
+            if (map?.getSource(sourceId)) {
+                map?.removeSource(sourceId);
             }
 
-            map.addSource(sourceId, newSource);
-            map.addLayer({
+            map?.addSource(sourceId, newSource);
+            map?.addLayer({
                 ...newLayer,
                 id: layerId,
                 source: sourceId,
             });
             if (filterExpression) {
-                map.setFilter(layerId, filterExpression);
+                map?.setFilter(layerId, filterExpression);
             }
-            map.on('sourcedata', sourceLoadingCallback);
+            map?.on('sourcedata', sourceLoadingCallback);
         }
     }
 
     function updateStyle(newStyle: StyleSpecification) {
         if (mapReady) {
-            map.setStyle(newStyle);
+            map?.setStyle(newStyle);
             // Changing the style resets the map
-            map.once('styledata', () => updateSourceAndLayer(source, layer));
+            map?.once('styledata', () => updateSourceAndLayer(source, layer));
         }
     }
 
@@ -334,25 +377,39 @@
     onMount(initializeMap);
     onMount(initializeResizer);
 
-    $: if (mapReady) {
-        updateSourceAndLayer(source, layer);
-    }
-    $: if (mapReady) {
-        handleInteractivity(interactive, renderTooltip);
-    }
-    $: updateStyle(style);
-    $: if (mapReady && currentBbox) {
-        setBbox(currentBbox);
-    }
-    $: if (fixedPopupsList?.length > 0 && (activeShapes?.length === 0 || !activeShapes)) {
-        fixedPopupsList.forEach((fixedPopup) => fixedPopup.popup.remove());
-    }
-    $: fixedPopupsList.forEach((fixedPopup) => {
-        const { center, description: tooltipDescription, popup } = fixedPopup;
-        popup
-            .setLngLat(center as LngLatLike)
-            .setHTML(tooltipDescription)
-            .addTo(map);
+    $effect(() => {
+        if (mapReady) {
+            updateSourceAndLayer(source, layer);
+        }
+    });
+    $effect(() => {
+        if (mapReady) {
+            handleInteractivity(interactive, renderTooltip);
+        }
+    });
+    $effect(() => {
+        updateStyle(style);
+    });
+    $effect(() => {
+        if (mapReady && currentBbox) {
+            setBbox(currentBbox);
+        }
+    });
+    $effect(() => {
+        if (fixedPopupsList?.length > 0 && (activeShapes?.length === 0 || !activeShapes)) {
+            fixedPopupsList.forEach((fixedPopup) => fixedPopup.popup.remove());
+        }
+    });
+    $effect(() => {
+        fixedPopupsList.forEach((fixedPopup) => {
+            const { center, description: tooltipDescription, popup } = fixedPopup;
+            if (map) {
+                popup
+                    .setLngLat(center as LngLatLike)
+                    .setHTML(tooltipDescription)
+                    .addTo(map);
+            }
+        });
     });
 </script>
 
@@ -375,7 +432,7 @@
         {#if navigationMaps && active !== undefined}
             <BackButton on:click={resetBboxFromButton} />
         {/if}
-        <div id="map" bind:this={container} />
+        <div id="map" bind:this={container}></div>
     </div>
     {#if description}
         <p id={mapId.toString()} class="a11y-invisible-description">{description}</p>
@@ -390,7 +447,7 @@
                     {colorScale}
                     active={active === i}
                     showTooltip={interactive}
-                    on:click={setBboxFromButton(navMap, i)}
+                    onClick={() => setBboxFromButton(navMap, i)}
                 />
             {/each}
         </div>
@@ -418,7 +475,7 @@
     }
     @supports (aspect-ratio: auto) {
         #map {
-            height: auto;
+            /* height: auto; */
             aspect-ratio: var(--aspect-ratio);
         }
     }
@@ -455,9 +512,11 @@
     }
     .main {
         aspect-ratio: var(--aspect-ratio);
-        flex-grow: 1;
+        /* flex-grow: 1; */
         position: relative;
         display: block;
+        height: 500px;
+        width: 500px;
     }
     .buttons {
         display: grid;
