@@ -1,19 +1,16 @@
 import React, { useRef, useLayoutEffect } from 'react';
-import { ComponentConstructorOptions, SvelteComponent } from '@opendatasoft/visualizations'; // we export from the main package to avoid having different versions of svelte
+import { mount, unmount } from '@opendatasoft/visualizations-kit'; // we export from the main package to avoid having different versions of svelte
 
 import './reactify.css';
 
-function reactifySvelte<P extends Record<string, unknown>>(
-    Component: new (options: ComponentConstructorOptions) => SvelteComponent,
-    className: string
-) {
+function reactifySvelte<P extends Record<string, unknown>>(Component: any, className: string) {
     return (props: P) => {
-        const svelteComponentRef = useRef<SvelteComponent | null>(null);
+        const svelteComponentRef = useRef(null);
         const mountRef = useRef<HTMLDivElement | null>(null);
 
         useLayoutEffect(() => {
             if (mountRef?.current) {
-                const component = new Component({
+                const component = mount(Component, {
                     target: mountRef.current,
                     props,
                 });
@@ -21,7 +18,7 @@ function reactifySvelte<P extends Record<string, unknown>>(
             }
 
             return () => {
-                svelteComponentRef.current?.$destroy();
+                unmount(svelteComponentRef.current);
             };
             // We especially don't want to react to props to avoid creating a new component each render
             // eslint-disable-next-line react-hooks/exhaustive-deps
