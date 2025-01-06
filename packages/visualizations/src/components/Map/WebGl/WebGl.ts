@@ -560,6 +560,19 @@ export default class MapPOI {
                     layers: [...this.baseStyle.layers, ...layers],
                 });
             }
+
+            layers.forEach((layer) => {
+                if (this.onFeatureClick || layer.id in this.popupConfigurationByLayers) {
+                    map.on('mouseenter', layer.id, () => {
+                        /* eslint-disable-next-line no-param-reassign */
+                        map.getCanvas().style.cursor = 'pointer';
+                    });
+                    map.on('mouseleave', layer.id, () => {
+                        /* eslint-disable-next-line no-param-reassign */
+                        map.getCanvas().style.cursor = '';
+                    });
+                }
+            });
         });
     }
 
