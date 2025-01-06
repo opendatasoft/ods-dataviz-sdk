@@ -1,7 +1,7 @@
 import type { ChartDataset } from 'chart.js';
 import type { Options as DataLabelsOptions } from 'chartjs-plugin-datalabels/types/options';
 import type { DataFrame } from 'types';
-import { defaultCompactNumberFormat, assureMaxLength } from 'components/utils/formatter';
+import { defaultCompactNumberFormat, assureMaxLength } from '$lib/utils/formatter';
 import type {
     ChartSeries,
     DataLabelsConfiguration,

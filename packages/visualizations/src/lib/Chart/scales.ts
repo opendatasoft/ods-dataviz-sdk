@@ -8,7 +8,7 @@ import type {
 } from 'chart.js';
 import { DateTime } from 'luxon';
 import type { DeepPartial } from 'chart.js/dist/types/utils';
-import { assureMaxLength, defaultCompactNumberFormat } from 'components/utils/formatter';
+import { assureMaxLength, defaultCompactNumberFormat } from '$lib/utils/formatter';
 import type {
     CartesianAxisConfiguration,
     ChartOptions,

@@ -1,5 +1,4 @@
 <script lang="ts">
-import { type FeatureCollection } from 'geojson';
 import ChoroplethGeoJson from '$lib/ChoroplethMap/WebGl/ChoroplethGeoJson.svelte';
 import ChoroplethVectorTiles from '$lib/ChoroplethMap/WebGl/ChoroplethVectorTiles.svelte';
 import ChoroplethSvg from '$lib/ChoroplethMap/Svg/Choropleth.svelte';

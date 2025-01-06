@@ -8,6 +8,7 @@
 <p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
 <a href="/table">table</a>
 <a href="/choropleth">choropleth</a>
+<a href="/chart">chart</a>
 
 <Kpi
     data={{ loading: false, value: 120}}

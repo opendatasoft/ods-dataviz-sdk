@@ -1,17 +1,33 @@
+<script module>
+    import { Chart as ChartModule, registerables, defaults } from 'chart.js';
+    import { TreemapController, TreemapElement } from 'chartjs-chart-treemap';
+    import DataLabels from 'chartjs-plugin-datalabels';
+    import Stacked100Plugin from 'chartjs-plugin-stacked100';
+    import PieDataLabelsPlugin from './pieDataLabelsPlugin';
+
+    ChartModule.register(...registerables);
+    ChartModule.register(DataLabels);
+    ChartModule.register(PieDataLabelsPlugin);
+    ChartModule.register(Stacked100Plugin);
+    ChartModule.register(TreemapController, TreemapElement);
+
+    defaults.animation = false;
+</script>
+
 <script lang="ts">
     import update from 'immutability-helper';
     import type { ChartConfiguration } from 'chart.js';
     import { Chart } from 'chart.js';
     import 'chartjs-adapter-luxon';
-    import CategoryLegend from 'components/Legend/CategoryLegend.svelte';
-    import type { DataFrame } from 'types';
-    import { generateId } from 'components/utils';
-    import SourceLink from 'components/utils/SourceLink.svelte';
-    import { defaultNumberFormat } from 'components/utils/formatter';
+    import CategoryLegend from '$lib/Legend/CategoryLegend.svelte';
+    import type { DataFrame } from '$lib/types';
+    import { generateId } from '$lib/utils';
+    import SourceLink from '$lib/utils/SourceLink.svelte';
+    import { defaultNumberFormat } from '$lib/utils/formatter';
     import type {
         LegendPositions,
         CategoryLegend as CategoryLegendType,
-    } from 'components/Legend/types';
+    } from '$lib/Legend/types';
     import { ChartSeriesType } from './types';
     import type {
         ChartProps,
@@ -24,35 +40,17 @@
     import toDataset from './datasets';
     import buildScales from './scales';
     import { buildLegend, buildPieAndDoughnutCustomLegend } from './legend';
+	import { onDestroy } from 'svelte';
 
-    // ensure exported type matches declared props
-    type $$Props = ChartProps;
-
-    export let data: $$Props['data'];
-    export let options: $$Props['options'];
+    let { data, options }: ChartProps = $props();
 
     const chartId = `chart-${generateId()}`;
 
-    let chart: Chart;
-    let clientWidth: number;
-    // Hook to handle chart lifecycle
-    function chartJs(node: HTMLCanvasElement, config: ChartConfiguration) {
-        const ctx = node.getContext('2d');
-        if (!ctx) throw new Error('Failed to get canvas context');
-        chart = new Chart(ctx, config);
-        return {
-            update(newConfig: ChartConfiguration) {
-                Object.assign(chart, newConfig);
-                chart.update();
-            },
-            destroy() {
-                chart.destroy();
-            },
-        };
-    }
+    let chart: Chart | undefined = $state();
+    let clientWidth: number = $state(0);
 
     // Local chart configuration
-    let chartConfig: ChartConfiguration = {
+    let chartConfig: ChartConfiguration = $state({
         type: options.series[0]?.type || 'line',
         data: {
             labels: [],
@@ -67,21 +65,35 @@
                 axis: 'xy',
             },
         },
+    });
+    // Hook to handle chart lifecycle
+    function chartJs(node: HTMLCanvasElement, config: ChartConfiguration) {
+        const ctx = node.getContext('2d');
+        if (!ctx) throw new Error('Failed to get canvas context');
+        chart = new Chart(ctx, config);
+        return {
+            update: (newConfig: ChartConfiguration) => {
+                if (chart) {
+                    Object.assign(chart, newConfig);
+                    chart.update();
+                }
+            },
+            onDestroy: () => chart?.destroy(),
+        }
     };
 
+
     // Update local variable from props
-    let dataFrame: DataFrame = [];
-    let series: ChartSeries[] = [];
-    let { labelColumn } = options;
+    let dataFrame: DataFrame = $derived(data.value || []);
+    let series: ChartSeries[] = $derived(options.series);
+    let labelColumn = $derived(options.labelColumn);
 
-    $: dataFrame = data.value || [];
-    $: series = options.series;
-    $: labelColumn = options.labelColumn;
-
-    $: chartConfig = update(chartConfig, {
+    $effect(() => {
+        chartConfig = update(chartConfig, {
         type: { $set: defaultValue(options.series[0]?.type, ChartSeriesType.Line) },
-    });
-    $: {
+      });
+    })
+    $effect(() => {
         // Reactively update chart configuration
         const chartOptions = chartConfig.options || {};
         /* Kills ChartJS legend if in custom mode
@@ -201,33 +213,35 @@
                 options.series[0].cutout;
         }
         chartConfig = update(chartConfig, { options: { $set: chartOptions } });
-    }
+    });
 
-    $: {
+    $effect(() => {
         const labels = dataFrame.map((entry) => (labelColumn ? entry[labelColumn] : ''));
         chartConfig = update(chartConfig, { data: { labels: { $set: labels } } });
-    }
+    });
 
-    $: {
+    $effect(() => {
         const datasets = series.map((s) => toDataset(dataFrame, s));
         chartConfig = update(chartConfig, { data: { datasets: { $set: datasets } } });
-    }
+    });
 
-    let displayTitle: boolean;
-    let displaySubtitle: boolean;
-    $: displayTitle = defaultValue(options?.title?.display, !!options?.title?.text);
-    $: displaySubtitle = defaultValue(options?.subtitle?.display, !!options?.subtitle?.text);
+    let displayTitle: boolean = $derived(defaultValue(options?.title?.display, !!options?.title?.text));
+    let displaySubtitle: boolean = $derived(defaultValue(options?.subtitle?.display, !!options?.subtitle?.text));
+    
+    
 
-    let legendPosition: LegendPositions;
-    $: legendPosition =
-        clientWidth <= 375 ? 'bottom' : defaultValue(options?.legend?.position, 'bottom');
-    let legendOptions: CategoryLegendType;
-    $: if (
-        [ChartSeriesType.Pie, ChartSeriesType.Doughnut].includes(options.series[0].type) &&
-        options?.legend?.custom
-    ) {
-        legendOptions = buildPieAndDoughnutCustomLegend({ chart, options, chartConfig });
-    }
+    let legendPosition: LegendPositions = $derived(clientWidth <= 375 ? 'bottom' : defaultValue(options?.legend?.position, 'bottom'));
+    
+    let legendOptions: CategoryLegendType | undefined = $state();
+    $effect(() => {
+        if (
+            [ChartSeriesType.Pie, ChartSeriesType.Doughnut].includes(options.series[0].type)
+            && options?.legend?.custom
+            && chart
+        ) {
+            legendOptions = buildPieAndDoughnutCustomLegend({ chart, options, chartConfig });
+        }
+    });
 </script>
 
 {#if data.error}
@@ -252,18 +266,18 @@
             class="chart legend--{legendPosition}"
             style="--aspect-ratio: {defaultValue(options.aspectRatio, 4 / 3)}"
         >
-            <!-- svelte-ignore a11y-no-interactive-element-to-noninteractive-role -->
+            <!-- svelte-ignore a11y_no_interactive_element_to_noninteractive_role -->
             <canvas
                 role="img"
-                use:chartJs={chartConfig}
+                use:chartJs={$state.snapshot(chartConfig)}
                 aria-describedby={options.description ? chartId : undefined}
-            />
+            ></canvas>
             {#if options.description}
                 <p id={chartId} class="a11y-invisible-description">{options.description}</p>
             {/if}
             {#if options?.legend?.custom}
                 <figcaption>
-                    <CategoryLegend {legendOptions} />
+                    <CategoryLegend {...legendOptions} />
                 </figcaption>
             {/if}
         </figure>

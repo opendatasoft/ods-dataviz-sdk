@@ -1,7 +1,7 @@
 import type { LegendOptions, ChartConfiguration, Chart } from 'chart.js';
 import type { _DeepPartialObject } from 'chart.js/dist/types/utils';
-import { assureMaxLength } from 'components/utils/formatter';
-import { CATEGORY_ITEM_VARIANT } from 'components/Legend/types';
+import { assureMaxLength } from '$lib/utils/formatter';
+import { CATEGORY_ITEM_VARIANT } from '$lib/Legend/types';
 import type { ChartOptions } from './types';
 import { defaultValue, DEFAULT_GREY_COLOR } from './utils';
 
@@ -43,24 +43,24 @@ export function buildLegend(options: ChartOptions) {
             boxWidth: 20,
             boxHeight: defaultValue(options?.legend?.boxStyle, 'rect') === 'rect' ? 16 : 0,
             filter: (item) => {
-                /* eslint-disable no-param-reassign */
+                 
                 const text = options?.legend?.labels?.text;
-                if (text) {
-                    const index =
-                        typeof (item as any).index === 'number' // eslint-disable-line @typescript-eslint/no-explicit-any
-                            ? (item as any).index // eslint-disable-line @typescript-eslint/no-explicit-any
-                            : item.datasetIndex;
-                    item.text = text(index);
-                }
-                item.text = assureMaxLength(item.text, LEGEND_MAX_LENGTH);
-                if (options?.legend?.boxStyle === 'dash') {
-                    item.lineWidth = 1;
-                    item.lineDash = [4, 2];
-                } else if (options?.legend?.boxStyle === 'rect') {
-                    item.borderRadius = 3;
-                }
-                return true;
-                /* eslint-enable no-param-reassign */
+								if (text) {
+									const index =
+										typeof (item as any).index === 'number' // eslint-disable-line @typescript-eslint/no-explicit-any
+											? (item as any).index // eslint-disable-line @typescript-eslint/no-explicit-any
+											: item.datasetIndex;
+									item.text = text(index);
+								}
+								item.text = assureMaxLength(item.text, LEGEND_MAX_LENGTH);
+								if (options?.legend?.boxStyle === 'dash') {
+									item.lineWidth = 1;
+									item.lineDash = [4, 2];
+								} else if (options?.legend?.boxStyle === 'rect') {
+									item.borderRadius = 3;
+								}
+								return true;
+                 
             },
         },
     };
