@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.28.0-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.27.0...@opendatasoft/visualizations@0.28.0-beta.0) (2025-01-06)
+
+
+### Features
+
+* add pointer for layers with clickable features ([a03e99d](https://github.com/opendatasoft/ods-dataviz-sdk/commit/a03e99d7d819866b9a30779e59e7813ed889f274))
+
+
+### Reverts
+
+* Revert "feat: add onFeatureClick callback to map" ([5a05f76](https://github.com/opendatasoft/ods-dataviz-sdk/commit/5a05f76a0e716be8cc7f01fe0b620acdc25f552e))
+* Revert "feat: add onFeatureClick callback to map" ([b88936c](https://github.com/opendatasoft/ods-dataviz-sdk/commit/b88936c0a462bdbe4320304f476a55bae198a926))
+
+
+
+
+
 ## [0.27.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.27.0...@opendatasoft/visualizations@0.27.1) (2024-12-09)
 
 **Note:** Version bump only for package @opendatasoft/visualizations
