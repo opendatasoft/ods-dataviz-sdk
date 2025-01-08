@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.27.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.27.0...@opendatasoft/visualizations@0.27.2) (2025-01-08)
+
+
+### Reverts
+
+* Revert "feat: add onFeatureClick callback to map" ([5a05f76](https://github.com/opendatasoft/ods-dataviz-sdk/commit/5a05f76a0e716be8cc7f01fe0b620acdc25f552e))
+* Revert "feat: add onFeatureClick callback to map" ([b88936c](https://github.com/opendatasoft/ods-dataviz-sdk/commit/b88936c0a462bdbe4320304f476a55bae198a926))
+
+
+
+
+
 ## [0.27.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.27.0...@opendatasoft/visualizations@0.27.1) (2024-12-09)
 
 **Note:** Version bump only for package @opendatasoft/visualizations
