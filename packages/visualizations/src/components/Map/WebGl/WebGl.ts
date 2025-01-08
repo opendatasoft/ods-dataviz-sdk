@@ -209,14 +209,16 @@ export default class MapPOI {
 
     /**
      * Event handler for mousemove event.
-     * Show a pointer cursor if hovering a feature with a popup configuration
+     * Show a pointer cursor if hovering a feature with a popup configuration on an onClick callback
      */
     private onMouseMove({ point }: MapMouseEvent) {
         this.queue((map) => {
             const canvas = map.getCanvas();
-            const features = map.queryRenderedFeatures(point, {
-                layers: Object.keys(this.popupConfigurationByLayers),
-            });
+            const layers = [
+                ...Object.keys(this.popupConfigurationByLayers),
+                ...(this.onFeatureClick?.layers || []),
+            ];
+            const features = map.queryRenderedFeatures(point, { layers });
             canvas.style.cursor = features.length ? CURSOR.HOVER : CURSOR.DEFAULT;
         });
     }
@@ -560,19 +562,6 @@ export default class MapPOI {
                     layers: [...this.baseStyle.layers, ...layers],
                 });
             }
-
-            layers.forEach((layer) => {
-                if (this.onFeatureClick || layer.id in this.popupConfigurationByLayers) {
-                    map.on('mouseenter', layer.id, () => {
-                        /* eslint-disable-next-line no-param-reassign */
-                        map.getCanvas().style.cursor = 'pointer';
-                    });
-                    map.on('mouseleave', layer.id, () => {
-                        /* eslint-disable-next-line no-param-reassign */
-                        map.getCanvas().style.cursor = '';
-                    });
-                }
-            });
         });
     }
 
