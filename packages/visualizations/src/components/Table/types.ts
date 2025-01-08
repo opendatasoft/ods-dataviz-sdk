@@ -1,5 +1,4 @@
 import type { Async, DataFrame, Source } from 'types';
-import type { WebGlMapData } from 'components/Map';
 import type {
     BooleanFormatProps,
     DateFormatProps,
@@ -46,23 +45,13 @@ export type FormatPropsTypeMap = {
     [DATA_FORMAT.url]: URLFormatProps;
 };
 
-export type ReturnTypeMap = {
-    [DATA_FORMAT.boolean]: boolean;
-    [DATA_FORMAT.date]: string;
-    [DATA_FORMAT.geo]: WebGlMapData;
-    [DATA_FORMAT.shortText]: string;
-    [DATA_FORMAT.longText]: string;
-    [DATA_FORMAT.number]: number;
-    [DATA_FORMAT.url]: string;
-};
-
 /** Columns have to be typed with the record type if using an accessor.
  * They can also be used without a record, nor accessor
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ColumnOfType<F extends DataFormat, R = any> = BaseColumn & {
     dataFormat: F;
-    accessor?: (r: R) => ReturnTypeMap[F];
+    accessor?: (r: R) => FormatPropsTypeMap[F]['value'];
     options?: ValueOrAccessor<Omit<FormatPropsTypeMap[F], 'value'>, R>;
 };
 

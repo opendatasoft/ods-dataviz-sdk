@@ -63,7 +63,7 @@ export const columns: Column<DatasetRecord>[] = [
         key: 'wordCount',
         dataFormat: 'number',
         options: {
-            valueToLabel: (v: number) => `${v} words`,
+            valueToLabel: (v: string) => `${v} words`,
         },
     },
     {

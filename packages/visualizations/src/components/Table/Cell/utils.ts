@@ -1,4 +1,4 @@
-import type { DataFormat, ColumnOfType, ReturnTypeMap, FormatPropsTypeMap } from '../types';
+import type { DataFormat, ColumnOfType, FormatPropsTypeMap } from '../types';
 
 export function isColumnOfType<K extends DataFormat>(
     column: ColumnOfType<DataFormat>,
@@ -21,7 +21,7 @@ export const getOptions = <K extends DataFormat>(
 export const getValue = <K extends DataFormat>(
     column: ColumnOfType<K>,
     record: Record<string, unknown>
-): ReturnTypeMap[K] => {
+): FormatPropsTypeMap[K]['value'] => {
     const { accessor } = column;
-    return accessor ? accessor(record) : (record[column.key] as ReturnTypeMap[K]);
+    return accessor ? accessor(record) : (record[column.key] as FormatPropsTypeMap[K]['value']);
 };

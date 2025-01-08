@@ -12,14 +12,14 @@
 
     $: format = (v: number) => {
         if (Number.isFinite(v)) {
-            if (debugWarnings) {
-                warn(v, 'number');
-            }
             const intlValue = new Intl.NumberFormat(locale, intl).format(v);
             if (valueToLabel) {
                 return valueToLabel(intlValue);
             }
             return intlValue;
+        }
+        if (debugWarnings) {
+            warn(v, 'number');
         }
         return v;
     };
