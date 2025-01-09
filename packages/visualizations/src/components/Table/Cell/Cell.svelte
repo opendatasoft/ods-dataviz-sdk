@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { isNil } from 'lodash';
     import { isValidRawValue } from 'components/Format';
     import BooleanFormat from 'components/Format/BooleanFormat.svelte';
     import DateFormat from 'components/Format/DateFormat.svelte';
@@ -11,18 +10,17 @@
     import { DATA_FORMAT } from '../constants';
     import { isHorizontallyScrolled, locale, stickyColumnsOffset } from '../store';
     import type { Column } from '../types';
-    import { isColumnOfType, getStickyClasses } from '../utils';
+    import { isColumnOfType, getStickyClasses, getStickyOffset } from '../utils';
 
     export let rawValue: unknown;
     export let column: Column;
 
     $: ({ dataFormat } = column);
-    $: offset = $stickyColumnsOffset.get(column.key);
 </script>
 
 <!-- To display a format value, rawValue must be different from undefined or null -->
 <td
-    style={isNil(offset) ? '' : `--sticky-offset: ${offset}px;`}
+    style={getStickyOffset($stickyColumnsOffset.get(column.key))}
     class={getStickyClasses(column, $isHorizontallyScrolled)}
 >
     <div class={`table-data--${dataFormat}`}>

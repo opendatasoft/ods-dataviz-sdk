@@ -1,14 +1,20 @@
 <script lang="ts">
-    import type { Column, DataFormat } from '../types';
+    import type { Column } from '../types';
     import { stickyColumnsWidth, stickyColumnsOffset, isHorizontallyScrolled } from '../store';
-    import { getStickyClasses } from '../utils';
+    import { getStickyClasses, getStickyOffset } from '../utils';
     import SortButton from './SortButton.svelte';
 
     export let column: Column;
-    export let dataFormat: DataFormat;
 
+    let thElement: HTMLElement;
     let clientWidth: number;
-
+    /* bind:clientWidth adds a position: relative intermettently which messes up positon: sticky
+        https://github.com/sveltejs/svelte/issues/4776
+        if columns change width after render at some point, we'll need Resize observer or Svelte 5
+    */
+    $: if (thElement) {
+        clientWidth = thElement.clientWidth;
+    }
     // Only updates columns that have been initialized after a reset in Table.svelte
     $: if ($stickyColumnsWidth.has(column.key)) {
         stickyColumnsWidth.updateColumn(column.key, clientWidth);
@@ -16,9 +22,12 @@
 </script>
 
 <th
-    style={`--sticky-offset: ${$stickyColumnsOffset.get(column.key)}px`}
-    class={`table-header--${dataFormat} ${getStickyClasses(column, $isHorizontallyScrolled)}`}
-    bind:clientWidth
+    bind:this={thElement}
+    style={getStickyOffset($stickyColumnsOffset.get(column.key))}
+    class={`table-header--${column.dataFormat} ${getStickyClasses(
+        column,
+        $isHorizontallyScrolled
+    )}`}
 >
     {#if column.onClick}
         <SortButton sorted={column?.sorted} on:click={column.onClick} labels={column.sortLabels}>

@@ -12,7 +12,7 @@
             <th />
         {/if}
         {#each columns as column (column.key)}
-            <Th {column} dataFormat={column.dataFormat} />
+            <Th {column} />
         {/each}
     </tr>
 </thead>

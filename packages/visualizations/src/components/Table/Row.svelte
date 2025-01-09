@@ -52,7 +52,7 @@
 </tr>
 
 <style>
-    :global(.ods-dataviz--default tr:last-child) {
+    :global(.ods-dataviz--default tr:last-child td) {
         border-bottom: none;
     }
 
