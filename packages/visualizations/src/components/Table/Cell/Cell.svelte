@@ -23,7 +23,7 @@
     style={getStickyOffset($stickyColumnsOffset.get(column.key))}
     class={getStickyClasses(column, $isHorizontallyScrolled)}
 >
-    <div class={`table-data--${dataFormat}`}>
+    <div class={`cell-content table-data--${dataFormat}`}>
         {#if isValidRawValue(rawValue)}
             {#if isColumnOfType(column, DATA_FORMAT.boolean)}
                 <BooleanFormat {rawValue} {...column.options} />
@@ -79,7 +79,7 @@
 
     /* Wrapper div to allow position: relative while the <td> has sticky,
         so that the ::after can have position: absolute */
-    div {
+    :global(.ods-dataviz--default .cell-content) {
         position: relative;
         padding: var(--spacing-75);
         overflow: visible;
