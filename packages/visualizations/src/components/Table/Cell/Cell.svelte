@@ -31,7 +31,9 @@
         {:else if isColumnOfType(column, DATA_FORMAT.shortText)}
             <TextFormat value={getValue(column, record)} {...getOptions(column, record)} />
         {:else if isColumnOfType(column, DATA_FORMAT.longText)}
-            <TextFormat value={getValue(column, record)} {...getOptions(column, record)} />
+            <span>
+                <TextFormat value={getValue(column, record)} {...getOptions(column, record)} />
+            </span>
         {:else if isColumnOfType(column, DATA_FORMAT.number)}
             <NumberFormat
                 value={getValue(column, record)}

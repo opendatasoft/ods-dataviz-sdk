@@ -19,5 +19,4 @@
     };
 </script>
 
-<!-- Wrap value to style properly line clamp -->
-<span>{format(value)}</span>
+{format(value)}

@@ -11,8 +11,8 @@
     export let data: $$Props['data'];
     export let options: $$Props['options'];
 
-    const addWarnings = (columns: Column[], debugWarnings = false): Column[] =>
-        debugWarnings ? columns.map((col) => ({ ...col, debugWarnings: true })) : columns;
+    const addWarnings = (columns: Column[]): Column[] =>
+        columns.map((col) => ({ ...col, debugWarnings: true }));
 
     $: ({ value: records, loading: isLoading } = data);
 
