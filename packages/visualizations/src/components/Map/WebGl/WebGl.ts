@@ -36,6 +36,7 @@ import type {
     CenterZoomOptions,
     PopupDisplayTypes,
     Images,
+    OnFeatureClick,
 } from './types';
 
 const CURSOR = {
@@ -105,6 +106,9 @@ export default class MapPOI {
 
     /** An array of functions to be executed when the map is ready. */
     private queuedFunctions: Array<MapFunction> = [];
+
+    /** Additional custom click handler */
+    private onFeatureClick: OnFeatureClick | null = null;
 
     /** To queue functions that depend on map readiness. Will be executed when the card is ready. */
     private queue(fn: MapFunction) {
@@ -205,14 +209,16 @@ export default class MapPOI {
 
     /**
      * Event handler for mousemove event.
-     * Show a pointer cursor if hovering a feature with a popup configuration
+     * Show a pointer cursor if hovering a feature with a popup configuration on an onClick callback
      */
     private onMouseMove({ point }: MapMouseEvent) {
         this.queue((map) => {
             const canvas = map.getCanvas();
-            const features = map.queryRenderedFeatures(point, {
-                layers: Object.keys(this.popupConfigurationByLayers),
-            });
+            const layers = [
+                ...Object.keys(this.popupConfigurationByLayers),
+                ...(this.onFeatureClick?.layers || []),
+            ];
+            const features = map.queryRenderedFeatures(point, { layers });
             canvas.style.cursor = features.length ? CURSOR.HOVER : CURSOR.DEFAULT;
         });
     }
@@ -240,6 +246,9 @@ export default class MapPOI {
     private onMapClick({ point }: MapLayerMouseEvent) {
         this.queue((map) => {
             this.handlePopupAfterMapClick(map, point);
+            if (this?.onFeatureClick) {
+                this.handleCustomFeatureClick(map, point, this.onFeatureClick);
+            }
         });
     }
 
@@ -392,6 +401,20 @@ export default class MapPOI {
         });
     }
 
+    private handleCustomFeatureClick(
+        map: Map,
+        point: MapMouseEvent['point'],
+        onFeatureClick: OnFeatureClick
+    ) {
+        /*
+         * Get features close to the click area.
+         * We ask for features that are not in base style layers and for which a popup config is defined.
+         */
+        const { callback, layers } = onFeatureClick;
+        const features = map.queryRenderedFeatures(point, { layers });
+        return callback(features);
+    }
+
     /**
      * Is triggered when a click has been made on the map.
      * Is responsible for opening and closing the popup.
@@ -409,7 +432,7 @@ export default class MapPOI {
      */
     private handlePopupAfterMapClick(map: Map, point: MapMouseEvent['point']) {
         /*
-         * Get features closed to the click area.
+         * Get features close to the click area.
          * We ask for features that are not in base style layers and for which a popup config is defined.
          */
         const features = map.queryRenderedFeatures(point, {
@@ -490,7 +513,6 @@ export default class MapPOI {
         options: Omit<MapOptions, 'style' | 'container'>
     ) {
         this.map = new MaplibreGl.Map({ style, container, ...options });
-
         this.queue((map) => this.initializeMapResizer(map, container));
         this.queue((map) => this.initializeCursorBehavior(map));
 
@@ -571,6 +593,12 @@ export default class MapPOI {
                 padding: 40,
             });
         });
+    }
+
+    updateClickHandler(handler?: OnFeatureClick) {
+        if (handler) {
+            this.onFeatureClick = handler;
+        }
     }
 
     /**
