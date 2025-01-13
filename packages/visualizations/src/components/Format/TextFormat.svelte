@@ -9,11 +9,11 @@
     export let debugWarnings = false;
 
     $: format = (v: unknown) => {
+        if (typeof v !== 'string' && debugWarnings) {
+            warn(v, 'text');
+        }
         if (typeof v === 'string' && valueToLabel) {
             return valueToLabel(v as string);
-        }
-        if (debugWarnings) {
-            warn(v, 'text');
         }
         return v;
     };

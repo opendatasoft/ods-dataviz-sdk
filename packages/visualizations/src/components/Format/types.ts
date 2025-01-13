@@ -3,6 +3,7 @@ import type { WebGlMapOptions, WebGlMapData } from 'components/Map';
 export type BooleanFormatProps = {
     value: boolean;
     valueToLabel?: (v: boolean) => string;
+    debugWarnings?: boolean;
 };
 
 export type DateFormatProps = {
@@ -10,12 +11,14 @@ export type DateFormatProps = {
     valueToLabel?: (v: string) => string;
     intl?: Intl.DateTimeFormatOptions;
     locale?: string;
+    debugWarnings?: boolean;
 };
 
 export type GeoFormatProps = {
     value: WebGlMapData;
     valueToLabel?: (v: WebGlMapData) => string;
     mapOptions?: WebGlMapOptions;
+    debugWarnings?: boolean;
 };
 
 export type NumberFormatProps = {
@@ -23,11 +26,13 @@ export type NumberFormatProps = {
     valueToLabel?: (v: string) => string;
     intl?: Intl.NumberFormatOptions;
     locale?: string;
+    debugWarnings?: boolean;
 };
 
 export type TextFormatProps = {
     value: string;
     valueToLabel?: (v: string) => string;
+    debugWarnings?: boolean;
 };
 
 export type URLFormatProps = {
@@ -35,4 +40,5 @@ export type URLFormatProps = {
     valueToLabel?: (v: string) => string;
     target?: HTMLAnchorElement['target'];
     rel?: HTMLAnchorElement['rel'];
+    debugWarnings?: boolean;
 };

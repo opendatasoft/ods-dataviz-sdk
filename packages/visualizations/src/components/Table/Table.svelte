@@ -11,6 +11,7 @@
     export let description: string | undefined;
     export let emptyStateLabel: string | undefined;
     export let rowProps: RowProps | undefined;
+
     const tableId = `table-${generateId()}`;
 </script>
 

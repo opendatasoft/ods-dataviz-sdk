@@ -7,7 +7,7 @@
     import NumberFormat from 'components/Format/NumberFormat.svelte';
     import URLFormat from 'components/Format/URLFormat.svelte';
     import { DATA_FORMAT } from '../constants';
-    import { locale } from '../store';
+    import { locale, debugWarnings } from '../store';
     import type { Column } from '../types';
     import { isColumnOfType, getOptions, getValue } from './utils';
 
@@ -19,29 +19,47 @@
 <td class={`table-data--${column.dataFormat}`}>
     {#if isValidValue(getValue(column, record))}
         {#if isColumnOfType(column, DATA_FORMAT.boolean)}
-            <BooleanFormat value={getValue(column, record)} {...getOptions(column, record)} />
+            <BooleanFormat
+                value={getValue(column, record)}
+                {...getOptions(column, record)}
+                debugWarnings={$debugWarnings}
+            />
         {:else if isColumnOfType(column, DATA_FORMAT.date)}
             <DateFormat
                 value={getValue(column, record)}
                 {...getOptions(column, record)}
                 locale={$locale}
+                debugWarnings={$debugWarnings}
             />
         {:else if isColumnOfType(column, DATA_FORMAT.geo)}
             <GeoFormat value={getValue(column, record)} {...getOptions(column, record)} />
         {:else if isColumnOfType(column, DATA_FORMAT.shortText)}
-            <TextFormat value={getValue(column, record)} {...getOptions(column, record)} />
+            <TextFormat
+                value={getValue(column, record)}
+                {...getOptions(column, record)}
+                debugWarnings={$debugWarnings}
+            />
         {:else if isColumnOfType(column, DATA_FORMAT.longText)}
             <span>
-                <TextFormat value={getValue(column, record)} {...getOptions(column, record)} />
+                <TextFormat
+                    value={getValue(column, record)}
+                    {...getOptions(column, record)}
+                    debugWarnings={$debugWarnings}
+                />
             </span>
         {:else if isColumnOfType(column, DATA_FORMAT.number)}
             <NumberFormat
                 value={getValue(column, record)}
                 {...getOptions(column, record)}
                 locale={$locale}
+                debugWarnings={$debugWarnings}
             />
         {:else if isColumnOfType(column, DATA_FORMAT.url)}
-            <URLFormat value={getValue(column, record)} {...getOptions(column, record)} />
+            <URLFormat
+                value={getValue(column, record)}
+                {...getOptions(column, record)}
+                debugWarnings={$debugWarnings}
+            />
         {/if}
     {/if}
 </td>
