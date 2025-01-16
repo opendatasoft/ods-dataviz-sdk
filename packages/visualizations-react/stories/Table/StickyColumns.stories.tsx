@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import type { TableData, Async } from '@opendatasoft/visualizations';
 import { Table } from '../../src';
@@ -19,14 +19,22 @@ const data: Async<TableData> = {
 const Template: ComponentStory<typeof Table> = args => {
     const { data: templateData, options: templateOptions } = args;
     const { columns } = templateOptions;
-    const [stickyColumns, setColumns] = useState(columns);
-    
+    const initialStickyCols = columns.map((col, i) => (i < 2 ? { ...col, sticky: true } : col));
+    const [stickyColumns, setColumns] = useState(initialStickyCols);
+
     const handleStickyToggle = (columnKey: string) => {
-        setColumns(prev => prev.map(col => col.key === columnKey 
-              ? { ...col, sticky: !col.sticky }
-              : col)
+        setColumns(prev =>
+            prev.map(col => (col.key === columnKey ? { ...col, sticky: !col.sticky } : col))
         );
     };
+
+    // sets an initial scroll for the snapshot
+    useEffect(() => {
+        const scrollBox = document.querySelector('.scrollbox');
+        if (scrollBox) {
+            scrollBox.scrollLeft = 200;
+        }
+    });
 
     return (
         <>
@@ -48,7 +56,7 @@ const Template: ComponentStory<typeof Table> = args => {
             <Table data={templateData} options={{ ...templateOptions, columns: stickyColumns }} />
         </>
     );
-    };
+};
 
 export const StickyColumns = Template.bind({});
 StickyColumns.args = {

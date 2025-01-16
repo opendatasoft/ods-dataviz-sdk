@@ -8,3 +8,5 @@ export const DATA_FORMAT = {
     url: 'url',
     geo: 'geo',
 } as const;
+
+export const HOVER_COLUMN_KEY = Symbol('hover column');

@@ -5,6 +5,7 @@
     import Headers from './Headers';
     import Body from './Body.svelte';
     import { stickyColumnsWidth, isHorizontallyScrolled } from './store';
+    import { HOVER_COLUMN_KEY } from './constants';
 
     export let loadingRowsNumber: number | null;
     export let columns: Column[];
@@ -25,7 +26,6 @@
 
     // resets scroll when changing columns parameters
     $: if (columns && scrollBox) {
-        scrollBox.scrollLeft = 0;
         sortedStickyColumns = [...columns].sort((colA, colB) => {
             if (Boolean(colA?.sticky) === Boolean(colB?.sticky)) {
                 return 0;
@@ -33,6 +33,9 @@
             return colA?.sticky ? -1 : 1;
         });
         stickyColumnsWidth.reset();
+        if (rowProps) {
+            stickyColumnsWidth.updateColumn(HOVER_COLUMN_KEY, 0);
+        }
         sortedStickyColumns.forEach((col) => {
             if (col?.sticky) {
                 stickyColumnsWidth.updateColumn(col.key, 0);

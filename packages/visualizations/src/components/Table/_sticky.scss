@@ -5,11 +5,16 @@
 
 .sticky:dir(ltr) {
     left: var(--sticky-offset);
+}
+
+.sticky:not(.button-cell):dir(ltr) {
     border-right: 1px solid var(--border-color);
 }
 
 .sticky:dir(rtl) {
     right: var(--sticky-offset);
+}
+.sticky:not(.button-cell):dir(rtl) {
     border-left: 1px solid var(--border-color);
 }
 

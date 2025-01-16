@@ -9,7 +9,7 @@
 <thead>
     <tr>
         {#if extraButtonColumn}
-            <th />
+            <Th />
         {/if}
         {#each columns as column (column.key)}
             <Th {column} />
