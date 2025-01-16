@@ -18,9 +18,7 @@
             }
             return intlValue;
         }
-        if (debugWarnings) {
-            warn(v, 'number');
-        }
+        warn(v, 'number', debugWarnings);
         return v;
     };
 </script>

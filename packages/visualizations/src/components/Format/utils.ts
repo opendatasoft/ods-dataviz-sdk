@@ -2,7 +2,11 @@ export function isValidValue(value: unknown): boolean {
     return value !== undefined && value !== null;
 }
 
-export function warn(value: unknown, format: string) {
+export function warn(value: unknown, format: string, debugWarnings = false) {
+    if (!debugWarnings) {
+        return;
+    }
+
     switch (format) {
         case 'url':
             // eslint-disable-next-line no-console

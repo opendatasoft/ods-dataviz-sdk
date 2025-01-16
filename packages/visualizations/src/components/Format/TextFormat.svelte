@@ -9,9 +9,7 @@
     export let debugWarnings = false;
 
     $: format = (v: unknown) => {
-        if (typeof v !== 'string' && debugWarnings) {
-            warn(v, 'text');
-        }
+        warn(v, 'text', debugWarnings);
         if (typeof v === 'string' && valueToLabel) {
             return valueToLabel(v as string);
         }

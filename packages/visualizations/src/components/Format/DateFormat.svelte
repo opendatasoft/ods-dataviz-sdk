@@ -21,9 +21,7 @@
             }
             return intlValue;
         }
-        if (debugWarnings) {
-            warn(v, 'date');
-        }
+        warn(v, 'date', debugWarnings);
         return v;
     };
 </script>

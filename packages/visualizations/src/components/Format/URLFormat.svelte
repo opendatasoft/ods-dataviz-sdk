@@ -19,9 +19,7 @@
             };
         }
 
-        if (debugWarnings) {
-            warn(v, 'url');
-        }
+        warn(v, 'url', debugWarnings);
         return { text: null, href: null };
     };
 

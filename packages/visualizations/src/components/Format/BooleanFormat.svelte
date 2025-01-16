@@ -12,9 +12,7 @@
         if (typeof v === 'boolean' && valueToLabel) {
             return valueToLabel(v as boolean);
         }
-        if (debugWarnings) {
-            warn(v, 'boolean');
-        }
+        warn(v, 'boolean', debugWarnings);
         return v;
         // Currently we return the raw value until we have alternative renders
     };
