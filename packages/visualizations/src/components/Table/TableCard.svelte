@@ -1,7 +1,7 @@
 <script lang="ts">
     import Pagination from 'components/Pagination/Pagination.svelte';
     import Card from 'components/utils/Card.svelte';
-    import type { TableProps, Column } from './types';
+    import type { TableProps } from './types';
     import Table from './Table.svelte';
     import { locale, debugWarnings } from './store';
 
@@ -10,9 +10,6 @@
 
     export let data: $$Props['data'];
     export let options: $$Props['options'];
-
-    const addWarnings = (columns: Column[], debugWarnings = false): Column[] =>
-        debugWarnings ? columns.map((col) => ({ ...col, debugWarnings: true })) : columns;
 
     $: ({ value: records, loading: isLoading } = data);
 

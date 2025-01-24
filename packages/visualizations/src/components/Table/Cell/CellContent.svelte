@@ -6,6 +6,7 @@
     import TextFormat from 'components/Format/TextFormat.svelte';
     import NumberFormat from 'components/Format/NumberFormat.svelte';
     import URLFormat from 'components/Format/URLFormat.svelte';
+    import ImageFormat from 'components/Format/ImageFormat.svelte';
     import { DATA_FORMAT } from '../constants';
     import { locale, debugWarnings } from '../store';
     import type { Column } from '../types';
@@ -51,6 +52,12 @@
                 value={getValue(column, record)}
                 {...getOptions(column, record)}
                 locale={$locale}
+                debugWarnings={$debugWarnings}
+            />
+        {:else if isColumnOfType(column, DATA_FORMAT.image)}
+            <ImageFormat
+                value={getValue(column, record)}
+                {...getOptions(column, record)}
                 debugWarnings={$debugWarnings}
             />
         {:else if isColumnOfType(column, DATA_FORMAT.url)}

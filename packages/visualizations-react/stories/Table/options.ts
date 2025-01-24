@@ -12,6 +12,11 @@ export type DatasetRecord = {
     geopoint: [number, number];
     region: string;
     geoshape: string;
+    image: {
+        thumbnail: boolean;
+        url: string;
+        filename: string;
+    };
 };
 
 export const columns: Column<DatasetRecord>[] = [
@@ -88,14 +93,12 @@ export const columns: Column<DatasetRecord>[] = [
     {
         title: 'Image',
         key: 'image',
-        dataFormat: 'url',
+        dataFormat: 'image',
         options: r => ({
-            value: r.url,
-            valueToLabel: v.filename,
-            alt: v.filename,
-            tooltip: v.thumbnail && v.url,
-        })
-        },
+            value: r.image.url,
+            valueToLabel: () => r.image.filename,
+            alt: r.image.filename,
+        }),
     },
     {
         title: 'Geo point',

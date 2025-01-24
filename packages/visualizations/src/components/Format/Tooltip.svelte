@@ -12,6 +12,7 @@
 {#if enabled}
     <div
         role="button"
+        class={className}
         tabindex="0"
         use:tippy={{
             content: tooltipContent,

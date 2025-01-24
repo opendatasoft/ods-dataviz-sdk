@@ -28,6 +28,7 @@ export default [
         region: 'Centre Val de Loire',
         geoshape:
             'https://france-geojson.gregoiredavid.fr/repo/regions/centre-val-de-loire/region-centre-val-de-loire.geojson',
+        image,
     },
     {
         title: 'pellentesque nec blog post',
@@ -43,6 +44,7 @@ export default [
         region: 'Bretagne',
         geoshape:
             'https://france-geojson.gregoiredavid.fr/repo/regions/bretagne/region-bretagne.geojson',
+        image,
     },
     {
         title: 'fusce sit amet blog post',
@@ -58,6 +60,7 @@ export default [
         region: 'Nouvelle Aquitaine',
         geoshape:
             'https://france-geojson.gregoiredavid.fr/repo/regions/nouvelle-aquitaine/region-nouvelle-aquitaine.geojson',
+        image,
     },
     {
         title: 'vestibulum nec blog post',
@@ -72,6 +75,7 @@ export default [
         region: 'Occitanie',
         geoshape:
             'https://france-geojson.gregoiredavid.fr/repo/regions/occitanie/region-occitanie.geojson',
+        image,
     },
     {
         title: 'Cras At Blog Post',
@@ -87,6 +91,7 @@ export default [
         region: 'PACA',
         geoshape:
             'https://france-geojson.gregoiredavid.fr/repo/regions/provence-alpes-cote-d-azur/region-provence-alpes-cote-d-azur.geojson',
+        image,
     },
     {
         title: 'Quisque A Blog Post',
@@ -102,6 +107,7 @@ export default [
         region: 'Auvergnes Rhône-Alpes',
         geoshape:
             'https://france-geojson.gregoiredavid.fr/repo/regions/auvergne-rhone-alpes/region-auvergne-rhone-alpes.geojson',
+        image,
     },
     {
         title: 'Ut Vitae Blog Post',
@@ -117,6 +123,7 @@ export default [
         region: 'Bourgogne Franche-Comté',
         geoshape:
             'https://france-geojson.gregoiredavid.fr/repo/regions/bourgogne-franche-comte/region-bourgogne-franche-comte.geojson',
+        image,
     },
     {
         title: 'Integer Id Blog Post',
@@ -132,6 +139,7 @@ export default [
         region: 'Grand Est',
         geoshape:
             'https://france-geojson.gregoiredavid.fr/repo/regions/grand-est/region-grand-est.geojson',
+        image,
     },
     {
         title: 'Undefined row',

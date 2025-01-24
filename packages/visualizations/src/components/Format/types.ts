@@ -44,7 +44,10 @@ export type URLFormatProps = {
 };
 
 export type ImageFormatProps = {
-    value: unknown;
-    valueToLabel?: (v: unknown) => string;
-    alt?: (v: unknown) => string;
+    value: string;
+    valueToLabel?: (v: string) => string;
+    alt?: string;
+    target?: HTMLAnchorElement['target'];
+    rel?: HTMLAnchorElement['rel'];
+    debugWarnings?: boolean;
 };

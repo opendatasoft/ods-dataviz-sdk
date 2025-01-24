@@ -6,6 +6,7 @@ import type {
     TextFormatProps,
     NumberFormatProps,
     URLFormatProps,
+    ImageFormatProps,
 } from '../Format/types';
 import type { Pagination } from '../Pagination/types';
 import type { DATA_FORMAT } from './constants';
@@ -44,6 +45,7 @@ export type FormatPropsTypeMap = {
     [DATA_FORMAT.longText]: TextFormatProps;
     [DATA_FORMAT.number]: NumberFormatProps;
     [DATA_FORMAT.url]: URLFormatProps;
+    [DATA_FORMAT.image]: ImageFormatProps;
 };
 
 /** Columns have to be typed with the record type if using an accessor.
@@ -63,6 +65,7 @@ export type ShortTextColumn<R> = ColumnOfType<typeof DATA_FORMAT.shortText, R>;
 export type LongTextColumn<R> = ColumnOfType<typeof DATA_FORMAT.longText, R>;
 export type NumberColumn<R> = ColumnOfType<typeof DATA_FORMAT.number, R>;
 export type URLColumn<R> = ColumnOfType<typeof DATA_FORMAT.url, R>;
+export type ImageColumn<R> = ColumnOfType<typeof DATA_FORMAT.image, R>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Column<R = any> =
@@ -72,7 +75,8 @@ export type Column<R = any> =
     | ShortTextColumn<R>
     | LongTextColumn<R>
     | NumberColumn<R>
-    | URLColumn<R>;
+    | URLColumn<R>
+    | ImageColumn<R>;
 
 export type HoverEvent<T extends HTMLElement> = (MouseEvent | FocusEvent) & {
     currentTarget: EventTarget & T;
