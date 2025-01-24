@@ -3,6 +3,10 @@
 </td>
 
 <style>
+    td {
+        padding: var(--spacing-75);
+    }
+
     div {
         min-height: 21px;
         width: 100%;

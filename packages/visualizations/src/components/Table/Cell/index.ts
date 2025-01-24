@@ -1,4 +1,4 @@
-import Cell from './Cell.svelte';
+import Cell from './Td.svelte';
 import LoadingCell from './LoadingCell.svelte';
 
 export { LoadingCell };

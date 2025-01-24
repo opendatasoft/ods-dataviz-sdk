@@ -50,13 +50,16 @@ const RowHoverTemplate: ComponentStory<typeof Table> = args => {
 
     return (
         <>
-        <h3>Hovered</h3>
-        <pre>{JSON.stringify(hoveredRecord)}</pre>
-        <h3>Clicked</h3>
-        <pre>{JSON.stringify(lastClicked)}</pre>
-            <div style={{ maxWidth: '800px' }} className='design-system'>
-                <Table data={argData} options={{...argOptions, rowProps: { onClick, onMouseEnter, onMouseLeave}}}/>
-            </div>;
+            <h3>Hovered</h3>
+            <pre>{JSON.stringify(hoveredRecord)}</pre>
+            <h3>Clicked</h3>
+            <pre>{JSON.stringify(lastClicked)}</pre>
+            <div style={{ maxWidth: '800px' }} className="design-system">
+                <Table
+                    data={argData}
+                    options={{ ...argOptions, rowProps: { onClick, onMouseEnter, onMouseLeave } }}
+                />
+            </div>
         </>
     );
 };
