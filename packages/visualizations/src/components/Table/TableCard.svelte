@@ -3,7 +3,7 @@
     import Card from 'components/utils/Card.svelte';
     import type { TableProps } from './types';
     import Table from './Table.svelte';
-    import { locale } from './store';
+    import { locale, debugWarnings } from './store';
 
     // ensure exported type matches declared props
     type $$Props = TableProps;
@@ -24,8 +24,10 @@
         locale: localeOption,
         pagination,
         emptyStateLabel,
+        debugWarnings: debugOption = false,
     } = options);
     $: $locale = localeOption || navigator.language;
+    $: $debugWarnings = debugOption;
     $: defaultLoadingRowsNumber = pagination ? pagination.recordsPerPage : 5;
     $: loadingRowsNumber = isLoading ? defaultLoadingRowsNumber : null;
     /* Preserves paginations controls positioning
@@ -35,7 +37,7 @@
 
 <Card {title} {subtitle} {source} defaultStyle={!unstyled}>
     <div class="table-container">
-        <Table {loadingRowsNumber} {records} {columns} {description} {emptyStateLabel} {rowProps} />
+        <Table {columns} {loadingRowsNumber} {records} {description} {emptyStateLabel} {rowProps} />
         {#if pagination}
             <Pagination {...pagination} />
         {/if}

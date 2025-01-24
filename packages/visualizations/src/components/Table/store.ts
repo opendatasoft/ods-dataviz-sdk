@@ -5,6 +5,7 @@ import type { HOVER_COLUMN_KEY } from './constants';
 const defaultLocale = navigator.language;
 
 export const locale = writable<string>(defaultLocale);
+export const debugWarnings = writable<boolean>(false);
 
 const newOffsetMap = () => new Map<string | typeof HOVER_COLUMN_KEY, number>();
 

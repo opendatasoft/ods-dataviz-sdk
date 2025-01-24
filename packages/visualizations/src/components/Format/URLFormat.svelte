@@ -1,32 +1,33 @@
 <script lang="ts">
-    import ShortTextFormat from './ShortTextFormat.svelte';
-    import { isValidUrl } from './utils';
+    import TextFormat from './TextFormat.svelte';
+    import { isValidUrl, warn } from './utils';
     import type { URLFormatProps } from './types';
 
     type $$Props = URLFormatProps;
 
-    export let rawValue: $$Props['rawValue'];
-    export let display: $$Props['display'] = (v: string) => v;
+    export let value: $$Props['value'];
+    export let valueToLabel: $$Props['valueToLabel'] = (v: string) => v; // cannot be null because of TS/Svelte optional vs undefined
     export let target: $$Props['target'] = '_blank';
     export let rel: $$Props['rel'] = 'nofollow noreferrer noopener';
+    export let debugWarnings = false;
 
     $: format = (v: unknown) => {
         if (isValidUrl(v)) {
             return {
-                text: display && display(v),
+                text: valueToLabel ? valueToLabel(v) : v,
                 href: v,
             };
         }
-        // eslint-disable-next-line no-console
-        console.warn(`ODS Dataviz SDK - Table: no url detected in ${v}. Formatting as string.`);
+
+        warn(v, 'url', debugWarnings);
         return { text: null, href: null };
     };
 
-    $: ({ text, href } = format(rawValue));
+    $: ({ text, href } = format(value));
 </script>
 
 {#if text}
     <a {href} {rel} {target}>{text}</a>
 {:else}
-    <ShortTextFormat {rawValue} {display} />
+    <TextFormat {value} {valueToLabel} />
 {/if}

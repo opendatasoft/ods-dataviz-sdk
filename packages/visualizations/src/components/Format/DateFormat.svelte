@@ -4,10 +4,11 @@
 
     type $$Props = DateFormatProps;
 
-    export let rawValue: $$Props['rawValue'];
-    export let display: $$Props['display'] = (v: string) => v;
+    export let value: $$Props['value'];
+    export let valueToLabel: $$Props['valueToLabel'] | null = null;
     export let intl: $$Props['intl'] = {};
     export let locale = 'en-En';
+    export let debugWarnings = false;
 
     $: format = (v: unknown) => {
         if (
@@ -15,16 +16,14 @@
             !Number.isNaN(new Date(v).getTime())
         ) {
             const intlValue = Intl.DateTimeFormat(locale, intl).format(new Date(v));
-            if (display) {
-                return display(intlValue);
+            if (valueToLabel) {
+                return valueToLabel(intlValue);
             }
-            return v;
+            return intlValue;
         }
-        warn(v, 'date');
+        warn(v, 'date', debugWarnings);
         return v;
     };
-
-    $: value = format(rawValue);
 </script>
 
-{value}
+{format(value)}

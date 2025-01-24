@@ -1,5 +1,5 @@
-import Cell from './Td.svelte';
+import Td from './Td.svelte';
 import LoadingCell from './LoadingCell.svelte';
 
 export { LoadingCell };
-export default Cell;
+export default Td;

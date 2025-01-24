@@ -8,8 +8,10 @@ export default [
         wordCount: 1200,
         readingTime: 5.5,
         url: 'htt:broken-url',
-        geopoint: [2.357573,48.837904],
-        geoshape: 'centre-val-de-loire',
+        geopoint: [2.357573, 48.837904],
+        region: 'Centre Val de Loire',
+        geoshape:
+            'https://france-geojson.gregoiredavid.fr/repo/regions/centre-val-de-loire/region-centre-val-de-loire.geojson',
     },
     {
         title: 'pellentesque nec blog post',
@@ -21,8 +23,10 @@ export default [
         wordCount: 800,
         readingTime: 3.8,
         url: 'https://example.com/pellentesque-nec',
-        geopoint: [2.357573,48.837904],
-        geoshape: 'bretagne',
+        geopoint: [2.357573, 48.837904],
+        region: 'Bretagne',
+        geoshape:
+            'https://france-geojson.gregoiredavid.fr/repo/regions/bretagne/region-bretagne.geojson',
     },
     {
         title: 'fusce sit amet blog post',
@@ -34,8 +38,10 @@ export default [
         wordCount: 1500,
         readingTime: 7.2,
         url: 'https://example.com/fusce-sit-amet',
-        geopoint: [2.357573,48.837904],
-        geoshape: 'nouvelle-aquitaine',
+        geopoint: [2.357573, 48.837904],
+        region: 'Nouvelle Aquitaine',
+        geoshape:
+            'https://france-geojson.gregoiredavid.fr/repo/regions/nouvelle-aquitaine/region-nouvelle-aquitaine.geojson',
     },
     {
         title: 'vestibulum nec blog post',
@@ -46,8 +52,10 @@ export default [
         wordCount: 1000,
         readingTime: 4.5,
         url: 'https://example.com/vestibulum-nec',
-        geopoint: [2.357573,48.837904],
-        geoshape: 'occitanie',
+        geopoint: [2.357573, 48.837904],
+        region: 'Occitanie',
+        geoshape:
+            'https://france-geojson.gregoiredavid.fr/repo/regions/occitanie/region-occitanie.geojson',
     },
     {
         title: 'Cras At Blog Post',
@@ -59,8 +67,10 @@ export default [
         wordCount: 1300,
         readingTime: 6.0,
         url: 'https://example.com/cras-at',
-        geopoint: [2.357573,48.837904],
-        geoshape: 'provence-alpes-cote-d-azur',
+        geopoint: [2.357573, 48.837904],
+        region: 'PACA',
+        geoshape:
+            'https://france-geojson.gregoiredavid.fr/repo/regions/provence-alpes-cote-d-azur/region-provence-alpes-cote-d-azur.geojson',
     },
     {
         title: 'Quisque A Blog Post',
@@ -72,8 +82,10 @@ export default [
         wordCount: 900,
         readingTime: 4.0,
         url: 'https://example.com/quisque-a',
-        geopoint: [2.357573,48.837904],
-        geoshape: 'auvergne-rhone-alpes',
+        geopoint: [2.357573, 48.837904],
+        region: 'Auvergnes Rhône-Alpes',
+        geoshape:
+            'https://france-geojson.gregoiredavid.fr/repo/regions/auvergne-rhone-alpes/region-auvergne-rhone-alpes.geojson',
     },
     {
         title: 'Ut Vitae Blog Post',
@@ -85,8 +97,10 @@ export default [
         wordCount: 1100,
         readingTime: 5.0,
         url: 'https://example.com/ut-vitae',
-        geopoint: [2.357573,48.837904],
-        geoshape: 'bourgogne-franche-comte',
+        geopoint: [2.357573, 48.837904],
+        region: 'Bourgogne Franche-Comté',
+        geoshape:
+            'https://france-geojson.gregoiredavid.fr/repo/regions/bourgogne-franche-comte/region-bourgogne-franche-comte.geojson',
     },
     {
         title: 'Integer Id Blog Post',
@@ -98,8 +112,10 @@ export default [
         wordCount: 950,
         readingTime: 4.2,
         url: 'https://example.com/integer-id',
-        geopoint: [2.357573,48.837904],
-        geoshape: 'grand-est',
+        geopoint: [2.357573, 48.837904],
+        region: 'Grand Est',
+        geoshape:
+            'https://france-geojson.gregoiredavid.fr/repo/regions/grand-est/region-grand-est.geojson',
     },
     {
         title: 'Undefined row',

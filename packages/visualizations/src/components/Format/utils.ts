@@ -1,10 +1,23 @@
-export function isValidRawValue(rawValue: unknown): boolean {
-    return rawValue !== undefined && rawValue !== null;
+export function isValidValue(value: unknown): boolean {
+    return value !== undefined && value !== null;
 }
 
-export function warn(value: unknown, format: string) {
-    // eslint-disable-next-line no-console
-    console.warn(`ODS Dataviz SDK - Table: ${value} is not a valid ${format}`);
+export function warn(value: unknown, format: string, debugWarnings = false) {
+    if (!debugWarnings) {
+        return;
+    }
+
+    switch (format) {
+        case 'url':
+            // eslint-disable-next-line no-console
+            console.warn(
+                `ODS Dataviz SDK - Table: no url detected in ${value}. Formatting as string.`
+            );
+            break;
+        default:
+            // eslint-disable-next-line no-console
+            console.warn(`ODS Dataviz SDK - Table: ${value} is not a valid ${format}`);
+    }
 }
 
 export function isValidUrl(text: unknown): text is string {

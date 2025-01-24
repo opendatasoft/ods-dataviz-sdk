@@ -7,7 +7,7 @@ import './custom-style.css';
 import { Table } from '../../src';
 
 import value from './data';
-import options from './options';
+import options, { DatasetRecord } from './options';
 
 const meta: ComponentMeta<typeof Table> = {
     title: 'Table/Table',
@@ -41,12 +41,18 @@ const ScrollTemplate: ComponentStory<typeof Table> = args => (
 
 const RowHoverTemplate: ComponentStory<typeof Table> = args => {
     const { options: argOptions, data: argData } = args;
-    const [hoveredRecord, setHovered] = useState<Record<string, unknown> | undefined | null>(null);
-    const [lastClicked, setLastClicked] = useState<Record<string, unknown> | undefined | null>(null);
+    const [hoveredRecord, setHovered] = useState<DatasetRecord | undefined | null>(null);
+    const [lastClicked, setLastClicked] = useState<DatasetRecord | undefined | null>(null);
 
-    const onMouseEnter = (record?: Record<string, unknown>) => {setHovered(record);};
-    const onMouseLeave = () => {setHovered(null);};
-    const onClick = (record?: Record<string, unknown>) => {setLastClicked(record);};
+    const onMouseEnter = (record: DatasetRecord) => {
+        setHovered(record);
+    };
+    const onMouseLeave = () => {
+        setHovered(null);
+    };
+    const onClick = (record: DatasetRecord) => {
+        setLastClicked(record);
+    };
 
     return (
         <>
@@ -60,6 +66,7 @@ const RowHoverTemplate: ComponentStory<typeof Table> = args => {
                     options={{ ...argOptions, rowProps: { onClick, onMouseEnter, onMouseLeave } }}
                 />
             </div>
+            ;
         </>
     );
 };

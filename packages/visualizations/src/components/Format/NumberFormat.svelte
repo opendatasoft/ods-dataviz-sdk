@@ -4,24 +4,23 @@
 
     type $$Props = NumberFormatProps;
 
-    export let rawValue: $$Props['rawValue'];
-    export let display: $$Props['display'] = (v: string) => v;
+    export let value: $$Props['value'];
+    export let valueToLabel: $$Props['valueToLabel'] | null = null;
     export let intl: $$Props['intl'] = {};
     export let locale = 'en-EN';
+    export let debugWarnings = false;
 
-    $: format = (v: unknown) => {
-        if (!Number.isFinite(v)) {
-            warn(v, 'number');
-            return v;
+    $: format = (v: number) => {
+        if (Number.isFinite(v)) {
+            const intlValue = new Intl.NumberFormat(locale, intl).format(v);
+            if (valueToLabel) {
+                return valueToLabel(intlValue);
+            }
+            return intlValue;
         }
-        const intlValue = new Intl.NumberFormat(locale, intl).format(v as number);
-        if (display) {
-            return display(intlValue);
-        }
-        return intlValue;
+        warn(v, 'number', debugWarnings);
+        return v;
     };
-
-    $: value = format(rawValue);
 </script>
 
-{value}
+{format(value)}

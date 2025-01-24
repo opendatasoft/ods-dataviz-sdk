@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { Column } from '../types';
     import { stickyColumnsWidth, stickyColumnsOffset, isHorizontallyScrolled } from '../store';
-    import { getStickyClasses, getStickyOffset } from '../utils';
+    import { getStickyClasses, getStickyOffset } from '../sticky';
     import { HOVER_COLUMN_KEY } from '../constants';
     import SortButton from './SortButton.svelte';
 

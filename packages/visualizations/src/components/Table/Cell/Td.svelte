@@ -1,7 +1,7 @@
 <script lang="ts">
     import { isHorizontallyScrolled, stickyColumnsOffset } from '../store';
     import type { Column } from '../types';
-    import { getStickyClasses, getStickyOffset } from '../utils';
+    import { getStickyClasses, getStickyOffset } from '../sticky';
     import { HOVER_COLUMN_KEY } from '../constants';
 
     export let column: Column | null = null;

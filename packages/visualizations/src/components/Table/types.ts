@@ -1,13 +1,12 @@
+import type { Async, DataFrame, Source } from 'types';
 import type {
     BooleanFormatProps,
     DateFormatProps,
     GeoFormatProps,
-    ShortTextFormatProps,
-    LongTextFormatProps,
+    TextFormatProps,
     NumberFormatProps,
     URLFormatProps,
-} from 'components/Format/types';
-import type { Async, DataFrame, Source } from 'types';
+} from '../Format/types';
 import type { Pagination } from '../Pagination/types';
 import type { DATA_FORMAT } from './constants';
 
@@ -35,42 +34,55 @@ type BaseColumn = {
     onClick?: () => void;
 };
 
-// Eliminate rawValue from props to match column options
-type ColumnOptions<T> = Omit<T, 'rawValue'>;
+export type ValueOrAccessor<T, R> = T | ((r: R) => T);
 
-type FormatPropsTypeMap = {
-    [DATA_FORMAT.boolean]: ColumnOptions<BooleanFormatProps>;
-    [DATA_FORMAT.date]: ColumnOptions<DateFormatProps>;
-    [DATA_FORMAT.geo]: ColumnOptions<GeoFormatProps>;
-    [DATA_FORMAT.shortText]: ColumnOptions<ShortTextFormatProps>;
-    [DATA_FORMAT.longText]: ColumnOptions<LongTextFormatProps>;
-    [DATA_FORMAT.number]: ColumnOptions<NumberFormatProps>;
-    [DATA_FORMAT.url]: ColumnOptions<URLFormatProps>;
+export type FormatPropsTypeMap = {
+    [DATA_FORMAT.boolean]: BooleanFormatProps;
+    [DATA_FORMAT.date]: DateFormatProps;
+    [DATA_FORMAT.geo]: GeoFormatProps;
+    [DATA_FORMAT.shortText]: TextFormatProps;
+    [DATA_FORMAT.longText]: TextFormatProps;
+    [DATA_FORMAT.number]: NumberFormatProps;
+    [DATA_FORMAT.url]: URLFormatProps;
 };
 
-export type ColumnOfType<F extends DataFormat> = BaseColumn & {
+/** Columns have to be typed with the record type if using an accessor.
+ * They can also be used without a record, nor accessor
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ColumnOfType<F extends DataFormat, R = any> = BaseColumn & {
     dataFormat: F;
-    options?: FormatPropsTypeMap[F];
+    accessor?: (r: R) => FormatPropsTypeMap[F]['value'];
+    options?: ValueOrAccessor<Omit<FormatPropsTypeMap[F], 'value'>, R>;
 };
 
-export type Column = ColumnOfType<DataFormat>;
+export type BooleanColumn<R> = ColumnOfType<typeof DATA_FORMAT.boolean, R>;
+export type DateColumn<R> = ColumnOfType<typeof DATA_FORMAT.date, R>;
+export type GeoColumn<R> = ColumnOfType<typeof DATA_FORMAT.geo, R>;
+export type ShortTextColumn<R> = ColumnOfType<typeof DATA_FORMAT.shortText, R>;
+export type LongTextColumn<R> = ColumnOfType<typeof DATA_FORMAT.longText, R>;
+export type NumberColumn<R> = ColumnOfType<typeof DATA_FORMAT.number, R>;
+export type URLColumn<R> = ColumnOfType<typeof DATA_FORMAT.url, R>;
 
-export type BooleanColumn = ColumnOfType<typeof DATA_FORMAT.boolean>;
-export type DateColumn = ColumnOfType<typeof DATA_FORMAT.date>;
-export type GeoColumn = ColumnOfType<typeof DATA_FORMAT.geo>;
-export type ShortTextColumn = ColumnOfType<typeof DATA_FORMAT.shortText>;
-export type LongTextColumn = ColumnOfType<typeof DATA_FORMAT.longText>;
-export type NumberColumn = ColumnOfType<typeof DATA_FORMAT.number>;
-export type URLColumn = ColumnOfType<typeof DATA_FORMAT.url>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type Column<R = any> =
+    | BooleanColumn<R>
+    | DateColumn<R>
+    | GeoColumn<R>
+    | ShortTextColumn<R>
+    | LongTextColumn<R>
+    | NumberColumn<R>
+    | URLColumn<R>;
 
 export type HoverEvent<T extends HTMLElement> = (MouseEvent | FocusEvent) & {
     currentTarget: EventTarget & T;
 };
 
-export type RowProps = {
-    onClick?: (record?: Record<string, unknown>, e?: HoverEvent<HTMLButtonElement>) => void;
-    onMouseEnter?: (record?: Record<string, unknown>, e?: HoverEvent<HTMLTableRowElement>) => void;
-    onMouseLeave?: (record?: Record<string, unknown>, e?: HoverEvent<HTMLTableRowElement>) => void;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type RowProps<R = any> = {
+    onClick?: (record?: R, e?: HoverEvent<HTMLButtonElement>) => void;
+    onMouseEnter?: (record?: R, e?: HoverEvent<HTMLTableRowElement>) => void;
+    onMouseLeave?: (record?: R, e?: HoverEvent<HTMLTableRowElement>) => void;
     actionAriaLabel?: string;
 };
 
@@ -90,6 +102,7 @@ export type TableOptions = {
      */
     unstyled?: boolean;
     pagination?: Pagination;
+    debugWarnings?: boolean;
 };
 
 export type TableProps = {
