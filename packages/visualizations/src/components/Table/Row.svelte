@@ -81,7 +81,7 @@
     }
 
     :global(.ods-dataviz--default .button-cell.isHorizontallyScrolled.isLastSticky) {
-        padding: 6px;
+        padding: 0 6px;
         border-right: 1px solid var(--border-color);
     }
 
