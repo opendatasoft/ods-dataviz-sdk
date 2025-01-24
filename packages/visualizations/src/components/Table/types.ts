@@ -26,6 +26,7 @@ type BaseColumn = {
     title: string;
     /** Wtether the column is sorted ascendimg, descending or not */
     sorted?: ColumnSortValues;
+    sticky?: boolean;
     sortLabels?: {
         asc: string;
         desc: string;

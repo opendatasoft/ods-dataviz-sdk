@@ -4,6 +4,8 @@
     import type { Column, RowProps } from './types';
     import Headers from './Headers';
     import Body from './Body.svelte';
+    import { stickyColumnsWidth, isHorizontallyScrolled } from './store';
+    import { HOVER_COLUMN_KEY } from './constants';
 
     export let loadingRowsNumber: number | null;
     export let columns: Column[];
@@ -13,12 +15,45 @@
     export let rowProps: RowProps | undefined;
 
     const tableId = `table-${generateId()}`;
+
+    let scrollBox: HTMLDivElement;
+    let sortedStickyColumns: Column[] = [];
+
+    function handleScroll() {
+        $isHorizontallyScrolled =
+            document.dir === 'rtl' ? scrollBox?.scrollLeft < 0 : scrollBox?.scrollLeft > 0;
+    }
+
+    // resets scroll when changing columns parameters
+    $: if (columns && scrollBox) {
+        sortedStickyColumns = [...columns].sort((colA, colB) => {
+            if (Boolean(colA?.sticky) === Boolean(colB?.sticky)) {
+                return 0;
+            }
+            return colA?.sticky ? -1 : 1;
+        });
+        stickyColumnsWidth.reset();
+        if (rowProps) {
+            stickyColumnsWidth.updateColumn(HOVER_COLUMN_KEY, 0);
+        }
+        sortedStickyColumns.forEach((col) => {
+            if (col?.sticky) {
+                stickyColumnsWidth.updateColumn(col.key, 0);
+            }
+        });
+    }
 </script>
 
-<div class="scrollbox">
+<div class="scrollbox" bind:this={scrollBox} on:scroll={handleScroll}>
     <table aria-describedby={description ? tableId : undefined}>
-        <Headers {columns} extraButtonColumn={Boolean(rowProps?.onClick)} />
-        <Body {loadingRowsNumber} {records} {columns} {rowProps} {emptyStateLabel} />
+        <Headers columns={sortedStickyColumns} extraButtonColumn={Boolean(rowProps?.onClick)} />
+        <Body
+            {records}
+            columns={sortedStickyColumns}
+            {rowProps}
+            {emptyStateLabel}
+            {loadingRowsNumber}
+        />
     </table>
 </div>
 {#if description}
@@ -38,7 +73,8 @@
     }
 
     :global(.ods-dataviz--default) table {
-        border-collapse: collapse;
+        border-collapse: separate;
+        border-spacing: 0;
         white-space: nowrap;
         width: inherit;
     }

@@ -1,5 +1,6 @@
 <script lang="ts">
-    import Cell from './Cell';
+    import CellContent from './Cell/CellContent.svelte';
+    import Td from './Cell/Td.svelte';
     import ZoomIcon from './ZoomIcon.svelte';
     import type { Column, RowProps, HoverEvent } from './types';
 
@@ -35,7 +36,7 @@
     on:focusout={rowProps && handleMouseLeave}
 >
     {#if rowProps?.onClick}
-        <td class="button-cell">
+        <Td>
             <button
                 on:click={rowProps && handleClick}
                 aria-label={actionAriaLabel || 'Expand Record'}
@@ -44,19 +45,17 @@
                     <ZoomIcon />
                 </span>
             </button>
-        </td>
+        </Td>
     {/if}
     {#each columns as column}
-        <Cell {record} {column} />
+        <Td {column}>
+            <CellContent {record} {column} />
+        </Td>
     {/each}
 </tr>
 
 <style>
-    :global(.ods-dataviz--default tr) {
-        border-bottom: 1px solid var(--border-color);
-    }
-
-    :global(.ods-dataviz--default tr:last-child) {
+    :global(.ods-dataviz--default tr:last-child td) {
         border-bottom: none;
     }
 
@@ -70,14 +69,20 @@
         margin-right: -6px; /* cancels next cell padding */
         border: none;
         box-shadow: none;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
 
-    span {
-        width: 100%;
-        height: 100%;
+    :global(.ods-dataviz--default .button-cell.isHorizontallyScrolled.isLastSticky button) {
+        margin-right: 0; /* cancels next cell padding */
+    }
+
+    :global(.ods-dataviz--default .button-cell.sticky) {
+        padding: 0px;
+        padding-left: 6px;
+    }
+
+    :global(.ods-dataviz--default .button-cell.isHorizontallyScrolled.isLastSticky) {
+        padding: 0 6px;
+        border-right: 1px solid var(--border-color);
     }
 
     /* Hides visually but leaves it accessible by kb/sr */
@@ -95,11 +100,5 @@
     :global(.ods-dataviz--default .button-cell button:focus-visible) {
         background-color: lightgray;
         cursor: pointer;
-    }
-
-    :global(.ods-dataviz--default .button-cell) {
-        padding: 0;
-        padding-left: 6px;
-        width: 34px;
     }
 </style>

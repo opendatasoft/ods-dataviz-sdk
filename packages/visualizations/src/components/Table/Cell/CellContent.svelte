@@ -15,8 +15,7 @@
     export let column: Column;
 </script>
 
-<!-- To display a format value, value must be different from undefined or null -->
-<td class={`table-data--${column.dataFormat}`}>
+<div class={`cell-content table-data--${column.dataFormat}`}>
     {#if isValidValue(getValue(column, record))}
         {#if isColumnOfType(column, DATA_FORMAT.boolean)}
             <BooleanFormat
@@ -62,34 +61,38 @@
             />
         {/if}
     {/if}
-</td>
+</div>
 
 <style>
-    :global(.ods-dataviz--default td) {
+    /* Wrapper div to allow position: relative while the <td> has sticky,
+        so that the ::after can have position: absolute */
+    :global(.ods-dataviz--default .cell-content) {
+        position: relative;
         padding: var(--spacing-75);
+        overflow: visible;
     }
 
-    :global(.ods-dataviz--default td.table-header--number) {
+    :global(.ods-dataviz--default div.table-header--number) {
         text-align: right;
     }
     /* to be improved in the formatting story */
-    :global(.ods-dataviz--default td.table-data--long-text > span),
-    :global(.ods-dataviz--default td.table-data--short-text),
-    :global(.ods-dataviz--default td.table-data--url) {
+    :global(.ods-dataviz--default div.table-data--long-text > span),
+    :global(.ods-dataviz--default div.table-data--short-text),
+    :global(.ods-dataviz--default div.table-data--url) {
         text-overflow: ellipsis;
         overflow: hidden;
         width: max-content;
         min-width: 40px;
         max-width: 240px;
     }
-    :global(.ods-dataviz--default td.table-data--long-text > span) {
+    :global(.ods-dataviz--default div.table-data--long-text > span) {
         display: -webkit-box;
         -webkit-line-clamp: 3;
         line-clamp: 3;
         -webkit-box-orient: vertical;
         white-space: pre-wrap;
     }
-    :global(.ods-dataviz--default td.table-data--number) {
+    :global(.ods-dataviz--default div.table-data--number) {
         text-align: right;
     }
 </style>
