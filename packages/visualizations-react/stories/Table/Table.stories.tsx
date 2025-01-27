@@ -44,8 +44,8 @@ const RowHoverTemplate: ComponentStory<typeof Table> = args => {
     const [hoveredRecord, setHovered] = useState<DatasetRecord | undefined | null>(null);
     const [lastClicked, setLastClicked] = useState<DatasetRecord | undefined | null>(null);
 
-    const onMouseEnter = (record: DatasetRecord) => {
-        setHovered(record);
+    const onMouseEnter = (record: unknown) => {
+        setHovered(record as DatasetRecord);
     };
     const onMouseLeave = () => {
         setHovered(null);

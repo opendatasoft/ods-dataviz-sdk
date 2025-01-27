@@ -92,7 +92,7 @@ export type ExportCatalogFormat = ValueOf<typeof EXPORT_CATALOG_FORMAT>;
 
 export type ExportDatasetFormat = ValueOf<typeof EXPORT_DATASET_FORMAT>;
 
-export type FileRecord = {
+export type FileEntry = {
     thumbnail: boolean;
     filename: string;
     format: string;
