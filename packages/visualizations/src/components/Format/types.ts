@@ -38,6 +38,7 @@ export type TextFormatProps = {
 export type URLFormatProps = {
     value: string;
     valueToLabel?: (v: string) => string;
+    thumbnailUrl?: string;
     target?: HTMLAnchorElement['target'];
     rel?: HTMLAnchorElement['rel'];
     debugWarnings?: boolean;

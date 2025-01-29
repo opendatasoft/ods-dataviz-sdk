@@ -93,13 +93,13 @@ export const columns: Column[] = [
     {
         title: 'Image',
         key: 'image',
-        dataFormat: 'image',
+        dataFormat: 'url',
         options: (r: unknown) => {
             const record = r as DatasetRecord;
             return {
                 value: record.image.url,
                 valueToLabel: () => record.image.filename,
-                alt: record.image.filename,
+                thumbnailUrl: record.image.url,
             };
         },
     },

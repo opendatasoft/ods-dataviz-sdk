@@ -7,9 +7,9 @@ export const ODS_DATASET_FIELD_TYPE = {
     GEO_POINT_2D: 'geo_point_2d',
     DATETIME: 'datetime',
     DATE: 'date',
-    IMAGE: 'image',
     FILE: 'file',
-    JSON: 'json',
+    JSON_BlOB: 'json_blob',
+    // image and json aren't actually used for datasets anymore
 } as const;
 
 export const ODS_DATASET_FIELD_SEMANTIC_TYPE = {

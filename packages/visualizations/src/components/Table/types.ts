@@ -6,12 +6,11 @@ import type {
     TextFormatProps,
     NumberFormatProps,
     URLFormatProps,
-    ImageFormatProps,
 } from '../Format/types';
 import type { Pagination } from '../Pagination/types';
 import type { DATA_FORMAT } from './constants';
 
-type GenericRecord = Record<string, unknown>; // avoid {} with no key from GenericRecord;
+export type GenericRecord = Record<string, unknown>; // avoid {} with no key from object;
 
 type DataFormatKey = keyof typeof DATA_FORMAT;
 export type DataFormat = typeof DATA_FORMAT[DataFormatKey];
@@ -47,7 +46,6 @@ export type FormatPropsTypeMap = {
     [DATA_FORMAT.longText]: TextFormatProps;
     [DATA_FORMAT.number]: NumberFormatProps;
     [DATA_FORMAT.url]: URLFormatProps;
-    [DATA_FORMAT.image]: ImageFormatProps;
 };
 
 /** Columns have to be typed with the record type if using an accessor.
@@ -56,7 +54,7 @@ export type FormatPropsTypeMap = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ColumnOfType<F extends DataFormat> = BaseColumn & {
     dataFormat: F;
-    accessor?: (r: unknown) => FormatPropsTypeMap[F]['value'];
+    accessor?: (r: GenericRecord) => FormatPropsTypeMap[F]['value'];
     options?: ValueOrAccessor<Omit<FormatPropsTypeMap[F], 'value'>>;
 };
 
@@ -67,7 +65,6 @@ export type ShortTextColumn = ColumnOfType<typeof DATA_FORMAT.shortText>;
 export type LongTextColumn = ColumnOfType<typeof DATA_FORMAT.longText>;
 export type NumberColumn = ColumnOfType<typeof DATA_FORMAT.number>;
 export type URLColumn = ColumnOfType<typeof DATA_FORMAT.url>;
-export type ImageColumn = ColumnOfType<typeof DATA_FORMAT.image>;
 
 export type Column =
     | BooleanColumn
@@ -76,17 +73,16 @@ export type Column =
     | ShortTextColumn
     | LongTextColumn
     | NumberColumn
-    | URLColumn
-    | ImageColumn;
+    | URLColumn;
 
 export type HoverEvent<T extends HTMLElement> = (MouseEvent | FocusEvent) & {
     currentTarget: EventTarget & T;
 };
 
 export type RowProps = {
-    onClick?: (record?: unknown, e?: HoverEvent<HTMLButtonElement>) => void;
-    onMouseEnter?: (record?: unknown, e?: HoverEvent<HTMLTableRowElement>) => void;
-    onMouseLeave?: (record?: unknown, e?: HoverEvent<HTMLTableRowElement>) => void;
+    onClick?: (record?: GenericRecord, e?: HoverEvent<HTMLButtonElement>) => void;
+    onMouseEnter?: (record?: GenericRecord, e?: HoverEvent<HTMLTableRowElement>) => void;
+    onMouseLeave?: (record?: GenericRecord, e?: HoverEvent<HTMLTableRowElement>) => void;
     actionAriaLabel?: string;
 };
 
