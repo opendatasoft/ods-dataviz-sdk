@@ -10,6 +10,8 @@ import type {
 import type { Pagination } from '../Pagination/types';
 import type { DATA_FORMAT } from './constants';
 
+export type GenericRecord = Record<string, unknown>; // avoid {} with no key from object;
+
 type DataFormatKey = keyof typeof DATA_FORMAT;
 export type DataFormat = typeof DATA_FORMAT[DataFormatKey];
 
@@ -34,7 +36,7 @@ type BaseColumn = {
     onClick?: () => void;
 };
 
-export type ValueOrAccessor<T, R> = T | ((r: R) => T);
+export type ValueOrAccessor<T, R = GenericRecord> = T | ((r: R) => T);
 
 export type FormatPropsTypeMap = {
     [DATA_FORMAT.boolean]: BooleanFormatProps;
@@ -50,39 +52,37 @@ export type FormatPropsTypeMap = {
  * They can also be used without a record, nor accessor
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ColumnOfType<F extends DataFormat, R = any> = BaseColumn & {
+export type ColumnOfType<F extends DataFormat> = BaseColumn & {
     dataFormat: F;
-    accessor?: (r: R) => FormatPropsTypeMap[F]['value'];
-    options?: ValueOrAccessor<Omit<FormatPropsTypeMap[F], 'value'>, R>;
+    accessor?: (r: GenericRecord) => FormatPropsTypeMap[F]['value'];
+    options?: ValueOrAccessor<Omit<FormatPropsTypeMap[F], 'value'>>;
 };
 
-export type BooleanColumn<R> = ColumnOfType<typeof DATA_FORMAT.boolean, R>;
-export type DateColumn<R> = ColumnOfType<typeof DATA_FORMAT.date, R>;
-export type GeoColumn<R> = ColumnOfType<typeof DATA_FORMAT.geo, R>;
-export type ShortTextColumn<R> = ColumnOfType<typeof DATA_FORMAT.shortText, R>;
-export type LongTextColumn<R> = ColumnOfType<typeof DATA_FORMAT.longText, R>;
-export type NumberColumn<R> = ColumnOfType<typeof DATA_FORMAT.number, R>;
-export type URLColumn<R> = ColumnOfType<typeof DATA_FORMAT.url, R>;
+export type BooleanColumn = ColumnOfType<typeof DATA_FORMAT.boolean>;
+export type DateColumn = ColumnOfType<typeof DATA_FORMAT.date>;
+export type GeoColumn = ColumnOfType<typeof DATA_FORMAT.geo>;
+export type ShortTextColumn = ColumnOfType<typeof DATA_FORMAT.shortText>;
+export type LongTextColumn = ColumnOfType<typeof DATA_FORMAT.longText>;
+export type NumberColumn = ColumnOfType<typeof DATA_FORMAT.number>;
+export type URLColumn = ColumnOfType<typeof DATA_FORMAT.url>;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type Column<R = any> =
-    | BooleanColumn<R>
-    | DateColumn<R>
-    | GeoColumn<R>
-    | ShortTextColumn<R>
-    | LongTextColumn<R>
-    | NumberColumn<R>
-    | URLColumn<R>;
+export type Column =
+    | BooleanColumn
+    | DateColumn
+    | GeoColumn
+    | ShortTextColumn
+    | LongTextColumn
+    | NumberColumn
+    | URLColumn;
 
 export type HoverEvent<T extends HTMLElement> = (MouseEvent | FocusEvent) & {
     currentTarget: EventTarget & T;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type RowProps<R = any> = {
-    onClick?: (record?: R, e?: HoverEvent<HTMLButtonElement>) => void;
-    onMouseEnter?: (record?: R, e?: HoverEvent<HTMLTableRowElement>) => void;
-    onMouseLeave?: (record?: R, e?: HoverEvent<HTMLTableRowElement>) => void;
+export type RowProps = {
+    onClick?: (record?: GenericRecord, e?: HoverEvent<HTMLButtonElement>) => void;
+    onMouseEnter?: (record?: GenericRecord, e?: HoverEvent<HTMLTableRowElement>) => void;
+    onMouseLeave?: (record?: GenericRecord, e?: HoverEvent<HTMLTableRowElement>) => void;
     actionAriaLabel?: string;
 };
 

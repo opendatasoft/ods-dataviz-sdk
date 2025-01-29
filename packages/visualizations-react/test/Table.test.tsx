@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { Column } from '@opendatasoft/visualizations';
 import data from 'stories/Table/data';
-import options, { DatasetRecord } from 'stories/Table/options';
+import options from 'stories/Table/options';
 import { usePaginatedData } from 'stories/Table/PaginatedTemplates';
 /* This template will fail to catch a new page and returns previous  data: {
       value,
@@ -84,7 +84,7 @@ test('Can update local reactively', async () => {
 const ValueToLabelSwitch = ({ valueToLabel = v => v }: { valueToLabel: (v: string) => string }) => {
     const stateFulOptions = {
         ...options,
-        columns: options.columns.map((column: Column<DatasetRecord>) => {
+        columns: options.columns.map((column: Column) => {
             if (column.dataFormat === 'short-text') {
                 return { ...column, options: { ...column.options, valueToLabel } };
             }
