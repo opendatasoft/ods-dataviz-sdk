@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.27.3](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.27.2...@opendatasoft/visualizations-react@0.27.3) (2025-02-04)
+
+**Note:** Version bump only for package @opendatasoft/visualizations-react
+
+
+
+
+
 ## [0.27.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.27.0...@opendatasoft/visualizations-react@0.27.2) (2025-01-08)
 
 **Note:** Version bump only for package @opendatasoft/visualizations-react
