@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import type { TableData, Async } from '@opendatasoft/visualizations';
+import type { TableData, Async, GenericRecord } from '@opendatasoft/visualizations';
 
 import './custom-style.css';
 
@@ -44,14 +44,14 @@ const RowHoverTemplate: ComponentStory<typeof Table> = args => {
     const [hoveredRecord, setHovered] = useState<DatasetRecord | undefined | null>(null);
     const [lastClicked, setLastClicked] = useState<DatasetRecord | undefined | null>(null);
 
-    const onMouseEnter = (record: DatasetRecord) => {
-        setHovered(record);
+    const onMouseEnter = (record?: GenericRecord) => {
+        setHovered(record as DatasetRecord);
     };
     const onMouseLeave = () => {
         setHovered(null);
     };
-    const onClick = (record: DatasetRecord) => {
-        setLastClicked(record);
+    const onClick = (record?: GenericRecord) => {
+        setLastClicked(record as DatasetRecord);
     };
 
     return (

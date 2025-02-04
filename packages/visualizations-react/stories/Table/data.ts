@@ -1,3 +1,19 @@
+const image = {
+    exif_orientation: 1,
+    thumbnail: true,
+    filename: 'ods.svg',
+    format: 'PNG',
+    width: 922,
+    id: 'fe46e6580de0aac98eca3d5c928f11cb',
+    height: 918,
+    color_summary: [
+        'rgba(185, 149, 111, 1.00)',
+        'rgba(206, 163, 117, 1.00)',
+        'rgba(194, 157, 119, 1.00)',
+    ],
+    url: 'https://www.opendatasoft.com/wp-content/uploads/2022/12/logo-opendatasoft.svg',
+};
+
 export default [
     {
         title: 'lorem ipsum blog post',
@@ -12,6 +28,7 @@ export default [
         region: 'Centre Val de Loire',
         geoshape:
             'https://france-geojson.gregoiredavid.fr/repo/regions/centre-val-de-loire/region-centre-val-de-loire.geojson',
+        image,
     },
     {
         title: 'pellentesque nec blog post',
@@ -27,6 +44,7 @@ export default [
         region: 'Bretagne',
         geoshape:
             'https://france-geojson.gregoiredavid.fr/repo/regions/bretagne/region-bretagne.geojson',
+        image,
     },
     {
         title: 'fusce sit amet blog post',
@@ -42,6 +60,7 @@ export default [
         region: 'Nouvelle Aquitaine',
         geoshape:
             'https://france-geojson.gregoiredavid.fr/repo/regions/nouvelle-aquitaine/region-nouvelle-aquitaine.geojson',
+        image,
     },
     {
         title: 'vestibulum nec blog post',
@@ -56,6 +75,7 @@ export default [
         region: 'Occitanie',
         geoshape:
             'https://france-geojson.gregoiredavid.fr/repo/regions/occitanie/region-occitanie.geojson',
+        image,
     },
     {
         title: 'Cras At Blog Post',
@@ -71,6 +91,7 @@ export default [
         region: 'PACA',
         geoshape:
             'https://france-geojson.gregoiredavid.fr/repo/regions/provence-alpes-cote-d-azur/region-provence-alpes-cote-d-azur.geojson',
+        image,
     },
     {
         title: 'Quisque A Blog Post',
@@ -86,6 +107,7 @@ export default [
         region: 'Auvergnes Rhône-Alpes',
         geoshape:
             'https://france-geojson.gregoiredavid.fr/repo/regions/auvergne-rhone-alpes/region-auvergne-rhone-alpes.geojson',
+        image,
     },
     {
         title: 'Ut Vitae Blog Post',
@@ -101,6 +123,7 @@ export default [
         region: 'Bourgogne Franche-Comté',
         geoshape:
             'https://france-geojson.gregoiredavid.fr/repo/regions/bourgogne-franche-comte/region-bourgogne-franche-comte.geojson',
+        image,
     },
     {
         title: 'Integer Id Blog Post',
@@ -116,6 +139,7 @@ export default [
         region: 'Grand Est',
         geoshape:
             'https://france-geojson.gregoiredavid.fr/repo/regions/grand-est/region-grand-est.geojson',
+        image,
     },
     {
         title: 'Undefined row',
@@ -128,6 +152,7 @@ export default [
         url: undefined,
         geopoint: undefined,
         geoshape: undefined,
+        image: undefined,
     },
     {
         title: 'Empty row',

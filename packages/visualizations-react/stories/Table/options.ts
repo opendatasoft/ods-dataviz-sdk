@@ -12,9 +12,14 @@ export type DatasetRecord = {
     geopoint: [number, number];
     region: string;
     geoshape: string;
+    image: {
+        thumbnail: boolean;
+        url: string;
+        filename: string;
+    };
 };
 
-export const columns: Column<DatasetRecord>[] = [
+export const columns: Column[] = [
     {
         title: 'Title',
         key: 'title',
@@ -86,11 +91,25 @@ export const columns: Column<DatasetRecord>[] = [
         },
     },
     {
+        title: 'Image',
+        key: 'image',
+        dataFormat: 'url',
+        options: (r: unknown) => {
+            const record = r as DatasetRecord;
+            return {
+                value: record.image.url,
+                valueToLabel: () => record.image.filename,
+                thumbnailUrl: record.image.url,
+            };
+        },
+    },
+    {
         title: 'Geo point',
         key: 'geopoint',
         dataFormat: 'geo',
-        accessor: r => {
-            const coordinates = r.geopoint;
+        accessor: (r: unknown) => {
+            const record = r as DatasetRecord;
+            const coordinates = record.geopoint;
 
             return {
                 sources: {
@@ -122,45 +141,55 @@ export const columns: Column<DatasetRecord>[] = [
                 ],
             };
         },
-        options: r => ({
-            mapOptions: {
-                style: 'https://demotiles.maplibre.org/style.json',
-                interactive: false,
-            },
-            valueToLabel: () =>
-                r?.geopoint && `longitude: ${r.geopoint[0]}, latitude: ${r.geopoint[1]}`,
-        }),
+        options: (r: unknown) => {
+            const record = r as DatasetRecord;
+            return {
+                mapOptions: {
+                    style: 'https://demotiles.maplibre.org/style.json',
+                    interactive: false,
+                },
+                valueToLabel: () =>
+                    record?.geopoint &&
+                    `longitude: ${record.geopoint[0]}, latitude: ${record.geopoint[1]}`,
+            };
+        },
     },
     {
         title: 'Geo shapes',
         key: 'geoshape',
         dataFormat: 'geo',
-        accessor: r => ({
-            sources: {
-                'table-stories': {
-                    type: 'geojson',
-                    data: r.geoshape,
+        accessor: (r: unknown) => {
+            const record = r as DatasetRecord;
+            return {
+                sources: {
+                    'table-stories': {
+                        type: 'geojson',
+                        data: record.geoshape,
+                    },
                 },
-            },
-            layers: [
-                {
-                    id: 'table-stories-layer',
-                    source: 'table-stories',
-                    type: 'fill',
-                    color: 'black',
-                    borderColor: 'white',
+                layers: [
+                    {
+                        id: 'table-stories-layer',
+                        source: 'table-stories',
+                        type: 'fill',
+                        color: 'black',
+                        borderColor: 'white',
+                    },
+                ],
+            };
+        },
+        options: (r: unknown) => {
+            const record = r as DatasetRecord;
+            return {
+                mapOptions: {
+                    style: 'https://demotiles.maplibre.org/style.json',
+                    interactive: false,
+                    bbox: [-6.855469, 41.343825, 11.645508, 51.37178],
+                    zoom: 3,
                 },
-            ],
-        }),
-        options: r => ({
-            mapOptions: {
-                style: 'https://demotiles.maplibre.org/style.json',
-                interactive: false,
-                bbox: [-6.855469, 41.343825, 11.645508, 51.37178],
-                zoom: 3,
-            },
-            valueToLabel: () => r.region,
-        }),
+                valueToLabel: () => record.region,
+            };
+        },
     },
 ];
 
