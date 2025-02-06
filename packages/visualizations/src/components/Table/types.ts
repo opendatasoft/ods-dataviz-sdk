@@ -1,4 +1,6 @@
 import type { Async, DataFrame, Source } from 'types';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import type { Readable, Writable } from 'svelte/store';
 import type {
     BooleanFormatProps,
     DateFormatProps,
@@ -8,7 +10,7 @@ import type {
     URLFormatProps,
 } from '../Format/types';
 import type { Pagination } from '../Pagination/types';
-import type { DATA_FORMAT } from './constants';
+import type { DATA_FORMAT, HOVER_COLUMN_KEY } from './constants';
 
 export type GenericRecord = Record<string, unknown>; // avoid {} with no key from object;
 
@@ -108,4 +110,15 @@ export type TableOptions = {
 export type TableProps = {
     data: Async<TableData>;
     options: TableOptions;
+};
+
+export type ColumnKey = string | typeof HOVER_COLUMN_KEY;
+export type StickyStores = {
+    stickyColumnsWidth: Writable<Map<ColumnKey, number>> & {
+        updateColumn: (key: ColumnKey, width: number) => void;
+        reset: () => void;
+    };
+    stickyColumnsOffset: Readable<Map<ColumnKey, number>>;
+    lastStickyColumn: Readable<ColumnKey | undefined>;
+    isHorizontallyScrolled: Writable<boolean>;
 };
