@@ -1,4 +1,5 @@
 <script lang="ts">
+    import type { Instance } from 'tippy.js';
     import TextFormat from './TextFormat.svelte';
     import { isValidUrl, warn } from './utils';
     import type { URLFormatProps } from './types';
@@ -14,6 +15,8 @@
     export let debugWarnings = false;
 
     let showTooltip = false;
+    let tippyInstance: Instance;
+    let tooltipEl: HTMLDivElement;
 
     $: format = (v: unknown) => {
         if (isValidUrl(v)) {
@@ -28,22 +31,30 @@
     };
 
     $: ({ text, href } = format(value));
+    /* We force setting content a second time after the image has loaded
+    and thus has dimensions */
+    $: onLoad = () => {
+        if (tippyInstance) {
+            tippyInstance.setContent(tooltipEl);
+        }
+    };
 </script>
 
 {#if text}
     <Tooltip
         enabled={isValidUrl(thumbnailUrl)}
-        onShow={() => {
+        onShow={(instance) => {
             showTooltip = true;
+            tippyInstance = instance;
         }}
         onHide={() => {
             showTooltip = false;
         }}
     >
         <a {href} {rel} {target}>{text}</a>
-        <div slot="tooltipContent" class="image-tooltip-container">
+        <div slot="tooltipContent" class="image-tooltip-container" bind:this={tooltipEl}>
             {#if showTooltip}
-                <img src={thumbnailUrl} alt={text} />
+                <img src={thumbnailUrl} alt={text} on:load={onLoad} />
             {/if}
         </div>
     </Tooltip>
