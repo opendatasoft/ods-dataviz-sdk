@@ -40,7 +40,7 @@
             <SortButton
                 sorted={column?.sorted}
                 on:click={column.onClick}
-                labels={column.sortLabels}
+                labels={column?.sortLabels}
             >
                 {column.title}
             </SortButton>

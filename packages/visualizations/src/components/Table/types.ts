@@ -25,7 +25,7 @@ export const ColumnSort = {
 } as const;
 export type ColumnSortValues = typeof ColumnSort[keyof typeof ColumnSort];
 
-type BaseColumn = {
+export type BaseColumn = {
     key: string;
     title: string;
     /** Wtether the column is sorted ascendimg, descending or not */

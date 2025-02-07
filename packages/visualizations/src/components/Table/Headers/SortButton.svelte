@@ -1,16 +1,16 @@
 <script lang="ts">
     import { ColumnSort } from '../types';
-    import type { ColumnSortValues } from '../types';
+    import type { ColumnSortValues, BaseColumn } from '../types';
     import SortIcon from './SortIcon.svelte';
 
     export let sorted: ColumnSortValues | undefined;
-    export let labels = {
+    export let labels: BaseColumn['sortLabels'] = {
         asc: 'Sort ascending',
         desc: 'Sort descending',
     };
 </script>
 
-<button on:click type="button" aria-label={sorted === ColumnSort.asc ? labels.asc : labels.desc}>
+<button on:click type="button" aria-label={sorted === ColumnSort.asc ? labels?.asc : labels?.desc}>
     <slot />
     <SortIcon {sorted} />
 </button>
