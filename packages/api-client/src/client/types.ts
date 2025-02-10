@@ -34,14 +34,14 @@ export type DatasetFieldType = ValueOf<typeof ODS_DATASET_FIELD_TYPE>;
 
 export type DatasetFieldSemanticType = ValueOf<typeof ODS_DATASET_FIELD_SEMANTIC_TYPE>;
 
-export interface DatasetAttachement {
+export interface DatasetAttachment {
     id: string;
     mimetype: string;
     title: string;
     url: string;
 }
 
-export interface DatasetAlternativeExport extends DatasetAttachement {
+export interface DatasetAlternativeExport extends DatasetAttachment {
     description: string;
 }
 
@@ -63,7 +63,7 @@ export type Dataset = DataWithLinks & {
     metas: object;
     fields: DatasetField[];
     visibility: 'restricted' | 'domain';
-    attachements: DatasetAttachement[];
+    attachments: DatasetAttachment[];
     alternative_exports: DatasetAlternativeExport[];
 };
 
