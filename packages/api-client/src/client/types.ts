@@ -63,7 +63,7 @@ export type Dataset = DataWithLinks & {
     metas: object;
     fields: DatasetField[];
     visibility: 'restricted' | 'domain';
-    attachements: DatasetAttachement[];
+    attachments: DatasetAttachement[];
     alternative_exports: DatasetAlternativeExport[];
 };
 
