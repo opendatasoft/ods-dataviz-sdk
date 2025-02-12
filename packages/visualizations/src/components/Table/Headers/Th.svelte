@@ -1,11 +1,14 @@
 <script lang="ts">
-    import type { Column } from '../types';
-    import { stickyColumnsWidth, stickyColumnsOffset, isHorizontallyScrolled } from '../store';
+    import { getContext } from 'svelte';
+    import type { StickyStores, Column } from '../types';
     import { getStickyClasses, getStickyOffset } from '../sticky';
     import { HOVER_COLUMN_KEY } from '../constants';
     import SortButton from './SortButton.svelte';
 
     export let column: Column | null = null;
+
+    const { stickyColumnsWidth, stickyColumnsOffset, isHorizontallyScrolled, lastStickyColumn } =
+        getContext<StickyStores>('sticky-stores');
 
     let thElement: HTMLElement;
     let clientWidth: number;
@@ -30,13 +33,14 @@
         class={`table-header--${column?.dataFormat || 'hover'} ${getStickyClasses({
             column,
             scrolled: $isHorizontallyScrolled,
+            lastStickyColumn: $lastStickyColumn,
         })}`}
     >
         {#if column.onClick}
             <SortButton
                 sorted={column?.sorted}
                 on:click={column.onClick}
-                labels={column.sortLabels}
+                labels={column?.sortLabels}
             >
                 {column.title}
             </SortButton>
@@ -48,7 +52,11 @@
     <th
         bind:this={thElement}
         style={getStickyOffset($stickyColumnsOffset.get(colKey))}
-        class={`button-cell ${getStickyClasses({ column, scrolled: $isHorizontallyScrolled })}`}
+        class={`button-cell ${getStickyClasses({
+            column,
+            scrolled: $isHorizontallyScrolled,
+            lastStickyColumn: $lastStickyColumn,
+        })}`}
     />
 {/if}
 

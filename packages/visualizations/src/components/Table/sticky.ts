@@ -1,25 +1,25 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { get } from 'svelte/store';
 import { isNil } from 'lodash';
-import type { Column } from './types';
-import { lastStickyColumn } from './store';
+import type { Column, ColumnKey } from './types';
 import { HOVER_COLUMN_KEY } from './constants';
 
 export const getStickyClasses = ({
     column,
     scrolled,
+    lastStickyColumn,
 }: {
     column: Column | null;
     scrolled: boolean;
+    lastStickyColumn?: ColumnKey;
 }) => {
     if (!column) {
         return `sticky 
-        ${HOVER_COLUMN_KEY === get(lastStickyColumn) ? 'isLastSticky' : ''}
+        ${HOVER_COLUMN_KEY === lastStickyColumn ? 'isLastSticky' : ''}
         ${scrolled ? 'isHorizontallyScrolled' : ''}`;
     }
     return `
     ${column.sticky ? 'sticky' : ''}
-    ${column.key === get(lastStickyColumn) ? 'isLastSticky' : ''}
+    ${column.key === lastStickyColumn ? 'isLastSticky' : ''}
     ${scrolled ? 'isHorizontallyScrolled' : ''}
   `.trim();
 };

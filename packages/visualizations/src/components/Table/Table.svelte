@@ -1,11 +1,12 @@
 <script lang="ts">
+    import { setContext } from 'svelte';
     import type { DataFrame } from 'types';
     import { generateId } from 'components/utils';
     import type { Column, RowProps } from './types';
     import Headers from './Headers';
     import Body from './Body.svelte';
-    import { stickyColumnsWidth, isHorizontallyScrolled } from './store';
     import { HOVER_COLUMN_KEY } from './constants';
+    import { createStickyStores } from './store';
 
     export let loadingRowsNumber: number | null;
     export let columns: Column[];
@@ -18,6 +19,16 @@
 
     let scrollBox: HTMLDivElement;
     let sortedStickyColumns: Column[] = [];
+
+    const { stickyColumnsOffset, stickyColumnsWidth, lastStickyColumn, isHorizontallyScrolled } =
+        createStickyStores();
+
+    setContext('sticky-stores', {
+        stickyColumnsOffset,
+        stickyColumnsWidth,
+        lastStickyColumn,
+        isHorizontallyScrolled,
+    });
 
     function handleScroll() {
         $isHorizontallyScrolled =
