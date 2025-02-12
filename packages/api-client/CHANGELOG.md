@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [21.6.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.6.1...@opendatasoft/api-client@21.6.2) (2025-02-12)
+
+
+### Bug Fixes
+
+* **api-client:** Typo in attachment property name and type ([062ea49](https://github.com/opendatasoft/ods-dataviz-sdk/commit/062ea49d2f70f56b580994bd8d43ceec0dbcd45e))
+
+
+
+
+
 ## [21.6.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.6.0...@opendatasoft/api-client@21.6.1) (2025-02-04)
 
 **Note:** Version bump only for package @opendatasoft/api-client
