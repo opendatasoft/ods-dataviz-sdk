@@ -113,7 +113,8 @@
         "storybook": "^7.6.17",
         "storybook-addon-rtl": "^1.0.0",
         "tslib": "^2.1.0",
-        "typescript": "^5.5.3"
+        "typescript": "^5.5.3",
+        "vite": "^5.4.14"
     },
     "gitHead": "4528f9aec4497db447a1f2538a8319e382fe334c"
 }
