@@ -14,14 +14,20 @@
         "TypeScript",
         "React"
     ],
-    "main": "dist/index.umd.js",
+    "main": "dist/index.es.js",
     "module": "dist/index.es.js",
-    "unpkg": "dist/index.umd.js",
     "typings": "dist/src/index.d.ts",
     "files": [
         "dist",
         "src"
     ],
+    "exports": {
+        ".": {
+            "import": "./dist/index.es.js",
+            "require": "./dist/index.cjs.js",
+            "types": "./dist/index.d.ts"
+        }
+    },
     "engines": {
         "node": ">=18"
     },
