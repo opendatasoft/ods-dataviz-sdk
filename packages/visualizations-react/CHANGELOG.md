@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.27.5-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.27.4...@opendatasoft/visualizations-react@0.27.5-beta.0) (2025-02-19)
+
+
+### Bug Fixes
+
+* add vite as dep for storybook ([da123fc](https://github.com/opendatasoft/ods-dataviz-sdk/commit/da123fc4bb866f64f0e2d34e29253da4c6cbf2f8))
+* rebuild locks and upgrade deps ([3fbed65](https://github.com/opendatasoft/ods-dataviz-sdk/commit/3fbed6584dba0bb81d6e87685912f8b30bfeffcb))
+
+
+
+
+
 ## [0.27.4](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.27.3...@opendatasoft/visualizations-react@0.27.4) (2025-02-12)
 
 **Note:** Version bump only for package @opendatasoft/visualizations-react
