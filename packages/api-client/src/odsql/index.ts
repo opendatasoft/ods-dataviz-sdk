@@ -168,6 +168,17 @@ export const string = (value: string) => JSON.stringify(value);
 
 export const dateTime = (date: Date) => `date'${date.toISOString()}'`;
 
+/**
+ * ODSQL function to normalize field name.
+ *
+ * - Can be used for `order_by` and `group_by` clauses.
+ * - Example usage: `select=count(*) & group_by=lower(artist)`.
+ *
+ * @param {string} fieldName - The field name to normalize.
+ * @returns {string}  The lower ODSQL function.
+ */
+export const lower = (fieldName: string) => `lower(${fieldName})`;
+
 function inlineMonthOrDay(value?: number) {
     if (value === undefined) return '';
     if (value < 10) return `-0${value}`;
