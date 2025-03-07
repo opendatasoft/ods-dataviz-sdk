@@ -6,6 +6,7 @@ import {
     EXPORT_DATASET_FORMAT,
     ODS_DATASET_FIELD_TYPE,
     ODS_DATASET_FIELD_SEMANTIC_TYPE,
+    ODS_METADATA_TEMPLATE_FIELD_TYPE,
 } from './constants';
 
 export interface Facet {
@@ -33,6 +34,8 @@ interface DataWithLinks {
 export type DatasetFieldType = ValueOf<typeof ODS_DATASET_FIELD_TYPE>;
 
 export type DatasetFieldSemanticType = ValueOf<typeof ODS_DATASET_FIELD_SEMANTIC_TYPE>;
+
+export type MetadataTemplateFieldType = ValueOf<typeof ODS_METADATA_TEMPLATE_FIELD_TYPE>;
 
 export interface DatasetAttachment {
     id: string;

@@ -17,6 +17,26 @@ export const ODS_DATASET_FIELD_SEMANTIC_TYPE = {
     MONITORING_IP_ADDRESS: 'monitoring_ip_address',
 } as const;
 
+export const ODS_METADATA_TEMPLATE_FIELD_TYPE = {
+    TEXT: 'text',
+    ENUM: 'enum',
+    ENUM_LIST: 'enumlist',
+    URI_ENUM: 'uri_enum',
+    URI_ENUM_LIST: 'uri_enumlist',
+    LIST: 'list',
+    DATE: 'date',
+    DATE_TIME: 'datetime',
+    BOOLEAN: 'boolean',
+    INTEGER: 'int',
+    DECIMAL: 'double',
+    HTML: 'html',
+    LONG_STRING: 'longstring',
+    /** It stores a value that references a polygon, a linear ring, multiple polygons, multiple lines, or multiple points */
+    GEO_SHAPE: 'geo_shape',
+    JSON: 'json',
+    IMAGE: 'image',
+};
+
 export const EXPORT_DATASET_FORMAT = {
     JSON: 'json',
     GEOJSON: 'geojson',

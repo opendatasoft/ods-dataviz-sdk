@@ -20,6 +20,7 @@ import {
     textSearch,
     textSuggest,
     textStartWith,
+    lower,
 } from '../src';
 
 describe('ODSQL query builder', () => {
@@ -95,6 +96,10 @@ describe('ODSQL query builder', () => {
                     .where((prev) => all(prev, searchTerm && `search(${string(searchTerm)})`))
                     .toString()
             ).toEqual('catalog/assets/?where=%28search%28%22my+search+term%22%29%29');
+        });
+
+        test('text helpers', () => {
+            expect(lower('artist')).toEqual('lower(artist)');
         });
 
         test('list helper', () => {
