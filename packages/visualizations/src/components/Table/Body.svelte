@@ -24,6 +24,9 @@
     {#if loadingRowsNumber}
         {#each Array(loadingRowsNumber) as _}
             <tr>
+                {#if rowProps?.onClick}
+                    <td class="button-cell__empty" />
+                {/if}
                 {#each columns as __}
                     <LoadingCell />
                 {/each}
@@ -45,4 +48,7 @@
 </tbody>
 
 <style>
+    .button-cell__empty {
+        min-width: 28px;
+    }
 </style>
