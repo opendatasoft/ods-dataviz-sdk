@@ -66,7 +66,7 @@ const esm = defineConfig({
     input: 'src/index.ts',
     // Externalize all dependencies
     external: (id) => {
-        // Both peer and regular dependencies can be imported from our files, but we don't want to package it
+        // Both peer and regular dependencies can be imported from our files, but we don't want to package them
         return (
             Object.keys(pkg.dependencies).includes(id) ||
             Object.keys(pkg.peerDependencies).includes(id)
@@ -84,6 +84,34 @@ const esm = defineConfig({
         // production &&
         //     visualizer({
         //         filename: `gen/stats-es.html`,
+        //         sourcemap: true,
+        //     }),
+    ],
+    onwarn,
+});
+
+const cjs = defineConfig({
+    input: 'src/index.ts',
+    // Externalize all dependencies
+    external: (id) => {
+        // Both peer and regular dependencies can be imported from our files, but we don't want to package them
+        return (
+            Object.keys(pkg.dependencies).includes(id) ||
+            Object.keys(pkg.peerDependencies).includes(id)
+        );
+    },
+    output: {
+        dir: 'dist',
+        entryFileNames: '[name].cjs.js',
+        format: 'cjs',
+        sourcemap: true,
+    },
+    plugins: [
+        ...basePlugins(),
+        // Visualize the generated bundle
+        // production &&
+        //     visualizer({
+        //         filename: `gen/stats-cjs.html`,
         //         sourcemap: true,
         //     }),
     ],
@@ -121,6 +149,6 @@ const umd = defineConfig({
 });
 
 // Just compile the ESM version during development
-const bundles = production ? [esm, umd] : [esm];
+const bundles = production ? [esm, cjs] : [esm];
 
 export default bundles;
