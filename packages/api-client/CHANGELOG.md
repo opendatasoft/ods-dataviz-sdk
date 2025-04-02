@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [21.7.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.6.2...@opendatasoft/api-client@21.7.0) (2025-03-14)
+
+
+### Features
+
+* **odsql functions:** add `lower` function ([0bff53e](https://github.com/opendatasoft/ods-dataviz-sdk/commit/0bff53e701f1146a6961bd4f8af8e5e5fe4da905))
+* **types:** add metadata templates field type and constant ([c6ed575](https://github.com/opendatasoft/ods-dataviz-sdk/commit/c6ed575100d1e78fe35a1f489210e38a32245541))
+
+
+
+
+
 ## [21.6.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.6.1...@opendatasoft/api-client@21.6.2) (2025-02-12)
 
 

@@ -121,7 +121,12 @@ Unstyled.args = {
 export const Loading = Template.bind({});
 Loading.args = {
     data: fetchingData,
-    options,
+    options: {
+        ...options,
+        rowProps: {
+            onClick: () => {}, // Just to have column that shouldn't have the loading indicator
+        },
+    },
 };
 
 export const emptyState = Template.bind({});

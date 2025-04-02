@@ -1,6 +1,6 @@
 {
     "name": "@opendatasoft/visualizations-react",
-    "version": "0.27.5-beta.1",
+    "version": "0.27.5",
     "license": "MIT",
     "author": "opendatasoft",
     "homepage": "https://github.com/opendatasoft/ods-dataviz-sdk",
@@ -26,7 +26,8 @@
             "import": "./dist/index.es.js",
             "require": "./dist/index.cjs.js",
             "types": "./dist/index.d.ts"
-        }
+        },
+        "./dist": "./dist"
     },
     "engines": {
         "node": ">=18"
@@ -60,7 +61,8 @@
         "arrowParens": "avoid"
     },
     "dependencies": {
-        "@opendatasoft/visualizations": "0.27.4"
+        "@opendatasoft/visualizations": "0.27.5",
+        "use-callback-ref": "^1.2.4"
     },
     "devDependencies": {
         "@babel/core": "^7.19.0",

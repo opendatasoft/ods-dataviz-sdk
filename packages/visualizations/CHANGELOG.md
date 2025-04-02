@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.27.5](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.27.4...@opendatasoft/visualizations@0.27.5) (2025-03-14)
+
+
+### Bug Fixes
+
+* add an empty column in loading cells too ([#273](https://github.com/opendatasoft/ods-dataviz-sdk/issues/273)) ([3fe8e2f](https://github.com/opendatasoft/ods-dataviz-sdk/commit/3fe8e2fbeb8797cf5a4fa876cd8c55b84e52fc05))
+
+
+
+
+
 ## [0.27.4](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.27.3...@opendatasoft/visualizations@0.27.4) (2025-02-12)
 
 **Note:** Version bump only for package @opendatasoft/visualizations
