@@ -14,14 +14,21 @@
         "TypeScript",
         "React"
     ],
-    "main": "dist/index.umd.js",
+    "main": "dist/index.es.js",
     "module": "dist/index.es.js",
-    "unpkg": "dist/index.umd.js",
     "typings": "dist/src/index.d.ts",
     "files": [
         "dist",
         "src"
     ],
+    "exports": {
+        ".": {
+            "import": "./dist/index.es.js",
+            "require": "./dist/index.cjs.js",
+            "types": "./dist/index.d.ts"
+        },
+        "./dist": "./dist"
+    },
     "engines": {
         "node": ">=18"
     },
@@ -42,7 +49,8 @@
         "prepare": "rimraf dist && rollup --config"
     },
     "peerDependencies": {
-        "react": ">=16"
+        "react": ">=17",
+        "react-dom": ">=17"
     },
     "prettier": {
         "printWidth": 100,
@@ -77,8 +85,8 @@
         "@storybook/preview-api": "^8.0.0",
         "@storybook/react": "^7.6.17",
         "@storybook/react-vite": "^7.6.17",
-        "@testing-library/jest-dom": "^5.11.9",
-        "@testing-library/react": "^12.1.5",
+        "@testing-library/jest-dom": "^5.16.5",
+        "@testing-library/react": "^12.1.2",
         "@testing-library/user-event": "^14.5.2",
         "@turf/turf": "^6.5.0",
         "@types/geojson": "^7946.0.10",
@@ -105,16 +113,16 @@
         "jest-environment-jsdom": "^29.0.2",
         "jest-fetch-mock": "^3.0.3",
         "postcss": "^8.4.16",
-        "react": "^16.13.0",
-        "react-dom": "^16.13.0",
-        "react-is": "^16.13.0",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
         "rollup": "^4.18.0",
         "rollup-plugin-postcss": "^4.0.2",
         "size-limit": "^8.1.0",
         "storybook": "^7.6.17",
         "storybook-addon-rtl": "^1.0.0",
         "tslib": "^2.1.0",
-        "typescript": "^5.5.3"
+        "typescript": "^5.5.3",
+        "vite": "^5.4.14"
     },
     "gitHead": "4528f9aec4497db447a1f2538a8319e382fe334c"
 }

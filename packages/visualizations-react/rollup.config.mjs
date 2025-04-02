@@ -3,14 +3,12 @@ import path from 'path';
 import postcss from 'rollup-plugin-postcss';
 import autoprefixer from 'autoprefixer';
 // import visualizer from 'rollup-plugin-visualizer';
-import terser from '@rollup/plugin-terser';
 import alias from '@rollup/plugin-alias';
 import typescript from '@rollup/plugin-typescript';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import { babel } from '@rollup/plugin-babel';
-import replace from '@rollup/plugin-replace';
 import { defineConfig } from 'rollup';
 import pkg from './package.json' with { type: 'json' };
 
@@ -66,7 +64,7 @@ const esm = defineConfig({
     input: 'src/index.ts',
     // Externalize all dependencies
     external: (id) => {
-        // Both peer and regular dependencies can be imported from our files, but we don't want to package it
+        // Both peer and regular dependencies can be imported from our files, but we don't want to package them
         return (
             Object.keys(pkg.dependencies).includes(id) ||
             Object.keys(pkg.peerDependencies).includes(id)
@@ -90,30 +88,28 @@ const esm = defineConfig({
     onwarn,
 });
 
-const umd = defineConfig({
+const cjs = defineConfig({
     input: 'src/index.ts',
+    // Externalize all dependencies
+    external: (id) => {
+        // Both peer and regular dependencies can be imported from our files, but we don't want to package them
+        return (
+            Object.keys(pkg.dependencies).includes(id) ||
+            Object.keys(pkg.peerDependencies).includes(id)
+        );
+    },
     output: {
         dir: 'dist',
-        entryFileNames: '[name].umd.js',
-        format: 'umd',
+        entryFileNames: '[name].cjs.js',
+        format: 'cjs',
         sourcemap: true,
-        name: 'opendatasoft.visualizationsReact',
-        plugins: [],
     },
     plugins: [
         ...basePlugins(),
-        // Minify umd bundle
-        terser(),
-        // Replace process.env.NODE_ENV with 'production'
-        production &&
-            replace({
-                values: { 'process.env.NODE_ENV': JSON.stringify('production') },
-                preventAssignment: true,
-            }),
         // Visualize the generated bundle
         // production &&
         //     visualizer({
-        //         filename: 'gen/stats-umd.html',
+        //         filename: `gen/stats-cjs.html`,
         //         sourcemap: true,
         //     }),
     ],
@@ -121,6 +117,6 @@ const umd = defineConfig({
 });
 
 // Just compile the ESM version during development
-const bundles = production ? [esm, umd] : [esm];
+const bundles = production ? [esm, cjs] : [esm];
 
 export default bundles;
