@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.27.7](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.27.6...@opendatasoft/visualizations-react@0.27.7) (2025-04-07)
+
+
+### Bug Fixes
+
+* update visualization-react package.json to expose index.css ([4afb3b2](https://github.com/opendatasoft/ods-dataviz-sdk/commit/4afb3b2283d2be04eb123adad16a986c228e8360))
+
+
+
+
+
 ## [0.27.6](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.27.5...@opendatasoft/visualizations-react@0.27.6) (2025-04-02)
 
 **Note:** Version bump only for package @opendatasoft/visualizations-react
