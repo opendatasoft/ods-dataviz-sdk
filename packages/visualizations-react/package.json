@@ -27,7 +27,7 @@
             "require": "./dist/index.cjs.js",
             "types": "./dist/index.d.ts"
         },
-        "./dist": "./dist"
+        "./dist/index.css": "./dist/index.css"
     },
     "engines": {
         "node": ">=18"
