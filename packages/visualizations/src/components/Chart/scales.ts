@@ -61,7 +61,7 @@ const DATE_TOOLTIP_FORMATS = {
     minute: DateTime.DATETIME_MED,
     hour: DateTime.DATETIME_MED,
     day: { day: 'numeric', month: 'long' },
-    week: 'DD',
+    week: "'W'WW yyyy",
     month: { month: 'long', year: 'numeric' },
     quarter: "'Q'q - yyyy",
     year: { year: 'numeric' },
@@ -93,6 +93,10 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
                       time: {
                           unit: options?.axis?.x?.timeUnit,
                           tooltipFormat: getDateTooltipFormat(options?.axis?.x?.timeUnit),
+                          isoWeekday: true,
+                          displayFormats: {
+                              ...(options?.axis?.x?.timeDisplayFormats || {}),
+                          },
                       },
                   }
                 : {}),

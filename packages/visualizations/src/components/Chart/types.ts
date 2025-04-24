@@ -63,6 +63,18 @@ export interface BaseCartesianAxisConfiguration {
     ticks?: TicksConfiguration;
 }
 
+interface TimeDisplayFormats {
+    millisecond?: string;
+    second?: string;
+    minute?: string;
+    hour?: string;
+    day?: string;
+    week?: string;
+    month?: string;
+    quarter?: string;
+    year?: string;
+}
+
 export interface TimeCartesianAxisConfiguration extends BaseCartesianAxisConfiguration {
     type: 'time';
     timeUnit?:
@@ -75,6 +87,7 @@ export interface TimeCartesianAxisConfiguration extends BaseCartesianAxisConfigu
         | 'minute'
         | 'second'
         | 'millisecond';
+    timeDisplayFormats?: TimeDisplayFormats;
 }
 
 export interface CategoryCartesianAxisConfiguration extends BaseCartesianAxisConfiguration {
