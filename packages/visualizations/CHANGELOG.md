@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.28.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.27.5...@opendatasoft/visualizations@0.28.0) (2025-05-06)
+
+
+### Features
+
+* add TimeDisplayFormats for chart x scale ([#276](https://github.com/opendatasoft/ods-dataviz-sdk/issues/276)) ([04c06c2](https://github.com/opendatasoft/ods-dataviz-sdk/commit/04c06c2a7e31bc7cb85c87428ce49286e7a3dff9))
+
+
+
+
+
 ## [0.27.5](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.27.4...@opendatasoft/visualizations@0.27.5) (2025-03-14)
 
 
