@@ -133,6 +133,53 @@ const LineChartMonthsArgs: Props<DataFrame, ChartOptions> = {
 };
 LineChartMonths.args = LineChartMonthsArgs;
 
+export const LineChartWeeks = ChartTemplate.bind({});
+const LineChartWeeksArgs: Props<DataFrame, ChartOptions> = {
+    data: {
+        loading: false,
+        value: generateArrayOf(
+            index => {
+                const startDate = new Date('2025-01-06T00:00:00');
+                const newDate = new Date(startDate.getTime());
+                newDate.setDate(startDate.getDate() + (index * 7));
+                const year = newDate.getFullYear();
+                const month = (newDate.getMonth() + 1.).toString().padStart(2, '0');
+                const day = newDate.getDate().toString().padStart(2, '0');
+                return ({
+                    x: `${year}-${month}-${day}`,
+                    y: (index - 8) ** 2,
+                });
+            },
+            16,
+        ),
+    },
+    options: {
+        labelColumn: 'x',
+        series: [
+            {
+                type: ChartSeriesType.Line,
+                valueColumn: 'y',
+                borderColor: COLORS.blue,
+            },
+        ],
+        axis: {
+            x: {
+                display: true,
+                type: 'time',
+                timeUnit: 'week',
+                timeDisplayFormats: { week: "'W'WW yyyy" },
+            },
+            y: {
+                display: true,
+            },
+        },
+        title: {
+            text: 'Weeks',
+        },
+    },
+};
+LineChartWeeks.args = LineChartWeeksArgs;
+
 export const LineChartDays = ChartTemplate.bind({});
 const LineChartDaysArgs: Props<DataFrame, ChartOptions> = {
     data: {
