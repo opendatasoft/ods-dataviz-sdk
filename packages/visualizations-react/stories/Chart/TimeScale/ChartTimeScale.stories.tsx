@@ -134,6 +134,8 @@ const LineChartMonthsArgs: Props<DataFrame, ChartOptions> = {
 LineChartMonths.args = LineChartMonthsArgs;
 
 export const LineChartWeeks = ChartTemplate.bind({});
+// used for x axis and tooltip but may be different for each
+const timeDisplayFormats = { week: "'W'WW yyyy" };
 const LineChartWeeksArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -167,7 +169,7 @@ const LineChartWeeksArgs: Props<DataFrame, ChartOptions> = {
                 display: true,
                 type: 'time',
                 timeUnit: 'week',
-                timeDisplayFormats: { week: "'W'WW yyyy" },
+                timeDisplayFormats,
             },
             y: {
                 display: true,
@@ -176,6 +178,7 @@ const LineChartWeeksArgs: Props<DataFrame, ChartOptions> = {
         title: {
             text: 'Weeks',
         },
+        tooltip: { timeDisplayFormats }
     },
 };
 LineChartWeeks.args = LineChartWeeksArgs;

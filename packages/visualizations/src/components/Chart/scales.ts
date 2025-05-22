@@ -15,6 +15,7 @@ import type {
     GridLinesConfiguration,
     TicksConfiguration,
     TimeCartesianAxisConfiguration,
+    TimeDisplayFormats,
 } from './types';
 import { defaultValue, singleChartJsColor } from './utils';
 
@@ -67,9 +68,14 @@ const DATE_TOOLTIP_FORMATS = {
     year: { year: 'numeric' },
 };
 
-function getDateTooltipFormat(unit?: TimeCartesianAxisConfiguration['timeUnit']) {
-    if (unit) return DATE_TOOLTIP_FORMATS[unit];
-    return undefined;
+function getDateTooltipFormat(
+    unit?: TimeCartesianAxisConfiguration['timeUnit'],
+    customFormats?: TimeDisplayFormats
+) {
+    if (customFormats && unit && customFormats[unit]) {
+        return customFormats[unit];
+    }
+    return unit ? DATE_TOOLTIP_FORMATS[unit] : undefined;
 }
 
 export default function buildScales(options: ChartOptions): ChartJsChartOptions['scales'] {
@@ -92,7 +98,10 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
                 ? {
                       time: {
                           unit: options?.axis?.x?.timeUnit,
-                          tooltipFormat: getDateTooltipFormat(options?.axis?.x?.timeUnit),
+                          tooltipFormat: getDateTooltipFormat(
+                              options?.axis?.x?.timeUnit,
+                              options?.tooltip?.timeDisplayFormats
+                          ),
                           isoWeekday: true,
                           displayFormats: {
                               ...(options?.axis?.x?.timeDisplayFormats || {}),
