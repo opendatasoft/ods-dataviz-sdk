@@ -63,7 +63,7 @@ export interface BaseCartesianAxisConfiguration {
     ticks?: TicksConfiguration;
 }
 
-interface TimeDisplayFormats {
+export interface TimeDisplayFormats {
     millisecond?: string;
     second?: string;
     minute?: string;
@@ -133,6 +133,8 @@ export interface TooltipConfiguration {
     rtl?: boolean;
     /** Custom number formatting function for tooltips values */
     numberFormatter?: (value: number) => string;
+    /** Custom time formats for each unit for tooltips values */
+    timeDisplayFormats?: TimeDisplayFormats;
 }
 
 export interface FontConfiguration {
