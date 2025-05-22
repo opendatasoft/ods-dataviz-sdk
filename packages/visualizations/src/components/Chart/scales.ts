@@ -72,10 +72,7 @@ function getDateTooltipFormat(
     unit?: TimeCartesianAxisConfiguration['timeUnit'],
     customFormats?: TimeDisplayFormats
 ) {
-    if (customFormats && unit && customFormats[unit]) {
-        return customFormats[unit];
-    }
-    return unit ? DATE_TOOLTIP_FORMATS[unit] : undefined;
+    return unit ? customFormats?.[unit] || DATE_TOOLTIP_FORMATS[unit] : undefined;
 }
 
 export default function buildScales(options: ChartOptions): ChartJsChartOptions['scales'] {

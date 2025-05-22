@@ -133,7 +133,7 @@ export interface TooltipConfiguration {
     rtl?: boolean;
     /** Custom number formatting function for tooltips values */
     numberFormatter?: (value: number) => string;
-    /** Custom time formats for tooltips values */
+    /** Custom time formats for each unit for tooltips values */
     timeDisplayFormats?: TimeDisplayFormats;
 }
 
