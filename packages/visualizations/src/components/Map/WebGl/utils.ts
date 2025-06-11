@@ -6,6 +6,7 @@ import type {
     ExpressionInputType,
     SymbolLayerSpecification,
     FillLayerSpecification,
+    LineLayerSpecification,
 } from 'maplibre-gl';
 
 import { isGroupByForMatchExpression, Color } from 'types';
@@ -20,6 +21,7 @@ import type {
     SymbolLayer,
     CenterZoomOptions,
     FillLayer,
+    LineLayer,
 } from './types';
 import { DEFAULT_DARK_GREY, DEFAULT_BASEMAP_STYLE, DEFAULT_SORT_KEY_VALUE } from './constants';
 
@@ -142,6 +144,21 @@ const getMapFillLayer = (layer: FillLayer): FillLayerSpecification => {
         },
     };
 };
+
+const getMapLineLayer = (layer: LineLayer): LineLayerSpecification => {
+    const { type, color, width, opacity } = layer;
+
+    return {
+        ...getBaseMapLayerConfiguration(layer),
+        filter: ['==', ['geometry-type'], 'LineString'],
+        type,
+        paint: {
+            'line-color': color,
+            ...(width && { 'line-width': width }),
+            ...(opacity && { 'line-opacity': opacity }),
+        },
+    };
+};
 // Circle, symbol and fill layers are supported
 export const getMapLayers = (layers?: Layer[]): LayerSpecification[] => {
     if (!layers) return [];
@@ -153,8 +170,10 @@ export const getMapLayers = (layers?: Layer[]): LayerSpecification[] => {
                 return getMapSymbolLayer(layer);
             case 'fill':
                 return getMapFillLayer(layer);
+            case 'line':
+                return getMapLineLayer(layer);
             default:
-                throw new Error(`Unexepected layer type for layer: ${layer}`);
+                throw new Error(`Unexpected layer type for layer: ${layer}`);
         }
     });
 };
