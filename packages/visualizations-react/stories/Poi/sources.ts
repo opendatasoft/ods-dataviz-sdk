@@ -108,6 +108,52 @@ const sources : Required<PoiMapData>["value"]["sources"] = {
     moselle: {
         type: 'geojson',
         data: 'https://france-geojson.gregoiredavid.fr/repo/departements/57-moselle/departement-57-moselle.geojson'
+    },
+    maginot: {
+        type: "geojson",
+        data: {
+            "type": "Feature",
+            "properties": {
+              "name": "Ligne Maginot",
+              "description": "Simplified path of the Maginot Line along the French eastern border."
+            },
+            "geometry": {
+              "type": "LineString",
+              "coordinates": [
+                [7.5536, 47.5649],
+                [7.3328, 47.7480],
+                [7.2561, 48.0000],
+                [7.3000, 48.2500],
+                [7.2000, 48.6000],
+                [7.1000, 48.9000],
+                [6.9500, 49.2000],
+                [6.7000, 49.5000],
+                [6.4000, 49.6000],
+                [5.9500, 49.5500]
+              ]
+            }
+        }
+    },
+    rivers: {
+        type: 'geojson',
+        data: {
+            "type": "Feature",
+            "properties": {
+              "name": "Fleuves Français",
+              "description": "Principaux fleuves de France sous forme de MultiLineString"
+            },
+            "geometry": {
+              "type": "MultiLineString",
+              "coordinates": [
+                [[-0.5669, 47.25], [0.0833, 47.35], [0.68, 47.39],[1.25, 47.39], [2.0, 47.2], [3.1, 47.4], [4.8, 47.0]],
+                [[0.15, 49.5], [0.5, 49.4], [1.2, 49.0], [2.35, 48.85],[3.3, 48.5], [3.5, 48.0]],
+                [[6.1, 46.2], [5.7, 45.9], [4.83, 45.76], [4.7, 44.5],[4.9, 43.8]],
+                [[0.55, 42.8], [0.75, 43.5], [1.44, 43.6], [1.8, 44.0],[-0.57, 44.8]],
+                [[7.55, 47.56], [7.6, 48.0], [7.7, 48.5], [7.7, 49.0]],
+                [[7.0, 44.1], [7.1, 43.9], [7.2, 43.8]]
+              ]
+            }
+        }
     }
 };
 

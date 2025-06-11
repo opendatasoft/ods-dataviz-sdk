@@ -63,7 +63,25 @@ const moselleLayer: Layer = {
     opacity: 0.3,
 };
 
-const layers = [citiesLayer, battlesLayer, moselleLayer];
+const maginotLayer: Layer = {
+    id: 'layer-maginot',
+    source: 'maginot',
+    type: 'line',
+    color: '#6E0F12',
+    width: 2,
+    opacity: 0.8,
+};
+
+const riversLayer = {
+    id: 'layer-rivers',
+    source: 'rivers',
+    type: 'line',
+    color: '#0000FF',
+    width: 1,
+    opacity: 0.5,
+};
+
+const layers = [citiesLayer, battlesLayer, moselleLayer, maginotLayer, riversLayer];
 
 const citiesColorMatch = {
     key: 'key',
@@ -139,10 +157,31 @@ const legendMoselleItems: CategoryItem[] = [
     },
 ];
 
+const legendMaginotItems: CategoryItem[] = [
+    {
+        variant: CATEGORY_ITEM_VARIANT.Line,
+        label: 'Maginot Line',
+        borderColor: maginotLayer.color,
+    },
+];
+
+const legendRiversItems: CategoryItem[] = [
+    {
+        variant: CATEGORY_ITEM_VARIANT.Line,
+        label: 'French rivers',
+        borderColor: riversLayer.color,
+    },
+];
 const legend = {
     type: 'category' as const,
-    title: 'French cities and famous battles',
-    items: [...legendCitiesItems, ...legendbattleItems, ...legendMoselleItems],
+    title: 'Legend',
+    items: [
+        ...legendCitiesItems,
+        ...legendbattleItems,
+        ...legendMoselleItems,
+        ...legendMaginotItems,
+        ...legendRiversItems,
+    ],
     align: 'start' as const,
 };
 
@@ -236,6 +275,8 @@ const PoiMapLegendStartArgs = {
                 { ...citiesLayer, colorMatch: citiesColorMatch },
                 { ...battlesLayer, iconImageMatch: battleImageMatch },
                 moselleLayer,
+                maginotLayer,
+                riversLayer,
             ],
             sources,
         },
@@ -255,6 +296,8 @@ const PoiMapLegendCenterArgs = {
                 { ...citiesLayer, colorMatch: citiesColorMatch },
                 { ...battlesLayer, iconImageMatch: battleImageMatch },
                 moselleLayer,
+                maginotLayer,
+                riversLayer,
             ],
             sources,
         },
@@ -274,6 +317,8 @@ const PoiMapMinMaxZoomsArgs = {
                 { ...citiesLayer, colorMatch: citiesColorMatch },
                 { ...battlesLayer, iconImageMatch: battleImageMatch },
                 moselleLayer,
+                maginotLayer,
+                riversLayer,
             ],
             sources,
         },
@@ -298,6 +343,8 @@ const PoiMapCooperativeGesturesArgs = {
                 { ...citiesLayer, colorMatch: citiesColorMatch },
                 { ...battlesLayer, iconImageMatch: battleImageMatch },
                 moselleLayer,
+                maginotLayer,
+                riversLayer,
             ],
             sources,
         },
