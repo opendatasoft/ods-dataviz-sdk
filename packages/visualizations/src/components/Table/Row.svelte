@@ -66,23 +66,23 @@
         height: 28px;
         width: 28px;
         padding: 6px;
-        margin-right: -6px; /* cancels next cell padding */
+        margin-inline-end: -6px; /* cancels next cell padding */
         border: none;
         box-shadow: none;
     }
 
     :global(.ods-dataviz--default .button-cell.isHorizontallyScrolled.isLastSticky button) {
-        margin-right: 0; /* cancels next cell padding */
+        margin-inline-end: 0; /* cancels next cell padding */
     }
 
     :global(.ods-dataviz--default .button-cell.sticky) {
         padding: 0px;
-        padding-left: 6px;
+        padding-inline-start: 6px;
     }
 
     :global(.ods-dataviz--default .button-cell.isHorizontallyScrolled.isLastSticky) {
         padding: 0 6px;
-        border-right: 1px solid var(--border-color);
+        border-inline-end: 1px solid var(--border-color);
     }
 
     /* Hides visually but leaves it accessible by kb/sr */
