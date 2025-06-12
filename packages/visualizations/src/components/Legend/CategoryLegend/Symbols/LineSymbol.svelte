@@ -10,7 +10,6 @@
     div {
         min-height: 16px;
         min-width: 28px;
-        margin-right: 3px;
         background: linear-gradient(var(--border-color), var(--border-color)) no-repeat center/100%
             2px;
         background-position-x: calc(50% - 3px);
