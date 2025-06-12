@@ -44,6 +44,7 @@
         --spacing-50: 6px;
         --spacing-75: 9px;
         --spacing-100: 13px;
+        --spacing-200: 26px;
         --border-color: #cbd2db;
         --background-color: #fff;
         /* FIXME: Only using flex style to center source link */
