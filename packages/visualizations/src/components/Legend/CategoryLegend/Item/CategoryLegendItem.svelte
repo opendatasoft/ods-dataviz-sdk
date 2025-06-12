@@ -52,6 +52,7 @@
     div {
         display: inline-flex;
         align-items: center;
+        gap: 6px;
     }
     div:hover {
         cursor: var(--cursor-style);
