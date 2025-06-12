@@ -10,7 +10,6 @@
 <style>
     img {
         width: 16px;
-        margin-right: 6px;
         object-fit: contain;
     }
 </style>
