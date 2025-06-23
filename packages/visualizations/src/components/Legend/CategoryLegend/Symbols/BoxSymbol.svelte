@@ -13,6 +13,5 @@
         border-radius: 3px;
         background: var(--box-color);
         border: 1px solid var(--border-color);
-        margin-right: 6px;
     }
 </style>
