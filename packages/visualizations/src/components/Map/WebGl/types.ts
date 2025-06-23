@@ -9,6 +9,7 @@ import type {
     StyleImageMetadata,
     StyleSpecification,
     SymbolLayerSpecification,
+    LineLayerSpecification,
 } from 'maplibre-gl';
 import type { BBox, GeoJsonProperties } from 'geojson';
 import type { Color } from 'types';
@@ -68,7 +69,8 @@ export type WebGlMapStyleOption = Partial<Pick<StyleSpecification, 'sources' | '
 export type LayerSpecification =
     | CircleLayerSpecification
     | SymbolLayerSpecification
-    | FillLayerSpecification;
+    | FillLayerSpecification
+    | LineLayerSpecification;
 
 type BaseLayer = {
     id: string;
@@ -122,7 +124,14 @@ export type FillLayer = BaseLayer & {
     opacity?: number;
 };
 
-export type Layer = CircleLayer | SymbolLayer | FillLayer;
+export type LineLayer = BaseLayer & {
+    type: LineLayerSpecification['type'];
+    color: Color;
+    width?: number;
+    opacity?: number;
+};
+
+export type Layer = CircleLayer | SymbolLayer | FillLayer | LineLayer;
 
 export type GeoPoint = {
     lat: number;
