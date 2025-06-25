@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.29.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.28.1...@opendatasoft/visualizations@0.29.0) (2025-06-25)
+
+
+### Features
+
+* **map:** add support for line layers ([#278](https://github.com/opendatasoft/ods-dataviz-sdk/issues/278)) ([46e24e8](https://github.com/opendatasoft/ods-dataviz-sdk/commit/46e24e81fe9f44023dadfe7010aec730becb8142))
+
+
+
+
+
 # [0.28.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.27.5...@opendatasoft/visualizations@0.28.0) (2025-05-06)
 
 
