@@ -173,9 +173,10 @@ describe('ODSQL query builder', () => {
                     )
                     .select('a')
                     .select((selected) => `${selected}, b`)
+                    .timezone('Europe/Paris')
                     .toString()
             ).toEqual(
-                'catalog/datasets/my_dataset/records/?group_by=x%2C+y&select=a%2C+b&where=%28%28%60my_field%60%3A%22this+will+be%27+escaped%22%29+OR+%28%60my_field%60+%3C+date%271970-01-01%27%29%29+AND+%28not_escaped+in+%5B0..10%5D+and+other+is+true%29+AND+%28len%28f%29+%3D+2%29'
+                'catalog/datasets/my_dataset/records/?group_by=x%2C+y&select=a%2C+b&timezone=Europe%2FParis&where=%28%28%60my_field%60%3A%22this+will+be%27+escaped%22%29+OR+%28%60my_field%60+%3C+date%271970-01-01%27%29%29+AND+%28not_escaped+in+%5B0..10%5D+and+other+is+true%29+AND+%28len%28f%29+%3D+2%29'
             );
 
             expect(

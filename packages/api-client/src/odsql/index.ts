@@ -130,6 +130,10 @@ export class Query {
     lang(lang: string): Query {
         return this.set('lang', lang);
     }
+
+    timezone(timezone: string): Query {
+        return this.set('timezone', timezone);
+    }
 }
 
 function root(source: string) {
