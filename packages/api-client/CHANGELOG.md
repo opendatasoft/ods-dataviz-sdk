@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [21.8.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.7.0...@opendatasoft/api-client@21.8.0) (2025-06-30)
+
+
+### Features
+
+* **api-client:** Support timezone parameter ([101310a](https://github.com/opendatasoft/ods-dataviz-sdk/commit/101310a935d974662c2a8e9a85822ea66e223a11))
+
+
+
+
+
 # [21.7.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.6.2...@opendatasoft/api-client@21.7.0) (2025-03-14)
 
 
