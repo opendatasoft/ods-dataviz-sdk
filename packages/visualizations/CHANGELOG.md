@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.29.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.29.0...@opendatasoft/visualizations@0.29.1) (2025-07-18)
+
+
+### Bug Fixes
+
+* **legend:** update spacing between symbol and label ([8624187](https://github.com/opendatasoft/ods-dataviz-sdk/commit/86241879d30279a45e102a641da4fe23524041b2))
+* **table:** better support of RTL for the zoom button ([547fb11](https://github.com/opendatasoft/ods-dataviz-sdk/commit/547fb111e51cf24737584c021ce2e847bc47f66b))
+* **table:** update page size select spacing on RTL ([49c8f58](https://github.com/opendatasoft/ods-dataviz-sdk/commit/49c8f58a8ff4cfd0fde48684223a69aa93208209))
+
+
+
+
+
 # [0.29.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.28.1...@opendatasoft/visualizations@0.29.0) (2025-06-25)
 
 
