@@ -159,7 +159,7 @@ const getMapLineLayer = (layer: LineLayer): LineLayerSpecification => {
         },
     };
 };
-// Circle, symbol and fill layers are supported
+// Circle, symbol, fill and line layers are supported
 export const getMapLayers = (layers?: Layer[]): LayerSpecification[] => {
     if (!layers) return [];
     return layers.map((layer) => {
