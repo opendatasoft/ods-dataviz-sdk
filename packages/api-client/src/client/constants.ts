@@ -17,6 +17,13 @@ export const ODS_DATASET_FIELD_SEMANTIC_TYPE = {
     MONITORING_IP_ADDRESS: 'monitoring_ip_address',
 } as const;
 
+export const ODS_METADATA_TEMPLATE_TYPE = {
+    ADMIN: 'admin',
+    BASIC: 'basic',
+    INTEROP: 'interop',
+    EXTRA: 'extra',
+} as const;
+
 export const ODS_METADATA_TEMPLATE_FIELD_TYPE = {
     TEXT: 'text',
     ENUM: 'enum',
@@ -35,7 +42,7 @@ export const ODS_METADATA_TEMPLATE_FIELD_TYPE = {
     GEO_SHAPE: 'geo_shape',
     JSON: 'json',
     IMAGE: 'image',
-};
+} as const;
 
 export const EXPORT_DATASET_FORMAT = {
     JSON: 'json',
