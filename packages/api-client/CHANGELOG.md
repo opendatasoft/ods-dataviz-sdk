@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [21.8.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.8.0...@opendatasoft/api-client@21.8.1) (2025-10-08)
+
+
+### Bug Fixes
+
+* **types:** add type: `MetadataTemplateType` ([#282](https://github.com/opendatasoft/ods-dataviz-sdk/issues/282)) ([5256f3e](https://github.com/opendatasoft/ods-dataviz-sdk/commit/5256f3eb0303d964656b96786cf279c0de81cfe0))
+
+
+
+
+
 # [21.8.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.7.0...@opendatasoft/api-client@21.8.0) (2025-06-30)
 
 
