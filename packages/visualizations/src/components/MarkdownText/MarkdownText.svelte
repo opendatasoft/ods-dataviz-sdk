@@ -43,6 +43,7 @@
         })
         .enable([
             'hr',
+            'image',
             'list',
             'heading',
             'emphasis', // bold & italic
