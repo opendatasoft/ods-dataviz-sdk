@@ -22,8 +22,8 @@ export const dataReg: ChoroplethDataValue[] = [
 ];
 
 export const shapesTiles: ChoroplethShapeVectorTilesValue = {
-    url: 'https://static.opendatasoft.com/vector-tiles/fr_40_region_2021/{z}/{x}/{y}.pbf',
-    layer: 'fr_40_region_2021',
+    url: 'https://static.opendatasoft.com/vector-tiles/fr_40_region_2024/{z}/{x}/{y}.pbf',
+    layer: 'fr_40_region_2024',
     key: 'reg_code',
     label: 'reg_code',
 };
