@@ -1,9 +1,10 @@
 
 import { PoiMapData } from '@opendatasoft/visualizations';
+import { coordinates } from './moselle';
 
 const sources : Required<PoiMapData>["value"]["sources"] = {
     cities : {
-        type: 'geojson', 
+        type: 'geojson',
         data: {
             type: 'FeatureCollection',
             features: [
@@ -103,14 +104,31 @@ const sources : Required<PoiMapData>["value"]["sources"] = {
                 },
             ]
           }
-          
     },
     moselle: {
         type: 'geojson',
-        data: 'https://france-geojson.gregoiredavid.fr/repo/departements/57-moselle/departement-57-moselle.geojson'
+        generateId: true,
+        data: {
+            type: 'FeatureCollection',
+            features: [
+            {
+                type: 'Feature',
+                properties: {
+                name: 'Moselle',
+                code: '57',
+                region: 'Grand Est'
+                },
+                geometry: {
+                    type: 'Polygon',
+                    coordinates: coordinates,
+                }
+            }
+            ]
+        }
     },
     maginot: {
         type: "geojson",
+        generateId: true,
         data: {
             "type": "Feature",
             "properties": {
@@ -136,6 +154,7 @@ const sources : Required<PoiMapData>["value"]["sources"] = {
     },
     rivers: {
         type: 'geojson',
+        generateId: true,
         data: {
             "type": "Feature",
             "properties": {

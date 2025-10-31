@@ -61,6 +61,15 @@ const moselleLayer: Layer = {
     color: '#6E0F12',
     borderColor: 'white',
     opacity: 0.3,
+    popup: {
+        display: POPUP_DISPLAY.tooltip,
+        getContent: async (_, properties) => {
+            await timeout(500);
+            const { name, region } = properties as Record<string, unknown>;
+            return Promise.resolve(`<b>${name}</b><div>${region}<div>`);
+        },
+        getLoadingContent: () => 'Loading...',
+    },
 };
 
 const maginotLayer: Layer = {
@@ -70,15 +79,33 @@ const maginotLayer: Layer = {
     color: '#6E0F12',
     width: 2,
     opacity: 0.8,
+    popup: {
+        display: POPUP_DISPLAY.tooltip,
+        getContent: async (_, properties) => {
+            await timeout(500);
+            const { name, description } = properties as Record<string, unknown>;
+            return Promise.resolve(`<b>${name}</b><div>${description}<div>`);
+        },
+        getLoadingContent: () => 'Loading...',
+    },
 };
 
-const riversLayer = {
+const riversLayer: Layer = {
     id: 'layer-rivers',
     source: 'rivers',
     type: 'line',
     color: '#0000FF',
     width: 1,
     opacity: 0.5,
+    popup: {
+        display: POPUP_DISPLAY.tooltip,
+        getContent: async (_, properties) => {
+            await timeout(500);
+            const { name, description } = properties as Record<string, unknown>;
+            return Promise.resolve(`<b>${name}</b><div>${description}<div>`);
+        },
+        getLoadingContent: () => 'Loading...',
+    },
 };
 
 const layers = [citiesLayer, battlesLayer, moselleLayer, maginotLayer, riversLayer];

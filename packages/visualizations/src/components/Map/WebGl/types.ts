@@ -166,3 +166,11 @@ export type WebGlMapProps = {
     data: WebGlMapData;
     options: WebGlMapOptions;
 };
+
+export type SupportedGeometry =
+  | GeoJSON.Point
+  | GeoJSON.MultiPoint
+  | GeoJSON.LineString
+  | GeoJSON.MultiLineString
+  | GeoJSON.Polygon
+  | GeoJSON.MultiPolygon;

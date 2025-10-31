@@ -1,4 +1,5 @@
-import type { BBox } from 'geojson';
+import type { BBox, Geometry } from 'geojson';
+import centroid from '@turf/centroid';
 import { debounce, difference } from 'lodash';
 import MaplibreGl from 'maplibre-gl';
 import type {
@@ -37,6 +38,7 @@ import type {
     PopupDisplayTypes,
     Images,
     OnFeatureClick,
+    SupportedGeometry,
 } from './types';
 
 const CURSOR = {
@@ -46,6 +48,21 @@ const CURSOR = {
 };
 
 const ACTIVE_FEATURE_RATIO_SIZE = 1.3;
+
+const SUPPORTED_GEOMETRY_TYPES: SupportedGeometry['type'][] = [
+  'Point',
+  'MultiPoint',
+  'LineString',
+  'MultiLineString',
+  'Polygon',
+  'MultiPolygon',
+];
+
+function isSupportedGeometry(geometry: Geometry): geometry is SupportedGeometry {
+  return SUPPORTED_GEOMETRY_TYPES.includes(
+    geometry.type as SupportedGeometry['type'],
+  );
+}
 
 /** Sorts features in a layer by setting a sort key for a specific feature. */
 const sortLayerFeatures = (
@@ -120,6 +137,16 @@ export default class MapPOI {
     private enqueue(map: Map) {
         this.queuedFunctions.forEach((fn) => fn(map));
         this.queuedFunctions = [];
+    }
+
+    /** Get the center point [lng, lat] from any geometry type */
+    private getGeometryCenter(geometry: SupportedGeometry): LngLatLike | null {
+    try {
+        const center = centroid(geometry).geometry.coordinates as LngLatLike;
+        return center;
+    } catch {
+        return null;
+    }
     }
 
     /** Make active feature bigger and sort it on top of other features in the layer */
@@ -282,8 +309,11 @@ export default class MapPOI {
         this.activeFeature = this.availableFeaturesOnClick[activeFeatureIndex + direction];
         this.updatePopupContent();
         this.updatePopupDisplay();
-        if (this.activeFeature?.geometry.type === 'Point') {
-            this.popup.setLngLat(this.activeFeature?.geometry.coordinates as LngLatLike);
+        if (this.activeFeature && isSupportedGeometry(this.activeFeature.geometry)) {
+            const center = this.getGeometryCenter(this.activeFeature.geometry);
+            if (center) {
+                this.popup.setLngLat(center);
+            }
         }
         this.highlightFeature(this.activeFeature);
     }
@@ -378,7 +408,7 @@ export default class MapPOI {
             if (
                 newDisplay === POPUP_DISPLAY.sidebar &&
                 this.activeFeature &&
-                this.activeFeature.geometry.type === 'Point'
+                isSupportedGeometry(this.activeFeature.geometry)
             ) {
                 map.easeTo({
                     center: this.activeFeature.geometry.coordinates as LngLatLike,
@@ -465,11 +495,16 @@ export default class MapPOI {
         this.availableFeaturesOnClick = features;
         const { geometry } = this.activeFeature;
 
-        if (geometry.type !== 'Point') return;
+        if (!isSupportedGeometry(geometry)) {
+            return;
+        }
         if (!this.popup.isOpen()) {
             this.popup.addTo(map);
         }
-        this.popup.setLngLat(geometry.coordinates as LngLatLike);
+         const center = this.getGeometryCenter(geometry);
+        if (center) {
+            this.popup.setLngLat(center);
+        }
 
         this.updatePopupContent();
         this.updatePopupDisplay();
