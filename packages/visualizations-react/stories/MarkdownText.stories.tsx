@@ -59,3 +59,16 @@ Link.args = {
     },
     options: {},
 };
+
+export const Image = Template.bind({});
+Image.args = {
+    data: {
+        value: `
+        I'd like to show an image:
+        ![My image](https://hub.huwise.com/static/ods/imgv4/huwise-black.svg "Huwise logo")
+
+        Thanks!
+        `,
+    },
+    options: {},
+};

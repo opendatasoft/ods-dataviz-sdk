@@ -103,7 +103,7 @@
         "lodash": "^4.17.21",
         "luxon": "^2.5.0",
         "maplibre-gl": "^3.6.2",
-        "markdown-it": "^12.0.4",
+        "markdown-it": "14.1.0",
         "markdown-it-link-attributes": "^3.0.0",
         "markdown-it-mark": "^3.0.1",
         "sass": "^1.70.0",
