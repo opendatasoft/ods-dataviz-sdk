@@ -1,6 +1,6 @@
 <script lang="ts">
     import CategoryLegendItem from './CategoryLegend/Item/CategoryLegendItem.svelte';
-    import type { CategoryLegend, CategoryItem } from './types';
+    import { type CategoryLegend, type CategoryItem, CATEGORY_ITEM_VARIANT } from './types';
 
     export let legendOptions: CategoryLegend;
 
@@ -8,6 +8,7 @@
     let title: string | undefined;
     let align: string | undefined;
     let refinedSeries: number[] = [];
+    let legendWidth: number;
 
     const isRefined = (i: number, series: number[]) => series.some((id) => id === i);
     const toggleSerie = (index: number) => {
@@ -17,20 +18,49 @@
     };
 
     $: ({ items, title, align = 'center' } = legendOptions);
+
+    // group items by available "variant"
+    const variantOrder = [
+        CATEGORY_ITEM_VARIANT.Circle,
+        CATEGORY_ITEM_VARIANT.Line,
+        CATEGORY_ITEM_VARIANT.Box,
+        CATEGORY_ITEM_VARIANT.Image,
+    ];
+    let grouped: Record<string, CategoryItem[]>;
+    let groupKeys: string[];
+    let maxItemsInGroup: number;
+    $: {
+        grouped = items.reduce((acc, item) => {
+            const v = item.variant;
+            if (!acc[v]) acc[v] = [];
+            acc[v].push(item);
+            return acc;
+        }, {} as Record<string, CategoryItem[]>);
+
+        groupKeys = variantOrder.filter(v => grouped[v]);
+        maxItemsInGroup = Math.max(...Object.values(grouped).map(g => g.length)) || 1;
+        // Computing the maximum number of columns : current legend width divided by 120px (min item width) + 13px*2 (padding)
+        // + 13px (gap between items)
+        maxItemsInGroup = Math.min(maxItemsInGroup, Math.floor(legendWidth / (120 + 39)) || 1);
+    }
 </script>
 
-<div class="legend-container" style="--align: {align}">
+<div class="legend-container" style="--align: {align}" bind:clientWidth={legendWidth}>
     {#if title}
         <div class="legend-title">{title}</div>
     {/if}
-    <div class="legend-items-container">
-        {#each items as item, i}
-            <CategoryLegendItem
-                {item}
-                itemIndex={i}
-                {toggleSerie}
-                refined={isRefined(i, refinedSeries)}
-            />
+    <div class="legend-items-container" style="--max-items-in-group: {maxItemsInGroup}">
+        {#each groupKeys as group}
+            <div class="legend-items-group">
+                {#each grouped[group] as item, i}
+                    <CategoryLegendItem
+                        {item}
+                        itemIndex={i}
+                        {toggleSerie}
+                        refined={isRefined(i, refinedSeries)}
+                    />
+                {/each}
+            </div>
         {/each}
     </div>
 </div>
@@ -49,9 +79,17 @@
     }
     .legend-items-container {
         display: grid;
+        grid-template-columns: repeat(var(--max-items-in-group), minmax(120px, max-content));
         justify-content: var(--align);
-        grid-gap: 3px 13px;
-        grid-template-columns: repeat(auto-fit, minmax(120px, max-content));
-        padding: 13px 0;
+        gap: 6px 13px;
+        padding: 7px 0;
+    }
+    .legend-items-group {
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-column: 1 / -1;
+        gap: 3px 13px;
+        justify-content: start; /* items always align left in each row */
+        padding: 6px 0;
     }
 </style>
