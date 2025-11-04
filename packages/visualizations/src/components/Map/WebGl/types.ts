@@ -168,9 +168,9 @@ export type WebGlMapProps = {
 };
 
 export type SupportedGeometry =
-  | GeoJSON.Point
-  | GeoJSON.MultiPoint
-  | GeoJSON.LineString
-  | GeoJSON.MultiLineString
-  | GeoJSON.Polygon
-  | GeoJSON.MultiPolygon;
+    | GeoJSON.Point
+    | GeoJSON.MultiPoint
+    | GeoJSON.LineString
+    | GeoJSON.MultiLineString
+    | GeoJSON.Polygon
+    | GeoJSON.MultiPolygon;

@@ -91,7 +91,8 @@
     },
     "dependencies": {
         "@placemarkio/geo-viewport": "^1.0.2",
-        "@turf/bbox": "^6.5.0",
+        "@turf/bbox": "^7.2.0",
+        "@turf/centroid": "^7.2.0",
         "chart.js": "^4.4.2",
         "chartjs-adapter-luxon": "^1.1.0",
         "chartjs-chart-treemap": "^2.3.0",

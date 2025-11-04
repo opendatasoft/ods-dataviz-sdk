@@ -50,18 +50,16 @@ const CURSOR = {
 const ACTIVE_FEATURE_RATIO_SIZE = 1.3;
 
 const SUPPORTED_GEOMETRY_TYPES: SupportedGeometry['type'][] = [
-  'Point',
-  'MultiPoint',
-  'LineString',
-  'MultiLineString',
-  'Polygon',
-  'MultiPolygon',
+    'Point',
+    'MultiPoint',
+    'LineString',
+    'MultiLineString',
+    'Polygon',
+    'MultiPolygon',
 ];
 
 function isSupportedGeometry(geometry: Geometry): geometry is SupportedGeometry {
-  return SUPPORTED_GEOMETRY_TYPES.includes(
-    geometry.type as SupportedGeometry['type'],
-  );
+    return SUPPORTED_GEOMETRY_TYPES.includes(geometry.type as SupportedGeometry['type']);
 }
 
 /** Sorts features in a layer by setting a sort key for a specific feature. */
@@ -141,12 +139,12 @@ export default class MapPOI {
 
     /** Get the center point [lng, lat] from any geometry type */
     private getGeometryCenter(geometry: SupportedGeometry): LngLatLike | null {
-    try {
-        const center = centroid(geometry).geometry.coordinates as LngLatLike;
-        return center;
-    } catch {
-        return null;
-    }
+        try {
+            const center = centroid(geometry).geometry.coordinates as LngLatLike;
+            return center;
+        } catch {
+            return null;
+        }
     }
 
     /** Make active feature bigger and sort it on top of other features in the layer */
@@ -501,7 +499,7 @@ export default class MapPOI {
         if (!this.popup.isOpen()) {
             this.popup.addTo(map);
         }
-         const center = this.getGeometryCenter(geometry);
+        const center = this.getGeometryCenter(geometry);
         if (center) {
             this.popup.setLngLat(center);
         }
