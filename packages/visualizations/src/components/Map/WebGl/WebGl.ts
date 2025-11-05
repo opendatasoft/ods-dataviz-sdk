@@ -143,7 +143,11 @@ export default class MapPOI {
     /** Get a point guaranteed to be on the surface of the feature */
     private getGeometryAnchor(geometry: SupportedGeometry): LngLatLike | null {
         try {
-            const feature: Feature<SupportedGeometry> = { type: 'Feature', geometry, properties: {} };
+            const feature: Feature<SupportedGeometry> = {
+                type: 'Feature',
+                geometry,
+                properties: {},
+            };
             const pt = pointOnFeature(feature);
             return pt.geometry.coordinates as LngLatLike;
         } catch {
@@ -270,13 +274,13 @@ export default class MapPOI {
     /**
      * Event handler for click events on the map.
      * Currently, is only used to handle popup display.
-     * @param {MapLayerMouseEvent} event
+     * @param {MapLayerMouseEvent} e
      */
     private onMapClick(e: MapLayerMouseEvent) {
         this.queue((map) => {
             this.handlePopupAfterMapClick(map, e.point, e.lngLat);
             if (this?.onFeatureClick) {
-            this.handleCustomFeatureClick(map, e.point, this.onFeatureClick);
+                this.handleCustomFeatureClick(map, e.point, this.onFeatureClick);
             }
         });
     }
@@ -460,7 +464,11 @@ export default class MapPOI {
      * @param map The map instance
      * @param point The pixel coordinates of the cursor click, relative to the map
      */
-    private handlePopupAfterMapClick(map: Map, point: MapMouseEvent['point'], clickLngLat?: LngLatLike) {
+    private handlePopupAfterMapClick(
+        map: Map,
+        point: MapMouseEvent['point'],
+        clickLngLat?: LngLatLike
+    ) {
         /*
          * Get features close to the click area.
          * We ask for features that are not in base style layers and for which a popup config is defined.
@@ -507,7 +515,7 @@ export default class MapPOI {
             this.popup.setLngLat(this.lastClickLngLat);
         } else {
             const anchor = this.getGeometryAnchor(geometry);
-        if (anchor) this.popup.setLngLat(anchor);
+            if (anchor) this.popup.setLngLat(anchor);
         }
 
         this.updatePopupContent();
