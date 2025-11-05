@@ -133,6 +133,80 @@ const battleImageMatch = {
     imageIds: { 'Battle of Verdun': 'battle-icon-red' },
 };
 
+const riversLayerWithMatch: Layer = {
+    id: 'layer-rivers',
+    source: 'riversLineString',
+    type: 'line',
+    color: '#0000FF',
+    width: 1,
+    opacity: 0.5,
+    colorMatch: {
+        key: 'name',
+        colors: {
+            Loire: '#1f77b4',
+            Seine: '#2ca02c',
+            Rhône: '#d62728',
+        },
+    },
+    widthMatch: {
+        key: 'name',
+        values: {
+            Loire: 2,
+            Seine: 3,
+            Rhône: 4,
+        },
+    },
+    opacityMatch: {
+        key: 'name',
+        values: {
+            Loire: 0.6,
+            Seine: 0.8,
+            Rhône: 0.5,
+        },
+    },
+    popup: {
+        display: POPUP_DISPLAY.tooltip,
+        getContent: async (_, properties) => {
+            await timeout(500);
+            const { name, description } = properties as Record<string, unknown>;
+            return Promise.resolve(`<b>${name}</b><div>${description}<div>`);
+        },
+        getLoadingContent: () => 'Loading...',
+    },
+};
+
+const squareWithMatch: Layer = {
+    id: 'layer-fr-squares-1',
+    source: 'squares',
+    type: 'fill',
+    color: '#CCCCCC',
+    borderColor: '#333333',
+    opacity: 0.5,
+    popup: {
+        display: POPUP_DISPLAY.tooltip,
+        getContent: async (_, properties) => {
+            await timeout(500);
+            const { region } = properties as Record<string, unknown>;
+            return Promise.resolve(`<b>${region}</b>`);
+        },
+        getLoadingContent: () => 'Loading...',
+    },
+    colorMatch: {
+        key: 'region',
+        colors: {
+        North: '#1f77b4',
+        South: '#ff7f0e',
+        },
+    },
+    opacityMatch: {
+    key: 'region',
+    values: {
+      North: 0.25,
+      South: 0.55,
+    },
+  },
+};
+
 const bbox: BBox = [-6.855469, 41.343825, 11.645508, 51.37178];
 
 const legendCitiesItems: CategoryItem[] = [
@@ -283,6 +357,8 @@ const PoiMapMatchExpressionArgs = {
             layers: [
                 { ...citiesLayer, colorMatch: citiesColorMatch },
                 { ...battlesLayer, iconImageMatch: battleImageMatch },
+                riversLayerWithMatch,
+                squareWithMatch
             ],
             sources,
         },

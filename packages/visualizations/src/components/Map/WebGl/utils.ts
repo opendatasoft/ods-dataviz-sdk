@@ -131,31 +131,132 @@ const getMapSymbolLayer = (layer: SymbolLayer): SymbolLayerSpecification => {
 };
 
 const getMapFillLayer = (layer: FillLayer): FillLayerSpecification => {
-    const { type, color, borderColor, opacity } = layer;
+    const {
+        type,
+        color: layerColor,
+        borderColor,
+        opacity: layerOpacity,
+        colorMatch,
+        opacityMatch,
+    } = layer;
+
+    // Fallbacks
+    let fillColor: ExpressionSpecification | Color = layerColor;
+    let fillOpacity: number | ExpressionSpecification | undefined = layerOpacity;
+
+    // Color by category
+    if (colorMatch) {
+        const { key, colors } = colorMatch;
+        const matchExpr: ['match', ExpressionSpecification] = ['match', ['get', key]];
+        const group: ExpressionInputType[] = [];
+        Object.keys(colors).forEach((k) => {
+            group.push(k, colors[k]);
+        });
+        group.push(layerColor);
+        if (!isGroupByForMatchExpression(group)) {
+            throw new Error('Not the expected type for complete match expression');
+        }
+        fillColor = [...matchExpr, ...group];
+    }
+
+    // Opacity by category
+    if (opacityMatch) {
+        const { key, values } = opacityMatch;
+        const matchExpr: ['match', ExpressionSpecification] = ['match', ['get', key]];
+        const group: ExpressionInputType[] = [];
+        Object.keys(values).forEach((k) => {
+            group.push(k, values[k]);
+        });
+        group.push(layerOpacity ?? 0.5);
+        if (!isGroupByForMatchExpression(group)) {
+            throw new Error('Not the expected type for complete match expression');
+        }
+        fillOpacity = [...matchExpr, ...group];
+    }
 
     return {
         ...getBaseMapLayerConfiguration(layer),
-        filter: ['==', ['geometry-type'], 'Polygon'],
+        // Polygon & MultiPolygon
+        filter: ['in', ['geometry-type'], ['literal', ['Polygon', 'MultiPolygon']]],
         type,
         paint: {
-            'fill-color': color,
+            'fill-color': fillColor,
             ...(borderColor && { 'fill-outline-color': borderColor }),
-            ...(opacity && { 'fill-opacity': opacity }),
+            ...(fillOpacity !== undefined && { 'fill-opacity': fillOpacity }),
         },
     };
 };
 
 const getMapLineLayer = (layer: LineLayer): LineLayerSpecification => {
-    const { type, color, width, opacity } = layer;
+    const {
+        type,
+        color: layerColor,
+        width: layerWidth,
+        opacity: layerOpacity,
+        colorMatch,
+        widthMatch,
+        opacityMatch,
+    } = layer;
+
+    // Fallbacks
+    let lineColor: ExpressionSpecification | Color = layerColor;
+    let lineWidth: number | ExpressionSpecification | undefined = layerWidth;
+    let lineOpacity: number | ExpressionSpecification | undefined = layerOpacity;
+
+    // Color by category
+    if (colorMatch) {
+        const { key, colors } = colorMatch;
+        const matchExpr: ['match', ExpressionSpecification] = ['match', ['get', key]];
+        const group: ExpressionInputType[] = [];
+        Object.keys(colors).forEach((k) => {
+            group.push(k, colors[k]);
+        });
+        group.push(layerColor);
+        if (!isGroupByForMatchExpression(group)) {
+            throw new Error('Not the expected type for complete match expression');
+        }
+        lineColor = [...matchExpr, ...group];
+    }
+
+    // Width by category
+    if (widthMatch) {
+        const { key, values } = widthMatch;
+        const matchExpr: ['match', ExpressionSpecification] = ['match', ['get', key]];
+        const group: ExpressionInputType[] = [];
+        Object.keys(values).forEach((k) => {
+            group.push(k, values[k]);
+        });
+        group.push(layerWidth ?? 3);
+        if (!isGroupByForMatchExpression(group)) {
+            throw new Error('Not the expected type for complete match expression');
+        }
+        lineWidth = [...matchExpr, ...group];
+    }
+
+    // Opacity by category
+    if (opacityMatch) {
+        const { key, values } = opacityMatch;
+        const matchExpr: ['match', ExpressionSpecification] = ['match', ['get', key]];
+        const group: ExpressionInputType[] = [];
+        Object.keys(values).forEach((k) => {
+            group.push(k, values[k]);
+        });
+        group.push(layerOpacity ?? 0.5);
+        if (!isGroupByForMatchExpression(group)) {
+            throw new Error('Not the expected type for complete match expression');
+        }
+        lineOpacity = [...matchExpr, ...group];
+    }
 
     return {
         ...getBaseMapLayerConfiguration(layer),
-        filter: ['==', ['geometry-type'], 'LineString'],
+        // LineString & MultiLineString
+        filter: ['in', ['geometry-type'], ['literal', ['LineString', 'MultiLineString']]],
         type,
         paint: {
-            'line-color': color,
-            ...(width && { 'line-width': width }),
-            ...(opacity && { 'line-opacity': opacity }),
+            'line-color': lineColor,
+            ...(lineWidth !== undefined && { 'line-width': lineWidth }),
+            ...(lineOpacity !== undefined && { 'line-opacity': lineOpacity }),
         },
     };
 };

@@ -13,6 +13,8 @@ import type {
     StyleSpecification,
     CircleLayerSpecification,
     SymbolLayerSpecification,
+    LineLayerSpecification,
+    FillLayerSpecification,
 } from 'maplibre-gl';
 
 import {
@@ -47,7 +49,9 @@ const CURSOR = {
     DRAG: 'move',
 };
 
-const ACTIVE_FEATURE_RATIO_SIZE = 1.3;
+const ACTIVE_FEATURE_POINT_RATIO_SIZE = 1.3;
+const ACTIVE_FEATURE_LINE_RATIO_SIZE = 2;
+const ACTIVE_FEATURE_SHAPE_OPACITY_BOOST = 2;
 
 const SUPPORTED_GEOMETRY_TYPES: SupportedGeometry['type'][] = [
     'Point',
@@ -169,7 +173,7 @@ export default class MapPOI {
                     map.setLayoutProperty(layer.id, 'icon-size', [
                         'case',
                         ['==', ['id'], feature.id],
-                        iconSize * ACTIVE_FEATURE_RATIO_SIZE,
+                        iconSize * ACTIVE_FEATURE_POINT_RATIO_SIZE,
                         iconSize,
                     ]);
                     break;
@@ -181,10 +185,39 @@ export default class MapPOI {
                     map.setPaintProperty(layer.id, 'circle-radius', [
                         'case',
                         ['==', ['id'], feature.id],
-                        circleRadius * ACTIVE_FEATURE_RATIO_SIZE,
+                        circleRadius * ACTIVE_FEATURE_POINT_RATIO_SIZE,
                         circleRadius,
                     ]);
                     break;
+                case 'line': {
+                    const baseWidth =
+                        ((layer as LineLayerSpecification).paint?.['line-width'] as number) ?? 3;
+
+                    map.setPaintProperty(layer.id, 'line-width', [
+                        'case',
+                        ['==', ['id'], feature.id],
+                        baseWidth * ACTIVE_FEATURE_LINE_RATIO_SIZE,
+                        baseWidth,
+                    ]);
+                    break;
+                }
+
+                case 'fill': {
+                    const baseOpacity =
+                        ((layer as FillLayerSpecification).paint?.['fill-opacity'] as number) ??
+                        0.5;
+
+                    // Boost opacity a bit on highlight
+                    const boosted = Math.min(1, baseOpacity * ACTIVE_FEATURE_SHAPE_OPACITY_BOOST);
+
+                    map.setPaintProperty(layer.id, 'fill-opacity', [
+                        'case',
+                        ['==', ['id'], feature.id],
+                        boosted,
+                        baseOpacity,
+                    ]);
+                    break;
+                }
                 default:
                     break;
             }
@@ -223,6 +256,32 @@ export default class MapPOI {
                         circleRadius,
                     ]);
                     break;
+                case 'line': {
+                    const baseWidth =
+                        ((layer as LineLayerSpecification).paint?.['line-width'] as number) ?? 3;
+
+                    map.setPaintProperty(layer.id, 'line-width', [
+                        'case',
+                        ['==', ['id'], ''], // never matches
+                        baseWidth,
+                        baseWidth,
+                    ]);
+                    break;
+                }
+
+                case 'fill': {
+                    const baseOpacity =
+                        ((layer as FillLayerSpecification).paint?.['fill-opacity'] as number) ??
+                        0.5;
+
+                    map.setPaintProperty(layer.id, 'fill-opacity', [
+                        'case',
+                        ['==', ['id'], ''], // never matches
+                        baseOpacity,
+                        baseOpacity,
+                    ]);
+                    break;
+                }
                 default:
                     break;
             }
