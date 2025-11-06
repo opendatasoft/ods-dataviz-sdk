@@ -636,8 +636,8 @@ export default class MapPOI {
                 });
                 map.once('idle', () => {
                     // We define here the lines and shapes layer properties to highlight / unhighlight depending on feature-state
-                    for (const layer of layers) {
-                        const id = layer.id;
+                    layers.forEach((layer) => {
+                        const { id } = layer;
 
                         if (layer.type === 'line') {
                             const baseWidth = map.getPaintProperty(id, 'line-width') ?? 3;
@@ -676,7 +676,7 @@ export default class MapPOI {
                                 baseOpacity,
                             ]);
                         }
-                    }
+                    });
                 });
             }
         });
