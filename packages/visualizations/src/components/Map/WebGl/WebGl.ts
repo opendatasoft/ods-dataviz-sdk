@@ -49,7 +49,7 @@ const CURSOR = {
 
 const ACTIVE_FEATURE_POINT_RATIO_SIZE = 1.3;
 const ACTIVE_FEATURE_LINE_RATIO_SIZE = 1.2;
-const ACTIVE_FEATURE_OPACITY_MULTIPLIER = 1.20;
+const ACTIVE_FEATURE_OPACITY_MULTIPLIER = 1.2;
 const ACTIVE_FEATURE_OPACITY_CAP = 0.9;
 
 const SUPPORTED_GEOMETRY_TYPES: SupportedGeometry['type'][] = [
@@ -653,7 +653,11 @@ export default class MapPOI {
                             map.setPaintProperty(id, 'line-opacity', [
                                 'case',
                                 ['boolean', ['feature-state', 'active'], false],
-                                ['min', ACTIVE_FEATURE_OPACITY_CAP, ['*', baseOpacity, ACTIVE_FEATURE_OPACITY_MULTIPLIER]],
+                                [
+                                    'min',
+                                    ACTIVE_FEATURE_OPACITY_CAP,
+                                    ['*', baseOpacity, ACTIVE_FEATURE_OPACITY_MULTIPLIER],
+                                ],
                                 baseOpacity,
                             ]);
                         }
