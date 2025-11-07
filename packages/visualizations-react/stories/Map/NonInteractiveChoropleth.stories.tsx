@@ -1,12 +1,12 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import * as turf from '@turf/turf';
 import { ChoroplethGeoJsonProps } from '@opendatasoft/visualizations';
 import { ChoroplethGeoJson } from 'src';
 
 import { shapes } from './data';
 
-const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
+const meta: Meta<typeof ChoroplethGeoJson> = {
     title: 'Map/Non Interactive Choropleth',
     component: ChoroplethGeoJson,
 };
@@ -26,7 +26,7 @@ const makeMiniMaps = (n: number) =>
         };
     });
 
-const Template: ComponentStory<typeof ChoroplethGeoJson> = args => (
+const Template: StoryObj<typeof ChoroplethGeoJson> = args => (
     <div
         style={{
             width: '50%',

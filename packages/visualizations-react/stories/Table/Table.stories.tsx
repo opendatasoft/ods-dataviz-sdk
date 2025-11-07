@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import type { TableData, Async, GenericRecord } from '@opendatasoft/visualizations';
 
 import './custom-style.css';
@@ -9,7 +9,7 @@ import { Table } from '../../src';
 import value from './data';
 import options, { DatasetRecord } from './options';
 
-const meta: ComponentMeta<typeof Table> = {
+const meta: Meta<typeof Table> = {
     title: 'Table/Table',
     component: Table,
 };
@@ -25,21 +25,21 @@ const fetchingData: Async<TableData> = {
     loading: true,
 };
 
-const Template: ComponentStory<typeof Table> = args => <Table {...args} />;
+const Template: StoryObj<typeof Table> = args => <Table {...args} />;
 
-const CustomStyleTemplate: ComponentStory<typeof Table> = args => (
+const CustomStyleTemplate: StoryObj<typeof Table> = args => (
     <div className="table-story--custom-style">
         <Table {...args} />
     </div>
 );
 
-const ScrollTemplate: ComponentStory<typeof Table> = args => (
+const ScrollTemplate: StoryObj<typeof Table> = args => (
     <div style={{ maxWidth: '800px' }}>
         <Table {...args} />
     </div>
 );
 
-const RowHoverTemplate: ComponentStory<typeof Table> = args => {
+const RowHoverTemplate: StoryObj<typeof Table> = args => {
     const { options: argOptions, data: argData } = args;
     const [hoveredRecord, setHovered] = useState<DatasetRecord | undefined | null>(null);
     const [lastClicked, setLastClicked] = useState<DatasetRecord | undefined | null>(null);

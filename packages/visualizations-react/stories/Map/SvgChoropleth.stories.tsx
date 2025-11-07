@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import { ChoroplethGeoJsonOptions, ColorScale, ColorScaleTypes } from '@opendatasoft/visualizations';
 import { ChoroplethSvg } from 'src';
 import { shapes } from './data';
@@ -74,13 +74,13 @@ const ChoroPlethWithSelect = ({
     );
 };
 
-const meta: ComponentMeta<typeof ChoroplethSvg> = {
+const meta: Meta<typeof ChoroplethSvg> = {
     title: 'Map/ChoroplethSvg',
     component: ChoroplethSvg,
 };
 
 export default meta;
-const Template: ComponentStory<typeof ChoroPlethWithSelect> = args => (
+const Template: StoryObj<typeof ChoroPlethWithSelect> = args => (
         <ChoroPlethWithSelect {...args} />
 );
 export const ChoroplethSvgStory = Template.bind({});

@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
 import { Async, KpiCardOptions } from '@opendatasoft/visualizations';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import type { KpiProps } from '@opendatasoft/visualizations';
 import { KpiCard } from 'src';
 import {
@@ -11,7 +11,7 @@ import {
     comparisonFormatter,
 } from '../utils';
 
-const meta: ComponentMeta<typeof KpiCard> = {
+const meta: Meta<typeof KpiCard> = {
     title: 'KPI Card/Studio Layouts',
 };
 
@@ -40,7 +40,7 @@ const DemoCards = (stories: { [key: string]: KpiCardStoryProps }) => (
     </div>
 );
 
-const Template: ComponentStory<typeof DemoCards> = args => <DemoCards {...args} />;
+const Template: StoryObj<typeof DemoCards> = args => <DemoCards {...args} />;
 
 function withDataOptions({data, options}: { data: Async<number>, options: KpiCardOptions}) {
     return {

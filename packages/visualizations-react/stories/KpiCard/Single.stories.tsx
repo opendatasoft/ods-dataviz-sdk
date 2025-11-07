@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import type { KpiProps } from '@opendatasoft/visualizations';
 import { KpiCard } from 'src';
 import { COLORS, CONTROLS, IMAGES, defaultSource } from '../utils';
@@ -26,7 +26,7 @@ function StyledKpi({
     );
 }
 
-const meta: ComponentMeta<typeof StyledKpi> = {
+const meta: Meta<typeof StyledKpi> = {
     title: 'KPI Card/Single',
     argTypes: {
         data: {
@@ -87,7 +87,7 @@ const meta: ComponentMeta<typeof StyledKpi> = {
 
 export default meta;
 
-const Template: ComponentStory<typeof StyledKpi> =  args => <StyledKpi {...args} />;
+const Template: StoryObj<typeof StyledKpi> =  args => <StyledKpi {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

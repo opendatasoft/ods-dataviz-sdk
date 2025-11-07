@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import type {
     ChoroplethGeoJsonProps,
     TooltipParams,
@@ -9,13 +9,13 @@ import { ChoroplethGeoJson } from 'src';
 import { IMAGES } from '../utils';
 import { shapes } from './data';
 
-const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
+const meta: Meta<typeof ChoroplethGeoJson> = {
     title: 'Map/Tooltip',
     component: ChoroplethGeoJson,
 };
 
 export default meta;
-const Template: ComponentStory<typeof ChoroplethGeoJson> = args => (
+const Template: StoryObj<typeof ChoroplethGeoJson> = args => (
     <div
         style={{
             width: '50%',

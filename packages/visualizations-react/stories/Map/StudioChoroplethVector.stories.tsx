@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryObj, Meta } from '@storybook/react';
 import * as turf from '@turf/turf';
 import {
     ColorScaleTypes,
@@ -12,7 +12,7 @@ import { ChoroplethVectorTiles } from 'src';
 import { shapesTiles, regShapes, dataReg } from './data';
 import { defaultSource } from '../utils';
 
-const meta: ComponentMeta<typeof ChoroplethVectorTiles> = {
+const meta: Meta<typeof ChoroplethVectorTiles> = {
     title: 'Map/ChoroplethVector',
     component: ChoroplethVectorTiles,
     parameters: {
@@ -41,7 +41,7 @@ const defaultLabelCallback: ChoroplethTooltipFormatter = ({ label, value }: Tool
     `<b>${label}:</b> ${value}`;
 
 export default meta;
-const Template: ComponentStory<typeof ChoroplethVectorTiles> = args => (
+const Template: StoryObj<typeof ChoroplethVectorTiles> = args => (
     <div
         style={{
             width: '50%',
@@ -337,7 +337,7 @@ const StudioChoroplethVectorCooperativeGesturesArgs: ChoroplethVectorTilesProps 
 StudioChoroplethVectorCooperativeGestures.args = StudioChoroplethVectorCooperativeGesturesArgs;
 
 /* The next story was used for the demo, but its too big for chromatic, keeping it hear for future ref on loading/wathever */
-// const LoaderTemplate: ComponentStory<typeof Choropleth> = (args, { loaded: { data } }) => (
+// const LoaderTemplate: StoryObj<typeof Choropleth> = (args, { loaded: { data } }) => (
 //     <div
 //         style={{
 //             width: '50%',

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import type { TableData, Async } from '@opendatasoft/visualizations';
 import { Table } from '../../src';
 import value from './data';
 import options from './options';
 
-const meta: ComponentMeta<typeof Table> = {
+const meta: Meta<typeof Table> = {
     title: 'Table/StickyColumns',
     component: Table,
 };
@@ -16,7 +16,7 @@ const data: Async<TableData> = {
     loading: false,
 };
 
-const Template: ComponentStory<typeof Table> = args => {
+const Template: StoryObj<typeof Table> = args => {
     const { data: templateData, options: templateOptions } = args;
     const { columns } = templateOptions;
     const initialStickyCols = columns.map((col, i) => (i < 2 ? { ...col, sticky: true } : col));

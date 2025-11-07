@@ -1,16 +1,16 @@
 import React from 'react';
-import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { Table } from '../../src';
 import './pagination.css';
 import { PaginatedTemplate, PageSizeTemplate } from './PaginatedTemplates';
 
-const meta: ComponentMeta<typeof Table> = {
+const meta: Meta<typeof Table> = {
     title: 'Table/Pagination',
     component: Table,
 };
 export default meta;
 
-const PaginatedTable: ComponentStory<typeof PaginatedTemplate> = args => (
+const PaginatedTable: StoryObj<typeof PaginatedTemplate> = args => (
     <PaginatedTemplate {...args} />
 );
 export const Paginated = PaginatedTable.bind({});
@@ -30,7 +30,7 @@ Shortpagination.args = {
     recordsPerPage: 2,
 };
 
-const StyledPaginated: ComponentStory<typeof PaginatedTemplate> = args => (
+const StyledPaginated: StoryObj<typeof PaginatedTemplate> = args => (
     <div className="custom-pagination">
         <PaginatedTemplate {...args} />
     </div>
@@ -45,7 +45,7 @@ CustomStyle.args = {
     },
 };
 
-const PageSizeTable: ComponentStory<typeof PageSizeTemplate> = args => (
+const PageSizeTable: StoryObj<typeof PageSizeTemplate> = args => (
     <PageSizeTemplate {...args} />
 );
 export const PageSize = PageSizeTable.bind({});

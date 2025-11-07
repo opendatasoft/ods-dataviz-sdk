@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import {
     ChoroplethGeoJsonProps,
     TooltipParams,
@@ -9,7 +9,7 @@ import { ChoroplethGeoJson } from 'src';
 
 import { shapes } from './data';
 
-const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
+const meta: Meta<typeof ChoroplethGeoJson> = {
     title: 'Map/Legend',
     component: ChoroplethGeoJson,
 };
@@ -22,7 +22,7 @@ const tooltip = {
         }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
 };
 
-const Template: ComponentStory<typeof ChoroplethGeoJson> = args => (
+const Template: StoryObj<typeof ChoroplethGeoJson> = args => (
     <div
         style={{
             width: '180px',

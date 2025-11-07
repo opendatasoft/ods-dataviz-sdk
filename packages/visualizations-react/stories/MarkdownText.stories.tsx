@@ -1,8 +1,8 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import { MarkdownText } from 'src';
 
-const meta: ComponentMeta<typeof MarkdownText> = {
+const meta: Meta<typeof MarkdownText> = {
     title: 'MarkdownText',
     component: MarkdownText,
     decorators: [
@@ -30,7 +30,7 @@ const meta: ComponentMeta<typeof MarkdownText> = {
 
 export default meta;
 
-const Template: ComponentStory<typeof MarkdownText> = args => <MarkdownText {...args} />;
+const Template: StoryObj<typeof MarkdownText> = args => <MarkdownText {...args} />;
 
 export const Default = Template.bind({});
 

@@ -1,10 +1,10 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Chart } from 'src';
 import { COLORS, defaultSource } from '../utils';
 import ChartTemplate from './ChartTemplate';
 
-const meta: ComponentMeta<typeof Chart> = {
+const meta: Meta<typeof Chart> = {
     title: 'Chart',
     component: Chart,
 };

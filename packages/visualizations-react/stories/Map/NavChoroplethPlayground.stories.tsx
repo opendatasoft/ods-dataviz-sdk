@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import {
     ColorScaleTypes,
     ChoroplethVectorTilesOptions,
@@ -9,7 +9,7 @@ import * as turf from '@turf/turf';
 import { ChoroplethVectorTiles } from 'src';
 import { shapesTiles, regShapes, dataReg } from './data';
 
-const meta: ComponentMeta<typeof ChoroplethVectorTiles> = {
+const meta: Meta<typeof ChoroplethVectorTiles> = {
     title: 'Map/NavigableMapPlayground',
     component: ChoroplethVectorTiles,
 };
@@ -56,7 +56,7 @@ const NavStory = ({ numMaps, ...args }: Args) => {
     );
 };
 
-const Template: ComponentStory<typeof NavStory> = args => <NavStory {...args} />;
+const Template: StoryObj<typeof NavStory> = args => <NavStory {...args} />;
 
 export const NavMapDynamicPlayground = Template.bind({});
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BBox } from 'geojson';
 import { CATEGORY_ITEM_VARIANT, POPUP_DISPLAY } from '@opendatasoft/visualizations';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import type {
     CategoryItem,
     Layer,
@@ -306,14 +306,14 @@ const options: PoiMapOptions = {
     images,
 };
 
-const meta: ComponentMeta<typeof PoiMap> = {
+const meta: Meta<typeof PoiMap> = {
     title: 'Poi/PoiMap',
     component: PoiMap,
 };
 
 export default meta;
 
-const Template: ComponentStory<typeof PoiMap> = args => (
+const Template: StoryObj<typeof PoiMap> = args => (
     <div
         style={{
             width: '50%',
@@ -330,7 +330,7 @@ const Template: ComponentStory<typeof PoiMap> = args => (
 /**
  * STORY: No layer params
  */
-export const PoiMapNoLayersParams: ComponentStory<typeof PoiMap> = Template.bind({});
+export const PoiMapNoLayersParams: StoryObj<typeof PoiMap> = Template.bind({});
 const PoiMapNoLayersParamsArgs = {
     data: {},
     options,
@@ -340,7 +340,7 @@ PoiMapNoLayersParams.args = PoiMapNoLayersParamsArgs;
 /**
  * STORY: No interactive
  */
-export const PoiMapNonInteractive: ComponentStory<typeof PoiMap> = Template.bind({});
+export const PoiMapNonInteractive: StoryObj<typeof PoiMap> = Template.bind({});
 const PoiMapNonInteractiveArgs = {
     data: { value: { layers, sources } },
     options: { ...options, interactive: false },
@@ -350,7 +350,7 @@ PoiMapNonInteractive.args = PoiMapNonInteractiveArgs;
 /**
  * STORY: With match expression
  */
-export const PoiMapMatchExpression: ComponentStory<typeof PoiMap> = Template.bind({});
+export const PoiMapMatchExpression: StoryObj<typeof PoiMap> = Template.bind({});
 const PoiMapMatchExpressionArgs = {
     data: {
         value: {
@@ -370,7 +370,7 @@ PoiMapMatchExpression.args = PoiMapMatchExpressionArgs;
 /**
  * STORY: With legend on start align
  */
-export const PoiMapLegendStart: ComponentStory<typeof PoiMap> = Template.bind({});
+export const PoiMapLegendStart: StoryObj<typeof PoiMap> = Template.bind({});
 const PoiMapLegendStartArgs = {
     data: {
         value: {
@@ -391,7 +391,7 @@ PoiMapLegendStart.args = PoiMapLegendStartArgs;
 /**
  * STORY: With legend on center align
  */
-export const PoiMapLegendCenter: ComponentStory<typeof PoiMap> = Template.bind({});
+export const PoiMapLegendCenter: StoryObj<typeof PoiMap> = Template.bind({});
 const PoiMapLegendCenterArgs = {
     data: {
         value: {
@@ -412,7 +412,7 @@ PoiMapLegendCenter.args = PoiMapLegendCenterArgs;
 /**
  * STORY: with min and max zoom
  */
-export const PoiMapMinMaxZooms: ComponentStory<typeof PoiMap> = Template.bind({});
+export const PoiMapMinMaxZooms: StoryObj<typeof PoiMap> = Template.bind({});
 const PoiMapMinMaxZoomsArgs = {
     data: {
         value: {
@@ -438,7 +438,7 @@ PoiMapMinMaxZooms.args = PoiMapMinMaxZoomsArgs;
 /**
  * STORY: with cooperative gestures
  */
-export const PoiMapCooperativeGestures: ComponentStory<typeof PoiMap> = Template.bind({});
+export const PoiMapCooperativeGestures: StoryObj<typeof PoiMap> = Template.bind({});
 const PoiMapCooperativeGesturesArgs = {
     data: {
         value: {
@@ -527,7 +527,7 @@ const StudioResponsiveUsageTemplate = () => {
         </>
     );
 };
-export const StudioResponsiveUsage: ComponentStory<typeof PoiMap> = StudioResponsiveUsageTemplate;
+export const StudioResponsiveUsage: StoryObj<typeof PoiMap> = StudioResponsiveUsageTemplate;
 
 StudioResponsiveUsage.parameters = {
     chromatic: { disableSnapshot: true },

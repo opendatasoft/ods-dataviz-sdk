@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import type { TableData, Async, ColumnSortValues, DataFrame } from '@opendatasoft/visualizations';
 import { ColumnSort } from '@opendatasoft/visualizations';
 import { Table } from '../../src';
@@ -9,7 +9,7 @@ import { fetchData } from './utils';
 
 import './custom-style.css';
 
-const meta: ComponentMeta<typeof Table> = {
+const meta: Meta<typeof Table> = {
     title: 'Table/Sort',
     component: Table,
 };
@@ -23,7 +23,7 @@ const data: Async<TableData> = {
 const sortColumn = (sort: [string, ColumnSortValues], key: string) =>
     sort[0] === key && sort[1] === 'ASC' ? 'DESC' : 'ASC';
 
-const Template: ComponentStory<typeof Table> = args => {
+const Template: StoryObj<typeof Table> = args => {
     const { options: unsortedOptions } = args;
     const [sort, setSort] = useState<[string, ColumnSortValues]>(['title', ColumnSort.asc]);
     const [records, setRecords] = useState<DataFrame>();
@@ -64,7 +64,7 @@ Sort.args = {
     },
 };
 
-const ColoredTemplate: ComponentStory<typeof Table> = args => (
+const ColoredTemplate: StoryObj<typeof Table> = args => (
     <div className="design-system">
         <Template {...args} />
     </div>
