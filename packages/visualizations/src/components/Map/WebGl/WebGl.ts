@@ -47,10 +47,7 @@ const CURSOR = {
     DRAG: 'move',
 };
 
-const ACTIVE_FEATURE_POINT_RATIO_SIZE = 1.3;
-const ACTIVE_FEATURE_LINE_RATIO_SIZE = 1.2;
-const ACTIVE_FEATURE_OPACITY_MULTIPLIER = 1.2;
-const ACTIVE_FEATURE_OPACITY_CAP = 0.9;
+const ACTIVE_FEATURE_CIRCLE_RATIO_SIZE = 1.3;
 
 const SUPPORTED_GEOMETRY_TYPES: SupportedGeometry['type'][] = [
     'Point',
@@ -158,16 +155,6 @@ export default class MapPOI {
         }
     }
 
-    /** Helper to build the FeatureState target from a MapGeoJSONFeature */
-    private getFeatureStateTarget(f: MapGeoJSONFeature) {
-        // sourceLayer is only needed for vector tiles; omit for GeoJSON sources.
-        return {
-            source: f.source as string,
-            sourceLayer: (f.sourceLayer as string) || undefined,
-            id: f.id as number | string,
-        };
-    }
-
     /** Make active feature bigger and sort it on top of other features in the layer */
     private highlightFeature(feature: ActiveFeatureType) {
         if (!feature) return;
@@ -182,7 +169,7 @@ export default class MapPOI {
                     map.setLayoutProperty(layer.id, 'icon-size', [
                         'case',
                         ['==', ['id'], feature.id],
-                        iconSize * ACTIVE_FEATURE_POINT_RATIO_SIZE,
+                        iconSize * ACTIVE_FEATURE_CIRCLE_RATIO_SIZE,
                         iconSize,
                     ]);
                     break;
@@ -194,17 +181,10 @@ export default class MapPOI {
                     map.setPaintProperty(layer.id, 'circle-radius', [
                         'case',
                         ['==', ['id'], feature.id],
-                        circleRadius * ACTIVE_FEATURE_POINT_RATIO_SIZE,
+                        circleRadius * ACTIVE_FEATURE_CIRCLE_RATIO_SIZE,
                         circleRadius,
                     ]);
                     break;
-                // For lines and shapes we rely on the feature-state defined in setSourcesAndLayers as the styling wasn't working properly defining it here
-                case 'line':
-                case 'fill': {
-                    const target = this.getFeatureStateTarget(feature);
-                    map.setFeatureState(target, { active: true });
-                    break;
-                }
                 default:
                     break;
             }
@@ -243,12 +223,6 @@ export default class MapPOI {
                         circleRadius,
                     ]);
                     break;
-                case 'line':
-                case 'fill': {
-                    const target = this.getFeatureStateTarget(feature);
-                    map.setFeatureState(target, { active: false });
-                    break;
-                }
                 default:
                     break;
             }
@@ -633,50 +607,6 @@ export default class MapPOI {
                         ...this.baseStyle.sources,
                     },
                     layers: [...this.baseStyle.layers, ...layers],
-                });
-                map.once('idle', () => {
-                    // We define here the lines and shapes layer properties to highlight / unhighlight depending on feature-state
-                    layers.forEach((layer) => {
-                        const { id } = layer;
-
-                        if (layer.type === 'line') {
-                            const baseWidth = map.getPaintProperty(id, 'line-width') ?? 3;
-                            const baseOpacity = map.getPaintProperty(id, 'line-opacity') ?? 1;
-
-                            map.setPaintProperty(id, 'line-width', [
-                                'case',
-                                ['boolean', ['feature-state', 'active'], false],
-                                ['*', baseWidth, ACTIVE_FEATURE_LINE_RATIO_SIZE],
-                                baseWidth,
-                            ]);
-
-                            map.setPaintProperty(id, 'line-opacity', [
-                                'case',
-                                ['boolean', ['feature-state', 'active'], false],
-                                [
-                                    'min',
-                                    ACTIVE_FEATURE_OPACITY_CAP,
-                                    ['*', baseOpacity, ACTIVE_FEATURE_OPACITY_MULTIPLIER],
-                                ],
-                                baseOpacity,
-                            ]);
-                        }
-
-                        if (layer.type === 'fill') {
-                            const baseOpacity = map.getPaintProperty(id, 'fill-opacity') ?? 0.5;
-
-                            map.setPaintProperty(id, 'fill-opacity', [
-                                'case',
-                                ['boolean', ['feature-state', 'active'], false],
-                                [
-                                    'min',
-                                    ACTIVE_FEATURE_OPACITY_CAP,
-                                    ['*', baseOpacity, ACTIVE_FEATURE_OPACITY_MULTIPLIER],
-                                ],
-                                baseOpacity,
-                            ]);
-                        }
-                    });
                 });
             }
         });
