@@ -139,6 +139,7 @@ export type FillLayer = BaseLayer & {
 export type LineLayer = BaseLayer & {
     type: LineLayerSpecification['type'];
     color: Color;
+    borderColor?: Color;
     width?: number;
     opacity?: number;
     colorMatch?: CategoricalColorMatch;

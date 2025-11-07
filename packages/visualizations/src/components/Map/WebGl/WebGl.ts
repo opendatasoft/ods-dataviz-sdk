@@ -47,10 +47,6 @@ const CURSOR = {
     DRAG: 'move',
 };
 
-const ACTIVE_FEATURE_POINT_RATIO_SIZE = 1.3;
-const ACTIVE_FEATURE_LINE_RATIO_SIZE = 1.2;
-const ACTIVE_FEATURE_OPACITY_MULTIPLIER = 1.2;
-const ACTIVE_FEATURE_OPACITY_CAP = 0.9;
 
 const SUPPORTED_GEOMETRY_TYPES: SupportedGeometry['type'][] = [
     'Point',
@@ -174,40 +170,8 @@ export default class MapPOI {
         const { layer } = feature;
         this.queue((map) => {
             sortLayerFeatures(map, layer, feature);
-            switch (layer.type) {
-                case 'symbol':
-                    // eslint-disable-next-line no-case-declarations
-                    const iconSize = ((layer as SymbolLayerSpecification).layout?.['icon-size'] ||
-                        1) as number;
-                    map.setLayoutProperty(layer.id, 'icon-size', [
-                        'case',
-                        ['==', ['id'], feature.id],
-                        iconSize * ACTIVE_FEATURE_POINT_RATIO_SIZE,
-                        iconSize,
-                    ]);
-                    break;
-                case 'circle':
-                    // eslint-disable-next-line no-case-declarations
-                    const circleRadius = (layer as CircleLayerSpecification).paint?.[
-                        'circle-radius'
-                    ] as number;
-                    map.setPaintProperty(layer.id, 'circle-radius', [
-                        'case',
-                        ['==', ['id'], feature.id],
-                        circleRadius * ACTIVE_FEATURE_POINT_RATIO_SIZE,
-                        circleRadius,
-                    ]);
-                    break;
-                // For lines and shapes we rely on the feature-state defined in setSourcesAndLayers as the styling wasn't working properly defining it here
-                case 'line':
-                case 'fill': {
-                    const target = this.getFeatureStateTarget(feature);
-                    map.setFeatureState(target, { active: true });
-                    break;
-                }
-                default:
-                    break;
-            }
+            const target = this.getFeatureStateTarget(feature);
+            map.setFeatureState(target, { active: true });
         });
     }
 
@@ -217,41 +181,8 @@ export default class MapPOI {
         const { layer } = feature;
         this.queue((map) => {
             unsortLayerFeatures(map, layer);
-            switch (layer.type) {
-                case 'symbol':
-                    map.setLayoutProperty(
-                        layer.id,
-                        'icon-size',
-                        (layer as SymbolLayerSpecification).layout?.['icon-size'] || 1
-                    );
-                    break;
-                case 'circle':
-                    // eslint-disable-next-line no-case-declarations
-                    const circleRadius = (layer as CircleLayerSpecification).paint?.[
-                        'circle-radius'
-                    ];
-                    /*
-                     * FIXME: As of Maplibre 2.2.1, resetting 'circle-radius' with a numeric value alone is not sufficient.
-                     * An expression with a case statement based on the feature ID is still required.
-                     * Without this, the feature's clickability is compromised, as the hitbox becomes minimal,
-                     * failing to reflect the expected behavior of the circleRadius property.
-                     */
-                    map.setPaintProperty(layer.id, 'circle-radius', [
-                        'case',
-                        ['==', ['id'], ''],
-                        circleRadius,
-                        circleRadius,
-                    ]);
-                    break;
-                case 'line':
-                case 'fill': {
-                    const target = this.getFeatureStateTarget(feature);
-                    map.setFeatureState(target, { active: false });
-                    break;
-                }
-                default:
-                    break;
-            }
+            const target = this.getFeatureStateTarget(feature);
+            map.setFeatureState(target, { active: false });
         });
     }
 
@@ -625,60 +556,13 @@ export default class MapPOI {
         layers: StyleSpecification['layers']
     ) {
         this.queue((map) => {
-            if (this.baseStyle) {
-                map.setStyle({
-                    ...this.baseStyle,
-                    sources: {
-                        ...sources,
-                        ...this.baseStyle.sources,
-                    },
-                    layers: [...this.baseStyle.layers, ...layers],
-                });
-                map.once('idle', () => {
-                    // We define here the lines and shapes layer properties to highlight / unhighlight depending on feature-state
-                    layers.forEach((layer) => {
-                        const { id } = layer;
+            if (!this.baseStyle) return;
 
-                        if (layer.type === 'line') {
-                            const baseWidth = map.getPaintProperty(id, 'line-width') ?? 3;
-                            const baseOpacity = map.getPaintProperty(id, 'line-opacity') ?? 1;
-
-                            map.setPaintProperty(id, 'line-width', [
-                                'case',
-                                ['boolean', ['feature-state', 'active'], false],
-                                ['*', baseWidth, ACTIVE_FEATURE_LINE_RATIO_SIZE],
-                                baseWidth,
-                            ]);
-
-                            map.setPaintProperty(id, 'line-opacity', [
-                                'case',
-                                ['boolean', ['feature-state', 'active'], false],
-                                [
-                                    'min',
-                                    ACTIVE_FEATURE_OPACITY_CAP,
-                                    ['*', baseOpacity, ACTIVE_FEATURE_OPACITY_MULTIPLIER],
-                                ],
-                                baseOpacity,
-                            ]);
-                        }
-
-                        if (layer.type === 'fill') {
-                            const baseOpacity = map.getPaintProperty(id, 'fill-opacity') ?? 0.5;
-
-                            map.setPaintProperty(id, 'fill-opacity', [
-                                'case',
-                                ['boolean', ['feature-state', 'active'], false],
-                                [
-                                    'min',
-                                    ACTIVE_FEATURE_OPACITY_CAP,
-                                    ['*', baseOpacity, ACTIVE_FEATURE_OPACITY_MULTIPLIER],
-                                ],
-                                baseOpacity,
-                            ]);
-                        }
-                    });
-                });
-            }
+            map.setStyle({
+                ...this.baseStyle,
+                sources: { ...sources, ...this.baseStyle.sources },
+                layers: [...this.baseStyle.layers, ...layers],
+            });
         });
     }
 
