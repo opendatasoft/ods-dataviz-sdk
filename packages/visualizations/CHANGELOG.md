@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.30.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.29.2...@opendatasoft/visualizations@0.30.0) (2025-11-07)
+
+
+### Features
+
+* category legend groups item per variant ([#281](https://github.com/opendatasoft/ods-dataviz-sdk/issues/281)) ([97c6bcb](https://github.com/opendatasoft/ods-dataviz-sdk/commit/97c6bcb0f7bba2f7c455f5cc8e6176d5d5d94b5c))
+* POI display popups, handle categories and highlight active for all supported geometries ([#284](https://github.com/opendatasoft/ods-dataviz-sdk/issues/284)) ([7c7278c](https://github.com/opendatasoft/ods-dataviz-sdk/commit/7c7278ca34ef357a6859fee43d45e5f7d21bbb1e))
+
+
+
+
+
 ## [0.29.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.29.1...@opendatasoft/visualizations@0.29.2) (2025-11-04)
 
 **Note:** Version bump only for package @opendatasoft/visualizations
