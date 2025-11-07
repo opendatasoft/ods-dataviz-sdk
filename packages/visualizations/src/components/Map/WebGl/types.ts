@@ -81,6 +81,20 @@ type BaseLayer = {
      */
     popup?: PopupLayer;
 };
+
+/** Color-category match (with optional border colors) */
+export type CategoricalColorMatch = {
+    key: string;
+    colors: Record<string, Color>;
+    borderColors?: Record<string, Color>;
+};
+
+/** Numeric-category match (width, opacity) */
+export type CategoricalNumberMatch = {
+    key: string;
+    values: Record<string, number>;
+};
+
 /**
  * Base on Maplibre layers https://maplibre.org/maplibre-style-spec/layers/
  * Use only part of the configuration to build layers with consistent styles.
@@ -95,11 +109,7 @@ export type CircleLayer = BaseLayer & {
      * Set a marker color based on a value.
      * If no match, default color comes from `color`
      */
-    colorMatch?: {
-        key: string;
-        colors: { [key: string]: Color };
-        borderColors?: { [key: string]: Color };
-    };
+    colorMatch?: CategoricalColorMatch;
 };
 
 export type SymbolLayer = BaseLayer & {
@@ -122,6 +132,8 @@ export type FillLayer = BaseLayer & {
     color: Color;
     borderColor?: Color;
     opacity?: number;
+    colorMatch?: CategoricalColorMatch;
+    opacityMatch?: CategoricalNumberMatch; // values are 0..1
 };
 
 export type LineLayer = BaseLayer & {
@@ -129,6 +141,9 @@ export type LineLayer = BaseLayer & {
     color: Color;
     width?: number;
     opacity?: number;
+    colorMatch?: CategoricalColorMatch;
+    widthMatch?: CategoricalNumberMatch;
+    opacityMatch?: CategoricalNumberMatch;
 };
 
 export type Layer = CircleLayer | SymbolLayer | FillLayer | LineLayer;
@@ -166,3 +181,11 @@ export type WebGlMapProps = {
     data: WebGlMapData;
     options: WebGlMapOptions;
 };
+
+export type SupportedGeometry =
+    | GeoJSON.Point
+    | GeoJSON.MultiPoint
+    | GeoJSON.LineString
+    | GeoJSON.MultiLineString
+    | GeoJSON.Polygon
+    | GeoJSON.MultiPolygon;

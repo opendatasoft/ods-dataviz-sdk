@@ -1,4 +1,5 @@
-import type { BBox } from 'geojson';
+import type { BBox, Feature, Geometry } from 'geojson';
+import pointOnFeature from '@turf/point-on-feature';
 import { debounce, difference } from 'lodash';
 import MaplibreGl from 'maplibre-gl';
 import type {
@@ -37,6 +38,7 @@ import type {
     PopupDisplayTypes,
     Images,
     OnFeatureClick,
+    SupportedGeometry,
 } from './types';
 
 const CURSOR = {
@@ -45,7 +47,20 @@ const CURSOR = {
     DRAG: 'move',
 };
 
-const ACTIVE_FEATURE_RATIO_SIZE = 1.3;
+const ACTIVE_FEATURE_CIRCLE_RATIO_SIZE = 1.3;
+
+const SUPPORTED_GEOMETRY_TYPES: SupportedGeometry['type'][] = [
+    'Point',
+    'MultiPoint',
+    'LineString',
+    'MultiLineString',
+    'Polygon',
+    'MultiPolygon',
+];
+
+function isSupportedGeometry(geometry: Geometry): geometry is SupportedGeometry {
+    return SUPPORTED_GEOMETRY_TYPES.includes(geometry.type as SupportedGeometry['type']);
+}
 
 /** Sorts features in a layer by setting a sort key for a specific feature. */
 const sortLayerFeatures = (
@@ -122,6 +137,24 @@ export default class MapPOI {
         this.queuedFunctions = [];
     }
 
+    /** Remember last clicked position */
+    private lastClickLngLat: LngLatLike | null = null;
+
+    /** Get a point guaranteed to be on the surface of the feature */
+    private getGeometryAnchor(geometry: SupportedGeometry): LngLatLike | null {
+        try {
+            const feature: Feature<SupportedGeometry> = {
+                type: 'Feature',
+                geometry,
+                properties: {},
+            };
+            const pt = pointOnFeature(feature);
+            return pt.geometry.coordinates as LngLatLike;
+        } catch {
+            return null;
+        }
+    }
+
     /** Make active feature bigger and sort it on top of other features in the layer */
     private highlightFeature(feature: ActiveFeatureType) {
         if (!feature) return;
@@ -136,7 +169,7 @@ export default class MapPOI {
                     map.setLayoutProperty(layer.id, 'icon-size', [
                         'case',
                         ['==', ['id'], feature.id],
-                        iconSize * ACTIVE_FEATURE_RATIO_SIZE,
+                        iconSize * ACTIVE_FEATURE_CIRCLE_RATIO_SIZE,
                         iconSize,
                     ]);
                     break;
@@ -148,7 +181,7 @@ export default class MapPOI {
                     map.setPaintProperty(layer.id, 'circle-radius', [
                         'case',
                         ['==', ['id'], feature.id],
-                        circleRadius * ACTIVE_FEATURE_RATIO_SIZE,
+                        circleRadius * ACTIVE_FEATURE_CIRCLE_RATIO_SIZE,
                         circleRadius,
                     ]);
                     break;
@@ -241,13 +274,13 @@ export default class MapPOI {
     /**
      * Event handler for click events on the map.
      * Currently, is only used to handle popup display.
-     * @param {MapLayerMouseEvent} event
+     * @param {MapLayerMouseEvent} e
      */
-    private onMapClick({ point }: MapLayerMouseEvent) {
+    private onMapClick(e: MapLayerMouseEvent) {
         this.queue((map) => {
-            this.handlePopupAfterMapClick(map, point);
+            this.handlePopupAfterMapClick(map, e.point, e.lngLat);
             if (this?.onFeatureClick) {
-                this.handleCustomFeatureClick(map, point, this.onFeatureClick);
+                this.handleCustomFeatureClick(map, e.point, this.onFeatureClick);
             }
         });
     }
@@ -282,8 +315,9 @@ export default class MapPOI {
         this.activeFeature = this.availableFeaturesOnClick[activeFeatureIndex + direction];
         this.updatePopupContent();
         this.updatePopupDisplay();
-        if (this.activeFeature?.geometry.type === 'Point') {
-            this.popup.setLngLat(this.activeFeature?.geometry.coordinates as LngLatLike);
+        if (this.activeFeature && isSupportedGeometry(this.activeFeature.geometry)) {
+            const anchor = this.getGeometryAnchor(this.activeFeature.geometry);
+            if (anchor) this.popup.setLngLat(anchor);
         }
         this.highlightFeature(this.activeFeature);
     }
@@ -306,7 +340,7 @@ export default class MapPOI {
         }
 
         popupNavigationDiv.innerHTML = `
-                ${arrows} 
+                ${arrows}
                 <button class="${POPUP_NAVIGATION_CLOSE_BUTTON_CLASSNAME}"><span class="${POPUP_NAVIGATION_CLOSE_BUTTON_ICON_CLASSNAME}"></span></button>
         `;
 
@@ -375,13 +409,13 @@ export default class MapPOI {
              * When the popup is display as a sidebar, the feature may be behind the the popup.
              * To avoid this we add a padding to the map, so that the feature remains visible.
              */
-            if (
-                newDisplay === POPUP_DISPLAY.sidebar &&
-                this.activeFeature &&
-                this.activeFeature.geometry.type === 'Point'
-            ) {
+            if (newDisplay === POPUP_DISPLAY.sidebar) {
+                let anchor: LngLatLike | null = null;
+                if (this.activeFeature && isSupportedGeometry(this.activeFeature.geometry)) {
+                    anchor = this.getGeometryAnchor(this.activeFeature.geometry);
+                }
                 map.easeTo({
-                    center: this.activeFeature.geometry.coordinates as LngLatLike,
+                    center: (anchor ?? this.lastClickLngLat) as LngLatLike,
                     padding: { left: POPUP_WIDTH },
                 });
             }
@@ -430,7 +464,11 @@ export default class MapPOI {
      * @param map The map instance
      * @param point The pixel coordinates of the cursor click, relative to the map
      */
-    private handlePopupAfterMapClick(map: Map, point: MapMouseEvent['point']) {
+    private handlePopupAfterMapClick(
+        map: Map,
+        point: MapMouseEvent['point'],
+        clickLngLat?: LngLatLike
+    ) {
         /*
          * Get features close to the click area.
          * We ask for features that are not in base style layers and for which a popup config is defined.
@@ -456,6 +494,7 @@ export default class MapPOI {
         if (!hasFeatures || isSelectedFeatureSameAsActiveFeature) {
             this.popup.remove();
             this.availableFeaturesOnClick = [];
+            this.lastClickLngLat = null;
             return;
         }
 
@@ -465,11 +504,19 @@ export default class MapPOI {
         this.availableFeaturesOnClick = features;
         const { geometry } = this.activeFeature;
 
-        if (geometry.type !== 'Point') return;
+        if (!isSupportedGeometry(geometry)) {
+            return;
+        }
         if (!this.popup.isOpen()) {
             this.popup.addTo(map);
         }
-        this.popup.setLngLat(geometry.coordinates as LngLatLike);
+        this.lastClickLngLat = clickLngLat ?? map.unproject(point);
+        if (this.lastClickLngLat) {
+            this.popup.setLngLat(this.lastClickLngLat);
+        } else {
+            const anchor = this.getGeometryAnchor(geometry);
+            if (anchor) this.popup.setLngLat(anchor);
+        }
 
         this.updatePopupContent();
         this.updatePopupDisplay();
@@ -687,6 +734,7 @@ export default class MapPOI {
             this.onPopupDisplayUpdate(this.activePopupDisplay, null);
             this.activePopupDisplay = null;
             this.activeFeature = null;
+            this.lastClickLngLat = null;
         });
     }
 }
