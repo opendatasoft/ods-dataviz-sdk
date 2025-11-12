@@ -1,6 +1,7 @@
+import React from 'react';
 import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
-import { Meta } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import type { Props } from 'reactify';
 
 import { compactNumberFormatter, defaultSource } from '../../utils';
@@ -19,35 +20,38 @@ const df = [
     { x: 'Delta', y: 30 },
 ];
 
-export const DoughnutTitleSectorsName = ChartTemplate.bind({});
-const DoughnutTitleSectorsNameArgs: Props<DataFrame,ChartOptions> = {
-            data: {
-                loading: false,
-                value: df,
-            },
-            options: {
-                labelColumn: 'x',
-                source: defaultSource,
-                series: [
-                    {
-                        type: ChartSeriesType.Doughnut,
-                        valueColumn: 'y',
-                        cutout:"65%",
-                        backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
-                        dataLabels: {
-                            display: true,
-                            text (index:number) {return df[index].x;}
-                        },
+const DoughnutTitleSectorsNameArgs: Props<DataFrame, ChartOptions> = {
+    data: {
+        loading: false,
+        value: df,
+    },
+    options: {
+        labelColumn: 'x',
+        source: defaultSource,
+        series: [
+            {
+                type: ChartSeriesType.Doughnut,
+                valueColumn: 'y',
+                cutout: '65%',
+                backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
+                dataLabels: {
+                    display: true,
+                    text(index: number) {
+                        return df[index].x;
                     },
-                ],
-                title: {
-                    text: 'Doughnut chart with title and sectors name',
                 },
             },
+        ],
+        title: {
+            text: 'Doughnut chart with title and sectors name',
+        },
+    },
 };
-DoughnutTitleSectorsName.args = DoughnutTitleSectorsNameArgs;
+export const DoughnutTitleSectorsName: StoryObj<typeof ChartTemplate> = {
+    args: DoughnutTitleSectorsNameArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const DoughnutTitleSectorsNameValue = ChartTemplate.bind({});
 const DoughnutTitleSectorsNameValueArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -59,7 +63,7 @@ const DoughnutTitleSectorsNameValueArgs: Props<DataFrame, ChartOptions> = {
         series: [
             {
                 type: ChartSeriesType.Doughnut,
-                cutout:"65%",
+                cutout: '65%',
                 valueColumn: 'y',
                 backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
                 dataLabels: {
@@ -77,9 +81,11 @@ const DoughnutTitleSectorsNameValueArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-DoughnutTitleSectorsNameValue.args = DoughnutTitleSectorsNameValueArgs;
+export const DoughnutTitleSectorsNameValue: StoryObj<typeof ChartTemplate> = {
+    args: DoughnutTitleSectorsNameValueArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const DoughnutTitleLegend = ChartTemplate.bind({});
 const DoughnutTitleLegendArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -92,7 +98,7 @@ const DoughnutTitleLegendArgs: Props<DataFrame, ChartOptions> = {
             {
                 type: ChartSeriesType.Doughnut,
                 valueColumn: 'y',
-                cutout:"65%",
+                cutout: '65%',
                 backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
             },
         ],
@@ -105,9 +111,11 @@ const DoughnutTitleLegendArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-DoughnutTitleLegend.args = DoughnutTitleLegendArgs;
+export const DoughnutTitleLegend: StoryObj<typeof ChartTemplate> = {
+    args: DoughnutTitleLegendArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const DoughnutTitleLegendValues = ChartTemplate.bind({});
 const DoughnutTitleLegendValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -125,7 +133,7 @@ const DoughnutTitleLegendValuesArgs: Props<DataFrame, ChartOptions> = {
             {
                 type: ChartSeriesType.Doughnut,
                 valueColumn: 'y',
-                cutout:"65%",
+                cutout: '65%',
                 backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', 'rgb(39,174,96)'],
             },
         ],
@@ -145,5 +153,7 @@ const DoughnutTitleLegendValuesArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-DoughnutTitleLegendValues.args = DoughnutTitleLegendValuesArgs;
-
+export const DoughnutTitleLegendValues: StoryObj<typeof ChartTemplate> = {
+    args: DoughnutTitleLegendValuesArgs,
+    render: args => <ChartTemplate {...args} />,
+};

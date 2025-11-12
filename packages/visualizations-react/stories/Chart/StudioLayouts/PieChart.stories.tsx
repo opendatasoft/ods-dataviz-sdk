@@ -1,6 +1,7 @@
+import React from 'react';
 import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
-import { Meta } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import type { Props } from 'reactify';
 
 import { compactNumberFormatter, defaultSource } from '../../utils';
@@ -19,34 +20,37 @@ const df = [
     { x: 'Delta', y: 30 },
 ];
 
-export const PieTitleSectorsName = ChartTemplate.bind({});
-const PieTitleSectorsNameArgs: Props<DataFrame,ChartOptions> = {
-            data: {
-                loading: false,
-                value: df,
-            },
-            options: {
-                labelColumn: 'x',
-                source: defaultSource,
-                series: [
-                    {
-                        type: ChartSeriesType.Pie,
-                        valueColumn: 'y',
-                        backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
-                        dataLabels: {
-                            display: true,
-                            text (index:number) {return df[index].x;}
-                        },
+const PieTitleSectorsNameArgs: Props<DataFrame, ChartOptions> = {
+    data: {
+        loading: false,
+        value: df,
+    },
+    options: {
+        labelColumn: 'x',
+        source: defaultSource,
+        series: [
+            {
+                type: ChartSeriesType.Pie,
+                valueColumn: 'y',
+                backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
+                dataLabels: {
+                    display: true,
+                    text(index: number) {
+                        return df[index].x;
                     },
-                ],
-                title: {
-                    text: 'Pie chart with title and sectors name',
                 },
             },
+        ],
+        title: {
+            text: 'Pie chart with title and sectors name',
+        },
+    },
 };
-PieTitleSectorsName.args = PieTitleSectorsNameArgs;
+export const PieTitleSectorsName: StoryObj<typeof ChartTemplate> = {
+    args: PieTitleSectorsNameArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const PieTitleSectorsNameValue = ChartTemplate.bind({});
 const PieTitleSectorsNameValueArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -75,9 +79,11 @@ const PieTitleSectorsNameValueArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-PieTitleSectorsNameValue.args = PieTitleSectorsNameValueArgs;
+export const PieTitleSectorsNameValue: StoryObj<typeof ChartTemplate> = {
+    args: PieTitleSectorsNameValueArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const PieTitleLegend = ChartTemplate.bind({});
 const PieTitleLegendArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -102,9 +108,11 @@ const PieTitleLegendArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-PieTitleLegend.args = PieTitleLegendArgs;
+export const PieTitleLegend: StoryObj<typeof ChartTemplate> = {
+    args: PieTitleLegendArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const PieTitleLegendValues = ChartTemplate.bind({});
 const PieTitleLegendValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -141,5 +149,7 @@ const PieTitleLegendValuesArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-PieTitleLegendValues.args = PieTitleLegendValuesArgs;
-
+export const PieTitleLegendValues: StoryObj<typeof ChartTemplate> = {
+    args: PieTitleLegendValuesArgs,
+    render: args => <ChartTemplate {...args} />,
+};

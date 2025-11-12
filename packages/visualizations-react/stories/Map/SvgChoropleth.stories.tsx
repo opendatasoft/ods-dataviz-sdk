@@ -1,6 +1,10 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ChoroplethGeoJsonOptions, ColorScale, ColorScaleTypes } from '@opendatasoft/visualizations';
+import { Meta, StoryObj } from '@storybook/react';
+import {
+    ChoroplethGeoJsonOptions,
+    ColorScale,
+    ColorScaleTypes,
+} from '@opendatasoft/visualizations';
 import { ChoroplethSvg } from 'src';
 import { shapes } from './data';
 
@@ -66,40 +70,41 @@ const ChoroPlethWithSelect = ({
                 width,
             }}
         >
-            <ChoroplethSvg
-                options={optionsWithScale}
-                data={selectedDataset}
-            />
+            <ChoroplethSvg options={optionsWithScale} data={selectedDataset} />
         </div>
     );
 };
 
-const meta: ComponentMeta<typeof ChoroplethSvg> = {
+const meta: Meta<typeof ChoroplethSvg> = {
     title: 'Map/ChoroplethSvg',
     component: ChoroplethSvg,
 };
 
 export default meta;
-const Template: ComponentStory<typeof ChoroPlethWithSelect> = args => (
-        <ChoroPlethWithSelect {...args} />
-);
-export const ChoroplethSvgStory = Template.bind({});
-ChoroplethSvgStory.argTypes = {
-    scale: {
-        options: ['grey', 'blue'],
-        control: { type: 'select' },
-    },
-    dataset: {
-        options: [1, 2],
-        control: { type: 'select' },
-    },
-};
-ChoroplethSvgStory.args = {
-    height: '100px',
-    width: '100px',
-    dataset: 1,
-    scale: 'blue',
-    options: { shapes },
-};
 
-
+export const ChoroplethSvgStory: StoryObj<typeof ChoroPlethWithSelect> = {
+    argTypes: {
+        scale: {
+            options: ['grey', 'blue'],
+            control: { type: 'select' },
+        },
+        dataset: {
+            options: [1, 2],
+            control: { type: 'select' },
+        },
+    },
+    args: {
+        height: '100px',
+        width: '100px',
+        dataset: 1,
+        scale: 'blue',
+        options: { shapes },
+    },
+    render: (args: {
+        scale: string;
+        dataset: number;
+        height: string;
+        width: string;
+        options: ChoroplethGeoJsonOptions;
+    }) => <ChoroPlethWithSelect {...args} />,
+};

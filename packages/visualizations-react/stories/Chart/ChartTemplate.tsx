@@ -1,8 +1,9 @@
 import React from 'react';
-import { ComponentStory } from '@storybook/react';
+import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
+import type { Props } from 'reactify';
 import { Chart } from 'src';
 
-const ChartTemplate: ComponentStory<typeof Chart> = args => (
+const ChartTemplate = (args: Props<DataFrame, ChartOptions>) => (
     <div
         style={{
             display: 'flex',
@@ -10,7 +11,7 @@ const ChartTemplate: ComponentStory<typeof Chart> = args => (
             justifyContent: 'center',
         }}
     >
-        <div style={{width: '60vw'}}>
+        <div style={{ width: '60vw' }}>
             <Chart {...args} />
         </div>
     </div>

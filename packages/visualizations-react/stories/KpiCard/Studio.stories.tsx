@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
 import { Async, KpiCardOptions } from '@opendatasoft/visualizations';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import type { KpiProps } from '@opendatasoft/visualizations';
 import { KpiCard } from 'src';
 import {
@@ -11,7 +11,7 @@ import {
     comparisonFormatter,
 } from '../utils';
 
-const meta: ComponentMeta<typeof KpiCard> = {
+const meta: Meta<typeof KpiCard> = {
     title: 'KPI Card/Studio Layouts',
 };
 
@@ -22,16 +22,18 @@ type KpiCardStoryProps = KpiProps & { style?: CSSProperties };
 /* Makes the mapping easier to type as component stories */
 const DemoCards = (stories: { [key: string]: KpiCardStoryProps }) => (
     <div
-        style={{
-            display: 'grid',
-            maxWidth: '800px',
-            margin: '0 auto',
-            gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-            gridTemplateRows: 'repeat(2, minmax(0, 1fr))',
-            gap: '1rem',
-            '--kpi-card-value-color': '#198276',
-        } as CSSProperties}
-    >   
+        style={
+            {
+                display: 'grid',
+                maxWidth: '800px',
+                margin: '0 auto',
+                gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+                gridTemplateRows: 'repeat(2, minmax(0, 1fr))',
+                gap: '1rem',
+                '--kpi-card-value-color': '#198276',
+            } as CSSProperties
+        }
+    >
         {Object.values(stories).map(({ style, ...props }) => (
             <div style={style}>
                 <KpiCard {...props} />
@@ -40,18 +42,16 @@ const DemoCards = (stories: { [key: string]: KpiCardStoryProps }) => (
     </div>
 );
 
-const Template: ComponentStory<typeof DemoCards> = args => <DemoCards {...args} />;
-
-function withDataOptions({data, options}: { data: Async<number>, options: KpiCardOptions}) {
+function withDataOptions({ data, options }: { data: Async<number>; options: KpiCardOptions }) {
     return {
         'Context only': {
             data,
             options: {
                 description:
-                    'Chiffre d’affaires pour la catégorie Fruits et légumes sur l’année en cours',
+                    "Chiffre d'affaires pour la catégorie Fruits et légumes sur l'année en cours",
                 suffix: ' EUR',
                 source: defaultSource,
-                ...options
+                ...options,
             },
         },
         'Context, picture': {
@@ -59,7 +59,7 @@ function withDataOptions({data, options}: { data: Async<number>, options: KpiCar
             options: {
                 imgSrc: IMAGES.rocket,
                 description:
-                    'Chiffre d’affaires pour la catégorie Fruits et légumes sur l’année en cours',
+                    "Chiffre d'affaires pour la catégorie Fruits et légumes sur l'année en cours",
                 suffix: ' EUR',
                 source: defaultSource,
                 ...options,
@@ -94,33 +94,42 @@ function withDataOptions({data, options}: { data: Async<number>, options: KpiCar
     };
 }
 
-export const Loading = Template.bind({});
-Loading.args = withDataOptions({
-    data: { loading: true },
-    options: { formatCompact: simpleFormatter.format },
-});
+export const Loading: StoryObj<typeof DemoCards> = {
+    args: withDataOptions({
+        data: { loading: true },
+        options: { formatCompact: simpleFormatter.format },
+    }),
+    render: (args: { [key: string]: KpiCardStoryProps }) => <DemoCards {...args} />,
+};
 
-export const ShortValue = Template.bind({});
-ShortValue.args = withDataOptions({
-    data: { value: -42 },
-    options: { formatCompact: simpleFormatter.format },
-});
+export const ShortValue: StoryObj<typeof DemoCards> = {
+    args: withDataOptions({
+        data: { value: -42 },
+        options: { formatCompact: simpleFormatter.format },
+    }),
+    render: (args: { [key: string]: KpiCardStoryProps }) => <DemoCards {...args} />,
+};
 
-export const LongValue = Template.bind({ options: { formatCompact: simpleFormatter.format } });
-LongValue.args = withDataOptions({
-    data: { value: 42123456 }, 
-    options: { formatCompact: simpleFormatter.format }
-});
+export const LongValue: StoryObj<typeof DemoCards> = {
+    args: withDataOptions({
+        data: { value: 42123456 },
+        options: { formatCompact: simpleFormatter.format },
+    }),
+    render: (args: { [key: string]: KpiCardStoryProps }) => <DemoCards {...args} />,
+};
 
-export const RatioKPI = Template.bind({});
-RatioKPI.args = withDataOptions({
-    data: { value: 0.42343953859 },
-    options: { formatCompact: ratioFormatter.format },
-});
+export const RatioKPI: StoryObj<typeof DemoCards> = {
+    args: withDataOptions({
+        data: { value: 0.42343953859 },
+        options: { formatCompact: ratioFormatter.format },
+    }),
+    render: (args: { [key: string]: KpiCardStoryProps }) => <DemoCards {...args} />,
+};
 
-
-export const ComparisonKPI = Template.bind({});
-ComparisonKPI.args = withDataOptions({
-    data: { value: 42.9 },
-    options: { formatCompact: comparisonFormatter.format },
-});
+export const ComparisonKPI: StoryObj<typeof DemoCards> = {
+    args: withDataOptions({
+        data: { value: 42.9 },
+        options: { formatCompact: comparisonFormatter.format },
+    }),
+    render: (args: { [key: string]: KpiCardStoryProps }) => <DemoCards {...args} />,
+};

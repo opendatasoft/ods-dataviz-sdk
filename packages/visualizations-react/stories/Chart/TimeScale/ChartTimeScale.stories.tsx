@@ -1,6 +1,7 @@
+import React from 'react';
 import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
-import { Meta } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import type { Props } from 'reactify';
 import { COLORS, generateArrayOf } from '../../utils';
 import ChartTemplate from '../ChartTemplate';
@@ -11,7 +12,6 @@ const meta: Meta = {
 
 export default meta;
 
-export const AreaChartYears = ChartTemplate.bind({});
 const AreaChartYearsArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -48,9 +48,11 @@ const AreaChartYearsArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-AreaChartYears.args = AreaChartYearsArgs;
+export const AreaChartYears: StoryObj<typeof ChartTemplate> = {
+    args: AreaChartYearsArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const LineChartYearsWithGap = ChartTemplate.bind({});
 const LineChartYearsWithGapArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -93,9 +95,11 @@ const LineChartYearsWithGapArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-LineChartYearsWithGap.args = LineChartYearsWithGapArgs;
+export const LineChartYearsWithGap: StoryObj<typeof ChartTemplate> = {
+    args: LineChartYearsWithGapArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const LineChartMonths = ChartTemplate.bind({});
 const LineChartMonthsArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -131,29 +135,32 @@ const LineChartMonthsArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-LineChartMonths.args = LineChartMonthsArgs;
+export const LineChartMonths: StoryObj<typeof ChartTemplate> = {
+    args: LineChartMonthsArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const LineChartWeeks = ChartTemplate.bind({});
+export const LineChartWeeks: StoryObj<typeof ChartTemplate> = {
+    render: args => <ChartTemplate {...args} />,
+};
+
 // used for x axis and tooltip but may be different for each
 const timeDisplayFormats = { week: "'W'WW yyyy" };
 const LineChartWeeksArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
-        value: generateArrayOf(
-            index => {
-                const startDate = new Date('2025-01-06T00:00:00');
-                const newDate = new Date(startDate.getTime());
-                newDate.setDate(startDate.getDate() + (index * 7));
-                const year = newDate.getFullYear();
-                const month = (newDate.getMonth() + 1.).toString().padStart(2, '0');
-                const day = newDate.getDate().toString().padStart(2, '0');
-                return ({
-                    x: `${year}-${month}-${day}`,
-                    y: (index - 8) ** 2,
-                });
-            },
-            16,
-        ),
+        value: generateArrayOf(index => {
+            const startDate = new Date('2025-01-06T00:00:00');
+            const newDate = new Date(startDate.getTime());
+            newDate.setDate(startDate.getDate() + index * 7);
+            const year = newDate.getFullYear();
+            const month = (newDate.getMonth() + 1).toString().padStart(2, '0');
+            const day = newDate.getDate().toString().padStart(2, '0');
+            return {
+                x: `${year}-${month}-${day}`,
+                y: (index - 8) ** 2,
+            };
+        }, 16),
     },
     options: {
         labelColumn: 'x',
@@ -178,12 +185,11 @@ const LineChartWeeksArgs: Props<DataFrame, ChartOptions> = {
         title: {
             text: 'Weeks',
         },
-        tooltip: { timeDisplayFormats }
+        tooltip: { timeDisplayFormats },
     },
 };
 LineChartWeeks.args = LineChartWeeksArgs;
 
-export const LineChartDays = ChartTemplate.bind({});
 const LineChartDaysArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -220,9 +226,11 @@ const LineChartDaysArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-LineChartDays.args = LineChartDaysArgs;
+export const LineChartDays: StoryObj<typeof ChartTemplate> = {
+    args: LineChartDaysArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const LineChartHours = ChartTemplate.bind({});
 const LineChartHoursArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -258,9 +266,11 @@ const LineChartHoursArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-LineChartHours.args = LineChartHoursArgs;
+export const LineChartHours: StoryObj<typeof ChartTemplate> = {
+    args: LineChartHoursArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const LineChartMinutes = ChartTemplate.bind({});
 const LineChartMinutesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -296,9 +306,11 @@ const LineChartMinutesArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-LineChartMinutes.args = LineChartMinutesArgs;
+export const LineChartMinutes: StoryObj<typeof ChartTemplate> = {
+    args: LineChartMinutesArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const BarChartSeconds = ChartTemplate.bind({});
 const BarChartSecondsArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -334,4 +346,7 @@ const BarChartSecondsArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-BarChartSeconds.args = BarChartSecondsArgs;
+export const BarChartSeconds: StoryObj<typeof ChartTemplate> = {
+    args: BarChartSecondsArgs,
+    render: args => <ChartTemplate {...args} />,
+};
