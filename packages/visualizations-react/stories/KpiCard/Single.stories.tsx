@@ -4,11 +4,11 @@ import type { KpiProps } from '@opendatasoft/visualizations';
 import { KpiCard } from 'src';
 import { COLORS, CONTROLS, IMAGES, defaultSource } from '../utils';
 
-function StyledKpi({ 
+function StyledKpi({
     style,
     ...props
 }: KpiProps & {
-    style: CSSProperties,
+    style: CSSProperties;
 }) {
     return (
         <div
@@ -87,80 +87,82 @@ const meta: Meta<typeof StyledKpi> = {
 
 export default meta;
 
-const Template: StoryObj<typeof StyledKpi> =  args => <StyledKpi {...args} />;
-
-export const Default = Template.bind({});
-Default.args = {
-    data: {
-        loading: false,
-        value: 1000,
+export const Default: StoryObj<typeof StyledKpi> = {
+    args: {
+        data: {
+            loading: false,
+            value: 1000,
+        },
+        options: {
+            header: 'Header',
+            title: 'KPI Card',
+            description: 'This is a description',
+            prefix: '$',
+            footer: 'Footer',
+            imgSrc: IMAGES.gov,
+            source: defaultSource,
+        },
+        style: {
+            height: 'auto',
+            width: '500px',
+        },
     },
-    options: {
-        header: 'Header',
-        title: 'KPI Card',
-        description: 'This is a description',
-        prefix: '$',
-        footer: 'Footer',
-        imgSrc: IMAGES.gov,
-        source: defaultSource,
-    },
-    style: {
-        height: 'auto',
-        width: '500px',
-    },
+    render: (args: KpiProps & { style: CSSProperties }) => <StyledKpi {...args} />,
 };
 
-export const FullCustom = Template.bind({});
-FullCustom.args = {
-    data: {
-        loading: false,
-        value: 12345,
+export const FullCustom: StoryObj<typeof StyledKpi> = {
+    args: {
+        data: {
+            loading: false,
+            value: 12345,
+        },
+        options: {
+            header: 'Header',
+            imgSrc: IMAGES.gov,
+            title: 'Title',
+            prefix: '$',
+            suffix: ' M',
+            description: 'Description',
+            footer: 'Footer',
+            source: defaultSource,
+            // Kpi Card
+        },
+        style: {
+            height: '400px',
+            width: '400px',
+            '--kpi-card-background-color': COLORS.red,
+            '--kpi-card-color': 'white',
+            '--kpi-card-border-radius': '0px',
+            '--kpi-card-border-width': '2px',
+            '--kpi-card-border-style': 'solid',
+            '--kpi-card-border-color': COLORS.purple,
+            // Kpi Card Body
+            '--kpi-card-body-flex-direction': 'row',
+            '--kpi-card-body-justify-content': 'space-between',
+            // Kpi Card Header
+            '--kpi-card-header-background-color': 'white',
+            '--kpi-card-header-color': COLORS.red,
+            '--kpi-card-header-font-size': '1rem',
+            '--kpi-card-header-font-weight': '400',
+            '--kpi-card-header-text-align': 'left',
+            // Kpi Card Img
+            '--kpi-card-img-align-self': 'start',
+            // Kpi Card Content
+            '--kpi-card-content-align-self': 'end',
+            '--kpi-card-content-align-items': 'center',
+            // Kpi Card Value
+            '--kpi-card-value-font-size': '3rem',
+            '--kpi-card-value-font-weight': '400',
+            '--kpi-card-value-color': 'white',
+            // Kpi Card Source Link
+            '--kpi-card-source-link-align-self': 'end',
+            // Kpi Card Footer
+            '--kpi-card-footer-background-color': 'white',
+            '--kpi-card-footer-color': COLORS.red,
+            '--kpi-card-footer-font-size': '1rem',
+            '--kpi-card-footer-font-weight': '400',
+            '--kpi-card-footer-text-align': 'left',
+        } as CSSProperties,
     },
-    options: {
-        header: 'Header',
-        imgSrc: IMAGES.gov,
-        title: 'Title',
-        prefix: '$',
-        suffix: ' M',
-        description: 'Description',
-        footer: 'Footer',
-        source: defaultSource,
-        // Kpi Card
-    },
-    style: {
-        height: '400px',
-        width: '400px',
-        '--kpi-card-background-color': COLORS.red,
-        '--kpi-card-color': 'white',
-        '--kpi-card-border-radius': '0px',
-        '--kpi-card-border-width': '2px',
-        '--kpi-card-border-style': 'solid',
-        '--kpi-card-border-color': COLORS.purple,
-        // Kpi Card Body
-        '--kpi-card-body-flex-direction': 'row',
-        '--kpi-card-body-justify-content': 'space-between',
-        // Kpi Card Header
-        '--kpi-card-header-background-color': 'white',
-        '--kpi-card-header-color': COLORS.red,
-        '--kpi-card-header-font-size': '1rem',
-        '--kpi-card-header-font-weight': '400',
-        '--kpi-card-header-text-align': 'left',
-        // Kpi Card Img
-        '--kpi-card-img-align-self': 'start',
-        // Kpi Card Content
-        '--kpi-card-content-align-self': 'end',
-        '--kpi-card-content-align-items': 'center',
-        // Kpi Card Value
-        '--kpi-card-value-font-size': '3rem',
-        '--kpi-card-value-font-weight': '400',
-        '--kpi-card-value-color': 'white',
-        // Kpi Card Source Link
-        '--kpi-card-source-link-align-self': 'end',
-        // Kpi Card Footer
-        '--kpi-card-footer-background-color': 'white',
-        '--kpi-card-footer-color': COLORS.red,
-        '--kpi-card-footer-font-size': '1rem',
-        '--kpi-card-footer-font-weight': '400',
-        '--kpi-card-footer-text-align': 'left',
-    } as CSSProperties,
+    render: (args: KpiProps & { style: CSSProperties }) => <StyledKpi {...args} />,
 };

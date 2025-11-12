@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
+import type { Pagination } from '@opendatasoft/visualizations';
 import { Table } from '../../src';
 import './pagination.css';
 import { PaginatedTemplate, PageSizeTemplate } from './PaginatedTemplates';
@@ -10,46 +11,49 @@ const meta: Meta<typeof Table> = {
 };
 export default meta;
 
-const PaginatedTable: StoryObj<typeof PaginatedTemplate> = args => (
-    <PaginatedTemplate {...args} />
-);
-export const Paginated = PaginatedTable.bind({});
-Paginated.args = {
-    current: 2,
-    recordsPerPage: 3,
-};
-
-export const Longpagination = PaginatedTable.bind({});
-Longpagination.args = {
-    current: 1,
-    recordsPerPage: 10,
-};
-export const Shortpagination = PaginatedTable.bind({});
-Shortpagination.args = {
-    current: 1,
-    recordsPerPage: 2,
-};
-
-const StyledPaginated: StoryObj<typeof PaginatedTemplate> = args => (
-    <div className="custom-pagination">
-        <PaginatedTemplate {...args} />
-    </div>
-);
-
-export const CustomStyle = StyledPaginated.bind({});
-CustomStyle.args = {
-    current: 2,
-    recordsPerPage: 3,
-    labels: {
-        records: 'items',
+export const Paginated: StoryObj<typeof PaginatedTemplate> = {
+    args: {
+        current: 2,
+        recordsPerPage: 3,
     },
+    render: (args: Pagination) => <PaginatedTemplate {...args} />,
 };
 
-const PageSizeTable: StoryObj<typeof PageSizeTemplate> = args => (
-    <PageSizeTemplate {...args} />
-);
-export const PageSize = PageSizeTable.bind({});
-PageSize.args = {
-    current: 2,
-    recordsPerPage: 5,
+export const Longpagination: StoryObj<typeof PaginatedTemplate> = {
+    args: {
+        current: 1,
+        recordsPerPage: 10,
+    },
+    render: (args: Pagination) => <PaginatedTemplate {...args} />,
+};
+
+export const Shortpagination: StoryObj<typeof PaginatedTemplate> = {
+    args: {
+        current: 1,
+        recordsPerPage: 2,
+    },
+    render: (args: Pagination) => <PaginatedTemplate {...args} />,
+};
+
+export const CustomStyle: StoryObj<typeof PaginatedTemplate> = {
+    args: {
+        current: 2,
+        recordsPerPage: 3,
+        labels: {
+            records: 'items',
+        },
+    },
+    render: (args: Pagination) => (
+        <div className="custom-pagination">
+            <PaginatedTemplate {...args} />
+        </div>
+    ),
+};
+
+export const PageSize: StoryObj<typeof PageSizeTemplate> = {
+    args: {
+        current: 2,
+        recordsPerPage: 5,
+    },
+    render: (args: Pagination) => <PageSizeTemplate {...args} />,
 };

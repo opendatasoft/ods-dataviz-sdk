@@ -22,41 +22,40 @@ const tooltip = {
         }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
 };
 
-const Template: StoryObj<typeof ChoroplethGeoJson> = args => (
-    <div
-        style={{
-            width: '180px',
-            minHeight: '100px',
-            minWidth: '100px',
-            margin: 'auto',
-            border: '1px solid black',
-        }}
-    >
-        <ChoroplethGeoJson {...args} />
-    </div>
-);
-
-export const ChoroplethLongLabels = Template.bind({});
-const ChoroplethLongLabelsArgs: ChoroplethGeoJsonProps = {
-    data: {
-        value: [
-            { x: 'France', y: 600.05 },
-            { x: 'Île de France', y: 350.05 },
-            { x: 'Corsica', y: 950000.05 },
-        ],
-    },
-    options: {
-        shapes,
-        colorScale: {
-            type: ColorScaleTypes.Palette,
-            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#1e03fd', '#0229bf'],
+export const ChoroplethLongLabels: StoryObj<typeof ChoroplethGeoJson> = {
+    args: {
+        data: {
+            value: [
+                { x: 'France', y: 600.05 },
+                { x: 'Île de France', y: 350.05 },
+                { x: 'Corsica', y: 950000.05 },
+            ],
         },
-        aspectRatio: 1,
-        legend: {
-            title: 'I Am Legend',
+        options: {
+            shapes,
+            colorScale: {
+                type: ColorScaleTypes.Palette,
+                colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#1e03fd', '#0229bf'],
+            },
+            aspectRatio: 1,
+            legend: {
+                title: 'I Am Legend',
+            },
+            emptyValueColor: '#cccccc',
+            tooltip,
         },
-        emptyValueColor: '#cccccc',
-        tooltip,
     },
+    render: (args: ChoroplethGeoJsonProps) => (
+        <div
+            style={{
+                width: '180px',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethGeoJson {...args} />
+        </div>
+    ),
 };
-ChoroplethLongLabels.args = ChoroplethLongLabelsArgs;

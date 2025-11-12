@@ -56,41 +56,39 @@ const NavStory = ({ numMaps, ...args }: Args) => {
     );
 };
 
-const Template: StoryObj<typeof NavStory> = args => <NavStory {...args} />;
-
-export const NavMapDynamicPlayground = Template.bind({});
-
-NavMapDynamicPlayground.argTypes = {
-    numMaps: {
-        control: {
-            type: 'range',
-            min: 1,
-            max: 25,
-            step: 1,
-        },
-    },
-};
-
-NavMapDynamicPlayground.args = {
-    numMaps: 5,
-    data: {
-        value: dataReg,
-        loading: false,
-    },
-    options: {
-        shapesTiles,
-        colorScale: {
-            type: ColorScaleTypes.Gradient,
-            colors: {
-                start: '#bcf5f9',
-                end: '#0229bf',
+export const NavMapDynamicPlayground: StoryObj<typeof NavStory> = {
+    argTypes: {
+        numMaps: {
+            control: {
+                type: 'range',
+                min: 1,
+                max: 25,
+                step: 1,
             },
         },
-        legend: {
-            title: 'I Am Legend',
-        },
-        aspectRatio: 1,
-        activeShapes: ['11', '93'],
-        emptyValueColor: 'red',
     },
-} as Args;
+    args: {
+        numMaps: 5,
+        data: {
+            value: dataReg,
+            loading: false,
+        },
+        options: {
+            shapesTiles,
+            colorScale: {
+                type: ColorScaleTypes.Gradient,
+                colors: {
+                    start: '#bcf5f9',
+                    end: '#0229bf',
+                },
+            },
+            legend: {
+                title: 'I Am Legend',
+            },
+            aspectRatio: 1,
+            activeShapes: ['11', '93'],
+            emptyValueColor: 'red',
+        },
+    } as Args,
+    render: (args: Args) => <NavStory {...args} />,
+};

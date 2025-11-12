@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import type { TableData, Async, GenericRecord } from '@opendatasoft/visualizations';
+import type { TableData, Async, GenericRecord, TableProps } from '@opendatasoft/visualizations';
 
 import './custom-style.css';
 
@@ -25,52 +25,6 @@ const fetchingData: Async<TableData> = {
     loading: true,
 };
 
-const Template: StoryObj<typeof Table> = args => <Table {...args} />;
-
-const CustomStyleTemplate: StoryObj<typeof Table> = args => (
-    <div className="table-story--custom-style">
-        <Table {...args} />
-    </div>
-);
-
-const ScrollTemplate: StoryObj<typeof Table> = args => (
-    <div style={{ maxWidth: '800px' }}>
-        <Table {...args} />
-    </div>
-);
-
-const RowHoverTemplate: StoryObj<typeof Table> = args => {
-    const { options: argOptions, data: argData } = args;
-    const [hoveredRecord, setHovered] = useState<DatasetRecord | undefined | null>(null);
-    const [lastClicked, setLastClicked] = useState<DatasetRecord | undefined | null>(null);
-
-    const onMouseEnter = (record?: GenericRecord) => {
-        setHovered(record as DatasetRecord);
-    };
-    const onMouseLeave = () => {
-        setHovered(null);
-    };
-    const onClick = (record?: GenericRecord) => {
-        setLastClicked(record as DatasetRecord);
-    };
-
-    return (
-        <>
-            <h3>Hovered</h3>
-            <pre>{JSON.stringify(hoveredRecord)}</pre>
-            <h3>Clicked</h3>
-            <pre>{JSON.stringify(lastClicked)}</pre>
-            <div style={{ maxWidth: '800px' }} className="design-system">
-                <Table
-                    data={argData}
-                    options={{ ...argOptions, rowProps: { onClick, onMouseEnter, onMouseLeave } }}
-                />
-            </div>
-            ;
-        </>
-    );
-};
-
 const optionsWithPagination = {
     ...options,
     pagination: {
@@ -88,65 +42,118 @@ const optionsWithPagination = {
     },
 };
 
-export const Playground = Template.bind({});
-Playground.args = {
-    data,
-    options,
+export const Playground: StoryObj<typeof Table> = {
+    args: {
+        data,
+        options,
+    },
 };
 
-export const CustomStyle = CustomStyleTemplate.bind({});
-CustomStyle.args = {
-    data,
-    options: optionsWithPagination,
+export const CustomStyle: StoryObj<typeof Table> = {
+    args: {
+        data,
+        options: optionsWithPagination,
+    },
+    render: (args: TableProps) => (
+        <div className="table-story--custom-style">
+            <Table {...args} />
+        </div>
+    ),
 };
 
-export const Scroll = ScrollTemplate.bind({});
-Scroll.args = {
-    data,
-    options,
+export const Scroll: StoryObj<typeof Table> = {
+    args: {
+        data,
+        options,
+    },
+    render: (args: TableProps) => (
+        <div style={{ maxWidth: '800px' }}>
+            <Table {...args} />
+        </div>
+    ),
 };
 
-export const TwoColumns = Template.bind({});
-TwoColumns.args = {
-    data,
-    options: { ...options, columns: options.columns.slice(0, 2) },
+export const TwoColumns: StoryObj<typeof Table> = {
+    args: {
+        data,
+        options: { ...options, columns: options.columns.slice(0, 2) },
+    },
 };
 
-export const Unstyled = Template.bind({});
-Unstyled.args = {
-    data,
-    options: { ...options, unstyled: true },
+export const Unstyled: StoryObj<typeof Table> = {
+    args: {
+        data,
+        options: { ...options, unstyled: true },
+    },
 };
 
-export const Loading = Template.bind({});
-Loading.args = {
-    data: fetchingData,
-    options: {
-        ...options,
-        rowProps: {
-            onClick: () => {}, // Just to have column that shouldn't have the loading indicator
+export const Loading: StoryObj<typeof Table> = {
+    args: {
+        data: fetchingData,
+        options: {
+            ...options,
+            rowProps: {
+                onClick: () => {}, // Just to have column that shouldn't have the loading indicator
+            },
         },
     },
 };
 
-export const emptyState = Template.bind({});
-emptyState.args = {
-    data: { value: [], loading: false },
-    options: { ...options, emptyStateLabel: 'Neniuj registroj trovitaj...' },
+export const emptyState: StoryObj<typeof Table> = {
+    args: {
+        data: { value: [], loading: false },
+        options: { ...options, emptyStateLabel: 'Neniuj registroj trovitaj...' },
+    },
 };
 
-export const RtlDirection = Template.bind({});
-RtlDirection.parameters = {
-    direction: 'rtl',
-    chromatic: { disableSnapshot: true },
-};
-RtlDirection.args = {
-    data,
-    options: optionsWithPagination,
+export const RtlDirection: StoryObj<typeof Table> = {
+    parameters: {
+        direction: 'rtl',
+        chromatic: { disableSnapshot: true },
+    },
+    args: {
+        data,
+        options: optionsWithPagination,
+    },
 };
 
-export const RowHoverAndClick = RowHoverTemplate.bind({});
-RowHoverAndClick.args = {
-    data,
-    options,
+export const RowHoverAndClick: StoryObj<typeof Table> = {
+    args: {
+        data,
+        options,
+    },
+    render: (args: TableProps) => {
+        const { options: argOptions, data: argData } = args;
+        const [hoveredRecord, setHovered] = useState<DatasetRecord | undefined | null>(null);
+        const [lastClicked, setLastClicked] = useState<DatasetRecord | undefined | null>(null);
+
+        const onMouseEnter = (record?: GenericRecord) => {
+            setHovered(record as DatasetRecord);
+        };
+        const onMouseLeave = () => {
+            setHovered(null);
+        };
+        const onClick = (record?: GenericRecord) => {
+            setLastClicked(record as DatasetRecord);
+        };
+
+        return (
+            <>
+                <h3>Hovered</h3>
+                <pre>{JSON.stringify(hoveredRecord)}</pre>
+                <h3>Clicked</h3>
+                <pre>{JSON.stringify(lastClicked)}</pre>
+                <div style={{ maxWidth: '800px' }} className="design-system">
+                    <Table
+                        data={argData}
+                        options={{
+                            ...argOptions,
+                            rowProps: { onClick, onMouseEnter, onMouseLeave },
+                        }}
+                    />
+                </div>
+                ;
+            </>
+        );
+    },
 };

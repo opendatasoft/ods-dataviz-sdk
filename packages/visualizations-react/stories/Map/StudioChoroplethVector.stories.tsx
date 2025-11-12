@@ -41,300 +41,404 @@ const defaultLabelCallback: ChoroplethTooltipFormatter = ({ label, value }: Tool
     `<b>${label}:</b> ${value}`;
 
 export default meta;
-const Template: StoryObj<typeof ChoroplethVectorTiles> = args => (
-    <div
-        style={{
-            width: '50%',
-            minHeight: '100px',
-            minWidth: '100px',
-            margin: 'auto',
-            border: '1px solid black',
-        }}
-    >
-        <ChoroplethVectorTiles {...args} />
-    </div>
-);
 
-export const StudioChoroplethVectorGradient = Template.bind({});
-const StudioChoroplethVectorGradientArgs: ChoroplethVectorTilesProps = {
-    data: {
-        value: dataReg,
-    },
-    options: {
-        bbox: [-17.529298, 38.79776, 23.889159, 52.836618],
-        shapesTiles,
-        colorScale: {
-            type: ColorScaleTypes.Gradient,
-            colors: {
-                start: '#bcf5f9',
-                end: '#0229bf',
+export const StudioChoroplethVectorGradient: StoryObj<typeof ChoroplethVectorTiles> = {
+    args: {
+        data: {
+            value: dataReg,
+        },
+        options: {
+            bbox: [-17.529298, 38.79776, 23.889159, 52.836618],
+            shapesTiles,
+            colorScale: {
+                type: ColorScaleTypes.Gradient,
+                colors: {
+                    start: '#bcf5f9',
+                    end: '#0229bf',
+                },
+            },
+            legend: {
+                title: 'I Am Legend',
+            },
+            aspectRatio: 1,
+            activeShapes: ['11', '93'],
+            emptyValueColor: 'red',
+            tooltip: {
+                formatter: defaultLabelCallback,
             },
         },
-        legend: {
-            title: 'I Am Legend',
-        },
-        aspectRatio: 1,
-        activeShapes: ['11', '93'],
-        emptyValueColor: 'red',
-        tooltip: {
-            formatter: defaultLabelCallback,
-        },
     },
+    render: (args: ChoroplethVectorTilesProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethVectorTiles {...args} />
+        </div>
+    ),
 };
-StudioChoroplethVectorGradient.args = StudioChoroplethVectorGradientArgs;
 
-export const StudioChoroplethVectorPalette = Template.bind({});
-const StudioChoroplethVectorPaletteArgs: ChoroplethVectorTilesProps = {
-    data: {
-        value: dataReg,
+export const StudioChoroplethVectorPalette: StoryObj<typeof ChoroplethVectorTiles> = {
+    args: {
+        data: {
+            value: dataReg,
+        },
+        options: {
+            shapesTiles,
+            colorScale: {
+                type: ColorScaleTypes.Palette,
+                colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+            },
+            legend: {
+                title: 'I Am Legend',
+            },
+            aspectRatio: 1,
+            emptyValueColor: 'red',
+            bbox: [-17.529298, 38.79776, 23.889159, 52.836618],
+            tooltip: {
+                formatter: defaultLabelCallback,
+            },
+        },
     },
-    options: {
-        shapesTiles,
-        colorScale: {
-            type: ColorScaleTypes.Palette,
-            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
-        },
-        legend: {
-            title: 'I Am Legend',
-        },
-        aspectRatio: 1,
-        emptyValueColor: 'red',
-        bbox: [-17.529298, 38.79776, 23.889159, 52.836618],
-        tooltip: {
-            formatter: defaultLabelCallback,
-        },
-    },
+    render: (args: ChoroplethVectorTilesProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethVectorTiles {...args} />
+        </div>
+    ),
 };
-StudioChoroplethVectorPalette.args = StudioChoroplethVectorPaletteArgs;
 
-export const StudioChoroplethVectorFilter = Template.bind({});
-const StudioChoroplethVectorFilterArgs: ChoroplethVectorTilesProps = {
-    data: {
-        value: dataReg,
-    },
-    options: {
-        shapesTiles,
-        colorScale: {
-            type: ColorScaleTypes.Palette,
-            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+export const StudioChoroplethVectorFilter: StoryObj<typeof ChoroplethVectorTiles> = {
+    args: {
+        data: {
+            value: dataReg,
         },
-        legend: {
-            title: 'I Am Legend',
-        },
-        emptyValueColor: '#FFFFFF',
-        aspectRatio: 1,
-        bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
-        tooltip: {
-            formatter: defaultLabelCallback,
-            labelMatcher: {
-                type: ChoroplethTooltipMatcherTypes.KeyProperty,
+        options: {
+            shapesTiles,
+            colorScale: {
+                type: ColorScaleTypes.Palette,
+                colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+            },
+            legend: {
+                title: 'I Am Legend',
+            },
+            emptyValueColor: '#FFFFFF',
+            aspectRatio: 1,
+            bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
+            tooltip: {
+                formatter: defaultLabelCallback,
+                labelMatcher: {
+                    type: ChoroplethTooltipMatcherTypes.KeyProperty,
+                    key: 'reg_code',
+                },
+            },
+            filter: {
                 key: 'reg_code',
+                value: ['52', '53'],
             },
         },
-        filter: {
-            key: 'reg_code',
-            value: ['52', '53'],
-        },
     },
+    render: (args: ChoroplethVectorTilesProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethVectorTiles {...args} />
+        </div>
+    ),
 };
-StudioChoroplethVectorFilter.args = StudioChoroplethVectorFilterArgs;
 
-export const StudioChoroplethVectorCustomLabel = Template.bind({});
-const StudioChoroplethVectorCustomLabelArgs: ChoroplethVectorTilesProps = {
-    data: {
-        value: dataReg,
-    },
-    options: {
-        shapesTiles,
-        colorScale: {
-            type: ColorScaleTypes.Palette,
-            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+export const StudioChoroplethVectorCustomLabel: StoryObj<typeof ChoroplethVectorTiles> = {
+    args: {
+        data: {
+            value: dataReg,
         },
-        legend: {
-            title: 'I Am Legend',
-        },
-        emptyValueColor: '#CBD2DB',
-        aspectRatio: 1,
-        bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
-        tooltip: {
-            formatter: defaultLabelCallback,
-            labelMatcher: {
-                type: ChoroplethTooltipMatcherTypes.KeyMap,
-                mapping: {
-                    52: 'Pays de la Loire',
-                    53: 'Bretagne',
+        options: {
+            shapesTiles,
+            colorScale: {
+                type: ColorScaleTypes.Palette,
+                colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+            },
+            legend: {
+                title: 'I Am Legend',
+            },
+            emptyValueColor: '#CBD2DB',
+            aspectRatio: 1,
+            bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
+            tooltip: {
+                formatter: defaultLabelCallback,
+                labelMatcher: {
+                    type: ChoroplethTooltipMatcherTypes.KeyMap,
+                    mapping: {
+                        52: 'Pays de la Loire',
+                        53: 'Bretagne',
+                    },
                 },
             },
-        },
-        filter: {
-            key: 'reg_code',
-            value: ['52', '53'],
+            filter: {
+                key: 'reg_code',
+                value: ['52', '53'],
+            },
         },
     },
+    render: (args: ChoroplethVectorTilesProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethVectorTiles {...args} />
+        </div>
+    ),
 };
-StudioChoroplethVectorCustomLabel.args = StudioChoroplethVectorCustomLabelArgs;
 
-export const StudioChoroplethVectorEmptyData = Template.bind({});
-const StudioChoroplethVectorEmptyDataArgs: ChoroplethVectorTilesProps = {
-    data: {
-        value: [],
-    },
-    options: {
-        shapesTiles,
-        colorScale: {
-            type: ColorScaleTypes.Palette,
-            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+export const StudioChoroplethVectorEmptyData: StoryObj<typeof ChoroplethVectorTiles> = {
+    args: {
+        data: {
+            value: [],
         },
-        legend: {
-            title: 'I Am Legend',
-        },
-        emptyValueColor: '#CBD2DB',
-        aspectRatio: 1,
-        bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
-        tooltip: {
-            formatter: defaultLabelCallback,
-            labelMatcher: {
-                type: ChoroplethTooltipMatcherTypes.KeyMap,
-                mapping: {
-                    52: 'Pays de la Loire',
-                    53: 'Bretagne',
+        options: {
+            shapesTiles,
+            colorScale: {
+                type: ColorScaleTypes.Palette,
+                colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+            },
+            legend: {
+                title: 'I Am Legend',
+            },
+            emptyValueColor: '#CBD2DB',
+            aspectRatio: 1,
+            bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
+            tooltip: {
+                formatter: defaultLabelCallback,
+                labelMatcher: {
+                    type: ChoroplethTooltipMatcherTypes.KeyMap,
+                    mapping: {
+                        52: 'Pays de la Loire',
+                        53: 'Bretagne',
+                    },
                 },
             },
-        },
-        filter: {
-            key: 'reg_code',
-            value: ['52', '53'],
-        },
-    },
-};
-StudioChoroplethVectorEmptyData.args = StudioChoroplethVectorEmptyDataArgs;
-
-export const StudioChoroplethVectorLegendLeft = Template.bind({});
-const StudioChoroplethVectorLegendLeftArgs: ChoroplethVectorTilesProps = {
-    data: {
-        value: dataReg,
-    },
-    options: {
-        shapesTiles,
-        colorScale: {
-            type: ColorScaleTypes.Palette,
-            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
-        },
-        title: 'Lorem Ipsum',
-        subtitle: 'Dolor Sit Amet',
-        legend: {
-            title: 'I Am Legend',
-            position: 'left',
-        },
-        emptyValueColor: '#CBD2DB',
-        aspectRatio: 1,
-        bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
-        tooltip: {
-            formatter: defaultLabelCallback,
-        },
-        filter: {
-            key: 'reg_code',
-            value: ['52', '53'],
-        },
-    },
-};
-StudioChoroplethVectorLegendLeft.args = StudioChoroplethVectorLegendLeftArgs;
-
-export const StudioChoroplethVectorLegendRight = Template.bind({});
-const StudioChoroplethVectorLegendRightArgs: ChoroplethVectorTilesProps = {
-    data: {
-        value: dataReg,
-    },
-    options: {
-        shapesTiles,
-        colorScale: {
-            type: ColorScaleTypes.Palette,
-            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
-        },
-        title: 'Lorem Ipsum',
-        subtitle: 'Dolor Sit Amet',
-        legend: {
-            title: 'I Am Legend',
-            position: 'right',
-        },
-        emptyValueColor: '#CBD2DB',
-        aspectRatio: 1,
-        bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
-        tooltip: {
-            formatter: defaultLabelCallback,
-        },
-        filter: {
-            key: 'reg_code',
-            value: ['52', '53'],
-        },
-    },
-};
-StudioChoroplethVectorLegendRight.args = StudioChoroplethVectorLegendRightArgs;
-
-export const StudioChoroplethNavigationMapButtons = Template.bind({});
-const StudioChoroplethNavigationMapButtonsArgs: ChoroplethVectorTilesProps = {
-    data: {
-        value: dataReg,
-    },
-    options: {
-        shapesTiles,
-        colorScale: {
-            type: ColorScaleTypes.Gradient,
-            colors: {
-                start: '#bcf5f9',
-                end: '#0229bf',
+            filter: {
+                key: 'reg_code',
+                value: ['52', '53'],
             },
         },
-        legend: {
-            title: 'I Am Legend',
-        },
-        aspectRatio: 1,
-        activeShapes: ['11', '93'],
-        emptyValueColor: 'red',
-        tooltip: {
-            formatter: defaultLabelCallback,
-        },
-        bbox: [-17.529298, 38.79776, 23.889159, 52.836618],
-        navigationMaps: [...makeMiniMaps(15),],
-        sourceLink: defaultSource,
     },
+    render: (args: ChoroplethVectorTilesProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethVectorTiles {...args} />
+        </div>
+    ),
 };
-StudioChoroplethNavigationMapButtons.args = StudioChoroplethNavigationMapButtonsArgs;
 
-export const StudioChoroplethVectorCooperativeGestures = Template.bind({});
-const StudioChoroplethVectorCooperativeGesturesArgs: ChoroplethVectorTilesProps = {
-    data: {
-        value: dataReg,
-    },
-    options: {
-        shapesTiles,
-        colorScale: {
-            type: ColorScaleTypes.Gradient,
-            colors: {
-                start: '#bcf5f9',
-                end: '#0229bf',
+export const StudioChoroplethVectorLegendLeft: StoryObj<typeof ChoroplethVectorTiles> = {
+    args: {
+        data: {
+            value: dataReg,
+        },
+        options: {
+            shapesTiles,
+            colorScale: {
+                type: ColorScaleTypes.Palette,
+                colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+            },
+            title: 'Lorem Ipsum',
+            subtitle: 'Dolor Sit Amet',
+            legend: {
+                title: 'I Am Legend',
+                position: 'left',
+            },
+            emptyValueColor: '#CBD2DB',
+            aspectRatio: 1,
+            bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
+            tooltip: {
+                formatter: defaultLabelCallback,
+            },
+            filter: {
+                key: 'reg_code',
+                value: ['52', '53'],
             },
         },
-        legend: {
-            title: 'I Am Legend',
+    },
+    render: (args: ChoroplethVectorTilesProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethVectorTiles {...args} />
+        </div>
+    ),
+};
+
+export const StudioChoroplethVectorLegendRight: StoryObj<typeof ChoroplethVectorTiles> = {
+    args: {
+        data: {
+            value: dataReg,
         },
-        aspectRatio: 1,
-        activeShapes: ['11', '93'],
-        emptyValueColor: 'red',
-        tooltip: {
-            formatter: defaultLabelCallback,
-        },
-        bbox: [-17.529298, 38.79776, 23.889159, 52.836618],
-        navigationMaps: [...makeMiniMaps(15),],
-        sourceLink: defaultSource,
-        cooperativeGestures: {
-            windowsHelpText: 'Use Ctrl + scroll to zoom the map',
-            macHelpText: 'Use ⌘ + scroll to zoom the map',
-            mobileHelpText: 'Use two fingers to move the map',
+        options: {
+            shapesTiles,
+            colorScale: {
+                type: ColorScaleTypes.Palette,
+                colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+            },
+            title: 'Lorem Ipsum',
+            subtitle: 'Dolor Sit Amet',
+            legend: {
+                title: 'I Am Legend',
+                position: 'right',
+            },
+            emptyValueColor: '#CBD2DB',
+            aspectRatio: 1,
+            bbox: [-5.637513, 45.500521, 1.382751, 49.219343],
+            tooltip: {
+                formatter: defaultLabelCallback,
+            },
+            filter: {
+                key: 'reg_code',
+                value: ['52', '53'],
+            },
         },
     },
+    render: (args: ChoroplethVectorTilesProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethVectorTiles {...args} />
+        </div>
+    ),
 };
-StudioChoroplethVectorCooperativeGestures.args = StudioChoroplethVectorCooperativeGesturesArgs;
+
+export const StudioChoroplethNavigationMapButtons: StoryObj<typeof ChoroplethVectorTiles> = {
+    args: {
+        data: {
+            value: dataReg,
+        },
+        options: {
+            shapesTiles,
+            colorScale: {
+                type: ColorScaleTypes.Gradient,
+                colors: {
+                    start: '#bcf5f9',
+                    end: '#0229bf',
+                },
+            },
+            legend: {
+                title: 'I Am Legend',
+            },
+            aspectRatio: 1,
+            activeShapes: ['11', '93'],
+            emptyValueColor: 'red',
+            tooltip: {
+                formatter: defaultLabelCallback,
+            },
+            bbox: [-17.529298, 38.79776, 23.889159, 52.836618],
+            navigationMaps: [...makeMiniMaps(15)],
+            sourceLink: defaultSource,
+        },
+    },
+    render: (args: ChoroplethVectorTilesProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethVectorTiles {...args} />
+        </div>
+    ),
+};
+
+export const StudioChoroplethVectorCooperativeGestures: StoryObj<typeof ChoroplethVectorTiles> = {
+    args: {
+        data: {
+            value: dataReg,
+        },
+        options: {
+            shapesTiles,
+            colorScale: {
+                type: ColorScaleTypes.Gradient,
+                colors: {
+                    start: '#bcf5f9',
+                    end: '#0229bf',
+                },
+            },
+            legend: {
+                title: 'I Am Legend',
+            },
+            aspectRatio: 1,
+            activeShapes: ['11', '93'],
+            emptyValueColor: 'red',
+            tooltip: {
+                formatter: defaultLabelCallback,
+            },
+            bbox: [-17.529298, 38.79776, 23.889159, 52.836618],
+            navigationMaps: [...makeMiniMaps(15)],
+            sourceLink: defaultSource,
+            cooperativeGestures: {
+                windowsHelpText: 'Use Ctrl + scroll to zoom the map',
+                macHelpText: 'Use ⌘ + scroll to zoom the map',
+                mobileHelpText: 'Use two fingers to move the map',
+            },
+        },
+    },
+    render: (args: ChoroplethVectorTilesProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethVectorTiles {...args} />
+        </div>
+    ),
+};
 
 /* The next story was used for the demo, but its too big for chromatic, keeping it hear for future ref on loading/wathever */
 // const LoaderTemplate: StoryObj<typeof Choropleth> = (args, { loaded: { data } }) => (

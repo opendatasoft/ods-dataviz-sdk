@@ -26,35 +26,34 @@ const makeMiniMaps = (n: number) =>
         };
     });
 
-const Template: StoryObj<typeof ChoroplethGeoJson> = args => (
-    <div
-        style={{
-            width: '50%',
-            minHeight: '100px',
-            minWidth: '100px',
-            margin: 'auto',
-            border: '1px solid black',
-        }}
-    >
-        <ChoroplethGeoJson {...args} />
-    </div>
-);
-
-export const NonInteractiveChoropleth = Template.bind({});
-const NonInteractiveChoroplethArgs: ChoroplethGeoJsonProps = {
-    data: {
-        value: [
-            { x: 'France', y: 60 },
-            { x: 'Île de France', y: 35 },
-            { x: 'Corsica', y: 95 },
-        ],
+export const NonInteractiveChoropleth: StoryObj<typeof ChoroplethGeoJson> = {
+    args: {
+        data: {
+            value: [
+                { x: 'France', y: 60 },
+                { x: 'Île de France', y: 35 },
+                { x: 'Corsica', y: 95 },
+            ],
+        },
+        options: {
+            shapes,
+            aspectRatio: 1,
+            activeShapes: ['France'],
+            interactive: false,
+            navigationMaps: [...makeMiniMaps(3)],
+        },
     },
-    options: {
-        shapes,
-        aspectRatio: 1,
-        activeShapes: ['France'],
-        interactive: false,
-        navigationMaps: [...makeMiniMaps(3)],
-    },
+    render: (args: ChoroplethGeoJsonProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethGeoJson {...args} />
+        </div>
+    ),
 };
-NonInteractiveChoropleth.args = NonInteractiveChoroplethArgs;
