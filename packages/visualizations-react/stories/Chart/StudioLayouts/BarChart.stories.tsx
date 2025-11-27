@@ -3,7 +3,7 @@ import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import type { Props } from 'reactify';
 
-import { defaultSource } from '../../utils';
+import { defaultLinks } from '../../utils';
 import ChartTemplate from '../ChartTemplate';
 
 const meta: Meta = {
@@ -27,7 +27,7 @@ const BarTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Bar,
@@ -88,7 +88,7 @@ const BarAxisGridArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Bar,
@@ -147,7 +147,7 @@ const BarTitleAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         padding: 24,
         series: [
             {
@@ -242,7 +242,7 @@ const BarAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         padding: 24,
         series: [
             {
@@ -331,7 +331,7 @@ const BarTitleSubTitleGridArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Bar,

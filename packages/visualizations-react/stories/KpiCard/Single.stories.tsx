@@ -2,9 +2,9 @@ import React, { CSSProperties } from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import type { KpiProps } from '@opendatasoft/visualizations';
 import { KpiCard } from 'src';
-import { COLORS, CONTROLS, IMAGES, defaultSource } from '../utils';
+import { COLORS, CONTROLS, IMAGES, defaultLinks } from '../utils';
 
-function StyledKpi({ 
+function StyledKpi({
     style,
     ...props
 }: KpiProps & {
@@ -73,8 +73,6 @@ const meta: ComponentMeta<typeof StyledKpi> = {
             '--kpi-card-value-font-weight': CONTROLS.fontWeight,
             '--kpi-card-value-color': CONTROLS.color,
             '--kpi-card-value-margin': CONTROLS.text,
-            // Kpi Card Source Link
-            '--kpi-card-source-link-align-self': CONTROLS.alignSelf,
             // Kpi Card Footer
             '--kpi-card-footer-background-color': CONTROLS.color,
             '--kpi-card-footer-color': CONTROLS.color,
@@ -102,7 +100,7 @@ Default.args = {
         prefix: '$',
         footer: 'Footer',
         imgSrc: IMAGES.gov,
-        source: defaultSource,
+        links: defaultLinks,
     },
     style: {
         height: 'auto',
@@ -124,7 +122,7 @@ FullCustom.args = {
         suffix: ' M',
         description: 'Description',
         footer: 'Footer',
-        source: defaultSource,
+        links: defaultLinks,
         // Kpi Card
     },
     style: {

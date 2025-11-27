@@ -3,15 +3,18 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { KpiCardOptions } from '@opendatasoft/visualizations';
 import { KpiCard } from 'src';
 
-const source = {
-    href: 'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
-};
+const links = [
+    {
+        href: 'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+        label: 'View dataset source',
+    },
+];
 
 const options: KpiCardOptions = {
     title: 'Tokyo Olympic Budget 2021',
     imgSrc: 'My-fake-image-source',
     prefix: '$',
-    source,
+    links,
 };
 
 describe('KPI Default Story', () => {
@@ -39,10 +42,12 @@ describe('KPI Default Story', () => {
 test('KPI accepts custom link label', () => {
     const customOptions = {
         ...options,
-        source: {
-            ...source,
-            label: 'Explore data',
-        },
+        links: [
+            {
+                ...links[0],
+                label: 'Explore data',
+            },
+        ],
     };
 
     render(<KpiCard data={{ value: 42 }} options={customOptions} />);

@@ -7,7 +7,7 @@
     } from 'maplibre-gl';
     import type { BBox } from 'geojson';
     import { debounce } from 'lodash';
-    import type { ColorScale, Color, DataBounds, Source } from 'types';
+    import type { ColorScale, Color, DataBounds, Link } from 'types';
     import MapRender from './MapRender.svelte';
     import { BLANK } from '../mapStyles';
     import {
@@ -53,8 +53,8 @@
     let subtitle: string | undefined;
     let description: string | undefined;
     let navigationMaps: NavigationMap[] | undefined;
-    // Data source link
-    let sourceLink: Source | undefined;
+    // Links menu
+    let links: Link[] | undefined;
     let cooperativeGestures: boolean | GestureOptions | undefined;
     let preserveDrawingBuffer: boolean;
     let fixedMaxBounds: LngLatBoundsLike | undefined;
@@ -83,7 +83,7 @@
         subtitle,
         description,
         navigationMaps,
-        sourceLink,
+        links,
         cooperativeGestures,
         preserveDrawingBuffer = false,
         fixedMaxBounds,
@@ -163,7 +163,7 @@
     {description}
     {navigationMaps}
     {data}
-    {sourceLink}
+    {links}
     {cooperativeGestures}
     {preserveDrawingBuffer}
     {fixedMaxBounds}

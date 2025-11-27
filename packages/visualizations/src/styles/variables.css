@@ -1,0 +1,17 @@
+/**
+ * Global CSS variables accessible in all Svelte components
+ */
+:root {
+    /* Spacing */
+    --spacing-50: 6px;
+    --spacing-75: 9px;
+    --spacing-100: 13px;
+    --spacing-200: 26px;
+
+    /* Border */
+    --border-radius-6: 6px;
+    --border-color: #cbd2db;
+
+    /* Colors */
+    --background-color: #ffffff;
+}

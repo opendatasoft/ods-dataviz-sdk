@@ -5,10 +5,38 @@ export type DataFrame = Record<string, any>[];
 
 export type Color = string;
 
-export interface Source {
+/**
+ * Represents a link in the LinksMenu component.
+ * Can be extended in the future to support other link types (e.g., callbacks, exports).
+ */
+export interface Link {
+    /** The URL to navigate to when the link is clicked */
     href: string;
-    label?: string;
-    style?: string;
+    /** The label displayed for this link */
+    label: string;
+    /** Optional SVG string to display as an icon next to the label */
+    icon?: string;
+}
+
+/**
+ * Props for the LinksMenu component.
+ */
+export interface LinksMenuProps extends Record<string, unknown> {
+    /** Array of links to display in the menu */
+    links: Link[];
+    /** Optional inline styles for the menu container */
+    style?: string | null;
+}
+
+export interface CardProps extends Record<string, unknown> {
+    title?: string;
+    subtitle?: string;
+    defaultStyle?: boolean;
+    links?: Link[];
+    style?: string | null;
+    className?: string | null;
+    clientWidth?: number;
+    tag?: 'div' | 'figure';
 }
 
 export interface DataBounds {

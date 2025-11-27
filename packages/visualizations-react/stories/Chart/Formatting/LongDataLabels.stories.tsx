@@ -2,7 +2,7 @@ import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import type { Props } from 'reactify';
-import { compactNumberFormatter, defaultSource } from '../../utils';
+import { compactNumberFormatter, defaultLinks } from '../../utils';
 import ChartTemplate from '../ChartTemplate';
 
 const meta: Meta = {
@@ -28,7 +28,7 @@ const LineLongDataLabelsArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Line,
@@ -100,7 +100,7 @@ const PieLongDataLabelrsArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Pie,
@@ -140,7 +140,7 @@ const RadarLongDataLabelsArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Radar,

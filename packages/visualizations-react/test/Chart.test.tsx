@@ -17,13 +17,16 @@ const data = {
     ],
 };
 
-const source = {
-    href: 'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
-};
+const links = [
+    {
+        href: 'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+        label: 'View dataset source',
+    },
+];
 
 const options: ChartOptions = {
     labelColumn: 'x',
-    source,
+    links,
     series: [
         {
             type: ChartSeriesType.Line,
@@ -91,10 +94,12 @@ describe('Chart Default Story', () => {
 test('Chart accepts custom link label', () => {
     const customOptions = {
         ...options,
-        source: {
-            ...source,
-            label: 'Explore data',
-        },
+        links: [
+            {
+                ...links[0],
+                label: 'Explore data',
+            },
+        ],
     };
 
     render(<Chart data={data} options={customOptions} />);

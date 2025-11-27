@@ -5,7 +5,7 @@ import type { KpiProps } from '@opendatasoft/visualizations';
 import { KpiCard } from 'src';
 import {
     IMAGES,
-    defaultSource,
+    defaultLinks,
     simpleFormatter,
     ratioFormatter,
     comparisonFormatter,
@@ -50,7 +50,7 @@ function withDataOptions({data, options}: { data: Async<number>, options: KpiCar
                 description:
                     'Chiffre d’affaires pour la catégorie Fruits et légumes sur l’année en cours',
                 suffix: ' EUR',
-                source: defaultSource,
+                links: defaultLinks,
                 ...options
             },
         },
@@ -61,7 +61,7 @@ function withDataOptions({data, options}: { data: Async<number>, options: KpiCar
                 description:
                     'Chiffre d’affaires pour la catégorie Fruits et légumes sur l’année en cours',
                 suffix: ' EUR',
-                source: defaultSource,
+                links: defaultLinks,
                 ...options,
             },
         },
@@ -70,7 +70,7 @@ function withDataOptions({data, options}: { data: Async<number>, options: KpiCar
             options: {
                 title: "Chiffre d'affaires",
                 suffix: ' EUR',
-                source: defaultSource,
+                links: defaultLinks,
                 ...options,
             },
         },
@@ -87,7 +87,7 @@ function withDataOptions({data, options}: { data: Async<number>, options: KpiCar
                 title: "Chiffre d'affaires",
                 imgSrc: IMAGES.rocket,
                 suffix: ' EUR',
-                source: defaultSource,
+                links: defaultLinks,
                 ...options,
             },
         },

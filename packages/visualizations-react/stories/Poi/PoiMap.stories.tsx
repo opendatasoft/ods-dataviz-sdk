@@ -11,7 +11,7 @@ import type {
 } from '@opendatasoft/visualizations';
 
 import { PoiMap } from 'src';
-import { defaultSource, timeout } from '../utils';
+import { defaultLinks, timeout } from '../utils';
 
 import sources from './sources';
 
@@ -302,7 +302,7 @@ const options: PoiMapOptions = {
     title: 'Lorem Ipsum',
     subtitle: 'Dolor Sit Amet',
     description: 'More aria description',
-    sourceLink: defaultSource,
+    links: defaultLinks,
     images,
 };
 

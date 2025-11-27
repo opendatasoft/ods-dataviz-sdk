@@ -10,7 +10,7 @@ import {
 } from '@opendatasoft/visualizations';
 import { ChoroplethVectorTiles } from 'src';
 import { shapesTiles, regShapes, dataReg } from './data';
-import { defaultSource } from '../utils';
+import { defaultLinks } from '../utils';
 
 const meta: ComponentMeta<typeof ChoroplethVectorTiles> = {
     title: 'Map/ChoroplethVector',
@@ -79,6 +79,7 @@ const StudioChoroplethVectorGradientArgs: ChoroplethVectorTilesProps = {
         tooltip: {
             formatter: defaultLabelCallback,
         },
+        links: defaultLinks,
     },
 };
 StudioChoroplethVectorGradient.args = StudioChoroplethVectorGradientArgs;
@@ -103,6 +104,7 @@ const StudioChoroplethVectorPaletteArgs: ChoroplethVectorTilesProps = {
         tooltip: {
             formatter: defaultLabelCallback,
         },
+        links: defaultLinks,
     },
 };
 StudioChoroplethVectorPalette.args = StudioChoroplethVectorPaletteArgs;
@@ -135,6 +137,7 @@ const StudioChoroplethVectorFilterArgs: ChoroplethVectorTilesProps = {
             key: 'reg_code',
             value: ['52', '53'],
         },
+        links: defaultLinks,
     },
 };
 StudioChoroplethVectorFilter.args = StudioChoroplethVectorFilterArgs;
@@ -170,6 +173,7 @@ const StudioChoroplethVectorCustomLabelArgs: ChoroplethVectorTilesProps = {
             key: 'reg_code',
             value: ['52', '53'],
         },
+        links: defaultLinks,
     },
 };
 StudioChoroplethVectorCustomLabel.args = StudioChoroplethVectorCustomLabelArgs;
@@ -205,6 +209,7 @@ const StudioChoroplethVectorEmptyDataArgs: ChoroplethVectorTilesProps = {
             key: 'reg_code',
             value: ['52', '53'],
         },
+        links: defaultLinks,
     },
 };
 StudioChoroplethVectorEmptyData.args = StudioChoroplethVectorEmptyDataArgs;
@@ -236,6 +241,7 @@ const StudioChoroplethVectorLegendLeftArgs: ChoroplethVectorTilesProps = {
             key: 'reg_code',
             value: ['52', '53'],
         },
+        links: defaultLinks,
     },
 };
 StudioChoroplethVectorLegendLeft.args = StudioChoroplethVectorLegendLeftArgs;
@@ -267,6 +273,7 @@ const StudioChoroplethVectorLegendRightArgs: ChoroplethVectorTilesProps = {
             key: 'reg_code',
             value: ['52', '53'],
         },
+        links: defaultLinks,
     },
 };
 StudioChoroplethVectorLegendRight.args = StudioChoroplethVectorLegendRightArgs;
@@ -296,7 +303,7 @@ const StudioChoroplethNavigationMapButtonsArgs: ChoroplethVectorTilesProps = {
         },
         bbox: [-17.529298, 38.79776, 23.889159, 52.836618],
         navigationMaps: [...makeMiniMaps(15),],
-        sourceLink: defaultSource,
+        links: defaultLinks,
     },
 };
 StudioChoroplethNavigationMapButtons.args = StudioChoroplethNavigationMapButtonsArgs;
@@ -326,7 +333,7 @@ const StudioChoroplethVectorCooperativeGesturesArgs: ChoroplethVectorTilesProps 
         },
         bbox: [-17.529298, 38.79776, 23.889159, 52.836618],
         navigationMaps: [...makeMiniMaps(15),],
-        sourceLink: defaultSource,
+        links: defaultLinks,
         cooperativeGestures: {
             windowsHelpText: 'Use Ctrl + scroll to zoom the map',
             macHelpText: 'Use ⌘ + scroll to zoom the map',

@@ -10,7 +10,7 @@ import {
 import { ChoroplethGeoJson } from 'src';
 
 import { shapes, multiPolygonShapes, worldCopies } from './data';
-import { IMAGES, defaultSource } from '../utils';
+import { IMAGES, defaultLinks } from '../utils';
 
 const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
     title: 'Map/Choropleth',
@@ -74,6 +74,7 @@ const StudioChoroplethArgs: ChoroplethGeoJsonProps = {
         aspectRatio: 1,
         attribution: 'Testing attribution',
         description: 'Accessible description',
+        links: defaultLinks,
     },
 };
 StudioChoropleth.args = StudioChoroplethArgs;
@@ -93,6 +94,7 @@ const StudioChoroplethMultiPolygonArgs: ChoroplethGeoJsonProps = {
             formatter: defaultLabelCallback,
         },
         aspectRatio: 1,
+        links: defaultLinks,
     },
 };
 StudioChoroplethMultiPolygon.args = StudioChoroplethMultiPolygonArgs;
@@ -112,6 +114,7 @@ const StudioChoroplethEmptyValueArgs: ChoroplethGeoJsonProps = {
             formatter: defaultLabelCallback,
         },
         aspectRatio: 1,
+        links: defaultLinks,
     },
 };
 StudioChoroplethEmptyValue.args = StudioChoroplethEmptyValueArgs;
@@ -142,6 +145,7 @@ const StudioChoroplethGradientArgs: ChoroplethGeoJsonProps = {
         legend: {
             title: 'I Am Legend',
         },
+        links: defaultLinks,
     },
 };
 StudioChoroplethGradient.args = StudioChoroplethGradientArgs;
@@ -169,6 +173,7 @@ const StudioChoroplethPaletteArgs: ChoroplethGeoJsonProps = {
         legend: {
             title: 'I Am Legend',
         },
+        links: defaultLinks,
     },
 };
 StudioChoroplethPalette.args = StudioChoroplethPaletteArgs;
@@ -195,6 +200,7 @@ const StudioChoroplethCustomTooltipArgs: ChoroplethGeoJsonProps = {
                     feature.label
                 }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
         },
+        links: defaultLinks,
     },
 };
 StudioChoroplethCustomTooltip.args = StudioChoroplethCustomTooltipArgs;
@@ -253,6 +259,7 @@ const StudioChoroplethLongLabelsArgs: ChoroplethGeoJsonProps = {
         legend: {
             title: 'I Am Legend',
         },
+        links: defaultLinks,
     },
 };
 StudioChoroplethLongLabels.args = StudioChoroplethLongLabelsArgs;
@@ -279,6 +286,7 @@ const StudioChoroplethEmptyDataArgs: ChoroplethGeoJsonProps = {
                     feature.label
                 }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
         },
+        links: defaultLinks,
     },
 };
 StudioChoroplethEmptyData.args = StudioChoroplethEmptyDataArgs;
@@ -309,6 +317,7 @@ const StudioChoroplethLegendLeftArgs: ChoroplethGeoJsonProps = {
         tooltip: {
             formatter: defaultLabelCallback,
         },
+        links: defaultLinks,
     },
 };
 StudioChoroplethLegendLeft.args = StudioChoroplethLegendLeftArgs;
@@ -339,6 +348,7 @@ const StudioChoroplethLegendRightArgs: ChoroplethGeoJsonProps = {
         tooltip: {
             formatter: defaultLabelCallback,
         },
+        links: defaultLinks,
     },
 };
 StudioChoroplethLegendRight.args = StudioChoroplethLegendRightArgs;
@@ -367,7 +377,7 @@ const StudioChoroplethNavigationMapButtonsArgs: ChoroplethGeoJsonProps = {
             title: 'I Am Legend',
         },
         navigationMaps: [...makeMiniMaps(15),],
-        sourceLink: defaultSource,
+        links: defaultLinks,
     },
 };
 StudioChoroplethNavigationMapButtons.args = StudioChoroplethNavigationMapButtonsArgs;
@@ -383,6 +393,7 @@ const StudioChoroplethPreventWorldCopiesArgs: ChoroplethGeoJsonProps = {
         aspectRatio: 3,
         title: 'Prevent world copies',
         subtitle: 'You should see two rectangles and one circle',
+        links: defaultLinks,
     },
 };
 StudioChoroplethPreventWorldCopies.args = StudioChoroplethPreventWorldCopiesArgs;
@@ -410,6 +421,7 @@ const StudioChoroplethCooperativeGesturesArgs: ChoroplethGeoJsonProps = {
             macHelpText: 'Use ⌘ + scroll to zoom the map',
             mobileHelpText: 'Use two fingers to move the map',
         },
+        links: defaultLinks,
     },
 };
 StudioChoroplethCooperativeGestures.args = StudioChoroplethCooperativeGesturesArgs;

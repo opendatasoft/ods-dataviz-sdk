@@ -198,9 +198,10 @@ const options: TableOptions = {
     title: 'My table',
     subtitle: 'and a subtitle...',
     description: 'An aria description',
-    source: {
+    links: [{
         href: '',
-    },
+        label: 'View dataset source',
+    }],
     locale: 'fr',
 };
 

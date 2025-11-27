@@ -3,7 +3,7 @@ import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import type { Props } from 'reactify';
 
-import { defaultSource } from '../../utils';
+import { defaultLinks } from '../../utils';
 import ChartTemplate from '../ChartTemplate';
 
 const meta: Meta = {
@@ -29,7 +29,7 @@ const ColumnTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Bar,
@@ -89,7 +89,7 @@ const ColumnAxisGridArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Bar,
@@ -146,7 +146,7 @@ const ColumnTitleSubtitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Bar,
@@ -236,7 +236,7 @@ const ColumnDataValuesArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Bar,
@@ -320,7 +320,7 @@ const ColumnAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Bar,
@@ -408,7 +408,7 @@ const ColumnTitleAxisGridNegativeArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Bar,

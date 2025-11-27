@@ -7,6 +7,7 @@ import {
 } from '@opendatasoft/visualizations';
 import { ChoroplethGeoJson } from 'src';
 
+import { defaultLinks } from '../utils';
 import { shapes } from './data';
 
 const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
@@ -57,6 +58,7 @@ const ChoroplethLongLabelsArgs: ChoroplethGeoJsonProps = {
         },
         emptyValueColor: '#cccccc',
         tooltip,
+        links: defaultLinks,
     },
 };
 ChoroplethLongLabels.args = ChoroplethLongLabelsArgs;

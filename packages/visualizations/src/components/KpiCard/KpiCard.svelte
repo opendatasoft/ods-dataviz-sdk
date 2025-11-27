@@ -1,5 +1,5 @@
 <script lang="ts">
-    import SourceLink from 'components/utils/SourceLink.svelte';
+    import LinksMenu from 'components/utils/LinksMenu.svelte';
     import { defaultCompactNumberFormat, defaultNumberFormat } from 'components/utils/formatter';
     import tippy from 'components/utils/tippy';
     import type { KpiProps } from './types';
@@ -30,8 +30,17 @@
     {#if data.error}
         Error : {JSON.stringify(data.error)}
     {:else}
-        {#if options.header}
-            <div class="kpi-card__header">{options.header}</div>
+        {#if options.header || options.links}
+            <div class="kpi-card__header">
+                {#if options.header}
+                    <h3 class="kpi-card__header-title">{options.header}</h3>
+                {/if}
+                {#if options.links}
+                    <div class="kpi-card__menu">
+                        <LinksMenu links={options.links} />
+                    </div>
+                {/if}
+            </div>
         {/if}
         <div class="kpi-card__body">
             {#if options.imgSrc}
@@ -42,7 +51,7 @@
                     <h3 class="kpi-card__title">{options.title}</h3>
                 {/if}
                 <!-- the weird syntax is to avoid any space at all between the value and the prefix or suffix
-                The reason is that you want to support units 
+                The reason is that you want to support units
                 that "stick" the value without any space, such as $45 or 45€
                 If you want to have a space (45 Cars), the prefix or suffix itself has to contain the space -->
                 <div class="kpi-card__value">
@@ -65,11 +74,6 @@
                 {/if}
             </div>
         </div>
-        {#if options.source}
-            <div class="kpi-card__source-link">
-                <SourceLink source={options.source} />
-            </div>
-        {/if}
         {#if options.footer}
             <div class="kpi-card__footer">{options.footer}</div>
         {/if}
@@ -96,17 +100,22 @@
         color: var(--kpi-card-color, #333);
     }
     .kpi-card__header {
-        /* Not customizable yet */
-        padding: 0.5rem;
-
+        position: relative;
         /* Box style is customizable  */
         background-color: var(--kpi-card-header-background-color, #f5f5f5);
-
+    }
+    .kpi-card__header-title {
+        padding: 0.5rem 2.5rem;
         /* Text is customizable */
         color: var(--kpi-card-header-color, #333);
         font-size: var(--kpi-card-header-font-size, 1rem);
         font-weight: var(--kpi-card-header-font-weight, normal);
         text-align: var(--kpi-card-header-text-align, center);
+    }
+    .kpi-card__menu {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
     }
     .kpi-card__img {
         /* Image margin is customizable depending on the KPI layout */
@@ -131,6 +140,7 @@
         /* Layout disposition is customizable */
         align-items: var(--kpi-card-content-align-items, center);
         align-self: var(--kpi-card-content-align-self, center);
+        padding: var(--visualization-card-padding, 0px);
     }
     /*
         Title and description are not customizable.
@@ -157,11 +167,6 @@
         font-size: var(--kpi-card-value-font-size, 2rem);
         font-weight: var(--kpi-card-value-font-weight, bold);
         color: var(--kpi-card-value-color, var(--kpi-card-color, #000));
-    }
-    .kpi-card__source-link {
-        /* Source link position is customizable */
-        align-self: var(--kpi-card-source-link-align-self, center);
-        padding: 1rem 0.5rem 0 0.5rem;
     }
     .kpi-card__footer {
         /* Not customizable yet */

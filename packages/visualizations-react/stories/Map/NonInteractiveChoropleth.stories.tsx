@@ -5,6 +5,7 @@ import { ChoroplethGeoJsonProps } from '@opendatasoft/visualizations';
 import { ChoroplethGeoJson } from 'src';
 
 import { shapes } from './data';
+import { defaultLinks } from '../utils';
 
 const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
     title: 'Map/Non Interactive Choropleth',
@@ -55,6 +56,7 @@ const NonInteractiveChoroplethArgs: ChoroplethGeoJsonProps = {
         activeShapes: ['France'],
         interactive: false,
         navigationMaps: [...makeMiniMaps(3)],
+        links: defaultLinks,
     },
 };
 NonInteractiveChoropleth.args = NonInteractiveChoroplethArgs;

@@ -1,7 +1,7 @@
 import { ComponentMeta } from '@storybook/react';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Chart } from 'src';
-import { COLORS, defaultSource } from '../utils';
+import { COLORS, defaultLinks } from '../utils';
 import ChartTemplate from './ChartTemplate';
 
 const meta: ComponentMeta<typeof Chart> = {
@@ -26,7 +26,7 @@ const SampleArgs = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 label: 'Green',

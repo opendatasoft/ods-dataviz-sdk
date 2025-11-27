@@ -2,7 +2,7 @@ import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import type { Props } from 'reactify';
-import { compactNumberFormatter, defaultSource } from '../../utils';
+import { compactNumberFormatter, defaultLinks } from '../../utils';
 
 import ChartTemplate from '../ChartTemplate';
 
@@ -47,7 +47,7 @@ const PieDataLabelCustomLegendValuesArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Pie,
@@ -112,7 +112,7 @@ const DoughnutDataLabelCustomLegendValuesArgs: Props<DataFrame, ChartOptions> = 
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Doughnut,

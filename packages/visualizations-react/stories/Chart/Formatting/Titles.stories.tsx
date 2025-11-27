@@ -3,7 +3,7 @@ import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import type { Props } from 'reactify';
 
-import { defaultSource } from '../../utils';
+import { defaultLinks } from '../../utils';
 import ChartTemplate from '../ChartTemplate';
 
 const meta: Meta = {
@@ -29,7 +29,7 @@ const LineLongTitleArgs: Props < DataFrame, ChartOptions > = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Line,
@@ -73,7 +73,7 @@ const LineNoTitleArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Line,

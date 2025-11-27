@@ -3,7 +3,7 @@ import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta } from '@storybook/react';
 import type { Props } from 'reactify';
 
-import { defaultSource } from '../../utils';
+import { defaultLinks } from '../../utils';
 import ChartTemplate from '../ChartTemplate';
 
 const meta: Meta = {
@@ -29,7 +29,7 @@ const LineTitleAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Line,
@@ -85,7 +85,7 @@ const LineAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Line,
@@ -145,7 +145,7 @@ const LineTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Line,
@@ -202,7 +202,7 @@ const LineTitleSubtitleGridArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Line,
@@ -262,7 +262,7 @@ const LineTitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Line,
@@ -336,7 +336,7 @@ const LineDataValuesOnlyArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Line,
@@ -404,7 +404,7 @@ const LineTitleAxisGridDotsNegativeArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Line,

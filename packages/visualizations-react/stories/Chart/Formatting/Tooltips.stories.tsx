@@ -6,7 +6,7 @@ import { ChartSeriesType } from '@opendatasoft/visualizations';
 
 import { Chart } from 'src';
 import type { Props } from 'reactify';
-import { defaultSource } from '../../utils';
+import { defaultLinks } from '../../utils';
 
 enum Locales {
     English_UnitedStates = 'en-US',
@@ -163,7 +163,7 @@ Default.args = {
             loading: false,
         },
         options: {
-            source: defaultSource,
+            links: defaultLinks,
             labelColumn: 'x',
             axis: {
                 x: {

@@ -8,6 +8,7 @@ import {
 import * as turf from '@turf/turf';
 import { ChoroplethVectorTiles } from 'src';
 import { shapesTiles, regShapes, dataReg } from './data';
+import { defaultLinks } from '../utils';
 
 const meta: ComponentMeta<typeof ChoroplethVectorTiles> = {
     title: 'Map/NavigableMapPlayground',
@@ -92,5 +93,6 @@ NavMapDynamicPlayground.args = {
         aspectRatio: 1,
         activeShapes: ['11', '93'],
         emptyValueColor: 'red',
+        links: defaultLinks,
     },
 } as Args;

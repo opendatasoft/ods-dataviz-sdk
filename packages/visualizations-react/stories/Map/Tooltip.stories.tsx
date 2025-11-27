@@ -6,7 +6,7 @@ import type {
 } from '@opendatasoft/visualizations';
 import { ChoroplethGeoJson } from 'src';
 
-import { IMAGES } from '../utils';
+import { IMAGES, defaultLinks } from '../utils';
 import { shapes } from './data';
 
 const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
@@ -31,7 +31,7 @@ const Template: ComponentStory<typeof ChoroplethGeoJson> = args => (
 
 export const DefaultTooltip = Template.bind({});
 const DefaultTooltipArgs: ChoroplethGeoJsonProps = {
-    data: {       
+    data: {
         value: [
             { x: 'France', y: 60 },
             { x: 'Île de France', y: 35 },
@@ -42,13 +42,14 @@ const DefaultTooltipArgs: ChoroplethGeoJsonProps = {
         shapes,
         aspectRatio: 1,
         activeShapes: ['France', 'Corsica'],
+        links: defaultLinks,
     },
 };
 DefaultTooltip.args = DefaultTooltipArgs;
 
 export const CustomSimpleTooltip = Template.bind({});
 const CustomSimpleTooltipArgs: ChoroplethGeoJsonProps = {
-    data: {      
+    data: {
         value: [
             { x: 'France', y: 60 },
             { x: 'Île de France', y: 35 },
@@ -65,13 +66,14 @@ const CustomSimpleTooltipArgs: ChoroplethGeoJsonProps = {
                     feature.label
                 }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
         },
+        links: defaultLinks,
     },
 };
 CustomSimpleTooltip.args = CustomSimpleTooltipArgs;
 
 export const CustomComplexTooltip = Template.bind({});
 const CustomComplexTooltipArgs: ChoroplethGeoJsonProps = {
-    data: {  
+    data: {
         value: [
             { x: 'France', y: 60 },
             { x: 'Île de France', y: 35 },
@@ -93,6 +95,7 @@ const CustomComplexTooltipArgs: ChoroplethGeoJsonProps = {
                         }</div>
                     </div>`,
         },
+        links: defaultLinks,
     },
 };
 CustomComplexTooltip.args = CustomComplexTooltipArgs;
