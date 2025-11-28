@@ -53,10 +53,10 @@
     }
     .card.ods-dataviz--default,
     .card.ods-dataviz--maps {
-        padding: var(--visualization-card-padding, 0px);
-        background-color: var(--visualization-card-background, transparent);
-        border: 1px solid var(--visualization-card-border, transparent);
-        border-radius: var(--visualization-card-border-radius, 0px);
+        padding: var(--visualization-card-padding);
+        background-color: var(--visualization-card-background);
+        border: 1px solid var(--visualization-card-border);
+        border-radius: var(--visualization-card-border-radius);
     }
     .card.ods-dataviz--default {
         flex-wrap: wrap;

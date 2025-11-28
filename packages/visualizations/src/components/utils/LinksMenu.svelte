@@ -107,29 +107,29 @@
         transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
             border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         border-radius: 50%;
-        color: var(--links-button-default-text, #3355ff);
+        color: var(--links-button-default-text);
         background-color: transparent;
         border: 1px solid transparent;
     }
 
     .links-button:hover {
-        color: var(--links-button-hover-text, #0026e5);
-        background-color: var(--links-button-hover-background, #eceefd);
-        border-color: var(--links-button-hover-border, transparent);
+        color: var(--links-button-hover-text);
+        background-color: var(--links-button-hover-background);
+        border-color: var(--links-button-hover-border);
     }
 
     .links-button:focus-visible {
         border: none;
-        box-shadow: 0px 0px 0px 1px var(--visualization-card-background, #ffffff),
-            0px 0px 0px 3px var(--links-button-default-text, #3355ff);
+        box-shadow: 0px 0px 0px 1px var(--visualization-card-background),
+            0px 0px 0px 3px var(--links-button-default-text);
     }
 
     .links-button:active {
         border: none;
-        background-color: var(--links-button-hover-background, #eceefd);
-        color: var(--links-button-hover-text, #0026e5);
-        box-shadow: 0px 0px 0px 1px var(--visualization-card-background, #ffffff),
-            0px 0px 0px 3px var(--links-button-hover-text, #0026e5);
+        background-color: var(--links-button-hover-background);
+        color: var(--links-button-hover-text);
+        box-shadow: 0px 0px 0px 1px var(--visualization-card-background),
+            0px 0px 0px 3px var(--links-button-hover-text);
     }
 
     .dropdown {

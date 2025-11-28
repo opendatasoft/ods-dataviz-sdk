@@ -2,6 +2,13 @@
  * Global CSS variables accessible in all Svelte components
  */
 :root {
+    --identity-200: #3355ff;
+    --identity-201: #f6f6fe;
+    --identity-202: #eceefd;
+    --identity-203: #d7dafa;
+    --identity-204: #7984ee;
+    --identity-210: #0026e5;
+
     /* Spacing */
     --spacing-50: 6px;
     --spacing-75: 9px;
@@ -14,4 +21,16 @@
 
     /* Colors */
     --background-color: #ffffff;
+
+    /* Visualization Card */
+    --visualization-card-padding: 0px;
+    --visualization-card-background: transparent;
+    --visualization-card-border: transparent;
+    --visualization-card-border-radius: 0px;
+
+    /* Links Button */
+    --links-button-default-text: var(--identity-200);
+    --links-button-hover-text: var(--identity-210);
+    --links-button-hover-background: var(--identity-201);
+    --links-button-hover-border: transparent;
 }
