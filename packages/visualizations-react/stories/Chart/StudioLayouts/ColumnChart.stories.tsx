@@ -1,6 +1,7 @@
+import React from 'react';
 import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
-import { Meta } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import type { Props } from 'reactify';
 
 import { defaultLinks } from '../../utils';
@@ -21,7 +22,6 @@ const df = [
     { x: 5, y: -50 },
 ];
 
-export const ColumnTitleAxisGrid = ChartTemplate.bind({});
 const ColumnTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -79,9 +79,11 @@ const ColumnTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-ColumnTitleAxisGrid.args = ColumnTitleAxisGridArgs;
+export const ColumnTitleAxisGrid: StoryObj<typeof ChartTemplate> = {
+    args: ColumnTitleAxisGridArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const ColumnAxisGrid = ChartTemplate.bind({});
 const ColumnAxisGridArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -136,9 +138,11 @@ const ColumnAxisGridArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-ColumnAxisGrid.args = ColumnAxisGridArgs;
+export const ColumnAxisGrid: StoryObj<typeof ChartTemplate> = {
+    args: ColumnAxisGridArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const ColumnTitleSubtitleDataValues = ChartTemplate.bind({});
 const ColumnTitleSubtitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -226,9 +230,11 @@ const ColumnTitleSubtitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-ColumnTitleSubtitleDataValues.args = ColumnTitleSubtitleDataValuesArgs;
+export const ColumnTitleSubtitleDataValues: StoryObj<typeof ChartTemplate> = {
+    args: ColumnTitleSubtitleDataValuesArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const ColumnDataValues = ChartTemplate.bind({});
 const ColumnDataValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -310,9 +316,11 @@ const ColumnDataValuesArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-ColumnDataValues.args = ColumnDataValuesArgs;
+export const ColumnDataValues: StoryObj<typeof ChartTemplate> = {
+    args: ColumnDataValuesArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const ColumnAxisDataValues = ChartTemplate.bind({});
 const ColumnAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -391,9 +399,11 @@ const ColumnAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-ColumnAxisDataValues.args = ColumnAxisDataValuesArgs;
+export const ColumnAxisDataValues: StoryObj<typeof ChartTemplate> = {
+    args: ColumnAxisDataValuesArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const ColumnTitleAxisGridNegative = ChartTemplate.bind({});
 const ColumnTitleAxisGridNegativeArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -458,4 +468,7 @@ const ColumnTitleAxisGridNegativeArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-ColumnTitleAxisGridNegative.args = ColumnTitleAxisGridNegativeArgs;
+export const ColumnTitleAxisGridNegative: StoryObj<typeof ChartTemplate> = {
+    args: ColumnTitleAxisGridNegativeArgs,
+    render: args => <ChartTemplate {...args} />,
+};

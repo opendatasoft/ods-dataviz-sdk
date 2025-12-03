@@ -1,6 +1,7 @@
+import React from 'react';
 import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
-import { Meta } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import type { Props } from 'reactify';
 
 import { defaultLinks } from '../../utils';
@@ -19,7 +20,6 @@ const df = [
     { x: '04/01', y: 30, z: 20 },
 ];
 
-export const BarTitleAxisGrid = ChartTemplate.bind({});
 const BarTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -78,9 +78,11 @@ const BarTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-BarTitleAxisGrid.args = BarTitleAxisGridArgs;
+export const BarTitleAxisGrid: StoryObj<typeof ChartTemplate> = {
+    args: BarTitleAxisGridArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const BarAxisGrid = ChartTemplate.bind({});
 const BarAxisGridArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -137,9 +139,11 @@ const BarAxisGridArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-BarAxisGrid.args = BarAxisGridArgs;
+export const BarAxisGrid: StoryObj<typeof ChartTemplate> = {
+    args: BarAxisGridArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const BarTitleAxisDataValues = ChartTemplate.bind({});
 const BarTitleAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -232,9 +236,11 @@ const BarTitleAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-BarTitleAxisDataValues.args = BarTitleAxisDataValuesArgs;
+export const BarTitleAxisDataValues: StoryObj<typeof ChartTemplate> = {
+    args: BarTitleAxisDataValuesArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const BarAxisDataValues = ChartTemplate.bind({});
 const BarAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -316,9 +322,11 @@ const BarAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-BarAxisDataValues.args = BarAxisDataValuesArgs;
+export const BarAxisDataValues: StoryObj<typeof ChartTemplate> = {
+    args: BarAxisDataValuesArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const BarTitleSubTitleGrid = ChartTemplate.bind({});
 const BarTitleSubTitleGridArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -386,4 +394,7 @@ const BarTitleSubTitleGridArgs: Props<DataFrame, ChartOptions> = {
         description: 'Accessible description',
     },
 };
-BarTitleSubTitleGrid.args = BarTitleSubTitleGridArgs;
+export const BarTitleSubTitleGrid: StoryObj<typeof ChartTemplate> = {
+    args: BarTitleSubTitleGridArgs,
+    render: args => <ChartTemplate {...args} />,
+};

@@ -1,6 +1,7 @@
+import React from 'react';
 import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
-import { Meta } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import type { Props } from 'reactify';
 
 import { defaultLinks } from '../../utils';
@@ -21,8 +22,7 @@ const df = [
     { x: 5, y: 778000, z: 1 },
 ];
 
-export const LineLongTitle = ChartTemplate.bind({});
-const LineLongTitleArgs: Props < DataFrame, ChartOptions > = {
+const LineLongTitleArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -39,17 +39,17 @@ const LineLongTitleArgs: Props < DataFrame, ChartOptions > = {
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
-                    align (index: number) {
+                    align(index: number) {
                         if (df[index].y >= 0) {
                             return 'end';
                         }
-                            return 'start';
+                        return 'start';
                     },
-                    anchor (index: number) {
+                    anchor(index: number) {
                         if (df[index].y >= 0) {
                             return 'end';
                         }
-                            return 'start';
+                        return 'start';
                     },
                     color: 'rgb(22, 161, 145)',
                 },
@@ -63,9 +63,11 @@ const LineLongTitleArgs: Props < DataFrame, ChartOptions > = {
         },
     },
 };
-LineLongTitle.args = LineLongTitleArgs;
+export const LineLongTitle: StoryObj<typeof ChartTemplate> = {
+    args: LineLongTitleArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const LineNoTitle = ChartTemplate.bind({});
 const LineNoTitleArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -83,17 +85,17 @@ const LineNoTitleArgs: Props<DataFrame, ChartOptions> = {
                 pointRadius: 0,
                 dataLabels: {
                     display: true,
-                    align (index: number) {
+                    align(index: number) {
                         if (df[index].y >= 0) {
                             return 'end';
                         }
-                            return 'start';
+                        return 'start';
                     },
-                    anchor (index: number) {
+                    anchor(index: number) {
                         if (df[index].y >= 0) {
                             return 'end';
                         }
-                            return 'start';
+                        return 'start';
                     },
                     color: 'rgb(22, 161, 145)',
                 },
@@ -101,4 +103,7 @@ const LineNoTitleArgs: Props<DataFrame, ChartOptions> = {
         ],
     },
 };
-LineNoTitle.args = LineNoTitleArgs;
+export const LineNoTitle: StoryObj<typeof ChartTemplate> = {
+    args: LineNoTitleArgs,
+    render: args => <ChartTemplate {...args} />,
+};

@@ -1,6 +1,7 @@
+import React from 'react';
 import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
-import { Meta } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import type { Props } from 'reactify';
 
 import { defaultLinks } from '../../utils';
@@ -21,7 +22,6 @@ const df = [
     { x: 5, y: 778, z: 12 },
 ];
 
-export const LineTitleAxisGridDots = ChartTemplate.bind({});
 const LineTitleAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -75,9 +75,11 @@ const LineTitleAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-LineTitleAxisGridDots.args = LineTitleAxisGridDotsArgs;
+export const LineTitleAxisGridDots: StoryObj<typeof ChartTemplate> = {
+    args: LineTitleAxisGridDotsArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const LineAxisGridDots = ChartTemplate.bind({});
 const LineAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -128,9 +130,11 @@ const LineAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-LineAxisGridDots.args = LineAxisGridDotsArgs;
+export const LineAxisGridDots: StoryObj<typeof ChartTemplate> = {
+    args: LineAxisGridDotsArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const LineTitleAxisGrid = ChartTemplate.bind({});
 const LineTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -185,9 +189,11 @@ const LineTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-LineTitleAxisGrid.args = LineTitleAxisGridArgs;
+export const LineTitleAxisGrid: StoryObj<typeof ChartTemplate> = {
+    args: LineTitleAxisGridArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const LineTitleSubtitleGrid = ChartTemplate.bind({});
 const LineTitleSubtitleGridArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -245,9 +251,11 @@ const LineTitleSubtitleGridArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-LineTitleSubtitleGrid.args = LineTitleSubtitleGridArgs;
+export const LineTitleSubtitleGrid: StoryObj<typeof ChartTemplate> = {
+    args: LineTitleSubtitleGridArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const LineTitleDataValues = ChartTemplate.bind({});
 const LineTitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -319,9 +327,11 @@ const LineTitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-LineTitleDataValues.args = LineTitleDataValuesArgs;
+export const LineTitleDataValues: StoryObj<typeof ChartTemplate> = {
+    args: LineTitleDataValuesArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const LineDataValuesOnly = ChartTemplate.bind({});
 const LineDataValuesOnlyArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -387,9 +397,11 @@ const LineDataValuesOnlyArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-LineDataValuesOnly.args = LineDataValuesOnlyArgs;
+export const LineDataValuesOnly: StoryObj<typeof ChartTemplate> = {
+    args: LineDataValuesOnlyArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const LineTitleAxisGridDotsNegative = ChartTemplate.bind({});
 const LineTitleAxisGridDotsNegativeArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -443,4 +455,7 @@ const LineTitleAxisGridDotsNegativeArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-LineTitleAxisGridDotsNegative.args = LineTitleAxisGridDotsNegativeArgs;
+export const LineTitleAxisGridDotsNegative: StoryObj<typeof ChartTemplate> = {
+    args: LineTitleAxisGridDotsNegativeArgs,
+    render: args => <ChartTemplate {...args} />,
+};

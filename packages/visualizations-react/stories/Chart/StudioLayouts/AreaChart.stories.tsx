@@ -1,6 +1,7 @@
+import React from 'react';
 import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
-import { Meta } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import type { Props } from 'reactify';
 
 import { defaultLinks } from '../../utils';
@@ -21,7 +22,6 @@ const df = [
     { x: 5, y: 778, z: 12 },
 ];
 
-export const AreaTitleAxisGridDots = ChartTemplate.bind({});
 const AreaTitleAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -83,9 +83,11 @@ const AreaTitleAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-AreaTitleAxisGridDots.args = AreaTitleAxisGridDotsArgs;
+export const AreaTitleAxisGridDots: StoryObj<typeof ChartTemplate> = {
+    args: AreaTitleAxisGridDotsArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const AreaAxisGridDots = ChartTemplate.bind({});
 const AreaAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -134,9 +136,11 @@ const AreaAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-AreaAxisGridDots.args = AreaAxisGridDotsArgs;
+export const AreaAxisGridDots: StoryObj<typeof ChartTemplate> = {
+    args: AreaAxisGridDotsArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const AreaTitleAxisGrid = ChartTemplate.bind({});
 const AreaTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -189,9 +193,11 @@ const AreaTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-AreaTitleAxisGrid.args = AreaTitleAxisGridArgs;
+export const AreaTitleAxisGrid: StoryObj<typeof ChartTemplate> = {
+    args: AreaTitleAxisGridArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const AreaTitleSubtitleGrid = ChartTemplate.bind({});
 const AreaTitleSubtitleGridArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -247,9 +253,11 @@ const AreaTitleSubtitleGridArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-AreaTitleSubtitleGrid.args = AreaTitleSubtitleGridArgs;
+export const AreaTitleSubtitleGrid: StoryObj<typeof ChartTemplate> = {
+    args: AreaTitleSubtitleGridArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const AreaTitleDataValues = ChartTemplate.bind({});
 const AreaTitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -316,9 +324,11 @@ const AreaTitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-AreaTitleDataValues.args = AreaTitleDataValuesArgs;
+export const AreaTitleDataValues: StoryObj<typeof ChartTemplate> = {
+    args: AreaTitleDataValuesArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const AreaDataValuesOnly = ChartTemplate.bind({});
 const AreaDataValuesOnlyArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -382,4 +392,7 @@ const AreaDataValuesOnlyArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-AreaDataValuesOnly.args = AreaDataValuesOnlyArgs;
+export const AreaDataValuesOnly: StoryObj<typeof ChartTemplate> = {
+    args: AreaDataValuesOnlyArgs,
+    render: args => <ChartTemplate {...args} />,
+};

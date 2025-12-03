@@ -1,6 +1,7 @@
+import React from 'react';
 import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
-import { Meta } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import type { Props } from 'reactify';
 import { compactNumberFormatter, defaultLinks } from '../../utils';
 import ChartTemplate from '../ChartTemplate';
@@ -20,7 +21,6 @@ const lineDataFrame = [
     { x: 5, y: 778000, z: 1 },
 ];
 
-export const LineLongDataLabels = ChartTemplate.bind({});
 const LineLongDataLabelsArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -80,7 +80,10 @@ const LineLongDataLabelsArgs: Props<DataFrame, ChartOptions> = {
     },
 };
 
-LineLongDataLabels.args = LineLongDataLabelsArgs;
+export const LineLongDataLabels: StoryObj<typeof ChartTemplate> = {
+    args: LineLongDataLabelsArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
 const pieDataFrame = [
     {
@@ -92,8 +95,11 @@ const pieDataFrame = [
     { x: 'Delta', y: 3000000 },
 ];
 
-export const PieLongDataLabels = ChartTemplate.bind({});
-const PieLongDataLabelrsArgs: Props<DataFrame, ChartOptions> = {
+export const PieLongDataLabels: StoryObj<typeof ChartTemplate> = {
+    render: args => <ChartTemplate {...args} />,
+};
+
+const PieLongDataLabelsArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: pieDataFrame,
@@ -122,7 +128,7 @@ const PieLongDataLabelrsArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-PieLongDataLabels.args = PieLongDataLabelrsArgs;
+PieLongDataLabels.args = PieLongDataLabelsArgs;
 
 const radarDataFrame = [
     { x: 'speed', y: 10000, z: 1740 },
@@ -132,7 +138,6 @@ const radarDataFrame = [
     { x: 'persuasion', y: 7000, z: 24 },
 ];
 
-export const RadarLongDataLabels = ChartTemplate.bind({});
 const RadarLongDataLabelsArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -189,4 +194,7 @@ const RadarLongDataLabelsArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-RadarLongDataLabels.args = RadarLongDataLabelsArgs;
+export const RadarLongDataLabels: StoryObj<typeof ChartTemplate> = {
+    args: RadarLongDataLabelsArgs,
+    render: args => <ChartTemplate {...args} />,
+};

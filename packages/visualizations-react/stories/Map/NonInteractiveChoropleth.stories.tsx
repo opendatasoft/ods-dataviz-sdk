@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import * as turf from '@turf/turf';
 import { ChoroplethGeoJsonProps } from '@opendatasoft/visualizations';
 import { ChoroplethGeoJson } from 'src';
@@ -7,7 +7,7 @@ import { ChoroplethGeoJson } from 'src';
 import { shapes } from './data';
 import { defaultLinks } from '../utils';
 
-const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
+const meta: Meta<typeof ChoroplethGeoJson> = {
     title: 'Map/Non Interactive Choropleth',
     component: ChoroplethGeoJson,
 };
@@ -27,36 +27,35 @@ const makeMiniMaps = (n: number) =>
         };
     });
 
-const Template: ComponentStory<typeof ChoroplethGeoJson> = args => (
-    <div
-        style={{
-            width: '50%',
-            minHeight: '100px',
-            minWidth: '100px',
-            margin: 'auto',
-            border: '1px solid black',
-        }}
-    >
-        <ChoroplethGeoJson {...args} />
-    </div>
-);
-
-export const NonInteractiveChoropleth = Template.bind({});
-const NonInteractiveChoroplethArgs: ChoroplethGeoJsonProps = {
-    data: {
-        value: [
-            { x: 'France', y: 60 },
-            { x: 'Île de France', y: 35 },
-            { x: 'Corsica', y: 95 },
-        ],
+export const NonInteractiveChoropleth: StoryObj<typeof ChoroplethGeoJson> = {
+    args: {
+        data: {
+            value: [
+                { x: 'France', y: 60 },
+                { x: 'Île de France', y: 35 },
+                { x: 'Corsica', y: 95 },
+            ],
+        },
+        options: {
+            shapes,
+            aspectRatio: 1,
+            activeShapes: ['France'],
+            interactive: false,
+            navigationMaps: [...makeMiniMaps(3)],
+            links: defaultLinks,
+        },
     },
-    options: {
-        shapes,
-        aspectRatio: 1,
-        activeShapes: ['France'],
-        interactive: false,
-        navigationMaps: [...makeMiniMaps(3)],
-        links: defaultLinks,
-    },
+    render: (args: ChoroplethGeoJsonProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethGeoJson {...args} />
+        </div>
+    ),
 };
-NonInteractiveChoropleth.args = NonInteractiveChoroplethArgs;

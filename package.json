@@ -36,7 +36,7 @@
         "storybook": "lerna run --scope=@opendatasoft/visualizations-react storybook"
     },
     "devDependencies": {
-        "lerna": "^8.1.2",
+        "lerna": "8.1.9",
         "nx": "^20.4.5"
     },
     "optionalDependencies": {

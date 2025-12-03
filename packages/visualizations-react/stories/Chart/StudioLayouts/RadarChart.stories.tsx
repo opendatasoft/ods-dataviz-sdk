@@ -1,6 +1,7 @@
+import React from 'react';
 import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
-import { Meta } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import type { Props } from 'reactify';
 
 import { defaultLinks } from '../../utils';
@@ -20,7 +21,6 @@ const df = [
     { x: 'persuasion', y: 70, z: 2 },
 ];
 
-export const RadarTitleScale = ChartTemplate.bind({});
 const RadarTitleScaleArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -64,9 +64,11 @@ const RadarTitleScaleArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-RadarTitleScale.args = RadarTitleScaleArgs;
+export const RadarTitleScale: StoryObj<typeof ChartTemplate> = {
+    args: RadarTitleScaleArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const RadarTitleScaleNegativePositive = ChartTemplate.bind({});
 const RadarTitleScaleNegativePositiveArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -112,9 +114,11 @@ const RadarTitleScaleNegativePositiveArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-RadarTitleScaleNegativePositive.args = RadarTitleScaleNegativePositiveArgs;
+export const RadarTitleScaleNegativePositive: StoryObj<typeof ChartTemplate> = {
+    args: RadarTitleScaleNegativePositiveArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const RadarTitle = ChartTemplate.bind({});
 const RadarTitleArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -152,10 +156,12 @@ const RadarTitleArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-RadarTitle.args = RadarTitleArgs;
+export const RadarTitle: StoryObj<typeof ChartTemplate> = {
+    args: RadarTitleArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const RadarTitleDataValues = ChartTemplate.bind({});
-const RadarTitleDataValuesArg: Props<DataFrame, ChartOptions> = {
+const RadarTitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: df,
@@ -211,4 +217,7 @@ const RadarTitleDataValuesArg: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-RadarTitleDataValues.args = RadarTitleDataValuesArg;
+export const RadarTitleDataValues: StoryObj<typeof ChartTemplate> = {
+    args: RadarTitleDataValuesArgs,
+    render: args => <ChartTemplate {...args} />,
+};

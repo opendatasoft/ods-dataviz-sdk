@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { BBox } from 'geojson';
 import { CATEGORY_ITEM_VARIANT, POPUP_DISPLAY } from '@opendatasoft/visualizations';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import type {
     CategoryItem,
     Layer,
     PoiMapOptions,
     PopupDisplayTypes,
     PopupLayer,
+    PoiMapProps,
 } from '@opendatasoft/visualizations';
 
 import { PoiMap } from 'src';
@@ -194,17 +195,17 @@ const squareWithMatch: Layer = {
     colorMatch: {
         key: 'region',
         colors: {
-        North: '#1f77b4',
-        South: '#ff7f0e',
+            North: '#1f77b4',
+            South: '#ff7f0e',
         },
     },
     opacityMatch: {
-    key: 'region',
-    values: {
-      North: 0.25,
-      South: 0.55,
+        key: 'region',
+        values: {
+            North: 0.25,
+            South: 0.55,
+        },
     },
-  },
 };
 
 const bbox: BBox = [-6.855469, 41.343825, 11.645508, 51.37178];
@@ -306,229 +307,305 @@ const options: PoiMapOptions = {
     images,
 };
 
-const meta: ComponentMeta<typeof PoiMap> = {
+const meta: Meta<typeof PoiMap> = {
     title: 'Poi/PoiMap',
     component: PoiMap,
 };
 
 export default meta;
 
-const Template: ComponentStory<typeof PoiMap> = args => (
-    <div
-        style={{
-            width: '50%',
-            minHeight: '100px',
-            minWidth: '100px',
-            margin: 'auto',
-            border: '1px solid black',
-        }}
-    >
-        <PoiMap {...args} />
-    </div>
-);
-
 /**
  * STORY: No layer params
  */
-export const PoiMapNoLayersParams: ComponentStory<typeof PoiMap> = Template.bind({});
-const PoiMapNoLayersParamsArgs = {
-    data: {},
-    options,
+export const PoiMapNoLayersParams: StoryObj<typeof PoiMap> = {
+    args: {
+        data: {},
+        options,
+    },
+    render: (args: PoiMapProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <PoiMap {...args} />
+        </div>
+    ),
 };
-PoiMapNoLayersParams.args = PoiMapNoLayersParamsArgs;
 
 /**
  * STORY: No interactive
  */
-export const PoiMapNonInteractive: ComponentStory<typeof PoiMap> = Template.bind({});
-const PoiMapNonInteractiveArgs = {
-    data: { value: { layers, sources } },
-    options: { ...options, interactive: false },
+export const PoiMapNonInteractive: StoryObj<typeof PoiMap> = {
+    args: {
+        data: { value: { layers, sources } },
+        options: { ...options, interactive: false },
+    },
+    render: (args: PoiMapProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <PoiMap {...args} />
+        </div>
+    ),
 };
-PoiMapNonInteractive.args = PoiMapNonInteractiveArgs;
 
 /**
  * STORY: With match expression
  */
-export const PoiMapMatchExpression: ComponentStory<typeof PoiMap> = Template.bind({});
-const PoiMapMatchExpressionArgs = {
-    data: {
-        value: {
-            layers: [
-                { ...citiesLayer, colorMatch: citiesColorMatch },
-                { ...battlesLayer, iconImageMatch: battleImageMatch },
-                riversLayerWithMatch,
-                squareWithMatch
-            ],
-            sources,
+export const PoiMapMatchExpression: StoryObj<typeof PoiMap> = {
+    args: {
+        data: {
+            value: {
+                layers: [
+                    { ...citiesLayer, colorMatch: citiesColorMatch },
+                    { ...battlesLayer, iconImageMatch: battleImageMatch },
+                    riversLayerWithMatch,
+                    squareWithMatch,
+                ],
+                sources,
+            },
         },
+        options,
     },
-    options,
+    render: (args: PoiMapProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <PoiMap {...args} />
+        </div>
+    ),
 };
-PoiMapMatchExpression.args = PoiMapMatchExpressionArgs;
 
 /**
  * STORY: With legend on start align
  */
-export const PoiMapLegendStart: ComponentStory<typeof PoiMap> = Template.bind({});
-const PoiMapLegendStartArgs = {
-    data: {
-        value: {
-            layers: [
-                { ...citiesLayer, colorMatch: citiesColorMatch },
-                { ...battlesLayer, iconImageMatch: battleImageMatch },
-                moselleLayer,
-                maginotLayer,
-                riversLayer,
-            ],
-            sources,
+export const PoiMapLegendStart: StoryObj<typeof PoiMap> = {
+    args: {
+        data: {
+            value: {
+                layers: [
+                    { ...citiesLayer, colorMatch: citiesColorMatch },
+                    { ...battlesLayer, iconImageMatch: battleImageMatch },
+                    moselleLayer,
+                    maginotLayer,
+                    riversLayer,
+                ],
+                sources,
+            },
         },
+        options: { ...options, legend },
     },
-    options: { ...options, legend },
+    render: (args: PoiMapProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <PoiMap {...args} />
+        </div>
+    ),
 };
-PoiMapLegendStart.args = PoiMapLegendStartArgs;
 
 /**
  * STORY: With legend on center align
  */
-export const PoiMapLegendCenter: ComponentStory<typeof PoiMap> = Template.bind({});
-const PoiMapLegendCenterArgs = {
-    data: {
-        value: {
-            layers: [
-                { ...citiesLayer, colorMatch: citiesColorMatch },
-                { ...battlesLayer, iconImageMatch: battleImageMatch },
-                moselleLayer,
-                maginotLayer,
-                riversLayer,
-            ],
-            sources,
+export const PoiMapLegendCenter: StoryObj<typeof PoiMap> = {
+    args: {
+        data: {
+            value: {
+                layers: [
+                    { ...citiesLayer, colorMatch: citiesColorMatch },
+                    { ...battlesLayer, iconImageMatch: battleImageMatch },
+                    moselleLayer,
+                    maginotLayer,
+                    riversLayer,
+                ],
+                sources,
+            },
         },
+        options: { ...options, legend: { ...legend, align: 'center' as const } },
     },
-    options: { ...options, legend: { ...legend, align: 'center' as const } },
+    render: (args: PoiMapProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <PoiMap {...args} />
+        </div>
+    ),
 };
-PoiMapLegendCenter.args = PoiMapLegendCenterArgs;
 
 /**
  * STORY: with min and max zoom
  */
-export const PoiMapMinMaxZooms: ComponentStory<typeof PoiMap> = Template.bind({});
-const PoiMapMinMaxZoomsArgs = {
-    data: {
-        value: {
-            layers: [
-                { ...citiesLayer, colorMatch: citiesColorMatch },
-                { ...battlesLayer, iconImageMatch: battleImageMatch },
-                moselleLayer,
-                maginotLayer,
-                riversLayer,
-            ],
-            sources,
-        },
-    },
-    options: {
-        ...options,
-        legend,
-        minZoom: 3,
-        maxZoom: 5,
-    },
-};
-PoiMapMinMaxZooms.args = PoiMapMinMaxZoomsArgs;
-
-/**
- * STORY: with cooperative gestures
- */
-export const PoiMapCooperativeGestures: ComponentStory<typeof PoiMap> = Template.bind({});
-const PoiMapCooperativeGesturesArgs = {
-    data: {
-        value: {
-            layers: [
-                { ...citiesLayer, colorMatch: citiesColorMatch },
-                { ...battlesLayer, iconImageMatch: battleImageMatch },
-                moselleLayer,
-                maginotLayer,
-                riversLayer,
-            ],
-            sources,
-        },
-    },
-    options: {
-        ...options,
-        legend,
-        cooperativeGestures: {
-            windowsHelpText: 'Use Ctrl + scroll to zoom the map',
-            macHelpText: 'Use ⌘ + scroll to zoom the map',
-            mobileHelpText: 'Use two fingers to move the map',
-        },
-    },
-};
-PoiMapCooperativeGestures.args = PoiMapCooperativeGesturesArgs;
-
-/**
- * STORY: with cooperative gestures
- */
-
-const StudioResponsiveUsageTemplate = () => {
-    const [props, setProps] = useState({
+export const PoiMapMinMaxZooms: StoryObj<typeof PoiMap> = {
+    args: {
         data: {
             value: {
-                layers,
+                layers: [
+                    { ...citiesLayer, colorMatch: citiesColorMatch },
+                    { ...battlesLayer, iconImageMatch: battleImageMatch },
+                    moselleLayer,
+                    maginotLayer,
+                    riversLayer,
+                ],
                 sources,
             },
         },
         options: {
             ...options,
             legend,
+            minZoom: 3,
+            maxZoom: 5,
         },
-    });
-
-    useEffect(() => {
-        const onResize = () => {
-            const popupDisplay: PopupDisplayTypes =
-                window.innerWidth > 600 ? POPUP_DISPLAY.sidebar : POPUP_DISPLAY.modal;
-            setProps({
-                ...props,
-                data: {
-                    value: {
-                        layers: [
-                            {
-                                ...citiesLayer,
-                                popup: {
-                                    ...(citiesLayer.popup as PopupLayer),
-                                    display: popupDisplay,
-                                },
-                            },
-                            {
-                                ...battlesLayer,
-                                popup: {
-                                    ...(battlesLayer.popup as PopupLayer),
-                                    display: popupDisplay,
-                                },
-                            },
-                        ],
-                        sources,
-                    },
-                },
-            });
-        };
-
-        window.addEventListener('resize', onResize); // Update the width on resize
-
-        return () => window.removeEventListener('resize', onResize);
-    });
-
-    return (
-        <>
-            <h2>
-                Change the size of the preview (between mobile and tablet) to see popup changes its
-                display to modal{' '}
-            </h2>
-            <PoiMap {...props} />
-        </>
-    );
+    },
+    render: (args: PoiMapProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <PoiMap {...args} />
+        </div>
+    ),
 };
-export const StudioResponsiveUsage: ComponentStory<typeof PoiMap> = StudioResponsiveUsageTemplate;
 
-StudioResponsiveUsage.parameters = {
-    chromatic: { disableSnapshot: true },
+/**
+ * STORY: with cooperative gestures
+ */
+export const PoiMapCooperativeGestures: StoryObj<typeof PoiMap> = {
+    args: {
+        data: {
+            value: {
+                layers: [
+                    { ...citiesLayer, colorMatch: citiesColorMatch },
+                    { ...battlesLayer, iconImageMatch: battleImageMatch },
+                    moselleLayer,
+                    maginotLayer,
+                    riversLayer,
+                ],
+                sources,
+            },
+        },
+        options: {
+            ...options,
+            legend,
+            cooperativeGestures: {
+                windowsHelpText: 'Use Ctrl + scroll to zoom the map',
+                macHelpText: 'Use ⌘ + scroll to zoom the map',
+                mobileHelpText: 'Use two fingers to move the map',
+            },
+        },
+    },
+    render: (args: PoiMapProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <PoiMap {...args} />
+        </div>
+    ),
+};
+
+/**
+ * STORY: with cooperative gestures
+ */
+export const StudioResponsiveUsage: StoryObj<typeof PoiMap> = {
+    parameters: {
+        chromatic: { disableSnapshot: true },
+    },
+    render: () => {
+        const [props, setProps] = useState({
+            data: {
+                value: {
+                    layers,
+                    sources,
+                },
+            },
+            options: {
+                ...options,
+                legend,
+            },
+        });
+
+        useEffect(() => {
+            const onResize = () => {
+                const popupDisplay: PopupDisplayTypes =
+                    window.innerWidth > 600 ? POPUP_DISPLAY.sidebar : POPUP_DISPLAY.modal;
+                setProps({
+                    ...props,
+                    data: {
+                        value: {
+                            layers: [
+                                {
+                                    ...citiesLayer,
+                                    popup: {
+                                        ...(citiesLayer.popup as PopupLayer),
+                                        display: popupDisplay,
+                                    },
+                                },
+                                {
+                                    ...battlesLayer,
+                                    popup: {
+                                        ...(battlesLayer.popup as PopupLayer),
+                                        display: popupDisplay,
+                                    },
+                                },
+                            ],
+                            sources,
+                        },
+                    },
+                });
+            };
+
+            window.addEventListener('resize', onResize); // Update the width on resize
+
+            return () => window.removeEventListener('resize', onResize);
+        });
+
+        return (
+            <>
+                <h2>
+                    Change the size of the preview (between mobile and tablet) to see popup changes
+                    its display to modal{' '}
+                </h2>
+                <PoiMap {...props} />
+            </>
+        );
+    },
 };

@@ -1,6 +1,7 @@
+import React from 'react';
 import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
-import { Meta } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import type { Props } from 'reactify';
 import { compactNumberFormatter, defaultLinks } from '../../utils';
 
@@ -17,7 +18,6 @@ const df = [
 ];
 export default meta;
 
-export const PieChart = ChartTemplate.bind({});
 const basePieChartArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -32,14 +32,16 @@ const basePieChartArgs: Props<DataFrame, ChartOptions> = {
             {
                 type: ChartSeriesType.Pie,
                 valueColumn: 'y',
-                backgroundColor : ['#CB4335', '#1F618D', '#F1C40F', '#27AE60']
+                backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
             },
         ],
     },
 };
-PieChart.args = basePieChartArgs;
+export const PieChart: StoryObj<typeof ChartTemplate> = {
+    args: basePieChartArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const PieDataLabelCustomLegendValues = ChartTemplate.bind({});
 const PieDataLabelCustomLegendValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -76,10 +78,11 @@ const PieDataLabelCustomLegendValuesArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-PieDataLabelCustomLegendValues.args = PieDataLabelCustomLegendValuesArgs;
+export const PieDataLabelCustomLegendValues: StoryObj<typeof ChartTemplate> = {
+    args: PieDataLabelCustomLegendValuesArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-
-export const DoughnutChart = ChartTemplate.bind({});
 const DoughnutChartArgs: Props<DataFrame, ChartOptions> = {
     ...basePieChartArgs,
     options: {
@@ -91,15 +94,17 @@ const DoughnutChartArgs: Props<DataFrame, ChartOptions> = {
             {
                 type: ChartSeriesType.Doughnut,
                 valueColumn: 'y',
-                cutout: "65%",
-                backgroundColor : ['#CB4335', '#1F618D', '#F1C40F', '#27AE60']
+                cutout: '65%',
+                backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
             },
         ],
     },
 };
-DoughnutChart.args = DoughnutChartArgs;
+export const DoughnutChart: StoryObj<typeof ChartTemplate> = {
+    args: DoughnutChartArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const DoughnutDataLabelCustomLegendValues = ChartTemplate.bind({});
 const DoughnutDataLabelCustomLegendValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -116,7 +121,7 @@ const DoughnutDataLabelCustomLegendValuesArgs: Props<DataFrame, ChartOptions> = 
         series: [
             {
                 type: ChartSeriesType.Doughnut,
-                cutout:"65%",
+                cutout: '65%',
                 valueColumn: 'y',
                 backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60'],
                 dataLabels: {
@@ -142,4 +147,7 @@ const DoughnutDataLabelCustomLegendValuesArgs: Props<DataFrame, ChartOptions> = 
         },
     },
 };
-DoughnutDataLabelCustomLegendValues.args = DoughnutDataLabelCustomLegendValuesArgs;
+export const DoughnutDataLabelCustomLegendValues: StoryObj<typeof ChartTemplate> = {
+    args: DoughnutDataLabelCustomLegendValuesArgs,
+    render: args => <ChartTemplate {...args} />,
+};

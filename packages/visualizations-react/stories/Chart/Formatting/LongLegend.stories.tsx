@@ -1,6 +1,7 @@
+import React from 'react';
 import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
-import { Meta } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import type { Props } from 'reactify';
 import { compactNumberFormatter, defaultLinks } from '../../utils';
 import ChartTemplate from '../ChartTemplate';
@@ -75,8 +76,10 @@ const LineLongLegendArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const LineLongLegend = ChartTemplate.bind({});
-LineLongLegend.args = LineLongLegendArgs;
+export const LineLongLegend: StoryObj<typeof ChartTemplate> = {
+    args: LineLongLegendArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
 const pieDf = [
     {
@@ -127,8 +130,10 @@ const PieLongLegendArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const PieLongLegend = ChartTemplate.bind({});
-PieLongLegend.args = PieLongLegendArgs;
+export const PieLongLegend: StoryObj<typeof ChartTemplate> = {
+    args: PieLongLegendArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
 const RadarLongLegendArgs: Props<DataFrame, ChartOptions> = {
     data: {
@@ -175,5 +180,7 @@ const RadarLongLegendArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const RadarLongLegend = ChartTemplate.bind({});
-RadarLongLegend.args = RadarLongLegendArgs;
+export const RadarLongLegend: StoryObj<typeof ChartTemplate> = {
+    args: RadarLongLegendArgs,
+    render: args => <ChartTemplate {...args} />,
+};
