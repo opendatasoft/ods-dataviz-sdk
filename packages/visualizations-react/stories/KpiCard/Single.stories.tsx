@@ -151,8 +151,6 @@ export const FullCustom: StoryObj<typeof StyledKpi> = {
             '--kpi-card-value-font-size': '3rem',
             '--kpi-card-value-font-weight': '400',
             '--kpi-card-value-color': 'white',
-            // Kpi Card Source Link
-            '--kpi-card-source-link-align-self': 'end',
             // Kpi Card Footer
             '--kpi-card-footer-background-color': 'white',
             '--kpi-card-footer-color': COLORS.red,
