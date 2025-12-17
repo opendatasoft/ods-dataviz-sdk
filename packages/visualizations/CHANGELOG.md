@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.31.0-beta.7](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.30.0...@opendatasoft/visualizations@0.31.0-beta.7) (2025-12-17)
+
+
+### Bug Fixes
+
+* add "container" className prop to Chart ([64c53d2](https://github.com/opendatasoft/ods-dataviz-sdk/commit/64c53d25e8fb3dc6f0a66773fc99cf4795b121f9))
+* improve focus and active states styling ([c318c37](https://github.com/opendatasoft/ods-dataviz-sdk/commit/c318c370102725ede48538786926e8792559b659))
+
+
+### Features
+
+* add identity colors and neutral card defaults ([9f59a8a](https://github.com/opendatasoft/ods-dataviz-sdk/commit/9f59a8a55d64fca9a1aff0c62002af5a54c76946))
+
+
+
+
+
 # [0.30.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.29.2...@opendatasoft/visualizations@0.30.0) (2025-11-07)
 
 

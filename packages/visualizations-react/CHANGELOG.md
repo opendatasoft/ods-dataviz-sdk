@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.31.0-beta.7](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.30.0...@opendatasoft/visualizations-react@0.31.0-beta.7) (2025-12-17)
+
+
+### Bug Fixes
+
+* **stories:** move links prop inside options object for choropleth maps ([439587f](https://github.com/opendatasoft/ods-dataviz-sdk/commit/439587f22c503ad9c4ca4071898e131ed8e64f01))
+
+
+
+
+
 # [0.30.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.29.2...@opendatasoft/visualizations-react@0.30.0) (2025-11-07)
 
 
