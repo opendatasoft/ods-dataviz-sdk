@@ -211,8 +211,8 @@ export const StudioChoroplethPalette: StoryObj<typeof ChoroplethGeoJson> = {
             legend: {
                 title: 'I Am Legend',
             },
+            links: defaultLinks,
         },
-        links: defaultLinks,
     },
     render: (args: ChoroplethGeoJsonProps) => (
         <div
@@ -251,8 +251,8 @@ export const StudioChoroplethCustomTooltip: StoryObj<typeof ChoroplethGeoJson> =
                         feature.label
                     }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
             },
+            links: defaultLinks,
         },
-        links: defaultLinks,
     },
     render: (args: ChoroplethGeoJsonProps) => (
         <div
@@ -335,8 +335,8 @@ export const StudioChoroplethLongLabels: StoryObj<typeof ChoroplethGeoJson> = {
             legend: {
                 title: 'I Am Legend',
             },
+            links: defaultLinks,
         },
-        links: defaultLinks,
     },
     render: (args: ChoroplethGeoJsonProps) => (
         <div
@@ -375,8 +375,8 @@ export const StudioChoroplethEmptyData: StoryObj<typeof ChoroplethGeoJson> = {
                         feature.label
                     }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
             },
+            links: defaultLinks,
         },
-        links: defaultLinks,
     },
     render: (args: ChoroplethGeoJsonProps) => (
         <div
@@ -419,8 +419,8 @@ export const StudioChoroplethLegendLeft: StoryObj<typeof ChoroplethGeoJson> = {
             tooltip: {
                 formatter: defaultLabelCallback,
             },
+            links: defaultLinks,
         },
-        links: defaultLinks,
     },
     render: (args: ChoroplethGeoJsonProps) => (
         <div
@@ -463,8 +463,8 @@ export const StudioChoroplethLegendRight: StoryObj<typeof ChoroplethGeoJson> = {
             tooltip: {
                 formatter: defaultLabelCallback,
             },
+            links: defaultLinks,
         },
-        links: defaultLinks,
     },
     render: (args: ChoroplethGeoJsonProps) => (
         <div
@@ -575,8 +575,8 @@ export const StudioChoroplethCooperativeGestures: StoryObj<typeof ChoroplethGeoJ
                 macHelpText: 'Use ⌘ + scroll to zoom the map',
                 mobileHelpText: 'Use two fingers to move the map',
             },
+            links: defaultLinks,
         },
-        links: defaultLinks,
     },
     render: (args: ChoroplethGeoJsonProps) => (
         <div

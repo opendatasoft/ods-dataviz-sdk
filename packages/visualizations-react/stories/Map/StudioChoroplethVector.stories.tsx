@@ -104,8 +104,8 @@ export const StudioChoroplethVectorPalette: StoryObj<typeof ChoroplethVectorTile
             tooltip: {
                 formatter: defaultLabelCallback,
             },
+            links: defaultLinks,
         },
-        links: defaultLinks,
     },
     render: (args: ChoroplethVectorTilesProps) => (
         <div
@@ -199,8 +199,8 @@ export const StudioChoroplethVectorCustomLabel: StoryObj<typeof ChoroplethVector
                 key: 'reg_code',
                 value: ['52', '53'],
             },
+            links: defaultLinks,
         },
-        links: defaultLinks,
     },
     render: (args: ChoroplethVectorTilesProps) => (
         <div
