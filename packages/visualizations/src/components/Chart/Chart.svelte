@@ -238,6 +238,7 @@
         title={displayTitle ? options.title?.text : undefined}
         subtitle={displaySubtitle ? options.subtitle?.text : undefined}
         links={options.links}
+        className="container"
     >
         <figure
             class="chart legend--{legendPosition}"
