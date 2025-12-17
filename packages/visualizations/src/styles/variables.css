@@ -33,4 +33,7 @@
     --links-button-hover-text: var(--identity-210);
     --links-button-hover-background: var(--identity-201);
     --links-button-hover-border: transparent;
+    --links-button-border-radius: 50%;
+    --links-button-focus-color: var(--identity-200);
+    --links-button-active-color: var(--identity-210);
 }

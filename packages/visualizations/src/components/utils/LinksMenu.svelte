@@ -101,12 +101,11 @@
         justify-content: center;
         width: 32px;
         height: 32px;
-        padding: 0;
         cursor: pointer;
-        outline: none;
         transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-            border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        border-radius: 50%;
+            outline-color 0.15s ease-in-out;
+        outline: 2px solid transparent;
+        border-radius: var(--links-button-border-radius);
         color: var(--links-button-default-text);
         background-color: transparent;
         border: 1px solid transparent;
@@ -119,17 +118,17 @@
     }
 
     .links-button:focus-visible {
-        border: none;
-        box-shadow: 0px 0px 0px 1px var(--visualization-card-background),
-            0px 0px 0px 3px var(--links-button-default-text);
+        color: var(--links-button-focus-color);
+        border-color: var(--links-button-focus-color);
+        outline-color: var(--links-button-focus-color) !important;
+        outline-offset: 1px;
     }
 
     .links-button:active {
-        border: none;
         background-color: var(--links-button-hover-background);
-        color: var(--links-button-hover-text);
-        box-shadow: 0px 0px 0px 1px var(--visualization-card-background),
-            0px 0px 0px 3px var(--links-button-hover-text);
+        color: var(--links-button-active-color);
+        outline-color: var(--links-button-active-color) !important;
+        outline-offset: 1px;
     }
 
     .dropdown {
