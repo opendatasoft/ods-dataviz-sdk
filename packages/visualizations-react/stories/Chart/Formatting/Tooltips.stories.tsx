@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Story, Meta } from '@storybook/react';
+import { StoryObj, Meta } from '@storybook/react';
 import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
 
@@ -143,93 +143,95 @@ function Template(args: TemplateProps): React.ReactElement {
 
     return (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{width: '60vw'}}>
+            <div style={{ width: '60vw' }}>
                 <Chart data={data} options={chartOptions} />
             </div>
         </div>
     );
 }
 
-export const Default: Story<TemplateProps> = Template.bind({});
-
-Default.args = {
-    locale: Locales.English_UnitedStates,
-    notation: NumberFormatNotations.Standard,
-    decimals: 2,
-    assemblage: Assemblage.Separate,
-    chartOptions: {
-        data: {
-            value: [{ x: 'Big number', y0: 10000000.12345, y1: 5000000.12345, y2: 2500000.12345 }],
-            loading: false,
-        },
-        options: {
-            source: defaultSource,
-            labelColumn: 'x',
-            axis: {
-                x: {
-                    display: true,
-                    gridLines: {
-                        display: false,
-                    },
-                    type: 'category',
-                    offset: true,
-                },
-                y: {
-                    display: true,
-                    type: 'linear',
-                    gridLines: {
-                        display: 'single',
-                    },
-                },
+export const Default: StoryObj<TemplateProps> = {
+    args: {
+        locale: Locales.English_UnitedStates,
+        notation: NumberFormatNotations.Standard,
+        decimals: 2,
+        assemblage: Assemblage.Separate,
+        chartOptions: {
+            data: {
+                value: [
+                    { x: 'Big number', y0: 10000000.12345, y1: 5000000.12345, y2: 2500000.12345 },
+                ],
+                loading: false,
             },
-            series: [
-                {
-                    type: ChartSeriesType.Bar,
-                    valueColumn: 'y0',
-                    backgroundColor: '#c3cde3',
-                    borderColor: '#8da0cb',
+            options: {
+                source: defaultSource,
+                labelColumn: 'x',
+                axis: {
+                    x: {
+                        display: true,
+                        gridLines: {
+                            display: false,
+                        },
+                        type: 'category',
+                        offset: true,
+                    },
+                    y: {
+                        display: true,
+                        type: 'linear',
+                        gridLines: {
+                            display: 'single',
+                        },
+                    },
                 },
-                {
-                    type: ChartSeriesType.Bar,
-                    valueColumn: 'y1',
-                    backgroundColor: '#fac4b2',
-                    borderColor: '#fc8d62',
-                },
-                {
-                    type: ChartSeriesType.Bar,
-                    valueColumn: 'y2',
-                    backgroundColor: '#b0dcd1',
-                    borderColor: '#63bb9e',
-                },
-            ],
+                series: [
+                    {
+                        type: ChartSeriesType.Bar,
+                        valueColumn: 'y0',
+                        backgroundColor: '#c3cde3',
+                        borderColor: '#8da0cb',
+                    },
+                    {
+                        type: ChartSeriesType.Bar,
+                        valueColumn: 'y1',
+                        backgroundColor: '#fac4b2',
+                        borderColor: '#fc8d62',
+                    },
+                    {
+                        type: ChartSeriesType.Bar,
+                        valueColumn: 'y2',
+                        backgroundColor: '#b0dcd1',
+                        borderColor: '#63bb9e',
+                    },
+                ],
+            },
         },
     },
-};
-
-Default.argTypes = {
-    locale: {
-        options: Object.values(Locales),
-        control: {
-            type: 'select',
-            labels: LOCALES_MAPPING,
+    argTypes: {
+        locale: {
+            options: Object.values(Locales),
+            control: {
+                type: 'select',
+                labels: LOCALES_MAPPING,
+            },
+        },
+        notation: {
+            options: Object.values(NumberFormatNotations),
+            control: {
+                type: 'select',
+            },
+        },
+        decimals: {
+            options: [0, 1, 2, 3, 4, 5],
+            control: {
+                type: 'select',
+            },
+        },
+        assemblage: {
+            options: Object.values(Assemblage),
+            control: {
+                type: 'select',
+            },
         },
     },
-    notation: {
-        options: Object.values(NumberFormatNotations),
-        control: {
-            type: 'select',
-        },
-    },
-    decimals: {
-        options: [0, 1, 2, 3, 4, 5],
-        control: {
-            type: 'select',
-        },
-    },
-    assemblage: {
-        options: Object.values(Assemblage),
-        control: {
-            type: 'select',
-        },
-    },
+    render: (args: TemplateProps) => <Template {...args} />,
 };

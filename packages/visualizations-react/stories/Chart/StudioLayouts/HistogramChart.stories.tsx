@@ -1,6 +1,7 @@
+import React from 'react';
 import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
-import { Meta } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import type { Props } from 'reactify';
 
 import { defaultSource } from '../../utils';
@@ -21,7 +22,6 @@ const df = [
     { x: 5, y: 50 },
 ];
 
-export const HistogramTitleAxisGrid = ChartTemplate.bind({});
 const HistogramTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -71,9 +71,11 @@ const HistogramTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-HistogramTitleAxisGrid.args = HistogramTitleAxisGridArgs;
+export const HistogramTitleAxisGrid: StoryObj<typeof ChartTemplate> = {
+    args: HistogramTitleAxisGridArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const HistogramAxisGrid = ChartTemplate.bind({});
 const HistogramAxisGridArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -120,9 +122,11 @@ const HistogramAxisGridArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-HistogramAxisGrid.args = HistogramAxisGridArgs;
+export const HistogramAxisGrid: StoryObj<typeof ChartTemplate> = {
+    args: HistogramAxisGridArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const HistogramTitleDataValues = ChartTemplate.bind({});
 const HistogramTitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -195,9 +199,11 @@ const HistogramTitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-HistogramTitleDataValues.args = HistogramTitleDataValuesArgs;
+export const HistogramTitleDataValues: StoryObj<typeof ChartTemplate> = {
+    args: HistogramTitleDataValuesArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const HistogramDataValues = ChartTemplate.bind({});
 const HistogramDataValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -263,9 +269,11 @@ const HistogramDataValuesArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-HistogramDataValues.args = HistogramDataValuesArgs;
+export const HistogramDataValues: StoryObj<typeof ChartTemplate> = {
+    args: HistogramDataValuesArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const HistogramAxisDataValues = ChartTemplate.bind({});
 const HistogramAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -334,9 +342,11 @@ const HistogramAxisDataValuesArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-HistogramAxisDataValues.args = HistogramAxisDataValuesArgs;
+export const HistogramAxisDataValues: StoryObj<typeof ChartTemplate> = {
+    args: HistogramAxisDataValuesArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
-export const HistogramTitleAxisGridNegative = ChartTemplate.bind({});
 const HistogramTitleAxisGridNegativeArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
@@ -393,4 +403,7 @@ const HistogramTitleAxisGridNegativeArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-HistogramTitleAxisGridNegative.args = HistogramTitleAxisGridNegativeArgs;
+export const HistogramTitleAxisGridNegative: StoryObj<typeof ChartTemplate> = {
+    args: HistogramTitleAxisGridNegativeArgs,
+    render: args => <ChartTemplate {...args} />,
+};

@@ -1,6 +1,7 @@
+import React from 'react';
 import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
-import { Meta } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import type { Props } from 'reactify';
 import { defaultSource } from '../../utils';
 import ChartTemplate from '../ChartTemplate';
@@ -120,8 +121,11 @@ const LongTicksFixedArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const LongTicksFixed = ChartTemplate.bind({});
-LongTicksFixed.args = LongTicksFixedArgs;
+
+export const LongTicksFixed: StoryObj<typeof ChartTemplate> = {
+    args: LongTicksFixedArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
 const BarLongTicksArgs: Props<DataFrame, ChartOptions> = {
     data: {
@@ -200,8 +204,10 @@ const BarLongTicksArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const BarLongTicks = ChartTemplate.bind({});
-BarLongTicks.args = BarLongTicksArgs;
+export const BarLongTicks: StoryObj<typeof ChartTemplate> = {
+    args: BarLongTicksArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
 const ColumnLongTicksArgs: Props<DataFrame, ChartOptions> = {
     data: {
@@ -286,8 +292,10 @@ const ColumnLongTicksArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const ColumnLongTicks = ChartTemplate.bind({});
-ColumnLongTicks.args = ColumnLongTicksArgs;
+export const ColumnLongTicks: StoryObj<typeof ChartTemplate> = {
+    args: ColumnLongTicksArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
 const RadarLongTicksArgs: Props<DataFrame, ChartOptions> = {
     data: {
@@ -334,5 +342,7 @@ const RadarLongTicksArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const RadarLongTicks = ChartTemplate.bind({});
-RadarLongTicks.args = RadarLongTicksArgs;
+export const RadarLongTicks: StoryObj<typeof ChartTemplate> = {
+    args: RadarLongTicksArgs,
+    render: args => <ChartTemplate {...args} />,
+};

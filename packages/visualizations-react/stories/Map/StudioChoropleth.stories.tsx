@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import * as turf from '@turf/turf';
 import {
     ChoroplethGeoJsonProps,
@@ -12,7 +12,7 @@ import { ChoroplethGeoJson } from 'src';
 import { shapes, multiPolygonShapes, worldCopies } from './data';
 import { IMAGES, defaultSource } from '../utils';
 
-const meta: ComponentMeta<typeof ChoroplethGeoJson> = {
+const meta: Meta<typeof ChoroplethGeoJson> = {
     title: 'Map/Choropleth',
     component: ChoroplethGeoJson,
 };
@@ -42,374 +42,541 @@ const defaultLabelCallback: ChoroplethTooltipFormatter = ({ label, value }: Tool
 
 export default meta;
 
-const Template: ComponentStory<typeof ChoroplethGeoJson> = args => (
-    <div
-        style={{
-            width: '50%',
-            minHeight: '100px',
-            minWidth: '100px',
-            margin: 'auto',
-            border: '1px solid black',
-        }}
-    >
-        <ChoroplethGeoJson {...args} />
-    </div>
-);
-
-export const StudioChoropleth = Template.bind({});
-const StudioChoroplethArgs: ChoroplethGeoJsonProps = {
-    data: {
-        value: [
-            { x: 'France', y: 60 },
-            { x: 'Île de France', y: 35 },
-            { x: 'Corsica', y: 95 },
-        ],
-    },
-    options: {
-        shapes,
-        emptyValueColor: 'red',
-        tooltip: {
-            formatter: defaultLabelCallback,
+export const StudioChoropleth: StoryObj<typeof ChoroplethGeoJson> = {
+    args: {
+        data: {
+            value: [
+                { x: 'France', y: 60 },
+                { x: 'Île de France', y: 35 },
+                { x: 'Corsica', y: 95 },
+            ],
         },
-        aspectRatio: 1,
-        attribution: 'Testing attribution',
-        description: 'Accessible description',
+        options: {
+            shapes,
+            emptyValueColor: 'red',
+            tooltip: {
+                formatter: defaultLabelCallback,
+            },
+            aspectRatio: 1,
+            attribution: 'Testing attribution',
+            description: 'Accessible description',
+        },
     },
+    render: (args: ChoroplethGeoJsonProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethGeoJson {...args} />
+        </div>
+    ),
 };
-StudioChoropleth.args = StudioChoroplethArgs;
 
-export const StudioChoroplethMultiPolygon = Template.bind({});
-const StudioChoroplethMultiPolygonArgs: ChoroplethGeoJsonProps = {
-    data: {
-        value: [
-            { x: 'France & Corsica', y: 60 },
-            { x: 'Île de France', y: 35 },
-        ],
-    },
-    options: {
-        shapes: multiPolygonShapes,
-        emptyValueColor: 'red',
-        tooltip: {
-            formatter: defaultLabelCallback,
+export const StudioChoroplethMultiPolygon: StoryObj<typeof ChoroplethGeoJson> = {
+    args: {
+        data: {
+            value: [
+                { x: 'France & Corsica', y: 60 },
+                { x: 'Île de France', y: 35 },
+            ],
         },
-        aspectRatio: 1,
+        options: {
+            shapes: multiPolygonShapes,
+            emptyValueColor: 'red',
+            tooltip: {
+                formatter: defaultLabelCallback,
+            },
+            aspectRatio: 1,
+        },
     },
+    render: (args: ChoroplethGeoJsonProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethGeoJson {...args} />
+        </div>
+    ),
 };
-StudioChoroplethMultiPolygon.args = StudioChoroplethMultiPolygonArgs;
 
-export const StudioChoroplethEmptyValue = Template.bind({});
-const StudioChoroplethEmptyValueArgs: ChoroplethGeoJsonProps = {
-    data: {
-        value: [
-            { x: 'France', y: 60 },
-            { x: 'Corsica', y: 95 },
-        ],
-    },
-    options: {
-        shapes,
-        emptyValueColor: 'red',
-        tooltip: {
-            formatter: defaultLabelCallback,
+export const StudioChoroplethEmptyValue: StoryObj<typeof ChoroplethGeoJson> = {
+    args: {
+        data: {
+            value: [
+                { x: 'France', y: 60 },
+                { x: 'Corsica', y: 95 },
+            ],
         },
-        aspectRatio: 1,
+        options: {
+            shapes,
+            emptyValueColor: 'red',
+            tooltip: {
+                formatter: defaultLabelCallback,
+            },
+            aspectRatio: 1,
+        },
     },
+    render: (args: ChoroplethGeoJsonProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethGeoJson {...args} />
+        </div>
+    ),
 };
-StudioChoroplethEmptyValue.args = StudioChoroplethEmptyValueArgs;
 
-export const StudioChoroplethGradient = Template.bind({});
-const StudioChoroplethGradientArgs: ChoroplethGeoJsonProps = {
-    data: {
-        value: [
-            { x: 'France', y: 6000 },
-            { x: 'Île de France', y: 3500 },
-            { x: 'Corsica', y: 9500 },
-        ],
-    },
-    options: {
-        shapes,
-        emptyValueColor: 'red',
-        tooltip: {
-            formatter: defaultLabelCallback,
+export const StudioChoroplethGradient: StoryObj<typeof ChoroplethGeoJson> = {
+    args: {
+        data: {
+            value: [
+                { x: 'France', y: 6000 },
+                { x: 'Île de France', y: 3500 },
+                { x: 'Corsica', y: 9500 },
+            ],
         },
-        colorScale: {
-            type: ColorScaleTypes.Gradient,
-            colors: {
-                start: '#bcf5f9',
-                end: '#0229bf',
+        options: {
+            shapes,
+            emptyValueColor: 'red',
+            tooltip: {
+                formatter: defaultLabelCallback,
+            },
+            colorScale: {
+                type: ColorScaleTypes.Gradient,
+                colors: {
+                    start: '#bcf5f9',
+                    end: '#0229bf',
+                },
+            },
+            aspectRatio: 1,
+            legend: {
+                title: 'I Am Legend',
             },
         },
-        aspectRatio: 1,
-        legend: {
-            title: 'I Am Legend',
-        },
     },
+    render: (args: ChoroplethGeoJsonProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethGeoJson {...args} />
+        </div>
+    ),
 };
-StudioChoroplethGradient.args = StudioChoroplethGradientArgs;
 
-export const StudioChoroplethPalette = Template.bind({});
-const StudioChoroplethPaletteArgs: ChoroplethGeoJsonProps = {
-    data: {
-        value: [
-            { x: 'France', y: 60.04854 },
-            { x: 'Île de France', y: 35 },
-            { x: 'Corsica', y: 95.054 },
-        ],
+export const StudioChoroplethPalette: StoryObj<typeof ChoroplethGeoJson> = {
+    args: {
+        data: {
+            value: [
+                { x: 'France', y: 60.04854 },
+                { x: 'Île de France', y: 35 },
+                { x: 'Corsica', y: 95.054 },
+            ],
+        },
+        options: {
+            shapes,
+            emptyValueColor: 'red',
+            tooltip: {
+                formatter: defaultLabelCallback,
+            },
+            colorScale: {
+                type: ColorScaleTypes.Palette,
+                colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+            },
+            aspectRatio: 1,
+            legend: {
+                title: 'I Am Legend',
+            },
+        },
     },
-    options: {
-        shapes,
-        emptyValueColor: 'red',
-        tooltip: {
-            formatter: defaultLabelCallback,
-        },
-        colorScale: {
-            type: ColorScaleTypes.Palette,
-            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
-        },
-        aspectRatio: 1,
-        legend: {
-            title: 'I Am Legend',
-        },
-    },
+    render: (args: ChoroplethGeoJsonProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethGeoJson {...args} />
+        </div>
+    ),
 };
-StudioChoroplethPalette.args = StudioChoroplethPaletteArgs;
 
-export const StudioChoroplethCustomTooltip = Template.bind({});
-const StudioChoroplethCustomTooltipArgs: ChoroplethGeoJsonProps = {
-    data: {
-        value: df,
+export const StudioChoroplethCustomTooltip: StoryObj<typeof ChoroplethGeoJson> = {
+    args: {
+        data: {
+            value: df,
+        },
+        options: {
+            shapes,
+            emptyValueColor: 'red',
+            colorScale: {
+                type: ColorScaleTypes.Palette,
+                colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+            },
+            aspectRatio: 1,
+            legend: {
+                title: 'I Am Legend',
+            },
+            tooltip: {
+                formatter: (feature: TooltipParams) =>
+                    `Hello I'm <div style="color: red">${
+                        feature.label
+                    }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
+            },
+        },
     },
-    options: {
-        shapes,
-        emptyValueColor: 'red',
-        colorScale: {
-            type: ColorScaleTypes.Palette,
-            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
-        },
-        aspectRatio: 1,
-        legend: {
-            title: 'I Am Legend',
-        },
-        tooltip: {
-            formatter: (feature: TooltipParams) =>
-                `Hello I'm <div style="color: red">${
-                    feature.label
-                }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
-        },
-    },
+    render: (args: ChoroplethGeoJsonProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethGeoJson {...args} />
+        </div>
+    ),
 };
-StudioChoroplethCustomTooltip.args = StudioChoroplethCustomTooltipArgs;
 
-export const StudioChoroplethComplexTooltip = Template.bind({});
-
-const StudioChoroplethComplexTooltipArgs: ChoroplethGeoJsonProps = {
-    data: {
-        value: df,
-    },
-    options: {
-        shapes,
-        emptyValueColor: 'red',
-        colorScale: {
-            type: ColorScaleTypes.Palette,
-            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+export const StudioChoroplethComplexTooltip: StoryObj<typeof ChoroplethGeoJson> = {
+    args: {
+        data: {
+            value: df,
         },
-        aspectRatio: 1,
-        legend: {
-            title: 'I Am Legend',
-        },
-        tooltip: {
-            formatter: (feature: TooltipParams) =>
-                `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center">
+        options: {
+            shapes,
+            emptyValueColor: 'red',
+            colorScale: {
+                type: ColorScaleTypes.Palette,
+                colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+            },
+            aspectRatio: 1,
+            legend: {
+                title: 'I Am Legend',
+            },
+            tooltip: {
+                formatter: (feature: TooltipParams) =>
+                    `<div style="display: flex; flex-direction: column; justify-items: center; align-items: center">
                     <h2 style="border-bottom: 1px solid lightgrey">${feature.label}</h2>
                     <img src="${IMAGES.rocket}" style="margin-bottom: 15px"></img>
                     <div style="margin-bottom: 15px">Number of space rockets: ${
                         feature.value || ''
                     }</div>
                 </div>`,
+            },
         },
     },
+    render: (args: ChoroplethGeoJsonProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethGeoJson {...args} />
+        </div>
+    ),
 };
-StudioChoroplethComplexTooltip.args = StudioChoroplethComplexTooltipArgs;
 
-export const StudioChoroplethLongLabels = Template.bind({});
-const StudioChoroplethLongLabelsArgs: ChoroplethGeoJsonProps = {
-    data: {
-        value: [
-            { x: 'France', y: 600.05 },
-            { x: 'Île de France', y: 350.05 },
-            { x: 'Corsica', y: 950000.05 },
-        ],
+export const StudioChoroplethLongLabels: StoryObj<typeof ChoroplethGeoJson> = {
+    args: {
+        data: {
+            value: [
+                { x: 'France', y: 600.05 },
+                { x: 'Île de France', y: 350.05 },
+                { x: 'Corsica', y: 950000.05 },
+            ],
+        },
+        options: {
+            shapes,
+            emptyValueColor: 'red',
+            tooltip: {
+                formatter: defaultLabelCallback,
+            },
+            colorScale: {
+                type: ColorScaleTypes.Palette,
+                colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#1e03fd', '#0229bf'],
+            },
+            aspectRatio: 1,
+            legend: {
+                title: 'I Am Legend',
+            },
+        },
     },
-    options: {
-        shapes,
-        emptyValueColor: 'red',
-        tooltip: {
-            formatter: defaultLabelCallback,
-        },
-        colorScale: {
-            type: ColorScaleTypes.Palette,
-            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#1e03fd', '#0229bf'],
-        },
-        aspectRatio: 1,
-        legend: {
-            title: 'I Am Legend',
-        },
-    },
+    render: (args: ChoroplethGeoJsonProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethGeoJson {...args} />
+        </div>
+    ),
 };
-StudioChoroplethLongLabels.args = StudioChoroplethLongLabelsArgs;
 
-export const StudioChoroplethEmptyData = Template.bind({});
-const StudioChoroplethEmptyDataArgs: ChoroplethGeoJsonProps = {
-    data: {
-        value: [],
+export const StudioChoroplethEmptyData: StoryObj<typeof ChoroplethGeoJson> = {
+    args: {
+        data: {
+            value: [],
+        },
+        options: {
+            shapes,
+            emptyValueColor: 'grey',
+            colorScale: {
+                type: ColorScaleTypes.Palette,
+                colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+            },
+            aspectRatio: 1,
+            legend: {
+                title: 'I Am Legend',
+            },
+            tooltip: {
+                formatter: (feature: TooltipParams) =>
+                    `Hello I'm <div style="color: red">${
+                        feature.label
+                    }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
+            },
+        },
     },
-    options: {
-        shapes,
-        emptyValueColor: 'grey',
-        colorScale: {
-            type: ColorScaleTypes.Palette,
-            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
-        },
-        aspectRatio: 1,
-        legend: {
-            title: 'I Am Legend',
-        },
-        tooltip: {
-            formatter: (feature: TooltipParams) =>
-                `Hello I'm <div style="color: red">${
-                    feature.label
-                }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
-        },
-    },
+    render: (args: ChoroplethGeoJsonProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethGeoJson {...args} />
+        </div>
+    ),
 };
-StudioChoroplethEmptyData.args = StudioChoroplethEmptyDataArgs;
 
-export const StudioChoroplethLegendLeft = Template.bind({});
-const StudioChoroplethLegendLeftArgs: ChoroplethGeoJsonProps = {
-    data: {
-        value: [
-            { x: 'France', y: 6000 },
-            { x: 'Île de France', y: 3500 },
-            { x: 'Corsica', y: 9500 },
-        ],
+export const StudioChoroplethLegendLeft: StoryObj<typeof ChoroplethGeoJson> = {
+    args: {
+        data: {
+            value: [
+                { x: 'France', y: 6000 },
+                { x: 'Île de France', y: 3500 },
+                { x: 'Corsica', y: 9500 },
+            ],
+        },
+        options: {
+            shapes,
+            emptyValueColor: 'red',
+            colorScale: {
+                type: ColorScaleTypes.Palette,
+                colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+            },
+            aspectRatio: 1,
+            title: 'Lorem Ipsum',
+            subtitle: 'Dolor Sit Amet',
+            legend: {
+                title: 'I Am Legend',
+                position: 'left',
+            },
+            tooltip: {
+                formatter: defaultLabelCallback,
+            },
+        },
     },
-    options: {
-        shapes,
-        emptyValueColor: 'red',
-        colorScale: {
-            type: ColorScaleTypes.Palette,
-            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
-        },
-        aspectRatio: 1,
-        title: 'Lorem Ipsum',
-        subtitle: 'Dolor Sit Amet',
-        legend: {
-            title: 'I Am Legend',
-            position: 'left',
-        },
-        tooltip: {
-            formatter: defaultLabelCallback,
-        },
-    },
+    render: (args: ChoroplethGeoJsonProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethGeoJson {...args} />
+        </div>
+    ),
 };
-StudioChoroplethLegendLeft.args = StudioChoroplethLegendLeftArgs;
 
-export const StudioChoroplethLegendRight = Template.bind({});
-const StudioChoroplethLegendRightArgs: ChoroplethGeoJsonProps = {
-    data: {
-        value: [
-            { x: 'France', y: 6000 },
-            { x: 'Île de France', y: 3500 },
-            { x: 'Corsica', y: 9500 },
-        ],
+export const StudioChoroplethLegendRight: StoryObj<typeof ChoroplethGeoJson> = {
+    args: {
+        data: {
+            value: [
+                { x: 'France', y: 6000 },
+                { x: 'Île de France', y: 3500 },
+                { x: 'Corsica', y: 9500 },
+            ],
+        },
+        options: {
+            shapes,
+            emptyValueColor: 'red',
+            colorScale: {
+                type: ColorScaleTypes.Palette,
+                colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+            },
+            aspectRatio: 1,
+            title: 'Lorem Ipsum',
+            subtitle: 'Dolor Sit Amet',
+            legend: {
+                title: 'I Am Legend',
+                position: 'right',
+            },
+            tooltip: {
+                formatter: defaultLabelCallback,
+            },
+        },
     },
-    options: {
-        shapes,
-        emptyValueColor: 'red',
-        colorScale: {
-            type: ColorScaleTypes.Palette,
-            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
-        },
-        aspectRatio: 1,
-        title: 'Lorem Ipsum',
-        subtitle: 'Dolor Sit Amet',
-        legend: {
-            title: 'I Am Legend',
-            position: 'right',
-        },
-        tooltip: {
-            formatter: defaultLabelCallback,
-        },
-    },
+    render: (args: ChoroplethGeoJsonProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethGeoJson {...args} />
+        </div>
+    ),
 };
-StudioChoroplethLegendRight.args = StudioChoroplethLegendRightArgs;
 
-export const StudioChoroplethNavigationMapButtons = Template.bind({});
-const StudioChoroplethNavigationMapButtonsArgs: ChoroplethGeoJsonProps = {
-    data: {
-        value: [
-            { x: 'France', y: 60.04854 },
-            { x: 'Île de France', y: 35 },
-            { x: 'Corsica', y: 95.054 },
-        ],
+export const StudioChoroplethNavigationMapButtons: StoryObj<typeof ChoroplethGeoJson> = {
+    args: {
+        data: {
+            value: [
+                { x: 'France', y: 60.04854 },
+                { x: 'Île de France', y: 35 },
+                { x: 'Corsica', y: 95.054 },
+            ],
+        },
+        options: {
+            shapes,
+            emptyValueColor: 'red',
+            tooltip: {
+                formatter: defaultLabelCallback,
+            },
+            colorScale: {
+                type: ColorScaleTypes.Palette,
+                colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
+            },
+            aspectRatio: 1,
+            legend: {
+                title: 'I Am Legend',
+            },
+            navigationMaps: [...makeMiniMaps(15)],
+            sourceLink: defaultSource,
+        },
     },
-    options: {
-        shapes,
-        emptyValueColor: 'red',
-        tooltip: {
-            formatter: defaultLabelCallback,
-        },
-        colorScale: {
-            type: ColorScaleTypes.Palette,
-            colors: ['#bcf5f9', '#89c5fd', '#3a80ec', '#0229bf'],
-        },
-        aspectRatio: 1,
-        legend: {
-            title: 'I Am Legend',
-        },
-        navigationMaps: [...makeMiniMaps(15),],
-        sourceLink: defaultSource,
-    },
+    render: (args: ChoroplethGeoJsonProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethGeoJson {...args} />
+        </div>
+    ),
 };
-StudioChoroplethNavigationMapButtons.args = StudioChoroplethNavigationMapButtonsArgs;
 
-export const StudioChoroplethPreventWorldCopies = Template.bind({});
-const StudioChoroplethPreventWorldCopiesArgs: ChoroplethGeoJsonProps = {
-    data: {
-        value: [],
+export const StudioChoroplethPreventWorldCopies: StoryObj<typeof ChoroplethGeoJson> = {
+    args: {
+        data: {
+            value: [],
+        },
+        options: {
+            shapes: worldCopies,
+            emptyValueColor: 'red',
+            aspectRatio: 3,
+            title: 'Prevent world copies',
+            subtitle: 'You should see two rectangles and one circle',
+        },
     },
-    options: {
-        shapes: worldCopies,
-        emptyValueColor: 'red',
-        aspectRatio: 3,
-        title: 'Prevent world copies',
-        subtitle: 'You should see two rectangles and one circle',
-    },
+    render: (args: ChoroplethGeoJsonProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethGeoJson {...args} />
+        </div>
+    ),
 };
-StudioChoroplethPreventWorldCopies.args = StudioChoroplethPreventWorldCopiesArgs;
 
-export const StudioChoroplethCooperativeGestures = Template.bind({});
-const StudioChoroplethCooperativeGesturesArgs: ChoroplethGeoJsonProps = {
-    data: {
-        value: [
-            { x: 'France', y: 60 },
-            { x: 'Île de France', y: 35 },
-            { x: 'Corsica', y: 95 },
-        ],
-    },
-    options: {
-        shapes,
-        emptyValueColor: 'red',
-        tooltip: {
-            formatter: defaultLabelCallback,
+export const StudioChoroplethCooperativeGestures: StoryObj<typeof ChoroplethGeoJson> = {
+    args: {
+        data: {
+            value: [
+                { x: 'France', y: 60 },
+                { x: 'Île de France', y: 35 },
+                { x: 'Corsica', y: 95 },
+            ],
         },
-        aspectRatio: 1,
-        attribution: 'Testing attribution',
-        description: 'Accessible description',
-        cooperativeGestures: {
-            windowsHelpText: 'Use Ctrl + scroll to zoom the map',
-            macHelpText: 'Use ⌘ + scroll to zoom the map',
-            mobileHelpText: 'Use two fingers to move the map',
+        options: {
+            shapes,
+            emptyValueColor: 'red',
+            tooltip: {
+                formatter: defaultLabelCallback,
+            },
+            aspectRatio: 1,
+            attribution: 'Testing attribution',
+            description: 'Accessible description',
+            cooperativeGestures: {
+                windowsHelpText: 'Use Ctrl + scroll to zoom the map',
+                macHelpText: 'Use ⌘ + scroll to zoom the map',
+                mobileHelpText: 'Use two fingers to move the map',
+            },
         },
     },
+    render: (args: ChoroplethGeoJsonProps) => (
+        <div
+            style={{
+                width: '50%',
+                minHeight: '100px',
+                minWidth: '100px',
+                margin: 'auto',
+                border: '1px solid black',
+            }}
+        >
+            <ChoroplethGeoJson {...args} />
+        </div>
+    ),
 };
-StudioChoroplethCooperativeGestures.args = StudioChoroplethCooperativeGesturesArgs;

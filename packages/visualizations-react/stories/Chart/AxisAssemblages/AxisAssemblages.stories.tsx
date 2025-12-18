@@ -1,6 +1,7 @@
+import React from 'react';
 import type { ChartOptions, DataFrame } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
-import { Meta } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import type { Props } from 'reactify';
 import { COLORS } from '../../utils';
 import ChartTemplate from '../ChartTemplate';
@@ -63,7 +64,10 @@ const AreaChartStackedArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const AreaChartStacked =  {args: AreaChartStackedArgs};
+export const AreaChartStacked: StoryObj<typeof ChartTemplate> = {
+    args: AreaChartStackedArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
 const AreaChartPercentageArgs: Props<DataFrame, ChartOptions> = {
     data: {
@@ -116,7 +120,10 @@ const AreaChartPercentageArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const AreaChartPercentage = {args: AreaChartPercentageArgs};
+export const AreaChartPercentage: StoryObj<typeof ChartTemplate> = {
+    args: AreaChartPercentageArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
 const LineChartStackedArgs: Props<DataFrame, ChartOptions> = {
     data: {
@@ -171,7 +178,10 @@ const LineChartStackedArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const LineChartStacked = {args: LineChartStackedArgs};
+export const LineChartStacked: StoryObj<typeof ChartTemplate> = {
+    args: LineChartStackedArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
 const LineChartPercentageArgs: Props<DataFrame, ChartOptions> = {
     data: {
@@ -226,7 +236,10 @@ const LineChartPercentageArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const LineChartPercentage = {args: LineChartPercentageArgs};
+export const LineChartPercentage: StoryObj<typeof ChartTemplate> = {
+    args: LineChartPercentageArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
 const BarChartStackedArgs: Props<DataFrame, ChartOptions> = {
     data: {
@@ -297,7 +310,10 @@ const BarChartStackedArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const BarChartStacked = {args: BarChartStackedArgs};
+export const BarChartStacked: StoryObj<typeof ChartTemplate> = {
+    args: BarChartStackedArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
 const BarChartPercentageArgs: Props<DataFrame, ChartOptions> = {
     data: {
@@ -368,7 +384,10 @@ const BarChartPercentageArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const BarChartPercentage = {args: BarChartPercentageArgs};
+export const BarChartPercentage: StoryObj<typeof ChartTemplate> = {
+    args: BarChartPercentageArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
 const BarChartStackedGroupsArgs: Props<DataFrame, ChartOptions> = {
     data: {
@@ -465,7 +484,10 @@ const BarChartStackedGroupsArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const BarChartStackedGroups = {args: BarChartStackedGroupsArgs};
+export const BarChartStackedGroups: StoryObj<typeof ChartTemplate> = {
+    args: BarChartStackedGroupsArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
 const ColumnChartStackedArgs: Props<DataFrame, ChartOptions> = {
     data: {
@@ -535,7 +557,10 @@ const ColumnChartStackedArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const ColumnChartStacked = {args: ColumnChartStackedArgs};
+export const ColumnChartStacked: StoryObj<typeof ChartTemplate> = {
+    args: ColumnChartStackedArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
 const ColumnChartPercentageArgs: Props<DataFrame, ChartOptions> = {
     data: {
@@ -605,7 +630,10 @@ const ColumnChartPercentageArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const ColumnChartPercentage = {args: ColumnChartPercentageArgs};
+export const ColumnChartPercentage: StoryObj<typeof ChartTemplate> = {
+    args: ColumnChartPercentageArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
 const ColumnChartStackedGroupsArgs: Props<DataFrame, ChartOptions> = {
     data: {
@@ -699,16 +727,19 @@ const ColumnChartStackedGroupsArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const ColumnChartStackedGroups = {args: ColumnChartStackedGroupsArgs};
+export const ColumnChartStackedGroups: StoryObj<typeof ChartTemplate> = {
+    args: ColumnChartStackedGroupsArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
 const ScatterPlotChartArgs: Props<DataFrame, ChartOptions> = {
     data: {
         loading: false,
         value: [
-            {label: 'id-0', x: -10, y: 20},
-            {label: 'id-1', x: 20, y: -10},
-            {label: 'id-2', x: 5, y: 2},
-            {label: 'id-3', x: 7, y: 3}
+            { label: 'id-0', x: -10, y: 20 },
+            { label: 'id-1', x: 20, y: -10 },
+            { label: 'id-2', x: 5, y: 2 },
+            { label: 'id-3', x: 7, y: 3 },
         ],
     },
     options: {
@@ -716,9 +747,9 @@ const ScatterPlotChartArgs: Props<DataFrame, ChartOptions> = {
         series: [
             {
                 type: ChartSeriesType.Scatter,
-                label: "Serie 1",
-                valueColumn:"x",
-                indexAxis:"y",
+                label: 'Serie 1',
+                valueColumn: 'x',
+                indexAxis: 'y',
                 backgroundColor: COLORS.blue,
             },
         ],
@@ -728,14 +759,14 @@ const ScatterPlotChartArgs: Props<DataFrame, ChartOptions> = {
                 type: 'linear',
                 title: {
                     display: true,
-                    text: "Horizontal axis"
+                    text: 'Horizontal axis',
                 },
             },
             y: {
                 display: true,
                 title: {
                     display: true,
-                    text: "Vertical axis"
+                    text: 'Vertical axis',
                 },
                 type: 'linear',
             },
@@ -745,7 +776,10 @@ const ScatterPlotChartArgs: Props<DataFrame, ChartOptions> = {
         },
     },
 };
-export const ScatterplotChart = {args: ScatterPlotChartArgs};
+export const ScatterplotChart: StoryObj<typeof ChartTemplate> = {
+    args: ScatterPlotChartArgs,
+    render: args => <ChartTemplate {...args} />,
+};
 
 function randomNormal(mean = 0, stdDev = 1) {
     let u1 = 0;
@@ -754,19 +788,19 @@ function randomNormal(mean = 0, stdDev = 1) {
     while (u2 === 0) u2 = Math.random();
     const z0 = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
     return z0 * stdDev + mean;
-  }
+}
 
 function generateNormalDistribution(n: number, xMean = 0, xStdDev = 1, yMean = 0, yStdDev = 1) {
     const points = [];
     for (let i = 0; i < n; i++) {
-      points.push({
-        label: `id-${i}`,
-        x: randomNormal(xMean, xStdDev),
-        y: randomNormal(yMean, yStdDev),
-      });
+        points.push({
+            label: `id-${i}`,
+            x: randomNormal(xMean, xStdDev),
+            y: randomNormal(yMean, yStdDev),
+        });
     }
     return points;
-  }
+}
 
 const ScatterplotNormalDistribChartArgs: Props<DataFrame, ChartOptions> = {
     data: {
@@ -777,10 +811,10 @@ const ScatterplotNormalDistribChartArgs: Props<DataFrame, ChartOptions> = {
         labelColumn: 'label',
         series: [
             {
-                label: "Serie 1",
+                label: 'Serie 1',
                 type: ChartSeriesType.Scatter,
-                valueColumn:"y",
-                indexAxis:"x",
+                valueColumn: 'y',
+                indexAxis: 'x',
                 backgroundColor: COLORS.blue,
             },
         ],
@@ -789,17 +823,17 @@ const ScatterplotNormalDistribChartArgs: Props<DataFrame, ChartOptions> = {
                 display: true,
                 title: {
                     display: true,
-                    text: "Horizontal axis"
+                    text: 'Horizontal axis',
                 },
-                beginAtZero: true
+                beginAtZero: true,
             },
             y: {
                 display: true,
                 title: {
                     display: true,
-                    text: "Vertical axis"
+                    text: 'Vertical axis',
                 },
-                beginAtZero: true
+                beginAtZero: true,
             },
         },
         title: {
@@ -809,5 +843,5 @@ const ScatterplotNormalDistribChartArgs: Props<DataFrame, ChartOptions> = {
 };
 export const ScatterplotNormalDistribChart = {
     args: ScatterplotNormalDistribChartArgs,
-    parameters: {chromatic: { disableSnapshot: true }}
+    parameters: { chromatic: { disableSnapshot: true } },
 };
