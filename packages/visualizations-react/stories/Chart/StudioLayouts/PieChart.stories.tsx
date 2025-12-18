@@ -4,7 +4,7 @@ import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta, StoryObj } from '@storybook/react';
 import type { Props } from 'reactify';
 
-import { compactNumberFormatter, defaultSource } from '../../utils';
+import { compactNumberFormatter, defaultLinks } from '../../utils';
 import ChartTemplate from '../ChartTemplate';
 
 const meta: Meta = {
@@ -27,7 +27,7 @@ const PieTitleSectorsNameArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Pie,
@@ -58,7 +58,7 @@ const PieTitleSectorsNameValueArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Pie,
@@ -91,7 +91,7 @@ const PieTitleLegendArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Pie,
@@ -125,7 +125,7 @@ const PieTitleLegendValuesArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Pie,

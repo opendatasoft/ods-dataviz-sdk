@@ -4,7 +4,7 @@ import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Meta, StoryObj } from '@storybook/react';
 import type { Props } from 'reactify';
 
-import { defaultSource } from '../../utils';
+import { defaultLinks } from '../../utils';
 import ChartTemplate from '../ChartTemplate';
 
 const meta: Meta = {
@@ -29,7 +29,7 @@ const AreaTitleAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Line,
@@ -95,7 +95,7 @@ const AreaAxisGridDotsArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Line,
@@ -148,7 +148,7 @@ const AreaTitleAxisGridArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Line,
@@ -205,7 +205,7 @@ const AreaTitleSubtitleGridArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Line,
@@ -265,7 +265,7 @@ const AreaTitleDataValuesArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Line,
@@ -336,7 +336,7 @@ const AreaDataValuesOnlyArgs: Props<DataFrame, ChartOptions> = {
     },
     options: {
         labelColumn: 'x',
-        source: defaultSource,
+        links: defaultLinks,
         series: [
             {
                 type: ChartSeriesType.Line,

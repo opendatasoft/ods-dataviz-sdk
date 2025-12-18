@@ -5,7 +5,8 @@ import './reactify.css';
 
 function reactifySvelte<P extends Record<string, unknown>>(
     Component: new (options: ComponentConstructorOptions) => SvelteComponent,
-    className: string
+    className: string,
+    isVisualization = true
 ) {
     return (props: P) => {
         const svelteComponentRef = useRef<SvelteComponent | null>(null);
@@ -31,7 +32,12 @@ function reactifySvelte<P extends Record<string, unknown>>(
             svelteComponentRef.current.$set({ ...props });
         }
 
-        return <div className={`ods-visualization ${className}`} ref={mountRef} />;
+        return (
+            <div
+                className={`${isVisualization ? 'ods-visualization' : ''} ${className}`}
+                ref={mountRef}
+            />
+        );
     };
 }
 

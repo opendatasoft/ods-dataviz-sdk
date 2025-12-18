@@ -16,6 +16,7 @@ import {
     TextFormat as _TextFormat,
     URLFormat as _URLFormat,
     NumberFormat as _NumberFormat,
+    LinksMenu as _LinksMenu,
 } from '@opendatasoft/visualizations';
 import type {
     ChartProps,
@@ -32,6 +33,8 @@ import type {
     TextFormatProps,
     URLFormatProps,
     NumberFormatProps,
+    Link,
+    LinksMenuProps,
 } from '@opendatasoft/visualizations';
 import reactifySvelte from 'reactify';
 
@@ -80,3 +83,12 @@ export const URLFormat = reactifySvelte<URLFormatProps>(
     _URLFormat,
     'ods-visualizations-format-url'
 );
+
+export const LinksMenu = reactifySvelte<LinksMenuProps>(
+    _LinksMenu,
+    'ods-visualizations-links-menu',
+    false
+);
+
+// Export types
+export type { Link, LinksMenuProps };

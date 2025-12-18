@@ -1,4 +1,4 @@
-import type { Async, Source } from 'types';
+import type { Link, Async } from 'types';
 import type { CategoryLegend } from 'components/Legend/types';
 import type { WebGlMapData, WebGlMapOptions } from 'components/Map/WebGl/types';
 
@@ -9,8 +9,8 @@ export type PoiMapOptions = WebGlMapOptions & {
     subtitle?: string;
     description?: string;
     legend?: CategoryLegend;
-    /** Link button to source */
-    sourceLink?: Source;
+    /** Links menu */
+    links?: Link[];
 };
 
 export type PoiMapProps = {

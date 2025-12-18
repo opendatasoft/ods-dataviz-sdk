@@ -14,9 +14,9 @@
     import { onMount } from 'svelte';
     import { debounce } from 'lodash';
     import type { BBox } from 'geojson';
-    import type { ColorScale, DataBounds, Source } from 'types';
+    import type { Link, ColorScale, DataBounds } from 'types';
     import type { LegendVariant } from 'components/Legend/types';
-    import SourceLink from 'components/utils/SourceLink.svelte';
+    import Card from 'components/utils/Card.svelte';
     import ColorsLegend from 'components/Legend/ColorsLegend.svelte';
     import BackButton from 'components/utils/BackButton.svelte';
     import MiniMap from 'components/utils/MiniMap.svelte';
@@ -64,8 +64,8 @@
     // Navigation maps
     export let navigationMaps: NavigationMap[] | undefined;
     export let data: { value: ChoroplethDataValue[] };
-    // Data source link
-    export let sourceLink: Source | undefined;
+    // Links menu
+    export let links: Link[] | undefined;
     export let cooperativeGestures: boolean | GestureOptions | undefined;
     export let preserveDrawingBuffer: boolean;
     // Fixed max bounds that will overide the automatic map.getBounds when setting the bbox
@@ -356,21 +356,16 @@
     });
 </script>
 
-<figure class="map-card maps-container" style={cssVarStyles} bind:clientWidth>
-    {#if title || subtitle}
-        <figcaption>
-            {#if title}
-                <h3>
-                    {title}
-                </h3>
-            {/if}
-            {#if subtitle}
-                <p>
-                    {subtitle}
-                </p>
-            {/if}
-        </figcaption>
-    {/if}
+<Card
+    bind:clientWidth
+    {title}
+    {subtitle}
+    {links}
+    defaultStyle={false}
+    style={cssVarStyles}
+    tag="figure"
+    className="map-card maps-container ods-dataviz--maps"
+>
     <div class="main" aria-describedby={description ? mapId.toString() : undefined}>
         {#if navigationMaps && active !== undefined}
             <BackButton on:click={resetBboxFromButton} />
@@ -404,10 +399,7 @@
             position={legend.position}
         />
     {/if}
-    {#if sourceLink}
-        <SourceLink source={sourceLink} />
-    {/if}
-</figure>
+</Card>
 
 <style>
     #map {
@@ -422,34 +414,21 @@
             aspect-ratio: var(--aspect-ratio);
         }
     }
-    .map-card {
-        display: flex;
-        flex-direction: column;
-        margin: 0;
-        position: relative;
-    }
-    figcaption {
-        margin: 0 0 1em 0;
-    }
-    figcaption p,
-    figcaption h3 {
-        margin: 0;
-    }
     /* To add classes programmatically in svelte we will use a global selector.
     We place it inside a local selector to obtain some encapsulation and avoid side effects */
-    .map-card :global(.tooltip-on-hover > .maplibregl-popup-content) {
+    :global(.maps-container .tooltip-on-hover > .maplibregl-popup-content) {
         border-radius: 6px;
         box-shadow: 0px 6px 13px rgba(0, 0, 0, 0.26);
         padding: 13px;
     }
-    .map-card :global(.tooltip-on-hover .maplibregl-popup-tip) {
+    :global(.maps-container .tooltip-on-hover .maplibregl-popup-tip) {
         border-top-color: transparent;
         border-bottom-color: transparent;
         border-left-color: transparent;
         border-right-color: transparent;
     }
     /* Add a more opacity and blur effect on map when cooperative gesture is shown */
-    .map-card :global(.maplibregl-cooperative-gesture-screen) {
+    :global(.maps-container .maplibregl-cooperative-gesture-screen) {
         background: rgba(0, 0, 0, 0.6);
         backdrop-filter: blur(2px);
     }

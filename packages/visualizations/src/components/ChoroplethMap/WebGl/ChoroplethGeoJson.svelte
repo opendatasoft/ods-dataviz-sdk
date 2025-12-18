@@ -3,7 +3,7 @@
     import type { ExpressionSpecification, SourceSpecification, GestureOptions } from 'maplibre-gl';
     import type { BBox, FeatureCollection } from 'geojson';
     import { debounce } from 'lodash';
-    import type { ColorScale, Color, DataBounds, Source } from 'types';
+    import type { ColorScale, Color, DataBounds, Link } from 'types';
     import {
         getDataBounds,
         mapKeyToColor,
@@ -44,8 +44,8 @@
     let subtitle: string | undefined;
     let description: string | undefined;
     let navigationMaps: NavigationMap[] | undefined;
-    // Data source link
-    let sourceLink: Source | undefined;
+    // Links menu
+    let links: Link[] | undefined;
     let cooperativeGestures: boolean | GestureOptions | undefined;
     let preserveDrawingBuffer: boolean;
 
@@ -70,7 +70,7 @@
         subtitle,
         description,
         navigationMaps,
-        sourceLink,
+        links,
         cooperativeGestures,
         preserveDrawingBuffer = false,
     } = options);
@@ -137,7 +137,7 @@
         {description}
         {navigationMaps}
         {data}
-        {sourceLink}
+        {links}
         {cooperativeGestures}
         {preserveDrawingBuffer}
     />

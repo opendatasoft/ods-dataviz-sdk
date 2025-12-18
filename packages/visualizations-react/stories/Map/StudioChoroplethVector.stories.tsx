@@ -10,7 +10,7 @@ import {
 } from '@opendatasoft/visualizations';
 import { ChoroplethVectorTiles } from 'src';
 import { shapesTiles, regShapes, dataReg } from './data';
-import { defaultSource } from '../utils';
+import { defaultLinks } from '../utils';
 
 const meta: Meta<typeof ChoroplethVectorTiles> = {
     title: 'Map/ChoroplethVector',
@@ -66,6 +66,7 @@ export const StudioChoroplethVectorGradient: StoryObj<typeof ChoroplethVectorTil
             tooltip: {
                 formatter: defaultLabelCallback,
             },
+            links: defaultLinks,
         },
     },
     render: (args: ChoroplethVectorTilesProps) => (
@@ -103,6 +104,7 @@ export const StudioChoroplethVectorPalette: StoryObj<typeof ChoroplethVectorTile
             tooltip: {
                 formatter: defaultLabelCallback,
             },
+            links: defaultLinks,
         },
     },
     render: (args: ChoroplethVectorTilesProps) => (
@@ -148,6 +150,7 @@ export const StudioChoroplethVectorFilter: StoryObj<typeof ChoroplethVectorTiles
                 key: 'reg_code',
                 value: ['52', '53'],
             },
+            links: defaultLinks,
         },
     },
     render: (args: ChoroplethVectorTilesProps) => (
@@ -196,6 +199,7 @@ export const StudioChoroplethVectorCustomLabel: StoryObj<typeof ChoroplethVector
                 key: 'reg_code',
                 value: ['52', '53'],
             },
+            links: defaultLinks,
         },
     },
     render: (args: ChoroplethVectorTilesProps) => (
@@ -244,6 +248,7 @@ export const StudioChoroplethVectorEmptyData: StoryObj<typeof ChoroplethVectorTi
                 key: 'reg_code',
                 value: ['52', '53'],
             },
+            links: defaultLinks,
         },
     },
     render: (args: ChoroplethVectorTilesProps) => (
@@ -288,6 +293,7 @@ export const StudioChoroplethVectorLegendLeft: StoryObj<typeof ChoroplethVectorT
                 key: 'reg_code',
                 value: ['52', '53'],
             },
+            links: defaultLinks,
         },
     },
     render: (args: ChoroplethVectorTilesProps) => (
@@ -332,6 +338,7 @@ export const StudioChoroplethVectorLegendRight: StoryObj<typeof ChoroplethVector
                 key: 'reg_code',
                 value: ['52', '53'],
             },
+            links: defaultLinks,
         },
     },
     render: (args: ChoroplethVectorTilesProps) => (
@@ -374,7 +381,7 @@ export const StudioChoroplethNavigationMapButtons: StoryObj<typeof ChoroplethVec
             },
             bbox: [-17.529298, 38.79776, 23.889159, 52.836618],
             navigationMaps: [...makeMiniMaps(15)],
-            sourceLink: defaultSource,
+            links: defaultLinks,
         },
     },
     render: (args: ChoroplethVectorTilesProps) => (
@@ -417,7 +424,7 @@ export const StudioChoroplethVectorCooperativeGestures: StoryObj<typeof Chorople
             },
             bbox: [-17.529298, 38.79776, 23.889159, 52.836618],
             navigationMaps: [...makeMiniMaps(15)],
-            sourceLink: defaultSource,
+            links: defaultLinks,
             cooperativeGestures: {
                 windowsHelpText: 'Use Ctrl + scroll to zoom the map',
                 macHelpText: 'Use ⌘ + scroll to zoom the map',
