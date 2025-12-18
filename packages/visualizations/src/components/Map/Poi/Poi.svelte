@@ -1,6 +1,6 @@
 <script lang="ts">
     import CategoryLegend from 'components/Legend/CategoryLegend.svelte';
-    import SourceLink from 'components/utils/SourceLink.svelte';
+    import Card from 'components/utils/Card.svelte';
     import WelGlMap from '../WebGl';
 
     import type { PoiMapProps } from './types';
@@ -20,28 +20,22 @@
         subtitle,
         description,
         legend,
-        sourceLink,
+        links,
         aspectRatio = DEFAULT_ASPECT_RATIO,
     } = options);
 
     $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
 </script>
 
-<figure class="map-card maps-container" style={cssVarStyles}>
-    {#if title || subtitle}
-        <figcaption>
-            {#if title}
-                <h3>
-                    {title}
-                </h3>
-            {/if}
-            {#if subtitle}
-                <p>
-                    {subtitle}
-                </p>
-            {/if}
-        </figcaption>
-    {/if}
+<Card
+    {title}
+    {subtitle}
+    {links}
+    defaultStyle={false}
+    style={cssVarStyles}
+    tag="figure"
+    className="map-card maps-container ods-dataviz--maps"
+>
     <div class="main" aria-describedby={description ? mapId.toString() : undefined}>
         {#key options.style}
             <WelGlMap {options} data={data.value} />
@@ -53,26 +47,9 @@
     {#if legend}
         <CategoryLegend legendOptions={legend} />
     {/if}
-    {#if sourceLink}
-        <SourceLink source={sourceLink} />
-    {/if}
-</figure>
+</Card>
 
 <style>
-    .map-card {
-        display: flex;
-        flex-direction: column;
-        margin: 0;
-        position: relative;
-    }
-    figcaption {
-        margin: 0 0 1em 0;
-    }
-    figcaption p,
-    figcaption h3 {
-        margin: 0;
-    }
-
     .main {
         aspect-ratio: var(--aspect-ratio);
         flex-grow: 1;

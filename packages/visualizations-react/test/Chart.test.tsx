@@ -1,6 +1,7 @@
 // @jest-environment jsdom
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import type { ChartOptions } from '@opendatasoft/visualizations';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Chart } from 'src';
@@ -17,13 +18,16 @@ const data = {
     ],
 };
 
-const source = {
-    href: 'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
-};
+const links = [
+    {
+        href: 'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+        label: 'View dataset source',
+    },
+];
 
 const options: ChartOptions = {
     labelColumn: 'x',
-    source,
+    links,
     series: [
         {
             type: ChartSeriesType.Line,
@@ -80,24 +84,30 @@ describe('Chart Default Story', () => {
         expect(chartCanvas).toBeInTheDocument();
     });
 
-    it('has a link to its source and default label', () => {
+    it('has a link to its source and default label', async () => {
         render(<Chart data={data} options={options} />);
+        const linksButton = screen.getByRole('button', { name: 'Links' });
+        await userEvent.click(linksButton);
         const sourceLink = screen.getByRole('link');
         expect(sourceLink).toBeInTheDocument();
-        expect(sourceLink).toHaveTextContent('View source');
+        expect(sourceLink).toHaveTextContent('View dataset source');
     });
 });
 
-test('Chart accepts custom link label', () => {
+test('Chart accepts custom link label', async () => {
     const customOptions = {
         ...options,
-        source: {
-            ...source,
-            label: 'Explore data',
-        },
+        links: [
+            {
+                ...links[0],
+                label: 'Explore data',
+            },
+        ],
     };
 
     render(<Chart data={data} options={customOptions} />);
+    const linksButton = screen.getByRole('button', { name: 'Links' });
+    await userEvent.click(linksButton);
     const sourceLink = screen.getByText('Explore data');
     expect(sourceLink).toBeInTheDocument();
 });

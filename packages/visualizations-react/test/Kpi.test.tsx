@@ -1,17 +1,21 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { KpiCardOptions } from '@opendatasoft/visualizations';
 import { KpiCard } from 'src';
 
-const source = {
-    href: 'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
-};
+const links = [
+    {
+        href: 'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
+        label: 'View dataset source',
+    },
+];
 
 const options: KpiCardOptions = {
     title: 'Tokyo Olympic Budget 2021',
     imgSrc: 'My-fake-image-source',
     prefix: '$',
-    source,
+    links,
 };
 
 describe('KPI Default Story', () => {
@@ -28,24 +32,30 @@ describe('KPI Default Story', () => {
         expect(kpiValue).toBeInTheDocument();
     });
 
-    it('has a link to its source and default label', () => {
+    it('has a link to its source and default label', async () => {
         render(<KpiCard data={{ value: 42 }} options={options} />);
+        const linksButton = screen.getByRole('button', { name: 'Links' });
+        await userEvent.click(linksButton);
         const sourceLink = screen.getByRole('link');
         expect(sourceLink).toBeInTheDocument();
-        expect(sourceLink).toHaveTextContent('View source');
+        expect(sourceLink).toHaveTextContent('View dataset source');
     });
 });
 
-test('KPI accepts custom link label', () => {
+test('KPI accepts custom link label', async () => {
     const customOptions = {
         ...options,
-        source: {
-            ...source,
-            label: 'Explore data',
-        },
+        links: [
+            {
+                ...links[0],
+                label: 'Explore data',
+            },
+        ],
     };
 
     render(<KpiCard data={{ value: 42 }} options={customOptions} />);
+    const linksButton = screen.getByRole('button', { name: 'Links' });
+    await userEvent.click(linksButton);
     const sourceLink = screen.getByText('Explore data');
     expect(sourceLink).toBeInTheDocument();
 });

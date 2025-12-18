@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 import { ChartSeriesType } from '@opendatasoft/visualizations';
 import { Chart } from 'src';
-import { COLORS, defaultSource } from '../utils';
+import { COLORS, defaultLinks } from '../utils';
 import ChartTemplate from './ChartTemplate';
 
 const meta: Meta<typeof Chart> = {
@@ -27,7 +27,7 @@ export const Sample: StoryObj<typeof Chart> = {
         },
         options: {
             labelColumn: 'x',
-            source: defaultSource,
+            links: defaultLinks,
             series: [
                 {
                     label: 'Green',

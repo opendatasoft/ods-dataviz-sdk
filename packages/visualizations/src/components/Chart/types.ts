@@ -1,4 +1,4 @@
-import type { Async, Color, DataFrame, Source } from 'types';
+import type { Link, Async, Color, DataFrame } from 'types';
 import type { LegendConfiguration } from 'components/Legend/types';
 
 export interface ChartOptions {
@@ -37,8 +37,8 @@ export interface ChartOptions {
     tooltip?: TooltipConfiguration;
     /** Description of the map for users that can't see it, intended for acessibility purposes */
     description?: string;
-    /** Link button to source */
-    source?: Source;
+    /** Links menu */
+    links?: Link[];
 }
 
 export type ChartProps = {

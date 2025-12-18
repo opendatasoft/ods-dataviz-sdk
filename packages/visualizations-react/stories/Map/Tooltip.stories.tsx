@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import type { ChoroplethGeoJsonProps, TooltipParams } from '@opendatasoft/visualizations';
 import { ChoroplethGeoJson } from 'src';
 
-import { IMAGES } from '../utils';
+import { IMAGES, defaultLinks } from '../utils';
 import { shapes } from './data';
 
 const meta: Meta<typeof ChoroplethGeoJson> = {
@@ -26,6 +26,7 @@ export const DefaultTooltip: StoryObj<typeof ChoroplethGeoJson> = {
             shapes,
             aspectRatio: 1,
             activeShapes: ['France', 'Corsica'],
+            links: defaultLinks,
         },
     },
     render: (args: ChoroplethGeoJsonProps) => (
@@ -62,6 +63,7 @@ export const CustomSimpleTooltip: StoryObj<typeof ChoroplethGeoJson> = {
                         feature.label
                     }</div> and my value is <div style="color: red">${feature.value || ''}</div>`,
             },
+            links: defaultLinks,
         },
     },
     render: (args: ChoroplethGeoJsonProps) => (

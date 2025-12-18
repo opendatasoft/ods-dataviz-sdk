@@ -1,4 +1,4 @@
-import { Source } from '@opendatasoft/visualizations';
+import { Link } from '@opendatasoft/visualizations';
 import trophy from './img/trophy.svg';
 import gov from './img/gov.svg';
 import rocket from './img/rocket.png';
@@ -112,9 +112,10 @@ export const CONTROLS = {
     },
 };
 
-export const defaultSource: Source = {
+export const defaultLinks: Link[] = [{
     href: 'https://data.opendatasoft.com/explore/dataset/arbresremarquablesparis2011%40public/table/',
-};
+    label: 'View dataset source',
+}];
 
 export const simpleFormatter = new Intl.NumberFormat(undefined, {
     notation: 'compact',
