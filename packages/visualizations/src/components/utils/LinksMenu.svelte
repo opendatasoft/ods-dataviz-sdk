@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onDestroy } from 'svelte';
+    import { onDestroy, tick } from 'svelte';
     import type { LinksMenuProps } from 'types';
 
     // Ensure exported type matches declared props
@@ -9,41 +9,117 @@
     export let style: $$Props['style'] = null;
 
     let menuElement: HTMLDivElement;
+    let buttonElement: HTMLButtonElement;
+    let menuItemElements: HTMLAnchorElement[] = [];
     let isOpen = false;
+    let focusedIndex = -1;
 
-    function toggleMenu() {
-        isOpen = !isOpen;
+    // Generate unique ID for aria-controls
+    const menuId = `links-menu-${Math.random().toString(36).slice(2, 9)}`;
+
+    async function openMenu(focusLast = false) {
+        isOpen = true;
+        focusedIndex = focusLast ? links.length - 1 : 0;
+        await tick();
+        menuItemElements[focusedIndex]?.focus();
     }
 
-    function closeMenu() {
+    function closeMenu(returnFocus = true) {
         isOpen = false;
-    }
-
-    /**
-     * Close the menu when clicking outside of it.
-     * This handler is attached to the window only after the menu opens (via the reactive $: statement),
-     * ensuring it doesn't interfere with the initial click that opens the menu.
-     */
-    function handleClickOutside(event: MouseEvent) {
-        const target = event.target as HTMLElement;
-        // Check if click is outside this specific menu instance
-        if (menuElement && !menuElement.contains(target)) {
-            closeMenu();
+        focusedIndex = -1;
+        if (returnFocus) {
+            buttonElement?.focus();
         }
     }
 
-    /**
-     * Attach/detach the click listener based on menu state.
-     * When menu opens, we use setTimeout to delay listener attachment by one tick,
-     * preventing the opening click from immediately closing the menu.
-     */
+    function toggleMenu() {
+        if (isOpen) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+    }
+
+    function focusItem(index: number) {
+        if (index < 0) {
+            focusedIndex = links.length - 1;
+        } else if (index >= links.length) {
+            focusedIndex = 0;
+        } else {
+            focusedIndex = index;
+        }
+        menuItemElements[focusedIndex]?.focus();
+    }
+
+    /** Handle keyboard navigation on the trigger button */
+    function handleButtonKeydown(event: KeyboardEvent) {
+        switch (event.key) {
+            case 'ArrowDown':
+            case 'Down':
+                event.preventDefault();
+                openMenu();
+                break;
+            case 'ArrowUp':
+            case 'Up':
+                event.preventDefault();
+                openMenu(true);
+                break;
+            default:
+                break;
+        }
+    }
+
+    /** Handle keyboard navigation within the menu */
+    function handleMenuKeydown(event: KeyboardEvent) {
+        switch (event.key) {
+            case 'Escape':
+                event.preventDefault();
+                closeMenu();
+                break;
+            case 'ArrowDown':
+            case 'Down':
+                event.preventDefault();
+                focusItem(focusedIndex + 1);
+                break;
+            case 'ArrowUp':
+            case 'Up':
+                event.preventDefault();
+                focusItem(focusedIndex - 1);
+                break;
+            case 'Home':
+                event.preventDefault();
+                focusItem(0);
+                break;
+            case 'End':
+                event.preventDefault();
+                focusItem(links.length - 1);
+                break;
+            case 'Tab':
+                // Close menu on Tab, let default behavior continue
+                closeMenu(false);
+                break;
+            default:
+                break;
+        }
+    }
+
+    /** Close the menu when clicking outside of it. */
+    function handleClickOutside(event: MouseEvent) {
+        const target = event.target as HTMLElement;
+        if (menuElement && !menuElement.contains(target)) {
+            closeMenu(false);
+        }
+    }
+
+    // Attach/detach the click listener based on menu state
     $: if (isOpen) {
-        setTimeout(() => {
-            window.addEventListener('click', handleClickOutside);
-        }, 0);
+        window.addEventListener('click', handleClickOutside);
     } else {
         window.removeEventListener('click', handleClickOutside);
     }
+
+    // Reset menu items array when links change
+    $: menuItemElements = new Array(links.length);
 
     // Clean up event listener when component is destroyed
     onDestroy(() => {
@@ -52,13 +128,24 @@
 </script>
 
 <div bind:this={menuElement} class="links-menu" {style}>
-    <button class="links-button" on:click={toggleMenu} aria-label="Links" aria-expanded={isOpen}>
+    <button
+        bind:this={buttonElement}
+        class="links-button"
+        type="button"
+        aria-label="Links"
+        aria-haspopup="menu"
+        aria-expanded={isOpen}
+        aria-controls={isOpen ? menuId : undefined}
+        on:click={toggleMenu}
+        on:keydown={handleButtonKeydown}
+    >
         <svg
             width="20"
             height="20"
             viewBox="0 0 20 20"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
         >
             <circle cx="10" cy="4" r="1.5" fill="currentColor" />
             <circle cx="10" cy="10" r="1.5" fill="currentColor" />
@@ -67,17 +154,27 @@
     </button>
 
     {#if isOpen && links.length > 0}
-        <div class="dropdown">
-            {#each links as link}
+        <div
+            id={menuId}
+            class="dropdown"
+            role="menu"
+            aria-label="Links"
+            tabindex="-1"
+            on:keydown={handleMenuKeydown}
+        >
+            {#each links as link, index}
                 <a
+                    bind:this={menuItemElements[index]}
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     class="dropdown-item"
-                    on:click={closeMenu}
+                    role="menuitem"
+                    tabindex={focusedIndex === index ? 0 : -1}
+                    on:click={() => closeMenu()}
                 >
                     {#if link.icon}
-                        <span class="dropdown-item-icon">
+                        <span class="dropdown-item-icon" aria-hidden="true">
                             {@html link.icon}
                         </span>
                     {/if}
@@ -155,8 +252,15 @@
         transition: background 0.2s ease;
     }
 
-    .dropdown-item:hover {
+    .dropdown-item:hover,
+    .dropdown-item:focus {
         background: #f5f5f5;
+        outline: none;
+    }
+
+    .dropdown-item:focus-visible {
+        outline: 2px solid var(--links-button-focus-color, #0066cc);
+        outline-offset: -2px;
     }
 
     .dropdown-item-icon {

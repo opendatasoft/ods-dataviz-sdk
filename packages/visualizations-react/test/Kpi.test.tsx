@@ -36,7 +36,7 @@ describe('KPI Default Story', () => {
         render(<KpiCard data={{ value: 42 }} options={options} />);
         const linksButton = screen.getByRole('button', { name: 'Links' });
         await userEvent.click(linksButton);
-        const sourceLink = screen.getByRole('link');
+        const sourceLink = screen.getByRole('menuitem');
         expect(sourceLink).toBeInTheDocument();
         expect(sourceLink).toHaveTextContent('View dataset source');
     });
