@@ -8,6 +8,17 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
+* add full keyboard navigation and ARIA support ([393e1f9](https://github.com/opendatasoft/ods-dataviz-sdk/commit/393e1f975d09d2669422621a93603087c3f559a0))
+
+
+
+
+
+# [0.31.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.30.0...@opendatasoft/visualizations@0.31.0) (2026-01-23)
+
+
+### Features
+
 * **LinksMenu:** new dropdown component replacing SourceLink, supports multiple links with icons ([#287](https://github.com/opendatasoft/ods-dataviz-sdk/issues/287)) ([393e1f9](https://github.com/opendatasoft/ods-dataviz-sdk/commit/393e1f975d09d2669422621a93603087c3f559a0))
 * **LinksMenu:** add full keyboard navigation and ARIA support ([393e1f9](https://github.com/opendatasoft/ods-dataviz-sdk/commit/393e1f975d09d2669422621a93603087c3f559a0))
 * **Card:** support dynamic HTML tag (`div` | `figure`) for semantic structure ([734d4f1](https://github.com/opendatasoft/ods-dataviz-sdk/commit/734d4f167e28303d69e9350b8d9ee3e91c1311a3))
