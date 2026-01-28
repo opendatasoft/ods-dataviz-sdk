@@ -20,7 +20,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node: ["18.x", "20.x"]
+        node: ["18.x", "20.x", "24.x"]
         os: [ubuntu-latest]
 
     steps:
@@ -44,7 +44,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node: ["18.x", "20.x"]
+        node: ["18.x", "20.x", "24.x"]
         os: [ubuntu-latest]
 
     steps:
@@ -66,7 +66,7 @@ jobs:
     if: github.event.pull_request.draft == false || github.ref_name == 'main'
     runs-on: ubuntu-latest
     needs: [test, lint]
-    
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -76,7 +76,7 @@ jobs:
       - name: Use Node 20
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: '24.x'
 
       - name: Build
         run: npm run build-ci
