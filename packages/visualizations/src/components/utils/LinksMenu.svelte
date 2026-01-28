@@ -103,19 +103,29 @@
         }
     }
 
+    /**
+     * Get the root node for event listeners.
+     * Returns ShadowRoot when inside Shadow DOM, otherwise document.
+     * This ensures click-outside detection works in embedded/Shadow DOM contexts.
+     */
+    function getEventRoot(): Document | ShadowRoot {
+        return (menuElement?.getRootNode() as Document | ShadowRoot) || document;
+    }
+
     /** Close the menu when clicking outside of it. */
-    function handleClickOutside(event: MouseEvent) {
-        const target = event.target as HTMLElement;
+    function handleClickOutside(event: Event) {
+        const target = (event.composedPath()[0] as HTMLElement) || (event.target as HTMLElement);
         if (menuElement && !menuElement.contains(target)) {
             closeMenu(false);
         }
     }
 
     // Attach/detach the click listener based on menu state
-    $: if (isOpen) {
-        window.addEventListener('click', handleClickOutside);
-    } else {
-        window.removeEventListener('click', handleClickOutside);
+    // Use getRootNode() to support Shadow DOM (embeds)
+    $: if (isOpen && menuElement) {
+        getEventRoot().addEventListener('click', handleClickOutside);
+    } else if (menuElement) {
+        getEventRoot().removeEventListener('click', handleClickOutside);
     }
 
     // Reset menu items array when links change
@@ -123,7 +133,7 @@
 
     // Clean up event listener when component is destroyed
     onDestroy(() => {
-        window.removeEventListener('click', handleClickOutside);
+        getEventRoot().removeEventListener('click', handleClickOutside);
     });
 </script>
 
