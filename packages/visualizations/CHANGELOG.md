@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.31.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.31.0...@opendatasoft/visualizations@0.31.1) (2026-01-28)
+
+
+### Bug Fixes
+
+* support Shadow DOM for click-outside detection ([9433026](https://github.com/opendatasoft/ods-dataviz-sdk/commit/943302686c0af00f983c4c9597b375e0b4e39050))
+
+
+
+
+
 # [0.31.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.30.0...@opendatasoft/visualizations@0.31.0) (2026-01-23)
 
 
