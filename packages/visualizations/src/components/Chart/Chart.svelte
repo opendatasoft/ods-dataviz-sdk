@@ -6,7 +6,7 @@
     import CategoryLegend from 'components/Legend/CategoryLegend.svelte';
     import type { DataFrame } from 'types';
     import { generateId } from 'components/utils';
-    import SourceLink from 'components/utils/SourceLink.svelte';
+    import Card from 'components/utils/Card.svelte';
     import { defaultNumberFormat } from 'components/utils/formatter';
     import type {
         LegendPositions,
@@ -233,21 +233,13 @@
 {#if data.error}
     Error : {JSON.stringify(data.error)}
 {:else if options}
-    <div bind:clientWidth class="container">
-        {#if displayTitle || displaySubtitle}
-            <div class="header">
-                {#if displayTitle}
-                    <h3>
-                        {options.title?.text}
-                    </h3>
-                {/if}
-                {#if displaySubtitle}
-                    <p>
-                        {options.subtitle?.text}
-                    </p>
-                {/if}
-            </div>
-        {/if}
+    <Card
+        bind:clientWidth
+        title={displayTitle ? options.title?.text : undefined}
+        subtitle={displaySubtitle ? options.subtitle?.text : undefined}
+        links={options.links}
+        className="container"
+    >
         <figure
             class="chart legend--{legendPosition}"
             style="--aspect-ratio: {defaultValue(options.aspectRatio, 4 / 3)}"
@@ -267,27 +259,10 @@
                 </figcaption>
             {/if}
         </figure>
-        {#if options.source}
-            <SourceLink source={options.source} />
-        {/if}
-    </div>
+    </Card>
 {/if}
 
 <style>
-    .container {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-    }
-    .header {
-        width: 100%;
-        margin: 0 0 1em 0;
-    }
-    .header h3,
-    .header p {
-        margin: 0;
-    }
-
     figure {
         position: relative;
         width: 100%;

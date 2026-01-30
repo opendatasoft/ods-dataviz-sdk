@@ -1,4 +1,4 @@
-import type { Async, Color, Source } from 'types';
+import type { Link, Async, Color } from 'types';
 
 export interface KpiCardOptions {
     title?: string;
@@ -9,8 +9,8 @@ export interface KpiCardOptions {
     suffix?: string;
     header?: string;
     footer?: string;
-    /** Link button to source */
-    source?: Source;
+    /** Links menu */
+    links?: Link[];
     /** Custom formatting function to display data value */
     formatCompact?: (value: number) => string;
     /** Custom formatting function for tooltips content */

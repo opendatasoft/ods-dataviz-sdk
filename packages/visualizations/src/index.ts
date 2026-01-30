@@ -1,7 +1,10 @@
-/* WARNING: do NOT use alisases, in this specific file. 
+/* WARNING: do NOT use alisases, in this specific file.
 Only path working at runtime will work (it's a problem with TS that copy aliases into .d.ts)
 Anywhere else, aliases are fine :)
 */
+
+// Import global CSS variables
+import './styles/variables.css';
 
 /* We export Svelte types from the main package to avoid conflicting versions
 It still is purely a dev thing and we'll bundle they types directly */
@@ -21,6 +24,7 @@ export * from './components/MarkdownText/types';
 export * from './components/Pagination/types';
 export { default as Table } from './components/Table';
 export * from './components/Table/types';
+export { default as LinksMenu } from './components/utils/LinksMenu.svelte';
 export {
     BooleanFormat,
     DateFormat,

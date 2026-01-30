@@ -1,7 +1,7 @@
 import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
 import type { FillLayerSpecification, Popup, GestureOptions, LngLatBoundsLike } from 'maplibre-gl';
 import type { DebouncedFunc } from 'lodash';
-import type { ColorScale, Color, Source } from 'types';
+import type { Link, ColorScale, Color } from 'types';
 import type { LegendPositions } from 'components/Legend/types';
 
 export interface ChoroplethOptions {
@@ -44,8 +44,8 @@ export interface ChoroplethOptions {
      * SVG maps
      */
     navigationMaps?: NavigationMap[];
-    /** Link button to source */
-    sourceLink?: Source;
+    /** Links menu */
+    links?: Link[];
     cooperativeGestures?: boolean | GestureOptions;
     /** If true, the map's canvas can be exported to an image using toDataURL. This is false by default as a performance optimization. */
     preserveDrawingBuffer?: boolean;

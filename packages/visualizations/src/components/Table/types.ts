@@ -1,4 +1,4 @@
-import type { Async, DataFrame, Source } from 'types';
+import type { Link, Async, DataFrame } from 'types';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Readable, Writable } from 'svelte/store';
 import type {
@@ -95,7 +95,7 @@ export type TableOptions = {
     subtitle?: string;
     description?: string;
     emptyStateLabel?: string;
-    source?: Source;
+    links?: Link[];
     /** To format date and number with the right locale. Default is from browser language */
     locale?: string;
     /**

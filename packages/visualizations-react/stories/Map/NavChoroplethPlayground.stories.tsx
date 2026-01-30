@@ -8,6 +8,7 @@ import {
 import * as turf from '@turf/turf';
 import { ChoroplethVectorTiles } from 'src';
 import { shapesTiles, regShapes, dataReg } from './data';
+import { defaultLinks } from '../utils';
 
 const meta: Meta<typeof ChoroplethVectorTiles> = {
     title: 'Map/NavigableMapPlayground',
@@ -88,6 +89,7 @@ export const NavMapDynamicPlayground: StoryObj<typeof NavStory> = {
             aspectRatio: 1,
             activeShapes: ['11', '93'],
             emptyValueColor: 'red',
+            links: defaultLinks,
         },
     } as Args,
     render: (args: Args) => <NavStory {...args} />,

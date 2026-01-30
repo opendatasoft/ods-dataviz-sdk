@@ -19,7 +19,7 @@
         title,
         subtitle,
         description,
-        source,
+        links,
         unstyled,
         locale: localeOption,
         pagination,
@@ -35,7 +35,7 @@
     */
 </script>
 
-<Card {title} {subtitle} {source} defaultStyle={!unstyled}>
+<Card {title} {subtitle} {links} defaultStyle={!unstyled}>
     <div class="table-container">
         <Table {columns} {loadingRowsNumber} {records} {description} {emptyStateLabel} {rowProps} />
         {#if pagination}
