@@ -12,6 +12,9 @@ It still is purely a dev thing and we'll bundle they types directly */
 export type { ComponentConstructorOptions, SvelteComponent } from 'svelte';
 export { default as Chart, _ChartDataLabels } from './components/Chart';
 export * from './components/Chart/types';
+// Time scale validation for Platform UI (filter available timescales)
+export { isTimeUnitCompatible } from './components/Chart/timeScaleValidation';
+export type { TimeUnit } from './components/Chart/timeScaleValidation';
 export { default as ChoroplethSvg } from './components/ChoroplethMap/Svg';
 export * from './components/ChoroplethMap/types';
 export { ChoroplethGeoJson, ChoroplethVectorTiles } from './components/ChoroplethMap/WebGl';
