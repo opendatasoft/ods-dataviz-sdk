@@ -13,10 +13,11 @@ import type { TimeCartesianAxisConfiguration } from './types';
 export type TimeUnit = NonNullable<TimeCartesianAxisConfiguration['timeUnit']>;
 
 /**
- * ChartJS crashes if ticks count exceeds 100,000.
- * Source: chartjs/src/scales/scale.time.js
+ * ChartJS crashes if ticks count exceeds 100,000 (see chart.js scale.time.js).
+ * We use 90,000 as safety margin to account for differences between our
+ * approximate unit durations and Luxon's calendar-based computations.
  */
-const CHARTJS_MAX_TICKS = 100_000;
+const CHARTJS_MAX_TICKS = 90_000;
 
 /** Duration of each time unit in milliseconds. */
 const TIME_UNIT_MS: Record<TimeUnit, number> = {
@@ -86,8 +87,9 @@ function parseToTimestamp(value: unknown): number | null {
     if (value == null) return null;
 
     if (typeof value === 'number') {
-        // Heuristic: |value| < 1e12 means seconds, otherwise milliseconds
-        return Math.abs(value) < 1e12 ? value * 1000 : value;
+        // Heuristic: |value| < 1e10 means seconds, otherwise milliseconds.
+        // 1e10 seconds ≈ year 2286, 1e10 ms ≈ April 1970.
+        return Math.abs(value) < 1e10 ? value * 1000 : value;
     }
 
     if (value instanceof Date) {
@@ -177,7 +179,8 @@ export function getSafeTimeUnit(
 
     const range = getRange(dataFrame, labelColumn);
 
-    // Can't determine range -> use requested unit and hope for the best
+    // Can't determine range from data — pass through the requested unit.
+    // ChartJS may still parse the dates via its own adapter.
     if (!range) return requestedUnit;
 
     const rangeMs = range.max - range.min;
@@ -185,6 +188,6 @@ export function getSafeTimeUnit(
     // Requested unit is safe -> use it
     if (isRangeSafe(rangeMs, requestedUnit)) return requestedUnit;
 
-    // Requested unit would crash -> find a safe alternative
-    return findSafeUnit(rangeMs);
+    // Requested unit would crash -> find a safe alternative, default to 'year'
+    return findSafeUnit(rangeMs) ?? 'year';
 }

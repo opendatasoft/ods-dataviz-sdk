@@ -52,10 +52,10 @@ const TimeUnitFallbackArgs: Props<DataFrame, ChartOptions> = {
             x: {
                 display: true,
                 type: 'time',
-                timeUnit: 'day', // Incompatible with 424 years of data - will fallback to 'year'
+                timeUnit: 'day', // Incompatible with 424 years of data - will fallback to 'week'
                 title: {
                     display: true,
-                    text: 'Configured as "day" but automatically switched to "year"',
+                    text: 'Configured as "day" but automatically switched to "week" (most precise safe unit)',
                 },
             },
             y: {
@@ -70,7 +70,7 @@ const TimeUnitFallbackArgs: Props<DataFrame, ChartOptions> = {
             text: 'Automatic TimeUnit Fallback (1600-2024)',
         },
         subtitle: {
-            text: 'Data spans 424 years - configured as "day" but rendered as "year" to prevent crash',
+            text: 'Data spans 424 years - configured as "day" but rendered as "week" to prevent crash',
         },
     },
 };
@@ -85,7 +85,7 @@ export const TimeUnitFallback: StoryObj<typeof ChartTemplate> = {
 
 Rendering daily ticks over 424 years would generate ~154,000 ticks, which would crash ChartJS.
 
-The chart **automatically detects** this incompatibility and falls back to \`'year'\`,
+The chart **automatically detects** this incompatibility and falls back to \`'week'\`,
 allowing the chart to render successfully without any error visible to the user.`,
             },
         },
