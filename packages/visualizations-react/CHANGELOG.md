@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.31.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.31.2-beta.0...@opendatasoft/visualizations-react@0.31.2) (2026-02-19)
+
+
+### Bug Fixes
+
+* improve time scale validation robustness ([faeb63f](https://github.com/opendatasoft/ods-dataviz-sdk/commit/faeb63f116934d337565273965d5faaeeb3cd334))
+
+
+
+
+
 ## [0.31.2-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.30.0...@opendatasoft/visualizations-react@0.31.2-beta.0) (2026-02-10)
 
 
