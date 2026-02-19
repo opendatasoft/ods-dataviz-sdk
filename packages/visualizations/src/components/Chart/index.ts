@@ -16,3 +16,7 @@ defaults.animation = false;
 // eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle
 export const _ChartDataLabels = DataLabels;
 export default Chart;
+
+// Export time scale validation for Platform UI (filter available timescales)
+export { isTimeUnitCompatible } from './timeScaleValidation';
+export type { TimeUnit } from './timeScaleValidation';

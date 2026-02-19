@@ -8,6 +8,7 @@ import type {
 } from 'chart.js';
 import { DateTime } from 'luxon';
 import type { DeepPartial } from 'chart.js/dist/types/utils';
+import type { DataFrame } from 'types';
 import { assureMaxLength, defaultCompactNumberFormat } from 'components/utils/formatter';
 import type {
     CartesianAxisConfiguration,
@@ -18,6 +19,7 @@ import type {
     TimeDisplayFormats,
 } from './types';
 import { defaultValue, singleChartJsColor } from './utils';
+import { getSafeTimeUnit } from './timeScaleValidation';
 
 const TICK_MAX_LENGTH = 40;
 
@@ -75,11 +77,23 @@ function getDateTooltipFormat(
     return unit ? customFormats?.[unit] || DATE_TOOLTIP_FORMATS[unit] : undefined;
 }
 
-export default function buildScales(options: ChartOptions): ChartJsChartOptions['scales'] {
+export default function buildScales(
+    options: ChartOptions,
+    dataFrame?: DataFrame
+): ChartJsChartOptions['scales'] {
     const scales: ChartJsChartOptions['scales'] = {};
 
     // X Axis
     if (options.axis?.x) {
+        // For time scales, validate that the requested timeUnit won't crash ChartJS
+        // If incompatible, fallback to auto-detection (undefined)
+        const xAxis = options.axis.x;
+        const requestedTimeUnit = xAxis.type === 'time' ? xAxis.timeUnit : undefined;
+        const safeTimeUnit =
+            xAxis.type === 'time' && dataFrame?.length
+                ? getSafeTimeUnit(dataFrame, requestedTimeUnit, options.labelColumn)
+                : requestedTimeUnit;
+
         scales.x = {
             border: { display: false },
             ...(options.axis.x.type === 'linear' && {
@@ -94,9 +108,9 @@ export default function buildScales(options: ChartOptions): ChartJsChartOptions[
             ...(options?.axis?.x?.type === 'time'
                 ? {
                       time: {
-                          unit: options?.axis?.x?.timeUnit,
+                          unit: safeTimeUnit,
                           tooltipFormat: getDateTooltipFormat(
-                              options?.axis?.x?.timeUnit,
+                              safeTimeUnit,
                               options?.tooltip?.timeDisplayFormats
                           ),
                           isoWeekday: true,
