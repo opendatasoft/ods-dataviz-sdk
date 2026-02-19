@@ -87,9 +87,9 @@ function parseToTimestamp(value: unknown): number | null {
     if (value == null) return null;
 
     if (typeof value === 'number') {
-        // Heuristic: |value| < 1e10 means seconds, otherwise milliseconds.
-        // 1e10 seconds ≈ year 2286, 1e10 ms ≈ April 1970.
-        return Math.abs(value) < 1e10 ? value * 1000 : value;
+        // Heuristic: |value| < 1e11 means seconds, otherwise milliseconds.
+        // 1e11 seconds ≈ year 5138, 1e11 ms ≈ March 1973.
+        return Math.abs(value) < 1e11 ? value * 1000 : value;
     }
 
     if (value instanceof Date) {
