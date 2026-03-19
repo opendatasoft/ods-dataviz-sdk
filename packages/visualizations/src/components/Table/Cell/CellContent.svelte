@@ -10,12 +10,13 @@
     import { locale, debugWarnings } from '../store';
     import type { Column } from '../types';
     import { isColumnOfType, getOptions, getValue } from './utils';
+    import titleOnOverflow from './actions';
 
     export let record: Record<string, unknown>;
     export let column: Column;
 </script>
 
-<div class={`cell-content table-data--${column.dataFormat}`}>
+<div class={`cell-content table-data--${column.dataFormat}`} use:titleOnOverflow>
     {#if isValidValue(getValue(column, record))}
         {#if isColumnOfType(column, DATA_FORMAT.boolean)}
             <BooleanFormat
