@@ -241,12 +241,12 @@ const legendbattleItems: CategoryItem[] = [
     {
         variant: CATEGORY_ITEM_VARIANT.Image,
         label: 'Battle of Verdun',
-        src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Battle_icon_gladii_red.svg/14px-Battle_icon_gladii_red.svg.png',
+        src: '/Battle_icon_gladii_red.svg.png',
     },
     {
         variant: CATEGORY_ITEM_VARIANT.Image,
         label: 'Battle of the Somme',
-        src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Big_battle_symbol.svg/14px-Big_battle_symbol.svg.png',
+        src: '/Big_battle_symbol.svg.png',
     },
 ];
 
@@ -290,11 +290,11 @@ const legend = {
 const images: PoiMapOptions['images'] = {
     'battle-icon': {
         id: 'battle-icon',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Big_battle_symbol.svg/14px-Big_battle_symbol.svg.png',
+        url: '/Big_battle_symbol.svg.png',
     },
     'battle-icon-red': {
         id: 'battle-icon-red',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Battle_icon_gladii_red.svg/14px-Battle_icon_gladii_red.svg.png',
+        url: '/Battle_icon_gladii_red.svg.png',
     },
 };
 const options: PoiMapOptions = {

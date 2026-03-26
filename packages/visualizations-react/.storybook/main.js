@@ -6,6 +6,9 @@ function getAbsolutePath(value) {
 
 export default {
     stories: ['../stories/**/*.stories.@(ts|tsx|js|jsx)'],
+    staticDirs: [
+      '../storybook-public',
+    ],
     addons: [
         getAbsolutePath("@storybook/addon-links"),
         getAbsolutePath("@storybook/addon-essentials"),
