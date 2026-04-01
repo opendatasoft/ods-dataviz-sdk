@@ -6,6 +6,7 @@
     import SortButton from './SortButton.svelte';
 
     export let column: Column | null = null;
+    export let extraButtonColumnLabel = 'Action';
 
     const { stickyColumnsWidth, stickyColumnsOffset, isHorizontallyScrolled, lastStickyColumn } =
         getContext<StickyStores>('sticky-stores');
@@ -57,6 +58,7 @@
             scrolled: $isHorizontallyScrolled,
             lastStickyColumn: $lastStickyColumn,
         })}`}
+        aria-label={extraButtonColumnLabel}
     />
 {/if}
 
