@@ -27,7 +27,8 @@ export default meta;
 function generateHistoricalData(): DataFrame {
     const data: DataFrame = [];
     for (let year = 1600; year <= 2024; year += 10) {
-        data.push({ x: `${year}-01-01`, y: Math.random() * 1000 + year - 1600 });
+        const pseudo = ((year * 1103515245 + 12345) >>> 0) % 1000;
+        data.push({ x: `${year}-01-01`, y: pseudo + (year - 1600) });
     }
     return data;
 }
