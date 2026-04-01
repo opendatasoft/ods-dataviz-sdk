@@ -19,5 +19,6 @@ export type Pagination = {
         firstPage: string;
         lastPage: string;
         records: string;
+        pageSizeSelect: string;
     }>;
 };

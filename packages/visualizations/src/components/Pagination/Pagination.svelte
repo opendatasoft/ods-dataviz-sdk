@@ -33,7 +33,11 @@
         </div>
         <div class="page-size">
             {#if pageSizeSelect}
-                <PageSize selected={recordsPerPage} {...pageSizeSelect} />
+                <PageSize
+                    selected={recordsPerPage}
+                    {...pageSizeSelect}
+                    selectLabel={labels?.pageSizeSelect}
+                />
             {/if}
         </div>
     </div>

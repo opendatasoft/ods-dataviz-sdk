@@ -5,6 +5,7 @@
     export let options: PageSizeOption[];
     export let onChange: (size: number) => void;
     export let selected: number;
+    export let selectLabel = 'Number of records per page';
 
     let value: number;
 
@@ -17,7 +18,11 @@
     }
 </script>
 
-<select bind:value on:input={(e) => onChange(toNumber(e.currentTarget.value))}>
+<select
+    bind:value
+    on:input={(e) => onChange(toNumber(e.currentTarget.value))}
+    aria-label={selectLabel}
+>
     {#each options as option}
         <option label={option.label} value={option.value} />
     {/each}
