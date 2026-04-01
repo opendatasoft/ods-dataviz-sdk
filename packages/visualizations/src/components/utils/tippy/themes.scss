@@ -4,12 +4,14 @@ $tippy-box-shadow: 0 6px 13px 0 rgba(0, 0, 0, 0.26);
 
 .tippy-box[data-theme~='#{$table-theme}'] {
     background-color: $table-background-color;
+    color: inherit;
     box-shadow: $tippy-box-shadow;
 }
 
 .tippy-box[data-theme~='#{$table-theme}'] > .tippy-content {
     padding: 6px;
     border-radius: 6px;
+    word-break: break-word;
 }
 
 .tippy-box[data-theme~='#{$table-theme}'][data-placement^='top'] > .tippy-arrow::before {
