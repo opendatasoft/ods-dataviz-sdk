@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.32.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.30.0...@opendatasoft/visualizations-react@0.32.0) (2026-04-08)
+
+
+### Bug Fixes
+
+* prevent "too many ticks" crash with automatic time unit fallback ([#289](https://github.com/opendatasoft/ods-dataviz-sdk/issues/289)) ([9d1eb88](https://github.com/opendatasoft/ods-dataviz-sdk/commit/9d1eb886d4454b0dda8689faf24fae7082f81e59))
+* unstable chart chromatic snapshot for error handling in charts ([4a7719d](https://github.com/opendatasoft/ods-dataviz-sdk/commit/4a7719df3767f2cd6ae13128ef4b861d25a401b3))
+
+
+
+
+
 ## [0.31.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.31.2-beta.0...@opendatasoft/visualizations-react@0.31.2) (2026-02-19)
 
 

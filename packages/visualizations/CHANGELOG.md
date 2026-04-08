@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.32.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.30.0...@opendatasoft/visualizations@0.32.0) (2026-04-08)
+
+
+### Bug Fixes
+
+* prevent "too many ticks" crash with automatic time unit fallback ([#289](https://github.com/opendatasoft/ods-dataviz-sdk/issues/289)) ([9d1eb88](https://github.com/opendatasoft/ods-dataviz-sdk/commit/9d1eb886d4454b0dda8689faf24fae7082f81e59))
+* **Table:** Missing labels for accessibility ([#292](https://github.com/opendatasoft/ods-dataviz-sdk/issues/292)) ([4558861](https://github.com/opendatasoft/ods-dataviz-sdk/commit/45588613e920e280c973677e2d3f080c1946e90d))
+
+
+### Features
+
+* **table:** add tooltip on truncated cells ([#290](https://github.com/opendatasoft/ods-dataviz-sdk/issues/290)) ([42db652](https://github.com/opendatasoft/ods-dataviz-sdk/commit/42db652bd736538783aee7a9611d07357c4569b7))
+
+
+
+
+
 ## [0.31.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.31.2-beta.0...@opendatasoft/visualizations@0.31.2) (2026-02-19)
 
 
