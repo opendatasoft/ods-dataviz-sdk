@@ -14,6 +14,7 @@
     export let description: string | undefined;
     export let emptyStateLabel: string | undefined;
     export let rowProps: RowProps | undefined;
+    export let extraButtonColumnLabel: string | undefined;
 
     const tableId = `table-${generateId()}`;
 
@@ -57,7 +58,11 @@
 
 <div class="scrollbox" bind:this={scrollBox} on:scroll={handleScroll}>
     <table aria-describedby={description ? tableId : undefined}>
-        <Headers columns={sortedStickyColumns} extraButtonColumn={Boolean(rowProps?.onClick)} />
+        <Headers
+            columns={sortedStickyColumns}
+            extraButtonColumn={Boolean(rowProps?.onClick)}
+            {extraButtonColumnLabel}
+        />
         <Body
             {records}
             columns={sortedStickyColumns}

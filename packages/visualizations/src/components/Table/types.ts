@@ -95,6 +95,7 @@ export type TableOptions = {
     subtitle?: string;
     description?: string;
     emptyStateLabel?: string;
+    extraButtonColumnLabel?: string;
     links?: Link[];
     /** To format date and number with the right locale. Default is from browser language */
     locale?: string;

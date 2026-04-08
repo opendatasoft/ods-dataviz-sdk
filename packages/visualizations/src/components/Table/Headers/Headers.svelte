@@ -4,12 +4,13 @@
 
     export let columns: Column[];
     export let extraButtonColumn = false;
+    export let extraButtonColumnLabel: string | undefined;
 </script>
 
 <thead>
     <tr>
         {#if extraButtonColumn}
-            <Th />
+            <Th {extraButtonColumnLabel} />
         {/if}
         {#each columns as column (column.key)}
             <Th {column} />

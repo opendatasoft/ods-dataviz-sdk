@@ -24,6 +24,7 @@
         locale: localeOption,
         pagination,
         emptyStateLabel,
+        extraButtonColumnLabel,
         debugWarnings: debugOption = false,
     } = options);
     $: $locale = localeOption || navigator.language;
@@ -37,7 +38,15 @@
 
 <Card {title} {subtitle} {links} defaultStyle={!unstyled}>
     <div class="table-container">
-        <Table {columns} {loadingRowsNumber} {records} {description} {emptyStateLabel} {rowProps} />
+        <Table
+            {columns}
+            {loadingRowsNumber}
+            {records}
+            {description}
+            {emptyStateLabel}
+            {extraButtonColumnLabel}
+            {rowProps}
+        />
         {#if pagination}
             <Pagination {...pagination} />
         {/if}
