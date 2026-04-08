@@ -36,7 +36,7 @@
                 <PageSize
                     selected={recordsPerPage}
                     {...pageSizeSelect}
-                    selectLabel={labels?.pageSizeSelect}
+                    selectLabel={labels?.pageSizeAriaLabel}
                 />
             {/if}
         </div>
