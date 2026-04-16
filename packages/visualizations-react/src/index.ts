@@ -34,7 +34,11 @@ import type {
     URLFormatProps,
     NumberFormatProps,
     Link,
+    LinkHref,
+    LinkAction,
     LinksMenuProps,
+    LINKS_MENU_CLASS,
+    isLinkHref,
 } from '@opendatasoft/visualizations';
 import reactifySvelte from 'reactify';
 
@@ -90,5 +94,6 @@ export const LinksMenu = reactifySvelte<LinksMenuProps>(
     false
 );
 
-// Export types
-export type { Link, LinksMenuProps };
+// Export types and link helpers
+export type { Link, LinkHref, LinkAction, LinksMenuProps };
+export { isLinkHref, LINKS_MENU_CLASS };
