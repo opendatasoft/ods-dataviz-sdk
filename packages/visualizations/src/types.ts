@@ -6,17 +6,37 @@ export type DataFrame = Record<string, any>[];
 export type Color = string;
 
 /**
- * Represents a link in the LinksMenu component.
- * Can be extended in the future to support other link types (e.g., callbacks, exports).
+ * Opens in a new tab when clicked (standard anchor behaviour).
  */
-export interface Link {
-    /** The URL to navigate to when the link is clicked */
+export interface LinkHref {
     href: string;
-    /** The label displayed for this link */
     label: string;
     /** Optional SVG string to display as an icon next to the label */
     icon?: string;
+    /** Optional click callback invoked before opening the href. */
+    onClick?: () => void;
 }
+
+/**
+ * Runs a client-side callback. Renders as a menu button, not an anchor.
+ */
+export interface LinkAction {
+    onClick: () => void;
+    label: string;
+    icon?: string;
+}
+
+/**
+ * Menu item in LinksMenu: either a navigational link or an action.
+ */
+export type Link = LinkHref | LinkAction;
+
+export function isLinkHref(link: Link): link is LinkHref {
+    return 'href' in link;
+}
+
+/** Root CSS class of the LinksMenu wrapper. Consumers can use this to filter the menu from DOM clones (e.g. image export). */
+export const LINKS_MENU_CLASS = 'links-menu';
 
 /**
  * Props for the LinksMenu component.

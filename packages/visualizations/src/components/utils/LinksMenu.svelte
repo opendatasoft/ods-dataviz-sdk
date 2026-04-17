@@ -1,6 +1,7 @@
 <script lang="ts">
     import { onDestroy, tick } from 'svelte';
     import type { LinksMenuProps } from 'types';
+    import { isLinkHref } from 'types';
 
     // Ensure exported type matches declared props
     type $$Props = LinksMenuProps;
@@ -10,7 +11,7 @@
 
     let menuElement: HTMLDivElement;
     let buttonElement: HTMLButtonElement;
-    let menuItemElements: HTMLAnchorElement[] = [];
+    let menuItemElements: (HTMLElement | undefined)[] = [];
     let isOpen = false;
     let focusedIndex = -1;
 
@@ -38,6 +39,11 @@
         } else {
             openMenu();
         }
+    }
+
+    function handleMenuItemClick(link: $$Props['links'][number]) {
+        link.onClick?.();
+        closeMenu();
     }
 
     function focusItem(index: number) {
@@ -173,23 +179,41 @@
             on:keydown={handleMenuKeydown}
         >
             {#each links as link, index}
-                <a
-                    bind:this={menuItemElements[index]}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="dropdown-item"
-                    role="menuitem"
-                    tabindex={focusedIndex === index ? 0 : -1}
-                    on:click={() => closeMenu()}
-                >
-                    {#if link.icon}
-                        <span class="dropdown-item-icon" aria-hidden="true">
-                            {@html link.icon}
-                        </span>
-                    {/if}
-                    <span class="dropdown-item-label">{link.label}</span>
-                </a>
+                {#if isLinkHref(link)}
+                    <a
+                        bind:this={menuItemElements[index]}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="dropdown-item"
+                        role="menuitem"
+                        tabindex={focusedIndex === index ? 0 : -1}
+                        on:click={() => handleMenuItemClick(link)}
+                    >
+                        {#if link.icon}
+                            <span class="dropdown-item-icon" aria-hidden="true">
+                                {@html link.icon}
+                            </span>
+                        {/if}
+                        <span class="dropdown-item-label">{link.label}</span>
+                    </a>
+                {:else}
+                    <button
+                        bind:this={menuItemElements[index]}
+                        type="button"
+                        class="dropdown-item dropdown-item--action"
+                        role="menuitem"
+                        tabindex={focusedIndex === index ? 0 : -1}
+                        on:click={() => handleMenuItemClick(link)}
+                    >
+                        {#if link.icon}
+                            <span class="dropdown-item-icon" aria-hidden="true">
+                                {@html link.icon}
+                            </span>
+                        {/if}
+                        <span class="dropdown-item-label">{link.label}</span>
+                    </button>
+                {/if}
             {/each}
         </div>
     {/if}
@@ -288,5 +312,18 @@
 
     .dropdown-item-label {
         flex: 1;
+    }
+
+    /* Action items: reset native button chrome to match anchor menu items */
+    button.dropdown-item--action {
+        width: 100%;
+        margin: 0;
+        border: none;
+        background: transparent;
+        font: inherit;
+        text-align: left;
+        cursor: pointer;
+        appearance: none;
+        -webkit-appearance: none;
     }
 </style>
