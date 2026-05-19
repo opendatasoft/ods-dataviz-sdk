@@ -1,0 +1,16 @@
+/*
+    Sets an element to be "screen reader only" so that it is not visible at all to usual browsers,
+    but visible to screen readers in a relevant place in the DOM.
+    It relies on various ways to "hide" a text without using `display` or `visibility` which would hide them from screen
+    readers as well.
+
+    Source: https://webaim.org/techniques/css/invisiblecontent/
+ */
+.sr-only {
+    position: absolute;
+    inset-inline-start: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
