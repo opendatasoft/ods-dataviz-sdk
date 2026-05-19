@@ -58,12 +58,14 @@
             scrolled: $isHorizontallyScrolled,
             lastStickyColumn: $lastStickyColumn,
         })}`}
-        aria-label={extraButtonColumnLabel}
-    />
+    >
+        <span class="sr-only">{extraButtonColumnLabel}</span>
+    </th>
 {/if}
 
 <style lang="scss">
     @import '../sticky';
+    @import 'styles/accessibility';
     :global(.ods-dataviz--default th) {
         text-align: left;
         padding: var(--spacing-75);

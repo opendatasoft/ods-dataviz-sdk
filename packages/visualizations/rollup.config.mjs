@@ -2,7 +2,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import svelte from 'rollup-plugin-svelte';
 import alias from '@rollup/plugin-alias';
-import autoPreprocess from 'svelte-preprocess';
+import svelteConfig from './svelte.config.mjs';
 import postcss from 'rollup-plugin-postcss';
 import autoprefixer from 'autoprefixer';
 // import visualizer from 'rollup-plugin-visualizer';
@@ -38,11 +38,7 @@ function basePlugins() {
                 dev: !production,
                 immutable: true,
             },
-            preprocess: autoPreprocess({
-                scss: {
-                    includePaths: ['src'],
-                },
-            }),
+            preprocess: svelteConfig.preprocess,
         }),
         typescript({
             sourceMap: true,
