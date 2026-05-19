@@ -7,9 +7,15 @@
 
     export let column: Column | null = null;
     export let extraButtonColumnLabel = 'Action';
+    export let stickyHeader = false;
 
-    const { stickyColumnsWidth, stickyColumnsOffset, isHorizontallyScrolled, lastStickyColumn } =
-        getContext<StickyStores>('sticky-stores');
+    const {
+        stickyColumnsWidth,
+        stickyColumnsOffset,
+        isHorizontallyScrolled,
+        isVerticallyScrolled,
+        lastStickyColumn,
+    } = getContext<StickyStores>('sticky-stores');
 
     let thElement: HTMLElement;
     let clientWidth: number;
@@ -35,6 +41,8 @@
             column,
             scrolled: $isHorizontallyScrolled,
             lastStickyColumn: $lastStickyColumn,
+            stickyHeader,
+            verticallyScrolled: $isVerticallyScrolled,
         })}`}
     >
         {#if column.onClick}
@@ -57,6 +65,8 @@
             column,
             scrolled: $isHorizontallyScrolled,
             lastStickyColumn: $lastStickyColumn,
+            stickyHeader,
+            verticallyScrolled: $isVerticallyScrolled,
         })}`}
         aria-label={extraButtonColumnLabel}
     />

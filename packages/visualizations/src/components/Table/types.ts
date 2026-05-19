@@ -106,6 +106,8 @@ export type TableOptions = {
     unstyled?: boolean;
     pagination?: Pagination;
     debugWarnings?: boolean;
+    /** Keeps the column header row visible while the table scrolls vertically. */
+    stickyHeader?: boolean;
 };
 
 export type TableProps = {
@@ -122,4 +124,5 @@ export type StickyStores = {
     stickyColumnsOffset: Readable<Map<ColumnKey, number>>;
     lastStickyColumn: Readable<ColumnKey | undefined>;
     isHorizontallyScrolled: Writable<boolean>;
+    isVerticallyScrolled: Writable<boolean>;
 };
