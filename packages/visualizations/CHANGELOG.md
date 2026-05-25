@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.32.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.32.0...@opendatasoft/visualizations@0.32.1) (2026-05-25)
+
+
+### Bug Fixes
+
+* **Table:** Screen-reader visible header for actions colummn ([4edc114](https://github.com/opendatasoft/ods-dataviz-sdk/commit/4edc114aa6f32e35f098010073b853d734573ff2))
+
+
+
+
+
 ## [0.32.1-beta.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.32.1-beta.0...@opendatasoft/visualizations@0.32.1-beta.1) (2026-04-17)
 
 **Note:** Version bump only for package @opendatasoft/visualizations
