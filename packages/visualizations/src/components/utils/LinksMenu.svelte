@@ -185,6 +185,7 @@
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
+                        download={link.download || null}
                         class="dropdown-item"
                         role="menuitem"
                         tabindex={focusedIndex === index ? 0 : -1}

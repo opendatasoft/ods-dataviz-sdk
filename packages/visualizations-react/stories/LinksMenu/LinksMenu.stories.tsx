@@ -27,6 +27,7 @@ function LinksMenuDemo({ options, ...rest }: React.ComponentProps<typeof Chart>)
 
     const hrefPlainLabel = 'Open Code Library (href, no onClick callback)';
     const hrefTrackedLabel = 'Open Code Library (href, onClick tracking)';
+    const hrefDownloadLabel = 'Download example (href, download attr)';
     const actionLabel = 'Show message (action, window.alert)';
 
     const links: Link[] = [
@@ -41,6 +42,11 @@ function LinksMenuDemo({ options, ...rest }: React.ComponentProps<typeof Chart>)
                 setHrefTrackedClicks(c => c + 1);
                 addLog({ kind: 'href-tracked', label: hrefTrackedLabel, href: CODE_LIBRARY_HREF });
             },
+        },
+        {
+            href: '/favicon.ico',
+            label: hrefDownloadLabel,
+            download: 'custom-filename.ico',
         },
         {
             label: actionLabel,
@@ -229,6 +235,11 @@ function LinksMenuDemo({ options, ...rest }: React.ComponentProps<typeof Chart>)
                             </li>
                             <li>
                                 Optional <code style={inlineCode}>icon</code> on both shapes, SVG string
+                            </li>
+                            <li>
+                                Optional <code style={inlineCode}>download</code> on <strong>LinkHref</strong>, sets the
+                                anchor <code style={inlineCode}>download</code> attribute (honored by browsers for
+                                same-origin URLs only).
                             </li>
                         </ul>
 

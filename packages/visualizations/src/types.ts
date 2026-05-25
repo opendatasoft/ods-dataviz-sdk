@@ -15,6 +15,12 @@ export interface LinkHref {
     icon?: string;
     /** Optional click callback invoked before opening the href. */
     onClick?: () => void;
+    /**
+     * Optional filename hint passed to the browser as the `download` attribute on the anchor.
+     * Browsers honor this for same-origin URLs (cross-origin downloads ignore it and fall back
+     * to the server-provided filename).
+     */
+    download?: string;
 }
 
 /**
