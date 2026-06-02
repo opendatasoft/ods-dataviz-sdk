@@ -143,12 +143,10 @@ Start with one of the following entry points:
 
 -   `fromMonitoring()`: access monitoring datasets
 
--   `fromDataNetwork()`: access any datasets on [Opendatasoft's data network](https://data.opendatasoft.com/)
-
 From there, your IDE should provide autocompletion.
 
 ```javascript
-import { ApiClient, fromCatalog, fromDataNetwork, fromMonitoring } from '@opendatasoft/api-client';
+import { ApiClient, fromCatalog, fromMonitoring } from '@opendatasoft/api-client';
 
 const client = new ApiClient({
     interceptRequest: async request => {
@@ -163,14 +161,6 @@ client.get(fromMonitoring().itself());
 // ../catalog/datasets/
 client.get(fromCatalog().datasets());
 
-// ../opendatasoft/datasets/sirene@data/facets/?lang=fr
-client.get(
-    fromDataNetwork()
-        .dataset('sirene@data')
-        .facets()
-        .lang('fr')
-);
-
 // ../catalog/datasets/?select=dataset_id%2C+records_count
 client.get(
     fromCatalog()
@@ -184,6 +174,13 @@ client.get(
         .dataset('my-dataset')
         .record('2ee92a48178f784a5babfc06cb42d210cab57f55')
 );
+
+// ../catalog/assets/my-asset/
+client.get(
+    fromCatalog()
+      .asset('my-asset')
+      .itself()
+)
 ```
 
 The `Query` interface expose convenient parameters of an API request.
@@ -265,7 +262,6 @@ Here are some samples to get you started.
 
 
 -   [Opendatasoft's APIv2.1 documentation](https://help.opendatasoft.com/apis/ods-explore-v2/explore_v2.1.html)
--   [Data Network API Console](https://data.opendatasoft.com/api/explore/v2.1/console)
 
 ## Contributing
 
