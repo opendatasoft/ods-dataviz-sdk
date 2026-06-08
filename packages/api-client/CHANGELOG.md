@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [21.9.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.8.1...@opendatasoft/api-client@21.9.0) (2026-06-08)
+
+
+### Features
+
+* **api-client:** Remove fromNetwork, add assets endpoints ([#297](https://github.com/opendatasoft/ods-dataviz-sdk/issues/297)) ([47b85db](https://github.com/opendatasoft/ods-dataviz-sdk/commit/47b85db45a31f0f22a88d7aac189b6e970226b5a))
+
+
+
+
+
 ## [21.8.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.8.0...@opendatasoft/api-client@21.8.1) (2025-10-08)
 
 
