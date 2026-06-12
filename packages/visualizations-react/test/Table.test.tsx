@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Table } from 'src';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { Column, DataFrame } from '@opendatasoft/visualizations';
 import data from 'stories/Table/data';
@@ -109,14 +109,13 @@ test('Can update column valueToLabel reactively', async () => {
 
 const PAGE_SIZE = 3;
 
-const CursorPaginatedTable = ({ initialPage = 1 }: { initialPage?: number }) => {
+const CursorPaginatedTable = ({ initialPage }: { initialPage: number }) => {
     const [page, setPage] = useState(initialPage);
 
-    // Double-sentinel: request 2*pageSize+1 rows to detect both hasNextPage and hasNextNextPage.
+    // Sentinel fetch: request 2*pageSize+1 rows to derive pagesAhead in a single request.
     const startIndex = (page - 1) * PAGE_SIZE;
     const sliced = (data as unknown as unknown[]).slice(startIndex, startIndex + PAGE_SIZE * 2 + 1);
-    const hasNextPage = sliced.length > PAGE_SIZE;
-    const hasNextNextPage = sliced.length > PAGE_SIZE * 2;
+    const pagesAhead = Math.max(0, Math.floor((sliced.length - 1) / PAGE_SIZE));
     const visibleRows = sliced.slice(0, PAGE_SIZE);
 
     const tableData = { value: visibleRows as DataFrame, isLoading: false };
@@ -130,8 +129,7 @@ const CursorPaginatedTable = ({ initialPage = 1 }: { initialPage?: number }) => 
                     kind: 'cursor',
                     current: page,
                     recordsPerPage: PAGE_SIZE,
-                    hasNextPage,
-                    hasNextNextPage,
+                    pagesAhead,
                     onPageChange: setPage,
                     labels: { previousPage: 'Previous', nextPage: 'Next' },
                 },
@@ -159,8 +157,8 @@ test('Cursor pagination: only prev/next arrows, no first/last buttons', () => {
     });
 });
 
-test('Cursor pagination: [current+1] absent when hasNextPage is false', () => {
-    // When hasNextPage=false the [current+1] page number button must not appear.
+test('Cursor pagination: [current+1] absent when no page ahead is known', () => {
+    // When pagesAhead=0 the [current+1] page number button must not appear.
     // The ‹/› arrow state is handled by the Svelte disabled attribute (verified by
     // manual browser testing; jsdom / svelte-jester does not reflect boolean attrs).
     render(
@@ -172,8 +170,7 @@ test('Cursor pagination: [current+1] absent when hasNextPage is false', () => {
                     kind: 'cursor',
                     current: 3,
                     recordsPerPage: 5,
-                    hasNextPage: false,
-                    hasNextNextPage: false,
+                    pagesAhead: 0,
                     onPageChange: () => {},
                     labels: { previousPage: 'Previous', nextPage: 'Next' },
                 },
@@ -186,7 +183,7 @@ test('Cursor pagination: [current+1] absent when hasNextPage is false', () => {
     expect(screen.queryByRole('button', { name: '4' })).not.toBeInTheDocument();
 });
 
-test('Cursor pagination: right ellipsis present only when hasNextNextPage is true', () => {
+test('Cursor pagination: right ellipsis present only when at least 2 pages ahead are known', async () => {
     const { rerender } = render(
         <Table
             data={{ value: data, isLoading: false }}
@@ -196,8 +193,7 @@ test('Cursor pagination: right ellipsis present only when hasNextNextPage is tru
                     kind: 'cursor',
                     current: 2,
                     recordsPerPage: 5,
-                    hasNextPage: true,
-                    hasNextNextPage: true,
+                    pagesAhead: 2,
                     onPageChange: () => {},
                 },
             }}
@@ -214,14 +210,16 @@ test('Cursor pagination: right ellipsis present only when hasNextNextPage is tru
                     kind: 'cursor',
                     current: 2,
                     recordsPerPage: 5,
-                    hasNextPage: true,
-                    hasNextNextPage: false,
+                    pagesAhead: 1,
                     onPageChange: () => {},
                 },
             }}
         />
     );
-    expect(screen.queryByText('…')).not.toBeInTheDocument();
+    // Svelte flushes prop updates asynchronously after the React re-render.
+    await waitFor(() => {
+        expect(screen.queryByText('…')).not.toBeInTheDocument();
+    });
 });
 
 test('Cursor pagination: page navigation calls onPageChange', async () => {
@@ -237,8 +235,7 @@ test('Cursor pagination: page navigation calls onPageChange', async () => {
                     kind: 'cursor',
                     current: 2,
                     recordsPerPage: 5,
-                    hasNextPage: true,
-                    hasNextNextPage: false,
+                    pagesAhead: 1,
                     onPageChange,
                     labels: { previousPage: 'Previous', nextPage: 'Next' },
                 },
@@ -251,4 +248,26 @@ test('Cursor pagination: page navigation calls onPageChange', async () => {
 
     await user.click(screen.getByRole('button', { name: 'Previous' }));
     expect(onPageChange).toHaveBeenCalledWith(1);
+});
+
+test('Cursor pagination: X-Y range reflects the rows actually displayed on a partial page', () => {
+    // Page 5 with 10 records per page but only 3 displayed rows: the range
+    // must end at 43, not assume a full page (41-50).
+    render(
+        <Table
+            data={{ value: data.slice(0, 3), isLoading: false }}
+            options={{
+                ...options,
+                pagination: {
+                    kind: 'cursor',
+                    current: 5,
+                    recordsPerPage: 10,
+                    pagesAhead: 0,
+                    onPageChange: () => {},
+                },
+            }}
+        />
+    );
+
+    expect(screen.getByText('41-43')).toBeInTheDocument();
 });
