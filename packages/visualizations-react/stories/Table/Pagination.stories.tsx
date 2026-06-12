@@ -60,7 +60,7 @@ export const Cursor: StoryObj<typeof CursorTemplate> = {
 };
 
 export const CursorMidPage: StoryObj<typeof CursorTemplate> = {
-    name: 'Cursor — mid-page',
+    name: 'Cursor mid-page',
     args: {
         current: 3,
         recordsPerPage: 5,

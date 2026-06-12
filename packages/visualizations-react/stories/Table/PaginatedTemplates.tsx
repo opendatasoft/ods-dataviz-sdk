@@ -4,10 +4,15 @@ import { Table } from '../../src';
 import data from './data';
 import options from './options';
 
+const delay = (ms: number) =>
+    new Promise(resolve => {
+        setTimeout(resolve, ms);
+    });
+
 const fetchData = async ({ size, page }: { size: number; page: number }) => {
     const startIndex = (page - 1) * size;
     const endIndex = startIndex + size;
-    await setTimeout(() => {}, 300);
+    await delay(300);
     const dataFrame: DataFrame = data?.slice(startIndex, endIndex);
     return dataFrame;
 };
@@ -81,17 +86,16 @@ export const CursorTemplate = ({
     useEffect(() => {
         (async () => {
             const startIndex = (page - 1) * pageSize;
-            // Double-sentinel: fetch 2*pageSize+1 rows to derive both hasNextPage and
-            // hasNextNextPage in a single request.
+            // Sentinel fetch: request 2*pageSize+1 rows to derive pagesAhead in a single request.
             const endIndex = startIndex + pageSize * 2 + 1;
-            await setTimeout(() => {}, 300);
+            await delay(300);
             setRecords(data?.slice(startIndex, endIndex));
         })();
     }, [page, pageSize]);
 
     const rows = records ?? [];
-    const hasNextPage = rows.length > pageSize;
-    const hasNextNextPage = rows.length > pageSize * 2;
+    // Number of pages after the current one proven to exist by the extra rows received.
+    const pagesAhead = Math.max(0, Math.floor((rows.length - 1) / pageSize));
     const visibleRows = rows.slice(0, pageSize);
     const paginatedData = {
         value: visibleRows as DataFrame,
@@ -104,8 +108,7 @@ export const CursorTemplate = ({
             kind: 'cursor' as const,
             current: page,
             recordsPerPage: pageSize,
-            hasNextPage,
-            hasNextNextPage,
+            pagesAhead,
             onPageChange: setPage,
             labels,
         },
