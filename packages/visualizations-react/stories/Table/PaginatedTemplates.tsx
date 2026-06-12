@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import type { DataFrame, Pagination } from '@opendatasoft/visualizations';
+import type { DataFrame, CursorPagination, Pagination } from '@opendatasoft/visualizations';
 import { Table } from '../../src';
 import data from './data';
 import options from './options';
@@ -35,7 +35,7 @@ export const usePaginatedData = ({
     }, [recordsPerPage, page, pageSize, setRecords]);
 
     const paginatedData = { value: records, isLoading: false };
-    const totalRecords = data.values.length;
+    const totalRecords = data.length;
 
     return {
         records,
@@ -62,6 +62,50 @@ export const PaginatedTemplate = (pagination: Pagination) => {
             current: page,
             recordsPerPage: pageSize,
             totalRecords: data.length,
+            onPageChange: setPage,
+            labels,
+        },
+    };
+
+    return <Table data={paginatedData} options={stateFulOptions} />;
+};
+
+export const CursorTemplate = ({
+    current: initialPage = 1,
+    recordsPerPage: pageSize = 5,
+    labels,
+}: Pick<CursorPagination, 'current' | 'recordsPerPage' | 'labels'>) => {
+    const [page, setPage] = useState(initialPage);
+    const [records, setRecords] = useState<DataFrame>();
+
+    useEffect(() => {
+        (async () => {
+            const startIndex = (page - 1) * pageSize;
+            // Double-sentinel: fetch 2*pageSize+1 rows to derive both hasNextPage and
+            // hasNextNextPage in a single request.
+            const endIndex = startIndex + pageSize * 2 + 1;
+            await setTimeout(() => {}, 300);
+            setRecords(data?.slice(startIndex, endIndex));
+        })();
+    }, [page, pageSize]);
+
+    const rows = records ?? [];
+    const hasNextPage = rows.length > pageSize;
+    const hasNextNextPage = rows.length > pageSize * 2;
+    const visibleRows = rows.slice(0, pageSize);
+    const paginatedData = {
+        value: visibleRows as DataFrame,
+        isLoading: false,
+    };
+
+    const stateFulOptions = {
+        ...options,
+        pagination: {
+            kind: 'cursor' as const,
+            current: page,
+            recordsPerPage: pageSize,
+            hasNextPage,
+            hasNextNextPage,
             onPageChange: setPage,
             labels,
         },

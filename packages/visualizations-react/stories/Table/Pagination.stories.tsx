@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import type { Pagination } from '@opendatasoft/visualizations';
 import { Table } from '../../src';
 import './pagination.css';
-import { PaginatedTemplate, PageSizeTemplate } from './PaginatedTemplates';
+import { CursorTemplate, PaginatedTemplate, PageSizeTemplate } from './PaginatedTemplates';
 
 const meta: Meta<typeof Table> = {
     title: 'Table/Pagination',
@@ -48,6 +48,24 @@ export const CustomStyle: StoryObj<typeof PaginatedTemplate> = {
             <PaginatedTemplate {...args} />
         </div>
     ),
+};
+
+export const Cursor: StoryObj<typeof CursorTemplate> = {
+    name: 'Cursor (no total)',
+    args: {
+        current: 1,
+        recordsPerPage: 5,
+    },
+    render: (args) => <CursorTemplate {...args} />,
+};
+
+export const CursorMidPage: StoryObj<typeof CursorTemplate> = {
+    name: 'Cursor — mid-page',
+    args: {
+        current: 3,
+        recordsPerPage: 5,
+    },
+    render: (args) => <CursorTemplate {...args} />,
 };
 
 export const PageSize: StoryObj<typeof PageSizeTemplate> = {
