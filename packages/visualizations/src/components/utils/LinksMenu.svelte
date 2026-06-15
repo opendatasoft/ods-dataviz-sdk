@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onDestroy, tick } from 'svelte';
     import type { LinksMenuProps } from 'types';
-    import { isLinkHref } from 'types';
+    import { isLinkHref, LINKS_MENU_CLASS } from 'types';
 
     // Ensure exported type matches declared props
     type $$Props = LinksMenuProps;
@@ -42,8 +42,11 @@
     }
 
     function handleMenuItemClick(link: $$Props['links'][number]) {
-        link.onClick?.();
-        closeMenu();
+        try {
+            link.onClick?.();
+        } finally {
+            closeMenu();
+        }
     }
 
     function focusItem(index: number) {
@@ -143,7 +146,7 @@
     });
 </script>
 
-<div bind:this={menuElement} class="links-menu" {style}>
+<div bind:this={menuElement} class={LINKS_MENU_CLASS} {style}>
     <button
         bind:this={buttonElement}
         class="links-button"
@@ -321,7 +324,9 @@
         margin: 0;
         border: none;
         background: transparent;
-        font: inherit;
+        font-family: inherit;
+        font-weight: inherit;
+        line-height: inherit;
         text-align: left;
         cursor: pointer;
         appearance: none;

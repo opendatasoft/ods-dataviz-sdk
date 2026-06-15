@@ -13,7 +13,7 @@ export interface LinkHref {
     label: string;
     /** Optional SVG string to display as an icon next to the label */
     icon?: string;
-    /** Optional click callback invoked before opening the href. */
+    /** Optional side-effect callback invoked before the href is followed. Does not intercept or prevent navigation. */
     onClick?: () => void;
     /**
      * Optional filename hint passed to the browser as the `download` attribute on the anchor.
@@ -41,7 +41,12 @@ export function isLinkHref(link: Link): link is LinkHref {
     return 'href' in link;
 }
 
-/** Root CSS class of the LinksMenu wrapper. Consumers can use this to filter the menu from DOM clones (e.g. image export). */
+/**
+ * Root CSS class of the LinksMenu wrapper. Consumers can use this to filter the menu from DOM
+ * clones (e.g. image export). LinksMenu.svelte applies it via `class={LINKS_MENU_CLASS}`, so the
+ * single source of truth is this constant (scoped CSS still matches via the `.links-menu` rule in
+ * the component's <style>).
+ */
 export const LINKS_MENU_CLASS = 'links-menu';
 
 /**
