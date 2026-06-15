@@ -44,8 +44,8 @@ describe('LinksMenu (reactified Svelte component)', () => {
 
         it('exposes the root wrapper under LINKS_MENU_CLASS (filtered out of PNG captures)', () => {
             const { container } = render(<LinksMenu links={[hrefLink]} />);
-            // Guards the divergence risk between the exported constant and the hardcoded
-            // class="links-menu" in the Svelte template (review point S2).
+            // Guards against divergence: LinksMenu.svelte applies LINKS_MENU_CLASS to its root,
+            // which consumers rely on to filter the menu out of PNG captures (review point S2).
             expect(container.querySelector(`.${LINKS_MENU_CLASS}`)).toBeInTheDocument();
         });
     });
@@ -70,7 +70,9 @@ describe('LinksMenu (reactified Svelte component)', () => {
             await openMenu();
             const item = screen.getByRole('menuitem');
             expect(item.tagName).toBe('BUTTON');
-            expect(screen.queryByRole('menuitem', { name: 'Export by PNG' })?.tagName).toBe('BUTTON');
+            expect(screen.queryByRole('menuitem', { name: 'Export by PNG' })?.tagName).toBe(
+                'BUTTON'
+            );
         });
     });
 
@@ -125,7 +127,7 @@ describe('LinksMenu (reactified Svelte component)', () => {
                         outside
                     </button>
                     <LinksMenu links={[hrefLink]} />
-                </div>,
+                </div>
             );
             await openMenu();
             expect(container.querySelector('.dropdown')).toBeInTheDocument();
