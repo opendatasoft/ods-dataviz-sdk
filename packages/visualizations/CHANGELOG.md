@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.33.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.33.0-beta.0...@opendatasoft/visualizations@0.33.0) (2026-06-16)
+
+
+### Bug Fixes
+
+* **LinksMenu:** address review (font-size, close-on-error, class constant, onClick doc) ([b9ffe28](https://github.com/opendatasoft/ods-dataviz-sdk/commit/b9ffe2803dbd0467b4510846c3fda8511fb24f14))
+
+
+
+
+
 # [0.33.0-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.32.1...@opendatasoft/visualizations@0.33.0-beta.0) (2026-05-26)
 
 
