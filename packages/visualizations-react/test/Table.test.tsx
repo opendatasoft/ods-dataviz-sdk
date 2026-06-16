@@ -96,13 +96,13 @@ const ValueToLabelSwitch = ({ valueToLabel = v => v }: { valueToLabel: (v: strin
 
 test('Can update column valueToLabel reactively', async () => {
     const { rerender } = render(<ValueToLabelSwitch valueToLabel={v => v} />);
-    expect(await screen.findByText(/^LOREM IPSUM BLOG POST$/i)).toBeInTheDocument();
+    expect(await screen.findByText(/^GETTING STARTED WITH OPEN DATA$/i)).toBeInTheDocument();
 
     rerender(<ValueToLabelSwitch valueToLabel={v => `${v} update`} />);
-    expect(await screen.findByText(/^LOREM IPSUM BLOG POST update$/i)).toBeInTheDocument();
+    expect(await screen.findByText(/^GETTING STARTED WITH OPEN DATA update$/i)).toBeInTheDocument();
 
     rerender(<ValueToLabelSwitch valueToLabel={v => `${v} 📅`} />);
-    expect(await screen.findByText(/^LOREM IPSUM BLOG POST 📅$/i)).toBeInTheDocument();
+    expect(await screen.findByText(/^GETTING STARTED WITH OPEN DATA 📅$/i)).toBeInTheDocument();
 });
 
 // ── Cursor pagination ──────────────────────────────────────────────────────
