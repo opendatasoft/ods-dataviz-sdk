@@ -11,6 +11,23 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **Table:** add cursor pagination mode without total count ([23a7fdb](https://github.com/opendatasoft/ods-dataviz-sdk/commit/23a7fdb183ad8c7b773e75117730377ed9b5bca8))
 
 
+# [0.33.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.33.0-beta.0...@opendatasoft/visualizations@0.33.0) (2026-06-16)
+
+
+### Bug Fixes
+
+* **LinksMenu:** address review (font-size, close-on-error, class constant, onClick doc) ([b9ffe28](https://github.com/opendatasoft/ods-dataviz-sdk/commit/b9ffe2803dbd0467b4510846c3fda8511fb24f14))
+
+
+# [0.33.0-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.32.1...@opendatasoft/visualizations@0.33.0-beta.0) (2026-05-26)
+
+
+### Features
+
+* **LinksMenu:** add optional download attribute on LinkHref ([16ad99d](https://github.com/opendatasoft/ods-dataviz-sdk/commit/16ad99da608cc3c6411d2c082ef76f81cc00148c))
+* support action items and href onClick ([d794795](https://github.com/opendatasoft/ods-dataviz-sdk/commit/d79479599d892d005be8245f1f47a57e59fea8c2))
+
+
 
 
 
@@ -20,6 +37,25 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Bug Fixes
 
 * **Table:** Screen-reader visible header for actions colummn ([4edc114](https://github.com/opendatasoft/ods-dataviz-sdk/commit/4edc114aa6f32e35f098010073b853d734573ff2))
+
+
+
+
+
+## [0.32.1-beta.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.32.1-beta.0...@opendatasoft/visualizations@0.32.1-beta.1) (2026-04-17)
+
+**Note:** Version bump only for package @opendatasoft/visualizations
+
+
+
+
+
+## [0.32.1-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.32.0...@opendatasoft/visualizations@0.32.1-beta.0) (2026-04-16)
+
+
+### Features
+
+* support action items and href onClick ([d794795](https://github.com/opendatasoft/ods-dataviz-sdk/commit/d79479599d892d005be8245f1f47a57e59fea8c2))
 
 
 
