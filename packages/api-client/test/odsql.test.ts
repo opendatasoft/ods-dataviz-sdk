@@ -5,7 +5,6 @@
 import { expect, it, describe, test } from '@jest/globals';
 import {
     fromCatalog,
-    fromDataNetwork,
     fromMonitoring,
     Query,
     field,
@@ -43,13 +42,9 @@ describe('ODSQL query builder', () => {
 
             expect(fromMonitoring().itself().toString()).toEqual('monitoring/');
 
-            expect(fromDataNetwork().dataset('sirene@data').facets().lang('fr').toString()).toEqual(
-                'opendatasoft/datasets/sirene@data/facets/?lang=fr'
+            expect(fromCatalog().asset('my-asset').itself().toString()).toEqual(
+                'catalog/assets/my-asset/'
             );
-
-            expect(
-                fromDataNetwork().dataset('sirene@data').records().lang('fr').toString()
-            ).toEqual('opendatasoft/datasets/sirene@data/records/?lang=fr');
         });
 
         test('get a record', () => {
