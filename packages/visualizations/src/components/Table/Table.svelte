@@ -15,25 +15,37 @@
     export let emptyStateLabel: string | undefined;
     export let rowProps: RowProps | undefined;
     export let extraButtonColumnLabel: string | undefined;
+    export let stickyHeader = false;
 
     const tableId = `table-${generateId()}`;
 
     let scrollBox: HTMLDivElement;
     let sortedStickyColumns: Column[] = [];
 
-    const { stickyColumnsOffset, stickyColumnsWidth, lastStickyColumn, isHorizontallyScrolled } =
-        createStickyStores();
+    const {
+        stickyColumnsOffset,
+        stickyColumnsWidth,
+        lastStickyColumn,
+        isHorizontallyScrolled,
+        isVerticallyScrolled,
+    } = createStickyStores();
 
     setContext('sticky-stores', {
         stickyColumnsOffset,
         stickyColumnsWidth,
         lastStickyColumn,
         isHorizontallyScrolled,
+        isVerticallyScrolled,
     });
 
     function handleScroll() {
         $isHorizontallyScrolled =
             document.dir === 'rtl' ? scrollBox?.scrollLeft < 0 : scrollBox?.scrollLeft > 0;
+        $isVerticallyScrolled = (scrollBox?.scrollTop ?? 0) > 0;
+    }
+
+    $: if (scrollBox) {
+        $isVerticallyScrolled = scrollBox.scrollTop > 0;
     }
 
     // resets scroll when changing columns parameters
@@ -62,6 +74,7 @@
             columns={sortedStickyColumns}
             extraButtonColumn={Boolean(rowProps?.onClick)}
             {extraButtonColumnLabel}
+            {stickyHeader}
         />
         <Body
             {records}
