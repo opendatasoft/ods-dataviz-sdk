@@ -55,6 +55,7 @@
     $: map.jumpTo(getCenterZoomOptions({ zoom, center: $center }));
     $: map.loadImages(images);
     $: map.updateClickHandler(options?.onFeatureClick);
+    $: map.updateMapReadyHandler(options?.onMapReady);
 
     // Lifecycle
     onMount(() => {

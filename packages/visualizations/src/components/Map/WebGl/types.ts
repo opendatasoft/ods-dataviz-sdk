@@ -4,6 +4,7 @@ import type {
     GeoJSONFeature,
     GestureOptions,
     LngLatLike,
+    Map as MaplibreMap,
     MapGeoJSONFeature,
     RequestTransformFunction,
     StyleImageMetadata,
@@ -59,8 +60,10 @@ export interface WebGlMapOptions {
     preserveDrawingBuffer?: boolean;
     /** Images to load by the Map. keys are image ids  */
     images?: Images;
-    /** An addiational callback to be triggered when clicking a feature */
+    /** An additional callback to be triggered when clicking a feature */
     onFeatureClick?: OnFeatureClick;
+    /** A callback called with the MapLibre map instance once the map has loaded and is ready */
+    onMapReady?: (map: MaplibreMap) => void;
 }
 
 export type WebGlMapStyleOption = Partial<Pick<StyleSpecification, 'sources' | 'layers'>>;
