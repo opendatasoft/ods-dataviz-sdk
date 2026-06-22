@@ -10,7 +10,7 @@
     import { locale, debugWarnings } from '../store';
     import type { Column } from '../types';
     import { isColumnOfType, getOptions, getValue } from './utils';
-    import tooltipOnOverflow from './actions';
+    import tooltipOnOverflow from '../actions';
 
     export let record: Record<string, unknown>;
     export let column: Column;
