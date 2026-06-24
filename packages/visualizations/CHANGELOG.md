@@ -3,15 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.34.0-beta.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.34.0-beta.0...@opendatasoft/visualizations@0.34.0-beta.1) (2026-06-18)
+
+
+### Features
+
+* support action items and href onClick [sc-59779] ([#294](https://github.com/opendatasoft/ods-dataviz-sdk/issues/294)) ([0351028](https://github.com/opendatasoft/ods-dataviz-sdk/commit/03510280cba545ed5e90efcf98e4bbde9dc680fc))
+
+
+
+
+
+# [0.34.0-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.32.1...@opendatasoft/visualizations@0.34.0-beta.0) (2026-06-17)
+
+
+### Features
+
+* **Table:** add cursor pagination mode without total count ([23a7fdb](https://github.com/opendatasoft/ods-dataviz-sdk/commit/23a7fdb183ad8c7b773e75117730377ed9b5bca8))
+
+
 # [0.33.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.33.0-beta.0...@opendatasoft/visualizations@0.33.0) (2026-06-16)
 
 
 ### Bug Fixes
 
 * **LinksMenu:** address review (font-size, close-on-error, class constant, onClick doc) ([b9ffe28](https://github.com/opendatasoft/ods-dataviz-sdk/commit/b9ffe2803dbd0467b4510846c3fda8511fb24f14))
-
-
-
 
 
 # [0.33.0-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.32.1...@opendatasoft/visualizations@0.33.0-beta.0) (2026-05-26)
