@@ -125,6 +125,9 @@ export default class MapPOI {
     /** Additional custom click handler */
     private onFeatureClick: OnFeatureClick | null = null;
 
+    /** Callback invoked with the MapLibre map instance once it is ready */
+    private onMapReady: ((map: Map) => void) | null = null;
+
     /** To queue functions that depend on map readiness. Will be executed when the card is ready. */
     private queue(fn: MapFunction) {
         if (this.isReady && this.map) return fn(this.map);
@@ -569,6 +572,7 @@ export default class MapPOI {
                 // Store base style after the first load
                 this.baseStyle = this.map.getStyle();
                 this.enqueue(this.map);
+                this.onMapReady?.(this.map);
             }
         });
     }
@@ -646,6 +650,10 @@ export default class MapPOI {
         if (handler) {
             this.onFeatureClick = handler;
         }
+    }
+
+    updateMapReadyHandler(handler?: (map: Map) => void) {
+        this.onMapReady = handler ?? null;
     }
 
     /**
