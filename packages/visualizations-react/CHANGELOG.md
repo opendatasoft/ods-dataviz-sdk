@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.35.0-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.34.0...@opendatasoft/visualizations-react@0.35.0-beta.0) (2026-07-01)
+
+
+### Bug Fixes
+
+* paginate Table stories instead of rendering the full dataset ([90cf929](https://github.com/opendatasoft/ods-dataviz-sdk/commit/90cf929050c0e6c7c5211b1261e5437f861c1e37))
+
+
+### Features
+
+* **Table:** add cursor pagination mode without total count ([23a7fdb](https://github.com/opendatasoft/ods-dataviz-sdk/commit/23a7fdb183ad8c7b773e75117730377ed9b5bca8))
+
+
+
+
+
 # [0.34.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.32.1...@opendatasoft/visualizations-react@0.34.0) (2026-06-29)
 
 

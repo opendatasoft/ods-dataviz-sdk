@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.35.0-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.34.0...@opendatasoft/visualizations@0.35.0-beta.0) (2026-07-01)
+
+
+### Bug Fixes
+
+* SVG path ([53906f4](https://github.com/opendatasoft/ods-dataviz-sdk/commit/53906f4f45e8803fa3e4059b9395915cfae8383a))
+
+
+### Features
+
+* **Table:** add cursor pagination mode without total count ([23a7fdb](https://github.com/opendatasoft/ods-dataviz-sdk/commit/23a7fdb183ad8c7b773e75117730377ed9b5bca8))
+
+
+
+
+
 # [0.34.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.32.1...@opendatasoft/visualizations@0.34.0) (2026-06-29)
 
 

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.35.0-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@0.34.0-beta.0...@opendatasoft/api-client@0.35.0-beta.0) (2026-07-01)
+
+**Note:** Version bump only for package @opendatasoft/api-client
+
+
+
+
+
 # [0.34.0-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/api-client@21.9.0...@opendatasoft/api-client@0.34.0-beta.0) (2026-06-17)
 
 **Note:** Version bump only for package @opendatasoft/api-client
