@@ -1,26 +1,17 @@
 <script lang="ts">
     import Button from './Button.svelte';
-    import { getPages } from './utils';
-    import type { NumberedPagination } from './types';
+    import type { CursorPagination } from './types';
 
-    export let totalPages: number;
     export let current: number;
-    export let labels: NumberedPagination['labels'];
+    export let pagesAhead: number;
     export let onPageChange: (page: number) => void;
+    export let labels: CursorPagination['labels'] = {};
 
-    $: pages = getPages({ current, totalPages });
+    $: hasNextPage = pagesAhead >= 1;
+    $: hasTrailingEllipsis = pagesAhead >= 2;
 </script>
 
 <ul>
-    <li>
-        <Button
-            on:click={() => onPageChange(1)}
-            pointingAngle="doubleLeft"
-            label={labels?.firstPage}
-            disabled={current === 1}
-            class="arrow-button"
-        />
-    </li>
     <li>
         <Button
             on:click={() => onPageChange(current - 1)}
@@ -30,38 +21,37 @@
             class="arrow-button"
         />
     </li>
-    {#if current - 1 > 1 && totalPages > 3}
-        <span>...</span>
+    {#if current > 2}
+        <li aria-hidden="true" class="ellipsis">…</li>
     {/if}
-    {#each pages as page}
+    {#if current > 1}
         <li>
-            <button
-                on:click={() => onPageChange(page)}
-                class="page-button"
-                class:page-button--active={page === current}
-            >
-                {page}
+            <button on:click={() => onPageChange(current - 1)} class="page-button">
+                {current - 1}
             </button>
         </li>
-    {/each}
-    {#if current + 1 < totalPages && totalPages > 3}
-        <span>...</span>
+    {/if}
+    <li>
+        <button class="page-button page-button--active" aria-current="page">
+            {current}
+        </button>
+    </li>
+    {#if hasNextPage}
+        <li>
+            <button on:click={() => onPageChange(current + 1)} class="page-button">
+                {current + 1}
+            </button>
+        </li>
+    {/if}
+    {#if hasTrailingEllipsis}
+        <li aria-hidden="true" class="ellipsis">…</li>
     {/if}
     <li>
         <Button
             on:click={() => onPageChange(current + 1)}
             pointingAngle="singleRight"
             label={labels?.nextPage}
-            disabled={current === totalPages}
-            class="arrow-button"
-        />
-    </li>
-    <li>
-        <Button
-            on:click={() => onPageChange(totalPages)}
-            pointingAngle="doubleRight"
-            label={labels?.lastPage}
-            disabled={current === totalPages}
+            disabled={!hasNextPage}
             class="arrow-button"
         />
     </li>
@@ -89,16 +79,16 @@
     li button {
         border: none;
         background: none;
-    }
-
-    li button {
-        border: none;
-        background: none;
         cursor: pointer;
         height: 100%;
         width: 100%;
-        height: 100%;
-        width: 100%;
+    }
+
+    .ellipsis {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
     }
 
     :global(.page-button--active) {
