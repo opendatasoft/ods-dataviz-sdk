@@ -3,6 +3,21 @@
     z-index: 10;
 }
 
+.sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.sticky.sticky-header {
+    z-index: 30;
+}
+
+/* Shadow below the header when body rows scroll underneath (box-shadow avoids conflicting with column ::after) */
+.sticky-header.isVerticallyScrolled {
+    box-shadow: 0 6px 6px -6px rgba(0, 0, 0, 0.13);
+}
+
 .sticky:dir(ltr) {
     left: var(--sticky-offset);
 }

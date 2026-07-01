@@ -5,15 +5,16 @@
     export let columns: Column[];
     export let extraButtonColumn = false;
     export let extraButtonColumnLabel: string | undefined;
+    export let stickyHeader = false;
 </script>
 
 <thead>
     <tr>
         {#if extraButtonColumn}
-            <Th {extraButtonColumnLabel} />
+            <Th {extraButtonColumnLabel} {stickyHeader} />
         {/if}
         {#each columns as column (column.key)}
-            <Th {column} />
+            <Th {column} {stickyHeader} />
         {/each}
     </tr>
 </thead>

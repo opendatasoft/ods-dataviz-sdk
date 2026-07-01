@@ -26,6 +26,7 @@
         emptyStateLabel,
         extraButtonColumnLabel,
         debugWarnings: debugOption = false,
+        stickyHeader = false,
     } = options);
     $: $locale = localeOption || navigator.language;
     $: $debugWarnings = debugOption;
@@ -46,6 +47,7 @@
             {emptyStateLabel}
             {extraButtonColumnLabel}
             {rowProps}
+            {stickyHeader}
         />
         {#if pagination}
             <Pagination {...pagination} />
