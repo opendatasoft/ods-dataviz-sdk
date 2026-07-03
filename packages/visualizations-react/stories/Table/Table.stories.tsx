@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import type { TableData, Async, GenericRecord, TableProps } from '@opendatasoft/visualizations';
+import type {
+    TableData,
+    Async,
+    GenericRecord,
+    TableProps,
+    Pagination,
+} from '@opendatasoft/visualizations';
 
 import './custom-style.css';
 
@@ -8,6 +14,7 @@ import { Table } from '../../src';
 
 import value from './data';
 import options, { DatasetRecord } from './options';
+import { PaginatedTemplate, PageSizeTemplate } from './PaginatedTemplates';
 
 const meta: Meta<typeof Table> = {
     title: 'Table/Table',
@@ -25,23 +32,6 @@ const fetchingData: Async<TableData> = {
     loading: true,
 };
 
-const optionsWithPagination = {
-    ...options,
-    pagination: {
-        current: 1,
-        totalRecords: value.length,
-        recordsPerPage: 5,
-        onPageChange: () => {},
-        pageSizeSelect: {
-            options: [
-                { label: '5 per page', value: 5 },
-                { label: '10 per page', value: 10 },
-            ],
-            onChange: () => {},
-        },
-    },
-};
-
 export const Playground: StoryObj<typeof Table> = {
     args: {
         data,
@@ -49,14 +39,18 @@ export const Playground: StoryObj<typeof Table> = {
     },
 };
 
-export const CustomStyle: StoryObj<typeof Table> = {
+// Pagination is host-sliced: the Table renders whatever rows it is given, so a story that
+// wants to paginate must drive it from a stateful template (PaginatedTemplates) rather than
+// pass the full dataset with a no-op onPageChange. PageSizeTemplate exercises the numbered
+// pager and the page-size select that custom-style.css restyles below.
+export const CustomStyle: StoryObj<typeof PageSizeTemplate> = {
     args: {
-        data,
-        options: optionsWithPagination,
+        current: 1,
+        recordsPerPage: 5,
     },
-    render: (args: TableProps) => (
+    render: (args: Pagination) => (
         <div className="table-story--custom-style">
-            <Table {...args} />
+            <PageSizeTemplate {...args} />
         </div>
     ),
 };
@@ -106,15 +100,16 @@ export const emptyState: StoryObj<typeof Table> = {
     },
 };
 
-export const RtlDirection: StoryObj<typeof Table> = {
+export const RtlDirection: StoryObj<typeof PaginatedTemplate> = {
     parameters: {
         direction: 'rtl',
         chromatic: { disableSnapshot: true },
     },
     args: {
-        data,
-        options: optionsWithPagination,
+        current: 1,
+        recordsPerPage: 5,
     },
+    render: (args: Pagination) => <PaginatedTemplate {...args} />,
 };
 
 export const RowHoverAndClick: StoryObj<typeof Table> = {
