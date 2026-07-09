@@ -32,7 +32,7 @@
         justify-content: space-between;
     }
 
-    :global(button svg) {
+    button :global(svg) {
         flex-shrink: 0;
     }
 
