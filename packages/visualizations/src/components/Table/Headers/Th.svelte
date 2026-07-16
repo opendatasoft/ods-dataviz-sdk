@@ -5,6 +5,7 @@
     import { HOVER_COLUMN_KEY } from '../constants';
     import SortButton from './SortButton.svelte';
     import tooltipOnOverflow from '../actions';
+    import FieldTypeIcon from './FieldTypeIcon.svelte';
 
     export let column: Column | null = null;
     export let extraButtonColumnLabel = 'Action';
@@ -44,10 +45,16 @@
                 on:click={column.onClick}
                 labels={column?.sortLabels}
             >
-                <span class="th-title" use:tooltipOnOverflow>{column.title}</span>
+                <span class="th-title-content">
+                    <FieldTypeIcon dataFormat={column.dataFormat} />
+                    <span class="th-title" use:tooltipOnOverflow>{column.title}</span>
+                </span>
             </SortButton>
         {:else}
-            <div class="th-title" use:tooltipOnOverflow>{column.title}</div>
+            <span class="th-title-content">
+                <FieldTypeIcon dataFormat={column.dataFormat} />
+                <span class="th-title" use:tooltipOnOverflow>{column.title}</span>
+            </span>
         {/if}
     </th>
 {:else}
@@ -87,5 +94,11 @@
 
     :global(.ods-dataviz--default .hover.sticky) {
         border-left: none;
+    }
+
+    .th-title-content {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing-50);
     }
 </style>

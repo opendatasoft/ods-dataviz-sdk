@@ -9,6 +9,7 @@
     export let rowProps: RowProps | undefined;
     export let records: TableData | undefined;
     export let emptyStateLabel: string | undefined;
+    export let showRowNumbers = false;
 
     let hoveredRow: number | null;
 </script>
@@ -24,6 +25,9 @@
     {#if loadingRowsNumber}
         {#each Array(loadingRowsNumber) as _}
             <tr>
+                {#if showRowNumbers}
+                    <td class="row-number-cell row-number-cell--loading" />
+                {/if}
                 {#if rowProps?.onClick}
                     <td class="button-cell__empty" />
                 {/if}
@@ -38,6 +42,8 @@
                 {columns}
                 {rowProps}
                 {record}
+                {rowIndex}
+                {showRowNumbers}
                 setHovered={() => {
                     hoveredRow = rowIndex;
                 }}
@@ -50,5 +56,17 @@
 <style>
     .button-cell__empty {
         min-width: 28px;
+    }
+
+    :global(.ods-dataviz--default .row-number-cell) {
+        text-align: right;
+        color: var(--text-color-muted, grey);
+        font-variant-numeric: tabular-nums;
+        user-select: none;
+        padding-inline-end: var(--spacing-75);
+    }
+
+    .row-number-cell--loading {
+        min-width: 2rem;
     }
 </style>

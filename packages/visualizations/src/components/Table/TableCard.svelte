@@ -26,6 +26,7 @@
         emptyStateLabel,
         extraButtonColumnLabel,
         debugWarnings: debugOption = false,
+        showRowNumbers = false,
     } = options);
     $: $locale = localeOption || navigator.language;
     $: $debugWarnings = debugOption;
@@ -46,6 +47,7 @@
             {emptyStateLabel}
             {extraButtonColumnLabel}
             {rowProps}
+            {showRowNumbers}
         />
         {#if pagination}
             <Pagination {...pagination} displayedRecords={records?.length} />

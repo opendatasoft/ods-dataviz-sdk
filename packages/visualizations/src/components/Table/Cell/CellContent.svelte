@@ -63,6 +63,20 @@
                 {...getOptions(column, record)}
                 debugWarnings={$debugWarnings}
             />
+        {:else if isColumnOfType(column, DATA_FORMAT.file) || isColumnOfType(column, DATA_FORMAT.image)}
+            <URLFormat
+                value={getValue(column, record)}
+                {...getOptions(column, record)}
+                debugWarnings={$debugWarnings}
+            />
+        {:else if isColumnOfType(column, DATA_FORMAT.json)
+            || isColumnOfType(column, DATA_FORMAT.ipAddress)
+            || isColumnOfType(column, DATA_FORMAT.id)}
+            <TextFormat
+                value={getValue(column, record)}
+                {...getOptions(column, record)}
+                debugWarnings={$debugWarnings}
+            />
         {/if}
     {/if}
 </div>
@@ -82,7 +96,12 @@
     /* to be improved in the formatting story */
     :global(.ods-dataviz--default div.table-data--long-text > span),
     :global(.ods-dataviz--default div.table-data--short-text),
-    :global(.ods-dataviz--default div.table-data--url) {
+    :global(.ods-dataviz--default div.table-data--json),
+    :global(.ods-dataviz--default div.table-data--ip-address),
+    :global(.ods-dataviz--default div.table-data--id),
+    :global(.ods-dataviz--default div.table-data--url),
+    :global(.ods-dataviz--default div.table-data--file),
+    :global(.ods-dataviz--default div.table-data--image) {
         text-overflow: ellipsis;
         overflow: hidden;
         width: max-content;

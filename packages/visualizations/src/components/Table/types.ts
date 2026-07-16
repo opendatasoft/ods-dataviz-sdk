@@ -48,6 +48,11 @@ export type FormatPropsTypeMap = {
     [DATA_FORMAT.longText]: TextFormatProps;
     [DATA_FORMAT.number]: NumberFormatProps;
     [DATA_FORMAT.url]: URLFormatProps;
+    [DATA_FORMAT.json]: TextFormatProps;
+    [DATA_FORMAT.file]: URLFormatProps;
+    [DATA_FORMAT.image]: URLFormatProps;
+    [DATA_FORMAT.ipAddress]: TextFormatProps;
+    [DATA_FORMAT.id]: TextFormatProps;
 };
 
 /** Columns have to be typed with the record type if using an accessor.
@@ -67,6 +72,11 @@ export type ShortTextColumn = ColumnOfType<typeof DATA_FORMAT.shortText>;
 export type LongTextColumn = ColumnOfType<typeof DATA_FORMAT.longText>;
 export type NumberColumn = ColumnOfType<typeof DATA_FORMAT.number>;
 export type URLColumn = ColumnOfType<typeof DATA_FORMAT.url>;
+export type JsonColumn = ColumnOfType<typeof DATA_FORMAT.json>;
+export type FileColumn = ColumnOfType<typeof DATA_FORMAT.file>;
+export type ImageColumn = ColumnOfType<typeof DATA_FORMAT.image>;
+export type IpAddressColumn = ColumnOfType<typeof DATA_FORMAT.ipAddress>;
+export type IdColumn = ColumnOfType<typeof DATA_FORMAT.id>;
 
 export type Column =
     | BooleanColumn
@@ -75,7 +85,12 @@ export type Column =
     | ShortTextColumn
     | LongTextColumn
     | NumberColumn
-    | URLColumn;
+    | URLColumn
+    | JsonColumn
+    | FileColumn
+    | ImageColumn
+    | IpAddressColumn
+    | IdColumn;
 
 export type HoverEvent<T extends HTMLElement> = (MouseEvent | FocusEvent) & {
     currentTarget: EventTarget & T;
@@ -106,6 +121,11 @@ export type TableOptions = {
     unstyled?: boolean;
     pagination?: Pagination;
     debugWarnings?: boolean;
+    /**
+     * Show a sequential row number column on the left.
+     * Default is `false`.
+     */
+    showRowNumbers?: boolean;
 };
 
 export type TableProps = {

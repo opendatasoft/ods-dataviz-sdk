@@ -15,6 +15,7 @@
     export let emptyStateLabel: string | undefined;
     export let rowProps: RowProps | undefined;
     export let extraButtonColumnLabel: string | undefined;
+    export let showRowNumbers = false;
 
     const tableId = `table-${generateId()}`;
 
@@ -62,6 +63,7 @@
             columns={sortedStickyColumns}
             extraButtonColumn={Boolean(rowProps?.onClick)}
             {extraButtonColumnLabel}
+            {showRowNumbers}
         />
         <Body
             {records}
@@ -69,6 +71,7 @@
             {rowProps}
             {emptyStateLabel}
             {loadingRowsNumber}
+            {showRowNumbers}
         />
     </table>
 </div>

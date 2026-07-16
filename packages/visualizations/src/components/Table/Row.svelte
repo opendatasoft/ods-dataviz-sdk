@@ -9,6 +9,8 @@
     export let record: Record<string, unknown>;
     export let isHovered = false;
     export let setHovered: () => void;
+    export let rowIndex = 0;
+    export let showRowNumbers = false;
 
     $: ({ onClick, onMouseEnter, onMouseLeave, actionAriaLabel } = rowProps || {});
     $: handleMouseEnter = (e: HoverEvent<HTMLTableRowElement>) => {
@@ -35,6 +37,9 @@
     on:focusin={rowProps && handleMouseEnter}
     on:focusout={rowProps && handleMouseLeave}
 >
+    {#if showRowNumbers}
+        <td class="row-number-cell" aria-hidden="true">{rowIndex + 1}</td>
+    {/if}
     {#if rowProps?.onClick}
         <Td>
             <button
