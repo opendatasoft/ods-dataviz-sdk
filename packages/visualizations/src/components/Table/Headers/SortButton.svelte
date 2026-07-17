@@ -32,6 +32,10 @@
         justify-content: space-between;
     }
 
+    button :global(svg) {
+        flex-shrink: 0;
+    }
+
     :global(.ods-dataviz--default th.table-header--number button) {
         justify-content: flex-end;
     }
