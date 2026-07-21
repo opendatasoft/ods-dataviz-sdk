@@ -57,6 +57,7 @@
                 locale={$locale}
                 debugWarnings={$debugWarnings}
             />
+            <!-- eslint-disable-next-line max-len -->
         {:else if isColumnOfType(column, DATA_FORMAT.url) || isColumnOfType(column, DATA_FORMAT.file) || isColumnOfType(column, DATA_FORMAT.image)}
             <URLFormat
                 value={getValue(column, record)}
@@ -70,8 +71,7 @@
                 {...getOptions(column, record)}
                 debugWarnings={$debugWarnings}
             />
-        {:else if isColumnOfType(column, DATA_FORMAT.ipAddress)
-            || isColumnOfType(column, DATA_FORMAT.id)}
+        {:else if isColumnOfType(column, DATA_FORMAT.ipAddress) || isColumnOfType(column, DATA_FORMAT.id)}
             <TextFormat
                 value={getValue(column, record)}
                 {...getOptions(column, record)}

@@ -8,6 +8,7 @@ import type {
     TextFormatProps,
     NumberFormatProps,
     URLFormatProps,
+    JsonFormatProps,
 } from '../Format/types';
 import type { Pagination } from '../Pagination/types';
 import type { DATA_FORMAT, HOVER_COLUMN_KEY } from './constants';
@@ -48,7 +49,7 @@ export type FormatPropsTypeMap = {
     [DATA_FORMAT.longText]: TextFormatProps;
     [DATA_FORMAT.number]: NumberFormatProps;
     [DATA_FORMAT.url]: URLFormatProps;
-    [DATA_FORMAT.json]: TextFormatProps;
+    [DATA_FORMAT.json]: JsonFormatProps;
     [DATA_FORMAT.file]: URLFormatProps;
     [DATA_FORMAT.image]: URLFormatProps;
     [DATA_FORMAT.ipAddress]: TextFormatProps;

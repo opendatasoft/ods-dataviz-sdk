@@ -61,7 +61,14 @@
     }
 </script>
 
-<div class="scrollbox" bind:this={scrollBox} on:scroll={handleScroll} style:--row-number-width={showRowNumbers ? 'calc(2rem + var(--spacing-75))' : '0px'} class:scrollbox--row-number-border={rowNumberIsLastSticky} class:scrollbox--row-number-shadow={rowNumberShadow}>
+<div
+    class="scrollbox"
+    bind:this={scrollBox}
+    on:scroll={handleScroll}
+    style:--row-number-width={showRowNumbers ? 'calc(2rem + var(--spacing-75))' : '0px'}
+    class:scrollbox--row-number-border={rowNumberIsLastSticky}
+    class:scrollbox--row-number-shadow={rowNumberShadow}
+>
     <table aria-describedby={description ? tableId : undefined}>
         <Headers
             columns={sortedStickyColumns}
@@ -121,12 +128,16 @@
         width: 6px;
     }
     :global(.ods-dataviz--default .scrollbox--row-number-shadow .row-number-cell:dir(ltr)::after),
-    :global(.ods-dataviz--default .scrollbox--row-number-shadow .row-number-header:dir(ltr)::after) {
+    :global(.ods-dataviz--default
+            .scrollbox--row-number-shadow
+            .row-number-header:dir(ltr)::after) {
         right: -6px;
         background: linear-gradient(90deg, rgba(0, 0, 0, 0.13), transparent);
     }
     :global(.ods-dataviz--default .scrollbox--row-number-shadow .row-number-cell:dir(rtl)::after),
-    :global(.ods-dataviz--default .scrollbox--row-number-shadow .row-number-header:dir(rtl)::after) {
+    :global(.ods-dataviz--default
+            .scrollbox--row-number-shadow
+            .row-number-header:dir(rtl)::after) {
         left: -6px;
         background: linear-gradient(-90deg, rgba(0, 0, 0, 0.13), transparent);
     }

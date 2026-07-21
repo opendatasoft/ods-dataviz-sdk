@@ -3,7 +3,12 @@ import type { Instance } from 'tippy.js';
 import { DATA_FORMAT } from './constants';
 
 // These are the three column types whose CSS truncates content (see CellContent.svelte styles)
-const TRUNCATING_FORMATS: string[] = [DATA_FORMAT.shortText, DATA_FORMAT.longText, DATA_FORMAT.url];
+const TRUNCATING_FORMATS: string[] = [
+    DATA_FORMAT.shortText,
+    DATA_FORMAT.longText,
+    DATA_FORMAT.url,
+    DATA_FORMAT.json,
+];
 
 function tooltipOnOverflow(el: HTMLElement, dataFormat?: string) {
     let action: ReturnType<typeof tippyAction> | null = null;

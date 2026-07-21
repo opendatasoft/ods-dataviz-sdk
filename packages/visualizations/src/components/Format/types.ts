@@ -35,6 +35,12 @@ export type TextFormatProps = {
     debugWarnings?: boolean;
 };
 
+export type JsonFormatProps = {
+    value: string | Record<string, unknown>;
+    valueToLabel?: (v: string | Record<string, unknown>) => string;
+    debugWarnings?: boolean;
+};
+
 export type URLFormatProps = {
     value: string;
     valueToLabel?: (v: string) => string;
