@@ -11,7 +11,7 @@
 <thead>
     <tr>
         {#if showRowNumbers}
-            <th class="row-number-header" aria-hidden="true" />
+            <th class="row-number-header" scope="col" aria-label="Row number" />
         {/if}
         {#if extraButtonColumn}
             <Th {extraButtonColumnLabel} />
@@ -25,5 +25,9 @@
 <style>
     .row-number-header {
         width: 2rem;
+        position: sticky;
+        inset-inline-start: 0;
+        z-index: 10;
+        background-color: white;
     }
 </style>

@@ -95,7 +95,7 @@ export const Loading: StoryObj<typeof Table> = {
     },
 };
 
-export const emptyState: StoryObj<typeof Table> = {
+export const EmptyState: StoryObj<typeof Table> = {
     args: {
         data: { value: [], loading: false },
         options: { ...options, emptyStateLabel: 'Neniuj registroj trovitaj...' },
@@ -110,8 +110,9 @@ export const RtlDirection: StoryObj<typeof PaginatedTemplate> = {
     args: {
         current: 1,
         recordsPerPage: 5,
+        showRowNumbers: true,
     },
-    render: (args: Pagination) => <PaginatedTemplate {...args} />,
+    render: (args) => <PaginatedTemplate {...args} />,
 };
 
 const longTitleData: Async<TableData> = {
@@ -163,16 +164,6 @@ export const FieldTypeIcons: StoryObj<typeof Table> = {
     ),
 };
 
-export const NoRowNumbers: StoryObj<typeof Table> = {
-    args: {
-        data,
-        options: {
-            ...options,
-            showRowNumbers: false,
-        },
-    },
-};
-
 const allTypesColumns: Column[] = [
     { title: 'Short text', key: 'shortText', dataFormat: 'short-text' },
     { title: 'Long text', key: 'longText', dataFormat: 'long-text' },
@@ -220,7 +211,7 @@ const allTypesData: Async<TableData> = {
             bool: true,
             url: 'https://opendatasoft.com',
             geo: [2.35, 48.85],
-            json: '{"active": true, "score": 98}',
+            json: { active: true, score: 98 },
             file: 'https://example.com/report.pdf',
             img: 'https://example.com/photo.jpg',
             ip: '192.168.1.42',
@@ -236,6 +227,17 @@ export const AllColumnTypes: StoryObj<typeof Table> = {
 
 function LongColumnTitlesDemo() {
     const [sort, setSort] = useState<[string, 'ASC' | 'DESC']>(['category', ColumnSort.asc]);
+
+    const sortedData: Async<TableData> = {
+        ...longTitleData,
+        value: [...longTitleData.value].sort((a, b) => {
+            const key = sort[0] as keyof (typeof longTitleData.value)[0];
+            const dir = sort[1] === 'ASC' ? 1 : -1;
+            if (a[key] < b[key]) return -dir;
+            if (a[key] > b[key]) return dir;
+            return 0;
+        }),
+    };
 
     const columns = [
         {
@@ -276,7 +278,7 @@ function LongColumnTitlesDemo() {
             <style>{`.long-column-titles-story th { max-width: 500px; }`}</style>
             <div className="long-column-titles-story" style={{ maxWidth: '600px' }}>
                 <Table
-                    data={longTitleData}
+                    data={sortedData}
                     options={{ columns, title: 'Long column title tooltip' }}
                 />
             </div>

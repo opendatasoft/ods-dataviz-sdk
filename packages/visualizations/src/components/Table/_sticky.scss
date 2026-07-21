@@ -4,7 +4,7 @@
 }
 
 .sticky:dir(ltr) {
-    left: var(--sticky-offset);
+    left: calc(var(--sticky-offset) + var(--row-number-width, 0px));
 }
 
 .sticky:not(.button-cell):dir(ltr) {
@@ -12,7 +12,7 @@
 }
 
 .sticky:dir(rtl) {
-    right: var(--sticky-offset);
+    right: calc(var(--sticky-offset) + var(--row-number-width, 0px));
 }
 .sticky:not(.button-cell):dir(rtl) {
     border-left: 1px solid var(--border-color);

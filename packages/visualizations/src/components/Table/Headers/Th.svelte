@@ -97,8 +97,10 @@
     }
 
     .th-title-content {
-        display: inline-flex;
+        display: flex;
         align-items: center;
         gap: var(--spacing-50);
+        flex: 1;
+        min-width: 0;
     }
 </style>

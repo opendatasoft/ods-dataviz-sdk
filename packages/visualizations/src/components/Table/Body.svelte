@@ -10,6 +10,7 @@
     export let records: TableData | undefined;
     export let emptyStateLabel: string | undefined;
     export let showRowNumbers = false;
+    export let rowOffset = 0;
 
     let hoveredRow: number | null;
 </script>
@@ -43,6 +44,7 @@
                 {rowProps}
                 {record}
                 {rowIndex}
+                {rowOffset}
                 {showRowNumbers}
                 setHovered={() => {
                     hoveredRow = rowIndex;
@@ -59,14 +61,14 @@
     }
 
     :global(.ods-dataviz--default .row-number-cell) {
-        text-align: right;
+        text-align: end;
+        min-width: 2rem;
         color: var(--text-color-muted, grey);
         font-variant-numeric: tabular-nums;
         user-select: none;
         padding-inline-end: var(--spacing-75);
-    }
-
-    .row-number-cell--loading {
-        min-width: 2rem;
+        position: sticky;
+        inset-inline-start: 0;
+        z-index: 10;
     }
 </style>

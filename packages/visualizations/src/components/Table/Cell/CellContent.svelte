@@ -57,20 +57,20 @@
                 locale={$locale}
                 debugWarnings={$debugWarnings}
             />
-        {:else if isColumnOfType(column, DATA_FORMAT.url)}
+        {:else if isColumnOfType(column, DATA_FORMAT.url) || isColumnOfType(column, DATA_FORMAT.file) || isColumnOfType(column, DATA_FORMAT.image)}
             <URLFormat
                 value={getValue(column, record)}
                 {...getOptions(column, record)}
                 debugWarnings={$debugWarnings}
             />
-        {:else if isColumnOfType(column, DATA_FORMAT.file) || isColumnOfType(column, DATA_FORMAT.image)}
-            <URLFormat
-                value={getValue(column, record)}
+        {:else if isColumnOfType(column, DATA_FORMAT.json)}
+            {@const raw = getValue(column, record)}
+            <TextFormat
+                value={raw !== null && typeof raw === 'object' ? JSON.stringify(raw) : raw}
                 {...getOptions(column, record)}
                 debugWarnings={$debugWarnings}
             />
-        {:else if isColumnOfType(column, DATA_FORMAT.json)
-            || isColumnOfType(column, DATA_FORMAT.ipAddress)
+        {:else if isColumnOfType(column, DATA_FORMAT.ipAddress)
             || isColumnOfType(column, DATA_FORMAT.id)}
             <TextFormat
                 value={getValue(column, record)}

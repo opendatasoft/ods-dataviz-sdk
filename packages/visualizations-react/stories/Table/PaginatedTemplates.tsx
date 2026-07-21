@@ -54,7 +54,10 @@ export const usePaginatedData = ({
     };
 };
 
-export const PaginatedTemplate = (pagination: Pagination) => {
+export const PaginatedTemplate = ({
+    showRowNumbers,
+    ...pagination
+}: Pagination & { showRowNumbers?: boolean }) => {
     const { current = 1, recordsPerPage = 5, labels } = pagination;
     const { paginatedData, page, pageSize, setPage } = usePaginatedData({
         current,
@@ -63,6 +66,7 @@ export const PaginatedTemplate = (pagination: Pagination) => {
 
     const stateFulOptions = {
         ...options,
+        showRowNumbers,
         pagination: {
             current: page,
             recordsPerPage: pageSize,
