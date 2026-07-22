@@ -1,7 +1,6 @@
 <script lang="ts">
     import type {
         SourceSpecification,
-        GestureOptions,
         ExpressionSpecification,
         LngLatBoundsLike,
     } from 'maplibre-gl';
@@ -55,7 +54,7 @@
     let navigationMaps: NavigationMap[] | undefined;
     // Links menu
     let links: Link[] | undefined;
-    let cooperativeGestures: boolean | GestureOptions | undefined;
+    let cooperativeGestures: boolean | undefined;
     let preserveDrawingBuffer: boolean;
     let fixedMaxBounds: LngLatBoundsLike | undefined;
 

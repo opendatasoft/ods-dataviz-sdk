@@ -1,5 +1,5 @@
 import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
-import type { FillLayerSpecification, Popup, GestureOptions, LngLatBoundsLike } from 'maplibre-gl';
+import type { FillLayerSpecification, Popup, LngLatBoundsLike } from 'maplibre-gl';
 import type { DebouncedFunc } from 'lodash';
 import type { Link, ColorScale, Color } from 'types';
 import type { LegendPositions } from 'components/Legend/types';
@@ -46,7 +46,7 @@ export interface ChoroplethOptions {
     navigationMaps?: NavigationMap[];
     /** Links menu */
     links?: Link[];
-    cooperativeGestures?: boolean | GestureOptions;
+    cooperativeGestures?: boolean;
     /** If true, the map's canvas can be exported to an image using toDataURL. This is false by default as a performance optimization. */
     preserveDrawingBuffer?: boolean;
 }
