@@ -2,7 +2,6 @@ import type {
     CircleLayerSpecification,
     FillLayerSpecification,
     GeoJSONFeature,
-    GestureOptions,
     LngLatLike,
     Map as MaplibreMap,
     MapGeoJSONFeature,
@@ -55,7 +54,7 @@ export interface WebGlMapOptions {
     aspectRatio?: number;
     // Is the map interactive for the user (zoom, move, tooltips...)
     interactive?: boolean;
-    cooperativeGestures?: boolean | GestureOptions;
+    cooperativeGestures?: boolean;
     /** If true, the map's canvas can be exported to an image using toDataURL. This is false by default as a performance optimization. */
     preserveDrawingBuffer?: boolean;
     /** Images to load by the Map. keys are image ids  */

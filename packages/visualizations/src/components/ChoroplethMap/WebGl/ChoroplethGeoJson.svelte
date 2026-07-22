@@ -1,6 +1,6 @@
 <script lang="ts">
     import turfBbox from '@turf/bbox';
-    import type { ExpressionSpecification, SourceSpecification, GestureOptions } from 'maplibre-gl';
+    import type { ExpressionSpecification, SourceSpecification } from 'maplibre-gl';
     import type { BBox, FeatureCollection } from 'geojson';
     import { debounce } from 'lodash';
     import type { ColorScale, Color, DataBounds, Link } from 'types';
@@ -46,7 +46,7 @@
     let navigationMaps: NavigationMap[] | undefined;
     // Links menu
     let links: Link[] | undefined;
-    let cooperativeGestures: boolean | GestureOptions | undefined;
+    let cooperativeGestures: boolean | undefined;
     let preserveDrawingBuffer: boolean;
 
     // Used to apply a chosen color for shapes without values (default: #cccccc)

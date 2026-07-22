@@ -9,7 +9,6 @@
         MapLayerMouseEvent,
         LngLatLike,
         FilterSpecification,
-        GestureOptions,
     } from 'maplibre-gl';
     import { onMount } from 'svelte';
     import { debounce } from 'lodash';
@@ -66,7 +65,7 @@
     export let data: { value: ChoroplethDataValue[] };
     // Links menu
     export let links: Link[] | undefined;
-    export let cooperativeGestures: boolean | GestureOptions | undefined;
+    export let cooperativeGestures: boolean | undefined;
     export let preserveDrawingBuffer: boolean;
     // Fixed max bounds that will overide the automatic map.getBounds when setting the bbox
     export let fixedMaxBounds: LngLatBoundsLike | undefined | null = null;
