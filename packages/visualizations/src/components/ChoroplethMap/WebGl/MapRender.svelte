@@ -129,10 +129,10 @@
         const start = {
             center: defaultCenter,
             zoom: 5,
-            customAttribution: attribution,
+            attributionControl: { customAttribution: attribution },
             renderWorldCopies: false,
             cooperativeGestures,
-            preserveDrawingBuffer,
+            canvasContextAttributes: { preserveDrawingBuffer },
         };
 
         map = new maplibregl.Map({

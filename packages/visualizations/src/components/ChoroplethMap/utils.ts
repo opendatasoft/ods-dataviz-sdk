@@ -294,5 +294,5 @@ export const computeMatchExpression = (
     if (!isGroupByForMatchExpression(groupByColors)) {
         throw new Error('Not the expected type for complete match expression');
     }
-    return [...matchExpression, ...groupByColors];
+    return [...matchExpression, ...groupByColors] as ExpressionSpecification;
 };

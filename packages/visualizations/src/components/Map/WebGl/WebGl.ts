@@ -695,14 +695,14 @@ export default class MapPOI {
 
             imagesToAdd.forEach((imageId) => {
                 const { url, options } = images[imageId];
-                map.loadImage(url, (error, image) => {
-                    if (error || !image) {
+                map.loadImage(url)
+                    .then(({ data }) => {
+                        map.addImage(imageId, data, options);
+                    })
+                    .catch(() => {
                         // eslint-disable-next-line no-console
                         console.warn(`Fail to load image: ${imageId}`);
-                    } else {
-                        map.addImage(imageId, image, options);
-                    }
-                });
+                    });
             });
         });
     }

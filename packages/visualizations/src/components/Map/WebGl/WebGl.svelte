@@ -66,7 +66,7 @@
             minZoom,
             maxZoom,
             cooperativeGestures,
-            preserveDrawingBuffer,
+            canvasContextAttributes: { preserveDrawingBuffer },
         };
         map.initialize(style, container, mapOptions);
     });
