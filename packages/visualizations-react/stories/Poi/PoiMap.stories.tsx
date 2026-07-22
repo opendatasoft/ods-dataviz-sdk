@@ -520,11 +520,7 @@ export const PoiMapCooperativeGestures: StoryObj<typeof PoiMap> = {
         options: {
             ...options,
             legend,
-            cooperativeGestures: {
-                windowsHelpText: 'Use Ctrl + scroll to zoom the map',
-                macHelpText: 'Use ⌘ + scroll to zoom the map',
-                mobileHelpText: 'Use two fingers to move the map',
-            },
+            cooperativeGestures: true,
         },
     },
     render: (args: PoiMapProps) => (

@@ -425,11 +425,7 @@ export const StudioChoroplethVectorCooperativeGestures: StoryObj<typeof Chorople
             bbox: [-17.529298, 38.79776, 23.889159, 52.836618],
             navigationMaps: [...makeMiniMaps(15)],
             links: defaultLinks,
-            cooperativeGestures: {
-                windowsHelpText: 'Use Ctrl + scroll to zoom the map',
-                macHelpText: 'Use ⌘ + scroll to zoom the map',
-                mobileHelpText: 'Use two fingers to move the map',
-            },
+            cooperativeGestures: true,
         },
     },
     render: (args: ChoroplethVectorTilesProps) => (
