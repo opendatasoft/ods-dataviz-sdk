@@ -570,11 +570,7 @@ export const StudioChoroplethCooperativeGestures: StoryObj<typeof ChoroplethGeoJ
             aspectRatio: 1,
             attribution: 'Testing attribution',
             description: 'Accessible description',
-            cooperativeGestures: {
-                windowsHelpText: 'Use Ctrl + scroll to zoom the map',
-                macHelpText: 'Use ⌘ + scroll to zoom the map',
-                mobileHelpText: 'Use two fingers to move the map',
-            },
+            cooperativeGestures: true,
             links: defaultLinks,
         },
     },
