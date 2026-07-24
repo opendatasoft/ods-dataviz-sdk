@@ -47,6 +47,7 @@
     // Links menu
     let links: Link[] | undefined;
     let cooperativeGestures: boolean | undefined;
+    let locale: Record<string, string> | undefined;
     let preserveDrawingBuffer: boolean;
 
     // Used to apply a chosen color for shapes without values (default: #cccccc)
@@ -72,6 +73,7 @@
         navigationMaps,
         links,
         cooperativeGestures,
+        locale,
         preserveDrawingBuffer = false,
     } = options);
 
@@ -139,6 +141,7 @@
         {data}
         {links}
         {cooperativeGestures}
+        {locale}
         {preserveDrawingBuffer}
     />
 </div>
