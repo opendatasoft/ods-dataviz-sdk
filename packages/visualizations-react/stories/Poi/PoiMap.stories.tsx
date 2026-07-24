@@ -501,9 +501,11 @@ export const PoiMapMinMaxZooms: StoryObj<typeof PoiMap> = {
 };
 
 /**
- * STORY: with cooperative gestures
+ * STORY: cooperative gestures with custom (French) labels via the `locale` option.
+ * The help text shown when the user tries to zoom/pan is overridden through MapLibre's
+ * localization table keys.
  */
-export const PoiMapCooperativeGestures: StoryObj<typeof PoiMap> = {
+export const PoiMapCooperativeGesturesFrenchLocale: StoryObj<typeof PoiMap> = {
     args: {
         data: {
             value: {
@@ -521,6 +523,14 @@ export const PoiMapCooperativeGestures: StoryObj<typeof PoiMap> = {
             ...options,
             legend,
             cooperativeGestures: true,
+            locale: {
+                'CooperativeGesturesHandler.WindowsHelpText':
+                    'Utilisez Ctrl + molette pour zoomer sur la carte',
+                'CooperativeGesturesHandler.MacHelpText':
+                    'Utilisez ⌘ + molette pour zoomer sur la carte',
+                'CooperativeGesturesHandler.MobileHelpText':
+                    'Utilisez deux doigts pour déplacer la carte',
+            },
         },
     },
     render: (args: PoiMapProps) => (

@@ -302,6 +302,7 @@ export const getMapOptions = (options: WebGlMapOptions) => {
         interactive = true,
         transformRequest,
         cooperativeGestures,
+        locale,
         preserveDrawingBuffer = false,
         images,
     } = options;
@@ -314,6 +315,7 @@ export const getMapOptions = (options: WebGlMapOptions) => {
         interactive,
         transformRequest,
         cooperativeGestures,
+        locale,
         preserveDrawingBuffer,
         images,
     };
