@@ -28,6 +28,7 @@
         images,
         transformRequest,
         cooperativeGestures,
+        locale,
         preserveDrawingBuffer,
     } = getMapOptions(options));
 
@@ -66,7 +67,8 @@
             minZoom,
             maxZoom,
             cooperativeGestures,
-            preserveDrawingBuffer,
+            locale,
+            canvasContextAttributes: { preserveDrawingBuffer },
         };
         map.initialize(style, container, mapOptions);
     });

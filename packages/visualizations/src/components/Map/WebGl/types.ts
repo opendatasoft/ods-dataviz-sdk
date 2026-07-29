@@ -2,9 +2,9 @@ import type {
     CircleLayerSpecification,
     FillLayerSpecification,
     GeoJSONFeature,
-    GestureOptions,
     LngLatLike,
     Map as MaplibreMap,
+    MapOptions,
     MapGeoJSONFeature,
     RequestTransformFunction,
     StyleImageMetadata,
@@ -55,7 +55,15 @@ export interface WebGlMapOptions {
     aspectRatio?: number;
     // Is the map interactive for the user (zoom, move, tooltips...)
     interactive?: boolean;
-    cooperativeGestures?: boolean | GestureOptions;
+    cooperativeGestures?: boolean;
+    /**
+     * A patch applied to MapLibre's default localization table for UI strings (control tooltips,
+     * cooperative-gesture help text, etc.). Maps namespaced string IDs to translated strings, e.g.
+     * `{ 'CooperativeGesturesHandler.MobileHelpText': 'Utilisez deux doigts pour déplacer la carte' }`.
+     * May patch a subset of strings. See https://maplibre.org/maplibre-gl-js/docs/examples/locale-switching/
+     * Reference: https://github.com/maplibre/maplibre-gl-js/blob/main/src/ui/default_locale.ts
+     */
+    locale?: MapOptions['locale'];
     /** If true, the map's canvas can be exported to an image using toDataURL. This is false by default as a performance optimization. */
     preserveDrawingBuffer?: boolean;
     /** Images to load by the Map. keys are image ids  */

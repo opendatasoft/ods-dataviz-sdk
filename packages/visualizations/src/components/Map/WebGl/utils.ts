@@ -68,7 +68,7 @@ const getMapCircleLayer = (layer: CircleLayer): CircleLayerSpecification => {
         if (!isGroupByForMatchExpression(groupByColors)) {
             throw new Error('Not the expected type for complete match expression');
         }
-        circleColor = [...matchExpression, ...groupByColors];
+        circleColor = [...matchExpression, ...groupByColors] as ExpressionSpecification;
 
         if (borderColors) {
             const matchBorderExpression: ['match', ExpressionSpecification] = [
@@ -83,7 +83,10 @@ const getMapCircleLayer = (layer: CircleLayer): CircleLayerSpecification => {
             if (!isGroupByForMatchExpression(groupByBorderColors)) {
                 throw new Error('Not the expected type for complete match expression');
             }
-            circleBorderColor = [...matchBorderExpression, ...groupByBorderColors];
+            circleBorderColor = [
+                ...matchBorderExpression,
+                ...groupByBorderColors,
+            ] as ExpressionSpecification;
         }
     }
     return {
@@ -114,7 +117,7 @@ const getMapSymbolLayer = (layer: SymbolLayer): SymbolLayerSpecification => {
         if (!isGroupByForMatchExpression(groupByIconImages)) {
             throw new Error('Not the expected type for complete match expression');
         }
-        iconImage = [...matchExpression, ...groupByIconImages];
+        iconImage = [...matchExpression, ...groupByIconImages] as ExpressionSpecification;
     }
 
     return {
@@ -156,7 +159,7 @@ const getMapFillLayer = (layer: FillLayer): FillLayerSpecification => {
         if (!isGroupByForMatchExpression(group)) {
             throw new Error('Not the expected type for complete match expression');
         }
-        fillColor = [...matchExpr, ...group];
+        fillColor = [...matchExpr, ...group] as ExpressionSpecification;
     }
 
     // Opacity by category
@@ -171,7 +174,7 @@ const getMapFillLayer = (layer: FillLayer): FillLayerSpecification => {
         if (!isGroupByForMatchExpression(group)) {
             throw new Error('Not the expected type for complete match expression');
         }
-        fillOpacity = [...matchExpr, ...group];
+        fillOpacity = [...matchExpr, ...group] as ExpressionSpecification;
     }
 
     return {
@@ -215,7 +218,7 @@ const getMapLineLayer = (layer: LineLayer): LineLayerSpecification => {
         if (!isGroupByForMatchExpression(group)) {
             throw new Error('Not the expected type for complete match expression');
         }
-        lineColor = [...matchExpr, ...group];
+        lineColor = [...matchExpr, ...group] as ExpressionSpecification;
     }
 
     // Width by category
@@ -230,7 +233,7 @@ const getMapLineLayer = (layer: LineLayer): LineLayerSpecification => {
         if (!isGroupByForMatchExpression(group)) {
             throw new Error('Not the expected type for complete match expression');
         }
-        lineWidth = [...matchExpr, ...group];
+        lineWidth = [...matchExpr, ...group] as ExpressionSpecification;
     }
 
     // Opacity by category
@@ -245,7 +248,7 @@ const getMapLineLayer = (layer: LineLayer): LineLayerSpecification => {
         if (!isGroupByForMatchExpression(group)) {
             throw new Error('Not the expected type for complete match expression');
         }
-        lineOpacity = [...matchExpr, ...group];
+        lineOpacity = [...matchExpr, ...group] as ExpressionSpecification;
     }
 
     return {
@@ -299,6 +302,7 @@ export const getMapOptions = (options: WebGlMapOptions) => {
         interactive = true,
         transformRequest,
         cooperativeGestures,
+        locale,
         preserveDrawingBuffer = false,
         images,
     } = options;
@@ -311,6 +315,7 @@ export const getMapOptions = (options: WebGlMapOptions) => {
         interactive,
         transformRequest,
         cooperativeGestures,
+        locale,
         preserveDrawingBuffer,
         images,
     };
