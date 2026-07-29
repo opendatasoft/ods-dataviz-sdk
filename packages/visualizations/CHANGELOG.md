@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.36.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.35.0...@opendatasoft/visualizations@0.36.0) (2026-07-29)
+
+
+### Bug Fixes
+
+* **Table:** Clean overflow with tooltip when header labels are too long ([#300](https://github.com/opendatasoft/ods-dataviz-sdk/issues/300)) ([12f15a3](https://github.com/opendatasoft/ods-dataviz-sdk/commit/12f15a3a76e37a40369550a98081172df819e1ac))
+
+
+### Features
+
+* chart can now use maintainAspectRatio false to fill the parent container ([2d29194](https://github.com/opendatasoft/ods-dataviz-sdk/commit/2d291941e8c47ae82cd0531079402b6f151fd1c5))
+
+
+
+
+
 # [0.35.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.34.0...@opendatasoft/visualizations@0.35.0) (2026-07-03)
 
 **Note:** Version bump only for package @opendatasoft/visualizations
