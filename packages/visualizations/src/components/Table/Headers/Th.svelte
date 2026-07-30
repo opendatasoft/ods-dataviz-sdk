@@ -9,6 +9,7 @@
 
     export let column: Column | null = null;
     export let extraButtonColumnLabel = 'Action';
+    export let showFieldTypeIcons = false;
 
     const { stickyColumnsWidth, stickyColumnsOffset, isHorizontallyScrolled, lastStickyColumn } =
         getContext<StickyStores>('sticky-stores');
@@ -46,7 +47,9 @@
                 labels={column?.sortLabels}
             >
                 <span class="th-title-content">
-                    <FieldTypeIcon dataFormat={column.dataFormat} />
+                    {#if showFieldTypeIcons}
+                        <FieldTypeIcon dataFormat={column.dataFormat} />
+                    {/if}
                     <span class="th-title" use:tooltipOnOverflow>{column.title}</span>
                 </span>
             </SortButton>

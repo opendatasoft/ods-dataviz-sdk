@@ -27,6 +27,8 @@
         extraButtonColumnLabel,
         debugWarnings: debugOption = false,
         showRowNumbers = false,
+        rowNumberLabel = 'Row number',
+        showFieldTypeIcons = false,
     } = options);
     $: $locale = localeOption || navigator.language;
     $: $debugWarnings = debugOption;
@@ -51,6 +53,8 @@
             {extraButtonColumnLabel}
             {rowProps}
             {showRowNumbers}
+            {rowNumberLabel}
+            {showFieldTypeIcons}
             {rowOffset}
         />
         {#if pagination}

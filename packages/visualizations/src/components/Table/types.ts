@@ -127,6 +127,16 @@ export type TableOptions = {
      * Default is `false`.
      */
     showRowNumbers?: boolean;
+    /**
+     * Accessible label for the row number column header.
+     * Default is `'Row number'`.
+     */
+    rowNumberLabel?: string;
+    /**
+     * Show a field type icon next to each column header title.
+     * Default is `false`.
+     */
+    showFieldTypeIcons?: boolean;
 };
 
 export type TableProps = {

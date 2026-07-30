@@ -16,6 +16,8 @@
     export let rowProps: RowProps | undefined;
     export let extraButtonColumnLabel: string | undefined;
     export let showRowNumbers = false;
+    export let rowNumberLabel = 'Row number';
+    export let showFieldTypeIcons = false;
     export let rowOffset = 0;
 
     const tableId = `table-${generateId()}`;
@@ -75,6 +77,8 @@
             extraButtonColumn={Boolean(rowProps?.onClick)}
             {extraButtonColumnLabel}
             {showRowNumbers}
+            {rowNumberLabel}
+            {showFieldTypeIcons}
         />
         <Body
             {records}

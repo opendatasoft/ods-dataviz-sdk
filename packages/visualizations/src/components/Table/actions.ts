@@ -2,7 +2,7 @@ import tippyAction from 'components/utils/tippy';
 import type { Instance } from 'tippy.js';
 import { DATA_FORMAT } from './constants';
 
-// These are the three column types whose CSS truncates content (see CellContent.svelte styles)
+// These are the four column types whose CSS truncates content (see CellContent.svelte styles)
 const TRUNCATING_FORMATS: string[] = [
     DATA_FORMAT.shortText,
     DATA_FORMAT.longText,

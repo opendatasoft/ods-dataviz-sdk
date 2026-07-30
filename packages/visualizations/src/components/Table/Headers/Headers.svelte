@@ -6,18 +6,20 @@
     export let extraButtonColumn = false;
     export let extraButtonColumnLabel: string | undefined;
     export let showRowNumbers = false;
+    export let rowNumberLabel = 'Row number';
+    export let showFieldTypeIcons = false;
 </script>
 
 <thead>
     <tr>
         {#if showRowNumbers}
-            <th class="row-number-header" scope="col" aria-label="Row number" />
+            <th class="row-number-header" scope="col" aria-label={rowNumberLabel} />
         {/if}
         {#if extraButtonColumn}
             <Th {extraButtonColumnLabel} />
         {/if}
         {#each columns as column (column.key)}
-            <Th {column} />
+            <Th {column} {showFieldTypeIcons} />
         {/each}
     </tr>
 </thead>

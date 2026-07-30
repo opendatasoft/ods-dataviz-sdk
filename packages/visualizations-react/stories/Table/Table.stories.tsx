@@ -112,7 +112,7 @@ export const RtlDirection: StoryObj<typeof PaginatedTemplate> = {
         recordsPerPage: 5,
         showRowNumbers: true,
     },
-    render: (args) => <PaginatedTemplate {...args} />,
+    render: args => <PaginatedTemplate {...args} />,
 };
 
 const longTitleData: Async<TableData> = {
@@ -155,6 +155,7 @@ export const FieldTypeIcons: StoryObj<typeof Table> = {
         options: {
             ...options,
             showRowNumbers: true,
+            showFieldTypeIcons: true,
         },
     },
     render: (args: TableProps) => (
@@ -170,7 +171,12 @@ const allTypesColumns: Column[] = [
     { title: 'Number', key: 'num', dataFormat: 'number' },
     { title: 'Date', key: 'date', dataFormat: 'date' },
     { title: 'Boolean', key: 'bool', dataFormat: 'boolean' },
-    { title: 'URL', key: 'url', dataFormat: 'url', options: { valueToLabel: () => 'opendatasoft.com' } },
+    {
+        title: 'URL',
+        key: 'url',
+        dataFormat: 'url',
+        options: { valueToLabel: () => 'opendatasoft.com' },
+    },
     {
         title: 'Geo',
         key: 'geo',
@@ -182,12 +188,24 @@ const allTypesColumns: Column[] = [
                     data: {
                         type: 'FeatureCollection',
                         features: [
-                            { id: 1, type: 'Feature', geometry: { type: 'Point', coordinates: [2.35, 48.85] } },
+                            {
+                                id: 1,
+                                type: 'Feature',
+                                geometry: { type: 'Point', coordinates: [2.35, 48.85] },
+                            },
                         ],
                     },
                 },
             },
-            layers: [{ id: 'geo-layer', source: 'geo', type: 'circle', color: 'black', borderColor: 'white' }],
+            layers: [
+                {
+                    id: 'geo-layer',
+                    source: 'geo',
+                    type: 'circle',
+                    color: 'black',
+                    borderColor: 'white',
+                },
+            ],
         }),
         options: {
             mapOptions: { style: 'https://demotiles.maplibre.org/style.json', interactive: false },
@@ -195,8 +213,18 @@ const allTypesColumns: Column[] = [
         },
     },
     { title: 'JSON', key: 'json', dataFormat: 'json' },
-    { title: 'File', key: 'file', dataFormat: 'file', options: { valueToLabel: () => 'report.pdf' } },
-    { title: 'Image', key: 'img', dataFormat: 'image', options: { valueToLabel: () => 'photo.jpg' } },
+    {
+        title: 'File',
+        key: 'file',
+        dataFormat: 'file',
+        options: { valueToLabel: () => 'report.pdf' },
+    },
+    {
+        title: 'Image',
+        key: 'img',
+        dataFormat: 'image',
+        options: { valueToLabel: () => 'photo.jpg' },
+    },
     { title: 'IP address', key: 'ip', dataFormat: 'ip-address' },
     { title: 'ID', key: 'id', dataFormat: 'id' },
 ];
@@ -222,7 +250,9 @@ const allTypesData: Async<TableData> = {
 };
 
 export const AllColumnTypes: StoryObj<typeof Table> = {
-    render: () => <Table data={allTypesData} options={{ columns: allTypesColumns, locale: 'en' }} />,
+    render: () => (
+        <Table data={allTypesData} options={{ columns: allTypesColumns, locale: 'en' }} />
+    ),
 };
 
 function LongColumnTitlesDemo() {
@@ -231,7 +261,7 @@ function LongColumnTitlesDemo() {
     const sortedData: Async<TableData> = {
         ...longTitleData,
         value: [...longTitleData.value].sort((a, b) => {
-            const key = sort[0] as keyof (typeof longTitleData.value)[0];
+            const key = sort[0] as keyof typeof longTitleData.value[0];
             const dir = sort[1] === 'ASC' ? 1 : -1;
             if (a[key] < b[key]) return -dir;
             if (a[key] > b[key]) return dir;
