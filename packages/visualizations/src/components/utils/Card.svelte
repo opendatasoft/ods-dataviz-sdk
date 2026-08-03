@@ -13,6 +13,7 @@
     export let className: $$Props['className'] = null;
     export let clientWidth: $$Props['clientWidth'];
     export let tag: $$Props['tag'] = 'div';
+    export let fill: $$Props['fill'] = false;
 </script>
 
 <svelte:element
@@ -20,6 +21,7 @@
     bind:clientWidth
     class="card {className || ''}"
     class:ods-dataviz--default={defaultStyle}
+    class:ods-dataviz--fill={fill}
     {style}
 >
     {#if title || subtitle || links}
@@ -60,6 +62,15 @@
     }
     .card.ods-dataviz--default {
         flex-wrap: wrap;
+    }
+    /* Take the height the parent gives us instead of the content's. `box-sizing` keeps padding and
+     * border inside that height, and `nowrap` stops a full-height slot from wrapping onto a second
+     * flex column. Declared after `--default` so both win over it, and scoped to this modifier so
+     * content-sized cards keep their current geometry. */
+    .card.ods-dataviz--fill {
+        box-sizing: border-box;
+        height: 100%;
+        flex-wrap: nowrap;
     }
     h3,
     p {

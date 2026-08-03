@@ -68,6 +68,8 @@ export interface CardProps extends Record<string, unknown> {
     className?: string | null;
     clientWidth?: number;
     tag?: 'div' | 'figure';
+    /** Fill the parent's height instead of being sized by the content */
+    fill?: boolean;
 }
 
 export interface DataBounds {

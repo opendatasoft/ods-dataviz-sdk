@@ -28,14 +28,15 @@ function basePlugins() {
             extract: 'index.css',
             plugins: [autoprefixer()],
         }),
-        // Transpile to ES5 when running a production build
-        production &&
-            babel({
-                babelHelpers: 'bundled',
-                extensions: ['.ts', '.mjs', '.js'],
-                include: ['src/**', 'node_modules/chart.js/**'],
-                presets: ['@babel/preset-env'],
-            }),
+        // Transpile TypeScript/ES to JS via Babel (@babel/preset-typescript is applied
+        // through babel.config.js). Must run in watch mode too: @rollup/plugin-typescript
+        // emits nothing because tsconfig sets `noEmit: true`, so Babel is the only transpiler.
+        babel({
+            babelHelpers: 'bundled',
+            extensions: ['.ts', '.mjs', '.js'],
+            include: ['src/**', 'node_modules/chart.js/**'],
+            presets: ['@babel/preset-env'],
+        }),
     ];
 }
 
