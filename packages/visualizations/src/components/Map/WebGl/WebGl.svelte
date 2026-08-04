@@ -56,6 +56,7 @@
     $: map.loadImages(images);
     $: map.updateClickHandler(options?.onFeatureClick);
     $: map.updateMapReadyHandler(options?.onMapReady);
+    $: map.setFullscreenContainer(options?.fullscreenContainer);
 
     // Lifecycle
     onMount(() => {

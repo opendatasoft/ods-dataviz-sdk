@@ -70,21 +70,16 @@ export type CategoryItem =
 
 export const CATEGORY_LEGEND_POSITION = {
     /** Below the map (default, legacy behaviour). */
-    Bottom: 'bottom',
-    /** Floating overlay in the map's top inline-start corner. */
-    TopLeft: 'top-left',
-    /** Floating overlay in the map's top inline-end corner. */
-    TopRight: 'top-right',
+    bottom: 'bottom',
+    /** Floating overlay in the map's top inline-start corner (mirrors in RTL). */
+    topLeft: 'top-left',
 } as const;
 
 // Includes the legacy chart legend positions (bottom/left/right) so the shared
 // CategoryLegend type stays compatible with the chart's custom legend. The map
-// only acts on 'top-left' / 'top-right' (overlay); other values fall back to the
-// default below-the-map rendering.
-export type CategoryLegendPosition =
-    | LegendPositions
-    | typeof CATEGORY_LEGEND_POSITION.TopLeft
-    | typeof CATEGORY_LEGEND_POSITION.TopRight;
+// only acts on 'top-left' (overlay); other values fall back to the default
+// below-the-map rendering.
+export type CategoryLegendPosition = LegendPositions | typeof CATEGORY_LEGEND_POSITION.topLeft;
 
 export type CategoryLegend = {
     type: 'category';
@@ -93,10 +88,9 @@ export type CategoryLegend = {
     align?: 'start' | 'center' | 'end';
     /**
      * Where the legend renders relative to the map. Defaults to `'bottom'`
-     * (below the map). `'top-left'` / `'top-right'` render it as a floating
-     * overlay in the map's top corner. Positioning is logical (inline-start /
-     * inline-end), so `'top-left'` automatically mirrors to the top-right corner
-     * in RTL layouts (and vice versa).
+     * (below the map). `'top-left'` renders it as a floating overlay in the
+     * map's top corner. Positioning is logical (inline-start), so it
+     * automatically mirrors to the top-right corner in RTL layouts.
      */
     position?: CategoryLegendPosition;
 };

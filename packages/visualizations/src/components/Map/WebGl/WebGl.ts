@@ -104,6 +104,9 @@ export default class MapPOI {
     /** A fullscreen control for the map. */
     private fullscreenControl = new MaplibreGl.FullscreenControl({});
 
+    /** Element the fullscreen control expands (defaults to the bare map container). */
+    private fullscreenContainer: HTMLElement | undefined;
+
     /** A popup for displaying information on the map. */
     private popup = new MaplibreGl.Popup(POPUP_OPTIONS);
 
@@ -543,6 +546,24 @@ export default class MapPOI {
             if (this.hasAllControls(map)) return;
             map.addControl(this.navigationControl, CONTROL_POSITION);
             map.addControl(this.fullscreenControl, CONTROL_POSITION);
+        });
+    }
+
+    /**
+     * Point the fullscreen control at a custom element (e.g. a wrapper holding the map
+     * and an overlay legend). MapLibre only reads `container` when the control is
+     * built, so an already-mounted control is rebuilt in place.
+     */
+    setFullscreenContainer(container?: HTMLElement) {
+        this.queue((map) => {
+            if (container === this.fullscreenContainer) return;
+            this.fullscreenContainer = container;
+            const isOnMap = map.hasControl(this.fullscreenControl);
+            if (isOnMap) map.removeControl(this.fullscreenControl);
+            this.fullscreenControl = new MaplibreGl.FullscreenControl(
+                container ? { container } : {}
+            );
+            if (isOnMap) map.addControl(this.fullscreenControl, CONTROL_POSITION);
         });
     }
 

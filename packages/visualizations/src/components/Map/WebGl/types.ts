@@ -64,6 +64,11 @@ export interface WebGlMapOptions {
     onFeatureClick?: OnFeatureClick;
     /** A callback called with the MapLibre map instance once the map has loaded and is ready */
     onMapReady?: (map: MaplibreMap) => void;
+    /**
+     * Element the fullscreen control expands instead of the bare map container, so sibling
+     * overlays (e.g. the POI map corner legend) stay visible in fullscreen.
+     */
+    fullscreenContainer?: HTMLElement;
 }
 
 export type WebGlMapStyleOption = Partial<Pick<StyleSpecification, 'sources' | 'layers'>>;
