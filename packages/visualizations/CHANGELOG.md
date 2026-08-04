@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.37.0-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.36.0...@opendatasoft/visualizations@0.37.0-beta.0) (2026-08-04)
+
+
+### Bug Fixes
+
+* address review feedback on the positioned POI legend ([7bc99d8](https://github.com/opendatasoft/ods-dataviz-sdk/commit/7bc99d83cc27c86dab6a78ffc93e96d6edc2162d))
+
+
+### Features
+
+* support top corner positioning for the POI map legend ([ea10fc9](https://github.com/opendatasoft/ods-dataviz-sdk/commit/ea10fc9486ecb73400639e205d6b5304e245c243))
+
+
+
+
+
 # [0.36.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.35.0...@opendatasoft/visualizations@0.36.0) (2026-07-29)
 
 
