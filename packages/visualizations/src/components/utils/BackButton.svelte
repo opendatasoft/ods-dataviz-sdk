@@ -10,6 +10,12 @@
 </button>
 
 <style>
+    /*
+     * Looks like one of the map control buttons it sits under, at the size of a whole control group
+     * rather than a single button (it stands alone, so it carries the group's padding itself). The
+     * map that mounts it owns where it goes, since only that map knows which corner its controls are
+     * in.
+     */
     button {
         cursor: pointer;
         position: absolute;
@@ -17,5 +23,13 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        box-sizing: content-box;
+        width: var(--map-control-button-size);
+        height: var(--map-control-button-size);
+        padding: var(--spacing-50);
+        border: none;
+        border-radius: var(--border-radius-6);
+        background-color: var(--background-color);
+        box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.26);
     }
 </style>

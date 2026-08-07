@@ -443,6 +443,24 @@
         grid: auto-flow minmax(52px, 60px) / repeat(auto-fit, minmax(52px, 60px));
         justify-content: flex-start;
         pointer-events: var(--buttons-events);
+        /* Separated from the map above them, they are a navigation strip and not part of it. */
+        border-top: 1px solid #b6b6b6;
+        padding-top: var(--spacing-50);
+    }
+    /*
+     * Back button, sitting under the control group in the same corner. The offset clears the two
+     * stacked controls: the group's own margin, then two buttons with the group padding above and
+     * below them, then a gap. Its terms come from `styles/map-controls.css`.
+     *
+     * Physical `top` / `right`: this map keeps its controls at MapLibre's physical top-right, and the
+     * button belongs in the same corner as them.
+     */
+    .main :global(.back-button) {
+        top: calc(
+            var(--spacing-100) + 2 * (var(--map-control-button-size) + var(--spacing-50)) +
+                var(--spacing-50)
+        );
+        right: var(--spacing-100);
     }
     /* Suitable for elements that are used via aria-describedby or aria-labelledby */
     .a11y-invisible-description {
