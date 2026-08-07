@@ -29,6 +29,11 @@
     // default) keeps the legacy legend below the map.
     $: isOverlayLegend = !!legend && legend.position === CATEGORY_LEGEND_POSITION.topLeft;
 
+    // 'auto' takes the height the parent gives us instead of deriving it from the
+    // width, for a host that sizes the map itself. `aspect-ratio: auto` is what CSS
+    // already calls "no imposed ratio", so the same variable carries both cases.
+    $: isAutoAspectRatio = aspectRatio === 'auto';
+
     $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
 
     // The fullscreen control expands this wrapper (map + legend overlay) rather
@@ -44,9 +49,11 @@
     style={cssVarStyles}
     tag="figure"
     className="map-card maps-container ods-dataviz--maps"
+    fill={isAutoAspectRatio}
 >
     <div
         class="main"
+        class:fill={isAutoAspectRatio}
         bind:this={mainEl}
         aria-describedby={description ? mapId.toString() : undefined}
     >
@@ -73,6 +80,12 @@
         flex-grow: 1;
         position: relative;
         display: block;
+    }
+    /* `aspectRatio: 'auto'`: share the height the card was given rather than adding to it.
+       `min-height: 0` is what lets the map shrink below the size of its own content. */
+    .main.fill {
+        flex: 1 1 0;
+        min-height: 0;
     }
     /* In fullscreen the wrapper fills the screen instead of keeping the card ratio.
        MapLibre falls back to a class-based pseudo fullscreen when the Fullscreen API

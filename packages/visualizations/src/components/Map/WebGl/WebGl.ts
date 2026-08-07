@@ -4,6 +4,7 @@ import { debounce, difference } from 'lodash';
 import MaplibreGl from 'maplibre-gl';
 import type {
     Map,
+    ControlPosition,
     LngLatBoundsLike,
     LngLatLike,
     MapGeoJSONFeature,
@@ -106,6 +107,9 @@ export default class MapPOI {
 
     /** Element the fullscreen control expands (defaults to the bare map container). */
     private fullscreenContainer: HTMLElement | undefined;
+
+    /** Corner the controls sit in. See `WebGlMapOptions.controlPosition`. */
+    private controlPosition: ControlPosition = CONTROL_POSITION;
 
     /** A popup for displaying information on the map. */
     private popup = new MaplibreGl.Popup(POPUP_OPTIONS);
@@ -544,8 +548,8 @@ export default class MapPOI {
     private addControls() {
         this.queue((map) => {
             if (this.hasAllControls(map)) return;
-            map.addControl(this.navigationControl, CONTROL_POSITION);
-            map.addControl(this.fullscreenControl, CONTROL_POSITION);
+            map.addControl(this.navigationControl, this.controlPosition);
+            map.addControl(this.fullscreenControl, this.controlPosition);
         });
     }
 
@@ -563,7 +567,22 @@ export default class MapPOI {
             this.fullscreenControl = new MaplibreGl.FullscreenControl(
                 container ? { container } : {}
             );
-            if (isOnMap) map.addControl(this.fullscreenControl, CONTROL_POSITION);
+            if (isOnMap) map.addControl(this.fullscreenControl, this.controlPosition);
+        });
+    }
+
+    /**
+     * Move the controls to another corner. MapLibre reads the position when a control is added, so
+     * mounted controls are taken off and put back. Controls the map deliberately hides, such as while
+     * a modal popup covers that corner, stay hidden: only the stored position changes.
+     */
+    setControlPosition(position: ControlPosition = CONTROL_POSITION) {
+        this.queue((map) => {
+            if (position === this.controlPosition) return;
+            this.controlPosition = position;
+            if (!this.hasAllControls(map)) return;
+            this.removeControls();
+            this.addControls();
         });
     }
 
