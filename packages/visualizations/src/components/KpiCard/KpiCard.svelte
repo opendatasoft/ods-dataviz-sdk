@@ -112,9 +112,14 @@
         font-weight: var(--kpi-card-header-font-weight, normal);
         text-align: var(--kpi-card-header-text-align, center);
     }
+    /*
+     * Pinned to the inline-end corner, where a menu affordance belongs and, more to the point, where
+     * `LinksMenu` needs to be: its panel grows toward inline-start, so the trigger has to sit on the
+     * side the panel grows away from.
+     */
     .kpi-card__menu {
         position: absolute;
-        right: 1rem;
+        inset-inline-end: 1rem;
         top: 1rem;
     }
     .kpi-card__img {

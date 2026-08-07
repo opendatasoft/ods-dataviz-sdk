@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 import { ChartSeriesType, LINKS_MENU_CLASS, type Link } from '@opendatasoft/visualizations';
-import { Chart } from 'src';
+import { Chart, KpiCard } from 'src';
 import { COLORS } from '../utils';
 
 type ClickLogEntry = {
@@ -284,6 +284,42 @@ const meta: Meta<typeof Chart> = {
 };
 
 export default meta;
+
+const RTL_LINKS: Link[] = [
+    { href: 'https://codelibrary.opendatasoft.com/', label: 'تصدير بصيغة CSV' },
+    { href: 'https://codelibrary.opendatasoft.com/', label: 'تصدير بصيغة Excel' },
+    { label: 'نسخ رمز التضمين', onClick: () => undefined },
+];
+
+/**
+ * Right-to-left reading order, where the trigger sits on the physical left and the panel has to grow
+ * toward the middle of the visualization to stay in view. Both hosts are here because they place the
+ * trigger differently, the chart through the card header and the KPI card by pinning it.
+ */
+export const RightToLeft: StoryObj<typeof Chart> = {
+    args: {
+        data: { loading: false, value: [{ x: 0, y: 10 }, { x: 1, y: 12 }] },
+        options: {
+            labelColumn: 'x',
+            links: RTL_LINKS,
+            series: [{ label: 'أخضر', type: ChartSeriesType.Line as const, valueColumn: 'y' }],
+            title: { text: 'قائمة الروابط' },
+        },
+    },
+    render: (args: React.ComponentProps<typeof Chart>) => (
+        <div dir="rtl" style={{ display: 'flex', gap: 24, alignItems: 'flex-start' }}>
+            <div style={{ width: 360 }}>
+                <Chart {...args} />
+            </div>
+            <div style={{ width: 360 }}>
+                <KpiCard
+                    data={{ loading: false, value: 1000 }}
+                    options={{ header: 'رأس', title: 'مؤشر', links: RTL_LINKS }}
+                />
+            </div>
+        </div>
+    ),
+};
 
 export const Demo: StoryObj<typeof Chart> = {
     args: {
