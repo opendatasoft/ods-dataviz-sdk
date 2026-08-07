@@ -57,7 +57,12 @@
     .card.ods-dataviz--maps {
         padding: var(--visualization-card-padding);
         background-color: var(--visualization-card-background);
-        border: 1px solid var(--visualization-card-border);
+        /*
+         * Width and colour are separate variables, as on the KPI card: a transparent border still
+         * takes its pixel of layout, so a host drawing a visualization edge to edge has to set the
+         * width to 0, not only the colour.
+         */
+        border: var(--visualization-card-border-width) solid var(--visualization-card-border);
         border-radius: var(--visualization-card-border-radius);
     }
     .card.ods-dataviz--default {
