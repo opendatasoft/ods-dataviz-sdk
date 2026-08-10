@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.37.0-beta.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.37.0-beta.0...@opendatasoft/visualizations@0.37.0-beta.1) (2026-08-10)
+
+
+### Bug Fixes
+
+* **Card:** give the card border its own width variable ([ed3ec23](https://github.com/opendatasoft/ods-dataviz-sdk/commit/ed3ec234e110dc0f96a61d590e8ea4aae147b81d))
+* **LinksMenu:** open the panel inward in right-to-left reading order ([3e027e9](https://github.com/opendatasoft/ods-dataviz-sdk/commit/3e027e9bf33a278f2215e9488c5baf7a61614900))
+* **map:** let a host choose what the POI map expands in fullscreen ([4fcbec9](https://github.com/opendatasoft/ods-dataviz-sdk/commit/4fcbec9e4842a1a6f52dea5765f9eb1aa7a13480))
+
+
+### Features
+
+* **ChoroplethMap:** style the drill-down back button and the navigation strip ([b1fdba4](https://github.com/opendatasoft/ods-dataviz-sdk/commit/b1fdba4f4fa432cbb627ad2aca6dc8d4093ea919))
+* **map:** let a host size the POI map and choose the corner its controls sit in ([994bec1](https://github.com/opendatasoft/ods-dataviz-sdk/commit/994bec13cb9733a03fe537f61af5067a524b1dae))
+* **map:** ship the chrome of the map controls with the maps ([b16d6a2](https://github.com/opendatasoft/ods-dataviz-sdk/commit/b16d6a23ae494edd361f922be12056d9270b9050))
+
+
+
+
+
 # [0.37.0-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.36.0...@opendatasoft/visualizations@0.37.0-beta.0) (2026-08-04)
 
 
