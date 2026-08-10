@@ -36,8 +36,9 @@
 
     $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
 
-    // The fullscreen control expands this wrapper (map + legend overlay) rather
-    // than the bare map container, so the overlay legend stays visible.
+    // Default fullscreen target: this wrapper holds the map and the legend overlay, so both expand
+    // together. A host rendering its own overlays around the map passes the element holding them as
+    // `fullscreenContainer`, and that one takes over.
     let mainEl: HTMLElement | undefined;
 </script>
 
@@ -58,7 +59,10 @@
         aria-describedby={description ? mapId.toString() : undefined}
     >
         {#key options.style}
-            <WelGlMap options={{ ...options, fullscreenContainer: mainEl }} data={data.value} />
+            <WelGlMap
+                options={{ ...options, fullscreenContainer: options.fullscreenContainer ?? mainEl }}
+                data={data.value}
+            />
         {/key}
         {#if legend && isOverlayLegend}
             <div class="legend-overlay">
