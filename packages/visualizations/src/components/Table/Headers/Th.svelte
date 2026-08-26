@@ -55,7 +55,9 @@
             </SortButton>
         {:else}
             <span class="th-title-content">
-                <FieldTypeIcon dataFormat={column.dataFormat} />
+                {#if showFieldTypeIcons}
+                    <FieldTypeIcon dataFormat={column.dataFormat} />
+                {/if}
                 <span class="th-title" use:tooltipOnOverflow>{column.title}</span>
             </span>
         {/if}

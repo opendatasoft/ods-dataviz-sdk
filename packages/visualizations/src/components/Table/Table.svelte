@@ -41,7 +41,7 @@
     }
 
     $: rowNumberIsLastSticky = showRowNumbers && !$lastStickyColumn;
-    $: rowNumberShadow = rowNumberIsLastSticky && $isHorizontallyScrolled;
+    $: rowNumberScrolledEdge = rowNumberIsLastSticky && $isHorizontallyScrolled;
 
     // resets scroll when changing columns parameters
     $: if (columns && scrollBox) {
@@ -67,9 +67,9 @@
     class="scrollbox"
     bind:this={scrollBox}
     on:scroll={handleScroll}
-    style:--row-number-width={showRowNumbers ? 'calc(2rem + var(--spacing-75))' : '0px'}
-    class:scrollbox--row-number-border={rowNumberIsLastSticky}
-    class:scrollbox--row-number-shadow={rowNumberShadow}
+    style:--row-number-width={showRowNumbers ? 'calc(3rem + var(--spacing-75))' : '0px'}
+    class:scrollbox--row-number-border={rowNumberScrolledEdge}
+    class:scrollbox--row-number-shadow={rowNumberScrolledEdge}
 >
     <table aria-describedby={description ? tableId : undefined}>
         <Headers

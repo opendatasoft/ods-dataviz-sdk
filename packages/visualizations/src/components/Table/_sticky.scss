@@ -7,15 +7,24 @@
     left: calc(var(--sticky-offset) + var(--row-number-width, 0px));
 }
 
+/* stickyColumnsOffset (store.ts) leaves a deliberate 1px gap between sticky columns;
+   this opaque filler hides the scrolled row content that would otherwise show through it.
+   Only the last sticky column gets the visible divider color, once scrolled. */
 .sticky:not(.button-cell):dir(ltr) {
-    border-right: 1px solid var(--border-color);
+    border-right: 1px solid white;
+}
+.sticky.isLastSticky.isHorizontallyScrolled:not(.button-cell):dir(ltr) {
+    border-right-color: var(--border-color);
 }
 
 .sticky:dir(rtl) {
     right: calc(var(--sticky-offset) + var(--row-number-width, 0px));
 }
 .sticky:not(.button-cell):dir(rtl) {
-    border-left: 1px solid var(--border-color);
+    border-left: 1px solid white;
+}
+.sticky.isLastSticky.isHorizontallyScrolled:not(.button-cell):dir(rtl) {
+    border-left-color: var(--border-color);
 }
 
 /* applies shadow only on the left to avoid eating borders */

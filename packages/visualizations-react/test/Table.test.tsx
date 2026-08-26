@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Table } from 'src';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { Column, DataFrame } from '@opendatasoft/visualizations';
 import data from 'stories/Table/data';
@@ -270,4 +270,108 @@ test('Cursor pagination: X-Y range reflects the rows actually displayed on a par
     );
 
     expect(screen.getByText('41-43')).toBeInTheDocument();
+});
+
+// Field type icons & tooltip formats
+
+test('Field type icon respects showFieldTypeIcons on non-sortable columns', () => {
+    render(
+        <Table
+            data={{ value: [{ title: 'a' }] }}
+            options={{
+                columns: [{ title: 'Title', key: 'title', dataFormat: 'short-text' }],
+                showFieldTypeIcons: false,
+            }}
+        />
+    );
+
+    const header = screen.getByRole('columnheader', { name: 'Title' });
+    expect(header.querySelector('svg')).not.toBeInTheDocument();
+});
+
+test.each(['file', 'image', 'ip-address', 'id'] as const)(
+    'Tooltip-on-overflow is wired for the %s column type (kept in sync with CellContent truncation CSS)',
+    dataFormat => {
+        const { container } = render(
+            <Table
+                data={{ value: [{ v: 'some value' }] }}
+                options={{ columns: [{ title: 'Col', key: 'v', dataFormat }] }}
+            />
+        );
+
+        // tippy.js attaches the instance to the reference node synchronously on creation;
+        // no need to simulate hover/overflow (jsdom has no real layout).
+        const cellContent = container.querySelector('.cell-content') as
+            | (HTMLElement & { _tippy?: unknown })
+            | null;
+        expect(cellContent?._tippy).toBeTruthy();
+    }
+);
+
+test('Unmapped dataFormat falls back to the dedicated "unknown" icon, not the text icon', () => {
+    // Column['dataFormat'] is a closed union; an unrecognized value can only reach
+    // FieldTypeIcon from an untyped/JS consumer, hence the cast.
+    const unknownColumn = {
+        title: 'Mystery',
+        key: 'v',
+        dataFormat: 'mystery-format',
+    } as unknown as Column;
+    const textColumn: Column = { title: 'Text', key: 'v', dataFormat: 'short-text' };
+
+    const { container: unknownContainer } = render(
+        <Table
+            data={{ value: [{ v: 'a' }] }}
+            options={{ columns: [unknownColumn], showFieldTypeIcons: true }}
+        />
+    );
+    const { container: textContainer } = render(
+        <Table
+            data={{ value: [{ v: 'a' }] }}
+            options={{ columns: [textColumn], showFieldTypeIcons: true }}
+        />
+    );
+
+    const unknownIcon = unknownContainer.querySelector('svg')?.innerHTML;
+    const textIcon = textContainer.querySelector('svg')?.innerHTML;
+    expect(unknownIcon).toBeTruthy();
+    expect(unknownIcon).not.toEqual(textIcon);
+});
+
+test('Unmapped dataFormat still renders the raw value in the cell body', () => {
+    const unknownColumn = {
+        title: 'Mystery',
+        key: 'v',
+        dataFormat: 'mystery-format',
+    } as unknown as Column;
+
+    render(
+        <Table data={{ value: [{ v: 'some raw value' }] }} options={{ columns: [unknownColumn] }} />
+    );
+
+    expect(screen.getByText('some raw value')).toBeInTheDocument();
+});
+
+test('Row-number scroll boundary (border + shadow) only appears once the table has scrolled horizontally', async () => {
+    const { container } = render(
+        <Table
+            data={{ value: [{ v: 'a' }] }}
+            options={{
+                columns: [{ title: 'Col', key: 'v', dataFormat: 'short-text' }],
+                showRowNumbers: true,
+            }}
+        />
+    );
+
+    const scrollbox = container.querySelector('.scrollbox') as HTMLElement;
+    expect(scrollbox).not.toHaveClass('scrollbox--row-number-border');
+    expect(scrollbox).not.toHaveClass('scrollbox--row-number-shadow');
+
+    scrollbox.scrollLeft = 10;
+    fireEvent.scroll(scrollbox);
+
+    // Svelte flushes reactive class bindings on the next microtask, not synchronously.
+    await waitFor(() => {
+        expect(scrollbox).toHaveClass('scrollbox--row-number-border');
+        expect(scrollbox).toHaveClass('scrollbox--row-number-shadow');
+    });
 });

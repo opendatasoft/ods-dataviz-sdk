@@ -14,6 +14,12 @@
 
     export let record: Record<string, unknown>;
     export let column: Column;
+
+    // Defensive fallback key lookup: only reached when column.dataFormat is outside
+    // the DataFormat union, i.e. from an untyped/JS consumer — see the {:else} branch below.
+    function getFallbackKey(c: Column): string {
+        return (c as unknown as { key: string }).key;
+    }
 </script>
 
 <div
@@ -75,6 +81,15 @@
             <TextFormat
                 value={getValue(column, record)}
                 {...getOptions(column, record)}
+                debugWarnings={$debugWarnings}
+            />
+        {:else}
+            <!-- Defensive fallback: column.dataFormat can only reach here from an
+                untyped/JS consumer passing a value outside the DataFormat union, so
+                per-format accessor/options aren't type-safe to apply here. -->
+            {@const raw = record[getFallbackKey(column)]}
+            <TextFormat
+                value={raw !== null && typeof raw === 'object' ? JSON.stringify(raw) : String(raw)}
                 debugWarnings={$debugWarnings}
             />
         {/if}

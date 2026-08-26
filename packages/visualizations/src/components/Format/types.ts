@@ -35,9 +35,14 @@ export type TextFormatProps = {
     debugWarnings?: boolean;
 };
 
+/**
+ * JSON column format props.
+ * Objects are `JSON.stringify`'d in CellContent before display; `valueToLabel`
+ * therefore always receives the displayed string, never the raw object.
+ */
 export type JsonFormatProps = {
     value: string | Record<string, unknown>;
-    valueToLabel?: (v: string | Record<string, unknown>) => string;
+    valueToLabel?: (v: string) => string;
     debugWarnings?: boolean;
 };
 

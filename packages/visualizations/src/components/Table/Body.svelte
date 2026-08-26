@@ -62,7 +62,7 @@
 
     :global(.ods-dataviz--default .row-number-cell) {
         text-align: end;
-        min-width: 2rem;
+        min-width: 3rem;
         color: var(--text-color-muted, grey);
         font-variant-numeric: tabular-nums;
         user-select: none;

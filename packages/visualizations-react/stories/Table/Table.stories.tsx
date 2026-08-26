@@ -227,6 +227,9 @@ const allTypesColumns: Column[] = [
     },
     { title: 'IP address', key: 'ip', dataFormat: 'ip-address' },
     { title: 'ID', key: 'id', dataFormat: 'id' },
+    // Column['dataFormat'] is a closed union; an unrecognized value can only reach
+    // FieldTypeIcon from an untyped/JS consumer, hence the cast — demoes the fallback icon.
+    { title: 'Unknown', key: 'unknown', dataFormat: 'unknown' } as unknown as Column,
 ];
 
 const allTypesData: Async<TableData> = {
@@ -244,6 +247,7 @@ const allTypesData: Async<TableData> = {
             img: 'https://example.com/photo.jpg',
             ip: '192.168.1.42',
             id: 'usr_abc123',
+            unknown: 'raw value, unformatted',
         },
     ],
     loading: false,
@@ -251,7 +255,10 @@ const allTypesData: Async<TableData> = {
 
 export const AllColumnTypes: StoryObj<typeof Table> = {
     render: () => (
-        <Table data={allTypesData} options={{ columns: allTypesColumns, locale: 'en' }} />
+        <Table
+            data={allTypesData}
+            options={{ columns: allTypesColumns, locale: 'en', showFieldTypeIcons: true }}
+        />
     ),
 };
 

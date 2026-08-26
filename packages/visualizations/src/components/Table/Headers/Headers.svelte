@@ -26,7 +26,7 @@
 
 <style>
     .row-number-header {
-        width: 2rem;
+        width: 3rem;
         position: sticky;
         inset-inline-start: 0;
         z-index: 10;
