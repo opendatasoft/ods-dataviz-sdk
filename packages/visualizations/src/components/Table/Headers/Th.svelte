@@ -4,6 +4,7 @@
     import { getStickyClasses, getStickyOffset } from '../sticky';
     import { HOVER_COLUMN_KEY } from '../constants';
     import SortButton from './SortButton.svelte';
+    import tooltipOnOverflow from '../actions';
 
     export let column: Column | null = null;
     export let extraButtonColumnLabel = 'Action';
@@ -51,10 +52,10 @@
                 on:click={column.onClick}
                 labels={column?.sortLabels}
             >
-                {column.title}
+                <span class="th-title" use:tooltipOnOverflow>{column.title}</span>
             </SortButton>
         {:else}
-            {column.title}
+            <div class="th-title" use:tooltipOnOverflow>{column.title}</div>
         {/if}
     </th>
 {:else}
@@ -68,17 +69,26 @@
             stickyHeader,
             verticallyScrolled: $isVerticallyScrolled,
         })}`}
-        aria-label={extraButtonColumnLabel}
-    />
+    >
+        <span class="sr-only">{extraButtonColumnLabel}</span>
+    </th>
 {/if}
 
 <style lang="scss">
     @import '../sticky';
+    @import 'styles/accessibility';
     :global(.ods-dataviz--default th) {
         text-align: left;
         padding: var(--spacing-75);
         background-color: white;
         border-bottom: 1px solid var(--border-color);
+    }
+
+    .th-title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        min-width: 0;
     }
 
     :global(.ods-dataviz--default th.table-header--number) {

@@ -60,7 +60,7 @@ export const columns: Column[] = [
         key: 'isFeatured',
         dataFormat: 'boolean',
         options: {
-            valueToLabel: (v: boolean) => (v ? 'αληθές' : 'ψευδές'),
+            valueToLabel: (v: boolean) => (v ? 'Yes' : 'No'),
         },
     },
     {

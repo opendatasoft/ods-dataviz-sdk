@@ -157,14 +157,22 @@ function root(source: string) {
             record: (recordId: string) =>
                 new Query(`${source}/datasets/${datasetId}/records/${recordId}/`),
         }),
+        /**
+         * FIXME: Update this URL or remove this comment when these endpoints are out of beta.
+         * The assets endpoints are still in development and not yet documented.
+         * Therefore, these URLs may change in the future.
+         */
+        asset: (slug: string) => ({
+            itself: () => new Query(`${source}/assets/${slug}/`),
+            facets: () => new Query(`${source}/assets/${slug}/facets/`),
+            records: () => new Query(`${source}/assets/${slug}/records/`),
+        }),
     });
 }
 
 export const fromCatalog = root('catalog');
 
 export const fromMonitoring = root('monitoring');
-
-export const fromDataNetwork = root('opendatasoft');
 
 export const field = (fieldName: string) => `\`${fieldName.replace(/`/g, '\\`')}\``;
 

@@ -17,6 +17,8 @@ import {
     URLFormat as _URLFormat,
     NumberFormat as _NumberFormat,
     LinksMenu as _LinksMenu,
+    isLinkHref,
+    LINKS_MENU_CLASS,
 } from '@opendatasoft/visualizations';
 import type {
     ChartProps,
@@ -34,6 +36,8 @@ import type {
     URLFormatProps,
     NumberFormatProps,
     Link,
+    LinkHref,
+    LinkAction,
     LinksMenuProps,
 } from '@opendatasoft/visualizations';
 import reactifySvelte from 'reactify';
@@ -90,5 +94,6 @@ export const LinksMenu = reactifySvelte<LinksMenuProps>(
     false
 );
 
-// Export types
-export type { Link, LinksMenuProps };
+// Export types and link helpers
+export type { Link, LinkHref, LinkAction, LinksMenuProps };
+export { isLinkHref, LINKS_MENU_CLASS };

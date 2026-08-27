@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import type { TableData, Async, GenericRecord, TableProps } from '@opendatasoft/visualizations';
+import type {
+    TableData,
+    Async,
+    GenericRecord,
+    TableProps,
+    Pagination,
+} from '@opendatasoft/visualizations';
+import { ColumnSort } from '@opendatasoft/visualizations';
 
 import './custom-style.css';
 
@@ -8,6 +15,7 @@ import { Table } from '../../src';
 
 import value from './data';
 import options, { DatasetRecord } from './options';
+import { PaginatedTemplate, PageSizeTemplate } from './PaginatedTemplates';
 
 const meta: Meta<typeof Table> = {
     title: 'Table/Table',
@@ -25,23 +33,6 @@ const fetchingData: Async<TableData> = {
     loading: true,
 };
 
-const optionsWithPagination = {
-    ...options,
-    pagination: {
-        current: 1,
-        totalRecords: value.length,
-        recordsPerPage: 5,
-        onPageChange: () => {},
-        pageSizeSelect: {
-            options: [
-                { label: '5 per page', value: 5 },
-                { label: '10 per page', value: 10 },
-            ],
-            onChange: () => {},
-        },
-    },
-};
-
 export const Playground: StoryObj<typeof Table> = {
     args: {
         data,
@@ -49,14 +40,18 @@ export const Playground: StoryObj<typeof Table> = {
     },
 };
 
-export const CustomStyle: StoryObj<typeof Table> = {
+// Pagination is host-sliced: the Table renders whatever rows it is given, so a story that
+// wants to paginate must drive it from a stateful template (PaginatedTemplates) rather than
+// pass the full dataset with a no-op onPageChange. PageSizeTemplate exercises the numbered
+// pager and the page-size select that custom-style.css restyles below.
+export const CustomStyle: StoryObj<typeof PageSizeTemplate> = {
     args: {
-        data,
-        options: optionsWithPagination,
+        current: 1,
+        recordsPerPage: 5,
     },
-    render: (args: TableProps) => (
+    render: (args: Pagination) => (
         <div className="table-story--custom-style">
-            <Table {...args} />
+            <PageSizeTemplate {...args} />
         </div>
     ),
 };
@@ -106,15 +101,108 @@ export const emptyState: StoryObj<typeof Table> = {
     },
 };
 
-export const RtlDirection: StoryObj<typeof Table> = {
+export const RtlDirection: StoryObj<typeof PaginatedTemplate> = {
     parameters: {
         direction: 'rtl',
         chromatic: { disableSnapshot: true },
     },
     args: {
-        data,
-        options: optionsWithPagination,
+        current: 1,
+        recordsPerPage: 5,
     },
+    render: (args: Pagination) => <PaginatedTemplate {...args} />,
+};
+
+const longTitleData: Async<TableData> = {
+    value: [
+        {
+            id: 1,
+            category: 'Renewable energy',
+            subcategory: 'Solar',
+            region: 'Île-de-France',
+            value: 4200,
+        },
+        {
+            id: 2,
+            category: 'Renewable energy',
+            subcategory: 'Wind',
+            region: 'Bretagne',
+            value: 3800,
+        },
+        {
+            id: 3,
+            category: 'Nuclear energy',
+            subcategory: 'Fission',
+            region: 'Normandie',
+            value: 9100,
+        },
+        {
+            id: 4,
+            category: 'Fossil fuels',
+            subcategory: 'Natural gas',
+            region: 'Hauts-de-France',
+            value: 5500,
+        },
+    ],
+    loading: false,
+};
+
+function LongColumnTitlesDemo() {
+    const [sort, setSort] = useState<[string, 'ASC' | 'DESC']>(['category', ColumnSort.asc]);
+
+    const columns = [
+        {
+            title: 'Annual energy production category by primary source type and method',
+            key: 'category',
+            dataFormat: 'short-text' as const,
+            sorted: sort[0] === 'category' ? sort[1] : undefined,
+            onClick: () =>
+                setSort(['category', sort[0] === 'category' && sort[1] === 'ASC' ? 'DESC' : 'ASC']),
+        },
+        {
+            title: 'Annual energy production subcategory by technology and method',
+            key: 'subcategory',
+            dataFormat: 'short-text' as const,
+            sorted: sort[0] === 'subcategory' ? sort[1] : undefined,
+            onClick: () =>
+                setSort([
+                    'subcategory',
+                    sort[0] === 'subcategory' && sort[1] === 'ASC' ? 'DESC' : 'ASC',
+                ]),
+        },
+        {
+            title: 'Administrative and geographic region of production and distribution',
+            key: 'region',
+            dataFormat: 'short-text' as const,
+            // No onClick — plain header, tests the non-SortButton branch
+        },
+        {
+            title: 'Total annual production volume measured in megawatt-hours (MWh)',
+            key: 'value',
+            dataFormat: 'number' as const,
+            // No onClick — plain header, tests the non-SortButton branch
+        },
+    ];
+
+    return (
+        <>
+            <style>{`.long-column-titles-story th { max-width: 500px; }`}</style>
+            <div className="long-column-titles-story" style={{ maxWidth: '600px' }}>
+                <Table
+                    data={longTitleData}
+                    options={{ columns, title: 'Long column title tooltip' }}
+                />
+            </div>
+        </>
+    );
+}
+
+/**
+ * Column headers truncate when the table is too narrow, and reveal the full title via tooltip on hover.
+ * Includes both plain headers and sortable headers (with SortButton) to cover both code paths.
+ */
+export const LongColumnTitles: StoryObj<typeof Table> = {
+    render: () => <LongColumnTitlesDemo />,
 };
 
 export const RowHoverAndClick: StoryObj<typeof Table> = {

@@ -3,6 +3,125 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.36.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.35.0...@opendatasoft/visualizations-react@0.36.0) (2026-07-29)
+
+
+### Bug Fixes
+
+* **Table:** Clean overflow with tooltip when header labels are too long ([#300](https://github.com/opendatasoft/ods-dataviz-sdk/issues/300)) ([12f15a3](https://github.com/opendatasoft/ods-dataviz-sdk/commit/12f15a3a76e37a40369550a98081172df819e1ac))
+
+
+### Features
+
+* chart can now use maintainAspectRatio false to fill the parent container ([2d29194](https://github.com/opendatasoft/ods-dataviz-sdk/commit/2d291941e8c47ae82cd0531079402b6f151fd1c5))
+
+
+
+
+
+# [0.35.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.34.0...@opendatasoft/visualizations-react@0.35.0) (2026-07-03)
+
+**Note:** Version bump only for package @opendatasoft/visualizations-react
+
+
+
+
+
+# [0.35.0-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.34.0...@opendatasoft/visualizations-react@0.35.0-beta.0) (2026-07-01)
+
+
+### Bug Fixes
+
+* paginate Table stories instead of rendering the full dataset ([90cf929](https://github.com/opendatasoft/ods-dataviz-sdk/commit/90cf929050c0e6c7c5211b1261e5437f861c1e37))
+
+
+### Features
+
+* **Table:** add cursor pagination mode without total count ([23a7fdb](https://github.com/opendatasoft/ods-dataviz-sdk/commit/23a7fdb183ad8c7b773e75117730377ed9b5bca8))
+
+
+
+
+
+# [0.34.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.32.1...@opendatasoft/visualizations-react@0.34.0) (2026-06-29)
+
+
+### Features
+
+* support action items and href onClick [sc-59779] ([#294](https://github.com/opendatasoft/ods-dataviz-sdk/issues/294)) ([0351028](https://github.com/opendatasoft/ods-dataviz-sdk/commit/03510280cba545ed5e90efcf98e4bbde9dc680fc))
+
+
+
+
+# [0.34.0-beta.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.34.0-beta.0...@opendatasoft/visualizations-react@0.34.0-beta.1) (2026-06-18)
+
+
+### Bug Fixes
+
+* paginate Table stories instead of rendering the full dataset ([90cf929](https://github.com/opendatasoft/ods-dataviz-sdk/commit/90cf929050c0e6c7c5211b1261e5437f861c1e37))
+
+
+### Features
+
+* support action items and href onClick [sc-59779] ([#294](https://github.com/opendatasoft/ods-dataviz-sdk/issues/294)) ([0351028](https://github.com/opendatasoft/ods-dataviz-sdk/commit/03510280cba545ed5e90efcf98e4bbde9dc680fc))
+
+
+
+
+# [0.34.0-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.32.1...@opendatasoft/visualizations-react@0.34.0-beta.0) (2026-06-17)
+
+
+### Features
+
+* **Table:** add cursor pagination mode without total count ([23a7fdb](https://github.com/opendatasoft/ods-dataviz-sdk/commit/23a7fdb183ad8c7b773e75117730377ed9b5bca8))
+
+
+
+
+# [0.33.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.33.0-beta.0...@opendatasoft/visualizations-react@0.33.0) (2026-06-16)
+
+**Note:** Version bump only for package @opendatasoft/visualizations-react
+
+
+# [0.33.0-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.32.1...@opendatasoft/visualizations-react@0.33.0-beta.0) (2026-05-26)
+
+
+### Features
+
+* **LinksMenu:** add optional download attribute on LinkHref ([16ad99d](https://github.com/opendatasoft/ods-dataviz-sdk/commit/16ad99da608cc3c6411d2c082ef76f81cc00148c))
+* support action items and href onClick ([d794795](https://github.com/opendatasoft/ods-dataviz-sdk/commit/d79479599d892d005be8245f1f47a57e59fea8c2))
+
+
+
+
+
+## [0.32.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.32.0...@opendatasoft/visualizations-react@0.32.1) (2026-05-25)
+
+**Note:** Version bump only for package @opendatasoft/visualizations-react
+
+
+
+
+
+## [0.32.1-beta.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.32.1-beta.0...@opendatasoft/visualizations-react@0.32.1-beta.1) (2026-04-17)
+
+**Note:** Version bump only for package @opendatasoft/visualizations-react
+
+
+
+
+
+## [0.32.1-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.32.0...@opendatasoft/visualizations-react@0.32.1-beta.0) (2026-04-16)
+
+
+### Features
+
+* support action items and href onClick ([d794795](https://github.com/opendatasoft/ods-dataviz-sdk/commit/d79479599d892d005be8245f1f47a57e59fea8c2))
+
+
+
+
+
 # [0.32.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.30.0...@opendatasoft/visualizations-react@0.32.0) (2026-04-08)
 
 
