@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.37.0-beta.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.37.0-beta.1...@opendatasoft/visualizations@0.37.0-beta.2) (2026-09-01)
+
+
+### Bug Fixes
+
+* **Card:** keep the padding and the border inside the width the card is given ([60dfe20](https://github.com/opendatasoft/ods-dataviz-sdk/commit/60dfe20f9553fcf1f6df64fda76fed1dda2b3388))
+* **ChoroplethMap:** mirror the back button in right-to-left reading order ([cb2b056](https://github.com/opendatasoft/ods-dataviz-sdk/commit/cb2b0566973f11e189fdc8855ff72cf9d0f002b7))
+
+
+
+
+
 # [0.37.0-beta.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.37.0-beta.0...@opendatasoft/visualizations@0.37.0-beta.1) (2026-08-10)
 
 
