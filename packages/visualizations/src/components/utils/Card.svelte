@@ -45,9 +45,16 @@
 </svelte:element>
 
 <style>
+    /*
+     * The parent decides the width, and the height too when filling, so the padding and the border
+     * the modifiers below add sit inside that size instead of growing past it. Without it a card
+     * asked for the full width of its container renders wider than the container by its own padding
+     * and border, and the reading-end border falls outside.
+     */
     .card {
         display: flex;
         flex-direction: column;
+        box-sizing: border-box;
         width: 100%;
         height: auto;
         margin: 0;
@@ -68,12 +75,9 @@
     .card.ods-dataviz--default {
         flex-wrap: wrap;
     }
-    /* Take the height the parent gives us instead of the content's. `box-sizing` keeps padding and
-     * border inside that height, and `nowrap` stops a full-height slot from wrapping onto a second
-     * flex column. Declared after `--default` so both win over it, and scoped to this modifier so
-     * content-sized cards keep their current geometry. */
+    /* Take the height the parent gives us instead of the content's, and `nowrap` stops a full-height
+     * slot from wrapping onto a second flex column. Declared after `--default` so both win over it. */
     .card.ods-dataviz--fill {
-        box-sizing: border-box;
         height: 100%;
         flex-wrap: nowrap;
     }
