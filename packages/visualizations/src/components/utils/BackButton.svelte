@@ -32,4 +32,12 @@
         background-color: var(--background-color);
         box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.26);
     }
+    /*
+     * The arrow means "back", which follows the reading direction: it has to point the other way
+     * in a right-to-left context. Mirroring the button is the same as mirroring the glyph, its box
+     * being square with a symmetric shadow.
+     */
+    button:dir(rtl) {
+        transform: scaleX(-1);
+    }
 </style>
