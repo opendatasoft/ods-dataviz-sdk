@@ -6,8 +6,11 @@ export interface ChartOptions {
     labelColumn?: string;
     /** Series to display */
     series: ChartSeries[];
-    /** Chart aspect ratio */
-    aspectRatio?: number;
+    /**
+     * Chart aspect ratio: a number for a fixed width/height ratio (default 4/3), or `'auto'` to fill
+     * the parent's box instead. `'auto'` needs an explicit height on the parent chain.
+     */
+    aspectRatio?: number | 'auto';
     /** Chart padding */
     padding?:
         | number

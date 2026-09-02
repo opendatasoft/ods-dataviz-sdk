@@ -73,10 +73,15 @@
     let dataFrame: DataFrame = [];
     let series: ChartSeries[] = [];
     let { labelColumn } = options;
+    let isAutoAspectRatio: boolean;
+    let numericAspectRatio: number;
 
     $: dataFrame = data.value || [];
     $: series = options.series;
     $: labelColumn = options.labelColumn;
+    $: isAutoAspectRatio = options.aspectRatio === 'auto';
+    // Single source of truth for the fixed-ratio default, used by both the CSS box and ChartJS.
+    $: numericAspectRatio = typeof options.aspectRatio === 'number' ? options.aspectRatio : 4 / 3;
 
     $: chartConfig = update(chartConfig, {
         type: { $set: defaultValue(options.series[0]?.type, ChartSeriesType.Line) },
@@ -87,7 +92,16 @@
         /* Kills ChartJS legend if in custom mode
          * To be deleted when fully switching to home made one */
         const legend = options.legend?.custom ? { display: false } : buildLegend(options);
-        chartOptions.aspectRatio = defaultValue(options.aspectRatio, 4 / 3);
+        if (isAutoAspectRatio) {
+            // Let ChartJS size the canvas from its parent box instead of a fixed ratio
+            chartOptions.aspectRatio = undefined;
+            chartOptions.maintainAspectRatio = false;
+        } else {
+            chartOptions.aspectRatio = numericAspectRatio;
+            // Both branches assign explicitly: chartConfig.options is mutated in place across
+            // renders, so an omitted key would keep the previous mode's value.
+            chartOptions.maintainAspectRatio = true;
+        }
         chartOptions.scales = buildScales(options, dataFrame);
         chartOptions.layout = {
             padding: defaultValue(options?.padding, 12),
@@ -239,10 +253,12 @@
         subtitle={displaySubtitle ? options.subtitle?.text : undefined}
         links={options.links}
         className="container"
+        fill={isAutoAspectRatio}
     >
         <figure
             class="chart legend--{legendPosition}"
-            style="--aspect-ratio: {defaultValue(options.aspectRatio, 4 / 3)}"
+            class:fill={isAutoAspectRatio}
+            style="--aspect-ratio: {isAutoAspectRatio ? 'auto' : numericAspectRatio}"
         >
             <!-- svelte-ignore a11y-no-interactive-element-to-noninteractive-role -->
             <canvas
@@ -269,7 +285,21 @@
         flex-grow: 1;
         margin: 0;
         display: flex;
-        aspect-ratio: var(--aspect-ratio);
+        aspect-ratio: var(--aspect-ratio, auto);
+    }
+    /* No ratio to honour, so take the space the card leaves us. `flex-basis: 0` rather than `auto`
+     * (or `height: 100%`) is what makes this purely free-space driven: the figure never derives its
+     * size from the canvas ChartJS just sized, so shrinking the container can't be fought by the
+     * canvas it produced. `min-height: 0` lifts the flex item's automatic minimum so it can shrink
+     * below that canvas. Scoped to this modifier so the fixed-ratio mode keeps sizing from
+     * `aspect-ratio`, which only applies while one axis stays `auto`. */
+    figure.fill {
+        flex: 1 1 0;
+        min-height: 0;
+    }
+    figure.fill canvas {
+        min-width: 0;
+        min-height: 0;
     }
     .legend--bottom {
         flex-direction: column;
