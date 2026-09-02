@@ -40,6 +40,7 @@ export const createStickyStores = () => {
 
     const isHorizontallyScrolled = writable(false);
     const isVerticallyScrolled = writable(false);
+    const stickyHeader = writable(false);
 
     return {
         stickyColumnsOffset,
@@ -47,5 +48,6 @@ export const createStickyStores = () => {
         lastStickyColumn,
         isHorizontallyScrolled,
         isVerticallyScrolled,
+        stickyHeader,
     };
 };

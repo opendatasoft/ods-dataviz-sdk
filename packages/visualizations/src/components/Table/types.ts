@@ -125,4 +125,5 @@ export type StickyStores = {
     lastStickyColumn: Readable<ColumnKey | undefined>;
     isHorizontallyScrolled: Writable<boolean>;
     isVerticallyScrolled: Writable<boolean>;
+    stickyHeader: Writable<boolean>;
 };

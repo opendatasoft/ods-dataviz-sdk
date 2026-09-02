@@ -28,6 +28,7 @@
         lastStickyColumn,
         isHorizontallyScrolled,
         isVerticallyScrolled,
+        stickyHeader: isHeaderSticky,
     } = createStickyStores();
 
     setContext('sticky-stores', {
@@ -36,16 +37,15 @@
         lastStickyColumn,
         isHorizontallyScrolled,
         isVerticallyScrolled,
+        stickyHeader: isHeaderSticky,
     });
+
+    $: $isHeaderSticky = stickyHeader;
 
     function handleScroll() {
         $isHorizontallyScrolled =
             document.dir === 'rtl' ? scrollBox?.scrollLeft < 0 : scrollBox?.scrollLeft > 0;
-        $isVerticallyScrolled = (scrollBox?.scrollTop ?? 0) > 0;
-    }
-
-    $: if (scrollBox) {
-        $isVerticallyScrolled = scrollBox.scrollTop > 0;
+        $isVerticallyScrolled = scrollBox?.scrollTop > 0;
     }
 
     // resets scroll when changing columns parameters
@@ -74,7 +74,6 @@
             columns={sortedStickyColumns}
             extraButtonColumn={Boolean(rowProps?.onClick)}
             {extraButtonColumnLabel}
-            {stickyHeader}
         />
         <Body
             {records}
