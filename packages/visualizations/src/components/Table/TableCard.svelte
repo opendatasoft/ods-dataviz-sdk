@@ -27,6 +27,7 @@
         extraButtonColumnLabel,
         debugWarnings: debugOption = false,
         stickyHeader = false,
+        maxHeight,
     } = options);
     $: $locale = localeOption || navigator.language;
     $: $debugWarnings = debugOption;
@@ -48,6 +49,7 @@
             {extraButtonColumnLabel}
             {rowProps}
             {stickyHeader}
+            {maxHeight}
         />
         {#if pagination}
             <Pagination {...pagination} displayedRecords={records?.length} />

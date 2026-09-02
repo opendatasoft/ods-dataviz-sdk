@@ -108,6 +108,12 @@ export type TableOptions = {
     debugWarnings?: boolean;
     /** Keeps the column header row visible while the table scrolls vertically. */
     stickyHeader?: boolean;
+    /**
+     * Caps the table's scrollport with a CSS length (e.g. `'24rem'`), so the rows
+     * scroll vertically past that height. `stickyHeader` has no effect unless the
+     * scrollport is bounded, either through this option or by the surrounding layout.
+     */
+    maxHeight?: string;
 };
 
 export type TableProps = {

@@ -19,25 +19,12 @@ const data: Async<TableData> = {
 
 const STORY_SCROLLPORT_HEIGHT = '16rem';
 
-const scrollableTableFrameStyle: React.CSSProperties = {
-    maxWidth: '800px',
-    height: STORY_SCROLLPORT_HEIGHT,
-};
-
-/** Story-only: fixed scrollport so the sticky header is visible in Storybook. */
-const storyScrollportStyles = `
-    .sticky-header-story-frame .scrollbox,
-    .sticky-header-and-columns-frame .scrollbox,
-    .sticky-header-paginated-frame .scrollbox {
-        max-height: ${STORY_SCROLLPORT_HEIGHT};
-        overflow-y: auto;
-    }
-`;
+const frameStyle: React.CSSProperties = { maxWidth: '800px' };
 
 export const StickyHeader: StoryObj<typeof Table> = {
     args: {
         data,
-        options: { ...options, stickyHeader: true },
+        options: { ...options, stickyHeader: true, maxHeight: STORY_SCROLLPORT_HEIGHT },
     },
     render: (args: TableProps) => {
         const { data: templateData, options: templateOptions } = args;
@@ -47,7 +34,6 @@ export const StickyHeader: StoryObj<typeof Table> = {
 
         return (
             <>
-                <style>{storyScrollportStyles}</style>
                 <div style={{ marginBottom: '20px' }}>
                     <h3>Sticky header (`options.stickyHeader`)</h3>
                     <p style={{ maxWidth: '42rem', marginBottom: '0.75rem' }}>
@@ -63,10 +49,14 @@ export const StickyHeader: StoryObj<typeof Table> = {
                         Sticky header
                     </label>
                 </div>
-                <div className="sticky-header-story-frame" style={scrollableTableFrameStyle}>
+                <div className="sticky-header-story-frame" style={frameStyle}>
                     <Table
                         data={templateData}
-                        options={{ ...templateOptions, stickyHeader: isStickyHeaderEnabled }}
+                        options={{
+                            ...templateOptions,
+                            stickyHeader: isStickyHeaderEnabled,
+                            maxHeight: STORY_SCROLLPORT_HEIGHT,
+                        }}
                     />
                 </div>
             </>
@@ -88,17 +78,17 @@ export const StickyHeaderWithPagination: StoryObj<typeof Table> = {
 
         return (
             <>
-                <style>{storyScrollportStyles}</style>
                 <p style={{ maxWidth: '42rem', marginBottom: '0.75rem' }}>
                     Scroll inside the table, then change page. The header stays pinned while rows
                     update.
                 </p>
-                <div className="sticky-header-paginated-frame" style={scrollableTableFrameStyle}>
+                <div className="sticky-header-paginated-frame" style={frameStyle}>
                     <Table
                         data={paginatedData}
                         options={{
                             ...options,
                             stickyHeader: true,
+                            maxHeight: STORY_SCROLLPORT_HEIGHT,
                             pagination: {
                                 current: page,
                                 recordsPerPage: pageSize,
@@ -124,19 +114,17 @@ export const StickyHeaderAndColumns: StoryObj<typeof Table> = {
         const stickyColumns = columns.map((col, i) => (i < 2 ? { ...col, sticky: true } : col));
 
         return (
-            <>
-                <style>{storyScrollportStyles}</style>
-                <div className="sticky-header-and-columns-frame" style={scrollableTableFrameStyle}>
-                    <Table
-                        data={templateData}
-                        options={{
-                            ...templateOptions,
-                            columns: stickyColumns,
-                            stickyHeader: true,
-                        }}
-                    />
-                </div>
-            </>
+            <div className="sticky-header-and-columns-frame" style={frameStyle}>
+                <Table
+                    data={templateData}
+                    options={{
+                        ...templateOptions,
+                        columns: stickyColumns,
+                        stickyHeader: true,
+                        maxHeight: STORY_SCROLLPORT_HEIGHT,
+                    }}
+                />
+            </div>
         );
     },
 };

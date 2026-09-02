@@ -16,6 +16,7 @@
     export let rowProps: RowProps | undefined;
     export let extraButtonColumnLabel: string | undefined;
     export let stickyHeader = false;
+    export let maxHeight: string | undefined;
 
     const tableId = `table-${generateId()}`;
 
@@ -41,6 +42,9 @@
     });
 
     $: $isHeaderSticky = stickyHeader;
+    /* Set inline rather than in the scoped style block: `unstyled` drops the
+       .ods-dataviz--default rules, and the scrollport must be bounded either way. */
+    $: scrollboxStyle = maxHeight ? `max-height: ${maxHeight}; overflow-y: auto;` : undefined;
 
     function handleScroll() {
         $isHorizontallyScrolled =
@@ -68,7 +72,7 @@
     }
 </script>
 
-<div class="scrollbox" bind:this={scrollBox} on:scroll={handleScroll}>
+<div class="scrollbox" style={scrollboxStyle} bind:this={scrollBox} on:scroll={handleScroll}>
     <table aria-describedby={description ? tableId : undefined}>
         <Headers
             columns={sortedStickyColumns}
