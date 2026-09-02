@@ -4,27 +4,34 @@
 }
 
 .sticky:dir(ltr) {
-    left: calc(var(--sticky-offset) + var(--row-number-width, 0px));
+    left: var(--sticky-offset);
 }
-
-/* stickyColumnsOffset (store.ts) leaves a deliberate 1px gap between sticky columns;
-   this opaque filler hides the scrolled row content that would otherwise show through it.
-   Only the last sticky column gets the visible divider color, once scrolled. */
-.sticky:not(.button-cell):dir(ltr) {
-    border-right: 1px solid white;
-}
-.sticky.isLastSticky.isHorizontallyScrolled:not(.button-cell):dir(ltr) {
-    border-right-color: var(--border-color);
-}
-
 .sticky:dir(rtl) {
-    right: calc(var(--sticky-offset) + var(--row-number-width, 0px));
+    right: var(--sticky-offset);
 }
-.sticky:not(.button-cell):dir(rtl) {
-    border-left: 1px solid white;
+
+/* stickyColumnsOffset (store.ts) leaves a deliberate 1px gap between sticky columns; this
+   pseudo-element hides the scrolled row content that would otherwise show through it.
+   `background-color: inherit` takes the cell's own current background, so it stays correct
+   through row hover/theme changes instead of matching only the default white. The button
+   column is excluded from the colored override below — it draws its own visible divider
+   instead (Row.svelte, `border-inline-end`). */
+.sticky::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 1px;
+    background-color: inherit;
 }
-.sticky.isLastSticky.isHorizontallyScrolled:not(.button-cell):dir(rtl) {
-    border-left-color: var(--border-color);
+.sticky:dir(ltr)::before {
+    right: -1px;
+}
+.sticky:dir(rtl)::before {
+    left: -1px;
+}
+.sticky.isLastSticky.isHorizontallyScrolled:not(.button-cell)::before {
+    background-color: var(--border-color);
 }
 
 /* applies shadow only on the left to avoid eating borders */

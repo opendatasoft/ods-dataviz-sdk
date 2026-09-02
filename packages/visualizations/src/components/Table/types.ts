@@ -11,7 +11,7 @@ import type {
     JsonFormatProps,
 } from '../Format/types';
 import type { Pagination } from '../Pagination/types';
-import type { DATA_FORMAT, HOVER_COLUMN_KEY } from './constants';
+import type { DATA_FORMAT, HOVER_COLUMN_KEY, ROW_NUMBER_COLUMN_KEY } from './constants';
 
 export type GenericRecord = Record<string, unknown>; // avoid {} with no key from object;
 
@@ -144,7 +144,7 @@ export type TableProps = {
     options: TableOptions;
 };
 
-export type ColumnKey = string | typeof HOVER_COLUMN_KEY;
+export type ColumnKey = string | typeof HOVER_COLUMN_KEY | typeof ROW_NUMBER_COLUMN_KEY;
 export type StickyStores = {
     stickyColumnsWidth: Writable<Map<ColumnKey, number>> & {
         updateColumn: (key: ColumnKey, width: number) => void;

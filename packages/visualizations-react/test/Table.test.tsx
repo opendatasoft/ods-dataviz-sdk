@@ -351,7 +351,7 @@ test('Unmapped dataFormat still renders the raw value in the cell body', () => {
     expect(screen.getByText('some raw value')).toBeInTheDocument();
 });
 
-test('Row-number scroll boundary (border + shadow) only appears once the table has scrolled horizontally', async () => {
+test('Row-number sticky classes only apply once the table has scrolled horizontally', async () => {
     const { container } = render(
         <Table
             data={{ value: [{ v: 'a' }] }}
@@ -363,15 +363,39 @@ test('Row-number scroll boundary (border + shadow) only appears once the table h
     );
 
     const scrollbox = container.querySelector('.scrollbox') as HTMLElement;
-    expect(scrollbox).not.toHaveClass('scrollbox--row-number-border');
-    expect(scrollbox).not.toHaveClass('scrollbox--row-number-shadow');
+    const rowNumberHeader = container.querySelector('.row-number-header') as HTMLElement;
+
+    // Structurally the only sticky column, so it's always "last sticky"; only the
+    // scroll-dependent class should be missing before scrolling.
+    expect(rowNumberHeader).toHaveClass('isLastSticky');
+    expect(rowNumberHeader).not.toHaveClass('isHorizontallyScrolled');
 
     scrollbox.scrollLeft = 10;
     fireEvent.scroll(scrollbox);
 
     // Svelte flushes reactive class bindings on the next microtask, not synchronously.
     await waitFor(() => {
-        expect(scrollbox).toHaveClass('scrollbox--row-number-border');
-        expect(scrollbox).toHaveClass('scrollbox--row-number-shadow');
+        expect(rowNumberHeader).toHaveClass('isHorizontallyScrolled');
     });
+});
+
+test('The action column renders before the row-number column, matching the design order', () => {
+    const { container } = render(
+        <Table
+            data={{ value: [{ v: 'a' }] }}
+            options={{
+                columns: [{ title: 'Col', key: 'v', dataFormat: 'short-text' }],
+                showRowNumbers: true,
+                rowProps: { onClick: () => {} },
+            }}
+        />
+    );
+
+    const headerCells = container.querySelectorAll('thead th');
+    expect(headerCells[0]).toHaveClass('button-cell');
+    expect(headerCells[1]).toHaveClass('row-number-header');
+
+    const bodyCells = container.querySelectorAll('tbody tr:first-child td');
+    expect(bodyCells[0]).toHaveClass('button-cell');
+    expect(bodyCells[1]).toHaveClass('row-number-cell');
 });

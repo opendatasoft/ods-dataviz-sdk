@@ -38,9 +38,6 @@
     on:focusin={rowProps && handleMouseEnter}
     on:focusout={rowProps && handleMouseLeave}
 >
-    {#if showRowNumbers}
-        <td class="row-number-cell">{rowOffset + rowIndex + 1}</td>
-    {/if}
     {#if rowProps?.onClick}
         <Td>
             <button
@@ -52,6 +49,9 @@
                 </span>
             </button>
         </Td>
+    {/if}
+    {#if showRowNumbers}
+        <Td rowNumber>{rowOffset + rowIndex + 1}</Td>
     {/if}
     {#each columns as column}
         <Td {column}>
@@ -72,22 +72,20 @@
         height: 28px;
         width: 28px;
         padding: 6px;
-        margin-inline-end: -6px; /* cancels next cell padding */
         border: none;
         box-shadow: none;
     }
 
-    :global(.ods-dataviz--default .button-cell.isHorizontallyScrolled.isLastSticky button) {
-        margin-inline-end: 0; /* cancels next cell padding */
-    }
-
     :global(.ods-dataviz--default .button-cell.sticky) {
-        padding: 0px;
-        padding-inline-start: 6px;
+        padding: 0 6px;
+        /* Defeats a host's generic `th, td { min-width: ... }` (e.g. platform's 75px) —
+           `min-width` always wins over a smaller `width`/content size regardless of
+           specificity, so without this the column is forced far wider than the icon needs.
+           This rule already applies to both the header and body button-cell via :global(). */
+        min-width: 0;
     }
 
     :global(.ods-dataviz--default .button-cell.isHorizontallyScrolled.isLastSticky) {
-        padding: 0 6px;
         border-inline-end: 1px solid var(--border-color);
     }
 

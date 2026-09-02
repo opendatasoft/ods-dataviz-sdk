@@ -26,11 +26,11 @@
     {#if loadingRowsNumber}
         {#each Array(loadingRowsNumber) as _}
             <tr>
-                {#if showRowNumbers}
-                    <td class="row-number-cell row-number-cell--loading" />
-                {/if}
                 {#if rowProps?.onClick}
                     <td class="button-cell__empty" />
+                {/if}
+                {#if showRowNumbers}
+                    <td class="row-number-cell row-number-cell--loading" />
                 {/if}
                 {#each columns as __}
                     <LoadingCell />
@@ -60,6 +60,15 @@
         min-width: 28px;
     }
 
+    /* The loading placeholder isn't rendered through <Td>, so it doesn't get the generic
+       .sticky positioning — pin it the same way it always rendered (real cells now measure
+       their offset instead, see Td.svelte). */
+    :global(.ods-dataviz--default .row-number-cell--loading) {
+        position: sticky;
+        inset-inline-start: 0;
+        z-index: 10;
+    }
+
     :global(.ods-dataviz--default .row-number-cell) {
         text-align: end;
         min-width: 3rem;
@@ -67,8 +76,5 @@
         font-variant-numeric: tabular-nums;
         user-select: none;
         padding-inline-end: var(--spacing-75);
-        position: sticky;
-        inset-inline-start: 0;
-        z-index: 10;
     }
 </style>
