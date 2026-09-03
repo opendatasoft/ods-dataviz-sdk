@@ -56,7 +56,8 @@
        the previous one, so the next page renders already scrolled on its first frame.
        The stores are reset alongside because the scroll event only fires on an actual move. */
     $: if (records && scrollBox) {
-        scrollBox.scrollTo({ top: 0, left: 0 });
+        scrollBox.scrollTop = 0;
+        scrollBox.scrollLeft = 0;
         $isVerticallyScrolled = false;
         $isHorizontallyScrolled = false;
     }
