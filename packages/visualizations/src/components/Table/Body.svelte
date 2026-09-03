@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { Column, RowProps, TableData } from './types';
-    import { LoadingCell } from './Cell';
+    import Td, { LoadingCell } from './Cell';
     import EmptyRow from './EmptyRow.svelte';
     import Row from './Row.svelte';
 
@@ -27,13 +27,15 @@
         {#each Array(loadingRowsNumber) as _}
             <tr>
                 {#if rowProps?.onClick}
-                    <td class="button-cell__empty" />
+                    <Td>
+                        <div class="button-cell__empty" />
+                    </Td>
                 {/if}
                 {#if showRowNumbers}
-                    <td class="row-number-cell row-number-cell--loading" />
+                    <Td rowNumber />
                 {/if}
-                {#each columns as __}
-                    <LoadingCell />
+                {#each columns as column}
+                    <LoadingCell {column} />
                 {/each}
             </tr>
         {/each}
@@ -57,16 +59,8 @@
 
 <style>
     .button-cell__empty {
-        min-width: 28px;
-    }
-
-    /* The loading placeholder isn't rendered through <Td>, so it doesn't get the generic
-       .sticky positioning — pin it the same way it always rendered (real cells now measure
-       their offset instead, see Td.svelte). */
-    :global(.ods-dataviz--default .row-number-cell--loading) {
-        position: sticky;
-        inset-inline-start: 0;
-        z-index: 10;
+        width: 28px;
+        height: 28px;
     }
 
     :global(.ods-dataviz--default .row-number-cell) {

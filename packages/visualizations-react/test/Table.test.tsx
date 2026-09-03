@@ -399,3 +399,40 @@ test('The action column renders before the row-number column, matching the desig
     expect(bodyCells[0]).toHaveClass('button-cell');
     expect(bodyCells[1]).toHaveClass('row-number-cell');
 });
+
+test('The loading skeleton keeps the action and row-number placeholders sticky, matching loaded rows', () => {
+    const { container } = render(
+        <Table
+            data={{ value: [], loading: true }}
+            options={{
+                columns: [{ title: 'Col', key: 'v', dataFormat: 'short-text' }],
+                showRowNumbers: true,
+                rowProps: { onClick: () => {} },
+            }}
+        />
+    );
+
+    const bodyCells = container.querySelectorAll('tbody tr:first-child td');
+    expect(bodyCells[0]).toHaveClass('sticky');
+    expect(bodyCells[1]).toHaveClass('sticky');
+
+    // The row-number placeholder must offset by the action column's width, not sit at the
+    // table's own left edge like the (now sticky) action placeholder does.
+    const actionOffset = (bodyCells[0] as HTMLElement).style.getPropertyValue('--sticky-offset');
+    const rowNumberOffset = (bodyCells[1] as HTMLElement).style.getPropertyValue('--sticky-offset');
+    expect(rowNumberOffset).not.toEqual(actionOffset);
+});
+
+test('A sticky data column stays sticky in the loading skeleton', () => {
+    const { container } = render(
+        <Table
+            data={{ value: [], loading: true }}
+            options={{
+                columns: [{ title: 'Col', key: 'v', dataFormat: 'short-text', sticky: true }],
+            }}
+        />
+    );
+
+    const loadingDataCell = container.querySelector('tbody tr:first-child td:last-child');
+    expect(loadingDataCell).toHaveClass('sticky');
+});
