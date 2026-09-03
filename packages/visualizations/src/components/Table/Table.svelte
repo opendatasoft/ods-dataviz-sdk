@@ -52,6 +52,15 @@
         $isVerticallyScrolled = scrollBox?.scrollTop > 0;
     }
 
+    /* New records are new content: without this, changing page keeps the scroll offsets of
+       the previous one, so the next page renders already scrolled on its first frame.
+       The stores are reset alongside because the scroll event only fires on an actual move. */
+    $: if (records && scrollBox) {
+        scrollBox.scrollTo({ top: 0, left: 0 });
+        $isVerticallyScrolled = false;
+        $isHorizontallyScrolled = false;
+    }
+
     // resets scroll when changing columns parameters
     $: if (columns && scrollBox) {
         sortedStickyColumns = [...columns].sort((colA, colB) => {
