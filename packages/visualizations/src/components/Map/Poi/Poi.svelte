@@ -1,5 +1,6 @@
 <script lang="ts">
     import CategoryLegend from 'components/Legend/CategoryLegend.svelte';
+    import { CATEGORY_LEGEND_POSITION } from 'components/Legend/types';
     import Card from 'components/utils/Card.svelte';
     import WelGlMap from '../WebGl';
 
@@ -24,7 +25,21 @@
         aspectRatio = DEFAULT_ASPECT_RATIO,
     } = options);
 
+    // 'top-left' floats the legend over the map; anything else (incl. the
+    // default) keeps the legacy legend below the map.
+    $: isOverlayLegend = !!legend && legend.position === CATEGORY_LEGEND_POSITION.topLeft;
+
+    // 'auto' takes the height the parent gives us instead of deriving it from the
+    // width, for a host that sizes the map itself. `aspect-ratio: auto` is what CSS
+    // already calls "no imposed ratio", so the same variable carries both cases.
+    $: isAutoAspectRatio = aspectRatio === 'auto';
+
     $: cssVarStyles = `--aspect-ratio:${aspectRatio};`;
+
+    // Default fullscreen target: this wrapper holds the map and the legend overlay, so both expand
+    // together. A host rendering its own overlays around the map passes the element holding them as
+    // `fullscreenContainer`, and that one takes over.
+    let mainEl: HTMLElement | undefined;
 </script>
 
 <Card
@@ -35,16 +50,30 @@
     style={cssVarStyles}
     tag="figure"
     className="map-card maps-container ods-dataviz--maps"
+    fill={isAutoAspectRatio}
 >
-    <div class="main" aria-describedby={description ? mapId.toString() : undefined}>
+    <div
+        class="main"
+        class:fill={isAutoAspectRatio}
+        bind:this={mainEl}
+        aria-describedby={description ? mapId.toString() : undefined}
+    >
         {#key options.style}
-            <WelGlMap {options} data={data.value} />
+            <WelGlMap
+                options={{ ...options, fullscreenContainer: options.fullscreenContainer ?? mainEl }}
+                data={data.value}
+            />
         {/key}
+        {#if legend && isOverlayLegend}
+            <div class="legend-overlay">
+                <CategoryLegend legendOptions={legend} />
+            </div>
+        {/if}
     </div>
     {#if description}
         <p id={mapId.toString()} class="a11y-invisible-description">{description}</p>
     {/if}
-    {#if legend}
+    {#if legend && !isOverlayLegend}
         <CategoryLegend legendOptions={legend} />
     {/if}
 </Card>
@@ -55,6 +84,34 @@
         flex-grow: 1;
         position: relative;
         display: block;
+    }
+    /* `aspectRatio: 'auto'`: share the height the card was given rather than adding to it.
+       `min-height: 0` is what lets the map shrink below the size of its own content. */
+    .main.fill {
+        flex: 1 1 0;
+        min-height: 0;
+    }
+    /* In fullscreen the wrapper fills the screen instead of keeping the card ratio.
+       MapLibre falls back to a class-based pseudo fullscreen when the Fullscreen API
+       is unavailable (iOS). */
+    .main:fullscreen,
+    .main:global(.maplibregl-pseudo-fullscreen) {
+        aspect-ratio: auto;
+    }
+    /* Floating legend overlaid on the map. Positioned with logical insets so it
+       mirrors automatically in RTL (top-left in LTR, top-right in RTL). */
+    .legend-overlay {
+        position: absolute;
+        inset-block-start: 8px;
+        inset-inline-start: 8px;
+        z-index: 1;
+        max-width: 240px;
+        max-height: calc(100% - 16px);
+        overflow: auto;
+        background: #fff;
+        border-radius: 4px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+        padding: 4px 0;
     }
     /* Suitable for elements that are used via aria-describedby or aria-labelledby */
     .a11y-invisible-description {

@@ -1,5 +1,6 @@
 import type {
     CircleLayerSpecification,
+    ControlPosition,
     FillLayerSpecification,
     GeoJSONFeature,
     GestureOptions,
@@ -51,8 +52,19 @@ export interface WebGlMapOptions {
     zoom?: number;
     minZoom?: number;
     maxZoom?: number;
-    // Aspect ratio used to draw the map. The map will take he width available to it, and decide its height based on that ratio.
-    aspectRatio?: number;
+    /**
+     * Aspect ratio used to draw the map. The map takes the width available to it and derives its
+     * height from that ratio. `'auto'` instead makes it fill the height its parent gives it, for a
+     * host that sizes the map itself, same contract as the chart's `aspectRatio`.
+     */
+    aspectRatio?: number | 'auto';
+    /**
+     * Corner the zoom and fullscreen controls sit in. Defaults to `top-right`.
+     *
+     * MapLibre corners are physical, so a host that overlays something in a corner of its own passes
+     * the opposite one, and mirrors that choice itself in right-to-left reading order.
+     */
+    controlPosition?: ControlPosition;
     // Is the map interactive for the user (zoom, move, tooltips...)
     interactive?: boolean;
     cooperativeGestures?: boolean | GestureOptions;
@@ -64,6 +76,11 @@ export interface WebGlMapOptions {
     onFeatureClick?: OnFeatureClick;
     /** A callback called with the MapLibre map instance once the map has loaded and is ready */
     onMapReady?: (map: MaplibreMap) => void;
+    /**
+     * Element the fullscreen control expands instead of the bare map container, so sibling
+     * overlays (e.g. the POI map corner legend) stay visible in fullscreen.
+     */
+    fullscreenContainer?: HTMLElement;
 }
 
 export type WebGlMapStyleOption = Partial<Pick<StyleSpecification, 'sources' | 'layers'>>;

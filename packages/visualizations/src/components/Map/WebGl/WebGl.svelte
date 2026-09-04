@@ -56,6 +56,8 @@
     $: map.loadImages(images);
     $: map.updateClickHandler(options?.onFeatureClick);
     $: map.updateMapReadyHandler(options?.onMapReady);
+    $: map.setFullscreenContainer(options?.fullscreenContainer);
+    $: map.setControlPosition(options?.controlPosition);
 
     // Lifecycle
     onMount(() => {
@@ -79,6 +81,10 @@
     .ods-visualization__map-container {
         height: 100%;
         width: 100%;
+        /* Rounded like the visualization card the map sits in. MapLibre already clips this element
+           (`.maplibregl-map` carries `overflow: hidden`), so the canvas follows the radius. A host
+           drawing the map edge to edge sets the variable to 0. */
+        border-radius: var(--map-border-radius, 6px);
     }
     .ods-visualization__map-container :global(canvas) {
         cursor: default;
@@ -248,10 +254,5 @@
         transform: rotate(-45deg);
     }
 
-    /* --- CONTROLS --- */
-    .ods-visualization__map-container :global(.maplibregl-ctrl.maplibregl-ctrl-group) {
-        margin-top: 13px;
-        margin-right: 13px;
-        box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.26);
-    }
+    /* --- CONTROLS --- in `styles/map-controls.css`, shared with the choropleth map. */
 </style>

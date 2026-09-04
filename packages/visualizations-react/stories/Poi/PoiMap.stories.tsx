@@ -609,3 +609,39 @@ export const StudioResponsiveUsage: StoryObj<typeof PoiMap> = {
         );
     },
 };
+
+const legendOverlayLayers = [
+    { ...citiesLayer, colorMatch: citiesColorMatch },
+    { ...battlesLayer, iconImageMatch: battleImageMatch },
+    moselleLayer,
+    maginotLayer,
+    riversLayer,
+];
+
+const renderInBox = (args: PoiMapProps) => (
+    <div
+        style={{
+            width: '50%',
+            minHeight: '100px',
+            minWidth: '100px',
+            margin: 'auto',
+            border: '1px solid black',
+        }}
+    >
+        <PoiMap {...args} />
+    </div>
+);
+
+/**
+ * STORY: legend as a floating overlay in the top-left corner (sc-61879).
+ * Positioning is logical, so in an RTL layout it mirrors to the top-right corner.
+ * The fullscreen control expands the map wrapper, so the legend stays visible
+ * in fullscreen too.
+ */
+export const PoiMapLegendTopLeft: StoryObj<typeof PoiMap> = {
+    args: {
+        data: { value: { layers: legendOverlayLayers, sources } },
+        options: { ...options, legend: { ...legend, position: 'top-left' as const } },
+    },
+    render: renderInBox,
+};

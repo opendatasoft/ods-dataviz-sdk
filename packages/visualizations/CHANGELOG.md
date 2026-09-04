@@ -3,6 +3,54 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.37.0-beta.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.37.0-beta.1...@opendatasoft/visualizations@0.37.0-beta.2) (2026-09-01)
+
+
+### Bug Fixes
+
+* **Card:** keep the padding and the border inside the width the card is given ([60dfe20](https://github.com/opendatasoft/ods-dataviz-sdk/commit/60dfe20f9553fcf1f6df64fda76fed1dda2b3388))
+* **ChoroplethMap:** mirror the back button in right-to-left reading order ([cb2b056](https://github.com/opendatasoft/ods-dataviz-sdk/commit/cb2b0566973f11e189fdc8855ff72cf9d0f002b7))
+
+
+
+
+
+# [0.37.0-beta.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.37.0-beta.0...@opendatasoft/visualizations@0.37.0-beta.1) (2026-08-10)
+
+
+### Bug Fixes
+
+* **Card:** give the card border its own width variable ([ed3ec23](https://github.com/opendatasoft/ods-dataviz-sdk/commit/ed3ec234e110dc0f96a61d590e8ea4aae147b81d))
+* **LinksMenu:** open the panel inward in right-to-left reading order ([3e027e9](https://github.com/opendatasoft/ods-dataviz-sdk/commit/3e027e9bf33a278f2215e9488c5baf7a61614900))
+* **map:** let a host choose what the POI map expands in fullscreen ([4fcbec9](https://github.com/opendatasoft/ods-dataviz-sdk/commit/4fcbec9e4842a1a6f52dea5765f9eb1aa7a13480))
+
+
+### Features
+
+* **ChoroplethMap:** style the drill-down back button and the navigation strip ([b1fdba4](https://github.com/opendatasoft/ods-dataviz-sdk/commit/b1fdba4f4fa432cbb627ad2aca6dc8d4093ea919))
+* **map:** let a host size the POI map and choose the corner its controls sit in ([994bec1](https://github.com/opendatasoft/ods-dataviz-sdk/commit/994bec13cb9733a03fe537f61af5067a524b1dae))
+* **map:** ship the chrome of the map controls with the maps ([b16d6a2](https://github.com/opendatasoft/ods-dataviz-sdk/commit/b16d6a23ae494edd361f922be12056d9270b9050))
+
+
+
+
+
+# [0.37.0-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.36.0...@opendatasoft/visualizations@0.37.0-beta.0) (2026-08-04)
+
+
+### Bug Fixes
+
+* address review feedback on the positioned POI legend ([7bc99d8](https://github.com/opendatasoft/ods-dataviz-sdk/commit/7bc99d83cc27c86dab6a78ffc93e96d6edc2162d))
+
+
+### Features
+
+* support top corner positioning for the POI map legend ([ea10fc9](https://github.com/opendatasoft/ods-dataviz-sdk/commit/ea10fc9486ecb73400639e205d6b5304e245c243))
+
+
+
+
+
 # [0.36.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.35.0...@opendatasoft/visualizations@0.36.0) (2026-07-29)
 
 

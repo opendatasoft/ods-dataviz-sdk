@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.37.0-beta.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.37.0-beta.1...@opendatasoft/visualizations-react@0.37.0-beta.2) (2026-09-01)
+
+**Note:** Version bump only for package @opendatasoft/visualizations-react
+
+
+
+
+
+# [0.37.0-beta.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.37.0-beta.0...@opendatasoft/visualizations-react@0.37.0-beta.1) (2026-08-10)
+
+
+### Bug Fixes
+
+* **LinksMenu:** open the panel inward in right-to-left reading order ([3e027e9](https://github.com/opendatasoft/ods-dataviz-sdk/commit/3e027e9bf33a278f2215e9488c5baf7a61614900))
+
+
+
+
+
+# [0.37.0-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.36.0...@opendatasoft/visualizations-react@0.37.0-beta.0) (2026-08-04)
+
+
+### Bug Fixes
+
+* address review feedback on the positioned POI legend ([7bc99d8](https://github.com/opendatasoft/ods-dataviz-sdk/commit/7bc99d83cc27c86dab6a78ffc93e96d6edc2162d))
+
+
+
+
+
 # [0.36.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.35.0...@opendatasoft/visualizations-react@0.36.0) (2026-07-29)
 
 
