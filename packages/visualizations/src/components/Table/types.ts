@@ -122,6 +122,24 @@ export type TableOptions = {
     unstyled?: boolean;
     pagination?: Pagination;
     debugWarnings?: boolean;
+    /** Keeps the column header row visible while the table scrolls vertically. */
+    stickyHeader?: boolean;
+    /**
+     * Fill the height the parent gives the table, and scroll the rows in the
+     * leftover space (same host contract as Chart `aspectRatio: 'auto'`). Needs
+     * an explicit height on the parent chain. `stickyHeader` has no effect
+     * unless the scrollport is bounded, either through this, `maxHeight`, or
+     * the surrounding layout.
+     */
+    fillHeight?: boolean;
+    /**
+     * Caps the table's scrollport with a CSS length (e.g. `'24rem'`), so the
+     * rows scroll vertically past that height. Ignored when `fillHeight` is
+     * set — a length cap on the rows plus a stretched card leaves a gap above
+     * the pagination. For a host that already has a definite height, use
+     * `fillHeight` instead of a percentage.
+     */
+    maxHeight?: string;
     /**
      * Show a sequential row number column on the left.
      * Default is `false`.
@@ -153,4 +171,6 @@ export type StickyStores = {
     stickyColumnsOffset: Readable<Map<ColumnKey, number>>;
     lastStickyColumn: Readable<ColumnKey | undefined>;
     isHorizontallyScrolled: Writable<boolean>;
+    isVerticallyScrolled: Writable<boolean>;
+    stickyHeader: Writable<boolean>;
 };

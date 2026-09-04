@@ -39,11 +39,15 @@ export const createStickyStores = () => {
     const lastStickyColumn = derived(stickyColumnsWidth, ($widths) => [...$widths.keys()].at(-1));
 
     const isHorizontallyScrolled = writable(false);
+    const isVerticallyScrolled = writable(false);
+    const stickyHeader = writable(false);
 
     return {
         stickyColumnsOffset,
         stickyColumnsWidth,
         lastStickyColumn,
         isHorizontallyScrolled,
+        isVerticallyScrolled,
+        stickyHeader,
     };
 };

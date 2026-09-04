@@ -50,3 +50,15 @@
     left: -6px;
     background: linear-gradient(-90deg, rgba(0, 0, 0, 0.13), transparent);
 }
+
+/* The whole row is pinned as one layer, so the shadow stays a single stable line:
+a per-cell shadow would break apart as non-sticky columns scroll under sticky ones. */
+.sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.sticky-header.isVerticallyScrolled {
+    box-shadow: 0 6px 6px -6px rgba(0, 0, 0, 0.13);
+}

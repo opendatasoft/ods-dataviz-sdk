@@ -15,6 +15,9 @@
     export let emptyStateLabel: string | undefined;
     export let rowProps: RowProps | undefined;
     export let extraButtonColumnLabel: string | undefined;
+    export let stickyHeader = false;
+    export let fillHeight = false;
+    export let maxHeight: string | undefined;
     export let showRowNumbers = false;
     export let rowNumberLabel = 'Row number';
     export let showFieldTypeIcons = false;
@@ -25,19 +28,44 @@
     let scrollBox: HTMLDivElement;
     let sortedStickyColumns: Column[] = [];
 
-    const { stickyColumnsOffset, stickyColumnsWidth, lastStickyColumn, isHorizontallyScrolled } =
-        createStickyStores();
+    const {
+        stickyColumnsOffset,
+        stickyColumnsWidth,
+        lastStickyColumn,
+        isHorizontallyScrolled,
+        isVerticallyScrolled,
+        stickyHeader: isHeaderSticky,
+    } = createStickyStores();
 
     setContext('sticky-stores', {
         stickyColumnsOffset,
         stickyColumnsWidth,
         lastStickyColumn,
         isHorizontallyScrolled,
+        isVerticallyScrolled,
+        stickyHeader: isHeaderSticky,
     });
+
+    $: $isHeaderSticky = stickyHeader;
+    /* Length caps stay inline: `unstyled` drops the .ods-dataviz--default rules,
+       and the scrollport must be bounded either way. */
+    $: scrollboxStyle =
+        maxHeight && !fillHeight ? `max-height: ${maxHeight}; overflow-y: auto;` : undefined;
 
     function handleScroll() {
         $isHorizontallyScrolled =
             document.dir === 'rtl' ? scrollBox?.scrollLeft < 0 : scrollBox?.scrollLeft > 0;
+        $isVerticallyScrolled = scrollBox?.scrollTop > 0;
+    }
+
+    /* New records are new content: without this, changing page keeps the scroll offsets of
+       the previous one, so the next page renders already scrolled on its first frame.
+       The stores are reset alongside because the scroll event only fires on an actual move. */
+    $: if (records && scrollBox) {
+        scrollBox.scrollTop = 0;
+        scrollBox.scrollLeft = 0;
+        $isVerticallyScrolled = false;
+        $isHorizontallyScrolled = false;
     }
 
     // resets scroll when changing columns parameters
@@ -63,7 +91,13 @@
     }
 </script>
 
-<div class="scrollbox" bind:this={scrollBox} on:scroll={handleScroll}>
+<div
+    class="scrollbox"
+    class:fill={fillHeight}
+    style={scrollboxStyle}
+    bind:this={scrollBox}
+    on:scroll={handleScroll}
+>
     <table aria-describedby={description ? tableId : undefined}>
         <Headers
             columns={sortedStickyColumns}
@@ -97,6 +131,18 @@
     :global(.ods-dataviz--default) .scrollbox {
         overflow-x: auto;
         overscroll-behavior-x: none;
+        width: 100%;
+    }
+
+    /* `flex-basis: 0` rather than `auto` (or `height: 100%`) keeps this purely
+       free-space driven: the scrollbox never derives its size from the rows, so
+       a short parent can shrink it. `min-height: 0` lifts the flex item's
+       automatic minimum so it can shrink below the table's content height.
+       Not scoped to `--default`: `unstyled` still needs a bounded scrollport. */
+    .scrollbox.fill {
+        flex: 1 1 0;
+        min-height: 0;
+        overflow: auto;
         width: 100%;
     }
 
