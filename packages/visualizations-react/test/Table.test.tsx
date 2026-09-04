@@ -471,3 +471,20 @@ test('fillHeight fills the parent instead of applying a percentage cap', () => {
     expect(container.querySelector('.card')).toHaveClass('ods-dataviz--fill');
     expect(container.querySelector('.table-container')).toHaveClass('fill');
 });
+
+test('fillHeight wins over maxHeight so the length cap cannot leave a gap above pagination', () => {
+    const { container } = render(
+        <Table
+            data={{ value: [{ v: 'a' }] }}
+            options={{
+                columns: [{ title: 'Col', key: 'v', dataFormat: 'short-text' }],
+                fillHeight: true,
+                maxHeight: '16rem',
+            }}
+        />
+    );
+
+    const scrollbox = container.querySelector('.scrollbox') as HTMLElement;
+    expect(scrollbox).toHaveClass('fill');
+    expect(scrollbox.getAttribute('style') ?? '').not.toContain('max-height');
+});

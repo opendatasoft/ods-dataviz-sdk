@@ -134,8 +134,10 @@ export type TableOptions = {
     fillHeight?: boolean;
     /**
      * Caps the table's scrollport with a CSS length (e.g. `'24rem'`), so the
-     * rows scroll vertically past that height. For a host that already has a
-     * definite height, use `fillHeight` instead of a percentage.
+     * rows scroll vertically past that height. Ignored when `fillHeight` is
+     * set — a length cap on the rows plus a stretched card leaves a gap above
+     * the pagination. For a host that already has a definite height, use
+     * `fillHeight` instead of a percentage.
      */
     maxHeight?: string;
     /**

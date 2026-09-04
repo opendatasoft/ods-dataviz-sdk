@@ -49,7 +49,8 @@
     $: $isHeaderSticky = stickyHeader;
     /* Length caps stay inline: `unstyled` drops the .ods-dataviz--default rules,
        and the scrollport must be bounded either way. */
-    $: scrollboxStyle = maxHeight ? `max-height: ${maxHeight}; overflow-y: auto;` : undefined;
+    $: scrollboxStyle =
+        maxHeight && !fillHeight ? `max-height: ${maxHeight}; overflow-y: auto;` : undefined;
 
     function handleScroll() {
         $isHorizontallyScrolled =
