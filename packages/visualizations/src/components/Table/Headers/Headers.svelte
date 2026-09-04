@@ -13,15 +13,14 @@
     export let rowNumberLabel = 'Row number';
     export let showFieldTypeIcons = false;
 
-    const { 
+    const {
         stickyColumnsWidth,
         stickyColumnsOffset,
         isHorizontallyScrolled,
         lastStickyColumn,
         isVerticallyScrolled,
-        stickyHeader
-    } =
-        getContext<StickyStores>('sticky-stores');
+        stickyHeader,
+    } = getContext<StickyStores>('sticky-stores');
 
     // Measuring is done via ResizeObserver rather than a one-off reactive read, since a host's
     // CSS can change this column's rendered width after the initial measurement (e.g. it only

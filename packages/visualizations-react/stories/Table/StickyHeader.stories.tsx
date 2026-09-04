@@ -36,8 +36,8 @@ const StickyHeaderToggleTemplate = ({
                 <h3>Sticky header (`options.stickyHeader`)</h3>
                 <p style={{ maxWidth: '42rem', marginBottom: '0.75rem' }}>
                     Scroll inside the table — the header row stays pinned at the top. Requires{' '}
-                    <code>maxHeight</code> to be set too, otherwise the scrollport is unbounded and
-                    the header has no visible effect.
+                    <code>maxHeight</code> or <code>fillHeight</code> to bound the scrollport too,
+                    otherwise it is unbounded and the header has no visible effect.
                 </p>
                 <label htmlFor="sticky-header-toggle">
                     <input

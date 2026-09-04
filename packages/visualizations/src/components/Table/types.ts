@@ -125,9 +125,17 @@ export type TableOptions = {
     /** Keeps the column header row visible while the table scrolls vertically. */
     stickyHeader?: boolean;
     /**
-     * Caps the table's scrollport with a CSS length (e.g. `'24rem'`), so the rows
-     * scroll vertically past that height. `stickyHeader` has no effect unless the
-     * scrollport is bounded, either through this option or by the surrounding layout.
+     * Fill the height the parent gives the table, and scroll the rows in the
+     * leftover space (same host contract as Chart `aspectRatio: 'auto'`). Needs
+     * an explicit height on the parent chain. `stickyHeader` has no effect
+     * unless the scrollport is bounded, either through this, `maxHeight`, or
+     * the surrounding layout.
+     */
+    fillHeight?: boolean;
+    /**
+     * Caps the table's scrollport with a CSS length (e.g. `'24rem'`), so the
+     * rows scroll vertically past that height. For a host that already has a
+     * definite height, use `fillHeight` instead of a percentage.
      */
     maxHeight?: string;
     /**

@@ -436,3 +436,38 @@ test('A sticky data column stays sticky in the loading skeleton', () => {
     const loadingDataCell = container.querySelector('tbody tr:first-child td:last-child');
     expect(loadingDataCell).toHaveClass('sticky');
 });
+
+test('A CSS length maxHeight caps the scrollbox and leaves the card content-sized', () => {
+    const { container } = render(
+        <Table
+            data={{ value: [{ v: 'a' }] }}
+            options={{
+                columns: [{ title: 'Col', key: 'v', dataFormat: 'short-text' }],
+                maxHeight: '16rem',
+            }}
+        />
+    );
+
+    const scrollbox = container.querySelector('.scrollbox') as HTMLElement;
+    expect(scrollbox).toHaveStyle({ maxHeight: '16rem' });
+    expect(scrollbox).not.toHaveClass('fill');
+    expect(container.querySelector('.card')).not.toHaveClass('ods-dataviz--fill');
+});
+
+test('fillHeight fills the parent instead of applying a percentage cap', () => {
+    const { container } = render(
+        <Table
+            data={{ value: [{ v: 'a' }] }}
+            options={{
+                columns: [{ title: 'Col', key: 'v', dataFormat: 'short-text' }],
+                fillHeight: true,
+            }}
+        />
+    );
+
+    const scrollbox = container.querySelector('.scrollbox') as HTMLElement;
+    expect(scrollbox).toHaveClass('fill');
+    expect(scrollbox.getAttribute('style') ?? '').not.toContain('max-height');
+    expect(container.querySelector('.card')).toHaveClass('ods-dataviz--fill');
+    expect(container.querySelector('.table-container')).toHaveClass('fill');
+});

@@ -16,6 +16,7 @@
     export let rowProps: RowProps | undefined;
     export let extraButtonColumnLabel: string | undefined;
     export let stickyHeader = false;
+    export let fillHeight = false;
     export let maxHeight: string | undefined;
     export let showRowNumbers = false;
     export let rowNumberLabel = 'Row number';
@@ -46,8 +47,8 @@
     });
 
     $: $isHeaderSticky = stickyHeader;
-    /* Set inline rather than in the scoped style block: `unstyled` drops the
-       .ods-dataviz--default rules, and the scrollport must be bounded either way. */
+    /* Length caps stay inline: `unstyled` drops the .ods-dataviz--default rules,
+       and the scrollport must be bounded either way. */
     $: scrollboxStyle = maxHeight ? `max-height: ${maxHeight}; overflow-y: auto;` : undefined;
 
     function handleScroll() {
@@ -89,7 +90,13 @@
     }
 </script>
 
-<div class="scrollbox" style={scrollboxStyle} bind:this={scrollBox} on:scroll={handleScroll}>
+<div
+    class="scrollbox"
+    class:fill={fillHeight}
+    style={scrollboxStyle}
+    bind:this={scrollBox}
+    on:scroll={handleScroll}
+>
     <table aria-describedby={description ? tableId : undefined}>
         <Headers
             columns={sortedStickyColumns}
@@ -123,6 +130,18 @@
     :global(.ods-dataviz--default) .scrollbox {
         overflow-x: auto;
         overscroll-behavior-x: none;
+        width: 100%;
+    }
+
+    /* `flex-basis: 0` rather than `auto` (or `height: 100%`) keeps this purely
+       free-space driven: the scrollbox never derives its size from the rows, so
+       a short parent can shrink it. `min-height: 0` lifts the flex item's
+       automatic minimum so it can shrink below the table's content height.
+       Not scoped to `--default`: `unstyled` still needs a bounded scrollport. */
+    .scrollbox.fill {
+        flex: 1 1 0;
+        min-height: 0;
+        overflow: auto;
         width: 100%;
     }
 
