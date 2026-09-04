@@ -26,10 +26,16 @@
         emptyStateLabel,
         extraButtonColumnLabel,
         debugWarnings: debugOption = false,
+        showRowNumbers = false,
+        rowNumberLabel = 'Row number',
+        showFieldTypeIcons = false,
     } = options);
     $: $locale = localeOption || navigator.language;
     $: $debugWarnings = debugOption;
     $: defaultLoadingRowsNumber = pagination ? pagination.recordsPerPage ?? 10 : 5;
+    $: rowOffset = pagination?.recordsPerPage
+        ? (pagination.current - 1) * pagination.recordsPerPage
+        : 0;
     $: loadingRowsNumber = isLoading ? defaultLoadingRowsNumber : null;
     /* Preserves paginations controls positioning
     min heigh of table + controls = max-height of row * (number of rows) + headers + pagination
@@ -46,6 +52,10 @@
             {emptyStateLabel}
             {extraButtonColumnLabel}
             {rowProps}
+            {showRowNumbers}
+            {rowNumberLabel}
+            {showFieldTypeIcons}
+            {rowOffset}
         />
         {#if pagination}
             <Pagination {...pagination} displayedRecords={records?.length} />

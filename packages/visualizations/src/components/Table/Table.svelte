@@ -5,7 +5,7 @@
     import type { Column, RowProps } from './types';
     import Headers from './Headers';
     import Body from './Body.svelte';
-    import { HOVER_COLUMN_KEY } from './constants';
+    import { HOVER_COLUMN_KEY, ROW_NUMBER_COLUMN_KEY } from './constants';
     import { createStickyStores } from './store';
 
     export let loadingRowsNumber: number | null;
@@ -15,6 +15,10 @@
     export let emptyStateLabel: string | undefined;
     export let rowProps: RowProps | undefined;
     export let extraButtonColumnLabel: string | undefined;
+    export let showRowNumbers = false;
+    export let rowNumberLabel = 'Row number';
+    export let showFieldTypeIcons = false;
+    export let rowOffset = 0;
 
     const tableId = `table-${generateId()}`;
 
@@ -48,6 +52,9 @@
         if (rowProps) {
             stickyColumnsWidth.updateColumn(HOVER_COLUMN_KEY, 0);
         }
+        if (showRowNumbers) {
+            stickyColumnsWidth.updateColumn(ROW_NUMBER_COLUMN_KEY, 0);
+        }
         sortedStickyColumns.forEach((col) => {
             if (col?.sticky) {
                 stickyColumnsWidth.updateColumn(col.key, 0);
@@ -62,6 +69,9 @@
             columns={sortedStickyColumns}
             extraButtonColumn={Boolean(rowProps?.onClick)}
             {extraButtonColumnLabel}
+            {showRowNumbers}
+            {rowNumberLabel}
+            {showFieldTypeIcons}
         />
         <Body
             {records}
@@ -69,6 +79,8 @@
             {rowProps}
             {emptyStateLabel}
             {loadingRowsNumber}
+            {showRowNumbers}
+            {rowOffset}
         />
     </table>
 </div>

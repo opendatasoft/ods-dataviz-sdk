@@ -8,9 +8,10 @@ import type {
     TextFormatProps,
     NumberFormatProps,
     URLFormatProps,
+    JsonFormatProps,
 } from '../Format/types';
 import type { Pagination } from '../Pagination/types';
-import type { DATA_FORMAT, HOVER_COLUMN_KEY } from './constants';
+import type { DATA_FORMAT, HOVER_COLUMN_KEY, ROW_NUMBER_COLUMN_KEY } from './constants';
 
 export type GenericRecord = Record<string, unknown>; // avoid {} with no key from object;
 
@@ -48,6 +49,11 @@ export type FormatPropsTypeMap = {
     [DATA_FORMAT.longText]: TextFormatProps;
     [DATA_FORMAT.number]: NumberFormatProps;
     [DATA_FORMAT.url]: URLFormatProps;
+    [DATA_FORMAT.json]: JsonFormatProps;
+    [DATA_FORMAT.file]: URLFormatProps;
+    [DATA_FORMAT.image]: URLFormatProps;
+    [DATA_FORMAT.ipAddress]: TextFormatProps;
+    [DATA_FORMAT.id]: TextFormatProps;
 };
 
 /** Columns have to be typed with the record type if using an accessor.
@@ -67,6 +73,11 @@ export type ShortTextColumn = ColumnOfType<typeof DATA_FORMAT.shortText>;
 export type LongTextColumn = ColumnOfType<typeof DATA_FORMAT.longText>;
 export type NumberColumn = ColumnOfType<typeof DATA_FORMAT.number>;
 export type URLColumn = ColumnOfType<typeof DATA_FORMAT.url>;
+export type JsonColumn = ColumnOfType<typeof DATA_FORMAT.json>;
+export type FileColumn = ColumnOfType<typeof DATA_FORMAT.file>;
+export type ImageColumn = ColumnOfType<typeof DATA_FORMAT.image>;
+export type IpAddressColumn = ColumnOfType<typeof DATA_FORMAT.ipAddress>;
+export type IdColumn = ColumnOfType<typeof DATA_FORMAT.id>;
 
 export type Column =
     | BooleanColumn
@@ -75,7 +86,12 @@ export type Column =
     | ShortTextColumn
     | LongTextColumn
     | NumberColumn
-    | URLColumn;
+    | URLColumn
+    | JsonColumn
+    | FileColumn
+    | ImageColumn
+    | IpAddressColumn
+    | IdColumn;
 
 export type HoverEvent<T extends HTMLElement> = (MouseEvent | FocusEvent) & {
     currentTarget: EventTarget & T;
@@ -106,6 +122,21 @@ export type TableOptions = {
     unstyled?: boolean;
     pagination?: Pagination;
     debugWarnings?: boolean;
+    /**
+     * Show a sequential row number column on the left.
+     * Default is `false`.
+     */
+    showRowNumbers?: boolean;
+    /**
+     * Accessible label for the row number column header.
+     * Default is `'Row number'`.
+     */
+    rowNumberLabel?: string;
+    /**
+     * Show a field type icon next to each column header title.
+     * Default is `false`.
+     */
+    showFieldTypeIcons?: boolean;
 };
 
 export type TableProps = {
@@ -113,7 +144,7 @@ export type TableProps = {
     options: TableOptions;
 };
 
-export type ColumnKey = string | typeof HOVER_COLUMN_KEY;
+export type ColumnKey = string | typeof HOVER_COLUMN_KEY | typeof ROW_NUMBER_COLUMN_KEY;
 export type StickyStores = {
     stickyColumnsWidth: Writable<Map<ColumnKey, number>> & {
         updateColumn: (key: ColumnKey, width: number) => void;

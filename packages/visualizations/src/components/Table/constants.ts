@@ -7,6 +7,12 @@ export const DATA_FORMAT = {
     boolean: 'boolean',
     url: 'url',
     geo: 'geo',
+    json: 'json',
+    file: 'file',
+    image: 'image',
+    ipAddress: 'ip-address',
+    id: 'id',
 } as const;
 
 export const HOVER_COLUMN_KEY = Symbol('hover column');
+export const ROW_NUMBER_COLUMN_KEY = Symbol('row number column');

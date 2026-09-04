@@ -1,6 +1,7 @@
 <script lang="ts">
     import CategoryLegendItem from './CategoryLegend/Item/CategoryLegendItem.svelte';
-    import { type CategoryLegend, type CategoryItem, CATEGORY_ITEM_VARIANT } from './types';
+    import type { CategoryLegend, CategoryItem } from './types';
+    import { CATEGORY_ITEM_VARIANT } from './types';
 
     export let legendOptions: CategoryLegend;
 
@@ -37,8 +38,8 @@
             return acc;
         }, {} as Record<string, CategoryItem[]>);
 
-        groupKeys = variantOrder.filter(v => grouped[v]);
-        maxItemsInGroup = Math.max(...Object.values(grouped).map(g => g.length)) || 1;
+        groupKeys = variantOrder.filter((v) => grouped[v]);
+        maxItemsInGroup = Math.max(...Object.values(grouped).map((g) => g.length)) || 1;
         // Computing the maximum number of columns : current legend width divided by 120px (min item width) + 13px*2 (padding)
         // + 13px (gap between items)
         maxItemsInGroup = Math.min(maxItemsInGroup, Math.floor(legendWidth / (120 + 39)) || 1);
