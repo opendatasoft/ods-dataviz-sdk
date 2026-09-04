@@ -3,6 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import type {
     TableData,
     Async,
+    Column,
     GenericRecord,
     TableProps,
     Pagination,
@@ -94,7 +95,7 @@ export const Loading: StoryObj<typeof Table> = {
     },
 };
 
-export const emptyState: StoryObj<typeof Table> = {
+export const EmptyState: StoryObj<typeof Table> = {
     args: {
         data: { value: [], loading: false },
         options: { ...options, emptyStateLabel: 'Neniuj registroj trovitaj...' },
@@ -109,8 +110,9 @@ export const RtlDirection: StoryObj<typeof PaginatedTemplate> = {
     args: {
         current: 1,
         recordsPerPage: 5,
+        showRowNumbers: true,
     },
-    render: (args: Pagination) => <PaginatedTemplate {...args} />,
+    render: args => <PaginatedTemplate {...args} />,
 };
 
 const longTitleData: Async<TableData> = {
@@ -147,8 +149,132 @@ const longTitleData: Async<TableData> = {
     loading: false,
 };
 
+export const FieldTypeIcons: StoryObj<typeof Table> = {
+    args: {
+        data,
+        options: {
+            ...options,
+            showRowNumbers: true,
+            showFieldTypeIcons: true,
+        },
+    },
+    render: (args: TableProps) => (
+        <div style={{ maxWidth: '900px' }}>
+            <Table {...args} />
+        </div>
+    ),
+};
+
+const allTypesColumns: Column[] = [
+    { title: 'Short text', key: 'shortText', dataFormat: 'short-text' },
+    { title: 'Long text', key: 'longText', dataFormat: 'long-text' },
+    { title: 'Number', key: 'num', dataFormat: 'number' },
+    { title: 'Date', key: 'date', dataFormat: 'date' },
+    { title: 'Boolean', key: 'bool', dataFormat: 'boolean' },
+    {
+        title: 'URL',
+        key: 'url',
+        dataFormat: 'url',
+        options: { valueToLabel: () => 'opendatasoft.com' },
+    },
+    {
+        title: 'Geo',
+        key: 'geo',
+        dataFormat: 'geo',
+        accessor: () => ({
+            sources: {
+                geo: {
+                    type: 'geojson',
+                    data: {
+                        type: 'FeatureCollection',
+                        features: [
+                            {
+                                id: 1,
+                                type: 'Feature',
+                                geometry: { type: 'Point', coordinates: [2.35, 48.85] },
+                            },
+                        ],
+                    },
+                },
+            },
+            layers: [
+                {
+                    id: 'geo-layer',
+                    source: 'geo',
+                    type: 'circle',
+                    color: 'black',
+                    borderColor: 'white',
+                },
+            ],
+        }),
+        options: {
+            mapOptions: { style: 'https://demotiles.maplibre.org/style.json', interactive: false },
+            valueToLabel: () => '48.85°N, 2.35°E',
+        },
+    },
+    { title: 'JSON', key: 'json', dataFormat: 'json' },
+    {
+        title: 'File',
+        key: 'file',
+        dataFormat: 'file',
+        options: { valueToLabel: () => 'report.pdf' },
+    },
+    {
+        title: 'Image',
+        key: 'img',
+        dataFormat: 'image',
+        options: { valueToLabel: () => 'photo.jpg' },
+    },
+    { title: 'IP address', key: 'ip', dataFormat: 'ip-address' },
+    { title: 'ID', key: 'id', dataFormat: 'id' },
+    // Column['dataFormat'] is a closed union; an unrecognized value can only reach
+    // FieldTypeIcon from an untyped/JS consumer, hence the cast — demoes the fallback icon.
+    { title: 'Unknown', key: 'unknown', dataFormat: 'unknown' } as unknown as Column,
+];
+
+const allTypesData: Async<TableData> = {
+    value: [
+        {
+            shortText: 'Hello world',
+            longText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+            num: 1234,
+            date: '2024-01-15T00:00:00Z',
+            bool: true,
+            url: 'https://opendatasoft.com',
+            geo: [2.35, 48.85],
+            json: { active: true, score: 98 },
+            file: 'https://example.com/report.pdf',
+            img: 'https://example.com/photo.jpg',
+            ip: '192.168.1.42',
+            id: 'usr_abc123',
+            unknown: 'raw value, unformatted',
+        },
+    ],
+    loading: false,
+};
+
+export const AllColumnTypes: StoryObj<typeof Table> = {
+    render: () => (
+        <Table
+            data={allTypesData}
+            options={{ columns: allTypesColumns, locale: 'en', showFieldTypeIcons: true }}
+        />
+    ),
+};
+
 function LongColumnTitlesDemo() {
     const [sort, setSort] = useState<[string, 'ASC' | 'DESC']>(['category', ColumnSort.asc]);
+
+    const sortedData: Async<TableData> = {
+        ...longTitleData,
+        value: [...longTitleData.value].sort((a, b) => {
+            const key = sort[0] as keyof typeof longTitleData.value[0];
+            const dir = sort[1] === 'ASC' ? 1 : -1;
+            if (a[key] < b[key]) return -dir;
+            if (a[key] > b[key]) return dir;
+            return 0;
+        }),
+    };
 
     const columns = [
         {
@@ -189,7 +315,7 @@ function LongColumnTitlesDemo() {
             <style>{`.long-column-titles-story th { max-width: 500px; }`}</style>
             <div className="long-column-titles-story" style={{ maxWidth: '600px' }}>
                 <Table
-                    data={longTitleData}
+                    data={sortedData}
                     options={{ columns, title: 'Long column title tooltip' }}
                 />
             </div>

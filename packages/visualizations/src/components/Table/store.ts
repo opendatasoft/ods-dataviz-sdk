@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { writable, derived } from 'svelte/store';
-import type { HOVER_COLUMN_KEY } from './constants';
+import type { ColumnKey } from './types';
 
 const defaultLocale = navigator.language;
 
@@ -8,12 +8,12 @@ export const locale = writable<string>(defaultLocale);
 export const debugWarnings = writable<boolean>(false);
 
 export const createStickyStores = () => {
-    const newOffsetMap = () => new Map<string | typeof HOVER_COLUMN_KEY, number>();
+    const newOffsetMap = () => new Map<ColumnKey, number>();
 
     const createWidths = () => {
         const { update, set, subscribe } = writable(newOffsetMap());
         return {
-            updateColumn: (key: string | typeof HOVER_COLUMN_KEY, width: number) =>
+            updateColumn: (key: ColumnKey, width: number) =>
                 update(($widths) => {
                     $widths.set(key, width);
                     return $widths;
