@@ -40,7 +40,11 @@
        Guarded to avoid looping, since `updateColumn` always emits. */
     $: {
         const registeredWidth = $stickyColumnsWidth.get(colKey);
-        if (thElement && registeredWidth !== undefined && registeredWidth !== thElement.clientWidth) {
+        if (
+            thElement &&
+            registeredWidth !== undefined &&
+            registeredWidth !== thElement.clientWidth
+        ) {
             stickyColumnsWidth.updateColumn(colKey, thElement.clientWidth);
         }
     }

@@ -12,7 +12,8 @@ export const getStickyClasses = ({
     sticky: boolean;
     scrolled: boolean;
     lastStickyColumn?: ColumnKey;
-}) => `
+}) =>
+    `
     ${sticky ? 'sticky' : ''}
     ${columnKey === lastStickyColumn ? 'isLastSticky' : ''}
     ${scrolled ? 'isHorizontallyScrolled' : ''}

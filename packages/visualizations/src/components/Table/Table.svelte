@@ -63,11 +63,7 @@
     }
 </script>
 
-<div
-    class="scrollbox"
-    bind:this={scrollBox}
-    on:scroll={handleScroll}
->
+<div class="scrollbox" bind:this={scrollBox} on:scroll={handleScroll}>
     <table aria-describedby={description ? tableId : undefined}>
         <Headers
             columns={sortedStickyColumns}
