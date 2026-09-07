@@ -26,6 +26,9 @@
         emptyStateLabel,
         extraButtonColumnLabel,
         debugWarnings: debugOption = false,
+        stickyHeader = false,
+        fillHeight = false,
+        maxHeight,
         showRowNumbers = false,
         rowNumberLabel = 'Row number',
         showFieldTypeIcons = false,
@@ -42,8 +45,8 @@
     */
 </script>
 
-<Card {title} {subtitle} {links} defaultStyle={!unstyled}>
-    <div class="table-container">
+<Card {title} {subtitle} {links} defaultStyle={!unstyled} fill={fillHeight}>
+    <div class="table-container" class:fill={fillHeight}>
         <Table
             {columns}
             {loadingRowsNumber}
@@ -52,6 +55,9 @@
             {emptyStateLabel}
             {extraButtonColumnLabel}
             {rowProps}
+            {stickyHeader}
+            {fillHeight}
+            {maxHeight}
             {showRowNumbers}
             {rowNumberLabel}
             {showFieldTypeIcons}
@@ -80,5 +86,13 @@
     }
     :global(.table-container .pagination) {
         border-top: solid 1px var(--border-color);
+    }
+    /* Sibling of pagination: take the leftover card height so the scrollbox
+       (not the page) is the overflow. Same flex contract as Chart `figure.fill`. */
+    .table-container.fill {
+        flex: 1 1 0;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
     }
 </style>
