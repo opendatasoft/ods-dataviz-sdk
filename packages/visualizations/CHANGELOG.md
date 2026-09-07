@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.37.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.36.0...@opendatasoft/visualizations@0.37.0) (2026-09-07)
+
+
+### Features
+
+* **Table:** add field type icons in column headers ([#302](https://github.com/opendatasoft/ods-dataviz-sdk/issues/302)) ([4e60aad](https://github.com/opendatasoft/ods-dataviz-sdk/commit/4e60aad12114c993e0c55557f1db30a6c4cf160c))
+* **Table:** add sticky header, max height and fill height options for Table  ([d00314c](https://github.com/opendatasoft/ods-dataviz-sdk/commit/d00314c79a0b9cbf24b07311f2e7b0dd95483f0f))
+
+
+
+
+
 # [0.36.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.35.0...@opendatasoft/visualizations@0.36.0) (2026-07-29)
 
 
