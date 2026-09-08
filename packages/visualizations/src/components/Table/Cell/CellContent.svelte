@@ -14,6 +14,12 @@
 
     export let record: Record<string, unknown>;
     export let column: Column;
+
+    // Defensive fallback key lookup: only reached when column.dataFormat is outside
+    // the DataFormat union, i.e. from an untyped/JS consumer — see the {:else} branch below.
+    function getFallbackKey(c: Column): string {
+        return (c as unknown as { key: string }).key;
+    }
 </script>
 
 <div
@@ -57,10 +63,33 @@
                 locale={$locale}
                 debugWarnings={$debugWarnings}
             />
-        {:else if isColumnOfType(column, DATA_FORMAT.url)}
+            <!-- eslint-disable-next-line max-len -->
+        {:else if isColumnOfType(column, DATA_FORMAT.url) || isColumnOfType(column, DATA_FORMAT.file) || isColumnOfType(column, DATA_FORMAT.image)}
             <URLFormat
                 value={getValue(column, record)}
                 {...getOptions(column, record)}
+                debugWarnings={$debugWarnings}
+            />
+        {:else if isColumnOfType(column, DATA_FORMAT.json)}
+            {@const raw = getValue(column, record)}
+            <TextFormat
+                value={raw !== null && typeof raw === 'object' ? JSON.stringify(raw) : raw}
+                {...getOptions(column, record)}
+                debugWarnings={$debugWarnings}
+            />
+        {:else if isColumnOfType(column, DATA_FORMAT.ipAddress) || isColumnOfType(column, DATA_FORMAT.id)}
+            <TextFormat
+                value={getValue(column, record)}
+                {...getOptions(column, record)}
+                debugWarnings={$debugWarnings}
+            />
+        {:else}
+            <!-- Defensive fallback: column.dataFormat can only reach here from an
+                untyped/JS consumer passing a value outside the DataFormat union, so
+                per-format accessor/options aren't type-safe to apply here. -->
+            {@const raw = record[getFallbackKey(column)]}
+            <TextFormat
+                value={raw !== null && typeof raw === 'object' ? JSON.stringify(raw) : String(raw)}
                 debugWarnings={$debugWarnings}
             />
         {/if}
@@ -82,7 +111,12 @@
     /* to be improved in the formatting story */
     :global(.ods-dataviz--default div.table-data--long-text > span),
     :global(.ods-dataviz--default div.table-data--short-text),
-    :global(.ods-dataviz--default div.table-data--url) {
+    :global(.ods-dataviz--default div.table-data--json),
+    :global(.ods-dataviz--default div.table-data--ip-address),
+    :global(.ods-dataviz--default div.table-data--id),
+    :global(.ods-dataviz--default div.table-data--url),
+    :global(.ods-dataviz--default div.table-data--file),
+    :global(.ods-dataviz--default div.table-data--image) {
         text-overflow: ellipsis;
         overflow: hidden;
         width: max-content;

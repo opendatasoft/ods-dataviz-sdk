@@ -1,13 +1,22 @@
-<td>
-    <div />
-</td>
+<script lang="ts">
+    import Td from './Td.svelte';
+    import type { Column } from '../types';
+
+    export let column: Column | null = null;
+</script>
+
+<Td {column}>
+    <div class="cell-content-placeholder">
+        <div class="skeleton" />
+    </div>
+</Td>
 
 <style>
-    td {
+    .cell-content-placeholder {
         padding: var(--spacing-75);
     }
 
-    div {
+    .skeleton {
         min-height: 21px;
         width: 100%;
         background-color: #f6f8fb;
@@ -15,7 +24,7 @@
         overflow: hidden;
         position: relative;
     }
-    div::before {
+    .skeleton::before {
         content: '';
         position: absolute;
         top: 0;

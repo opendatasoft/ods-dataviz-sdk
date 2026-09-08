@@ -19,6 +19,17 @@ export const Numbered: StoryObj<typeof PaginatedTemplate> = {
     render: (args: Pagination) => <PaginatedTemplate {...args} />,
 };
 
+// Demoes the row-number column staying continuous across pages via `rowOffset`
+// (page 2 starts at 6, not back at 1) instead of resetting every page.
+export const NumberedWithRowNumbers: StoryObj<typeof PaginatedTemplate> = {
+    args: {
+        current: 2,
+        recordsPerPage: 5,
+        showRowNumbers: true,
+    },
+    render: (args: Pagination) => <PaginatedTemplate {...args} />,
+};
+
 // Numbered pagination with a page-size selector.
 export const PageSize: StoryObj<typeof PageSizeTemplate> = {
     args: {

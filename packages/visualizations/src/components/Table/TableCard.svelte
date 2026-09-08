@@ -26,18 +26,27 @@
         emptyStateLabel,
         extraButtonColumnLabel,
         debugWarnings: debugOption = false,
+        stickyHeader = false,
+        fillHeight = false,
+        maxHeight,
+        showRowNumbers = false,
+        rowNumberLabel = 'Row number',
+        showFieldTypeIcons = false,
     } = options);
     $: $locale = localeOption || navigator.language;
     $: $debugWarnings = debugOption;
     $: defaultLoadingRowsNumber = pagination ? pagination.recordsPerPage ?? 10 : 5;
+    $: rowOffset = pagination?.recordsPerPage
+        ? (pagination.current - 1) * pagination.recordsPerPage
+        : 0;
     $: loadingRowsNumber = isLoading ? defaultLoadingRowsNumber : null;
     /* Preserves paginations controls positioning
     min heigh of table + controls = max-height of row * (number of rows) + headers + pagination
     */
 </script>
 
-<Card {title} {subtitle} {links} defaultStyle={!unstyled}>
-    <div class="table-container">
+<Card {title} {subtitle} {links} defaultStyle={!unstyled} fill={fillHeight}>
+    <div class="table-container" class:fill={fillHeight}>
         <Table
             {columns}
             {loadingRowsNumber}
@@ -46,6 +55,13 @@
             {emptyStateLabel}
             {extraButtonColumnLabel}
             {rowProps}
+            {stickyHeader}
+            {fillHeight}
+            {maxHeight}
+            {showRowNumbers}
+            {rowNumberLabel}
+            {showFieldTypeIcons}
+            {rowOffset}
         />
         {#if pagination}
             <Pagination {...pagination} displayedRecords={records?.length} />
@@ -70,5 +86,13 @@
     }
     :global(.table-container .pagination) {
         border-top: solid 1px var(--border-color);
+    }
+    /* Sibling of pagination: take the leftover card height so the scrollbox
+       (not the page) is the overflow. Same flex contract as Chart `figure.fill`. */
+    .table-container.fill {
+        flex: 1 1 0;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
     }
 </style>

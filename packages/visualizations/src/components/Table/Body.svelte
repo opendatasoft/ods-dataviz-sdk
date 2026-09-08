@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { Column, RowProps, TableData } from './types';
-    import { LoadingCell } from './Cell';
+    import Td, { LoadingCell } from './Cell';
     import EmptyRow from './EmptyRow.svelte';
     import Row from './Row.svelte';
 
@@ -9,6 +9,8 @@
     export let rowProps: RowProps | undefined;
     export let records: TableData | undefined;
     export let emptyStateLabel: string | undefined;
+    export let showRowNumbers = false;
+    export let rowOffset = 0;
 
     let hoveredRow: number | null;
 </script>
@@ -25,10 +27,15 @@
         {#each Array(loadingRowsNumber) as _}
             <tr>
                 {#if rowProps?.onClick}
-                    <td class="button-cell__empty" />
+                    <Td>
+                        <div class="button-cell__empty" />
+                    </Td>
                 {/if}
-                {#each columns as __}
-                    <LoadingCell />
+                {#if showRowNumbers}
+                    <Td rowNumber />
+                {/if}
+                {#each columns as column}
+                    <LoadingCell {column} />
                 {/each}
             </tr>
         {/each}
@@ -38,6 +45,9 @@
                 {columns}
                 {rowProps}
                 {record}
+                {rowIndex}
+                {rowOffset}
+                {showRowNumbers}
                 setHovered={() => {
                     hoveredRow = rowIndex;
                 }}
@@ -49,6 +59,16 @@
 
 <style>
     .button-cell__empty {
-        min-width: 28px;
+        width: 28px;
+        height: 28px;
+    }
+
+    :global(.ods-dataviz--default .row-number-cell) {
+        text-align: end;
+        min-width: 3rem;
+        color: var(--text-color-muted, grey);
+        font-variant-numeric: tabular-nums;
+        user-select: none;
+        padding-inline-end: var(--spacing-75);
     }
 </style>
