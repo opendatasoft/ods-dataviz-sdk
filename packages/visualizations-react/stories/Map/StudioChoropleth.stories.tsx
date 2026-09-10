@@ -552,7 +552,7 @@ export const StudioChoroplethPreventWorldCopies: StoryObj<typeof ChoroplethGeoJs
     ),
 };
 
-export const StudioChoroplethCooperativeGestures: StoryObj<typeof ChoroplethGeoJson> = {
+export const StudioChoroplethCooperativeGesturesFrenchLocale: StoryObj<typeof ChoroplethGeoJson> = {
     args: {
         data: {
             value: [
@@ -570,10 +570,14 @@ export const StudioChoroplethCooperativeGestures: StoryObj<typeof ChoroplethGeoJ
             aspectRatio: 1,
             attribution: 'Testing attribution',
             description: 'Accessible description',
-            cooperativeGestures: {
-                windowsHelpText: 'Use Ctrl + scroll to zoom the map',
-                macHelpText: 'Use ⌘ + scroll to zoom the map',
-                mobileHelpText: 'Use two fingers to move the map',
+            cooperativeGestures: true,
+            locale: {
+                'CooperativeGesturesHandler.WindowsHelpText':
+                    'Utilisez Ctrl + molette pour zoomer sur la carte',
+                'CooperativeGesturesHandler.MacHelpText':
+                    'Utilisez ⌘ + molette pour zoomer sur la carte',
+                'CooperativeGesturesHandler.MobileHelpText':
+                    'Utilisez deux doigts pour déplacer la carte',
             },
             links: defaultLinks,
         },
