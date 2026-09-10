@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.38.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.37.0...@opendatasoft/visualizations@0.38.0) (2026-09-10)
+
+**Note:** Version bump only for package @opendatasoft/visualizations
+
+
+
+
+
 # [0.37.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.36.0...@opendatasoft/visualizations@0.37.0) (2026-09-07)
 
 
