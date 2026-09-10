@@ -33,6 +33,8 @@ export type TextFormatProps = {
     value: string;
     valueToLabel?: (v: string) => string;
     debugWarnings?: boolean;
+    /** Set to `true` to opt this column out of URL detection/linkification. Default `false`. */
+    disableUrlDetection?: boolean;
 };
 
 /**
@@ -53,6 +55,8 @@ export type URLFormatProps = {
     target?: HTMLAnchorElement['target'];
     rel?: HTMLAnchorElement['rel'];
     debugWarnings?: boolean;
+    /** Set to `false` to silence the "not a url" warning, e.g. for text columns reusing URLFormat. */
+    warnOnInvalidUrl?: boolean;
 };
 
 export type ImageFormatProps = {

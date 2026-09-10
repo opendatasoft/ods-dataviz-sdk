@@ -20,6 +20,9 @@
     function getFallbackKey(c: Column): string {
         return (c as unknown as { key: string }).key;
     }
+
+    const shouldDetectUrls = (options: { disableUrlDetection?: boolean } | null) =>
+        !options?.disableUrlDetection;
 </script>
 
 <div
@@ -43,18 +46,36 @@
         {:else if isColumnOfType(column, DATA_FORMAT.geo)}
             <GeoFormat value={getValue(column, record)} {...getOptions(column, record)} />
         {:else if isColumnOfType(column, DATA_FORMAT.shortText)}
-            <TextFormat
-                value={getValue(column, record)}
-                {...getOptions(column, record)}
-                debugWarnings={$debugWarnings}
-            />
-        {:else if isColumnOfType(column, DATA_FORMAT.longText)}
-            <span>
+            {#if shouldDetectUrls(getOptions(column, record))}
+                <URLFormat
+                    value={getValue(column, record)}
+                    {...getOptions(column, record)}
+                    debugWarnings={$debugWarnings}
+                    warnOnInvalidUrl={false}
+                />
+            {:else}
                 <TextFormat
                     value={getValue(column, record)}
                     {...getOptions(column, record)}
                     debugWarnings={$debugWarnings}
                 />
+            {/if}
+        {:else if isColumnOfType(column, DATA_FORMAT.longText)}
+            <span>
+                {#if shouldDetectUrls(getOptions(column, record))}
+                    <URLFormat
+                        value={getValue(column, record)}
+                        {...getOptions(column, record)}
+                        debugWarnings={$debugWarnings}
+                        warnOnInvalidUrl={false}
+                    />
+                {:else}
+                    <TextFormat
+                        value={getValue(column, record)}
+                        {...getOptions(column, record)}
+                        debugWarnings={$debugWarnings}
+                    />
+                {/if}
             </span>
         {:else if isColumnOfType(column, DATA_FORMAT.number)}
             <NumberFormat

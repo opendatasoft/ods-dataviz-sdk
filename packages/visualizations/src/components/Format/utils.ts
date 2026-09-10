@@ -20,7 +20,14 @@ export function warn(value: unknown, format: string, debugWarnings = false) {
     }
 }
 
+// Legacy (IE-era) URL length convention; skip new URL() (cost grows with input size) past this size.
+export const MAX_URL_LENGTH = 2048;
+
 export function isValidUrl(text: unknown): text is string {
+    if (typeof text === 'string' && text.length > MAX_URL_LENGTH) {
+        return false;
+    }
+
     try {
         const url = new URL(text as string);
         if (['http:', 'https:', 'ftp:', 'ftps:', 'sftp:', 'mailto:'].includes(url.protocol)) {

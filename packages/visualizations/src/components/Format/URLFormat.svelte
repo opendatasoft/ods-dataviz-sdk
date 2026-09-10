@@ -13,6 +13,7 @@
     export let target: $$Props['target'] = '_blank';
     export let rel: $$Props['rel'] = 'nofollow noreferrer noopener';
     export let debugWarnings = false;
+    export let warnOnInvalidUrl = true;
 
     let showTooltip = false;
     let tippyInstance: Instance;
@@ -26,7 +27,9 @@
             };
         }
 
-        warn(v, 'url', debugWarnings);
+        if (warnOnInvalidUrl) {
+            warn(v, 'url', debugWarnings);
+        }
         return { text: null, href: null };
     };
 
