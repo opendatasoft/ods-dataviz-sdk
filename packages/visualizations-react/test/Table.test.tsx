@@ -620,3 +620,42 @@ test.each(['short-text', 'long-text'] as const)(
         expect(screen.queryByRole('link')).not.toBeInTheDocument();
     }
 );
+
+test('groupPageControls: false (default) keeps the 3-column layout unchanged', () => {
+    const { container } = render(
+        <Table
+            data={{ value: [{ v: 'a' }] }}
+            options={{
+                columns: [{ title: 'Col', key: 'v', dataFormat: 'short-text' }],
+                pagination: {
+                    current: 1,
+                    recordsPerPage: 10,
+                    totalRecords: 100,
+                    onPageChange: () => {},
+                },
+            }}
+        />
+    );
+
+    expect(container.querySelector('.pagination')).not.toHaveClass('grouped-controls');
+});
+
+test('groupPageControls groups the pages and page-size controls flush right', () => {
+    const { container } = render(
+        <Table
+            data={{ value: [{ v: 'a' }] }}
+            options={{
+                columns: [{ title: 'Col', key: 'v', dataFormat: 'short-text' }],
+                pagination: {
+                    current: 1,
+                    recordsPerPage: 10,
+                    totalRecords: 100,
+                    onPageChange: () => {},
+                    groupPageControls: true,
+                },
+            }}
+        />
+    );
+
+    expect(container.querySelector('.pagination')).toHaveClass('grouped-controls');
+});

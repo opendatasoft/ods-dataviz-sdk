@@ -39,6 +39,18 @@ export const PageSize: StoryObj<typeof PageSizeTemplate> = {
     render: (args: Pagination) => <PageSizeTemplate {...args} />,
 };
 
+// Groups the page buttons and page-size select flush right, leaving the records
+// counter the rest of the width on the left — for hosts whose own fixed-position
+// UI collides with the default centered layout.
+export const GroupedControls: StoryObj<typeof PageSizeTemplate> = {
+    args: {
+        current: 1,
+        recordsPerPage: 5,
+        groupPageControls: true,
+    },
+    render: (args: Pagination) => <PageSizeTemplate {...args} />,
+};
+
 // Cursor pagination, first page: no total, no last-page jump. Shows `‹ [1] 2 … ›`.
 export const Cursor: StoryObj<typeof CursorTemplate> = {
     name: 'Cursor (no total)',
