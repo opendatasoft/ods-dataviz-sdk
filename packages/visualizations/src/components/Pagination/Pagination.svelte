@@ -108,6 +108,8 @@
             grid-template-columns: repeat(2, minmax(0, 1fr));
             display: grid;
             grid-template-areas: 'numbering size' 'pages pages';
+            /* Looks redundant but isn't: resets .grouped-controls's higher specificity from
+                outside this query, which would otherwise leak the 3-column layout under 500px. */
             &.grouped-controls {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }

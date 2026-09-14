@@ -570,6 +570,27 @@ test('url column still warns and does not render a link for an invalid value (un
     warnSpy.mockRestore();
 });
 
+test.each(['url', 'file', 'image'] as const)(
+    '%s column renders a link for a value exceeding MAX_URL_LENGTH, unlike text columns (no length cap pre-existing this SDK version)',
+    dataFormat => {
+        const urlOverLimit = buildUrlOfLength(MAX_URL_LENGTH + 1);
+
+        render(
+            <Table
+                data={{ value: [{ content: urlOverLimit }] }}
+                options={{
+                    columns: [{ title: 'Content', key: 'content', dataFormat }] as Column[],
+                }}
+            />
+        );
+
+        expect(screen.getByRole('link', { name: urlOverLimit })).toHaveAttribute(
+            'href',
+            urlOverLimit
+        );
+    }
+);
+
 test('renders a link for a URL of exactly the max length', () => {
     const urlAtLimit = buildUrlOfLength(MAX_URL_LENGTH);
 

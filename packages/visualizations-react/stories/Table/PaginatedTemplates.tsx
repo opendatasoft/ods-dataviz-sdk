@@ -129,7 +129,7 @@ export const CursorTemplate = ({
 };
 
 export const PageSizeTemplate = (pagination: Pagination) => {
-    const { current = 1, recordsPerPage = 5 } = pagination;
+    const { current = 1, recordsPerPage = 5, labels } = pagination;
     const { groupPageControls } = pagination as NumberedPagination;
     const { paginatedData, page, pageSize, setPage, setPageSize } = usePaginatedData({
         current,
@@ -144,6 +144,7 @@ export const PageSizeTemplate = (pagination: Pagination) => {
             totalRecords: data.length,
             onPageChange: setPage, //
             groupPageControls,
+            labels,
             pageSizeSelect: {
                 options: [
                     { label: '2 / pages', value: 2 },

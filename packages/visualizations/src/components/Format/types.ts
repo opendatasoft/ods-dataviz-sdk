@@ -57,6 +57,8 @@ export type URLFormatProps = {
     debugWarnings?: boolean;
     /** Set to `false` to silence the "not a url" warning, e.g. for text columns reusing URLFormat. */
     warnOnInvalidUrl?: boolean;
+    /** Reject values longer than this before parsing. Unset = unbounded (default for `url`/`file`/`image`). */
+    maxLength?: number;
 };
 
 export type ImageFormatProps = {

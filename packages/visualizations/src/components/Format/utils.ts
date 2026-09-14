@@ -23,8 +23,12 @@ export function warn(value: unknown, format: string, debugWarnings = false) {
 // Legacy (IE-era) URL length convention; skip new URL() (cost grows with input size) past this size.
 export const MAX_URL_LENGTH = 2048;
 
-export function isValidUrl(text: unknown): text is string {
-    if (typeof text === 'string' && text.length > MAX_URL_LENGTH) {
+// maxLength is opt-in per caller: unset means unbounded, matching new URL()'s own lack of a
+// length limit. Only heuristic detection on free text (short-text/long-text) should pass one —
+// a column already declared as url/file/image must keep accepting arbitrarily long values
+// (signed S3/CDN links routinely exceed 2048 chars).
+export function isValidUrl(text: unknown, maxLength?: number): text is string {
+    if (typeof text === 'string' && maxLength !== undefined && text.length > maxLength) {
         return false;
     }
 
