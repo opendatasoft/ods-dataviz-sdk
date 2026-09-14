@@ -1,0 +1,40 @@
+/**
+ * MapLibre control chrome, for every map the SDK renders.
+ *
+ * A plain stylesheet rather than component styles: the POI map, the choropleth map and a bare WebGl
+ * map each mount their own MapLibre instance, so component-scoped rules would say this three times.
+ *
+ * `.maplibregl-ctrl` is repeated in the selectors on purpose: MapLibre's own button rules carry a
+ * pseudo-class, and matching both classes keeps these declarations ahead of them whatever the load
+ * order ends up being.
+ */
+
+/*
+ * Every map. Side margins are symmetric so the group keeps the same distance from the edge whatever
+ * corner `controlPosition` puts it in, where MapLibre's own margin is asymmetric per corner.
+ */
+.maps-container .maplibregl-ctrl.maplibregl-ctrl-group,
+.ods-visualization__map-container .maplibregl-ctrl.maplibregl-ctrl-group {
+    margin: var(--spacing-100) var(--spacing-100) 0;
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.26);
+}
+
+/*
+ * Maps framed as a visualization card, so the POI and choropleth maps. They use tighter buttons than
+ * MapLibre's 29px default and a flat hover, matching the surrounding UI. A bare WebGl map is embedded
+ * by the host in its own chrome and keeps MapLibre's sizing.
+ */
+.maps-container .maplibregl-ctrl.maplibregl-ctrl-group {
+    border-radius: var(--border-radius-6);
+    padding: var(--spacing-50);
+}
+
+.maps-container .maplibregl-ctrl.maplibregl-ctrl-group button {
+    width: var(--map-control-button-size);
+    height: var(--map-control-button-size);
+}
+
+.maps-container .maplibregl-ctrl.maplibregl-ctrl-group button:hover {
+    /* Flat: the group already reads as a raised surface, MapLibre's grey wash muddies it. */
+    background-color: var(--background-color);
+}

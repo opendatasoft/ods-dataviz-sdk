@@ -5,6 +5,8 @@ Anywhere else, aliases are fine :)
 
 // Import global CSS variables
 import './styles/variables.css';
+// MapLibre control chrome, shared by every map we render (see the file header)
+import './styles/map-controls.css';
 
 /* We export Svelte types from the main package to avoid conflicting versions
 It still is purely a dev thing and we'll bundle they types directly */
