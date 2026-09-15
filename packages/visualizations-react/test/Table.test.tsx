@@ -488,3 +488,195 @@ test('fillHeight wins over maxHeight so the length cap cannot leave a gap above 
     expect(scrollbox).toHaveClass('fill');
     expect(scrollbox.getAttribute('style') ?? '').not.toContain('max-height');
 });
+
+const URL_VALUE = 'https://example.com/article';
+const PLAIN_TEXT_VALUE = 'just a plain sentence, not a link';
+
+// Must match MAX_URL_LENGTH in packages/visualizations/src/components/Format/utils.ts
+const MAX_URL_LENGTH = 2048;
+const buildUrlOfLength = (length: number) => {
+    const base = 'https://example.com/';
+    return base + 'a'.repeat(length - base.length);
+};
+
+const buildTextColumnOptions = (dataFormat: 'short-text' | 'long-text') => ({
+    columns: [{ title: 'Content', key: 'content', dataFormat }] as Column[],
+});
+
+test.each(['short-text', 'long-text'] as const)(
+    '%s column renders a clickable link when the value is a URL',
+    dataFormat => {
+        render(
+            <Table
+                data={{ value: [{ content: URL_VALUE }] }}
+                options={buildTextColumnOptions(dataFormat)}
+            />
+        );
+
+        expect(screen.getByRole('link', { name: URL_VALUE })).toHaveAttribute('href', URL_VALUE);
+    }
+);
+
+test.each(['short-text', 'long-text'] as const)(
+    '%s column renders plain text when the value is not a URL',
+    dataFormat => {
+        render(
+            <Table
+                data={{ value: [{ content: PLAIN_TEXT_VALUE }] }}
+                options={buildTextColumnOptions(dataFormat)}
+            />
+        );
+
+        expect(screen.getByText(PLAIN_TEXT_VALUE)).toBeInTheDocument();
+        expect(screen.queryByRole('link')).not.toBeInTheDocument();
+    }
+);
+
+test('does not log a debug warning for non-url values on short-text/long-text columns', () => {
+    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+
+    render(
+        <Table
+            data={{ value: [{ shortContent: PLAIN_TEXT_VALUE, longContent: PLAIN_TEXT_VALUE }] }}
+            options={{
+                columns: [
+                    { title: 'Short', key: 'shortContent', dataFormat: 'short-text' },
+                    { title: 'Long', key: 'longContent', dataFormat: 'long-text' },
+                ] as Column[],
+                debugWarnings: true,
+            }}
+        />
+    );
+
+    expect(warnSpy).not.toHaveBeenCalled();
+    warnSpy.mockRestore();
+});
+
+test('url column still warns and does not render a link for an invalid value (unchanged behavior)', () => {
+    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+
+    render(
+        <Table
+            data={{ value: [{ content: PLAIN_TEXT_VALUE }] }}
+            options={{
+                columns: [{ title: 'Content', key: 'content', dataFormat: 'url' }] as Column[],
+                debugWarnings: true,
+            }}
+        />
+    );
+
+    expect(warnSpy).toHaveBeenCalled();
+    expect(screen.queryByRole('link')).not.toBeInTheDocument();
+    warnSpy.mockRestore();
+});
+
+test.each(['url', 'file', 'image'] as const)(
+    '%s column renders a link for a value exceeding MAX_URL_LENGTH, unlike text columns (no length cap pre-existing this SDK version)',
+    dataFormat => {
+        const urlOverLimit = buildUrlOfLength(MAX_URL_LENGTH + 1);
+
+        render(
+            <Table
+                data={{ value: [{ content: urlOverLimit }] }}
+                options={{
+                    columns: [{ title: 'Content', key: 'content', dataFormat }] as Column[],
+                }}
+            />
+        );
+
+        expect(screen.getByRole('link', { name: urlOverLimit })).toHaveAttribute(
+            'href',
+            urlOverLimit
+        );
+    }
+);
+
+test('renders a link for a URL of exactly the max length', () => {
+    const urlAtLimit = buildUrlOfLength(MAX_URL_LENGTH);
+
+    render(
+        <Table
+            data={{ value: [{ content: urlAtLimit }] }}
+            options={buildTextColumnOptions('long-text')}
+        />
+    );
+
+    expect(screen.getByRole('link', { name: urlAtLimit })).toHaveAttribute('href', urlAtLimit);
+});
+
+test('does not render a link for a URL one char past the max length', () => {
+    const urlOverLimit = buildUrlOfLength(MAX_URL_LENGTH + 1);
+
+    render(
+        <Table
+            data={{ value: [{ content: urlOverLimit }] }}
+            options={buildTextColumnOptions('long-text')}
+        />
+    );
+
+    expect(screen.queryByRole('link')).not.toBeInTheDocument();
+    expect(screen.getByText(urlOverLimit)).toBeInTheDocument();
+});
+
+test.each(['short-text', 'long-text'] as const)(
+    '%s column with disableUrlDetection renders plain text even for a URL value',
+    dataFormat => {
+        render(
+            <Table
+                data={{ value: [{ content: URL_VALUE }] }}
+                options={{
+                    columns: [
+                        {
+                            title: 'Content',
+                            key: 'content',
+                            dataFormat,
+                            options: { disableUrlDetection: true },
+                        },
+                    ] as Column[],
+                }}
+            />
+        );
+
+        expect(screen.getByText(URL_VALUE)).toBeInTheDocument();
+        expect(screen.queryByRole('link')).not.toBeInTheDocument();
+    }
+);
+
+test('groupPageControls: false (default) keeps the 3-column layout unchanged', () => {
+    const { container } = render(
+        <Table
+            data={{ value: [{ v: 'a' }] }}
+            options={{
+                columns: [{ title: 'Col', key: 'v', dataFormat: 'short-text' }],
+                pagination: {
+                    current: 1,
+                    recordsPerPage: 10,
+                    totalRecords: 100,
+                    onPageChange: () => {},
+                },
+            }}
+        />
+    );
+
+    expect(container.querySelector('.pagination')).not.toHaveClass('grouped-controls');
+});
+
+test('groupPageControls groups the pages and page-size controls flush right', () => {
+    const { container } = render(
+        <Table
+            data={{ value: [{ v: 'a' }] }}
+            options={{
+                columns: [{ title: 'Col', key: 'v', dataFormat: 'short-text' }],
+                pagination: {
+                    current: 1,
+                    recordsPerPage: 10,
+                    totalRecords: 100,
+                    onPageChange: () => {},
+                    groupPageControls: true,
+                },
+            }}
+        />
+    );
+
+    expect(container.querySelector('.pagination')).toHaveClass('grouped-controls');
+});

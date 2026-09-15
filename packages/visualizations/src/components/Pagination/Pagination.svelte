@@ -24,6 +24,7 @@
         records: string;
         pageSizeAriaLabel: string;
     }> = {};
+    export let groupPageControls = false;
 
     // cursor mode
     /** Number of pages after `current` known to exist (see CursorPagination). */
@@ -48,7 +49,7 @@
 </script>
 
 <div class="pagination-container">
-    <div class="pagination">
+    <div class="pagination" class:grouped-controls={groupPageControls}>
         <div class="numbering">
             <Numbering
                 current={[rangeStart, rangeEnd]}
@@ -97,6 +98,9 @@
             grid-area: size;
             justify-self: end;
         }
+        &.grouped-controls {
+            grid-template-columns: 1fr auto auto;
+        }
     }
 
     @container pagination (max-width: 500px) {
@@ -104,6 +108,11 @@
             grid-template-columns: repeat(2, minmax(0, 1fr));
             display: grid;
             grid-template-areas: 'numbering size' 'pages pages';
+            /* Looks redundant but isn't: resets .grouped-controls's higher specificity from
+                outside this query, which would otherwise leak the 3-column layout under 500px. */
+            &.grouped-controls {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
         }
     }
 </style>

@@ -6,6 +6,7 @@
     import TextFormat from 'components/Format/TextFormat.svelte';
     import NumberFormat from 'components/Format/NumberFormat.svelte';
     import URLFormat from 'components/Format/URLFormat.svelte';
+    import { MAX_URL_LENGTH } from 'components/Format/utils';
     import { DATA_FORMAT } from '../constants';
     import { locale, debugWarnings } from '../store';
     import type { Column } from '../types';
@@ -20,6 +21,9 @@
     function getFallbackKey(c: Column): string {
         return (c as unknown as { key: string }).key;
     }
+
+    const shouldDetectUrls = (options: { disableUrlDetection?: boolean } | null) =>
+        !options?.disableUrlDetection;
 </script>
 
 <div
@@ -43,18 +47,42 @@
         {:else if isColumnOfType(column, DATA_FORMAT.geo)}
             <GeoFormat value={getValue(column, record)} {...getOptions(column, record)} />
         {:else if isColumnOfType(column, DATA_FORMAT.shortText)}
-            <TextFormat
-                value={getValue(column, record)}
-                {...getOptions(column, record)}
-                debugWarnings={$debugWarnings}
-            />
-        {:else if isColumnOfType(column, DATA_FORMAT.longText)}
-            <span>
+            {@const opts = getOptions(column, record)}
+            {@const { disableUrlDetection, ...urlFormatOpts } = opts ?? {}}
+            {#if shouldDetectUrls(opts)}
+                <URLFormat
+                    value={getValue(column, record)}
+                    {...urlFormatOpts}
+                    debugWarnings={$debugWarnings}
+                    warnOnInvalidUrl={false}
+                    maxLength={MAX_URL_LENGTH}
+                />
+            {:else}
                 <TextFormat
                     value={getValue(column, record)}
-                    {...getOptions(column, record)}
+                    {...opts}
                     debugWarnings={$debugWarnings}
                 />
+            {/if}
+        {:else if isColumnOfType(column, DATA_FORMAT.longText)}
+            {@const opts = getOptions(column, record)}
+            {@const { disableUrlDetection, ...urlFormatOpts } = opts ?? {}}
+            <span>
+                {#if shouldDetectUrls(opts)}
+                    <URLFormat
+                        value={getValue(column, record)}
+                        {...urlFormatOpts}
+                        debugWarnings={$debugWarnings}
+                        warnOnInvalidUrl={false}
+                        maxLength={MAX_URL_LENGTH}
+                    />
+                {:else}
+                    <TextFormat
+                        value={getValue(column, record)}
+                        {...opts}
+                        debugWarnings={$debugWarnings}
+                    />
+                {/if}
             </span>
         {:else if isColumnOfType(column, DATA_FORMAT.number)}
             <NumberFormat

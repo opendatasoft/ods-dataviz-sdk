@@ -12,6 +12,12 @@ export type NumberedPagination = {
     recordsPerPage: number;
     onPageChange: (next: number) => void;
     pageSizeSelect?: PageSizeSelect;
+    /**
+     * Groups the page-number buttons and the page-size select into a single
+     * block flush right, leaving the records counter the rest of the width
+     * on the left (default layout is 3 equal columns). Default `false`.
+     */
+    groupPageControls?: boolean;
     labels?: Partial<{
         previousPage: string;
         nextPage: string;
