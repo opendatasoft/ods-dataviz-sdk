@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.38.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.38.0...@opendatasoft/visualizations@0.38.1) (2026-09-17)
+
+
+### Features
+
+* Table URL detection + Pagination groupPageControls option ([#322](https://github.com/opendatasoft/ods-dataviz-sdk/issues/322)) ([85d11a3](https://github.com/opendatasoft/ods-dataviz-sdk/commit/85d11a381e72f7fdedbf2c0bb29c48e8c89f8488))
+
+
+
+
+
 # [0.38.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.37.0...@opendatasoft/visualizations@0.38.0) (2026-09-10)
 
 **Note:** Version bump only for package @opendatasoft/visualizations
