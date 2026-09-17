@@ -9,7 +9,7 @@
         MapLayerMouseEvent,
         LngLatLike,
         FilterSpecification,
-        GestureOptions,
+        MapOptions,
     } from 'maplibre-gl';
     import { onMount } from 'svelte';
     import { debounce } from 'lodash';
@@ -66,7 +66,9 @@
     export let data: { value: ChoroplethDataValue[] };
     // Links menu
     export let links: Link[] | undefined;
-    export let cooperativeGestures: boolean | GestureOptions | undefined;
+    export let cooperativeGestures: boolean | undefined;
+    // Patch for MapLibre's UI string localization table (e.g. cooperative-gesture help text)
+    export let locale: MapOptions['locale'] | undefined;
     export let preserveDrawingBuffer: boolean;
     // Fixed max bounds that will overide the automatic map.getBounds when setting the bbox
     export let fixedMaxBounds: LngLatBoundsLike | undefined | null = null;
@@ -129,10 +131,11 @@
         const start = {
             center: defaultCenter,
             zoom: 5,
-            customAttribution: attribution,
+            attributionControl: { customAttribution: attribution },
             renderWorldCopies: false,
             cooperativeGestures,
-            preserveDrawingBuffer,
+            locale,
+            canvasContextAttributes: { preserveDrawingBuffer },
         };
 
         map = new maplibregl.Map({

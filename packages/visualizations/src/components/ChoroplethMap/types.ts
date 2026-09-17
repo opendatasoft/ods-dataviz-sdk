@@ -1,5 +1,5 @@
 import type { Feature, FeatureCollection, Position, BBox } from 'geojson';
-import type { FillLayerSpecification, Popup, GestureOptions, LngLatBoundsLike } from 'maplibre-gl';
+import type { FillLayerSpecification, MapOptions, Popup, LngLatBoundsLike } from 'maplibre-gl';
 import type { DebouncedFunc } from 'lodash';
 import type { Link, ColorScale, Color } from 'types';
 import type { LegendPositions } from 'components/Legend/types';
@@ -46,7 +46,15 @@ export interface ChoroplethOptions {
     navigationMaps?: NavigationMap[];
     /** Links menu */
     links?: Link[];
-    cooperativeGestures?: boolean | GestureOptions;
+    cooperativeGestures?: boolean;
+    /**
+     * A patch applied to MapLibre's default localization table for UI strings (control tooltips,
+     * cooperative-gesture help text, etc.). Maps namespaced string IDs to translated strings, e.g.
+     * `{ 'CooperativeGesturesHandler.MobileHelpText': 'Utilisez deux doigts pour déplacer la carte' }`.
+     * May patch a subset of strings. See https://maplibre.org/maplibre-gl-js/docs/examples/locale-switching/
+     * Reference: https://github.com/maplibre/maplibre-gl-js/blob/main/src/ui/default_locale.ts
+     */
+    locale?: MapOptions['locale'];
     /** If true, the map's canvas can be exported to an image using toDataURL. This is false by default as a performance optimization. */
     preserveDrawingBuffer?: boolean;
 }

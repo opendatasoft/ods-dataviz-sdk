@@ -399,7 +399,9 @@ export const StudioChoroplethNavigationMapButtons: StoryObj<typeof ChoroplethVec
     ),
 };
 
-export const StudioChoroplethVectorCooperativeGestures: StoryObj<typeof ChoroplethVectorTiles> = {
+export const StudioChoroplethVectorCooperativeGesturesFrenchLocale: StoryObj<
+    typeof ChoroplethVectorTiles
+> = {
     args: {
         data: {
             value: dataReg,
@@ -425,10 +427,14 @@ export const StudioChoroplethVectorCooperativeGestures: StoryObj<typeof Chorople
             bbox: [-17.529298, 38.79776, 23.889159, 52.836618],
             navigationMaps: [...makeMiniMaps(15)],
             links: defaultLinks,
-            cooperativeGestures: {
-                windowsHelpText: 'Use Ctrl + scroll to zoom the map',
-                macHelpText: 'Use ⌘ + scroll to zoom the map',
-                mobileHelpText: 'Use two fingers to move the map',
+            cooperativeGestures: true,
+            locale: {
+                'CooperativeGesturesHandler.WindowsHelpText':
+                    'Utilisez Ctrl + molette pour zoomer sur la carte',
+                'CooperativeGesturesHandler.MacHelpText':
+                    'Utilisez ⌘ + molette pour zoomer sur la carte',
+                'CooperativeGesturesHandler.MobileHelpText':
+                    'Utilisez deux doigts pour déplacer la carte',
             },
         },
     },
