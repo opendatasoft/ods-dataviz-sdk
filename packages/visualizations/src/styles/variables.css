@@ -19,6 +19,9 @@
     --border-radius-6: 6px;
     --border-color: #cbd2db;
 
+    /* Map controls. The button box is shared: the choropleth back button clears the control stack. */
+    --map-control-button-size: 24px;
+
     /* Colors */
     --background-color: #ffffff;
 
@@ -26,6 +29,7 @@
     --visualization-card-padding: 0px;
     --visualization-card-background: transparent;
     --visualization-card-border: transparent;
+    --visualization-card-border-width: 1px;
     --visualization-card-border-radius: 0px;
 
     /* Links Button */
