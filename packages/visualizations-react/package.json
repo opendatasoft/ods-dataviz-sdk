@@ -112,7 +112,7 @@
         "jest-canvas-mock": "^2.3.0",
         "jest-environment-jsdom": "^29.0.2",
         "jest-fetch-mock": "^3.0.3",
-        "postcss": "^8.4.16",
+        "postcss": "^8.5.26",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "rollup": "^4.18.0",
