@@ -13,20 +13,27 @@
     export let target: $$Props['target'] = '_blank';
     export let rel: $$Props['rel'] = 'nofollow noreferrer noopener';
     export let debugWarnings = false;
+    export let warnOnInvalidUrl = true;
+    // Unset = unbounded (pre-existing behavior for url/file/image columns). Only text-column
+    // detection (short-text/long-text) should pass a value — see isValidUrl in Format/utils.ts.
+    // eslint-disable-next-line no-undef-init
+    export let maxLength: number | undefined = undefined;
 
     let showTooltip = false;
     let tippyInstance: Instance;
     let tooltipEl: HTMLDivElement;
 
     $: format = (v: unknown) => {
-        if (isValidUrl(v)) {
+        if (isValidUrl(v, maxLength)) {
             return {
                 text: valueToLabel ? valueToLabel(v) : v,
                 href: v,
             };
         }
 
-        warn(v, 'url', debugWarnings);
+        if (warnOnInvalidUrl) {
+            warn(v, 'url', debugWarnings);
+        }
         return { text: null, href: null };
     };
 
@@ -42,7 +49,7 @@
 
 {#if text}
     <Tooltip
-        enabled={isValidUrl(thumbnailUrl)}
+        enabled={isValidUrl(thumbnailUrl, maxLength)}
         onShow={(instance) => {
             showTooltip = true;
             tippyInstance = instance;

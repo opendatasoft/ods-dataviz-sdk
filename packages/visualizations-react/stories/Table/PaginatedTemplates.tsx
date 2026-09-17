@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import type { DataFrame, CursorPagination, Pagination } from '@opendatasoft/visualizations';
+import type {
+    DataFrame,
+    CursorPagination,
+    NumberedPagination,
+    Pagination,
+} from '@opendatasoft/visualizations';
 import { Table } from '../../src';
 import data from './data';
 import options from './options';
@@ -124,7 +129,8 @@ export const CursorTemplate = ({
 };
 
 export const PageSizeTemplate = (pagination: Pagination) => {
-    const { current = 1, recordsPerPage = 5 } = pagination;
+    const { current = 1, recordsPerPage = 5, labels } = pagination;
+    const { groupPageControls } = pagination as NumberedPagination;
     const { paginatedData, page, pageSize, setPage, setPageSize } = usePaginatedData({
         current,
         recordsPerPage,
@@ -137,6 +143,8 @@ export const PageSizeTemplate = (pagination: Pagination) => {
             recordsPerPage: pageSize,
             totalRecords: data.length,
             onPageChange: setPage, //
+            groupPageControls,
+            labels,
             pageSizeSelect: {
                 options: [
                     { label: '2 / pages', value: 2 },
