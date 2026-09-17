@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.37.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.37.0...@opendatasoft/visualizations-react@0.37.1) (2026-09-17)
+
+
+### Bug Fixes
+
+* **Table:** url/file/image ignore length cap ([04fed64](https://github.com/opendatasoft/ods-dataviz-sdk/commit/04fed64e18b7d388c2c4084bbce34502f77af557))
+
+
+### Features
+
+* **Pagination:** add groupPageControls option ([357e67c](https://github.com/opendatasoft/ods-dataviz-sdk/commit/357e67ce551b10d490c1b0dbe5967116fb8c8290))
+* **Table:** detect URLs in text columns ([3584c4d](https://github.com/opendatasoft/ods-dataviz-sdk/commit/3584c4d34d6be93836b718ab32e45afc7ce45a04))
+
+
+
+
+
 # [0.37.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.36.0...@opendatasoft/visualizations-react@0.37.0) (2026-09-07)
 
 
