@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.39.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.38.1...@opendatasoft/visualizations@0.39.0) (2026-09-21)
+
+
+### Features
+
+* **map:** let a host place the legend, size the map, choose the controls corner and the fullscreen target ([40669b2](https://github.com/opendatasoft/ods-dataviz-sdk/commit/40669b200803760f5fa47f1dd7864545bd474121))
+
+
+
+
+
 ## [0.38.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.38.0...@opendatasoft/visualizations@0.38.1) (2026-09-17)
 
 
