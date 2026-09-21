@@ -266,10 +266,17 @@
         outline-offset: 1px;
     }
 
+    /*
+     * The trigger sits at the inline-end of whatever holds it, so the panel lines its own inline-end
+     * up with it and grows toward inline-start, staying inside the visualization in both reading
+     * directions. Hence a logical inset: in right-to-left the trigger is on the physical left, where
+     * a panel held to the physical right would hang off the edge. A host placing the trigger itself
+     * owes the same logical inset, see `.kpi-card__menu`.
+     */
     .dropdown {
         position: absolute;
         top: 32px;
-        right: 0;
+        inset-inline-end: 0;
         min-width: 200px;
         background: white;
         border: 1px solid #ddd;
@@ -327,7 +334,8 @@
         font-family: inherit;
         font-weight: inherit;
         line-height: inherit;
-        text-align: left;
+        /* An anchor item aligns from the reading side on its own, a button has to be told. */
+        text-align: start;
         cursor: pointer;
         appearance: none;
         -webkit-appearance: none;
