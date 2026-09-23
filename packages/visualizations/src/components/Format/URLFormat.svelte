@@ -72,9 +72,11 @@
 <style>
     /* Same reserved box as the geo tooltip so Tippy does not collapse while the image loads. */
     :global(.image-tooltip-container) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 360px;
         height: 240px;
-        background-color: #f6f8fb;
     }
 
     :global(.image-tooltip-container img) {
