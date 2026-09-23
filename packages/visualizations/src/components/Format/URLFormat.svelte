@@ -70,6 +70,15 @@
 {/if}
 
 <style>
+    /* Same reserved box as the geo tooltip so Tippy does not collapse while the image loads. */
+    :global(.image-tooltip-container) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 360px;
+        height: 240px;
+    }
+
     :global(.image-tooltip-container img) {
         max-width: 360px;
         max-height: 240px;
