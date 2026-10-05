@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.40.0-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.39.0...@opendatasoft/visualizations-react@0.40.0-beta.0) (2026-10-05)
+
+
+### Features
+
+* **table:** add rowClassName, emptyValueLabel and rowHeader options ([a0f7f28](https://github.com/opendatasoft/ods-dataviz-sdk/commit/a0f7f28561505bf97aa2dd79c5e7fcf7bb0eef05))
+
+
+
+
+
 # [0.39.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.38.1...@opendatasoft/visualizations-react@0.39.0) (2026-09-21)
 
 
