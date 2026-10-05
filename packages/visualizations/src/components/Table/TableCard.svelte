@@ -16,6 +16,8 @@
     $: ({
         columns,
         rowProps,
+        rowClassName,
+        emptyValueLabel,
         title,
         subtitle,
         description,
@@ -55,6 +57,8 @@
             {emptyStateLabel}
             {extraButtonColumnLabel}
             {rowProps}
+            {rowClassName}
+            {emptyValueLabel}
             {stickyHeader}
             {fillHeight}
             {maxHeight}

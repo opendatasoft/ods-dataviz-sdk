@@ -680,3 +680,137 @@ test('groupPageControls groups the pages and page-size controls flush right', ()
 
     expect(container.querySelector('.pagination')).toHaveClass('grouped-controls');
 });
+
+test('rowClassName applies the returned class to the matching row', () => {
+    const { container } = render(
+        <Table
+            data={{
+                value: [
+                    { label: 'A', amount: 1 },
+                    { label: 'B', amount: 2 },
+                    { label: 'Total', amount: 3, isTotal: true },
+                ],
+            }}
+            options={{
+                columns: [
+                    { title: 'Label', key: 'label', dataFormat: 'short-text' },
+                    { title: 'Amount', key: 'amount', dataFormat: 'number' },
+                ],
+                rowClassName: record => (record.isTotal ? 'total-row' : undefined),
+            }}
+        />
+    );
+
+    const rows = container.querySelectorAll('tbody tr');
+    expect(rows).toHaveLength(3);
+    expect(rows[0]).not.toHaveClass('total-row');
+    expect(rows[1]).not.toHaveClass('total-row');
+    expect(rows[2]).toHaveClass('total-row');
+    expect(container.querySelectorAll('tr.total-row')).toHaveLength(1);
+});
+
+describe('emptyValueLabel', () => {
+    const emptyValueRecords = [
+        { label: 'null', value: null },
+        { label: 'undefined', value: undefined },
+        { label: 'zero', value: 0 },
+        { label: 'empty string', value: '' },
+    ];
+    const emptyValueColumns: Column[] = [
+        { title: 'Label', key: 'label', dataFormat: 'short-text' },
+        {
+            title: 'Value',
+            key: 'value',
+            dataFormat: 'short-text',
+            options: { disableUrlDetection: true },
+        },
+    ];
+    const getValueCells = (container: HTMLElement) =>
+        Array.from(container.querySelectorAll('tbody tr')).map(
+            row => row.querySelectorAll('td')[1] as HTMLElement
+        );
+
+    test('is displayed for null and undefined values only', () => {
+        const { container } = render(
+            <Table
+                data={{ value: emptyValueRecords }}
+                options={{ columns: emptyValueColumns, emptyValueLabel: '–' }}
+            />
+        );
+
+        const [nullCell, undefinedCell, zeroCell, emptyStringCell] = getValueCells(container);
+        expect(nullCell).toHaveTextContent('–');
+        expect(nullCell.querySelector('.table-data--empty')).toBeInTheDocument();
+        expect(undefinedCell).toHaveTextContent('–');
+        expect(undefinedCell.querySelector('.table-data--empty')).toBeInTheDocument();
+        expect(zeroCell).toHaveTextContent('0');
+        expect(zeroCell.querySelector('.table-data--empty')).not.toBeInTheDocument();
+        // '' is a valid value (see isValidValue): rendered as-is, not replaced by the label
+        expect(emptyStringCell).not.toHaveTextContent('–');
+        expect(emptyStringCell.querySelector('.table-data--empty')).not.toBeInTheDocument();
+    });
+
+    test('leaves cells empty when not set', () => {
+        const { container } = render(
+            <Table data={{ value: emptyValueRecords }} options={{ columns: emptyValueColumns }} />
+        );
+
+        const [nullCell, undefinedCell] = getValueCells(container);
+        expect(nullCell.querySelector('.cell-content')).toBeEmptyDOMElement();
+        expect(undefinedCell.querySelector('.cell-content')).toBeEmptyDOMElement();
+        expect(container.querySelector('.table-data--empty')).not.toBeInTheDocument();
+    });
+});
+
+describe('rowHeader', () => {
+    const rowHeaderColumns: Column[] = [
+        { title: 'Category', key: 'category', dataFormat: 'short-text', rowHeader: true },
+        { title: 'Count', key: 'count', dataFormat: 'number' },
+    ];
+
+    test('renders the cells of a row-header column as <th scope="row">', () => {
+        const { container } = render(
+            <Table
+                data={{ value: [{ category: 'Food', count: 3 }] }}
+                options={{ columns: rowHeaderColumns }}
+            />
+        );
+
+        const [row] = Array.from(container.querySelectorAll('tbody tr'));
+        const header = row.querySelector('th');
+        expect(header).toHaveAttribute('scope', 'row');
+        expect(header).toHaveClass('row-header-cell');
+        expect(header).toHaveTextContent('Food');
+        // The value column stays a regular cell
+        expect(row.querySelectorAll('td')).toHaveLength(1);
+        expect(row.querySelector('td')).toHaveTextContent('3');
+    });
+
+    test('marks the header of a row-header column', () => {
+        const { container } = render(
+            <Table
+                data={{ value: [{ category: 'Food', count: 3 }] }}
+                options={{ columns: rowHeaderColumns }}
+            />
+        );
+
+        const headers = container.querySelectorAll('thead th');
+        expect(headers[0]).toHaveClass('row-header-column');
+        expect(headers[1]).not.toHaveClass('row-header-column');
+        expect(headers[0]).toHaveAttribute('scope', 'col');
+    });
+
+    test('renders regular cells when no column is a row header', () => {
+        const { container } = render(
+            <Table
+                data={{ value: [{ category: 'Food', count: 3 }] }}
+                options={{
+                    columns: rowHeaderColumns.map(({ rowHeader, ...column }) => column as Column),
+                }}
+            />
+        );
+
+        expect(container.querySelector('tbody th')).not.toBeInTheDocument();
+        expect(container.querySelectorAll('tbody td')).toHaveLength(2);
+    });
+});

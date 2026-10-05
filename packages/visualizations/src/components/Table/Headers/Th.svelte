@@ -60,6 +60,8 @@
             scrolled: $isHorizontallyScrolled,
             lastStickyColumn: $lastStickyColumn,
         })}`}
+        class:row-header-column={column.rowHeader}
+        scope="col"
     >
         {#if column.onClick}
             <SortButton
@@ -113,6 +115,11 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         min-width: 0;
+    }
+
+    /* Header of a row-header column: same separator as its cells */
+    :global(.ods-dataviz--default th.row-header-column) {
+        border-inline-end: 2px solid var(--table-row-header-border-color, #dbdbdb);
     }
 
     :global(.ods-dataviz--default th.table-header--number) {

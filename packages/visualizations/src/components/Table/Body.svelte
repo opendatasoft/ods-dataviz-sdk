@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { Column, RowProps, TableData } from './types';
+    import type { Column, RowProps, TableData, TableOptions } from './types';
     import Td, { LoadingCell } from './Cell';
     import EmptyRow from './EmptyRow.svelte';
     import Row from './Row.svelte';
@@ -7,6 +7,8 @@
     export let loadingRowsNumber: number | null;
     export let columns: Column[];
     export let rowProps: RowProps | undefined;
+    export let rowClassName: TableOptions['rowClassName'];
+    export let emptyValueLabel: string | undefined;
     export let records: TableData | undefined;
     export let emptyStateLabel: string | undefined;
     export let showRowNumbers = false;
@@ -44,6 +46,8 @@
             <Row
                 {columns}
                 {rowProps}
+                {rowClassName}
+                {emptyValueLabel}
                 {record}
                 {rowIndex}
                 {rowOffset}
