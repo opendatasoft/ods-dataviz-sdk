@@ -814,3 +814,34 @@ describe('rowHeader', () => {
         expect(container.querySelectorAll('tbody td')).toHaveLength(2);
     });
 });
+
+describe('cursor pagination displayedRecords', () => {
+    const rows = Array.from({ length: 30 }, (_, i) => ({ label: `row ${i}` }));
+    const renderPage = (displayedRecords?: number) =>
+        render(
+            <Table
+                data={{ value: rows }}
+                options={{
+                    columns: [{ title: 'Label', key: 'label', dataFormat: 'short-text' }],
+                    pagination: {
+                        kind: 'cursor',
+                        current: 2,
+                        recordsPerPage: 10,
+                        pagesAhead: 1,
+                        displayedRecords,
+                        onPageChange: () => {},
+                    },
+                }}
+            />
+        );
+
+    test('defaults the range to the displayed rows', () => {
+        renderPage();
+        expect(screen.getByText('11-40')).toBeInTheDocument();
+    });
+
+    test('uses displayedRecords when rows are not records', () => {
+        renderPage(10);
+        expect(screen.getByText('11-20')).toBeInTheDocument();
+    });
+});

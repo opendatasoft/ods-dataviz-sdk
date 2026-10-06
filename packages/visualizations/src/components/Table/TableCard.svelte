@@ -38,6 +38,12 @@
     $: $locale = localeOption || navigator.language;
     $: $debugWarnings = debugOption;
     $: defaultLoadingRowsNumber = pagination ? pagination.recordsPerPage ?? 10 : 5;
+    /* Records shown in the page range: the rows count, unless a cursor pagination sets its own
+    (rows that are not records, e.g. a group expanded into several rows) */
+    $: displayedRecords =
+        pagination?.kind === 'cursor' && pagination.displayedRecords !== undefined
+            ? pagination.displayedRecords
+            : records?.length;
     $: rowOffset = pagination?.recordsPerPage
         ? (pagination.current - 1) * pagination.recordsPerPage
         : 0;
@@ -68,7 +74,7 @@
             {rowOffset}
         />
         {#if pagination}
-            <Pagination {...pagination} displayedRecords={records?.length} />
+            <Pagination {...pagination} {displayedRecords} />
         {/if}
     </div>
 </Card>
