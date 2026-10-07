@@ -2,7 +2,7 @@
     import { setContext } from 'svelte';
     import type { DataFrame } from 'types';
     import { generateId } from 'components/utils';
-    import type { Column, RowProps } from './types';
+    import type { Column, RowProps, TableOptions } from './types';
     import Headers from './Headers';
     import Body from './Body.svelte';
     import { HOVER_COLUMN_KEY, ROW_NUMBER_COLUMN_KEY } from './constants';
@@ -14,6 +14,8 @@
     export let description: string | undefined;
     export let emptyStateLabel: string | undefined;
     export let rowProps: RowProps | undefined;
+    export let rowClassName: TableOptions['rowClassName'];
+    export let emptyValueLabel: string | undefined;
     export let extraButtonColumnLabel: string | undefined;
     export let stickyHeader = false;
     export let fillHeight = false;
@@ -111,6 +113,8 @@
             {records}
             columns={sortedStickyColumns}
             {rowProps}
+            {rowClassName}
+            {emptyValueLabel}
             {emptyStateLabel}
             {loadingRowsNumber}
             {showRowNumbers}

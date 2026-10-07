@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.40.0-beta.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.40.0-beta.0...@opendatasoft/visualizations@0.40.0-beta.1) (2026-10-07)
+
+
+### Features
+
+* **pagination:** add displayedRecords option to cursor pagination ([2a08606](https://github.com/opendatasoft/ods-dataviz-sdk/commit/2a0860625036d418d24f80df088cf4e4d62d06a4))
+
+
+
+
+
+# [0.40.0-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.39.0...@opendatasoft/visualizations@0.40.0-beta.0) (2026-10-05)
+
+
+### Features
+
+* **table:** add rowClassName, emptyValueLabel and rowHeader options ([a0f7f28](https://github.com/opendatasoft/ods-dataviz-sdk/commit/a0f7f28561505bf97aa2dd79c5e7fcf7bb0eef05))
+
+
+
+
+
 # [0.39.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.38.1...@opendatasoft/visualizations@0.39.0) (2026-09-21)
 
 

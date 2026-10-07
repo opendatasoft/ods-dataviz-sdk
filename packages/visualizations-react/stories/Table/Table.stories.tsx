@@ -371,3 +371,95 @@ export const RowHoverAndClick: StoryObj<typeof Table> = {
         );
     },
 };
+
+const totalRowsData: Async<TableData> = {
+    value: [
+        { region: 'North', year: 2023, amount: 1200 },
+        { region: 'North', year: 2024, amount: 1350 },
+        { region: 'North', amount: 2550, isTotal: true },
+        { region: 'South', year: 2023, amount: 800 },
+        { region: 'South', year: 2024, amount: null },
+        { region: 'South', amount: 800, isTotal: true },
+    ],
+    loading: false,
+};
+
+/**
+ * `rowClassName` returns a class name for each row's `<tr>`. Here, records flagged
+ * `isTotal: true` get a class that renders them bold.
+ */
+export const RowClassName: StoryObj<typeof Table> = {
+    args: {
+        data: totalRowsData,
+        options: {
+            columns: [
+                { title: 'Region', key: 'region', dataFormat: 'short-text' },
+                { title: 'Year', key: 'year', dataFormat: 'number' },
+                { title: 'Amount', key: 'amount', dataFormat: 'number' },
+            ],
+            rowClassName: (record: GenericRecord) =>
+                record.isTotal ? 'table-story--total-row' : undefined,
+        },
+    },
+    render: (args: TableProps) => (
+        <>
+            <style>{`.table-story--total-row td { font-weight: bold; }`}</style>
+            <Table {...args} />
+        </>
+    ),
+};
+
+const emptyValuesData: Async<TableData> = {
+    value: [
+        { name: 'Paris', population: 2102650, website: 'https://www.paris.fr' },
+        { name: 'Lyon', population: null, website: 'https://www.lyon.fr' },
+        { name: 'Marseille', population: 873076, website: null },
+        { name: null, population: 0, website: undefined },
+    ],
+    loading: false,
+};
+
+/**
+ * `emptyValueLabel` is displayed in cells whose value is `null` or `undefined`.
+ * Other falsy values such as `0` are still rendered normally.
+ */
+export const EmptyValueLabel: StoryObj<typeof Table> = {
+    args: {
+        data: emptyValuesData,
+        options: {
+            columns: [
+                { title: 'Name', key: 'name', dataFormat: 'short-text' },
+                { title: 'Population', key: 'population', dataFormat: 'number' },
+                { title: 'Website', key: 'website', dataFormat: 'url' },
+            ],
+            emptyValueLabel: '–',
+        },
+    },
+};
+
+const rowHeadersData = {
+    value: [
+        { category: 'Arts and culture', city: 'Total', count: 5, isTotal: true },
+        { category: 'Arts and culture', city: 'Paris', count: 5 },
+        { category: 'Arts and culture', city: 'Serris', count: null },
+        { category: 'Food and drinks', city: 'Total', count: 3, isTotal: true },
+        { category: 'Food and drinks', city: 'Paris', count: 3 },
+        { category: 'Food and drinks', city: 'Serris', count: null },
+    ],
+    loading: false,
+};
+
+/** Grouping columns as row headers (`<th scope="row">`), as in an aggregated table. */
+export const RowHeaders: StoryObj<typeof Table> = {
+    args: {
+        data: rowHeadersData,
+        options: {
+            columns: [
+                { title: 'Category', key: 'category', dataFormat: 'short-text', rowHeader: true },
+                { title: 'City', key: 'city', dataFormat: 'short-text', rowHeader: true },
+                { title: 'Count records', key: 'count', dataFormat: 'number' },
+            ],
+            emptyValueLabel: '–',
+        },
+    },
+};

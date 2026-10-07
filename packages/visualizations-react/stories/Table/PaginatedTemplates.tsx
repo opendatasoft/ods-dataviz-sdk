@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type {
+    Column,
     DataFrame,
     CursorPagination,
     NumberedPagination,
@@ -126,6 +127,60 @@ export const CursorTemplate = ({
     };
 
     return <Table data={paginatedData} options={stateFulOptions} />;
+};
+
+// 12 groups, each expanded into a Total row and one row per city (like a segmented
+// aggregated table). Pages hold groups, not rows.
+const CITIES = ['Paris', 'Lyon', 'Marseille'];
+const groupedRecords = Array.from({ length: 12 }, (_, i) => {
+    const category = `Category ${i + 1}`;
+    const values = CITIES.map((_city, j) => (i * 7 + j * 3) % 10);
+    return [
+        { category, city: 'Total', count: values.reduce((a, b) => a + b, 0), isTotal: true },
+        ...CITIES.map((city, j) => ({ category, city, count: values[j] })),
+    ];
+});
+
+const groupedColumns: Column[] = [
+    { title: 'Category', key: 'category', dataFormat: 'short-text', rowHeader: true },
+    { title: 'City', key: 'city', dataFormat: 'short-text', rowHeader: true },
+    { title: 'Count', key: 'count', dataFormat: 'number' },
+];
+
+/**
+ * Cursor pagination over groups expanded into several rows: `displayedRecords` makes the
+ * range count groups (`4-6`), not rows (which would read `4-15`).
+ */
+export const GroupedCursorTemplate = ({
+    current: initialPage = 2,
+    recordsPerPage: groupsPerPage = 3,
+    withDisplayedRecords,
+}: Pick<CursorPagination, 'current' | 'recordsPerPage'> & { withDisplayedRecords: boolean }) => {
+    const [page, setPage] = useState(initialPage);
+    const pageGroups = groupedRecords.slice((page - 1) * groupsPerPage, page * groupsPerPage);
+    const pagesAhead = Math.max(0, Math.ceil(groupedRecords.length / groupsPerPage) - page);
+
+    return (
+        <>
+            <style>{`.grouped-story--total-row td, .grouped-story--total-row th { font-weight: bold; }`}</style>
+            <Table
+                data={{ value: pageGroups.flat() as DataFrame, isLoading: false }}
+                options={{
+                    columns: groupedColumns,
+                    rowClassName: record =>
+                        record.isTotal ? 'grouped-story--total-row' : undefined,
+                    pagination: {
+                        kind: 'cursor',
+                        current: page,
+                        recordsPerPage: groupsPerPage,
+                        pagesAhead,
+                        ...(withDisplayedRecords && { displayedRecords: pageGroups.length }),
+                        onPageChange: setPage,
+                    },
+                }}
+            />
+        </>
+    );
 };
 
 export const PageSizeTemplate = (pagination: Pagination) => {
