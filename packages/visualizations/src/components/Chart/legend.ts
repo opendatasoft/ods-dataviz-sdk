@@ -2,6 +2,8 @@ import type { LegendOptions, ChartConfiguration, Chart } from 'chart.js';
 import type { _DeepPartialObject } from 'chart.js/dist/types/utils';
 import { assureMaxLength } from 'components/utils/formatter';
 import { CATEGORY_ITEM_VARIANT } from 'components/Legend/types';
+import type { CategoryItem, CategoryLegend } from 'components/Legend/types';
+import type { Color } from 'types';
 import type { ChartOptions } from './types';
 import { defaultValue, DEFAULT_GREY_COLOR } from './utils';
 
@@ -79,6 +81,82 @@ function buildLegendLabels(
     return `${chartConfig.data.labels?.[index]}`;
 }
 
+/**
+ * Title, variant and max height of a custom legend (read only when `legend.custom`).
+ * The title is styled like the x axis title, so both read as chart labels.
+ */
+function customLegendLayout(options: ChartOptions) {
+    const axisTitle = options?.axis?.x?.title;
+    return {
+        title: options?.legend?.title,
+        variant: options?.legend?.variant,
+        maxHeight: options?.legend?.maxHeight,
+        titleStyle: {
+            // Chart.js also accepts a color per line; the legend title is a single line
+            color: typeof axisTitle?.color === 'string' ? axisTitle.color : 'rgb(0, 0, 0)',
+            fontSize: defaultValue(axisTitle?.font?.size, 12),
+            fontWeight: defaultValue(axisTitle?.font?.weight, '400'),
+        },
+    };
+}
+
+/** First color of a series color option (a single color, or one per data point). */
+function firstColor(color: Color | Color[] | undefined): Color | undefined {
+    return Array.isArray(color) ? color[0] : color;
+}
+
+/**
+ * Custom (HTML) legend of line and bar charts: one item per series, with its label and color.
+ * Clicking an item hides or shows that series.
+ */
+export function buildCartesianCustomLegend({
+    chart,
+    options,
+}: {
+    chart: Chart;
+    options: ChartOptions;
+}): CategoryLegend {
+    const boxStyle = defaultValue(options?.legend?.boxStyle, 'rect');
+    return {
+        type: 'category' as const,
+        position: defaultValue(options?.legend?.position, 'bottom'),
+        align: defaultValue(options?.legend?.align, 'center'),
+        ...customLegendLayout(options),
+        items: options.series.map((serie): CategoryItem => {
+            const label = assureMaxLength(
+                ('label' in serie && serie.label) || '',
+                LEGEND_MAX_LENGTH
+            );
+            const backgroundColor = firstColor(
+                'backgroundColor' in serie ? serie.backgroundColor : undefined
+            );
+            const borderColor = firstColor('borderColor' in serie ? serie.borderColor : undefined);
+            const onClick = (index: number) => {
+                if (chart) {
+                    chart.setDatasetVisibility(index, !chart.isDatasetVisible(index));
+                    chart.update();
+                }
+            };
+            if (boxStyle === 'line' || boxStyle === 'dash') {
+                return {
+                    variant: CATEGORY_ITEM_VARIANT.Line,
+                    borderColor: borderColor || backgroundColor || DEFAULT_GREY_COLOR,
+                    dashed: boxStyle === 'dash',
+                    label,
+                    onClick,
+                };
+            }
+            return {
+                variant: CATEGORY_ITEM_VARIANT.Box,
+                color: backgroundColor || borderColor || DEFAULT_GREY_COLOR,
+                borderColor,
+                label,
+                onClick,
+            };
+        }),
+    };
+}
+
 export function buildPieAndDoughnutCustomLegend({
     chart,
     options,
@@ -96,6 +174,7 @@ export function buildPieAndDoughnutCustomLegend({
         type: 'category' as const,
         position: defaultValue(options?.legend?.position, 'bottom'),
         align: defaultValue(options?.legend?.align, 'center'),
+        ...customLegendLayout(options),
         items: chartConfig.data.datasets[0].data.map((_data, i) => ({
             color: backgroundColors[i % backgroundColors.length],
             variant: CATEGORY_ITEM_VARIANT.Box,

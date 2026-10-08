@@ -23,7 +23,11 @@
     import { defaultValue } from './utils';
     import toDataset from './datasets';
     import buildScales from './scales';
-    import { buildLegend, buildPieAndDoughnutCustomLegend } from './legend';
+    import {
+        buildCartesianCustomLegend,
+        buildLegend,
+        buildPieAndDoughnutCustomLegend,
+    } from './legend';
 
     // ensure exported type matches declared props
     type $$Props = ChartProps;
@@ -247,6 +251,11 @@
         options?.legend?.custom
     ) {
         legendOptions = buildPieAndDoughnutCustomLegend({ chart, options, chartConfig });
+    } else if (
+        [ChartSeriesType.Line, ChartSeriesType.Bar].includes(options.series[0].type) &&
+        options?.legend?.custom
+    ) {
+        legendOptions = buildCartesianCustomLegend({ chart, options });
     }
 </script>
 
