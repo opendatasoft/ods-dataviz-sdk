@@ -23,7 +23,8 @@ export interface LegendConfiguration {
     custom?: boolean;
     /**
      * Chart.js legend only: texts shortened (with an ellipsis) to fit the space the legend gets,
-     * so that every item shows on a narrow chart. Defaults to `false`.
+     * so that every item shows on a narrow chart. Defaults to `false`. Ignored with `custom`
+     * (the HTML legend wraps its items).
      */
     fitLabels?: boolean;
 }
