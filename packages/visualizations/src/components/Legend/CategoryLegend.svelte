@@ -1,8 +1,7 @@
 <script lang="ts">
     import CategoryLegendItem from './CategoryLegend/Item/CategoryLegendItem.svelte';
-    import InlineCategoryLegend from './InlineCategoryLegend.svelte';
     import type { CategoryLegend, CategoryItem } from './types';
-    import { CATEGORY_ITEM_VARIANT, CATEGORY_LEGEND_VARIANT } from './types';
+    import { CATEGORY_ITEM_VARIANT } from './types';
 
     export let legendOptions: CategoryLegend;
 
@@ -47,29 +46,25 @@
     }
 </script>
 
-{#if legendOptions.variant === CATEGORY_LEGEND_VARIANT.Inline}
-    <InlineCategoryLegend {legendOptions} />
-{:else}
-    <div class="legend-container" style="--align: {align}" bind:clientWidth={legendWidth}>
-        {#if title}
-            <div class="legend-title">{title}</div>
-        {/if}
-        <div class="legend-items-container" style="--max-items-in-group: {maxItemsInGroup}">
-            {#each groupKeys as group}
-                <div class="legend-items-group">
-                    {#each grouped[group] as item, i}
-                        <CategoryLegendItem
-                            {item}
-                            itemIndex={i}
-                            {toggleSerie}
-                            refined={isRefined(i, refinedSeries)}
-                        />
-                    {/each}
-                </div>
-            {/each}
-        </div>
+<div class="legend-container" style="--align: {align}" bind:clientWidth={legendWidth}>
+    {#if title}
+        <div class="legend-title">{title}</div>
+    {/if}
+    <div class="legend-items-container" style="--max-items-in-group: {maxItemsInGroup}">
+        {#each groupKeys as group}
+            <div class="legend-items-group">
+                {#each grouped[group] as item, i}
+                    <CategoryLegendItem
+                        {item}
+                        itemIndex={i}
+                        {toggleSerie}
+                        refined={isRefined(i, refinedSeries)}
+                    />
+                {/each}
+            </div>
+        {/each}
     </div>
-{/if}
+</div>
 
 <style>
     .legend-container {

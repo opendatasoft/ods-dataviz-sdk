@@ -1,11 +1,18 @@
-import type { LegendOptions, ChartConfiguration, Chart } from 'chart.js';
+import { Chart } from 'chart.js';
+import type {
+    ChartConfiguration,
+    FontSpec,
+    LegendElement,
+    LegendItem,
+    LegendOptions,
+} from 'chart.js';
 import type { _DeepPartialObject } from 'chart.js/dist/types/utils';
+import { toFont } from 'chart.js/helpers';
 import { assureMaxLength } from 'components/utils/formatter';
 import { CATEGORY_ITEM_VARIANT } from 'components/Legend/types';
-import type { CategoryItem, CategoryLegend } from 'components/Legend/types';
-import type { Color } from 'types';
 import type { ChartOptions } from './types';
 import { defaultValue, DEFAULT_GREY_COLOR } from './utils';
+import { fitLegendTexts } from './legendFit';
 
 const LEGEND_MAX_LENGTH = 50;
 
@@ -34,7 +41,61 @@ const handleLeavePieChart: LegendOptions<'pie'>['onLeave'] = (_evt, _item, legen
     legend.chart.update();
 };
 
+/** Legend items Chart.js generates for this chart type (one per dataset, or per slice for a pie). */
+function defaultLegendItems(chart: Chart): LegendItem[] {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const typeLabels = (Chart.overrides as any)[(chart.config as { type?: string }).type || '']
+        ?.plugins?.legend?.labels;
+    const generate =
+        typeLabels?.generateLabels || Chart.defaults.plugins.legend.labels.generateLabels;
+    return generate(chart);
+}
+
+/** Item texts shortened to fit the legend (see `fitLegendTexts`), measured with its font. */
+function fitItemTexts(legend: LegendElement<'pie'>, items: LegendItem[]) {
+    const { ctx, options } = legend;
+    // Set by Chart.js before it builds the labels (layout box size), missing from its types
+    const { maxWidth, maxHeight } = legend as unknown as { maxWidth: number; maxHeight: number };
+    const { labels } = options;
+    // Resolved by then (not a scriptable option anymore)
+    const font = toFont(labels.font as Partial<FontSpec>);
+    const boxHeight = labels.boxHeight ?? font.size;
+    ctx.save();
+    ctx.font = font.string;
+    const texts = fitLegendTexts(
+        items.map((item) => item.text),
+        {
+            measure: (text) => ctx.measureText(text).width,
+            maxWidth,
+            maxHeight,
+            horizontal: legend.isHorizontal(),
+            itemExtraWidth: (labels.boxWidth ?? font.size) + font.size / 2,
+            lineHeight: Math.max(font.size, boxHeight) + labels.padding,
+            padding: labels.padding,
+        }
+    );
+    ctx.restore();
+    items.forEach((item, i) => {
+        // eslint-disable-next-line no-param-reassign
+        item.text = texts[i];
+    });
+}
+
 export function buildLegend(options: ChartOptions) {
+    const fitLabels = !!options?.legend?.fitLabels;
+    const setItemText = (item: LegendItem) => {
+        /* eslint-disable no-param-reassign */
+        const text = options?.legend?.labels?.text;
+        if (text) {
+            const index =
+                typeof (item as any).index === 'number' // eslint-disable-line @typescript-eslint/no-explicit-any
+                    ? (item as any).index // eslint-disable-line @typescript-eslint/no-explicit-any
+                    : item.datasetIndex;
+            item.text = text(index);
+        }
+        item.text = assureMaxLength(item.text, LEGEND_MAX_LENGTH);
+        /* eslint-enable no-param-reassign */
+    };
     const legend: _DeepPartialObject<LegendOptions<'pie'>> = {
         display: defaultValue(options?.legend?.display, false),
         position: defaultValue(options?.legend?.position, 'bottom'),
@@ -44,17 +105,21 @@ export function buildLegend(options: ChartOptions) {
         labels: {
             boxWidth: 20,
             boxHeight: defaultValue(options?.legend?.boxStyle, 'rect') === 'rect' ? 16 : 0,
+            // With `fitLabels`, texts set in `generateLabels` rather than in `filter`, which
+            // Chart.js calls afterwards: the fitting needs every final text.
+            ...(fitLabels && {
+                // `this` is the legend, sized by then
+                generateLabels(this: LegendElement<'pie'>, chart: Chart) {
+                    const items = defaultLegendItems(chart);
+                    items.forEach(setItemText);
+                    // On a narrow chart, shorter texts so that every item shows
+                    fitItemTexts(this, items);
+                    return items;
+                },
+            }),
             filter: (item) => {
                 /* eslint-disable no-param-reassign */
-                const text = options?.legend?.labels?.text;
-                if (text) {
-                    const index =
-                        typeof (item as any).index === 'number' // eslint-disable-line @typescript-eslint/no-explicit-any
-                            ? (item as any).index // eslint-disable-line @typescript-eslint/no-explicit-any
-                            : item.datasetIndex;
-                    item.text = text(index);
-                }
-                item.text = assureMaxLength(item.text, LEGEND_MAX_LENGTH);
+                if (!fitLabels) setItemText(item);
                 if (options?.legend?.boxStyle === 'dash') {
                     item.lineWidth = 1;
                     item.lineDash = [4, 2];
@@ -81,82 +146,6 @@ function buildLegendLabels(
     return `${chartConfig.data.labels?.[index]}`;
 }
 
-/**
- * Title, variant and max height of a custom legend (read only when `legend.custom`).
- * The title is styled like the x axis title, so both read as chart labels.
- */
-function customLegendLayout(options: ChartOptions) {
-    const axisTitle = options?.axis?.x?.title;
-    return {
-        title: options?.legend?.title,
-        variant: options?.legend?.variant,
-        maxHeight: options?.legend?.maxHeight,
-        titleStyle: {
-            // Chart.js also accepts a color per line; the legend title is a single line
-            color: typeof axisTitle?.color === 'string' ? axisTitle.color : 'rgb(0, 0, 0)',
-            fontSize: defaultValue(axisTitle?.font?.size, 12),
-            fontWeight: defaultValue(axisTitle?.font?.weight, '400'),
-        },
-    };
-}
-
-/** First color of a series color option (a single color, or one per data point). */
-function firstColor(color: Color | Color[] | undefined): Color | undefined {
-    return Array.isArray(color) ? color[0] : color;
-}
-
-/**
- * Custom (HTML) legend of line and bar charts: one item per series, with its label and color.
- * Clicking an item hides or shows that series.
- */
-export function buildCartesianCustomLegend({
-    chart,
-    options,
-}: {
-    chart: Chart;
-    options: ChartOptions;
-}): CategoryLegend {
-    const boxStyle = defaultValue(options?.legend?.boxStyle, 'rect');
-    return {
-        type: 'category' as const,
-        position: defaultValue(options?.legend?.position, 'bottom'),
-        align: defaultValue(options?.legend?.align, 'center'),
-        ...customLegendLayout(options),
-        items: options.series.map((serie): CategoryItem => {
-            const label = assureMaxLength(
-                ('label' in serie && serie.label) || '',
-                LEGEND_MAX_LENGTH
-            );
-            const backgroundColor = firstColor(
-                'backgroundColor' in serie ? serie.backgroundColor : undefined
-            );
-            const borderColor = firstColor('borderColor' in serie ? serie.borderColor : undefined);
-            const onClick = (index: number) => {
-                if (chart) {
-                    chart.setDatasetVisibility(index, !chart.isDatasetVisible(index));
-                    chart.update();
-                }
-            };
-            if (boxStyle === 'line' || boxStyle === 'dash') {
-                return {
-                    variant: CATEGORY_ITEM_VARIANT.Line,
-                    borderColor: borderColor || backgroundColor || DEFAULT_GREY_COLOR,
-                    dashed: boxStyle === 'dash',
-                    label,
-                    onClick,
-                };
-            }
-            return {
-                variant: CATEGORY_ITEM_VARIANT.Box,
-                color: backgroundColor || borderColor || DEFAULT_GREY_COLOR,
-                borderColor,
-                label,
-                onClick,
-            };
-        }),
-    };
-}
-
 export function buildPieAndDoughnutCustomLegend({
     chart,
     options,
@@ -174,7 +163,6 @@ export function buildPieAndDoughnutCustomLegend({
         type: 'category' as const,
         position: defaultValue(options?.legend?.position, 'bottom'),
         align: defaultValue(options?.legend?.align, 'center'),
-        ...customLegendLayout(options),
         items: chartConfig.data.datasets[0].data.map((_data, i) => ({
             color: backgroundColors[i % backgroundColors.length],
             variant: CATEGORY_ITEM_VARIANT.Box,

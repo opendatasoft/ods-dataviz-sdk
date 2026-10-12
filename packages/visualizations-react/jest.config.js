@@ -3,7 +3,7 @@ module.exports = {
     setupFilesAfterEnv: ['<rootDir>/test/setupTests.js'],
     testEnvironment: 'jsdom',
     moduleNameMapper: {
-        src: '<rootDir>/src',
+        '^src$': '<rootDir>/src',
         'stories/(.*)': '<rootDir>/stories/$1',
         reactify: '<rootDir>/src/reactify',
         // https://jestjs.io/docs/webpack#handling-static-assets
