@@ -403,7 +403,7 @@ export const RowClassName: StoryObj<typeof Table> = {
     },
     render: (args: TableProps) => (
         <>
-            <style>{`.table-story--total-row td { font-weight: bold; }`}</style>
+            <style>{`.table-story--total-row { font-weight: bold; }`}</style>
             <Table {...args} />
         </>
     ),
@@ -462,4 +462,55 @@ export const RowHeaders: StoryObj<typeof Table> = {
             emptyValueLabel: '–',
         },
     },
+};
+
+const frozenRowHeadersData: Async<TableData> = {
+    value: ['Arts and culture', 'Food and drinks'].flatMap(category =>
+        ['Total', 'Paris', 'Lyon'].map((city, i) => ({
+            category,
+            city,
+            ...Object.fromEntries(
+                Array.from({ length: 8 }, (_, m) => [`metric${m}`, (i + 1) * (m + 1) * 100])
+            ),
+        }))
+    ),
+    loading: false,
+};
+
+/** Frozen row headers: scroll to the right, the separator between Category and City should stay visible. */
+export const FrozenRowHeaders: StoryObj<typeof Table> = {
+    args: {
+        data: frozenRowHeadersData,
+        options: {
+            columns: [
+                {
+                    title: 'Category',
+                    key: 'category',
+                    dataFormat: 'short-text',
+                    rowHeader: true,
+                    sticky: true,
+                },
+                {
+                    title: 'City',
+                    key: 'city',
+                    dataFormat: 'short-text',
+                    rowHeader: true,
+                    sticky: true,
+                },
+                ...Array.from(
+                    { length: 8 },
+                    (_, m): Column => ({
+                        title: `Metric ${m + 1}`,
+                        key: `metric${m}`,
+                        dataFormat: 'number',
+                    })
+                ),
+            ],
+        },
+    },
+    render: (args: TableProps) => (
+        <div style={{ width: 400 }}>
+            <Table {...args} />
+        </div>
+    ),
 };

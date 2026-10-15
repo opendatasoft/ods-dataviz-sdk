@@ -162,7 +162,7 @@ export const GroupedCursorTemplate = ({
 
     return (
         <>
-            <style>{`.grouped-story--total-row td, .grouped-story--total-row th { font-weight: bold; }`}</style>
+            <style>{`.grouped-story--total-row { font-weight: bold; }`}</style>
             <Table
                 data={{ value: pageGroups.flat() as DataFrame, isLoading: false }}
                 options={{

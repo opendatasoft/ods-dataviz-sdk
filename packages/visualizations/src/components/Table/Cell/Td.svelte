@@ -58,9 +58,17 @@
     /* Row headers: muted and separated from the values (overridable through the variables) */
     :global(.ods-dataviz--default tbody th.row-header-cell) {
         text-align: start;
-        font-weight: normal;
+        font-weight: inherit;
         background-color: var(--table-row-header-background, #f6f6f6);
         color: var(--table-row-header-color, #5b5b5b);
         border-inline-end: 2px solid var(--table-row-header-border-color, #dbdbdb);
+    }
+    /* Sticky offsets include this 2px border (offsetWidth in Th.svelte), so the 1px gap filler
+       (_sticky.scss) must sit past the border instead of painting over it */
+    :global(.ods-dataviz--default th.row-header-cell.sticky:dir(ltr)::before) {
+        right: -3px;
+    }
+    :global(.ods-dataviz--default th.row-header-cell.sticky:dir(rtl)::before) {
+        left: -3px;
     }
 </style>
