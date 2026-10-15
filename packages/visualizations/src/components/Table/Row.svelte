@@ -2,10 +2,12 @@
     import CellContent from './Cell/CellContent.svelte';
     import Td from './Cell/Td.svelte';
     import ZoomIcon from './ZoomIcon.svelte';
-    import type { Column, RowProps, HoverEvent } from './types';
+    import type { Column, RowProps, HoverEvent, TableOptions } from './types';
 
     export let columns: Column[];
     export let rowProps: RowProps | undefined;
+    export let rowClassName: TableOptions['rowClassName'];
+    export let emptyValueLabel: string | undefined;
     export let record: Record<string, unknown>;
     export let isHovered = false;
     export let setHovered: () => void;
@@ -33,6 +35,7 @@
 </script>
 
 <tr
+    class={rowClassName?.(record) || undefined}
     on:mouseenter={rowProps && handleMouseEnter}
     on:mouseleave={rowProps && handleMouseLeave}
     on:focusin={rowProps && handleMouseEnter}
@@ -55,13 +58,14 @@
     {/if}
     {#each columns as column}
         <Td {column}>
-            <CellContent {record} {column} />
+            <CellContent {record} {column} {emptyValueLabel} />
         </Td>
     {/each}
 </tr>
 
 <style>
-    :global(.ods-dataviz--default tr:last-child td) {
+    :global(.ods-dataviz--default tr:last-child td),
+    :global(.ods-dataviz--default tr:last-child th.row-header-cell) {
         border-bottom: none;
     }
 

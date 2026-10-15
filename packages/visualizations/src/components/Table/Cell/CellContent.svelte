@@ -15,6 +15,7 @@
 
     export let record: Record<string, unknown>;
     export let column: Column;
+    export let emptyValueLabel: string | undefined;
 
     // Defensive fallback key lookup: only reached when column.dataFormat is outside
     // the DataFormat union, i.e. from an untyped/JS consumer — see the {:else} branch below.
@@ -121,6 +122,8 @@
                 debugWarnings={$debugWarnings}
             />
         {/if}
+    {:else if emptyValueLabel}
+        <span class="table-data--empty">{emptyValueLabel}</span>
     {/if}
 </div>
 

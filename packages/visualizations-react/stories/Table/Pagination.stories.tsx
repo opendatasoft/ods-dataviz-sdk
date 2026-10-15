@@ -2,7 +2,12 @@ import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import type { Pagination } from '@opendatasoft/visualizations';
 import { Table } from '../../src';
-import { CursorTemplate, PaginatedTemplate, PageSizeTemplate } from './PaginatedTemplates';
+import {
+    CursorTemplate,
+    GroupedCursorTemplate,
+    PaginatedTemplate,
+    PageSizeTemplate,
+} from './PaginatedTemplates';
 
 const meta: Meta<typeof Table> = {
     title: 'Table/Pagination',
@@ -69,4 +74,16 @@ export const CursorMidPage: StoryObj<typeof CursorTemplate> = {
         recordsPerPage: 3,
     },
     render: args => <CursorTemplate {...args} />,
+};
+
+// Cursor pagination over groups expanded into several rows (Total + one row per city):
+// `displayedRecords` makes the range count groups (`4-6`) rather than rows (`4-15`).
+export const CursorGroupedRows: StoryObj<typeof GroupedCursorTemplate> = {
+    name: 'Cursor with grouped rows (displayedRecords)',
+    args: {
+        current: 2,
+        recordsPerPage: 3,
+        withDisplayedRecords: true,
+    },
+    render: args => <GroupedCursorTemplate {...args} />,
 };

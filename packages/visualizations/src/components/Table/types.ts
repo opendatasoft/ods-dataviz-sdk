@@ -32,6 +32,11 @@ export type BaseColumn = {
     /** Wtether the column is sorted ascendimg, descending or not */
     sorted?: ColumnSortValues;
     sticky?: boolean;
+    /**
+     * Cells of this column are row headers: rendered as `<th scope="row">` and styled as such
+     * (muted background, separator on the inline end). E.g. the grouping columns of an aggregated table.
+     */
+    rowHeader?: boolean;
     sortLabels?: {
         asc: string;
         desc: string;
@@ -107,6 +112,10 @@ export type RowProps = {
 export type TableOptions = {
     columns: Column[];
     rowProps?: RowProps;
+    /** Returns a CSS class name applied to the row's `<tr>`, e.g. to emphasize total rows */
+    rowClassName?: (record: GenericRecord) => string | undefined;
+    /** Text displayed in cells whose value is null or undefined (e.g. '–'). Defaults to an empty cell. */
+    emptyValueLabel?: string;
     title?: string;
     subtitle?: string;
     description?: string;
