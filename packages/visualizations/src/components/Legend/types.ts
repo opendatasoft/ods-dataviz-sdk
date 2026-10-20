@@ -21,6 +21,12 @@ export interface LegendConfiguration {
     NOTE: temporary API for backward compatibility
      */
     custom?: boolean;
+    /**
+     * Chart.js legend only: texts shortened (with an ellipsis) to fit the space the legend gets,
+     * so that every item shows on a narrow chart. Defaults to `false`. Ignored with `custom`
+     * (the HTML legend wraps its items).
+     */
+    fitLabels?: boolean;
 }
 
 export type LegendVariant = 'fluid' | 'fixed';
