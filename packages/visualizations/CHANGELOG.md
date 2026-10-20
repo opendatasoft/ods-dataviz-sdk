@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.40.0-beta.3](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.40.0-beta.2...@opendatasoft/visualizations@0.40.0-beta.3) (2026-10-20)
+
+
+### Bug Fixes
+
+* apply reviews fixes for total row style and sticky columns border ([047b7b0](https://github.com/opendatasoft/ods-dataviz-sdk/commit/047b7b09c8da564bbc80bbbfa7b9698ecdee37da))
+
+
+
+
+
 # [0.40.0-beta.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.40.0-beta.1...@opendatasoft/visualizations@0.40.0-beta.2) (2026-10-12)
 
 
