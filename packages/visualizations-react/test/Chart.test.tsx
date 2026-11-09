@@ -125,14 +125,14 @@ describe('Chart ticks precision', () => {
     };
 
     /** The tick values ChartJS asks the value axis formatter to write. */
-    function formattedTicks(precision?: number) {
+    function formattedTicks(precision?: number, type: 'linear' | undefined = 'linear') {
         const format = jest.fn((value: number) => String(value));
         const precisionOptions: ChartOptions = {
             labelColumn: 'x',
             series: [{ type: ChartSeriesType.Bar, valueColumn: 'y' }],
             axis: {
                 x: { type: 'category' },
-                y: { type: 'linear', ticks: { format, precision } },
+                y: type ? { type, ticks: { format, precision } } : { ticks: { format, precision } },
             },
         };
         render(<Chart data={averages} options={precisionOptions} />);
@@ -141,6 +141,12 @@ describe('Chart ticks precision', () => {
 
     it('keeps the ticks on the given number of decimals', () => {
         const ticks = formattedTicks(0);
+        expect(ticks.length).toBeGreaterThan(1);
+        expect(ticks.every(Number.isInteger)).toBe(true);
+    });
+
+    it('keeps the precision on a value axis whose type ChartJS infers', () => {
+        const ticks = formattedTicks(0, undefined);
         expect(ticks.length).toBeGreaterThan(1);
         expect(ticks.every(Number.isInteger)).toBe(true);
     });
