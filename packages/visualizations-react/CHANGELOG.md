@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.40.0-beta-axis-precision.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.39.0...@opendatasoft/visualizations-react@0.40.0-beta-axis-precision.0) (2026-11-09)
+
+
+### Features
+
+* **Chart:** add a ticks precision option to linear and radial axes ([cf5e7a5](https://github.com/opendatasoft/ods-dataviz-sdk/commit/cf5e7a554c5f3ee0d0ee411100272498712ed79e))
+
+
+
+
+
 # [0.39.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations-react@0.38.1...@opendatasoft/visualizations-react@0.39.0) (2026-09-21)
 
 
