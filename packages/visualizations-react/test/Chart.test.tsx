@@ -111,3 +111,42 @@ test('Chart accepts custom link label', async () => {
     const sourceLink = screen.getByText('Explore data');
     expect(sourceLink).toBeInTheDocument();
 });
+
+describe('Chart ticks precision', () => {
+    // Values under 1: ChartJS picks a 0.5 step (jsdom gives the chart no size, so it draws two ticks)
+    // unless the ticks are held to whole numbers
+    const averages = {
+        loading: false,
+        value: [
+            { x: 'A', y: 0.4 },
+            { x: 'B', y: 0.45 },
+            { x: 'C', y: 0.32 },
+        ],
+    };
+
+    /** The tick values ChartJS asks the value axis formatter to write. */
+    function formattedTicks(precision?: number) {
+        const format = jest.fn((value: number) => String(value));
+        const precisionOptions: ChartOptions = {
+            labelColumn: 'x',
+            series: [{ type: ChartSeriesType.Bar, valueColumn: 'y' }],
+            axis: {
+                x: { type: 'category' },
+                y: { type: 'linear', ticks: { format, precision } },
+            },
+        };
+        render(<Chart data={averages} options={precisionOptions} />);
+        return Array.from(new Set(format.mock.calls.map(([value]) => value)));
+    }
+
+    it('keeps the ticks on the given number of decimals', () => {
+        const ticks = formattedTicks(0);
+        expect(ticks.length).toBeGreaterThan(1);
+        expect(ticks.every(Number.isInteger)).toBe(true);
+    });
+
+    it('lets ChartJS choose finer ticks when no precision is given', () => {
+        const ticks = formattedTicks();
+        expect(ticks).toContain(0.5);
+    });
+});

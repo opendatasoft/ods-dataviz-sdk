@@ -147,6 +147,9 @@ export default function buildScales(
                     options?.axis?.x?.type,
                     defaultValue(options?.axis?.x?.ticks?.format, defaultCompactNumberFormat)
                 ),
+                ...(options.axis.x.type === 'linear' && {
+                    precision: options.axis.x.ticks?.precision,
+                }),
             },
         } as DeepPartial<CartesianScaleOptions>;
     }
@@ -192,6 +195,9 @@ export default function buildScales(
                     options?.axis?.y?.type,
                     defaultValue(options?.axis?.y?.ticks?.format, defaultCompactNumberFormat)
                 ),
+                ...(options.axis.y.type === 'linear' && {
+                    precision: options.axis.y.ticks?.precision,
+                }),
             },
         } as DeepPartial<CartesianScaleOptions>;
     } else {
@@ -211,6 +217,7 @@ export default function buildScales(
                     undefined,
                     defaultValue(options?.axis?.r?.ticks?.format, defaultCompactNumberFormat)
                 ),
+                precision: options.axis.r.ticks?.precision,
             },
             grid: {
                 display: defaultValue(options.axis?.r?.gridLines?.display, true),
