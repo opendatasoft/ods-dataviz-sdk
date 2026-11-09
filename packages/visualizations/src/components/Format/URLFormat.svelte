@@ -1,5 +1,4 @@
 <script lang="ts">
-    import type { Instance } from 'tippy.js';
     import TextFormat from './TextFormat.svelte';
     import { isValidUrl, warn } from './utils';
     import type { URLFormatProps } from './types';
@@ -20,8 +19,6 @@
     export let maxLength: number | undefined = undefined;
 
     let showTooltip = false;
-    let tippyInstance: Instance;
-    let tooltipEl: HTMLDivElement;
 
     $: format = (v: unknown) => {
         if (isValidUrl(v, maxLength)) {
@@ -38,30 +35,22 @@
     };
 
     $: ({ text, href } = format(value));
-    /* We force setting content a second time after the image has loaded
-    and thus has dimensions */
-    $: onLoad = () => {
-        if (tippyInstance) {
-            tippyInstance.setContent(tooltipEl);
-        }
-    };
 </script>
 
 {#if text}
     <Tooltip
         enabled={isValidUrl(thumbnailUrl, maxLength)}
-        onShow={(instance) => {
+        onShow={() => {
             showTooltip = true;
-            tippyInstance = instance;
         }}
         onHide={() => {
             showTooltip = false;
         }}
     >
         <a {href} {rel} {target}>{text}</a>
-        <div slot="tooltipContent" class="image-tooltip-container" bind:this={tooltipEl}>
+        <div slot="tooltipContent" class="image-tooltip-container">
             {#if showTooltip}
-                <img src={thumbnailUrl} alt={text} on:load={onLoad} />
+                <img src={thumbnailUrl} alt={text} />
             {/if}
         </div>
     </Tooltip>
@@ -70,6 +59,15 @@
 {/if}
 
 <style>
+    /* Same reserved box as the geo tooltip so Tippy does not collapse while the image loads. */
+    :global(.image-tooltip-container) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 360px;
+        height: 240px;
+    }
+
     :global(.image-tooltip-container img) {
         max-width: 360px;
         max-height: 240px;

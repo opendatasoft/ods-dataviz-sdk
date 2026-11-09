@@ -14,6 +14,17 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
+## [0.39.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.39.0...@opendatasoft/visualizations@0.39.1) (2026-11-09)
+
+
+### Bug Fixes
+
+* **Table:** define tooltip width and height for images before loading ([#323](https://github.com/opendatasoft/ods-dataviz-sdk/issues/323)) ([4069a9f](https://github.com/opendatasoft/ods-dataviz-sdk/commit/4069a9fd2ff96b86645c192613f9f6695e9ca759))
+
+
+
+
+
 # [0.39.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.38.1...@opendatasoft/visualizations@0.39.0) (2026-09-21)
 
 
