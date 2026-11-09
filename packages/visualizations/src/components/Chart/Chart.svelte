@@ -136,6 +136,12 @@
                         let prefix = '';
                         if (label && series.length > 1) prefix = `${label}: `;
 
+                        // No value for this series at this label: formatting it would read `0`
+                        const emptyValueLabel = options?.tooltip?.emptyValueLabel;
+                        if (emptyValueLabel !== undefined && (raw === null || raw === undefined)) {
+                            return prefix + emptyValueLabel;
+                        }
+
                         // If the value is a percentage, we need to add the '%' symbol
                         const percentaged = options?.axis?.assemblage?.percentaged ? '%' : '';
                         let percentagedRawValue = '';

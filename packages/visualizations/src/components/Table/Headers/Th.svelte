@@ -18,7 +18,8 @@
         https://github.com/sveltejs/svelte/issues/4776 — using bind:this instead. Measuring is
         done via ResizeObserver rather than a one-off reactive read, since a host's CSS can
         change this column's rendered width after the initial measurement (e.g. it only applies
-        once another stylesheet loads, or once layout settles post-scroll). */
+        once another stylesheet loads, or once layout settles post-scroll). offsetWidth (not clientWidth) so that a row-header column's
+        border-inline-end is counted, otherwise the next sticky column covers it once scrolled. */
     let thElement: HTMLElement;
     $: colKey = column?.key || HOVER_COLUMN_KEY;
     $: sticky = column ? Boolean(column.sticky) : true;
@@ -27,7 +28,7 @@
         const observer = new ResizeObserver(() => {
             // Only updates columns that have been initialized after a reset in Table.svelte
             if ($stickyColumnsWidth.has(colKey)) {
-                stickyColumnsWidth.updateColumn(colKey, thElement.clientWidth);
+                stickyColumnsWidth.updateColumn(colKey, thElement.offsetWidth);
             }
         });
         observer.observe(thElement);
@@ -43,9 +44,9 @@
         if (
             thElement &&
             registeredWidth !== undefined &&
-            registeredWidth !== thElement.clientWidth
+            registeredWidth !== thElement.offsetWidth
         ) {
-            stickyColumnsWidth.updateColumn(colKey, thElement.clientWidth);
+            stickyColumnsWidth.updateColumn(colKey, thElement.offsetWidth);
         }
     }
 </script>
@@ -60,6 +61,8 @@
             scrolled: $isHorizontallyScrolled,
             lastStickyColumn: $lastStickyColumn,
         })}`}
+        class:row-header-column={column.rowHeader}
+        scope="col"
     >
         {#if column.onClick}
             <SortButton
@@ -113,6 +116,17 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         min-width: 0;
+    }
+
+    /* Header of a row-header column: same separator as its cells */
+    :global(.ods-dataviz--default th.row-header-column) {
+        border-inline-end: 2px solid var(--table-row-header-border-color, #dbdbdb);
+    }
+    :global(.ods-dataviz--default th.row-header-column.sticky:dir(ltr)::before) {
+        right: -3px;
+    }
+    :global(.ods-dataviz--default th.row-header-column.sticky:dir(rtl)::before) {
+        left: -3px;
     }
 
     :global(.ods-dataviz--default th.table-header--number) {

@@ -136,6 +136,11 @@ export interface TooltipConfiguration {
     rtl?: boolean;
     /** Custom number formatting function for tooltips values */
     numberFormatter?: (value: number) => string;
+    /**
+     * Text shown for a series without a value at the hovered label (`null` / `undefined`),
+     * e.g. `–`. Defaults to the formatted value, i.e. `0`.
+     */
+    emptyValueLabel?: string;
     /** Custom time formats for each unit for tooltips values */
     timeDisplayFormats?: TimeDisplayFormats;
 }
