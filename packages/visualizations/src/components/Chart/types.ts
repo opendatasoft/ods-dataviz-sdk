@@ -149,6 +149,11 @@ export interface TicksConfiguration {
     display?: boolean | 'single';
     color?: Color | Color[];
     format?: (value: number) => string;
+    /**
+     * Maximum number of decimals of the tick values, on linear and radial axes. ChartJS rounds
+     * its step to it, so the ticks never need more decimals than `format` shows.
+     */
+    precision?: number;
 }
 
 export interface TitleConfiguration {
