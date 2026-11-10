@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import type { Pagination } from '@opendatasoft/visualizations';
 import { Table } from '../../src';
 import { CursorTemplate, PaginatedTemplate, PageSizeTemplate } from './PaginatedTemplates';
+import { columns } from './options';
 
 const meta: Meta<typeof Table> = {
     title: 'Table/Pagination',
@@ -28,6 +29,21 @@ export const NumberedWithRowNumbers: StoryObj<typeof PaginatedTemplate> = {
         showRowNumbers: true,
     },
     render: (args: Pagination) => <PaginatedTemplate {...args} />,
+};
+
+// Two narrow columns keep the table under the pagination's 500px breakpoint while the
+// card measures its height, so a wrapping card would leave an empty gap above the pagination.
+export const FewColumns: StoryObj<typeof PaginatedTemplate> = {
+    args: {
+        current: 1,
+        recordsPerPage: 5,
+    },
+    render: (args: Pagination) => (
+        <PaginatedTemplate
+            {...args}
+            columns={columns.filter(({ key }) => key === 'price' || key === 'wordCount')}
+        />
+    ),
 };
 
 // Numbered pagination with a page-size selector.

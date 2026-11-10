@@ -50,6 +50,10 @@
      * the modifiers below add sit inside that size instead of growing past it. Without it a card
      * asked for the full width of its container renders wider than the container by its own padding
      * and border, and the reading-end border falls outside.
+     *
+     * No `flex-wrap: wrap`: a wrapping column sizes each child's height at its content width, before
+     * stretching it to the card's width. A table's pagination measured that narrow takes two lines,
+     * and the extra height stays as an empty gap above it once stretched.
      */
     .card {
         display: flex;
@@ -72,14 +76,9 @@
         border: var(--visualization-card-border-width) solid var(--visualization-card-border);
         border-radius: var(--visualization-card-border-radius);
     }
-    .card.ods-dataviz--default {
-        flex-wrap: wrap;
-    }
-    /* Take the height the parent gives us instead of the content's, and `nowrap` stops a full-height
-     * slot from wrapping onto a second flex column. Declared after `--default` so both win over it. */
+    /* Take the height the parent gives us instead of the content's. */
     .card.ods-dataviz--fill {
         height: 100%;
-        flex-wrap: nowrap;
     }
     h3,
     p {
