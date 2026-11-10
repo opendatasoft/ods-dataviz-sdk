@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type {
+    Column,
     DataFrame,
     CursorPagination,
     NumberedPagination,
@@ -62,8 +63,13 @@ export const usePaginatedData = ({
 export const PaginatedTemplate = ({
     showRowNumbers,
     showFieldTypeIcons,
+    columns = options.columns,
     ...pagination
-}: Pagination & { showRowNumbers?: boolean; showFieldTypeIcons?: boolean }) => {
+}: Pagination & {
+    showRowNumbers?: boolean;
+    showFieldTypeIcons?: boolean;
+    columns?: Column[];
+}) => {
     const { current = 1, recordsPerPage = 5, labels } = pagination;
     const { paginatedData, page, pageSize, setPage } = usePaginatedData({
         current,
@@ -72,6 +78,7 @@ export const PaginatedTemplate = ({
 
     const stateFulOptions = {
         ...options,
+        columns,
         showRowNumbers,
         showFieldTypeIcons,
         pagination: {
