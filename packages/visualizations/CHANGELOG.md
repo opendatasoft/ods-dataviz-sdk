@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.40.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.39.1...@opendatasoft/visualizations@0.40.0) (2026-11-10)
+
+**Note:** Version bump only for package @opendatasoft/visualizations
+
+
+
+
+
 # [0.40.0-beta-axis-precision.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.39.0...@opendatasoft/visualizations@0.40.0-beta-axis-precision.0) (2026-11-09)
 
 
