@@ -50,6 +50,11 @@ export type CursorPagination = {
      */
     pagesAhead: number;
     recordsPerPage?: number;
+    /**
+     * Number of records the current page holds, for the `X-Y` range. Defaults to the number of
+     * displayed rows; set it when rows are not records (e.g. a group expanded into several rows).
+     */
+    displayedRecords?: number;
     onPageChange: (next: number) => void;
     labels?: Partial<{
         previousPage: string;

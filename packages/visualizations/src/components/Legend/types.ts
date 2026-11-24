@@ -9,6 +9,11 @@ export type LegendPositions = typeof LEGEND_POSITIONS[keyof typeof LEGEND_POSITI
 
 export interface LegendLabelsConfiguration {
     text?: (legendIndex: number) => string;
+    /**
+     * Appended to the text and always shown whole, for example the value of a pie slice
+     * (` - 1,200`): when the item is too long, the text before it is shortened.
+     */
+    suffix?: (legendIndex: number) => string;
 }
 
 export interface LegendConfiguration {
@@ -21,6 +26,12 @@ export interface LegendConfiguration {
     NOTE: temporary API for backward compatibility
      */
     custom?: boolean;
+    /**
+     * Chart.js legend only: texts shortened (with an ellipsis) to fit the space the legend gets,
+     * so that every item shows on a narrow chart. Defaults to `false`. Ignored with `custom`
+     * (the HTML legend wraps its items).
+     */
+    fitLabels?: boolean;
 }
 
 export type LegendVariant = 'fluid' | 'fixed';
