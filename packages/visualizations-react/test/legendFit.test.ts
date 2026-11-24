@@ -24,6 +24,15 @@ describe('fitText', () => {
         // 60px: 9 characters + the ellipsis
         expect(fitText('Sequoiadendron', 60, measure)).toBe('Sequoiade…');
     });
+
+    test('keeps the suffix whole, the ellipsis before it', () => {
+        // 90px: 6 characters + the ellipsis + ` - 1,200` (8 characters)
+        expect(fitText('Sequoiadendron - 1,200', 90, measure, ' - 1,200')).toBe('Sequoi… - 1,200');
+    });
+
+    test('keeps only the suffix when nothing else fits', () => {
+        expect(fitText('Sequoiadendron - 1,200', 54, measure, ' - 1,200')).toBe('… - 1,200');
+    });
 });
 
 describe('fitLegendTexts', () => {
@@ -55,6 +64,16 @@ describe('fitLegendTexts', () => {
         expect(
             itemWidths.slice(0, 3).reduce((a, b) => a + b, 0) + layout.padding
         ).toBeLessThanOrEqual(400);
+    });
+
+    test('keeps the suffix of each shortened text whole', () => {
+        const texts = [`${long} - 419,000,000`, 'Fagus - 12'];
+        const fitted = fitLegendTexts(texts, { ...layout, maxWidth: 200, maxHeight: 300 }, [
+            ' - 419,000,000',
+            ' - 12',
+        ]);
+        expect(fitted[0].endsWith('… - 419,000,000')).toBe(true);
+        expect(fitted[1]).toBe('Fagus - 12');
     });
 
     test('keeps the short texts when the long ones are enough to shorten', () => {

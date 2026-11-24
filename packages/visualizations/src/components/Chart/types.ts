@@ -141,6 +141,11 @@ export interface TooltipConfiguration {
      * e.g. `–`. Defaults to the formatted value, i.e. `0`.
      */
     emptyValueLabel?: string;
+    /**
+     * Whether a series is listed in the tooltip, from its value at the hovered label (`null` /
+     * `undefined` when it has none) and its index. Every series is listed by default.
+     */
+    filter?: (value: unknown, seriesIndex: number) => boolean;
     /** Custom time formats for each unit for tooltips values */
     timeDisplayFormats?: TimeDisplayFormats;
 }

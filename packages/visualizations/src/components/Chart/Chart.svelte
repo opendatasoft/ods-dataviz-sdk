@@ -116,6 +116,10 @@
                 enabled: defaultValue(options?.tooltip?.display, true),
                 rtl: defaultValue(options?.tooltip?.rtl, false),
                 textDirection: defaultValue(options?.tooltip?.rtl, false) ? 'rtl' : 'ltr',
+                ...(options?.tooltip?.filter && {
+                    filter: ({ raw, datasetIndex }) =>
+                        options.tooltip?.filter?.(raw, datasetIndex) ?? true,
+                }),
                 callbacks: {
                     label(context) {
                         const {

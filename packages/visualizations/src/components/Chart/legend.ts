@@ -51,8 +51,11 @@ function defaultLegendItems(chart: Chart): LegendItem[] {
     return generate(chart);
 }
 
-/** Item texts shortened to fit the legend (see `fitLegendTexts`), measured with its font. */
-function fitItemTexts(legend: LegendElement<'pie'>, items: LegendItem[]) {
+/**
+ * Item texts shortened to fit the legend (see `fitLegendTexts`), measured with its font. Each text
+ * ends with its suffix (see `LegendLabelsConfiguration.suffix`), kept whole.
+ */
+function fitItemTexts(legend: LegendElement<'pie'>, items: LegendItem[], suffixes: string[]) {
     const { ctx, options } = legend;
     // Set by Chart.js before it builds the labels (layout box size), missing from its types
     const { maxWidth, maxHeight } = legend as unknown as { maxWidth: number; maxHeight: number };
@@ -72,7 +75,8 @@ function fitItemTexts(legend: LegendElement<'pie'>, items: LegendItem[]) {
             itemExtraWidth: (labels.boxWidth ?? font.size) + font.size / 2,
             lineHeight: Math.max(font.size, boxHeight) + labels.padding,
             padding: labels.padding,
-        }
+        },
+        suffixes
     );
     ctx.restore();
     items.forEach((item, i) => {
@@ -83,17 +87,20 @@ function fitItemTexts(legend: LegendElement<'pie'>, items: LegendItem[]) {
 
 export function buildLegend(options: ChartOptions) {
     const fitLabels = !!options?.legend?.fitLabels;
+    // Slice index for a pie (Chart.js sets `index`, untyped), dataset index otherwise
+    const itemIndex = (item: LegendItem): number => {
+        const { index } = item as LegendItem & { index?: number };
+        return index ?? item.datasetIndex ?? 0;
+    };
+    const itemSuffix = (item: LegendItem) =>
+        options?.legend?.labels?.suffix?.(itemIndex(item)) ?? '';
     const setItemText = (item: LegendItem) => {
         /* eslint-disable no-param-reassign */
         const text = options?.legend?.labels?.text;
-        if (text) {
-            const index =
-                typeof (item as any).index === 'number' // eslint-disable-line @typescript-eslint/no-explicit-any
-                    ? (item as any).index // eslint-disable-line @typescript-eslint/no-explicit-any
-                    : item.datasetIndex;
-            item.text = text(index);
-        }
-        item.text = assureMaxLength(item.text, LEGEND_MAX_LENGTH);
+        if (text) item.text = text(itemIndex(item));
+        // The suffix stays whole within the length limit: the text before it is shortened
+        const suffix = itemSuffix(item);
+        item.text = `${assureMaxLength(item.text, LEGEND_MAX_LENGTH - suffix.length)}${suffix}`;
         /* eslint-enable no-param-reassign */
     };
     const legend: _DeepPartialObject<LegendOptions<'pie'>> = {
@@ -113,7 +120,7 @@ export function buildLegend(options: ChartOptions) {
                     const items = defaultLegendItems(chart);
                     items.forEach(setItemText);
                     // On a narrow chart, shorter texts so that every item shows
-                    fitItemTexts(this, items);
+                    fitItemTexts(this, items, items.map(itemSuffix));
                     return items;
                 },
             }),
@@ -139,11 +146,12 @@ function buildLegendLabels(
     options: ChartOptions,
     chartConfig: ChartConfiguration
 ): string {
-    const text = options?.legend?.labels?.text;
-    if (text) {
-        return assureMaxLength(text(index), LEGEND_MAX_LENGTH);
-    }
-    return `${chartConfig.data.labels?.[index]}`;
+    const { text, suffix: suffixOf } = options?.legend?.labels || {};
+    const suffix = suffixOf?.(index) ?? '';
+    const itemText = text ? text(index) : `${chartConfig.data.labels?.[index]}`;
+    if (!text && !suffix) return itemText;
+    // The suffix stays whole within the length limit: the text before it is shortened
+    return `${assureMaxLength(itemText, LEGEND_MAX_LENGTH - suffix.length)}${suffix}`;
 }
 
 export function buildPieAndDoughnutCustomLegend({

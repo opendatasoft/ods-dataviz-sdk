@@ -27,18 +27,30 @@ export type LegendFitLayout = {
     padding: number;
 };
 
-/** `text` shortened with an ellipsis to fit `maxWidth`, or `text` when it fits. */
-export function fitText(text: string, maxWidth: number, measure: (text: string) => number) {
+/**
+ * `text` shortened with an ellipsis to fit `maxWidth`, or `text` when it fits. `text` ends with
+ * `suffix`, which is kept whole: the ellipsis goes before it.
+ */
+export function fitText(
+    text: string,
+    maxWidth: number,
+    measure: (text: string) => number,
+    suffix = ''
+) {
     if (measure(text) <= maxWidth) return text;
-    // Longest prefix that fits with the ellipsis
+    const start = text.slice(0, text.length - suffix.length);
+    // Longest start that fits with the ellipsis and the suffix
     let low = 0;
-    let high = text.length - 1;
+    let high = start.length - 1;
     while (low < high) {
         const middle = Math.ceil((low + high) / 2);
-        if (measure(`${text.slice(0, middle).trimEnd()}${ELLIPSIS}`) <= maxWidth) low = middle;
-        else high = middle - 1;
+        if (measure(`${start.slice(0, middle).trimEnd()}${ELLIPSIS}${suffix}`) <= maxWidth) {
+            low = middle;
+        } else {
+            high = middle - 1;
+        }
     }
-    return `${text.slice(0, low).trimEnd()}${ELLIPSIS}`;
+    return `${start.slice(0, low).trimEnd()}${ELLIPSIS}${suffix}`;
 }
 
 /** Number of rows Chart.js lays the items out in (same packing as its legend `_fitRows`). */
@@ -60,7 +72,11 @@ function countRows(itemWidths: number[], maxWidth: number, padding: number) {
  * legend, and, above or below the chart, every row within its height. The texts longer than the
  * largest width that fits are shortened to it; the others are kept.
  */
-export function fitLegendTexts(texts: string[], layout: LegendFitLayout): string[] {
+export function fitLegendTexts(
+    texts: string[],
+    layout: LegendFitLayout,
+    suffixes: string[] = []
+): string[] {
     const { measure, maxWidth, maxHeight, horizontal, itemExtraWidth, lineHeight, padding } =
         layout;
     const textWidths = texts.map(measure);
@@ -91,5 +107,7 @@ export function fitLegendTexts(texts: string[], layout: LegendFitLayout): string
         }
     }
 
-    return texts.map((text, i) => (textWidths[i] > limit ? fitText(text, limit, measure) : text));
+    return texts.map((text, i) =>
+        textWidths[i] > limit ? fitText(text, limit, measure, suffixes[i]) : text
+    );
 }

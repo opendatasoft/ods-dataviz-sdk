@@ -9,6 +9,11 @@ export type LegendPositions = typeof LEGEND_POSITIONS[keyof typeof LEGEND_POSITI
 
 export interface LegendLabelsConfiguration {
     text?: (legendIndex: number) => string;
+    /**
+     * Appended to the text and always shown whole, for example the value of a pie slice
+     * (` - 1,200`): when the item is too long, the text before it is shortened.
+     */
+    suffix?: (legendIndex: number) => string;
 }
 
 export interface LegendConfiguration {
