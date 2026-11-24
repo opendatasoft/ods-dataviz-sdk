@@ -3,47 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [0.40.0-beta.3](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.40.0-beta.2...@opendatasoft/visualizations@0.40.0-beta.3) (2026-10-20)
+# [0.40.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.39.1...@opendatasoft/visualizations@0.40.0) (2026-11-10)
 
-
-### Bug Fixes
-
-* apply reviews fixes for total row style and sticky columns border ([047b7b0](https://github.com/opendatasoft/ods-dataviz-sdk/commit/047b7b09c8da564bbc80bbbfa7b9698ecdee37da))
+**Note:** Version bump only for package @opendatasoft/visualizations
 
 
 
 
 
-# [0.40.0-beta.2](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.40.0-beta.1...@opendatasoft/visualizations@0.40.0-beta.2) (2026-10-12)
+# [0.40.0-beta-axis-precision.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.39.0...@opendatasoft/visualizations@0.40.0-beta-axis-precision.0) (2026-11-09)
 
 
 ### Features
 
-* add custom empty value label for tooltips ([492313f](https://github.com/opendatasoft/ods-dataviz-sdk/commit/492313ffb929a4939811faf1412ee23da9b2c762))
-* add fit labels option for chartjs and revert new inline category legend ([1c535c9](https://github.com/opendatasoft/ods-dataviz-sdk/commit/1c535c9119e14d5bfe1f058cceba41fe929398eb))
-* new inline category legend for breakdown ([b54908d](https://github.com/opendatasoft/ods-dataviz-sdk/commit/b54908da7e57d5e6c64e016d6f97fe7d7a837709))
-
-
-
-
-
-# [0.40.0-beta.1](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.40.0-beta.0...@opendatasoft/visualizations@0.40.0-beta.1) (2026-10-07)
-
-
-### Features
-
-* **pagination:** add displayedRecords option to cursor pagination ([2a08606](https://github.com/opendatasoft/ods-dataviz-sdk/commit/2a0860625036d418d24f80df088cf4e4d62d06a4))
-
-
-
-
-
-# [0.40.0-beta.0](https://github.com/opendatasoft/ods-dataviz-sdk/compare/@opendatasoft/visualizations@0.39.0...@opendatasoft/visualizations@0.40.0-beta.0) (2026-10-05)
-
-
-### Features
-
-* **table:** add rowClassName, emptyValueLabel and rowHeader options ([a0f7f28](https://github.com/opendatasoft/ods-dataviz-sdk/commit/a0f7f28561505bf97aa2dd79c5e7fcf7bb0eef05))
+* **Chart:** add a ticks precision option to linear and radial axes ([cf5e7a5](https://github.com/opendatasoft/ods-dataviz-sdk/commit/cf5e7a554c5f3ee0d0ee411100272498712ed79e))
 
 
 
